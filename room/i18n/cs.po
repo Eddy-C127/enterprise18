@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"POT-Creation-Date: 2024-12-19 12:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
@@ -102,8 +102,14 @@ msgstr ""
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__description
+#: model_terms:ir.ui.view,arch_db:room.room_room_view_form
 msgid "Amenities"
 msgstr ""
+
+#. module: room
+#: model_terms:ir.ui.view,arch_db:room.room_room_view_form
+msgid "Appearance"
+msgstr "vzhled"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form
@@ -280,6 +286,11 @@ msgid "Followers (Partners)"
 msgstr "Odběratelé (partneři)"
 
 #. module: room
+#: model:ir.model,name:room.model_ir_http
+msgid "HTTP Routing"
+msgstr "HTTP Routing"
+
+#. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__has_message
 #: model:ir.model.fields,field_description:room.field_room_room__has_message
 msgid "Has Message"
@@ -305,9 +316,7 @@ msgstr "Pokud zaškrtnuto, nové zprávy vyžadují vaši pozornost."
 
 #. module: room
 #: model:ir.model.fields,help:room.field_room_booking__message_has_error
-#: model:ir.model.fields,help:room.field_room_booking__message_has_sms_error
 #: model:ir.model.fields,help:room.field_room_room__message_has_error
-#: model:ir.model.fields,help:room.field_room_room__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Pokud zaškrtnuto, některé zprávy mají chybu při doručení."
 
@@ -554,12 +563,6 @@ msgid "Rooms"
 msgstr "Místnosti"
 
 #. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__message_has_sms_error
-#: model:ir.model.fields,field_description:room.field_room_room__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Chyba doručení SMS"
-
-#. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_form
 msgid "Select a Room..."
 msgstr ""
@@ -629,18 +632,6 @@ msgstr "Konec"
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
 msgid "Update Meeting"
 msgstr ""
-
-#. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,field_description:room.field_room_room__website_message_ids
-msgid "Website Messages"
-msgstr "Webové zprávy"
-
-#. module: room
-#: model:ir.model.fields,help:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,help:room.field_room_room__website_message_ids
-msgid "Website communication history"
-msgstr "Webová historie komunikace"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form

@@ -4,21 +4,21 @@
 # 
 # Translators:
 # Kim Asplund <kim.asplund@gmail.com>, 2024
-# Mikael Åkerberg <mikael.akerberg@mariaakerberg.com>, 2024
 # Leif Persson <leifpz54@gmail.com>, 2024
 # Simon S, 2024
 # Martin Trigaux, 2024
 # Anders Wallenquist <anders.wallenquist@vertel.se>, 2024
 # Lasse L, 2024
 # Jakob Krabbe <jakob.krabbe@vertel.se>, 2024
+# Mikael Åkerberg <mikael.akerberg@mariaakerberg.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Jakob Krabbe <jakob.krabbe@vertel.se>, 2024\n"
+"Last-Translator: Mikael Åkerberg <mikael.akerberg@mariaakerberg.com>, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,7 +76,12 @@ msgstr ""
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_search_inherit_quality_mrp_workorder
 msgid "Finished Lot/Serial"
-msgstr ""
+msgstr "Färdig Lot/Batch"
+
+#. module: quality_mrp_workorder
+#: model:ir.model,name:quality_mrp_workorder.model_stock_lot
+msgid "Lot/Serial"
+msgstr "Lot/Batch"
 
 #. module: quality_mrp_workorder
 #: model:ir.model,name:quality_mrp_workorder.model_mrp_production
@@ -92,7 +97,7 @@ msgstr ""
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_tablet_inherit_quality
 msgid "Measure:"
-msgstr ""
+msgstr "Mått:"
 
 #. module: quality_mrp_workorder
 #. odoo-javascript
@@ -199,4 +204,4 @@ msgstr "Arbetsorder"
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_inherit_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_tree_inherit_mrp_workorder
 msgid "Work Order Operation"
-msgstr ""
+msgstr "Arbetsorderhantering"

@@ -3,17 +3,17 @@
 # 	* account_iso20022
 # 
 # Translators:
+# Fernanda Alvarez, 2024
 # Wil Odoo, 2024
 # Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
-# Fernanda Alvarez, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:26+0000\n"
+"POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Fernanda Alvarez, 2024\n"
+"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -152,16 +152,6 @@ msgstr "LEI"
 #: model:ir.model.fields,help:account_iso20022.field_res_users__iso20022_lei
 msgid "Legal Entity Identifier"
 msgstr "Identificador de entidad jurídica"
-
-#. module: account_iso20022
-#. odoo-python
-#: code:addons/account_iso20022/models/account_batch_payment.py:0
-msgid ""
-"Maximum amount is %(maximum_euro)s for payments in Euros, %(maximum_other)s "
-"for other currencies."
-msgstr ""
-"La cantidad máxima es %(maximum_euro)s para pagos en euros, "
-"%(maximum_other)s para otras monedas."
 
 #. module: account_iso20022
 #: model_terms:ir.ui.view,arch_db:account_iso20022.res_partner_sepa_inherit_form
@@ -336,12 +326,12 @@ msgid ""
 "- 2 letters or digits: location code\n"
 "- 3 letters or digits: branch code, optional\n"
 msgstr ""
-"El código BIC '%(bic_code)s' asociado al banco '%(bank)s' de la cuenta bancaria '%(account)s' del parter '%(partner)s' no representa la convención requerida.\n"
+"El código BIC '%(bic_code)s' asociado al banco '%(bank)s' de la cuenta bancaria '%(account)s' del contacto '%(partner)s' no respeta el convenio necesario.\n"
 "Debe contener 8 u 11 caracteres y coincidir con la siguiente estructura:\n"
-"- 4 letras: código de la institución o código del banco\n"
-"- 2 letras: código del país\n"
-"- 2 letras o dígitos: código de localización\n"
-"- 3 letras o dígitos: código de la rama, opcional\n"
+"- 4 letras: Código de la institución o código del banco.\n"
+"- 2 letras: Código del país.\n"
+"- 2 letras o dígitos: Código de localización.\n"
+"- 3 letras o dígitos: Código de la rama, opcional.\n"
 
 #. module: account_iso20022
 #. odoo-python

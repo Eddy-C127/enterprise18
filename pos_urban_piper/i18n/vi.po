@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Trinh Tran Thi Phuong <trinhttp@trobz.com>, 2024
-# Wil Odoo, 2024
 # Thi Huong Nguyen, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:15+0000\n"
+"POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,6 +41,11 @@ msgstr "Chấp nhận"
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__acknowledged
 msgid "Acknowledged"
 msgstr "Đã xác nhận"
+
+#. module: pos_urban_piper
+#: model:ir.model.fields,help:pos_urban_piper.field_pos_config__name
+msgid "An internal identification of the point of sale."
+msgstr "Một định danh nội bộ cho điểm bán hàng này."
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
@@ -280,6 +285,11 @@ msgstr "Lỗi"
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/store/pos_store.js:0
 msgid "Error to send in preparation display."
 msgstr "Lỗi khi gửi trong màn hình khâu chuẩn bị."
+
+#. module: pos_urban_piper
+#: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
+msgid "Fill this form to get Username &amp; Api key"
+msgstr ""
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
@@ -572,6 +582,11 @@ msgstr "Điện thoại"
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__placed
 msgid "Placed"
 msgstr "Đã đặt"
+
+#. module: pos_urban_piper
+#: model:ir.model.fields,field_description:pos_urban_piper.field_pos_config__name
+msgid "Point of Sale"
+msgstr "Điểm bán hàng"
 
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_pos_config

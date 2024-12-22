@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:26+0000\n"
+"POT-Creation-Date: 2024-12-19 13:01+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
@@ -44,6 +44,16 @@ msgstr "Informe de gastos"
 #. module: hr_payroll_expense
 #. odoo-python
 #: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
+msgid ""
+"Expense reimbursement rule needs to be configured to add expenses to payslips.\n"
+"Please create one salary rule with the \"%(code)s\" code on the relevant salary structures."
+msgstr ""
+"Debe configurar la regla de reembolso de gastos para añadir gastos a las nóminas.\n"
+"Cree una regla salarial con el código “%(code)s” en las estructuras salariales correspondientes."
+
+#. module: hr_payroll_expense
+#. odoo-python
+#: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
 msgid "Expense report (\"%(name)s\") was removed from the next payslip."
 msgstr ""
 "El informe de gastos (\"%(name)s\") se eliminó del siguiente recibo de "
@@ -54,7 +64,7 @@ msgstr ""
 #: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
 msgid "Expense report (\"%(name)s\") will be added to the next payslip."
 msgstr ""
-"El informe de gastos (\"%(name)s\") se agregará al siguiente recibo de "
+"El informe de gastos (\"%(name)s\") se añadirá al siguiente recibo de "
 "nómina."
 
 #. module: hr_payroll_expense
@@ -79,6 +89,12 @@ msgid "Expenses to reimburse to employee."
 msgstr "Gastos a reembolsar al empleado."
 
 #. module: hr_payroll_expense
+#. odoo-python
+#: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
+msgid "Go to salary rules"
+msgstr "Ir a las reglas salariales"
+
+#. module: hr_payroll_expense
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_account_payment_register__is_already_paid_through_a_payslip
 msgid "Is Already Paid Through A Payslip"
 msgstr "Ya se pagó en un recibo de nómina"
@@ -97,9 +113,9 @@ msgid ""
 " expense reports linked to this payslip."
 msgstr ""
 "No se encontró cuenta de débito en la regla de salario de la nómina de pago "
-"“%(rule_name)s'” Agregue una cuenta de débito a la que se le pueda pagar "
-"para poder crear un asiento contable para los informes de gastos vinculado a"
-" este recibo de nómina."
+"“%(rule_name)s'” Añada una cuenta de débito a la que se le pueda pagar para "
+"poder crear un asiento contable para los informes de gastos vinculado a este"
+" recibo de nómina."
 
 #. module: hr_payroll_expense
 #. odoo-python

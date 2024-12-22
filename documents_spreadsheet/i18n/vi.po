@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:14+0000\n"
+"POT-Creation-Date: 2024-12-19 13:01+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
@@ -25,6 +25,12 @@ msgstr ""
 #: code:addons/documents_spreadsheet/wizard/save_spreadsheet_template.py:0
 msgid "\"%s\" saved as template"
 msgstr "\"%s\" đã được lưu làm mẫu"
+
+#. module: documents_spreadsheet
+#. odoo-python
+#: code:addons/documents_spreadsheet/models/documents_document.py:0
+msgid "%(folder)s is used by %(company)s"
+msgstr "%(folder)s được sử dụng bởi %(company)s"
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -444,6 +450,27 @@ msgstr "Mẫu"
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_save_spreadsheet_template__template_name
 msgid "Template Name"
 msgstr "Tên mẫu"
+
+#. module: documents_spreadsheet
+#. odoo-python
+#: code:addons/documents_spreadsheet/models/documents_document.py:0
+msgid ""
+"The company for a folder cannot be changed if it is already used as the "
+"spreadsheet workspace for at least one other company: %s"
+msgstr ""
+"Không thể thay đổi công ty trong một thư mục nếu công ty đó đã được sử dụng "
+"làm không gian làm việc bảng tính cho ít nhất một công ty khác: %s"
+
+#. module: documents_spreadsheet
+#. odoo-python
+#: code:addons/documents_spreadsheet/models/res_company.py:0
+msgid ""
+"The company of %(folder)s should either be undefined or set to %(company)s. "
+"Otherwise, it is not possible to link the workspace to the company."
+msgstr ""
+"Công ty của %(folder)s phải là công ty không xác định hoặc được đặt thành "
+"%(company)s. Nếu không, không thể liên kết không gian làm việc với công ty "
+"này."
 
 #. module: documents_spreadsheet
 #. odoo-python

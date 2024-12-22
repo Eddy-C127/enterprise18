@@ -25,8 +25,7 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 msgid "%s can't be inventoried. Only storable products can be inventoried."
 msgstr ""
-"%s kan niet worden geïnventariseerd. Alleen voorraadproducten kunnen worden "
-"geïnventariseerd."
+"%s kan niet worden geteld. Alleen voorraadproducten kunnen worden geteld."
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
@@ -478,7 +477,7 @@ msgstr "Aantal lege verplaatsingen"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
 msgid "Enter a barcode..."
-msgstr "Voer een streepjescode in..."
+msgstr "Voer een barcode in..."
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
@@ -605,13 +604,13 @@ msgstr "Installeren"
 #: model:ir.model.fields,help:stock_barcode.field_stock_move_line__product_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_scrap__product_barcode
 msgid "International Article Number used for product identification."
-msgstr "Internationaal artikelnummer voor product identificatie."
+msgstr "Internationaal productnummer voor product identificatie."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 msgid "Inventory Adjustment"
-msgstr "Voorraadaanpassing"
+msgstr "Voorraadtelling"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_location
@@ -643,7 +642,7 @@ msgstr "Laatst bijgewerkt op"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.js:0
 msgid "Leave it"
-msgstr "Laat maar"
+msgstr "Laat het"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__restrict_scan_product
@@ -711,7 +710,7 @@ msgstr "Multiscan Separator"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__stock_barcode_mute_sound_notifications
 msgid "Mute Barcode application sounds"
-msgstr "Geluiden van streepjescodetoepassing dempen"
+msgstr "Geluiden van barcodecode-software dempen"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_put_in_pack__no
@@ -729,7 +728,7 @@ msgstr "Geen %(picking_type)s klaar voor deze %(barcode_type)s"
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_move_line.py:0
 msgid "No Barcode"
-msgstr "Geen streepjescode"
+msgstr "Geen barcode"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_source_location__no
@@ -1683,7 +1682,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "You can't register scrap at this state of the operation"
-msgstr "Je kan geen afkeuringen registreren in dit stadium van de bewerking"
+msgstr "Je kunt geen afkeuringen registreren in dit stadium van de bewerking"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1801,7 +1800,7 @@ msgstr "om een overdracht te starten"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "to locate it"
-msgstr "om het te vinden"
+msgstr "om deze te vinden"
 
 #. module: stock_barcode
 #. odoo-javascript

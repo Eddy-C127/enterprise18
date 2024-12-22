@@ -5,24 +5,24 @@
 # Translators:
 # Tsogjav <Tsogjav2007@yahoo.com>, 2024
 # tumenjargal hadbaatar <tumenjargal7903@gmail.com>, 2024
-# Uuganbayar Batbaatar <uuganaaub33@gmail.com>, 2024
 # Batmunkh Ganbat <batmunkh.g@bumanit.mn>, 2024
-# Bayarkhuu Bataa, 2024
-# Ganbaatar Buriad <Ganbaatar@asterisk-tech.mn>, 2024
-# Batmunkh Ganbat <batmunkh2522@gmail.com>, 2024
-# Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2024
+# Uuganbayar Batbaatar <uuganaaub33@gmail.com>, 2024
 # tserendavaa tsogtoo <tseegii011929@gmail.com>, 2024
 # Otgonbayar.A <gobi.mn@gmail.com>, 2024
+# Ganbaatar Buriad <Ganbaatar@asterisk-tech.mn>, 2024
 # hish, 2024
+# Batmunkh Ganbat <batmunkh2522@gmail.com>, 2024
+# Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2024
 # Martin Trigaux, 2024
+# Bayarkhuu Bataa, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"POT-Creation-Date: 2024-12-19 12:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Bayarkhuu Bataa, 2024\n"
 "Language-Team: Mongolian (https://app.transifex.com/odoo/teams/41243/mn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -93,12 +93,6 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "100"
-msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "12 days / year, including <br>6 of your choice."
 msgstr ""
 
 #. module: planning
@@ -185,7 +179,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_ics_description
 msgid "<b>Role:</b>"
-msgstr ""
+msgstr "<b>Чиг үүрэг:</b>"
 
 #. module: planning
 #: model:mail.template,body_html:planning.email_template_shift_switch_email
@@ -193,7 +187,7 @@ msgid ""
 "<div>\n"
 "                    <p t-if=\"ctx.get('old_assignee_name')\">Dear <t t-out=\"ctx['old_assignee_name']\">Anita Oliver</t>,</p>\n"
 "                    <p t-else=\"\">Hello,</p>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p>\n"
 "                        The following shift that you requested to switch has been re-assigned\n"
 "                        <t t-if=\"ctx.get('new_assignee_name')\"> to <t t-out=\"ctx['new_assignee_name']\">Marc Demo</t></t>.\n"
@@ -230,7 +224,7 @@ msgid ""
 "                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
 "                        </tr>\n"
 "                    </table>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                </div>\n"
 "            "
 msgstr ""
@@ -238,33 +232,28 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-check-circle text-success\"/>\n"
+"<i class=\"fa fa-check-circle\"/>\n"
 "                        You have successfully requested to switch your shift. You will be notified when another employee takes over your shift."
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-check-circle text-success\"/> Request to switch shift "
-"cancelled successfully."
+"<i class=\"fa fa-check-circle\"/> Request to switch shift cancelled "
+"successfully."
+msgstr ""
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
+msgid "<i class=\"fa fa-check-circle\"/> This shift is no longer assigned to you."
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-check-circle text-success\"/> This shift is no longer "
-"assigned to you."
+"<i class=\"fa fa-check-circle\"/> You were successfully assigned this open "
+"shift."
 msgstr ""
-"<i class=\"fa fa-check-circle text-success\"/> Энэ хуваарь таньд оногдоогүй."
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
-msgid ""
-"<i class=\"fa fa-check-circle text-success\"/> You were successfully "
-"assigned this open shift."
-msgstr ""
-"<i class=\"fa fa-check-circle text-success\"/> Та энэ нээлттэй хуваарийг "
-"өөртөө амжилттайгаар оноож авлаа."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_kanban
@@ -281,17 +270,15 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/> This shift is already "
-"assigned to another employee."
+"<i class=\"fa fa-exclamation-circle\"/> This shift is already assigned to "
+"another employee."
 msgstr ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/> Энэ хуваарийг аль "
-"хэдийнээ өөр ажилтанд оноосон байна."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/> You can no longer "
-"unassign yourself from this shift."
+"<i class=\"fa fa-exclamation-circle\"/> You can no longer unassign yourself "
+"from this shift."
 msgstr ""
 
 #. module: planning
@@ -318,7 +305,7 @@ msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_kanban
-msgid "<i class=\"me-1 mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
+msgid "<i class=\"mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
 msgstr ""
 
 #. module: planning
@@ -333,12 +320,6 @@ msgstr ""
 msgid ""
 "<i class=\"o_group_caret fa fa-fw me-1 fa-caret-down\"></i> <span "
 "class=\"text-truncate w-0 flex-grow-1 text-start\">Waiter</span>"
-msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "<small><b>READ</b></small>"
 msgstr ""
 
 #. module: planning
@@ -518,10 +499,10 @@ msgid ""
 "                        margin: 20px 15px 0px 15px;\n"
 "                    }\n"
 "                </style>\n"
-"                <div>\n"
+"                <body><div>\n"
 "                    <p t-if=\"ctx.get('employee_name')\">Dear <t t-out=\"ctx['employee_name']\">Anita Oliver</t>,</p>\n"
 "                    <p t-else=\"\">Hello,</p>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('open_shift_available')\">We have a new shift opening:</p>\n"
 "                    <p t-else=\"\">You have been assigned the following shift:</p>\n"
 "                    <table style=\"margin-left: 30px;\">\n"
@@ -562,11 +543,11 @@ msgid ""
 "                        <a t-if=\"ctx.get('google_url')\" t-att-href=\"ctx['google_url']\" target=\"_blank\" class=\"planning_mail_template_button\">Add to Google Calendar</a>\n"
 "                        <a t-if=\"ctx.get('iCal_url')\" t-att-href=\"ctx['iCal_url']\" target=\"_blank\" class=\"planning_mail_template_button\">Add to iCal/Outlook</a>\n"
 "                    </div>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('open_shift_available')\">If you are interested and available, please assign yourself this open shift.</p>\n"
 "                    <p t-else=\"\">In case the current shift doesn't suit you, we encourage you to reach out to your colleagues and request to switch shifts. They might be interested in exchanging shifts with you.</p>\n"
 "                </div>\n"
-"            "
+"            </body>"
 msgstr ""
 
 #. module: planning
@@ -583,10 +564,10 @@ msgid ""
 "                    text-align: center;\n"
 "                }\n"
 "                </style>\n"
-"                <div>\n"
+"                <body><div>\n"
 "                    <p t-if=\"ctx.get('employee')\">Dear <t t-out=\"ctx['employee'].name or ''\">Anita Oliver</t>,</p>\n"
 "                    <p t-else=\"\">Hello,</p>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\">\n"
 "                        Your upcoming shifts from <t t-out=\"format_date(ctx['start_datetime'])\">05-05-2021</t>\n"
 "                        to <t t-out=\"format_date(ctx['end_datetime'])\">05-11-2021</t> have been published.\n"
@@ -599,7 +580,7 @@ msgid ""
 "                            <a t-att-href=\"ctx['planning_url_ics']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #374151; background-color: #E7E9ED; border: solid #E7E9ED;\">Add to Calendar</a>\n"
 "                        </div>\n"
 "                    </div>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('slot_unassigned') or (object.allow_self_unassign and object.self_unassign_days_before)\">\n"
 "                        <t t-if=\"ctx.get('slot_unassigned')\">\n"
 "                            We would also like to remind you that there are some open shifts available, and if you are interested and available, please assign yourself to those shifts.\n"
@@ -608,16 +589,10 @@ msgid ""
 "                            If you are unable to work a shift that has been assigned to you, please unassign yourself within <t t-out=\"object.self_unassign_days_before or ''\">5</t> day(s) before the start of the shift.\n"
 "                        </t>\n"
 "                    </p>\n"
-"                    <p t-if=\"ctx.get('message')\" t-out=\"ctx['message']\"></p>\n"
+"                    <p t-if=\"ctx.get('message')\" t-out=\"ctx['message']\"/>\n"
 "                    <p t-if=\"object.allow_self_unassign\">In case your current schedule doesn't suit you, we encourage you to reach out to your colleagues and request to switch shifts. They might be interested in exchanging shifts with you.</p>\n"
 "                </div>\n"
-"            "
-msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "A full-time position <br>Attractive salary package."
+"            </body>"
 msgstr ""
 
 #. module: planning
@@ -634,12 +609,6 @@ msgid "A shift must be in the same company as its recurrence."
 msgstr ""
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Achieve monthly sales objectives"
-msgstr ""
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_role__active
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__active
 msgid "Active"
@@ -649,12 +618,6 @@ msgstr "Идэвхтэй"
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.js:0
 msgid "Add Shift"
-msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Additional languages"
 msgstr ""
 
 #. module: planning
@@ -670,12 +633,6 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 msgid "Additional note sent to the employee"
-msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Administrative Work"
 msgstr ""
 
 #. module: planning
@@ -789,21 +746,6 @@ msgid "Arrow icon"
 msgstr ""
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid ""
-"As an employee of our company, you will <b>collaborate with each department\n"
-"                        to create and deploy disruptive products.</b> Come work at a growing company\n"
-"                        that offers great benefits with opportunities to moving forward and learn\n"
-"                        alongside accomplished leaders. We're seeking an experienced and outstanding\n"
-"                        member of staff.\n"
-"                        <br><br>\n"
-"                        This position is both <b>creative and rigorous</b> by nature you need to think\n"
-"                        outside the box. We expect the candidate to be proactive and have a \"get it done\"\n"
-"                        spirit. To be successful, you will have solid solving problem skills."
-msgstr ""
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
@@ -846,22 +788,10 @@ msgid "Automatically plan open shifts and sales orders"
 msgstr ""
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Autonomy"
-msgstr ""
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_filter_panel/planning_calendar_filter_panel.xml:0
 msgid "Avatar"
 msgstr "Зураг"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Bachelor Degree or Higher"
-msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -876,7 +806,7 @@ msgstr "Үндсэн ажилтан"
 #. module: planning
 #: model:ir.ui.menu,name:planning.planning_menu_schedule_by_resource
 msgid "By Resource"
-msgstr ""
+msgstr "Нөөцөөр"
 
 #. module: planning
 #: model:ir.ui.menu,name:planning.planning_menu_schedule_by_role
@@ -968,12 +898,6 @@ msgid "Crane"
 msgstr ""
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Create content that will help our users on a daily basis"
-msgstr ""
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__create_uid
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__create_uid
 #: model:ir.model.fields,field_description:planning.field_planning_role__create_uid
@@ -992,12 +916,6 @@ msgstr "Үүсгэсэн этгээд"
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__create_date
 msgid "Created on"
 msgstr "Үүсгэсэн огноо"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Customer Relationship"
-msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
@@ -1046,12 +964,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:planning.field_hr_employee__default_planning_role_id
 #: model:ir.model.fields,field_description:planning.field_resource_resource__default_role_id
 msgid "Default Role"
-msgstr ""
+msgstr "Үндсэн чиг үүрэг"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_search_view_inherit
 msgid "Default Roles"
-msgstr ""
+msgstr "Үндсэн чиг үүрэг"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
@@ -1116,12 +1034,6 @@ msgid "Discard"
 msgstr "Үл хэрэгсэх"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Discover our products."
-msgstr ""
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__display_name
 #: model:ir.model.fields,field_description:planning.field_planning_planning__display_name
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__display_name
@@ -1168,23 +1080,6 @@ msgstr "Үргэлжлэх хугацаа"
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__duration_days
 msgid "Duration Days"
 msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid ""
-"Each employee has a chance to see the impact of his work.\n"
-"                    You can make a real contribution to the success of the company.\n"
-"                    <br>\n"
-"                    Several activities are often organized all over the year, such as weekly\n"
-"                    sports sessions, team building events, monthly drink, and much more"
-msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Eat &amp; Drink"
-msgstr "Идэх &amp; Уух"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_kanban
@@ -1283,18 +1178,6 @@ msgid "Every %(repeat_interval)s week(s) until %(repeat_until)s"
 msgstr ""
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Expand your knowledge of various business industries"
-msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Experience in writing online content"
-msgstr ""
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__note
 msgid "Extra Message"
 msgstr "Нэмэлт мэдээлэл"
@@ -1340,12 +1223,6 @@ msgid "Forever, every %s week(s)"
 msgstr "Урьдчилсан таамаг, %s 7 хоног тутамд"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Fruit, coffee and <br>snacks provided."
-msgstr ""
-
-#. module: planning
 #: model:planning.role,name:planning.planning_furniture_assembler
 msgid "Furniture Assembler"
 msgstr ""
@@ -1366,18 +1243,6 @@ msgid "Give depth to your"
 msgstr ""
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Google Adwords experience"
-msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Great team of smart people, in a friendly and open culture"
-msgstr ""
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
@@ -1394,12 +1259,6 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__request_to_switch
 msgid "Has there been a request to switch on this shift slot?"
-msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Highly creative and autonomous"
 msgstr ""
 
 #. module: planning
@@ -1504,12 +1363,6 @@ msgid "Last Updated on"
 msgstr "Сүүлд зассан огноо"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Lead the entire sales cycle"
-msgstr ""
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 msgid "Legend"
@@ -1593,12 +1446,6 @@ msgid "Marc Demo"
 msgstr ""
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Master demos of our software"
-msgstr ""
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__material
@@ -1637,12 +1484,6 @@ msgid "Months"
 msgstr "Сар"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Must Have"
-msgstr "Байх ёстой"
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Department"
@@ -1660,7 +1501,7 @@ msgstr "Миний төлөвлөгөө"
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Roles"
-msgstr ""
+msgstr "Миний чиг үүрэг"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
@@ -1677,12 +1518,6 @@ msgstr "Миний баг"
 #: model:ir.model.fields,field_description:planning.field_planning_role__name
 msgid "Name"
 msgstr "Нэр"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Negotiate and contract"
-msgstr ""
 
 #. module: planning
 #. odoo-javascript
@@ -1710,12 +1545,6 @@ msgid "Next Week"
 msgstr "Дараагийн долоо хоног"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Nice to have"
-msgstr "Байвал давуутай"
-
-#. module: planning
 #. odoo-python
 #: code:addons/planning/wizard/planning_send.py:0
 msgid "No Email Address for Some Employees"
@@ -1730,12 +1559,6 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:planning.planning_report_action_analysis
 msgid "No data yet!"
 msgstr "Одоогоор мэдээлэл алга!"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "No dumb managers, no stupid tools to use, no rigid working hours"
-msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_resources
@@ -1757,13 +1580,6 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_resource
 #: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_role
 msgid "No shifts found. Let's create one!"
-msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid ""
-"No waste of time in enterprise processes, real responsibilities and autonomy"
 msgstr ""
 
 #. module: planning
@@ -1846,40 +1662,10 @@ msgid ""
 msgstr ""
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Our Product"
-msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Passion for software products"
-msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Perfect written English"
-msgstr ""
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__start_datetime
 #: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
 msgid "Period"
 msgstr "Үргэлжлэх хугацаа"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Perks"
-msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Personal Evolution"
-msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -1962,12 +1748,12 @@ msgstr "Чиг үүргийн жагсаалт"
 #. module: planning
 #: model:ir.model,name:planning.model_planning_slot
 msgid "Planning Shift"
-msgstr "Төлөвлөлтийн шилжилт"
+msgstr "Төлөвлөлтийн ээлж"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__slot_id
 msgid "Planning Slot"
-msgstr ""
+msgstr "Төлөвлөлтийн бүртгэл"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_role__slot_properties_definition
@@ -2017,12 +1803,6 @@ msgid "Plans"
 msgstr "Төлөвлөгөө"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Play any sport with colleagues, <br>the bill is covered."
-msgstr ""
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_email
 msgid ""
 "Please add a work email for the following employee so that they can receive "
@@ -2053,6 +1833,7 @@ msgstr ""
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__slot_properties
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
 msgid "Properties"
 msgstr "Шинж чанар"
 
@@ -2087,12 +1868,6 @@ msgid "Published"
 msgstr "Нийтлэгдсэн"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Qualify the customer needs"
-msgstr ""
-
-#. module: planning
 #: model:hr.job,name:planning.job_quality_control
 #: model:planning.role,name:planning.planning_quality_control
 msgid "Quality Control Inspector"
@@ -2103,12 +1878,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_generation_interval
 msgid "Rate Of Shift Generation"
 msgstr "Төлөвлөгөөний давтамжын харьцаа"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Real responsibilities and challenges in a fast evolving company"
-msgstr ""
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__recurrence_update
@@ -2211,7 +1980,7 @@ msgstr "Нөөц"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__resource_color
 msgid "Resource color"
-msgstr ""
+msgstr "Нөөцийн өнгө"
 
 #. module: planning
 #: model:ir.model,name:planning.model_resource_resource
@@ -2219,12 +1988,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 msgid "Resources"
 msgstr "Нөөц"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Responsibilities"
-msgstr "Хариуцагч"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__role_id
@@ -2236,7 +1999,7 @@ msgstr "Хариуцагч"
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Role"
-msgstr "Дүр"
+msgstr "Чиг үүрэг"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_hr_employee__default_planning_role_id
@@ -2255,7 +2018,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_ics_description
 msgid "Role:"
-msgstr ""
+msgstr "Чиг үүрэг:"
 
 #. module: planning
 #. odoo-javascript
@@ -2268,7 +2031,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_search_view_inherit
 #: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
 msgid "Roles"
-msgstr "Дүрүүд"
+msgstr "Чиг үүрэг"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_hr_employee__planning_role_ids
@@ -2320,7 +2083,7 @@ msgstr "Тов"
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_schedule_by_resource
 msgid "Schedule by Resource"
-msgstr ""
+msgstr "Нөөцөөр товлолт"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_schedule_by_role
@@ -2486,12 +2249,6 @@ msgid "Span"
 msgstr ""
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Sport Activity"
-msgstr "Спорт Үйл ажиллагаа"
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Start"
 msgstr "Эхлэх"
@@ -2522,20 +2279,8 @@ msgid "Stop Date"
 msgstr "Дуусах огноо"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Strong analytical skills"
-msgstr ""
-
-#. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__res_company__planning_employee_unavailabilities__switch
 msgid "Switch shifts with other employees"
-msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Technical Expertise"
 msgstr ""
 
 #. module: planning
@@ -2744,12 +2489,6 @@ msgid "Total"
 msgstr "Нийт дүн"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Trainings"
-msgstr ""
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__resource_type
 #: model:ir.model.fields,field_description:planning.field_planning_slot__resource_type
 msgid "Type"
@@ -2784,12 +2523,6 @@ msgid "User"
 msgstr "Хэрэглэгч"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Valid work permit for Belgium"
-msgstr ""
-
-#. module: planning
 #. odoo-python
 #: code:addons/planning/models/hr.py:0
 msgid "View Planning"
@@ -2812,18 +2545,6 @@ msgstr "Долоо хоног"
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_unit__week
 msgid "Weeks"
 msgstr "7 хоног"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "What We Offer"
-msgstr ""
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "What's great in the job?"
-msgstr ""
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__work_email

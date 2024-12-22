@@ -1,20 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* pos_settle_due
-#
+# 
 # Translators:
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:01+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: pos_settle_due
@@ -24,15 +26,14 @@ msgid "(with cart:"
 msgstr "(с тележкой:"
 
 #. module: pos_settle_due
+#: model:ir.model,name:pos_settle_due.model_res_company
+msgid "Companies"
+msgstr "Компании"
+
+#. module: pos_settle_due
 #: model:ir.model,name:pos_settle_due.model_res_partner
 msgid "Contact"
 msgstr "Контакты"
-
-#. module: pos_settle_due
-#. odoo-javascript
-#: code:addons/pos_settle_due/static/src/overrides/components/partner_list/partner_editor/partner_editor.xml:0
-msgid "Credit limit"
-msgstr "Кредитный лимит"
 
 #. module: pos_settle_due
 #. odoo-javascript
@@ -48,9 +49,9 @@ msgstr "Кредитный лимит:"
 
 #. module: pos_settle_due
 #. odoo-javascript
-#: code:addons/pos_settle_due/static/src/overrides/components/select_partner_button/select_partner_button.xml:0
-msgid "Customer"
-msgstr "Клиент"
+#: code:addons/pos_settle_due/static/src/overrides/components/partner_list/partner_line/partner_line.xml:0
+msgid "Deposit money"
+msgstr ""
 
 #. module: pos_settle_due
 #. odoo-javascript
@@ -61,19 +62,12 @@ msgstr "Хотите ли вы пополнить счет от %s до %s?"
 #. module: pos_settle_due
 #. odoo-javascript
 #: code:addons/pos_settle_due/static/src/overrides/components/payment_screen/payment_screen.js:0
-msgid "Do you want to deposit %s to a specific customer? If so, first select him/her."
-msgstr "Вы хотите пополнить счет %s для конкретного клиента? Если да, сначала выберите его."
-
-#. module: pos_settle_due
-#. odoo-javascript
-#: code:addons/pos_settle_due/static/src/overrides/components/partner_list/partner_editor/partner_editor.xml:0
-msgid "Due balance"
-msgstr "Баланс долга"
-
-#. module: pos_settle_due
-#: model:ir.model,name:pos_settle_due.model_pos_session
-msgid "Point of Sale Session"
-msgstr "Сессия в торговой точке"
+msgid ""
+"Do you want to deposit %s to a specific customer? If so, first select "
+"him/her."
+msgstr ""
+"Вы хотите пополнить счет %s для конкретного клиента? Если да, сначала "
+"выберите его."
 
 #. module: pos_settle_due
 #. odoo-javascript
@@ -83,7 +77,7 @@ msgstr "Выберите способ оплаты для погашения з�
 
 #. module: pos_settle_due
 #. odoo-javascript
-#: code:addons/pos_settle_due/static/src/overrides/components/partner_list/partner_editor/partner_editor.xml:0
+#: code:addons/pos_settle_due/static/src/overrides/components/partner_list/partner_line/partner_line.xml:0
 msgid "Settle due accounts"
 msgstr "Урегулирование задолженности по счетам"
 

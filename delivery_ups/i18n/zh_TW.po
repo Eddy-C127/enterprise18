@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Tony Ng, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:29+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,9 +26,7 @@ msgstr ""
 msgid ""
 "A shipment cannot have a KGS/IN or LBS/CM as its unit of measurements. "
 "Configure it from the delivery method."
-msgstr ""
-"A shipment cannot have a KGS/IN or LBS/CM as its unit of measurements. "
-"Configure it from the delivery method."
+msgstr "貨件不可使用「公斤 + 英寸」或「磅 + 厘米」的組合作為計量單位。請在送貨方式進行配置。"
 
 #. module: delivery_ups
 #. odoo-python
@@ -113,7 +112,7 @@ msgstr "聯絡人"
 #. module: delivery_ups
 #: model_terms:ir.ui.view,arch_db:delivery_ups.view_delivery_carrier_form_with_provider_ups
 msgid "Duties paid by"
-msgstr "Duties paid by"
+msgstr "關稅由誰繳付"
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_label_file_type__epl
@@ -160,7 +159,7 @@ msgstr "公斤"
 #. module: delivery_ups
 #: model_terms:ir.ui.view,arch_db:delivery_ups.view_delivery_carrier_form_with_provider_ups
 msgid "Label Format"
-msgstr "Label Format"
+msgstr "標籤格式"
 
 #. module: delivery_ups
 #: model_terms:ir.ui.view,arch_db:delivery_ups.view_delivery_carrier_form_with_provider_ups
@@ -180,13 +179,13 @@ msgstr "包裹尺寸單位"
 #. module: delivery_ups
 #: model_terms:ir.ui.view,arch_db:delivery_ups.view_delivery_carrier_form_with_provider_ups
 msgid "Package Weight Unit"
-msgstr "Package Weight Unit"
+msgstr "包裝重量單位"
 
 #. module: delivery_ups
 #. odoo-python
 #: code:addons/delivery_ups/models/ups_request.py:0
 msgid "Packages %s do not have a positive shipping weight."
-msgstr "Packages %s do not have a positive shipping weight."
+msgstr "包裝「%s」沒有正數數值的運輸重量。"
 
 #. module: delivery_ups
 #. odoo-python
@@ -262,13 +261,13 @@ msgstr "Please provide a valid phone number for the recipient."
 #. odoo-python
 #: code:addons/delivery_ups/models/ups_request.py:0
 msgid "Please provide a valid shipper Number/Carrier Account."
-msgstr "Please provide a valid shipper Number/Carrier Account."
+msgstr "請提供有效的託運人號碼/承運人帳戶。"
 
 #. module: delivery_ups
 #. odoo-python
 #: code:addons/delivery_ups/models/ups_request.py:0
 msgid "Please provide a valid shipper number/Carrier Account."
-msgstr "Please provide a valid shipper number/Carrier Account."
+msgstr "請提供有效的託運人號碼/承運人帳戶。"
 
 #. module: delivery_ups
 #. odoo-python
@@ -363,7 +362,7 @@ msgstr "Please set a valid country in the warehouse address."
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_package_weight_unit__lbs
 msgid "Pounds"
-msgstr "英鎊"
+msgstr "磅"
 
 #. module: delivery_ups
 #. odoo-python
@@ -707,7 +706,7 @@ msgstr "UPS用戶名"
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_sale_order__partner_ups_carrier_account
 msgid "UPS account number"
-msgstr "UPS account number"
+msgstr "UPS 帳戶號碼"
 
 #. module: delivery_ups
 #. odoo-python
@@ -755,7 +754,7 @@ msgstr "倉庫電話分機號碼的長度，不可超過 4 位。"
 #. odoo-python
 #: code:addons/delivery_ups/models/sale.py:0
 msgid "You must enter an UPS account number."
-msgstr "You must enter an UPS account number."
+msgstr "必須輸入 UPS 帳戶號碼。"
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_label_file_type__zpl

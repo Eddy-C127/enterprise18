@@ -1,50 +1,47 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* social_crm
-#
+# 
 # Translators:
-# Mads Søndergaard, 2022
-# Marius Stedjan <marius@stedjan.com>, 2022
-# Martin Trigaux, 2022
-# Thor Arne Hvidsten <thor.arne.hvidsten@gmail.com>, 2022
-#
+# Thor Arne Hvidsten <thor.arne.hvidsten@gmail.com>, 2024
+# Martin Trigaux, 2024
+# Marius Stedjan <marius@stedjan.com>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Thor Arne Hvidsten <thor.arne.hvidsten@gmail.com>, 2022\n"
+"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Marius Stedjan <marius@stedjan.com>, 2024\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/odoo/teams/41243/nb/)\n"
-"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: social_crm
+#: model_terms:ir.ui.view,arch_db:social_crm.social_post_to_lead_description
+msgid "<span class=\"me-1\">posted on</span>"
+msgstr ""
+
+#. module: social_crm
+#: model_terms:ir.ui.view,arch_db:social_crm.social_post_to_lead_description
+msgid "<span class=\"ms-1\">at</span>"
+msgstr ""
 
 #. module: social_crm
 #: model_terms:ir.ui.view,arch_db:social_crm.social_post_view_form
 msgid ""
-"<span class=\"o_stat_text\" attrs=\"{'invisible': [('use_leads', '=', False)]}\">Leads</span>\n"
-"                        <span class=\"o_stat_text\" attrs=\"{'invisible': [('use_leads', '=', True)]}\">Opportunities</span>"
-msgstr ""
-"<span class=\"o_stat_text\" attrs=\"{'invisible': [('use_leads', '=', False)]}\">Leads</span>\n"
-"                        <span class=\"o_stat_text\" attrs=\"{'invisible': [('use_leads', '=', True)]}\">Muligheter</span>"
-
-#. module: social_crm
-#: model_terms:ir.ui.view,arch_db:social_crm.social_post_to_lead_description
-msgid "<span>at</span>"
-msgstr ""
-
-#. module: social_crm
-#: model_terms:ir.ui.view,arch_db:social_crm.social_post_to_lead_description
-msgid "<span>posted on</span>"
+"<span class=\"o_stat_text\" invisible=\"not use_leads\">Leads</span>\n"
+"                        <span class=\"o_stat_text\" invisible=\"use_leads\">Opportunities</span>"
 msgstr ""
 
 #. module: social_crm
 #: model_terms:ir.ui.view,arch_db:social_crm.social_post_to_lead_view_form
 msgid "Cancel"
-msgstr "Kanseller"
+msgstr "Avbryt"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__conversion_source
@@ -86,7 +83,7 @@ msgstr "Opprettet av"
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__create_date
 msgid "Created on"
-msgstr "Opprettet"
+msgstr "Opprettet den"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__partner_id
@@ -165,6 +162,11 @@ msgid "Post Datetime"
 msgstr ""
 
 #. module: social_crm
+#: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__post_image_urls
+msgid "Post Images URLs"
+msgstr ""
+
+#. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__post_link
 msgid "Post Link"
 msgstr ""
@@ -189,6 +191,11 @@ msgstr ""
 #: model:ir.model,name:social_crm.model_social_post
 msgid "Social Post"
 msgstr "Sosialt innlegg"
+
+#. module: social_crm
+#: model_terms:ir.ui.view,arch_db:social_crm.social_post_to_lead_description
+msgid "Social Post Image {{image_url_index}}"
+msgstr ""
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__social_stream_post_id

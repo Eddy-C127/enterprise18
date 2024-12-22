@@ -3,16 +3,17 @@
 # 	* hr_payroll
 # 
 # Translators:
-# Wil Odoo, 2024
 # Larissa Manderfeld, 2024
+# Martin Trigaux, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -219,7 +220,7 @@ msgid ""
 "                        </span>"
 msgstr ""
 "<span class=\"bg-white opacity-75 w-100 h-100 o_salary_rule_overlay position-absolute top-0 end-0 w-100 h-100 text-center d-flex justify-content-center flex-column fs-3\">\n"
-"                            Guarde su regla salarial para agregar valores de parámetro.\n"
+"                            Guarde su regla salarial para añadir valores de parámetro.\n"
 "                        </span>"
 
 #. module: hr_payroll
@@ -340,6 +341,11 @@ msgstr "<span>Versiones</span>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "<strong class=\"me-2\">Address:</strong>"
+msgstr ""
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Children:</strong>"
 msgstr "<strong class=\"me-2\">Hijos:</strong>"
 
@@ -395,11 +401,6 @@ msgstr "<strong class=\"me-2\">Período de pago:</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
-msgid "<strong class=\"me-2\">Private Address:</strong>"
-msgstr "<strong class=\"me-2\">Dirección privada:</strong>"
-
-#. module: hr_payroll
-#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Working Schedule:</strong>"
 msgstr "<strong class=\"me-2\">Horario laboral:</strong>"
 
@@ -432,9 +433,9 @@ msgstr "<strong>Año hasta la fecha</strong>"
 msgid ""
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0px auto;\"><tbody>\n"
 "    <tr><td valign=\"top\" style=\"text-align: left; font-size: 14px;\">\n"
-"        Dear <t t-esc=\"object.employee_id.name\"></t>, a new payslip is available for you.<br><br>\n"
-"        Please find the PDF in your employee portal.<br><br>\n"
-"        Have a nice day,<br>\n"
+"        Dear <t t-esc=\"object.employee_id.name\"/>, a new payslip is available for you.<br/><br/>\n"
+"        Please find the PDF in your employee portal.<br/><br/>\n"
+"        Have a nice day,<br/>\n"
 "        The HR Team\n"
 "    </td></tr>\n"
 "</tbody></table>\n"
@@ -442,10 +443,10 @@ msgid ""
 msgstr ""
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0px auto;\"><tbody>\n"
 "    <tr><td valign=\"top\" style=\"text-align: left; font-size: 14px;\">\n"
-"        Hola <t t-esc=\"object.employee_id.name\"></t>, hay un nuevo recibo de nómina disponible para usted.<br><br>\n"
-"        Encontrará el PDF en su portal de empleado.<br><br>\n"
-"        Tenga un buen día,<br>\n"
-"        El equipo de RR.HH\n"
+"        Estimado <t t-esc=\"object.employee_id.name\"/>, hay un nuevo recibo de nómina disponible para usted.<br/><br/>\n"
+"        Encontrará el PDF en su portal de empleado.<br/><br/>\n"
+"        Tenga un buen día,<br/>\n"
+"        El equipo de RR.HH.\n"
 "    </td></tr>\n"
 "</tbody></table>\n"
 "            "
@@ -511,29 +512,29 @@ msgstr "Icono de tipo de actvidad"
 #: code:addons/hr_payroll/static/src/views/payslip_batch_form/payslip_batch_form.js:0
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
 msgid "Add Payslips"
-msgstr "Agregar recibos de nómina"
+msgstr "Añadir recibos de nómina"
 
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 msgid "Add a <strong>name</strong> to the contract."
-msgstr "Agregue un <strong>nombre</strong> al contrato."
+msgstr "Añada un <strong>nombre</strong> al contrato."
 
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 msgid "Add a employee to your contract"
-msgstr "Agregue un empleado a su contrato"
+msgstr "Añada un empleado a su contrato"
 
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.action_view_hr_payroll_structure_from_type
 msgid "Add a new salary structure"
-msgstr "Agregar una nueva estructura salarial"
+msgstr "Añadir una nueva estructura salarial"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Add an internal note..."
-msgstr "Agregue una nota interna..."
+msgstr "Añada una nota interna..."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payroll_edit_payslip_lines_wizard__ytd_computation
@@ -543,7 +544,7 @@ msgid ""
 "Adds a column in the payslip that shows the accumulated amount paid for "
 "different rules during the year"
 msgstr ""
-"Agrega una columna en la nómina de pago que muestre la cantidad pagada "
+"Añade una columna en la nómina de pago que muestre la cantidad pagada "
 "acumulada para diferentes reglas durante el año."
 
 #. module: hr_payroll
@@ -1455,6 +1456,7 @@ msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_report__number_of_days
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "Days"
 msgstr "Días"
 
@@ -1685,6 +1687,11 @@ msgstr "Lotes de recibos de nómina en borrador"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_filter
 msgid "Draft Slip"
 msgstr "Borrador de recibo"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "Earnings"
+msgstr ""
 
 #. module: hr_payroll
 #. odoo-python
@@ -2248,6 +2255,11 @@ msgstr "Ocultar básico en PDF"
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__wage_type__hourly
 msgid "Hourly Wage"
 msgstr "Salario por hora"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "Hours"
+msgstr "Horas"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
@@ -2945,7 +2957,6 @@ msgstr "Número de acciones"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__number_of_days
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__number_of_days
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_worked_days__number_of_days
-#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "Number of Days"
 msgstr "Número de días"
 
@@ -2953,7 +2964,6 @@ msgstr "Número de días"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__number_of_hours
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__number_of_hours
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_worked_days__number_of_hours
-#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "Number of Hours"
 msgstr "Número de horas"
 
@@ -4432,7 +4442,7 @@ msgstr "El recibo de nómina debe estar en estado de borrador o de espera."
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/views/add_payslips_hook.js:0
 msgid "The payslips(s) are now added to the batch"
-msgstr "Los recibos de nómina ya se agregaron al lote"
+msgstr "Los recibos de nómina ya se añadieron al lote"
 
 #. module: hr_payroll
 #. odoo-python
@@ -5340,6 +5350,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_employee_mixin_list_view
 msgid "contracts"
 msgstr "contratos"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_type__current_companies_country_codes
+msgid "country codes"
+msgstr ""
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form

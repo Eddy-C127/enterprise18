@@ -14,14 +14,15 @@
 # Albena Mincheva <albena_vicheva@abv.bg>, 2024
 # Maria Boyadjieva <marabo2000@gmail.com>, 2024
 # Kaloyan Naumov <kaloyan@lumnus.net>, 2024
+# Milena Georgieva, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Kaloyan Naumov <kaloyan@lumnus.net>, 2024\n"
+"Last-Translator: Milena Georgieva, 2024\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -149,7 +150,7 @@ msgstr "Фактура за покупка на материали"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__bom_id
 msgid "Bill of Materials"
-msgstr "Списък с материали"
+msgstr "Спецификация на материали"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view
@@ -368,6 +369,8 @@ msgstr "ID"
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__bom_id
 msgid "If set, the bill of materials components will also be imported."
 msgstr ""
+"Ако е зададено, компонентите от спецификацията на материалите също ще бъдат "
+"въведени."
 
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__batch_size
@@ -697,7 +700,7 @@ msgstr "Касови бележки"
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/components/line.xml:0
 msgid "Replenish"
-msgstr ""
+msgstr "Попълване"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__replenish_state

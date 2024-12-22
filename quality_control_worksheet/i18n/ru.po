@@ -1,20 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* quality_control_worksheet
-#
+# 
 # Translators:
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:03+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: quality_control_worksheet
@@ -23,6 +25,17 @@ msgid "Check Worksheet"
 msgstr "Рабочий лист для проверки"
 
 #. module: quality_control_worksheet
+#: model:ir.model.fields,field_description:quality_control_worksheet.x_quality_check_worksheet_template_2_ir_model_fields_7
+msgid "Comments"
+msgstr "Комментарии"
+
+#. module: quality_control_worksheet
+#: model:ir.model.fields,field_description:quality_control_worksheet.x_quality_check_worksheet_template_2_ir_model_fields_2
+msgid "Created by"
+msgstr "Создано"
+
+#. module: quality_control_worksheet
+#: model:ir.model.fields,field_description:quality_control_worksheet.x_quality_check_worksheet_template_2_ir_model_fields_1
 #: model_terms:ir.ui.view,arch_db:quality_control_worksheet.x_quality_check_worksheet_template_2_ir_ui_view_3
 msgid "Created on"
 msgstr "Создано"
@@ -31,6 +44,32 @@ msgstr "Создано"
 #: model_terms:ir.ui.view,arch_db:quality_control_worksheet.report_custom_x_quality_check_worksheet_template_2
 msgid "Date"
 msgstr "Дата"
+
+#. module: quality_control_worksheet
+#. odoo-javascript
+#: code:addons/quality_control_worksheet/static/src/views/worksheet_validation_controller.xml:0
+msgid "Discard"
+msgstr "Отменить"
+
+#. module: quality_control_worksheet
+#: model:ir.model.fields,field_description:quality_control_worksheet.x_quality_check_worksheet_template_2_ir_model_fields_3
+msgid "Display Name"
+msgstr "Отображаемое имя"
+
+#. module: quality_control_worksheet
+#: model:ir.model.fields,field_description:quality_control_worksheet.x_quality_check_worksheet_template_2_ir_model_fields_4
+msgid "ID"
+msgstr "ID"
+
+#. module: quality_control_worksheet
+#: model:ir.model.fields,field_description:quality_control_worksheet.x_quality_check_worksheet_template_2_ir_model_fields_6
+msgid "Last Updated by"
+msgstr "Последнее обновление"
+
+#. module: quality_control_worksheet
+#: model:ir.model.fields,field_description:quality_control_worksheet.x_quality_check_worksheet_template_2_ir_model_fields_5
+msgid "Last Updated on"
+msgstr "Последнее обновление"
 
 #. module: quality_control_worksheet
 #: model_terms:ir.ui.view,arch_db:quality_control_worksheet.report_custom_x_quality_check_worksheet_template_2
@@ -43,10 +82,32 @@ msgid "Model Name"
 msgstr "Название модели"
 
 #. module: quality_control_worksheet
+#: model:ir.model.fields,field_description:quality_control_worksheet.x_quality_check_worksheet_template_2_ir_model_fields_8
+msgid "Name"
+msgstr "Имя"
+
+#. module: quality_control_worksheet
+#. odoo-javascript
+#: code:addons/quality_control_worksheet/static/src/views/worksheet_validation_controller.xml:0
+msgid "Next"
+msgstr "Следующий"
+
+#. module: quality_control_worksheet
+#: model:ir.model.fields,field_description:quality_control_worksheet.x_quality_check_worksheet_template_2_ir_model_fields_9
+msgid "Passed"
+msgstr "Пройдено"
+
+#. module: quality_control_worksheet
 #. odoo-python
 #: code:addons/quality_control_worksheet/models/quality.py:0
 msgid "Please fill in the worksheet."
 msgstr "Заполните, пожалуйста, рабочую таблицу."
+
+#. module: quality_control_worksheet
+#. odoo-javascript
+#: code:addons/quality_control_worksheet/static/src/views/worksheet_validation_controller.xml:0
+msgid "Previous"
+msgstr "Предыдущий"
 
 #. module: quality_control_worksheet
 #: model_terms:ir.ui.view,arch_db:quality_control_worksheet.report_custom_x_quality_check_worksheet_template_2
@@ -55,6 +116,7 @@ msgstr "Товар"
 
 #. module: quality_control_worksheet
 #: model:ir.model,name:quality_control_worksheet.model_quality_check
+#: model:ir.model.fields,field_description:quality_control_worksheet.x_quality_check_worksheet_template_2_ir_model_fields_10
 msgid "Quality Check"
 msgstr "Проверка качества"
 
@@ -99,6 +161,12 @@ msgstr "Условия успеха"
 #: model:ir.model.fields,field_description:quality_control_worksheet.field_quality_point__worksheet_template_id
 msgid "Template"
 msgstr "Шаблон"
+
+#. module: quality_control_worksheet
+#. odoo-javascript
+#: code:addons/quality_control_worksheet/static/src/views/worksheet_validation_controller.xml:0
+msgid "Validate"
+msgstr "Подтвердить"
 
 #. module: quality_control_worksheet
 #: model:ir.model,name:quality_control_worksheet.model_quality_check_wizard

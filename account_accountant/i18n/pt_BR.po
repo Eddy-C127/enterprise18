@@ -5,16 +5,16 @@
 # Translators:
 # Marcos Rodrigues, 2024
 # Martin Trigaux, 2024
-# Wil Odoo, 2024
 # Maitê Dietze, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:13+0000\n"
+"POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Maitê Dietze, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -169,28 +169,6 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid ""
-"<span class=\"text-muted\" invisible=\"min_purchase_lock_date_exception_for_me_id or min_purchase_lock_date_exception_for_everyone_id\">\n"
-"                                    <i>to lock bills</i>\n"
-"                                </span>"
-msgstr ""
-"<span class=\"text-muted\" invisible=\"min_purchase_lock_date_exception_for_me_id or min_purchase_lock_date_exception_for_everyone_id\">\n"
-"                                    <i>para travar contas</i>\n"
-"                                </span>"
-
-#. module: account_accountant
-#: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
-msgid ""
-"<span class=\"text-muted\" invisible=\"min_sale_lock_date_exception_for_me_id or min_sale_lock_date_exception_for_everyone_id\">\n"
-"                                    <i>to lock invoices</i>\n"
-"                                </span>"
-msgstr ""
-"<span class=\"text-muted\" invisible=\"min_purchase_lock_date_exception_for_me_id or min_purchase_lock_date_exception_for_everyone_id\">\n"
-"                                    <i>para travar faturas</i>\n"
-"                                </span>"
-
-#. module: account_accountant
-#: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
-msgid ""
 "<span class=\"text-muted\" invisible=\"min_tax_lock_date_exception_for_me_id or min_tax_lock_date_exception_for_everyone_id\">\n"
 "                                    <i>after a tax closing</i>\n"
 "                                </span>"
@@ -279,11 +257,6 @@ msgstr "Conta usada para despesas diferidas"
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_revenue_account_id
 msgid "Account used for deferred revenues"
 msgstr "Conta usada para receitas diferidas"
-
-#. module: account_accountant
-#: model_terms:ir.ui.view,arch_db:account_accountant.res_partner_view_form
-msgid "Accounting"
-msgstr "Financeiro"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__account_ids
@@ -424,18 +397,7 @@ msgid "Anglo-Saxon Accounting"
 msgstr "Contabilidade anglo-saxã"
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
-msgid ""
-"Any entry implying with taxes up to and including that date will be "
-"postponed to a later time, in accordance with its journal's sequence. The "
-"tax lock date is automatically set when the tax closing entry is posted."
-msgstr ""
-"Qualquer lançamento que implique em impostos até, e inclusive, nessa data, "
-"será adiado para um momento posterior, de acordo com a sequência de seu "
-"diário. A data de travamento de impostos é definida automaticamente quando o"
-" lançamento de fechamento de impostos é realizado."
-
-#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__current_hard_lock_date
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
 msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
@@ -454,6 +416,18 @@ msgid ""
 msgstr ""
 "Qualquer lançamento até, e inclusive, essa data, será adiado para um momento"
 " posterior, de acordo com a sequência de seu diário."
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
+msgid ""
+"Any entry with taxes up to and including that date will be postponed to a "
+"later time, in accordance with its journal's sequence. The tax lock date is "
+"automatically set when the tax closing entry is posted."
+msgstr ""
+"Qualquer lançamento com impostos até, e inclusive, essa data, será adiado "
+"para um momento posterior, de acordo com a sequência de seu diário. A data "
+"de travamento de impostos é definida automaticamente quando o lançamento de "
+"fechamento de impostos é realizado."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
@@ -657,7 +631,7 @@ msgstr "Configurações"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Confirm the transaction."
-msgstr ""
+msgstr "Confirme a transação."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -696,7 +670,7 @@ msgstr "Criar um novo grupo de contas"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Create a new transaction."
-msgstr ""
+msgstr "Crie uma nova transação."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -745,6 +719,7 @@ msgstr "Última verificação do cron"
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
+#: model:ir.model,name:account_accountant.model_res_currency
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__currency_id
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Currency"
@@ -1472,15 +1447,6 @@ msgid "Let’s go back to the dashboard."
 msgstr "Vamos voltar ao painel."
 
 #. module: account_accountant
-msgid "Like the \"Everyone Lock\", but no exceptions are possible."
-msgstr "Como o \"Travar para todos\", mas não há exceções possíveis."
-
-#. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__current_hard_lock_date
-msgid "Like the \"Global Lock Date\", but no exceptions are possible."
-msgstr "Como o \"Data de travamento geral\", mas não há exceções possíveis."
-
-#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__line_ids
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__line_ids
 msgid "Line"
@@ -1497,23 +1463,19 @@ msgid "Lock Dates"
 msgstr "Travar datas"
 
 #. module: account_accountant
-msgid "Lock Everyone"
-msgstr "Travar todos"
-
-#. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_everyone
-msgid "Lock Everyone For Everyone"
-msgstr "Travar todos para todos"
-
-#. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_me
-msgid "Lock Everyone For Me"
-msgstr "Travar todos para mim"
-
-#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everything"
 msgstr "Travar tudo"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_everyone
+msgid "Lock Everything For Everyone"
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_me
+msgid "Lock Everything For Me"
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date
@@ -1987,43 +1949,6 @@ msgstr ""
 "correspondência entre faturas e pagamentos"
 
 #. module: account_accountant
-msgid ""
-"Prevents Journal Entry creation or modification up to the defined date "
-"inclusive for all users. As a closed period, all accounting operations are "
-"prohibited."
-msgstr ""
-"Impede a criação ou modificação de lançamentos de diário manuais até a data "
-"definida, para todos os usuários. Sendo um período fechado, qualquer a "
-"operação financeira é proibida."
-
-#. module: account_accountant
-msgid ""
-"Prevents Tax Returns modification up to the defined date inclusive (Journal "
-"Entries involving taxes). The Tax Return Lock Date is automatically set when"
-" the corresponding Journal Entry is posted."
-msgstr ""
-"Impede a modificação de declarações de imposto até a data definida "
-"(lançamentos de diário manuais que envolvem impostos). A data de travamento "
-"da declaração de imposto é definida automaticamente quando o lançamento de "
-"diário manual correspondente é feito."
-
-#. module: account_accountant
-msgid ""
-"Prevents creation and modification of entries in purchase journals up to the"
-" defined date inclusive"
-msgstr ""
-"Impede a criação e a modificação de lançamentos de diários de compras até a "
-"data definida, inclusive"
-
-#. module: account_accountant
-msgid ""
-"Prevents creation and modification of entries in sales journals up to the "
-"defined date inclusive"
-msgstr ""
-"Impede a criação e a modificação de lançamentos de diários de vendas até a "
-"data definida, inclusive"
-
-#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__rating_ids
 msgid "Ratings"
 msgstr "Classificações"
@@ -2204,7 +2129,7 @@ msgstr "Modelo de reconciliação selecionado"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Set an amount."
-msgstr ""
+msgstr "Defina um valor."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2216,7 +2141,7 @@ msgstr "Definir como verificado"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Set the payment reference."
-msgstr ""
+msgstr "Defina a referência de pagamento."
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__show_draft_entries_warning
@@ -2228,6 +2153,11 @@ msgstr "Mostrar aviso de lançamentos provisórios"
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__show_signature_area
 msgid "Show Signature Area"
 msgstr "Mostrar área de assinatura"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__module_sign
+msgid "Sign"
+msgstr "Assinar"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__signature

@@ -3,8 +3,8 @@
 # 	* hr_referral
 # 
 # Translators:
-# Manon Rondou, 2024
 # Wil Odoo, 2024
+# Manon Rondou, 2024
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
@@ -637,7 +637,7 @@ msgid ""
 " need to put domain name, you can just insert the path."
 msgstr ""
 "Externe links moeten starten met 'http://www.'. Voor een interne url heb je "
-"geen domeinnaam nodig, je kan het pad invoeren."
+"geen domeinnaam nodig, je kunt het pad invoeren."
 
 #. module: hr_referral
 #: model:ir.model.fields.selection,name:hr_referral.selection__hr_referral_link_to_share__channel__facebook
@@ -657,7 +657,7 @@ msgstr "Volgers"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Relaties)"
+msgstr "Volgers (Contacten)"
 
 #. module: hr_referral
 #: model:ir.model.fields,help:hr_referral.field_hr_referral_reward__activity_type_icon
@@ -1170,7 +1170,7 @@ msgstr "Ons bedrijf is op zoek naar een"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_points__applicant_name
 msgid "Partner Name"
-msgstr "Relatienaam"
+msgstr "Contactnaam"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
@@ -1376,7 +1376,7 @@ msgstr "Verwijzing: %(name)s"
 #. odoo-python
 #: code:addons/hr_referral/models/hr_applicant.py:0
 msgid "Referral: %(partner)s (%(applicant)s)"
-msgstr "Aanbeveling: %(partner)s (%(applicant)s)"
+msgstr "Aanbeveling: %(contact)s (%(applicant)s)"
 
 #. module: hr_referral
 #. odoo-python
@@ -1859,7 +1859,7 @@ msgid ""
 "You cannot delete these UTM Campaigns as they are linked to the following jobs in Referral:\n"
 "%(job_names)s"
 msgstr ""
-"Je kan deze UTM-campagnes niet verwijderen omdat ze zijn gekoppeld aan de volgende vacatures in de Aanbevelingen-app:\n"
+"Je kunt deze UTM-campagnes niet verwijderen omdat ze zijn gekoppeld aan de volgende vacatures in de Aanbevelingen-app:\n"
 "%(job_names)s"
 
 #. module: hr_referral
@@ -1869,7 +1869,7 @@ msgid ""
 "You cannot delete these UTM Sources as they are linked to the following users in Referral:\n"
 "%(employee_names)s"
 msgstr ""
-"Je kan deze UTM-bronnen niet verwijderen omdat ze zijn gekoppeld aan de volgende gebruikers in Aanbevelingen:\n"
+"Je kunt deze UTM-bronnen niet verwijderen omdat ze zijn gekoppeld aan de volgende gebruikers in Aanbevelingen:\n"
 "%(employee_names)s"
 
 #. module: hr_referral

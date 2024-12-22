@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:14+0000\n"
+"POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -61,8 +61,8 @@ msgstr "00.00.00-000.00"
 msgid ""
 "<div style=\"margin: 0px; padding: 0px;\">\n"
 "    <h2>Congratulations!</h2>\n"
-"    You can configure your salary package by clicking on the link below.<br>\n"
-"    The link will expire on the <t t-out=\"ctx.get('validity_end')\"></t>.\n"
+"    You can configure your salary package by clicking on the link below.<br/>\n"
+"    The link will expire on the <t t-out=\"ctx.get('validity_end')\"/>.\n"
 "    <div style=\"padding: 16px 0px 16px 0px;\">\n"
 "        <a t-attf-href=\"/salary_package/simulation/offer/{{ctx.get('offer_id')}}\" target=\"_blank\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">Configure your package</a>\n"
 "    </div>\n"
@@ -70,11 +70,11 @@ msgid ""
 "        "
 msgstr ""
 "<div style=\"margin: 0px; padding: 0px;\">\n"
-"    <h2>Gefeliciteerd!</h2>\n"
-"    Je kan je salarispakket configureren door op onderstaande link te klikken.<br>\n"
-"    De link vervalt op <t t-out=\"ctx.get('validity_end')\"></t>.\n"
+"   <h2>Gefeliciteerd!</h2>\n"
+"    Je kunt je salarispakket configureren door op de onderstaande link te klikken.<br/>\n"
+"    De link zal verlopen op <t t-out=\"ctx.get('validity_end')\"/>.\n"
 "    <div style=\"padding: 16px 0px 16px 0px;\">\n"
-"        <a t-attf-href=\"/salary_package/simulation/offer/{{ctx.get('offer_id')}}\" target=\"_blank\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">Configureer je pakket</a>\n"
+"        <a t-attf-href=\"/salary_package/simulation/offer/{{ctx.get('offer_id')}}\" target=\"_blank\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">Je pakket configureren</a>\n"
 "    </div>\n"
 "</div>\n"
 "        "
@@ -84,8 +84,8 @@ msgstr ""
 msgid ""
 "<div style=\"margin: 0px; padding: 0px;\">\n"
 "    <h2>Congratulations!</h2>\n"
-"    You can configure your salary package by clicking on the link below.<br>\n"
-"    The link will expire on the <t t-out=\"ctx.get('validity_end')\"></t>.\n"
+"    You can configure your salary package by clicking on the link below.<br/>\n"
+"    The link will expire on the <t t-out=\"ctx.get('validity_end')\"/>.\n"
 "    <div style=\"padding: 16px 0px 16px 0px;\">\n"
 "        <a t-attf-href=\"/salary_package/simulation/offer/{{ctx.get('offer_id')}}?token={{ctx.get('access_token')}}\" target=\"_blank\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">Configure your package</a>\n"
 "    </div>\n"
@@ -93,11 +93,11 @@ msgid ""
 "        "
 msgstr ""
 "<div style=\"margin: 0px; padding: 0px;\">\n"
-"    <h2>Gefeliciteerd!</h2>\n"
-"    Je kan je salarispakket configureren door op onderstaande link te klikken.<br>\n"
-"    De link vervalt op <t t-out=\"ctx.get('validity_end')\"></t>.\n"
+"   <h2>Gefeliciteerd!</h2>\n"
+"    Je kunt je salarispakket configureren door op de onderstaande link te klikken.<br/>\n"
+"    De link zal verlopen op <t t-out=\"ctx.get('validity_end')\"/>.\n"
 "    <div style=\"padding: 16px 0px 16px 0px;\">\n"
-"        <a t-attf-href=\"/salary_package/simulation/offer/{{ctx.get('offer_id')}}?token={{ctx.get('access_token')}}\" target=\"_blank\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">Configureer je pakket</a>\n"
+"        <a t-attf-href=\"/salary_package/simulation/offer/{{ctx.get('offer_id')}}?token={{ctx.get('access_token')}}\" target=\"_blank\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">Je pakket configureren</a>\n"
 "    </div>\n"
 "</div>\n"
 "        "
@@ -483,6 +483,11 @@ msgid "City"
 msgstr "Plaats"
 
 #. module: hr_contract_salary
+#: model:sign.template,redirect_url_text:hr_contract_salary.sign_template_cdi_developer
+msgid "Close"
+msgstr "Afsluiten"
+
+#. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_resume__code
 msgid "Code"
 msgstr "Code"
@@ -502,6 +507,18 @@ msgstr "Configuratie instellingen"
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.refuse_offer_wizard_view_form
 msgid "Confirm"
 msgstr "Bevestigen"
+
+#. module: hr_contract_salary
+#. odoo-python
+#: code:addons/hr_contract_salary/models/hr_contract_salary_offer.py:0
+msgid "Contact"
+msgstr "Contact"
+
+#. module: hr_contract_salary
+#. odoo-python
+#: code:addons/hr_contract_salary/models/hr_contract_salary_offer.py:0
+msgid "Contact Email"
+msgstr "E-mail adres contactpersoon"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -1035,7 +1052,7 @@ msgstr "Volgers"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Relaties)"
+msgstr "Volgers (Contacten)"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_offer__activity_type_icon
@@ -1604,11 +1621,6 @@ msgid "Oops"
 msgstr "Oep"
 
 #. module: hr_contract_salary
-#: model:sign.template,redirect_url_text:hr_contract_salary.sign_template_cdi_developer
-msgid "Open Link"
-msgstr "Link openen"
-
-#. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__origin_contract_id
 msgid "Origin Contract"
 msgstr "Bron contract"
@@ -1648,12 +1660,12 @@ msgstr "Gedeeltelijk getekend"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_signatory__partner_id
 msgid "Partner"
-msgstr "Relatie"
+msgstr "Contact"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__applicant_name
 msgid "Partner Name"
-msgstr "Relatienaam"
+msgstr "Contactnaam"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__uom__percent
@@ -1719,7 +1731,7 @@ msgstr ""
 "Vaste waarde: Bepaal een vastgestelde statische waarde voor alle links\n"
 "Contractwaarde: Haal de waarde uit een veld op het contractrecord\n"
 "Waarde loonstrook: Haal de waarde uit een veld op het loonstrookrecord\n"
-"Som van voordelen: Je kan alle voordelen selecteren en de som ervan berekenen\n"
+"Som van voordelen: Je kunt alle voordelen selecteren en de som ervan berekenen\n"
 "Maandelijks totaal: De informatie zal een totaal zijn van alle informatie in de categorie Maandelijke voordelen"
 
 #. module: hr_contract_salary
@@ -2201,7 +2213,7 @@ msgstr "Sommige verplichte velden zijn niet ingevuld"
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_signatory__signatory__partner
 msgid "Specific Partner"
-msgstr "Specifieke relatie"
+msgstr "Specifieke contact"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_personal_info__dropdown_selection__specific

@@ -1,20 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* web_map
-#
+# 
 # Translators:
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:47+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: web_map
@@ -44,6 +46,7 @@ msgstr "Вид окна действий"
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.js:0
+#: model_terms:ir.ui.view,arch_db:web_map.view_res_partner_filter_inherit_map
 msgid "Address"
 msgstr "Адрес"
 
@@ -92,8 +95,6 @@ msgid "Locating new addresses..."
 msgstr "Нахождение новых адресов..."
 
 #. module: web_map
-#. odoo-javascript
-#: code:addons/web_map/static/src/map_view/map_view.js:0
 #: model:ir.model.fields.selection,name:web_map.selection__ir_actions_act_window_view__view_mode__map
 #: model:ir.model.fields.selection,name:web_map.selection__ir_ui_view__type__map
 msgid "Map"
@@ -154,7 +155,7 @@ msgstr "Превышен лимит запросов OpenStreetMap, повтор
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
 msgid "Set a MapBox account to activate routes and style"
-msgstr "Установите учетную запись MapBox для активации маршрутов и стиля"
+msgstr "Указать учетную запись MapBox для активации маршрутов и стиля"
 
 #. module: web_map
 #. odoo-javascript
@@ -166,7 +167,8 @@ msgstr "Установите токен"
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 msgid "Some routing points are too far apart"
-msgstr "Некоторые точки маршрутизации расположены слишком далеко друг от друга"
+msgstr ""
+"Некоторые точки маршрутизации расположены слишком далеко друг от друга"
 
 #. module: web_map
 #. odoo-python
@@ -183,8 +185,12 @@ msgstr "Введенный токен недействителен"
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
-msgid "The view has switched to another provider but functionalities will be limited"
-msgstr "Просмотр перешел к другому провайдеру, но функциональные возможности будут ограничены"
+msgid ""
+"The view has switched to another provider but functionalities will be "
+"limited"
+msgstr ""
+"Просмотр перешел к другому провайдеру, но функциональные возможности будут "
+"ограничены"
 
 #. module: web_map
 #. odoo-python
@@ -195,8 +201,12 @@ msgstr "Этот реферер не авторизован"
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
-msgid "To get routing on your map, you first need to set up your MapBox token. It's free."
-msgstr "Чтобы проложить маршрут на карте, сначала нужно установить токен MapBox. Это бесплатно."
+msgid ""
+"To get routing on your map, you first need to set up your MapBox token. It's"
+" free."
+msgstr ""
+"Чтобы проложить маршрут на карте, сначала нужно установить токен MapBox. Это"
+" бесплатно."
 
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
@@ -277,4 +287,6 @@ msgstr "Да"
 #. odoo-python
 #: code:addons/web_map/models/models.py:0
 msgid "You need to set a Contact field on this model to use the Map View"
-msgstr "Чтобы использовать представление карты, необходимо установить поле Contact в этой модели"
+msgstr ""
+"Чтобы использовать представление карты, необходимо установить поле Contact в"
+" этой модели"

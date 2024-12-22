@@ -1,31 +1,35 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* stock_barcode_picking_batch
-#
+# 
 # Translators:
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:57+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: stock_barcode_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcode_picking_batch.stock_move_line_product_selector_inherit
-msgid "<i class=\"fa fa-fw fa-lg fa-truck me-3\" title=\"Transfer\"/>"
-msgstr "<i class=\"fa fa-fw fa-lg fa-truck me-3\" title=\"Transfer\"/>"
+msgid "<i class=\"fa fa-lg fa-truck\" title=\"Transfer\"/>"
+msgstr ""
 
 #. module: stock_barcode_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcode_picking_batch.picking_view_kanban_inherit_barcode_picking_batch
+#: model_terms:ir.ui.view,arch_db:stock_barcode_picking_batch.stock_picking_view_kanban
 msgid "<span class=\"fa fa-external-link-square ms-1\" title=\"Open Batch Picking\"/>"
-msgstr "<span class=\"fa fa-external-link-square ms-1\" title=\"Open Batch Picking\"/>"
+msgstr ""
+"<span class=\"fa fa-external-link-square ms-1\" title=\"Open Batch "
+"Picking\"/>"
 
 #. module: stock_barcode_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcode_picking_batch.stock_barcode_batch_picking_view_info
@@ -49,11 +53,15 @@ msgid "Batch Transfer Name"
 msgstr "Имя пакетной передачи"
 
 #. module: stock_barcode_picking_batch
-#. odoo-javascript
-#: code:addons/stock_barcode_picking_batch/static/src/main_menu.xml:0
 #: model:ir.actions.act_window,name:stock_barcode_picking_batch.stock_barcode_batch_picking_action_kanban
 msgid "Batch Transfers"
 msgstr "Пакетные передачи"
+
+#. module: stock_barcode_picking_batch
+#. odoo-javascript
+#: code:addons/stock_barcode_picking_batch/static/src/kanban/stock_barcode_kanban_renderer.xml:0
+msgid "Batches"
+msgstr "Партии"
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
@@ -104,7 +112,9 @@ msgstr "Линии"
 
 #. module: stock_barcode_picking_batch
 #: model:ir.model.fields,help:stock_barcode_picking_batch.field_stock_picking_type__group_lines_by_product
-msgid "Lines of same product at same location appear grouped. Not to use for cluster picking"
+msgid ""
+"Lines of same product at same location appear grouped. Not to use for "
+"cluster picking"
 msgstr ""
 
 #. module: stock_barcode_picking_batch
@@ -134,6 +144,12 @@ msgstr "Тип комплектования"
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 msgid "Print Batch Transfer"
 msgstr "Печать пакетной передачи"
+
+#. module: stock_barcode_picking_batch
+#. odoo-javascript
+#: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
+msgid "Print Product Labels"
+msgstr ""
 
 #. module: stock_barcode_picking_batch
 #: model:ir.model,name:stock_barcode_picking_batch.model_stock_move_line
@@ -203,8 +219,12 @@ msgstr "Эта пакетная передача отменяется"
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
-msgid "This batch transfer is still draft, it must be confirmed before being processed"
-msgstr "Этот пакетный перевод все еще является черновым, его необходимо подтвердить перед обработкой"
+msgid ""
+"This batch transfer is still draft, it must be confirmed before being "
+"processed"
+msgstr ""
+"Этот пакетный перевод все еще является черновым, его необходимо подтвердить "
+"перед обработкой"
 
 #. module: stock_barcode_picking_batch
 #: model:ir.model,name:stock_barcode_picking_batch.model_stock_picking
@@ -212,6 +232,12 @@ msgstr "Этот пакетный перевод все еще является 
 #: model_terms:ir.ui.view,arch_db:stock_barcode_picking_batch.stock_move_line_product_selector_inherit
 msgid "Transfer"
 msgstr "Перевод"
+
+#. module: stock_barcode_picking_batch
+#. odoo-javascript
+#: code:addons/stock_barcode_picking_batch/static/src/kanban/stock_barcode_kanban_renderer.xml:0
+msgid "Transfers"
+msgstr "Трансферы"
 
 #. module: stock_barcode_picking_batch
 #: model:ir.model.fields,field_description:stock_barcode_picking_batch.field_stock_picking_batch__picking_type_code
@@ -226,5 +252,11 @@ msgstr "Беспакетная передача"
 #. module: stock_barcode_picking_batch
 #. odoo-python
 #: code:addons/stock_barcode_picking_batch/models/stock_picking.py:0
-msgid "You cannot validate a transfer if no quantities are reserved nor done. You can use the info button on the top right corner of your screen to remove the transfer in question from the batch."
-msgstr "Вы не можете подтвердить трансфер, если не зарезервировано и не выполнено ни одного количества. Вы можете воспользоваться кнопкой \"Информация\" в правом верхнем углу экрана, чтобы удалить данный трансфер из партии."
+msgid ""
+"You cannot validate a transfer if no quantities are reserved nor done. You "
+"can use the info button on the top right corner of your screen to remove the"
+" transfer in question from the batch."
+msgstr ""
+"Вы не можете подтвердить трансфер, если не зарезервировано и не выполнено ни"
+" одного количества. Вы можете воспользоваться кнопкой \"Информация\" в "
+"правом верхнем углу экрана, чтобы удалить данный трансфер из партии."

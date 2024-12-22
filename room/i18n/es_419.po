@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"POT-Creation-Date: 2024-12-19 12:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
@@ -102,8 +102,14 @@ msgstr "Agregar una reservación"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__description
+#: model_terms:ir.ui.view,arch_db:room.room_room_view_form
 msgid "Amenities"
 msgstr "Servicios"
+
+#. module: room
+#: model_terms:ir.ui.view,arch_db:room.room_room_view_form
+msgid "Appearance"
+msgstr "Apariencia"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form
@@ -280,6 +286,11 @@ msgid "Followers (Partners)"
 msgstr "Seguidores (contactos)"
 
 #. module: room
+#: model:ir.model,name:room.model_ir_http
+msgid "HTTP Routing"
+msgstr "Enrutamiento HTTP"
+
+#. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__has_message
 #: model:ir.model.fields,field_description:room.field_room_room__has_message
 msgid "Has Message"
@@ -306,9 +317,7 @@ msgstr ""
 
 #. module: room
 #: model:ir.model.fields,help:room.field_room_booking__message_has_error
-#: model:ir.model.fields,help:room.field_room_booking__message_has_sms_error
 #: model:ir.model.fields,help:room.field_room_room__message_has_error
-#: model:ir.model.fields,help:room.field_room_room__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si se encuentra seleccionado, algunos mensajes tienen error de envío."
 
@@ -558,12 +567,6 @@ msgid "Rooms"
 msgstr "Salas"
 
 #. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__message_has_sms_error
-#: model:ir.model.fields,field_description:room.field_room_room__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Error en el envío del SMS"
-
-#. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_form
 msgid "Select a Room..."
 msgstr "Seleccione una sala..."
@@ -635,18 +638,6 @@ msgstr "Hasta"
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
 msgid "Update Meeting"
 msgstr "Actualizar reunión"
-
-#. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,field_description:room.field_room_room__website_message_ids
-msgid "Website Messages"
-msgstr "Mensajes del sitio web"
-
-#. module: room
-#: model:ir.model.fields,help:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,help:room.field_room_room__website_message_ids
-msgid "Website communication history"
-msgstr "Historial de comunicación del sitio web"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form

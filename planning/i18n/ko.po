@@ -3,15 +3,15 @@
 # 	* planning
 # 
 # Translators:
-# Sarah Park, 2024
 # Wil Odoo, 2024
+# Sarah Park, 2024
 # Daye Jeong, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"POT-Creation-Date: 2024-12-19 12:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Daye Jeong, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
@@ -85,12 +85,6 @@ msgstr "1 전화 면접"
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "100"
 msgstr "100"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "12 days / year, including <br>6 of your choice."
-msgstr "원하는 날짜 6일을 포함하여 <br>연간 총 12일의 교육을 제공합니다. "
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -186,7 +180,7 @@ msgid ""
 "<div>\n"
 "                    <p t-if=\"ctx.get('old_assignee_name')\">Dear <t t-out=\"ctx['old_assignee_name']\">Anita Oliver</t>,</p>\n"
 "                    <p t-else=\"\">Hello,</p>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p>\n"
 "                        The following shift that you requested to switch has been re-assigned\n"
 "                        <t t-if=\"ctx.get('new_assignee_name')\"> to <t t-out=\"ctx['new_assignee_name']\">Marc Demo</t></t>.\n"
@@ -223,85 +217,36 @@ msgid ""
 "                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
 "                        </tr>\n"
 "                    </table>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                </div>\n"
 "            "
 msgstr ""
-"<div>\n"
-"                    <p t-if=\"ctx.get('old_assignee_name')\">안녕하세요, <t t-out=\"ctx['old_assignee_name']\">Anita Oliver</t>님.</p>\n"
-"                    <p t-else=\"\">안녕하세요,</p>\n"
-"                    <br>\n"
-"                    <p>\n"
-"                        다음 교대 근무 일정이\n"
-"                        <t t-if=\"ctx.get('new_assignee_name')\"><t t-out=\"ctx['new_assignee_name']\">Marc Demo</t></t>님에게 재배정 되었음을 알려드립니다.\n"
-"                    </p>\n"
-"                    <table style=\"margin-left: 30px;\">\n"
-"                        <tr t-if=\"(ctx.get('start_datetime') and ctx.get('end_datetime'))                                   or ctx.get('allocated_hours')                                   or ctx.get('allocated_percentage')\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">날짜:</th>\n"
-"                            <td style=\"padding: 5px;\">\n"
-"                                <span t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\" t-out=\"'%s ⟶ %s' % (                                     ctx['start_datetime'],                                     ctx['end_datetime'],                                 )\">\n"
-"                                    05/31/2021, 8:00 AM ⟶ 05/31/2021, 4:00 PM\n"
-"                                </span>\n"
-"                                <span t-if=\"ctx.get('allocated_hours')\" style=\"opacity: 0.5;\">\n"
-"                                    (<t t-out=\"ctx['allocated_hours']\">4:00</t>시간)\n"
-"                                </span>\n"
-"                                <span t-if=\"ctx.get('allocated_percentage') and ctx['allocated_percentage'] != '100'\" style=\"opacity: 0.5;\">\n"
-"                                    (<t t-out=\"ctx['allocated_percentage']\">50</t>%)\n"
-"                                </span>\n"
-"                            </td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"object.role_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">업무</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.role_id.name or ''\">바텐더</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'project_id') and object.project_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">프로젝트</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().project_id.name or ''\">모임</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'sale_line_id') and object.sale_line_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">판매 주문 항목</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\">커피</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'name') and object.name\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">메모</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
-"                        </tr>\n"
-"                    </table>\n"
-"                    <br>\n"
-"                </div>\n"
-"            "
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-check-circle text-success\"/>\n"
+"<i class=\"fa fa-check-circle\"/>\n"
 "                        You have successfully requested to switch your shift. You will be notified when another employee takes over your shift."
 msgstr ""
-"<i class=\"fa fa-check-circle text-success\"/>\n"
-"                        교대 근무 전환을 성공적으로 요청했습니다. 교대 근무조를 변경하려는 직원이 있는 경우 알림을 전송해 드립니다."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-check-circle text-success\"/> Request to switch shift "
-"cancelled successfully."
+"<i class=\"fa fa-check-circle\"/> Request to switch shift cancelled "
+"successfully."
 msgstr ""
-"<i class=\"fa fa-check-circle text-success\"/> 교대 근무 변경 요청이 성공적으로 취소되었습니다."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
-msgid ""
-"<i class=\"fa fa-check-circle text-success\"/> This shift is no longer "
-"assigned to you."
+msgid "<i class=\"fa fa-check-circle\"/> This shift is no longer assigned to you."
 msgstr ""
-"<i class=\"fa fa-check-circle text-success\"/> 해당 교대조는 더 이상 귀하에게 배정되지 않습니다. "
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-check-circle text-success\"/> You were successfully "
-"assigned this open shift."
-msgstr "<i class=\"fa fa-check-circle text-success\"/> 해당 자유 교대조를 성공적으로 배정받았습니다."
+"<i class=\"fa fa-check-circle\"/> You were successfully assigned this open "
+"shift."
+msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_kanban
@@ -320,20 +265,16 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/> This shift is already "
-"assigned to another employee."
+"<i class=\"fa fa-exclamation-circle\"/> This shift is already assigned to "
+"another employee."
 msgstr ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/> 해당 교대조는 이미 다른 직원에게 "
-"배정되었습니다."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/> You can no longer "
-"unassign yourself from this shift."
+"<i class=\"fa fa-exclamation-circle\"/> You can no longer unassign yourself "
+"from this shift."
 msgstr ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/> 더 이상 본인의 해당 교대조 배정을 취소할"
-" 수 없습니다."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
@@ -361,10 +302,8 @@ msgstr "<i class=\"fa fa-phone\" title=\"Phone\" role=\"img\" style=\"padding-ri
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_kanban
-msgid "<i class=\"me-1 mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
+msgid "<i class=\"mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
 msgstr ""
-"<i class=\"me-1 mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" "
-"title=\"Date\"/>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -383,12 +322,6 @@ msgid ""
 msgstr ""
 "<i class=\"o_group_caret fa fa-fw me-1 fa-caret-down\"></i> <span "
 "class=\"text-truncate w-0 flex-grow-1 text-start\">웨이터</span>"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "<small><b>READ</b></small>"
-msgstr "<small><b>읽어보기</b></small>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -594,10 +527,10 @@ msgid ""
 "                        margin: 20px 15px 0px 15px;\n"
 "                    }\n"
 "                </style>\n"
-"                <div>\n"
+"                <body><div>\n"
 "                    <p t-if=\"ctx.get('employee_name')\">Dear <t t-out=\"ctx['employee_name']\">Anita Oliver</t>,</p>\n"
 "                    <p t-else=\"\">Hello,</p>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('open_shift_available')\">We have a new shift opening:</p>\n"
 "                    <p t-else=\"\">You have been assigned the following shift:</p>\n"
 "                    <table style=\"margin-left: 30px;\">\n"
@@ -638,86 +571,12 @@ msgid ""
 "                        <a t-if=\"ctx.get('google_url')\" t-att-href=\"ctx['google_url']\" target=\"_blank\" class=\"planning_mail_template_button\">Add to Google Calendar</a>\n"
 "                        <a t-if=\"ctx.get('iCal_url')\" t-att-href=\"ctx['iCal_url']\" target=\"_blank\" class=\"planning_mail_template_button\">Add to iCal/Outlook</a>\n"
 "                    </div>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('open_shift_available')\">If you are interested and available, please assign yourself this open shift.</p>\n"
 "                    <p t-else=\"\">In case the current shift doesn't suit you, we encourage you to reach out to your colleagues and request to switch shifts. They might be interested in exchanging shifts with you.</p>\n"
 "                </div>\n"
-"            "
+"            </body>"
 msgstr ""
-"<style>\n"
-"                    .planning_mail_template_button {\n"
-"                        padding: 5px 10px;\n"
-"                        text-decoration: none;\n"
-"                        border: 1px;\n"
-"                        border-radius: 3px;\n"
-"                        text-align: center;\n"
-"                        color: #374151;\n"
-"                        background-color: #E7E9ED;\n"
-"                        border: solid #E7E9ED;\n"
-"                        flex: 1 1 40%;\n"
-"                    }\n"
-"                    .top_button {\n"
-"                        color: #FFFFFF;\n"
-"                        background-color: #714B67;\n"
-"                        border: solid #714B67;\n"
-"                        flex: 1 1 60%;\n"
-"                    }\n"
-"                    .button_box {\n"
-"                        display: flex;\n"
-"                        flex-wrap: wrap;\n"
-"                        gap: 10px;\n"
-"                        margin: 20px 15px 0px 15px;\n"
-"                    }\n"
-"                </style>\n"
-"                <div>\n"
-"                    <p t-if=\"ctx.get('employee_name')\">안녕하세요, <t t-out=\"ctx['employee_name']\">Anita Oliver</t>님.</p>\n"
-"                    <p t-else=\"\">Hello,</p>\n"
-"                    <br>\n"
-"                    <p t-if=\"ctx.get('open_shift_available')\">새로운 자유 교대 근무를 선택하실 수 있습니다:</p>\n"
-"                    <p t-else=\"\">근무 스케쥴이 다음과 같이 배정되었습니다:</p>\n"
-"                    <table style=\"margin-left: 30px;\">\n"
-"                        <tr t-if=\"(ctx.get('start_datetime') and ctx.get('end_datetime'))                                   or ctx.get('allocated_hours')                                   or ctx.get('allocated_percentage')\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">날짜:</th>\n"
-"                            <td style=\"padding: 5px;\">\n"
-"                                <span t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\" t-out=\"'%s ⟶ %s' % (                                     ctx['start_datetime'],                                     ctx['end_datetime'],                                 )\">\n"
-"                                    05/31/2021, 8:00 AM ⟶ 05/31/2021, 4:00 PM\n"
-"                                </span>\n"
-"                                <span t-if=\"ctx.get('allocated_hours')\" style=\"opacity: 0.5;\">\n"
-"                                    (<t t-out=\"ctx['allocated_hours']\">4:00</t>h)\n"
-"                                </span>\n"
-"                                <span t-if=\"ctx.get('allocated_percentage') and ctx['allocated_percentage'] != '100'\" style=\"opacity: 0.5;\">\n"
-"                                    (<t t-out=\"ctx['allocated_percentage']\">50</t>%)\n"
-"                                </span>\n"
-"                            </td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"object.role_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">업무</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.role_id.name or ''\">바텐더</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'project_id') and object.project_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">프로젝트</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().project_id.name or ''\">모임</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'sale_line_id') and object.sale_line_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">판매 주문 항목</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\">커피</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'name') and object.name\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">메모</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
-"                        </tr>\n"
-"                    </table>\n"
-"                    <div class=\"button_box\">\n"
-"                        <a t-if=\"ctx.get('available_link')\" t-att-href=\"ctx['available_link']\" target=\"_blank\" class=\"planning_mail_template_button top_button\">이 교대 근무 배정하기</a>\n"
-"                        <a t-if=\"ctx.get('unavailable_link')\" t-att-href=\"ctx['unavailable_link']\" target=\"_blank\" class=\"planning_mail_template_button top_button\">이 교대 근무 배정 취소하기</a>\n"
-"                        <a t-if=\"ctx.get('google_url')\" t-att-href=\"ctx['google_url']\" target=\"_blank\" class=\"planning_mail_template_button\">구글 캘린더에 추가</a>\n"
-"                        <a t-if=\"ctx.get('iCal_url')\" t-att-href=\"ctx['iCal_url']\" target=\"_blank\" class=\"planning_mail_template_button\">iCal/Outlook에 추가</a>\n"
-"                    </div>\n"
-"                    <br>\n"
-"                    <p t-if=\"ctx.get('open_shift_available')\">언제든지 빈 교대 근무 시간에 신청하실 수 있습니다.</p>\n"
-"                    <p t-else=\"\">이미 배정된 교대 근무 시간을 변경하시려면 동료에게 연락하여 시간 변경이 가능한 지 알아보셔도 됩니다.</p>\n"
-"                </div>\n"
-"            "
 
 #. module: planning
 #: model:mail.template,body_html:planning.email_template_planning_planning
@@ -733,10 +592,10 @@ msgid ""
 "                    text-align: center;\n"
 "                }\n"
 "                </style>\n"
-"                <div>\n"
+"                <body><div>\n"
 "                    <p t-if=\"ctx.get('employee')\">Dear <t t-out=\"ctx['employee'].name or ''\">Anita Oliver</t>,</p>\n"
 "                    <p t-else=\"\">Hello,</p>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\">\n"
 "                        Your upcoming shifts from <t t-out=\"format_date(ctx['start_datetime'])\">05-05-2021</t>\n"
 "                        to <t t-out=\"format_date(ctx['end_datetime'])\">05-11-2021</t> have been published.\n"
@@ -749,7 +608,7 @@ msgid ""
 "                            <a t-att-href=\"ctx['planning_url_ics']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #374151; background-color: #E7E9ED; border: solid #E7E9ED;\">Add to Calendar</a>\n"
 "                        </div>\n"
 "                    </div>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('slot_unassigned') or (object.allow_self_unassign and object.self_unassign_days_before)\">\n"
 "                        <t t-if=\"ctx.get('slot_unassigned')\">\n"
 "                            We would also like to remind you that there are some open shifts available, and if you are interested and available, please assign yourself to those shifts.\n"
@@ -758,57 +617,11 @@ msgid ""
 "                            If you are unable to work a shift that has been assigned to you, please unassign yourself within <t t-out=\"object.self_unassign_days_before or ''\">5</t> day(s) before the start of the shift.\n"
 "                        </t>\n"
 "                    </p>\n"
-"                    <p t-if=\"ctx.get('message')\" t-out=\"ctx['message']\"></p>\n"
+"                    <p t-if=\"ctx.get('message')\" t-out=\"ctx['message']\"/>\n"
 "                    <p t-if=\"object.allow_self_unassign\">In case your current schedule doesn't suit you, we encourage you to reach out to your colleagues and request to switch shifts. They might be interested in exchanging shifts with you.</p>\n"
 "                </div>\n"
-"            "
+"            </body>"
 msgstr ""
-"<style>\n"
-"                .planning_mail_template_button {\n"
-"                    padding: 5px 10px;\n"
-"                    text-decoration: none;\n"
-"                    border: 1px;\n"
-"                    border-radius: 3px;\n"
-"                    display: inline-block; \n"
-"                    width: 190px;\n"
-"                    text-align: center;\n"
-"                }\n"
-"                </style>\n"
-"                <div>\n"
-"                    <p t-if=\"ctx.get('employee')\">안녕하세요, <t t-out=\"ctx['employee'].name or ''\">Anita Oliver</t>님,</p>\n"
-"                    <p t-else=\"\">Hello,</p>\n"
-"                    <br>\n"
-"                    <p t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\">\n"
-"                        <t t-out=\"format_date(ctx['start_datetime'])\">05-05-2021</t>일 부터\n"
-"                        <t t-out=\"format_date(ctx['end_datetime'])\">05-11-2021</t>일 까지의 교대 근무조가 새로 배정되었습니다.\n"
-"                    </p>\n"
-"                    <div style=\"display: flex; margin: 15px;\">\n"
-"                        <div t-if=\"ctx.get('planning_url')\" style=\"margin-right: 15px;\">\n"
-"                            <a t-att-href=\"ctx['planning_url']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #FFFFFF; background-color: #875A7B; border: solid #875A7B;\">내 근무 일정 보기</a>\n"
-"                        </div>\n"
-"                        <div t-if=\"ctx.get('planning_url_ics')\">\n"
-"                            <a t-att-href=\"ctx['planning_url_ics']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #374151; background-color: #E7E9ED; border: solid #E7E9ED;\">캘린더에 추가하기</a>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    <br>\n"
-"                    <p t-if=\"ctx.get('slot_unassigned') or (object.allow_self_unassign and object.self_unassign_days_before)\">\n"
-"                        <t t-if=\"ctx.get('slot_unassigned')\">\n"
-"                            해당 기간에 일부 배정되지 않은 업무가 있습니다. 근무가 가능하신 시간대가 있다면 언제든지 해당 근무조에 지원해주시기 바랍니다.\n"
-"                        </t>\n"
-"                        <t t-if=\"object.allow_self_unassign and object.self_unassign_days_before\">\n"
-"                            이미 배정되어 있는 시간에 불가피한 사정으로 근무할 수 없는 경우라면 최소 <t t-out=\"object.self_unassign_days_before or ''\">5</t>일 전까지 교대 근무를 취소해 주시기 바랍니다.\n"
-"                        </t>\n"
-"                    </p>\n"
-"                    <p t-if=\"ctx.get('message')\" t-out=\"ctx['message']\"></p>\n"
-"                    <p t-if=\"object.allow_self_unassign\">현재 근무 스케쥴이 맞지 않는 경우, 다른 동료에게 연락하여 시간 변경이 가능한 지 알아보셔도 좋습니다.</p>\n"
-"                </div>\n"
-"            "
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "A full-time position <br>Attractive salary package."
-msgstr "정규직 직책과 <br>높은 연봉 수준을 제공합니다."
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_until_limit
@@ -823,12 +636,6 @@ msgid "A shift must be in the same company as its recurrence."
 msgstr "교대 근무는 반복되도록 같은 회사에 있어야 합니다."
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Achieve monthly sales objectives"
-msgstr "월간 매출 목표 달성"
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_role__active
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__active
 msgid "Active"
@@ -839,12 +646,6 @@ msgstr "활성화"
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.js:0
 msgid "Add Shift"
 msgstr "교대 근무 추가"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Additional languages"
-msgstr "제2외국어 가능"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_send__note
@@ -860,12 +661,6 @@ msgstr "직원에게 보내는 이메일에 포함된 추가 메시지"
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 msgid "Additional note sent to the employee"
 msgstr "직원에게 전송된 추가 메모"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Administrative Work"
-msgstr "행정 업무 능력"
 
 #. module: planning
 #: model:res.groups,name:planning.group_planning_manager
@@ -978,29 +773,6 @@ msgid "Arrow icon"
 msgstr "화살표 아이콘"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid ""
-"As an employee of our company, you will <b>collaborate with each department\n"
-"                        to create and deploy disruptive products.</b> Come work at a growing company\n"
-"                        that offers great benefits with opportunities to moving forward and learn\n"
-"                        alongside accomplished leaders. We're seeking an experienced and outstanding\n"
-"                        member of staff.\n"
-"                        <br><br>\n"
-"                        This position is both <b>creative and rigorous</b> by nature you need to think\n"
-"                        outside the box. We expect the candidate to be proactive and have a \"get it done\"\n"
-"                        spirit. To be successful, you will have solid solving problem skills."
-msgstr ""
-"회사의 일원으로서 여러분은 <b>각 부서와 협력하여 혁신적인 제품을 생산하고 배포하게 됩니다.</b> 뛰어난 역량의 리더들과 함께 배우고 성장할 기회는 물론,\n"
-"                        다양한 복지를 제공하는 회사에서 함께 일해보세요.\n"
-"                        풍부한 경험과 잠재력을 지닌\n"
-"                        인재를 모십니다..\n"
-"                        <br><br>\n"
-"                        해당 직책은 <b>창의성과 엄격함 </b>모두를 요구하며,\n"
-"                        틀에 벗어난 사고를 필요로 합니다. 능동적이고 \"해내야 한다\"는 정신을 갖추고 있으며,\n"
-"                        탄탄한 문제 해결 능력을 지닌 지원자 여러분을 기다리고 있습니다."
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
@@ -1045,22 +817,10 @@ msgid "Automatically plan open shifts and sales orders"
 msgstr "자유 교대조 및 판매주문서를 자동으로 계획합니다."
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Autonomy"
-msgstr "자율성"
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_filter_panel/planning_calendar_filter_panel.xml:0
 msgid "Avatar"
 msgstr "아바타"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Bachelor Degree or Higher"
-msgstr "학사 학위 이상 취득자"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -1167,12 +927,6 @@ msgid "Crane"
 msgstr "크레인"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Create content that will help our users on a daily basis"
-msgstr "사용자에게 실질적으로 도움이 되는 콘텐츠를 제작합니다."
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__create_uid
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__create_uid
 #: model:ir.model.fields,field_description:planning.field_planning_role__create_uid
@@ -1191,12 +945,6 @@ msgstr "작성자"
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__create_date
 msgid "Created on"
 msgstr "작성일자"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Customer Relationship"
-msgstr "고객 관계"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
@@ -1319,12 +1067,6 @@ msgid "Discard"
 msgstr "취소"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Discover our products."
-msgstr "제품 알아보기."
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__display_name
 #: model:ir.model.fields,field_description:planning.field_planning_planning__display_name
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__display_name
@@ -1373,28 +1115,6 @@ msgstr "소요시간"
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__duration_days
 msgid "Duration Days"
 msgstr "소요 기간"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid ""
-"Each employee has a chance to see the impact of his work.\n"
-"                    You can make a real contribution to the success of the company.\n"
-"                    <br>\n"
-"                    Several activities are often organized all over the year, such as weekly\n"
-"                    sports sessions, team building events, monthly drink, and much more"
-msgstr ""
-"각 직원은 본인의 업무 결과가 조직에 어떤 영향을 미치는지 인지함으로써\n"
-"                    회사의 성공과 발전에 실질적인 기여를 할 수 있습니다.\n"
-"                    <br>\n"
-"                    또한 매주 스포츠 세션과, 조직 단합 행사, 매월 진행되는 회식 등\n"
-"                    연중 수시로 진행되는 다양한 활동에 참여할 수 있습니다."
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Eat &amp; Drink"
-msgstr "간식 제공"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_kanban
@@ -1495,18 +1215,6 @@ msgid "Every %(repeat_interval)s week(s) until %(repeat_until)s"
 msgstr "매 %(repeat_interval)s주, %(repeat_until)s까지"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Expand your knowledge of various business industries"
-msgstr "다양한 비즈니스 산업에 대한 지식을 넓힐 수 있습니다."
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Experience in writing online content"
-msgstr "온라인 콘텐츠 작성 경험"
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__note
 msgid "Extra Message"
 msgstr "추가 메시지"
@@ -1552,12 +1260,6 @@ msgid "Forever, every %s week(s)"
 msgstr "영원히 %s주마다"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Fruit, coffee and <br>snacks provided."
-msgstr "과일, 커피 및 <br>각종 간식이 제공됩니다."
-
-#. module: planning
 #: model:planning.role,name:planning.planning_furniture_assembler
 msgid "Furniture Assembler"
 msgstr "가구 조립 전문가"
@@ -1578,18 +1280,6 @@ msgid "Give depth to your"
 msgstr "다음 업무에 깊이를 더합니다: "
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Google Adwords experience"
-msgstr "구글 애드워즈 경험"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Great team of smart people, in a friendly and open culture"
-msgstr "친절하고 개방적인 문화 속에서 스마트한 인재들로 구성된 팀입니다."
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
@@ -1607,12 +1297,6 @@ msgstr "타임이 있음"
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__request_to_switch
 msgid "Has there been a request to switch on this shift slot?"
 msgstr "해당 교대조 타임으로 변경해달라는 요청이 있습니까?"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Highly creative and autonomous"
-msgstr "높은 창의성과 자율성"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__name
@@ -1716,12 +1400,6 @@ msgid "Last Updated on"
 msgstr "최근 갱신 일자"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Lead the entire sales cycle"
-msgstr "전체 영업 주기 리드"
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 msgid "Legend"
@@ -1808,12 +1486,6 @@ msgid "Marc Demo"
 msgstr "Marc Demo"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Master demos of our software"
-msgstr "당사 소프트웨어 데모 습득"
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__material
@@ -1852,12 +1524,6 @@ msgid "Months"
 msgstr "월"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Must Have"
-msgstr "지원 자격"
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Department"
@@ -1894,12 +1560,6 @@ msgid "Name"
 msgstr "이름"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Negotiate and contract"
-msgstr "협상 및 계약"
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.js:0
 msgid "New Event"
@@ -1925,12 +1585,6 @@ msgid "Next Week"
 msgstr "다음 주"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Nice to have"
-msgstr "우대 사항"
-
-#. module: planning
 #. odoo-python
 #: code:addons/planning/wizard/planning_send.py:0
 msgid "No Email Address for Some Employees"
@@ -1945,12 +1599,6 @@ msgstr "반복되는 계획이 없습니다"
 #: model_terms:ir.actions.act_window,help:planning.planning_report_action_analysis
 msgid "No data yet!"
 msgstr "데이터가 아직 없습니다."
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "No dumb managers, no stupid tools to use, no rigid working hours"
-msgstr "무능한 관리자, 비효율적인 도구의 사용, 경직된 근로 시간 제도가 없습니다."
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_resources
@@ -1973,13 +1621,6 @@ msgstr "교대 근무 서식이 없습니다. 새로 작성해 주세요."
 #: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_role
 msgid "No shifts found. Let's create one!"
 msgstr "교대 근무가 없습니다. 새로 생성해 주세요."
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid ""
-"No waste of time in enterprise processes, real responsibilities and autonomy"
-msgstr "엔터프라이즈 프로세스를 사용하여 시간 낭비를 최소화하며, 각 직책에 맞는 실질적인 책임과 자율성을 부여합니다."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__name
@@ -2062,40 +1703,10 @@ msgstr ""
 "지원되지 않는 작업입니다. 항상 = 또는 > 연산자를 사용하여 overlap_slot_count 를 0 값과 비교하여야 합니다."
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Our Product"
-msgstr "제품"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Passion for software products"
-msgstr "소프트웨어 제품에 대한 열정"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Perfect written English"
-msgstr "높은 수준의 영어 작문 능력"
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__start_datetime
 #: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
 msgid "Period"
 msgstr "기간"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Perks"
-msgstr "기본 혜택"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Personal Evolution"
-msgstr "성장 가능성"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -2234,12 +1845,6 @@ msgid "Plans"
 msgstr "계획"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Play any sport with colleagues, <br>the bill is covered."
-msgstr "등료와 함께 스포츠를 즐길 경우, <br>모든 비용은 지원됩니다."
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_email
 msgid ""
 "Please add a work email for the following employee so that they can receive "
@@ -2270,6 +1875,7 @@ msgstr "프로젝터"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__slot_properties
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
 msgid "Properties"
 msgstr "속성"
 
@@ -2304,12 +1910,6 @@ msgid "Published"
 msgstr "게시 됨"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Qualify the customer needs"
-msgstr "고객의 니즈 파악"
-
-#. module: planning
 #: model:hr.job,name:planning.job_quality_control
 #: model:planning.role,name:planning.planning_quality_control
 msgid "Quality Control Inspector"
@@ -2320,12 +1920,6 @@ msgstr "품질 관리 검사관"
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_generation_interval
 msgid "Rate Of Shift Generation"
 msgstr "교대 근무 생성 비율"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Real responsibilities and challenges in a fast evolving company"
-msgstr "빠르게 발전하는 기업의 사회적 책임과 도전 과제를 제시합니다."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__recurrence_update
@@ -2436,12 +2030,6 @@ msgstr "리소스 색상"
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 msgid "Resources"
 msgstr "자원"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Responsibilities"
-msgstr "주요 업무"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__role_id
@@ -2710,12 +2298,6 @@ msgid "Span"
 msgstr "스팬"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Sport Activity"
-msgstr "스포츠 활동"
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Start"
 msgstr "시작"
@@ -2746,21 +2328,9 @@ msgid "Stop Date"
 msgstr "중지일"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Strong analytical skills"
-msgstr "정확한 분석 능력"
-
-#. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__res_company__planning_employee_unavailabilities__switch
 msgid "Switch shifts with other employees"
 msgstr "다른 직원과 교대 근무 전환"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Technical Expertise"
-msgstr "기술 전문성"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_res_company_planning_self_unassign_days_before_positive
@@ -2971,12 +2541,6 @@ msgid "Total"
 msgstr "총계"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Trainings"
-msgstr "교육"
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__resource_type
 #: model:ir.model.fields,field_description:planning.field_planning_slot__resource_type
 msgid "Type"
@@ -3011,12 +2575,6 @@ msgid "User"
 msgstr "사용자"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Valid work permit for Belgium"
-msgstr "벨기에에서 유효한 취업 허가 소지"
-
-#. module: planning
 #. odoo-python
 #: code:addons/planning/models/hr.py:0
 msgid "View Planning"
@@ -3039,18 +2597,6 @@ msgstr "주"
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_unit__week
 msgid "Weeks"
 msgstr "주"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "What We Offer"
-msgstr "다양한 혜택"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "What's great in the job?"
-msgstr "해당 직책의 장점은 무엇입니까?"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__work_email

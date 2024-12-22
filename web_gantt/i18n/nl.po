@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"POT-Creation-Date: 2024-12-19 09:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -92,6 +92,12 @@ msgstr "Bewerken"
 
 #. module: web_gantt
 #. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer.js:0
+msgid "Ending date cannot be before the starting date"
+msgstr "Einddatum kan niet vóór de startdatum liggen"
+
+#. module: web_gantt
+#. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
 msgid "Expand rows"
 msgstr "Rijen uitvouwen"
@@ -107,6 +113,12 @@ msgstr "Focus Vandaag"
 #: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
 msgid "From"
 msgstr "Van"
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.js:0
+msgid "From: %(from_date)s to: %(to_date)s"
+msgstr ""
 
 #. module: web_gantt
 #: model:ir.model.fields.selection,name:web_gantt.selection__ir_actions_act_window_view__view_mode__gantt
@@ -170,7 +182,7 @@ msgstr "De Gantt-weergave kan slechts één sjabloon-label bevatten"
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
 msgid "Impossible to schedule in the past."
-msgstr "Je kan niet in het verleden plannen."
+msgstr "Je kunt niet in het verleden plannen."
 
 #. module: web_gantt
 #. odoo-python
@@ -241,6 +253,12 @@ msgstr "Met succes één opnieuw gepland."
 #: code:addons/web_gantt/static/src/gantt_popover.xml:0
 msgid "Start"
 msgstr "Start"
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer.js:0
+msgid "Starting date cannot be after the ending date"
+msgstr "De begindatum kan niet na de einddatum liggen"
 
 #. module: web_gantt
 #. odoo-javascript

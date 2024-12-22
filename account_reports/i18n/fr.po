@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:13+0000\n"
+"POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
@@ -161,6 +161,21 @@ msgid ""
 "            </div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                <p style=\"margin: 0px; padding: 0px;\">\n"
+"                    <t t-if=\"object.id != object.commercial_partner_id.id\">Bonjour <t t-out=\"object.name or ''\"/> (<t t-out=\"object.commercial_partner_id.name or ''\"/>),</t>\n"
+"                    <t t-else=\"\">Bonjour <t t-out=\"object.name or ''\"/>,</t>\n"
+"                    <br/>\n"
+"                    Vous trouverez ci-joint votre relevé de compte.\n"
+"                    <br/>\n"
+"                    N'hésitez pas à nous contacter si vous avez des questions.\n"
+"                    <br/>\n"
+"                    Cordialement,\n"
+"                    <br/>\n"
+"\t                <t t-out=\"object._get_followup_responsible().name if is_html_empty(object._get_followup_responsible().signature) else object._get_followup_responsible().signature\"/>\n"
+"                </p>\n"
+"            </div>\n"
+"        "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
@@ -372,8 +387,6 @@ msgid "Accounts"
 msgstr "Comptes"
 
 #. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Accounts Coverage Report"
 msgstr "Rapport de couverture des comptes"
@@ -1938,7 +1951,7 @@ msgstr "Synthèse fiscale globale"
 #. odoo-python
 #: code:addons/account_reports/models/account_sales_report.py:0
 msgid "Goods"
-msgstr "Marchandises"
+msgstr "Biens"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2225,7 +2238,6 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filter_aging.xml:0
 #: model:account.report.column,name:account_reports.aged_payable_report_invoice_date
 #: model:account.report.column,name:account_reports.aged_receivable_report_invoice_date
-#: model:account.report.column,name:account_reports.journal_report_date
 #: model:account.report.column,name:account_reports.partner_ledger_report_invoicing_date
 msgid "Invoice Date"
 msgstr "Date de facturation"
@@ -3333,6 +3345,12 @@ msgstr "Envoi automatique de rapports de compte"
 
 #. module: account_reports
 #. odoo-python
+#: code:addons/account_reports/models/account_move.py:0
+msgid "Send tax report: %s"
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "Sending statements"
 msgstr "Envoi de relevés"
@@ -3346,7 +3364,7 @@ msgstr "Séquence"
 #. odoo-python
 #: code:addons/account_reports/models/account_sales_report.py:0
 msgid "Services"
-msgstr "Interventions"
+msgstr "Services"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_tree
@@ -3547,6 +3565,11 @@ msgid "Tax Report"
 msgstr "Déclaration de TVA"
 
 #. module: account_reports
+#: model:mail.activity.type,name:account_reports.mail_activity_type_tax_report_to_be_sent
+msgid "Tax Report Ready"
+msgstr "Déclaration de TVA prête"
+
+#. module: account_reports
 #: model:ir.actions.client,name:account_reports.action_account_report_gt
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_gt
 msgid "Tax Return"
@@ -3590,6 +3613,11 @@ msgstr "La taxe est prête à être acquittée"
 #: model:ir.model.fields.selection,name:account_reports.selection__mail_activity_type__category__tax_report
 msgid "Tax report"
 msgstr "Déclaration de TVA"
+
+#. module: account_reports
+#: model:mail.activity.type,summary:account_reports.mail_activity_type_tax_report_to_be_sent
+msgid "Tax report is ready to be sent to the administration"
+msgstr "La déclaration de TVA est prête à être envoyée à l'administration."
 
 #. module: account_reports
 #. odoo-python

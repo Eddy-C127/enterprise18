@@ -3,17 +3,17 @@
 # 	* web_studio
 # 
 # Translators:
-# Wil Odoo, 2024
 # Wichanon Jamwutthipreecha, 2024
 # Rasareeyar Lappiam, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Rasareeyar Lappiam, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -264,6 +264,11 @@ msgid "Action: %s"
 msgstr ""
 
 #. module: web_studio
+#: model:ir.model,name:web_studio.model_ir_actions_actions
+msgid "Actions"
+msgstr "การดำเนินการ"
+
+#. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_mail_activity_type__category
 msgid ""
 "Actions may trigger specific behavior like opening calendar view or "
@@ -417,7 +422,7 @@ msgstr ""
 msgid ""
 "Additional models you may choose to export in addition to the Studio "
 "customizations"
-msgstr ""
+msgstr "โมเดลเพิ่มเติมที่คุณสามารถเลือกส่งออกได้นอกเหนือจากการปรับแต่งสตูดิโอ"
 
 #. module: web_studio
 #. odoo-javascript
@@ -452,6 +457,12 @@ msgstr "ทุกเซ็ต? เพียงคลิกเดียวจา�
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/map/map_editor_sidebar.xml:0
 msgid "Allow Resequencing"
+msgstr ""
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility.xml:0
+msgid "Allow visibility to groups"
 msgstr ""
 
 #. module: web_studio
@@ -1007,6 +1018,8 @@ msgid ""
 "Configure additional models to export with Studio, such as records that hold"
 " configuration information or demo data."
 msgstr ""
+"กำหนดค่าโมเดลเพิ่มเติมที่จะส่งออกด้วยสตูดิโอ เช่น "
+"บันทึกที่เก็บข้อมูลการกำหนดค่าหรือข้อมูลสาธิต"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_studio_export_wizard
@@ -1354,7 +1367,7 @@ msgstr "กำหนดวันที่เริ่มต้น/สิ้น�
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_export_model__updatable
 msgid "Defines if the records would be updated during a module update."
-msgstr ""
+msgstr "กำหนดว่าจะมีการอัปเดตบันทึกหรือไม่ในระหว่างการอัปเดตโมดูล"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1479,7 +1492,7 @@ msgstr "การแสดงไม่พร้อมใช้งาน"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/type_widget_properties/type_specific_and_computed_properties.js:0
 msgid "Displays a textual hint that helps the user when the field is empty."
-msgstr ""
+msgstr "แสดงคำแนะนำข้อความที่ช่วยเหลือผู้ใช้เมื่อช่องว่างเปล่า"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1836,6 +1849,12 @@ msgstr ""
 "'สร้าง', 'เขียน' และ 'ยกเลิกการเชื่อมโยง' เป็นสิ่งต้องห้าม"
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility.xml:0
+msgid "Forbid visibility to groups"
+msgstr ""
+
+#. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_delegate_approvers
 msgid "Forever"
 msgstr "ตลอดไป"
@@ -2104,13 +2123,15 @@ msgid ""
 "If set, the attachments related to the exported records will be included in "
 "the export."
 msgstr ""
+"หากตั้งค่าแล้ว "
+"สิ่งที่แนบมาที่เกี่ยวข้องกับบันทึกที่ส่งออกจะรวมอยู่ในเอกสารที่ส่งออก"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_export_model__is_demo_data
 msgid ""
 "If set, the exported records will be considered as demo data during the "
 "import."
-msgstr ""
+msgstr "หากตั้งค่าแล้ว บันทึกที่ส่งออกจะถือเป็นข้อมูลสาธิตในระหว่างการนำเข้า"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__domain
@@ -2353,13 +2374,12 @@ msgstr ""
 msgid ""
 "Let's check the result. Close Odoo Studio to get an <b>overview of your "
 "app</b>."
-msgstr ""
+msgstr "มาลองดูผลลัพธ์กัน ปิด Odoo สตูดิโอ เพื่อดู<b>ภาพรวมของแอปของคุณ</b>"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
-#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility.xml:0
 msgid "Limit visibility to groups"
 msgstr "จำกัดการมองเห็นเฉพาะกลุ่ม"
 
@@ -2745,6 +2765,8 @@ msgid ""
 "Nicely done! Let's build your screen now; <b>drag</b> a <i>text field</i> "
 "and <b>drop</b> it in your view, on the right."
 msgstr ""
+"ทำได้ดีมาก! มาสร้างหน้าจอของคุณกันเลย "
+"<b>ลาก</b><i>ช่องข้อความ</i>แล้ว<b>วาง</b>ลงในมุมมองของคุณทางด้านขวา"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3970,7 +3992,7 @@ msgstr ""
 msgid ""
 "The step description will be displayed on the button on which an approval is"
 " requested."
-msgstr ""
+msgstr "คำอธิบายขั้นตอนจะแสดงบนปุ่มที่ร้องขอการอนุมัติ"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3979,13 +4001,15 @@ msgid ""
 "The user who approves this step will not be able to approve other steps for "
 "the same record."
 msgstr ""
+"ผู้ใช้ที่อนุมัติขั้นตอนนี้จะไม่สามารถอนุมัติขั้นตอนอื่นๆ "
+"สำหรับบันทึกเดียวกันได้"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__approval_group_id
 msgid "The users in this group are able to approve or reject the step."
-msgstr ""
+msgstr "ผู้ใช้ในกลุ่มนี้สามารถอนุมัติหรือปฏิเสธขั้นตอนได้"
 
 #. module: web_studio
 #. odoo-python
@@ -4028,6 +4052,7 @@ msgid ""
 "These users are able to approve or reject the step and will be assigned to "
 "an activity when their approval is requested."
 msgstr ""
+"ผู้ใช้เหล่านี้สามารถอนุมัติหรือปฏิเสธขั้นตอนและจะได้รับมอบหมายให้ดำเนินกิจกรรมเมื่อมีการร้องขอการอนุมัติ"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4037,6 +4062,7 @@ msgid ""
 "These users will receive a notification via internal note when the step is "
 "approved or rejected"
 msgstr ""
+"ผู้ใช้เหล่านี้จะได้รับการแจ้งเตือนผ่านทางบันทึกภายในเมื่อขั้นตอนได้รับการอนุมัติหรือปฏิเสธ"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4178,6 +4204,7 @@ msgid ""
 "Use Bootstrap or any other custom classes to customize the style and the "
 "display of the element."
 msgstr ""
+"ใช้ Bootstrap หรือคลาสที่กำหนดเองเพื่อปรับแต่งสไตล์และการแสดงผลขององค์ประกอบ"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_approver__user_id
@@ -4354,6 +4381,8 @@ msgid ""
 "Wow, nice! And I'm sure you can make it even better! Use this icon to open "
 "<b>Odoo Studio</b> and customize any screen."
 msgstr ""
+"ว้าว เยี่ยมมาก! และฉันมั่นใจว่าคุณสามารถทำให้มันดีขึ้นได้อีก! "
+"ใช้ไอคอนนี้เพื่อเปิด <b>Odoo สตูดิโอ</b> และปรับแต่งหน้าจอใดก็ได้"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4387,6 +4416,7 @@ msgid ""
 "You cannot cancel an approval you didn't set yourself or you don't belong to"
 " an higher level rule's approvers."
 msgstr ""
+"คุณไม่สามารถยกเลิกการอนุมัติที่คุณไม่ได้ตั้งค่าด้วยตนเองหรือคุณไม่ได้อยู่ในกลุ่มผู้ให้การอนุมัติของกฎระดับที่สูงกว่าได้"
 
 #. module: web_studio
 #. odoo-javascript

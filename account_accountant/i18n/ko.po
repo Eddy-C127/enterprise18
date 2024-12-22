@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Martin Trigaux, 2024
-# Wil Odoo, 2024
 # Sarah Park, 2024
 # Daye Jeong, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:13+0000\n"
+"POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Daye Jeong, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -166,28 +166,6 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid ""
-"<span class=\"text-muted\" invisible=\"min_purchase_lock_date_exception_for_me_id or min_purchase_lock_date_exception_for_everyone_id\">\n"
-"                                    <i>to lock bills</i>\n"
-"                                </span>"
-msgstr ""
-"<span class=\"text-muted\" invisible=\"min_purchase_lock_date_exception_for_me_id or min_purchase_lock_date_exception_for_everyone_id\">\n"
-"                                    <i>업체 청구서 잠그기</i>\n"
-"                                </span>"
-
-#. module: account_accountant
-#: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
-msgid ""
-"<span class=\"text-muted\" invisible=\"min_sale_lock_date_exception_for_me_id or min_sale_lock_date_exception_for_everyone_id\">\n"
-"                                    <i>to lock invoices</i>\n"
-"                                </span>"
-msgstr ""
-"<span class=\"text-muted\" invisible=\"min_sale_lock_date_exception_for_me_id or min_sale_lock_date_exception_for_everyone_id\">\n"
-"                                    <i>청구서 잠그기</i>\n"
-"                                </span>"
-
-#. module: account_accountant
-#: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
-msgid ""
 "<span class=\"text-muted\" invisible=\"min_tax_lock_date_exception_for_me_id or min_tax_lock_date_exception_for_everyone_id\">\n"
 "                                    <i>after a tax closing</i>\n"
 "                                </span>"
@@ -274,11 +252,6 @@ msgstr "이연 비용에 사용되는 계정"
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_revenue_account_id
 msgid "Account used for deferred revenues"
 msgstr "이연 수익에 사용하는 계정"
-
-#. module: account_accountant
-#: model_terms:ir.ui.view,arch_db:account_accountant.res_partner_view_form
-msgid "Accounting"
-msgstr "회계"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__account_ids
@@ -415,16 +388,7 @@ msgid "Anglo-Saxon Accounting"
 msgstr "앵글로 색슨 회계"
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
-msgid ""
-"Any entry implying with taxes up to and including that date will be "
-"postponed to a later time, in accordance with its journal's sequence. The "
-"tax lock date is automatically set when the tax closing entry is posted."
-msgstr ""
-"해당 날짜까지의 세금이 포함된 모든 항목은 분개 일정에 따라 나중에 처리됩니다. 세금 잠금 날짜는 세금 마감 항목이 게시될 때 자동으로 "
-"설정됩니다."
-
-#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__current_hard_lock_date
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
 msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
@@ -438,6 +402,15 @@ msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
 "in accordance with its journal's sequence."
 msgstr "해당 날짜까지의 모든 항목은 분개 순서에 따라 나중에 연기됩니다. "
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
+msgid ""
+"Any entry with taxes up to and including that date will be postponed to a "
+"later time, in accordance with its journal's sequence. The tax lock date is "
+"automatically set when the tax closing entry is posted."
+msgstr ""
+"해당 날짜까지의 세금 항목은 분개장 순서에 따라 나중에 처리됩니다. 세금 잠금 날짜는 세금 마감 항목이 게시될 때 자동으로 설정됩니다."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
@@ -632,7 +605,7 @@ msgstr "환경 설정"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Confirm the transaction."
-msgstr ""
+msgstr "거래를 승인합니다."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -671,7 +644,7 @@ msgstr "새로운 계정 그룹 만들기"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Create a new transaction."
-msgstr ""
+msgstr "새 거래를 생성합니다."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -719,6 +692,7 @@ msgstr "마지막 확인한 예약 작업"
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
+#: model:ir.model,name:account_accountant.model_res_currency
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__currency_id
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Currency"
@@ -1433,15 +1407,6 @@ msgid "Let’s go back to the dashboard."
 msgstr "현황판으로 돌아갑니다."
 
 #. module: account_accountant
-msgid "Like the \"Everyone Lock\", but no exceptions are possible."
-msgstr "\"모든 사용자 잠금\"과 유사하지만 예외는 허용되지 않습니다."
-
-#. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__current_hard_lock_date
-msgid "Like the \"Global Lock Date\", but no exceptions are possible."
-msgstr "“글로벌 잠금 날짜\"와 비슷하지만 예외는 허용되지 않습니다."
-
-#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__line_ids
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__line_ids
 msgid "Line"
@@ -1458,23 +1423,19 @@ msgid "Lock Dates"
 msgstr "잠금일"
 
 #. module: account_accountant
-msgid "Lock Everyone"
-msgstr "모두 잠금"
-
-#. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_everyone
-msgid "Lock Everyone For Everyone"
-msgstr "전체 대상 모든 사용자 잠금"
-
-#. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_me
-msgid "Lock Everyone For Me"
-msgstr "본인 대상 모든 사용자 잠금"
-
-#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everything"
 msgstr "모두 잠그기"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_everyone
+msgid "Lock Everything For Everyone"
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_me
+msgid "Lock Everything For Me"
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date
@@ -1942,36 +1903,6 @@ msgid ""
 msgstr "청구서와 결제 내역이 일치하면 전표를 생성하도록 사전 설정"
 
 #. module: account_accountant
-msgid ""
-"Prevents Journal Entry creation or modification up to the defined date "
-"inclusive for all users. As a closed period, all accounting operations are "
-"prohibited."
-msgstr ""
-"해당일을 포함하여 선택한 날짜 전에는 어떤 사용자도 전표를 생성하거나 수정할 수 없습니다. 잠금 기간 동안에는 회계 작업 전체가 "
-"금지됩니다."
-
-#. module: account_accountant
-msgid ""
-"Prevents Tax Returns modification up to the defined date inclusive (Journal "
-"Entries involving taxes). The Tax Return Lock Date is automatically set when"
-" the corresponding Journal Entry is posted."
-msgstr ""
-"해당일을 포함하여 선택한 날짜까지 세무 신고 내역 (세무 관련 전표)을 수정할 수 없습니다. 세무 신고 잠금일은 관련 전표가 발행되면 "
-"자동 설정됩니다."
-
-#. module: account_accountant
-msgid ""
-"Prevents creation and modification of entries in purchase journals up to the"
-" defined date inclusive"
-msgstr "당일을 포함하여 지정된 날짜까지 매입 전표에 항목을 만들고 수정하는 것을 제한합니다."
-
-#. module: account_accountant
-msgid ""
-"Prevents creation and modification of entries in sales journals up to the "
-"defined date inclusive"
-msgstr "당일을 포함하여 지정된 날짜까지 판매 전표에 항목을 만들고 수정하는 것을 제한합니다."
-
-#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__rating_ids
 msgid "Ratings"
 msgstr "평가"
@@ -2149,7 +2080,7 @@ msgstr "선택된 Reco 모델"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Set an amount."
-msgstr ""
+msgstr "금액을 설정합니다."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2161,7 +2092,7 @@ msgstr "확인 완료로 표시"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Set the payment reference."
-msgstr ""
+msgstr "결제 참조를 설정합니다."
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__show_draft_entries_warning
@@ -2173,6 +2104,11 @@ msgstr "초안 항목 주의 표시"
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__show_signature_area
 msgid "Show Signature Area"
 msgstr "서명 영역 보기"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__module_sign
+msgid "Sign"
+msgstr "서명"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__signature

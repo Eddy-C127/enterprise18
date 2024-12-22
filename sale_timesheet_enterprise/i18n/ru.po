@@ -1,33 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* sale_timesheet_enterprise
-#
+# 
 # Translators:
+# Ilya Rozhkov, 2024
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:57+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-
-#. module: sale_timesheet_enterprise
-#. odoo-javascript
-#: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
-msgid " days"
-msgstr " дней"
-
-#. module: sale_timesheet_enterprise
-#. odoo-javascript
-#: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
-msgid " hours"
-msgstr " часов"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -38,14 +29,44 @@ msgstr "%(billableTime)s / %(billable_time_target)s (%(billingRate)s%)"
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
+msgid "%(currentBillableTimeText)s / %(currentTargetTotalTimeText)s "
+msgstr ""
+
+#. module: sale_timesheet_enterprise
+#. odoo-javascript
+#: code:addons/sale_timesheet_enterprise/static/src/views/pivot/timesheet_analysis_pivot_model.js:0
+msgid "%(employee_name)s (%(target)sh / month)"
+msgstr ""
+
+#. module: sale_timesheet_enterprise
+#. odoo-javascript
+#: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
 msgid "%(percentage)s%"
 msgstr "%(percentage)s%"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
-msgid "%(totalTime)s "
-msgstr "%(totalTime)s"
+msgid "%(totalTime)s d"
+msgstr ""
+
+#. module: sale_timesheet_enterprise
+#. odoo-javascript
+#: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
+msgid "%(totalTime)s days"
+msgstr ""
+
+#. module: sale_timesheet_enterprise
+#. odoo-javascript
+#: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
+msgid "%(totalTime)s h"
+msgstr ""
+
+#. module: sale_timesheet_enterprise
+#. odoo-javascript
+#: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
+msgid "%(totalTime)s hours"
+msgstr ""
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -54,9 +75,20 @@ msgid "(%(percentage)s%)"
 msgstr "(%(percentage)s%)"
 
 #. module: sale_timesheet_enterprise
-#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
-msgid "<span>%</span>"
-msgstr "<span>%</span>"
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.view_employee_form
+msgid ""
+"<span class=\"m-14 w-100\" "
+"groups=\"hr_timesheet.group_hr_timesheet_approver\">per month</span>"
+msgstr ""
+
+#. module: sale_timesheet_enterprise
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.sale_timesheet_enterprise_advance_payment_inv_timesheet_view_form
+msgid ""
+"<span>\n"
+"                            Some employees currently have active timers for the timesheets you are trying to invoice.\n"
+"                            Creating the invoice will automatically stop these timers.\n"
+"                        </span>"
+msgstr ""
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields.selection,name:sale_timesheet_enterprise.selection__res_config_settings__invoiced_timesheet__all
@@ -65,8 +97,8 @@ msgstr "Все зарегистрированные табели учета ра
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_account_analytic_line
-msgid "Analytic Account"
-msgstr "Аналитический Счёт"
+msgid "Analytic Line"
+msgstr "Аналитическая линия"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -75,22 +107,16 @@ msgid "Avatar"
 msgstr "Аватар"
 
 #. module: sale_timesheet_enterprise
+#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__timesheet_show_rates
+msgid "Billing Rate Indicators"
+msgstr ""
+
+#. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog.js:0
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__group_use_timesheet_leaderboard
+#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__timesheet_show_leaderboard
 msgid "Billing Rate Leaderboard"
 msgstr "Таблица лидеров по скорости выставления счетов"
-
-#. module: sale_timesheet_enterprise
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_company__billing_rate_target
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__group_timesheet_leaderboard_show_rates
-msgid "Billing Rate Target"
-msgstr "Целевой показатель тарификации"
-
-#. module: sale_timesheet_enterprise
-#: model:res.groups,name:sale_timesheet_enterprise.group_timesheet_leaderboard_show_rates
-msgid "Billing Rate/Total Time indicators"
-msgstr "Показатели тарификации/общего времени"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_hr_employee__billable_time_target
@@ -98,20 +124,19 @@ msgid "Billing Time Target"
 msgstr "Цель по времени выставления счетов"
 
 #. module: sale_timesheet_enterprise
-#: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__billing_rate_target
-msgid "Billing rate target for the employees"
-msgstr "Целевые показатели тарификации для сотрудников"
-
-#. module: sale_timesheet_enterprise
 #. odoo-javascript
-#: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
-msgid "Billing: %(currentBillableTimeText)s / %(currentTargetTotalTimeText)s "
-msgstr "Биллинг: %(currentBillableTimeText)s / %(currentTargetTotalTimeText)s"
+#: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.xml:0
+msgid "Billing:"
+msgstr "Выставление счета:"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
-msgid "Boost productivity and competitiveness by displaying a leaderboard based on the billing rates."
-msgstr "Повысьте производительность и конкурентоспособность, отображая таблицу лидеров на основе тарифов."
+msgid ""
+"Boost productivity and competitiveness by displaying a leaderboard based on "
+"the billing rates."
+msgstr ""
+"Повысьте производительность и конкурентоспособность, отображая таблицу "
+"лидеров на основе тарифов."
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -152,8 +177,11 @@ msgstr "День"
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_overtime_indication/timesheet_overtime_indication.js:0
-msgid "Difference between the number of %s ordered on the sales order item and the number of %s delivered"
-msgstr "Разница между количеством %s, заказанным по позиции заказа на продажу, и количеством %s, поставленным"
+msgid ""
+"Difference between the allocated %(uom)s (%(allocated_hours)s) on the sales "
+"order line and the %(uom)s spent (%(worked_hours)s) on all related projects "
+"and tasks"
+msgstr ""
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_hr_timesheet_tip__display_name
@@ -166,30 +194,18 @@ msgid "Display progress of current task."
 msgstr "Отображение хода текущей задачи."
 
 #. module: sale_timesheet_enterprise
-#: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__group_timesheet_leaderboard_show_rates
-msgid "Display the Billing Rate on My Timesheets view"
-msgstr "Отображение тарификации в представлении \"Мои временные таблицы"
-
-#. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_hr_employee
 msgid "Employee"
 msgstr "Сотрудник"
 
 #. module: sale_timesheet_enterprise
 #: model:hr.timesheet.tip,name:sale_timesheet_enterprise.timesheet_tip_5
-msgid "Even small tasks like answering an email should be recorded and rounded up to a quarter of an hour."
-msgstr "Даже такие мелкие задачи, как ответ на электронное письмо, следует записывать и округлять до четверти часа."
-
-#. module: sale_timesheet_enterprise
-#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_form
-#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
-msgid "Hours Spent"
-msgstr "Часы, потраченные"
-
-#. module: sale_timesheet_enterprise
-#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
-msgid "Hours Spent on Sub-tasks"
+msgid ""
+"Even small tasks like answering an email should be recorded and rounded up "
+"to a quarter of an hour."
 msgstr ""
+"Даже такие мелкие задачи, как ответ на электронное письмо, следует "
+"записывать и округлять до четверти часа."
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_hr_timesheet_tip__id
@@ -198,8 +214,12 @@ msgstr "ID"
 
 #. module: sale_timesheet_enterprise
 #: model:hr.timesheet.tip,name:sale_timesheet_enterprise.timesheet_tip_2
-msgid "If you help a colleague on a project, your time should be recorded on this project's timesheet as well."
-msgstr "Если вы помогаете коллеге по проекту, ваше время должно быть учтено и в табеле учета рабочего времени этого проекта."
+msgid ""
+"If you help a colleague on a project, your time should be recorded on this "
+"project's timesheet as well."
+msgstr ""
+"Если вы помогаете коллеге по проекту, ваше время должно быть учтено и в "
+"табеле учета рабочего времени этого проекта."
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
@@ -213,13 +233,17 @@ msgstr "Политика выставления счетов"
 
 #. module: sale_timesheet_enterprise
 #: model:hr.timesheet.tip,name:sale_timesheet_enterprise.timesheet_tip_3
-msgid "It's part of the job to search for information. A customer can't expect you to know everything on the spot. These hours should also be billable."
-msgstr "Поиск информации - это часть работы. Клиент не может ожидать, что вы будете знать все на месте. Эти часы также должны быть оплачиваемыми."
+msgid ""
+"It's part of the job to search for information. A customer can't expect you "
+"to know everything on the spot. These hours should also be billable."
+msgstr ""
+"Поиск информации - это часть работы. Клиент не может ожидать, что вы будете "
+"знать все на месте. Эти часы также должны быть оплачиваемыми."
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_account_move_line
 msgid "Journal Item"
-msgstr "Наименование в журнале"
+msgstr "Элемент журнала"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_hr_timesheet_tip__write_uid
@@ -230,11 +254,6 @@ msgstr "Последнее обновление"
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_hr_timesheet_tip__write_date
 msgid "Last Updated on"
 msgstr "Последнее обновление"
-
-#. module: sale_timesheet_enterprise
-#: model:res.groups,name:sale_timesheet_enterprise.group_use_timesheet_leaderboard
-msgid "Leaderboard"
-msgstr "Таблица лидеров"
 
 #. module: sale_timesheet_enterprise
 #. odoo-python
@@ -251,37 +270,14 @@ msgstr "Месяц"
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.actions.act_window,help:sale_timesheet_enterprise.hr_timesheet_tip_action
 msgid "Motivate employees to fill timesheets with these tips."
-msgstr "Мотивируйте сотрудников заполнять табели учета рабочего времени с помощью этих советов."
+msgstr ""
+"Мотивируйте сотрудников заполнять табели учета рабочего времени с помощью "
+"этих советов."
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.actions.act_window,help:sale_timesheet_enterprise.hr_timesheet_tip_action
 msgid "No tips found. Let's create one!"
 msgstr "Советы не найдены. Давайте создадим один!"
-
-#. module: sale_timesheet_enterprise
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_project_task__portal_effective_hours
-msgid "Portal Effective Hours"
-msgstr "Портал Эффективные часы"
-
-#. module: sale_timesheet_enterprise
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_project_task__portal_progress
-msgid "Portal Progress"
-msgstr "Прогресс портала"
-
-#. module: sale_timesheet_enterprise
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_project_task__portal_remaining_hours
-msgid "Portal Remaining Hours"
-msgstr "Портал Оставшиеся часы"
-
-#. module: sale_timesheet_enterprise
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_project_task__portal_subtask_effective_hours
-msgid "Portal Subtask Effective Hours"
-msgstr "Портал Подзадача Эффективные часы"
-
-#. module: sale_timesheet_enterprise
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_project_task__portal_total_hours_spent
-msgid "Portal Total Hours Spent"
-msgstr "Портал Общее количество затраченных часов"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_form
@@ -307,10 +303,9 @@ msgid "Record timesheets to earn your rank!"
 msgstr "Ведите учет рабочего времени, чтобы получить свой ранг!"
 
 #. module: sale_timesheet_enterprise
-#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_form
-#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
-msgid "Remaining Hours"
-msgstr "Оставшееся время"
+#: model:ir.model,name:sale_timesheet_enterprise.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Счет-фактура на авансовый платеж"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_sale_order_line
@@ -319,13 +314,15 @@ msgstr "Позиция заказа на продажу"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
-msgid "Set a target billing rate for your employees. If their current rate falls below the target, it will be highlighted in red."
-msgstr "Установите целевой уровень тарификации для своих сотрудников. Если их текущая ставка ниже целевой, она будет выделена красным цветом."
+msgid ""
+"Set a billable time target for your employees. If their current rate falls "
+"below their target, it will be highlighted in red."
+msgstr ""
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
-msgid "Set employee billing time targets"
-msgstr "Установите целевые показатели рабочего времени сотрудников"
+msgid "Set employee billable time targets"
+msgstr ""
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -340,14 +337,14 @@ msgid "Show more"
 msgstr "Показать больше"
 
 #. module: sale_timesheet_enterprise
-#: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__group_use_timesheet_leaderboard
-msgid "Show the leaderboard on My Timesheets view"
-msgstr "Показывайте таблицу лидеров в представлении \"Мои временные таблицы\""
+#: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__timesheet_show_rates
+msgid "Show the billing indicators on My Timesheets view"
+msgstr ""
 
 #. module: sale_timesheet_enterprise
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__billing_rate_target
-msgid "Target"
-msgstr "Цель"
+#: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__timesheet_show_leaderboard
+msgid "Show the leaderboard on My Timesheets view"
+msgstr "Показывайте таблицу лидеров в представлении \"Мои временные таблицы\""
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_project_task
@@ -360,14 +357,9 @@ msgid "The billable time target cannot be negative."
 msgstr "Целевой показатель оплачиваемого времени не может быть отрицательным."
 
 #. module: sale_timesheet_enterprise
-#: model:ir.model.constraint,message:sale_timesheet_enterprise.constraint_res_company_check_billing_rate
-msgid "The billing rate target percentage must be between 0 and 100."
-msgstr "Целевой процент тарификации должен находиться в диапазоне от 0 до 100."
-
-#. module: sale_timesheet_enterprise
 #. odoo-python
 #: code:addons/sale_timesheet_enterprise/models/project_task.py:0
-msgid "This Sales Order Item doesn't have a target value of planned hours. Planned hours:"
+msgid "This Sale Order Item doesn't have a target value of planned hours."
 msgstr ""
 
 #. module: sale_timesheet_enterprise
@@ -377,9 +369,29 @@ msgid "This month"
 msgstr "Этот месяц"
 
 #. module: sale_timesheet_enterprise
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_form
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
+msgid "Time Remaining"
+msgstr ""
+
+#. module: sale_timesheet_enterprise
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_form
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.timesheet_view_grid_by_invoice_type
+msgid "Time Spent"
+msgstr "Времени потрачено"
+
+#. module: sale_timesheet_enterprise
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
+msgid "Time Spent on Sub-tasks"
+msgstr ""
+
+#. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_project_task__portal_subtask_effective_hours
 msgid "Time spent on the sub-tasks (and their own sub-tasks) of this task."
-msgstr "Время, затраченное на выполнение подзадач (и их собственных подзадач) этой задачи."
+msgstr ""
+"Время, затраченное на выполнение подзадач (и их собственных подзадач) этой "
+"задачи."
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_project_task__portal_effective_hours
@@ -392,6 +404,11 @@ msgid "Time spent on this task, including its sub-tasks."
 msgstr "Время, затраченное на выполнение этой задачи, включая ее подзадачи."
 
 #. module: sale_timesheet_enterprise
+#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_hr_employee__show_billable_time_target
+msgid "Timesheet Show Rates"
+msgstr ""
+
+#. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.timesheet_view_grid_by_invoice_type
 msgid "Timesheets"
 msgstr "Расписания"
@@ -399,7 +416,7 @@ msgstr "Расписания"
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__invoiced_timesheet
 msgid "Timesheets Invoicing"
-msgstr "Табели учета рабочего времени Выставление счетов"
+msgstr "Выставление счетов по табелям"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_hr_timesheet_tip
@@ -408,8 +425,12 @@ msgstr "Совет по созданию таблицы временных та�
 
 #. module: sale_timesheet_enterprise
 #: model:hr.timesheet.tip,name:sale_timesheet_enterprise.timesheet_tip_1
-msgid "Timesheets are the lifeblood of our company; they have a direct impact on revenues."
-msgstr "Табели учета рабочего времени - это жизненная сила нашей компании; они напрямую влияют на доходы."
+msgid ""
+"Timesheets are the lifeblood of our company; they have a direct impact on "
+"revenues."
+msgstr ""
+"Табели учета рабочего времени - это жизненная сила нашей компании; они "
+"напрямую влияют на доходы."
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
@@ -436,20 +457,24 @@ msgid "Tips"
 msgstr "Советы"
 
 #. module: sale_timesheet_enterprise
-#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
-msgid "Total Hours"
-msgstr "Общее Кол-во Часов"
-
-#. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog.js:0
 msgid "Total Time Leaderboard"
 msgstr "Таблица лидеров по общему времени"
 
 #. module: sale_timesheet_enterprise
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
+msgid "Total Time Spent"
+msgstr ""
+
+#. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_project_task__portal_remaining_hours
-msgid "Total remaining time, can be re-estimated periodically by the assignee of the task."
-msgstr "Общее оставшееся время может периодически пересматриваться назначенным участником задачи."
+msgid ""
+"Total remaining time, can be re-estimated periodically by the assignee of "
+"the task."
+msgstr ""
+"Общее оставшееся время может периодически пересматриваться назначенным "
+"участником задачи."
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -485,7 +510,8 @@ msgstr ""
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.hr_timesheet_tip_view_tree
 msgid "e.g. Make it a habit to record timesheets every day."
-msgstr "например, возьмите за правило каждый день вести учет рабочего времени."
+msgstr ""
+"например, возьмите за правило каждый день вести учет рабочего времени."
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript

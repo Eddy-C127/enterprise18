@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:13+0000\n"
+"POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -374,8 +374,6 @@ msgid "Accounts"
 msgstr "勘定"
 
 #. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Accounts Coverage Report"
 msgstr "勘定カバレッジレポート"
@@ -476,12 +474,12 @@ msgstr "長期滞留債権・債務取引先残高カスタムハンドラー"
 #: model:ir.actions.client,name:account_reports.action_account_report_ap
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_aged_payable
 msgid "Aged Payable"
-msgstr "長期滞留債務"
+msgstr "買掛金年齢表"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_aged_payable_report_handler
 msgid "Aged Payable Custom Handler"
-msgstr "長期滞留債務カスタムハンドラー"
+msgstr "買掛金年齢表カスタムハンドラー"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
@@ -494,12 +492,12 @@ msgstr "長期滞留債務"
 #: model:ir.actions.client,name:account_reports.action_account_report_ar
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_aged_receivable
 msgid "Aged Receivable"
-msgstr "長期滞留債権"
+msgstr "売掛金年齢表"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_aged_receivable_report_handler
 msgid "Aged Receivable Custom Handler"
-msgstr "長期滞留債権カスタムハンドラー"
+msgstr "売掛金年齢表カスタムハンドラー"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
@@ -2184,7 +2182,6 @@ msgstr "無効なトークン '%(token)s' in account_codes 計算式 '%(formula)
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filter_aging.xml:0
 #: model:account.report.column,name:account_reports.aged_payable_report_invoice_date
 #: model:account.report.column,name:account_reports.aged_receivable_report_invoice_date
-#: model:account.report.column,name:account_reports.journal_report_date
 #: model:account.report.column,name:account_reports.partner_ledger_report_invoicing_date
 msgid "Invoice Date"
 msgstr "請求日"
@@ -2747,7 +2744,7 @@ msgstr "オプション："
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding
 msgid "Outstanding Receipts/Payments"
-msgstr "未収入金/未払金"
+msgstr "未消込入金/支払"
 
 #. module: account_reports
 #. odoo-python
@@ -3272,6 +3269,12 @@ msgstr "会計レポートを自動送信"
 
 #. module: account_reports
 #. odoo-python
+#: code:addons/account_reports/models/account_move.py:0
+msgid "Send tax report: %s"
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "Sending statements"
 msgstr "明細書送信中"
@@ -3482,6 +3485,11 @@ msgid "Tax Report"
 msgstr "税レポート"
 
 #. module: account_reports
+#: model:mail.activity.type,name:account_reports.mail_activity_type_tax_report_to_be_sent
+msgid "Tax Report Ready"
+msgstr "税レポートが準備できました"
+
+#. module: account_reports
 #: model:ir.actions.client,name:account_reports.action_account_report_gt
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_gt
 msgid "Tax Return"
@@ -3525,6 +3533,11 @@ msgstr "納税の準備ができました"
 #: model:ir.model.fields.selection,name:account_reports.selection__mail_activity_type__category__tax_report
 msgid "Tax report"
 msgstr "税レポート"
+
+#. module: account_reports
+#: model:mail.activity.type,summary:account_reports.mail_activity_type_tax_report_to_be_sent
+msgid "Tax report is ready to be sent to the administration"
+msgstr "税レポートを行政に送付する準備が整いました。"
 
 #. module: account_reports
 #. odoo-python
@@ -3972,7 +3985,7 @@ msgstr "%(date_from)s から %(date_to)sへのVatクロージング"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_tree
 msgid "View"
-msgstr "ビュー"
+msgstr "表示"
 
 #. module: account_reports
 #. odoo-python
@@ -3990,7 +4003,7 @@ msgstr "繰越明細を表示"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "View Journal Entry"
-msgstr "仕訳を閲覧"
+msgstr "仕訳を表示"
 
 #. module: account_reports
 #. odoo-python
@@ -4010,7 +4023,7 @@ msgstr "取引先を表示"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "View Payment"
-msgstr "支払照会"
+msgstr "支払を表示"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__warnings
@@ -4132,7 +4145,7 @@ msgid ""
 "values impacting the tax report of a locked period. To do this, you first "
 "need to modify you tax return lock date."
 msgstr ""
-"ロックされた期間の税レポートに影響する繰越値を削除することになるため、この決算仕訳をドラフトに再設定することはできません。これを行うには、まず税務申告のロック日を変更する必要があります。"
+"ロックされた期間の税レポートに影響する繰越値を削除することになるため、この決算仕訳をドラフトにリセットすることはできません。これを行うには、まず税務申告のロック日を変更する必要があります。"
 
 #. module: account_reports
 #. odoo-python

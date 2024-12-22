@@ -12,16 +12,16 @@
 # JanaAvalah, 2024
 # Katrin Kampura, 2024
 # Mihkel avalah, 2024
-# Leaanika Randmets, 2024
 # Stevin Lilla, 2024
+# Leaanika Randmets, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:15+0000\n"
+"POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Stevin Lilla, 2024\n"
+"Last-Translator: Leaanika Randmets, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,6 +94,7 @@ msgstr "Dokument"
 
 #. module: documents_project
 #. odoo-python
+#: code:addons/documents_project/controllers/portal.py:0
 #: code:addons/documents_project/models/project_project.py:0
 #: model:ir.actions.act_window,name:documents_project.action_view_documents_project_project
 #: model:ir.actions.act_window,name:documents_project.action_view_documents_project_task
@@ -141,6 +142,14 @@ msgstr ""
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Impossible to create a task on a deprecated document"
 msgstr "Pole võimalik luua ülesandeid lõpetatud dokumendilt"
+
+#. module: documents_project
+#. odoo-python
+#: code:addons/documents_project/models/documents_document.py:0
+msgid ""
+"Impossible to update write `res_id` without `access_internal` for records "
+"with different `res_models` when some are linked to projects or tasks."
+msgstr ""
 
 #. module: documents_project
 #. odoo-python
@@ -234,9 +243,9 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid ""
-"The \"%s\" folder is required by the Project application and cannot be "
+"The \"%s\" workspace is required by the Project application and cannot be "
 "deleted."
-msgstr "Projektide rakendus nõuab kausta \"%s\" ja seda ei saa kustutada."
+msgstr "Projektide rakendus nõuab tööala \"%s\" ja seda ei saa kustutada."
 
 #. module: documents_project
 #. odoo-python

@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:16+0000\n"
+"POT-Creation-Date: 2024-12-19 09:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Stevin Lilla, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
@@ -114,7 +114,7 @@ msgstr "Aktiivne"
 #: code:addons/spreadsheet_edition/static/src/bundle/comments/components/cell_thread.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/comments/components/cell_thread_popover.xml:0
 msgid "Add a comment..."
-msgstr ""
+msgstr "Lisa kommentaar..."
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -144,7 +144,7 @@ msgstr "Kõik lehed"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.js:0
 msgid "Are you sure you want to delete this list?"
-msgstr ""
+msgstr "Kas olete kindel, et soovite selle nimekirja kustutada?"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -157,6 +157,16 @@ msgstr "Ala"
 #: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/edit_list_sorting_section/edit_list_sorting_section.xml:0
 msgid "Ascending"
 msgstr "Kasvav"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/relation_filter_editor_side_panel.js:0
+msgid ""
+"At least one data source has an invalid model. Please delete it before "
+"editing this global filter."
+msgstr ""
+"Vähemalt ühel andmeallikal on sobimatu mudel. Palun kustutage see enne "
+"globaalse filtri muutmist."
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_attachment_count
@@ -173,7 +183,7 @@ msgstr "Praeguse perioodi automaatne filtreerimine"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/relation_filter_editor_side_panel.xml:0
 msgid "Automatically filter on the current user"
-msgstr ""
+msgstr "Automaatselt filtreeri praeguse kasutaja järgi"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -221,7 +231,7 @@ msgstr "Tühista"
 msgid ""
 "Changing the pivot definition requires to reload the data. It may take some "
 "time."
-msgstr ""
+msgstr "Pivot muutmine vajab andmete uuesti laadimist. See võib võtta aega."
 
 #. module: spreadsheet_edition
 #: model:ir.model,name:spreadsheet_edition.model_spreadsheet_revision
@@ -270,12 +280,6 @@ msgstr "Loonud"
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__create_date
 msgid "Created on"
 msgstr "Loodud"
-
-#. module: spreadsheet_edition
-#. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_line/odoo_line_config_panel.js:0
-msgid "Cumulative data"
-msgstr "Kumulatiivsed andmed"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -342,6 +346,12 @@ msgstr "Haridustase"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
+msgid "Delete Pivot"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/edit_list_sorting_section/edit_list_sorting_section.xml:0
 msgid "Descending"
 msgstr "Kahanev"
@@ -377,7 +387,7 @@ msgstr "Laadi alla"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
 msgid "Download as JSON"
-msgstr ""
+msgstr "Lae alla JSON"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -416,7 +426,7 @@ msgstr "Välja sobitamine"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/comments/side_panel/comment_threads_side_panel.xml:0
 msgid "Filter comments"
-msgstr ""
+msgstr "Filtreeri kommentaare"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -428,7 +438,7 @@ msgstr "Filtri omadused"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/text_filter_editor_side_panel.xml:0
 msgid "Filter value"
-msgstr ""
+msgstr "Filtreeri väärtus"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -451,7 +461,7 @@ msgstr "Jälgijad(Partnerid)"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.js:0
 msgid "From / To"
-msgstr ""
+msgstr "Kust / Kuhu"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__has_message
@@ -462,7 +472,7 @@ msgstr "On sõnum"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/version_history_action.js:0
 msgid "Heads up!"
-msgstr ""
+msgstr "Ettevaatust!"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -494,6 +504,8 @@ msgid ""
 "If you go ahead, your document will go back to the version from %s.\n"
 "Any changes you've made after that time will disappear. Ready to proceed?"
 msgstr ""
+"Teie dokument muutub tagasi versioonile %s.\n"
+"Kõik järgnevad muudatused kaovad. Olete te kindel?"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -505,7 +517,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/comments/index.js:0
 msgid "Insert comment"
-msgstr ""
+msgstr "Sisesta kommentaar"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -518,7 +530,7 @@ msgstr "Sisesta arvutustabelisse"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/list_view/list_controller.js:0
 msgid "Insert in spreadsheet"
-msgstr ""
+msgstr "Sisesta arvutustabelisse"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -623,7 +635,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.js:0
 msgid "List duplication failed"
-msgstr ""
+msgstr "Listi kopeerimine ebaõnnestus"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -654,7 +666,7 @@ msgstr "Tee koopia"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/restore_version_dialog/restore_version_dialog.xml:0
 msgid "Make a copy instead"
-msgstr ""
+msgstr "Tee hoopis koopia"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -820,7 +832,7 @@ msgstr "Odoo arvutustabel"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/comments/components/cell_thread_popover.xml:0
 msgid "Open all comments"
-msgstr ""
+msgstr "Ava kõik kommentaarid"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -832,7 +844,7 @@ msgstr "Ost"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/version_history_action.js:0
 msgid "Original data"
-msgstr ""
+msgstr "Algandmed"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__parent_revision_id
@@ -1172,6 +1184,7 @@ msgstr "Sorteerimine"
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/spreadsheet_cog_menu/spreadsheet_cog_menu.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/components/spreadsheet_navbar/spreadsheet_navbar.xml:0
 #: model:ir.ui.menu,name:spreadsheet_edition.menu_technical_spreadsheet
 msgid "Spreadsheet"
 msgstr "Arvutustabel"
@@ -1220,13 +1233,6 @@ msgstr "Kihiline joon"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_bar/odoo_bar_config_panel.js:0
-#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_line/odoo_line_config_panel.js:0
-msgid "Stacked linechart"
-msgstr "Virnastatud joondiagramm"
-
-#. module: spreadsheet_edition
-#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/global_filter_side_panel.xml:0
 msgid "Text"
 msgstr "Tekst"
@@ -1237,6 +1243,30 @@ msgstr "Tekst"
 msgid ""
 "The history of your spreadsheet is corrupted and you are likely missing "
 "recent revisions. This feature cannot be used."
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/common/config_panel.js:0
+msgid ""
+"The model (%(model)s) of this chart is not valid (it may have been "
+"renamed/deleted). Please re-insert a new chart."
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.js:0
+msgid ""
+"The model (%(model)s) of this list is not valid (it may have been "
+"renamed/deleted). Please re-insert a new list."
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.js:0
+msgid ""
+"The model (%(model)s) of this pivot is not valid (it may have been "
+"renamed/deleted). Please re-insert a new pivot."
 msgstr ""
 
 #. module: spreadsheet_edition

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"POT-Creation-Date: 2024-12-19 12:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -84,12 +84,6 @@ msgstr "1 通話"
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "100"
 msgstr "100"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "12 days / year, including <br>6 of your choice."
-msgstr "自ら選択した<br>6日間を含む12日間/年"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -185,7 +179,7 @@ msgid ""
 "<div>\n"
 "                    <p t-if=\"ctx.get('old_assignee_name')\">Dear <t t-out=\"ctx['old_assignee_name']\">Anita Oliver</t>,</p>\n"
 "                    <p t-else=\"\">Hello,</p>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p>\n"
 "                        The following shift that you requested to switch has been re-assigned\n"
 "                        <t t-if=\"ctx.get('new_assignee_name')\"> to <t t-out=\"ctx['new_assignee_name']\">Marc Demo</t></t>.\n"
@@ -222,84 +216,36 @@ msgid ""
 "                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
 "                        </tr>\n"
 "                    </table>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                </div>\n"
 "            "
 msgstr ""
-"<div>\n"
-"                    <p t-if=\"ctx.get('old_assignee_name')\"> <t t-out=\"ctx['old_assignee_name']\">Anita Oliver</t>様</p>\n"
-"                    <p t-else=\"\">こんにちは。</p>\n"
-"                    <br>\n"
-"                    <p>\n"
-"                        交代を依頼していた以下のシフトは\n"
-"                        <t t-if=\"ctx.get('new_assignee_name')\"> to <t t-out=\"ctx['new_assignee_name']\">Marc Demo</t></t>に割当られました。\n"
-"                    </p>\n"
-"                    <table style=\"margin-left: 30px;\">\n"
-"                        <tr t-if=\"(ctx.get('start_datetime') and ctx.get('end_datetime'))                                   or ctx.get('allocated_hours')                                   or ctx.get('allocated_percentage')\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">日付</th>\n"
-"                            <td style=\"padding: 5px;\">\n"
-"                                <span t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\" t-out=\"'%s ⟶ %s' % (                                     ctx['start_datetime'],                                     ctx['end_datetime'],                                 )\">\n"
-"                                    05/31/2021, 8:00 AM ⟶ 05/31/2021, 4:00 PM\n"
-"                                </span>\n"
-"                                <span t-if=\"ctx.get('allocated_hours')\" style=\"opacity: 0.5;\">\n"
-"                                    (<t t-out=\"ctx['allocated_hours']\">4:00</t>時間)\n"
-"                                </span>\n"
-"                                <span t-if=\"ctx.get('allocated_percentage') and ctx['allocated_percentage'] != '100'\" style=\"opacity: 0.5;\">\n"
-"                                    (<t t-out=\"ctx['allocated_percentage']\">50</t>%)\n"
-"                                </span>\n"
-"                            </td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"object.role_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">任務</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.role_id.name or ''\">バーテンダー</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'project_id') and object.project_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">プロジェクト</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().project_id.name or ''\">集まり</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'sale_line_id') and object.sale_line_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">販売オーダ項目</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\">コーヒー</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'name') and object.name\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">メモ</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
-"                        </tr>\n"
-"                    </table>\n"
-"                    <br>\n"
-"                </div>\n"
-"            "
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-check-circle text-success\"/>\n"
+"<i class=\"fa fa-check-circle\"/>\n"
 "                        You have successfully requested to switch your shift. You will be notified when another employee takes over your shift."
 msgstr ""
-"<i class=\"fa fa-check-circle text-success\"/>\n"
-"                        シフト変更の申請が完了しました。他の従業員があなたのシフトを引き継ぐ際に通知されます。"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-check-circle text-success\"/> Request to switch shift "
-"cancelled successfully."
-msgstr "<i class=\"fa fa-check-circle text-success\"/>シフト交換の要求が正常に取消されました。 "
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
-msgid ""
-"<i class=\"fa fa-check-circle text-success\"/> This shift is no longer "
-"assigned to you."
-msgstr "<i class=\"fa fa-check-circle text-success\"/> このシフトは、もはやあなたに割り当てられていません。"
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
-msgid ""
-"<i class=\"fa fa-check-circle text-success\"/> You were successfully "
-"assigned this open shift."
+"<i class=\"fa fa-check-circle\"/> Request to switch shift cancelled "
+"successfully."
 msgstr ""
-"<i class=\"fa fa-check-circle text-success\"/> あなたは、このオープンなシフトに無事に割り当てられました。"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
+msgid "<i class=\"fa fa-check-circle\"/> This shift is no longer assigned to you."
+msgstr ""
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
+msgid ""
+"<i class=\"fa fa-check-circle\"/> You were successfully assigned this open "
+"shift."
+msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_kanban
@@ -318,19 +264,16 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/> This shift is already "
-"assigned to another employee."
+"<i class=\"fa fa-exclamation-circle\"/> This shift is already assigned to "
+"another employee."
 msgstr ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/> "
-"このシフトはすでに他の従業員に割り当てられています。"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/> You can no longer "
-"unassign yourself from this shift."
+"<i class=\"fa fa-exclamation-circle\"/> You can no longer unassign yourself "
+"from this shift."
 msgstr ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/> このシフトから自分を外すことはもうできません。"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
@@ -358,10 +301,8 @@ msgstr "<i class=\"fa fa-phone\" title=\"Phone\" role=\"img\" style=\"padding-ri
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_kanban
-msgid "<i class=\"me-1 mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
+msgid "<i class=\"mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
 msgstr ""
-"<i class=\"me-1 mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" "
-"title=\"Date\"/>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -380,12 +321,6 @@ msgid ""
 msgstr ""
 "<i class=\"o_group_caret fa fa-fw me-1 fa-caret-down\"></i> <span "
 "class=\"text-truncate w-0 flex-grow-1 text-start\">ウェイター</span>"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "<small><b>READ</b></small>"
-msgstr "<small><b>既読</b></small>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -591,10 +526,10 @@ msgid ""
 "                        margin: 20px 15px 0px 15px;\n"
 "                    }\n"
 "                </style>\n"
-"                <div>\n"
+"                <body><div>\n"
 "                    <p t-if=\"ctx.get('employee_name')\">Dear <t t-out=\"ctx['employee_name']\">Anita Oliver</t>,</p>\n"
 "                    <p t-else=\"\">Hello,</p>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('open_shift_available')\">We have a new shift opening:</p>\n"
 "                    <p t-else=\"\">You have been assigned the following shift:</p>\n"
 "                    <table style=\"margin-left: 30px;\">\n"
@@ -635,86 +570,12 @@ msgid ""
 "                        <a t-if=\"ctx.get('google_url')\" t-att-href=\"ctx['google_url']\" target=\"_blank\" class=\"planning_mail_template_button\">Add to Google Calendar</a>\n"
 "                        <a t-if=\"ctx.get('iCal_url')\" t-att-href=\"ctx['iCal_url']\" target=\"_blank\" class=\"planning_mail_template_button\">Add to iCal/Outlook</a>\n"
 "                    </div>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('open_shift_available')\">If you are interested and available, please assign yourself this open shift.</p>\n"
 "                    <p t-else=\"\">In case the current shift doesn't suit you, we encourage you to reach out to your colleagues and request to switch shifts. They might be interested in exchanging shifts with you.</p>\n"
 "                </div>\n"
-"            "
+"            </body>"
 msgstr ""
-"<style>\n"
-"                    .planning_mail_template_button {\n"
-"                        padding: 5px 10px;\n"
-"                        text-decoration: none;\n"
-"                        border: 1px;\n"
-"                        border-radius: 3px;\n"
-"                        text-align: center;\n"
-"                        color: #374151;\n"
-"                        background-color: #E7E9ED;\n"
-"                        border: solid #E7E9ED;\n"
-"                        flex: 1 1 40%;\n"
-"                    }\n"
-"                    .top_button {\n"
-"                        color: #FFFFFF;\n"
-"                        background-color: #714B67;\n"
-"                        border: solid #714B67;\n"
-"                        flex: 1 1 60%;\n"
-"                    }\n"
-"                    .button_box {\n"
-"                        display: flex;\n"
-"                        flex-wrap: wrap;\n"
-"                        gap: 10px;\n"
-"                        margin: 20px 15px 0px 15px;\n"
-"                    }\n"
-"                </style>\n"
-"                <div>\n"
-"                    <p t-if=\"ctx.get('employee_name')\"><t t-out=\"ctx['employee_name']\">Anita Oliver</t>様</p>\n"
-"                    <p t-else=\"\">こんにちは。</p>\n"
-"                    <br>\n"
-"                    <p t-if=\"ctx.get('open_shift_available')\">新規空きシフトがあります:</p>\n"
-"                    <p t-else=\"\">以下のシフトを割当られました:</p>\n"
-"                    <table style=\"margin-left: 30px;\">\n"
-"                        <tr t-if=\"(ctx.get('start_datetime') and ctx.get('end_datetime'))                                   or ctx.get('allocated_hours')                                   or ctx.get('allocated_percentage')\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">日付</th>\n"
-"                            <td style=\"padding: 5px;\">\n"
-"                                <span t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\" t-out=\"'%s ⟶ %s' % (                                     ctx['start_datetime'],                                     ctx['end_datetime'],                                 )\">\n"
-"                                    05/31/2021, 8:00 AM ⟶ 05/31/2021, 4:00 PM\n"
-"                                </span>\n"
-"                                <span t-if=\"ctx.get('allocated_hours')\" style=\"opacity: 0.5;\">\n"
-"                                    (<t t-out=\"ctx['allocated_hours']\">4:00</t>h)\n"
-"                                </span>\n"
-"                                <span t-if=\"ctx.get('allocated_percentage') and ctx['allocated_percentage'] != '100'\" style=\"opacity: 0.5;\">\n"
-"                                    (<t t-out=\"ctx['allocated_percentage']\">50</t>%)\n"
-"                                </span>\n"
-"                            </td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"object.role_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">役割</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.role_id.name or ''\">バーテンダー</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'project_id') and object.project_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">プロジェクト</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().project_id.name or ''\">集まり</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'sale_line_id') and object.sale_line_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">販売オーダ項目</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\">コーヒー</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'name') and object.name\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">メモ</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
-"                        </tr>\n"
-"                    </table>\n"
-"                    <div class=\"button_box\">\n"
-"                        <a t-if=\"ctx.get('available_link')\" t-att-href=\"ctx['available_link']\" target=\"_blank\" class=\"planning_mail_template_button top_button\">自分にこのシフトを割当る</a>\n"
-"                        <a t-if=\"ctx.get('unavailable_link')\" t-att-href=\"ctx['unavailable_link']\" target=\"_blank\" class=\"planning_mail_template_button top_button\">空いていません</a>\n"
-"                        <a t-if=\"ctx.get('google_url')\" t-att-href=\"ctx['google_url']\" target=\"_blank\" class=\"planning_mail_template_button\">Googleカレンダに追加</a>\n"
-"                        <a t-if=\"ctx.get('iCal_url')\" t-att-href=\"ctx['iCal_url']\" target=\"_blank\" class=\"planning_mail_template_button\">iCal/Outlookに追加</a>\n"
-"                    </div>\n"
-"                    <br>\n"
-"                    <p t-if=\"ctx.get('open_shift_available')\">もし希望し、空いている場合は、この空きのあるシフトに自分を割当して下さい。</p>\n"
-"                    <p t-else=\"\">現在のシフトが合わない場合は、同僚にシフト変更を依頼することをお勧めします。同僚もシフト交換を希望している場合があります。</p>\n"
-"                </div>\n"
-"            "
 
 #. module: planning
 #: model:mail.template,body_html:planning.email_template_planning_planning
@@ -730,10 +591,10 @@ msgid ""
 "                    text-align: center;\n"
 "                }\n"
 "                </style>\n"
-"                <div>\n"
+"                <body><div>\n"
 "                    <p t-if=\"ctx.get('employee')\">Dear <t t-out=\"ctx['employee'].name or ''\">Anita Oliver</t>,</p>\n"
 "                    <p t-else=\"\">Hello,</p>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\">\n"
 "                        Your upcoming shifts from <t t-out=\"format_date(ctx['start_datetime'])\">05-05-2021</t>\n"
 "                        to <t t-out=\"format_date(ctx['end_datetime'])\">05-11-2021</t> have been published.\n"
@@ -746,7 +607,7 @@ msgid ""
 "                            <a t-att-href=\"ctx['planning_url_ics']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #374151; background-color: #E7E9ED; border: solid #E7E9ED;\">Add to Calendar</a>\n"
 "                        </div>\n"
 "                    </div>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('slot_unassigned') or (object.allow_self_unassign and object.self_unassign_days_before)\">\n"
 "                        <t t-if=\"ctx.get('slot_unassigned')\">\n"
 "                            We would also like to remind you that there are some open shifts available, and if you are interested and available, please assign yourself to those shifts.\n"
@@ -755,57 +616,11 @@ msgid ""
 "                            If you are unable to work a shift that has been assigned to you, please unassign yourself within <t t-out=\"object.self_unassign_days_before or ''\">5</t> day(s) before the start of the shift.\n"
 "                        </t>\n"
 "                    </p>\n"
-"                    <p t-if=\"ctx.get('message')\" t-out=\"ctx['message']\"></p>\n"
+"                    <p t-if=\"ctx.get('message')\" t-out=\"ctx['message']\"/>\n"
 "                    <p t-if=\"object.allow_self_unassign\">In case your current schedule doesn't suit you, we encourage you to reach out to your colleagues and request to switch shifts. They might be interested in exchanging shifts with you.</p>\n"
 "                </div>\n"
-"            "
+"            </body>"
 msgstr ""
-"<style>\n"
-"                .planning_mail_template_button {\n"
-"                    padding: 5px 10px;\n"
-"                    text-decoration: none;\n"
-"                    border: 1px;\n"
-"                    border-radius: 3px;\n"
-"                    display: inline-block; \n"
-"                    width: 190px;\n"
-"                    text-align: center;\n"
-"                }\n"
-"                </style>\n"
-"                <div>\n"
-"                    <p t-if=\"ctx.get('employee')\"> <t t-out=\"ctx['employee'].name or ''\">Anita Oliver</t>様、</p>\n"
-"                    <p t-else=\"\">こんにちは。</p>\n"
-"                    <br>\n"
-"                    <p t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\">\n"
-"                        新規シフト <t t-out=\"format_date(ctx['start_datetime'])\">05-05-2021</t>\n"
-"                        から <t t-out=\"format_date(ctx['end_datetime'])\">05-11-2021</t> が公開されました。\n"
-"                    </p>\n"
-"                    <div style=\"display: flex; margin: 15px;\">\n"
-"                        <div t-if=\"ctx.get('planning_url')\" style=\"margin-right: 15px;\">\n"
-"                            <a t-att-href=\"ctx['planning_url']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #FFFFFF; background-color: #875A7B; border: solid #875A7B;\">計画を見る</a>\n"
-"                        </div>\n"
-"                        <div t-if=\"ctx.get('planning_url_ics')\">\n"
-"                            <a t-att-href=\"ctx['planning_url_ics']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #374151; background-color: #E7E9ED; border: solid #E7E9ED;\">カレンダに追加する</a>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    <br>\n"
-"                    <p t-if=\"ctx.get('slot_unassigned') or (object.allow_self_unassign and object.self_unassign_days_before)\">\n"
-"                        <t t-if=\"ctx.get('slot_unassigned')\">\n"
-"                            空いているシフトがあり、あなたが勤務可能であれば、ご自分で割当て下さい。\n"
-"                        </t>\n"
-"                        <t t-if=\"object.allow_self_unassign and object.self_unassign_days_before\">\n"
-"                            もし勤務できない場合 <t t-out=\"object.self_unassign_days_before or ''\">5</t> 日前までに自分で割当を解除することができます。\n"
-"                        </t>\n"
-"                    </p>\n"
-"                    <p t-if=\"ctx.get('message')\" t-out=\"ctx['message']\"></p>\n"
-"                    <p t-if=\"object.allow_self_unassign\">現在のシフトが合わない場合は、同僚にシフト変更を依頼することをお勧めします。同僚もシフト交換を希望している場合があります。</p>\n"
-"                </div>\n"
-"            "
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "A full-time position <br>Attractive salary package."
-msgstr "フルタイム雇用 <br>高待遇"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_until_limit
@@ -820,12 +635,6 @@ msgid "A shift must be in the same company as its recurrence."
 msgstr "シフトは繰返しと同じ会社でなければなりません。"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Achieve monthly sales objectives"
-msgstr "月次ノルマ達成"
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_role__active
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__active
 msgid "Active"
@@ -836,12 +645,6 @@ msgstr "有効化"
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.js:0
 msgid "Add Shift"
 msgstr "シフトを追加"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Additional languages"
-msgstr "他に話せる言語"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_send__note
@@ -857,12 +660,6 @@ msgstr "従業員に送信される電子メールに含まれる追加のメッ
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 msgid "Additional note sent to the employee"
 msgstr "従業員に送付される追加メモ "
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Administrative Work"
-msgstr "管理的業務"
 
 #. module: planning
 #: model:res.groups,name:planning.group_planning_manager
@@ -975,28 +772,6 @@ msgid "Arrow icon"
 msgstr "矢印アイコン"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid ""
-"As an employee of our company, you will <b>collaborate with each department\n"
-"                        to create and deploy disruptive products.</b> Come work at a growing company\n"
-"                        that offers great benefits with opportunities to moving forward and learn\n"
-"                        alongside accomplished leaders. We're seeking an experienced and outstanding\n"
-"                        member of staff.\n"
-"                        <br><br>\n"
-"                        This position is both <b>creative and rigorous</b> by nature you need to think\n"
-"                        outside the box. We expect the candidate to be proactive and have a \"get it done\"\n"
-"                        spirit. To be successful, you will have solid solving problem skills."
-msgstr ""
-"当社の社員として、<b>各部門と協力して革新的な製品を生み出し展開して\n"
-"　　　　　　　いただきます。</b> 成長中の企業で働きませんか？実績のあるリーダー達の側で学びながら前進するチャンスと、素晴らしい待遇を提供します。経験のある優秀な\n"
-"　　　　　　スタッフを募集しています。\n"
-"                            <br><br>\n"
-"                         この職位では<b>創造性と厳密さ</b>の両方が必要で、枠にとらわれない発想が求められます。積極的に行動し、「やり遂げる」精神を持った応募者の方を\n"
-"　　　　　　お待ちしています。\n"
-"                        また、優れた問題解決能力をお持ちの方を採用致します。"
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
@@ -1041,22 +816,10 @@ msgid "Automatically plan open shifts and sales orders"
 msgstr "オープンシフトと販売オーダを自動的に計画"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Autonomy"
-msgstr "自主性"
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_filter_panel/planning_calendar_filter_panel.xml:0
 msgid "Avatar"
 msgstr "アバター"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Bachelor Degree or Higher"
-msgstr "学士またはそれ以上（修士、博士）"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -1163,12 +926,6 @@ msgid "Crane"
 msgstr "クレーン"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Create content that will help our users on a daily basis"
-msgstr "日常的にユーザーに役立つ項目を新規に作成する"
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__create_uid
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__create_uid
 #: model:ir.model.fields,field_description:planning.field_planning_role__create_uid
@@ -1187,12 +944,6 @@ msgstr "作成者"
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__create_date
 msgid "Created on"
 msgstr "作成日"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Customer Relationship"
-msgstr "担当顧客"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
@@ -1313,12 +1064,6 @@ msgid "Discard"
 msgstr "破棄"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Discover our products."
-msgstr "当社製品について"
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__display_name
 #: model:ir.model.fields,field_description:planning.field_planning_planning__display_name
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__display_name
@@ -1366,28 +1111,6 @@ msgstr "期間"
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__duration_days
 msgid "Duration Days"
 msgstr "期間日"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid ""
-"Each employee has a chance to see the impact of his work.\n"
-"                    You can make a real contribution to the success of the company.\n"
-"                    <br>\n"
-"                    Several activities are often organized all over the year, such as weekly\n"
-"                    sports sessions, team building events, monthly drink, and much more"
-msgstr ""
-"全ての従業員に自分の仕事が与えるインパクトを目の当たりにするチャンスがあります。\n"
-"                    会社の成功に本当の意味で貢献できるのです。\n"
-"                    <br>\n"
-"                    年間を通じて様々な行事があり、週1のスポーツセッション、\n"
-"                    チーム親交イベント、月1の飲み会などが催されています。"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Eat &amp; Drink"
-msgstr "飲食"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_kanban
@@ -1487,18 +1210,6 @@ msgid "Every %(repeat_interval)s week(s) until %(repeat_until)s"
 msgstr "毎 %(repeat_interval)s 週ごと、 %(repeat_until)sまで"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Expand your knowledge of various business industries"
-msgstr "様々な業種の知識を拡大しよう"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Experience in writing online content"
-msgstr "オンラインコンテンツを書いた経験"
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__note
 msgid "Extra Message"
 msgstr "エクストラメッセージ"
@@ -1544,12 +1255,6 @@ msgid "Forever, every %s week(s)"
 msgstr "無期限で%s週間毎"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Fruit, coffee and <br>snacks provided."
-msgstr "フルーツ、コーヒー、<br>スナックが提供されます。"
-
-#. module: planning
 #: model:planning.role,name:planning.planning_furniture_assembler
 msgid "Furniture Assembler"
 msgstr "家具組立員"
@@ -1570,18 +1275,6 @@ msgid "Give depth to your"
 msgstr "あなたに深みを与えます"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Google Adwords experience"
-msgstr "Google Adwordsの経験"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Great team of smart people, in a friendly and open culture"
-msgstr "優秀で素晴らしいチーム、フレンドリーでオープンなカルチャー"
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
@@ -1599,12 +1292,6 @@ msgstr "スロットあり"
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__request_to_switch
 msgid "Has there been a request to switch on this shift slot?"
 msgstr "このシフトスロットの交換要求がありましたか？"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Highly creative and autonomous"
-msgstr "高い創造性と自主性"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__name
@@ -1708,12 +1395,6 @@ msgid "Last Updated on"
 msgstr "最終更新日"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Lead the entire sales cycle"
-msgstr "全セールスサイクルの指導"
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 msgid "Legend"
@@ -1801,12 +1482,6 @@ msgid "Marc Demo"
 msgstr "Marc Demo"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Master demos of our software"
-msgstr "当社ソフトウェアのマスターデモ"
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__material
@@ -1845,12 +1520,6 @@ msgid "Months"
 msgstr "月"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Must Have"
-msgstr "必須"
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Department"
@@ -1887,12 +1556,6 @@ msgid "Name"
 msgstr "名称"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Negotiate and contract"
-msgstr "交渉と契約"
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.js:0
 msgid "New Event"
@@ -1918,12 +1581,6 @@ msgid "Next Week"
 msgstr "来週"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Nice to have"
-msgstr "歓迎"
-
-#. module: planning
 #. odoo-python
 #: code:addons/planning/wizard/planning_send.py:0
 msgid "No Email Address for Some Employees"
@@ -1938,12 +1595,6 @@ msgstr "計画の繰返数"
 #: model_terms:ir.actions.act_window,help:planning.planning_report_action_analysis
 msgid "No data yet!"
 msgstr "まだデータはありません！"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "No dumb managers, no stupid tools to use, no rigid working hours"
-msgstr "愚かなマネージャーはいませんし、お馬鹿なツールは使いませんし、労働時間の強制拘束もありません"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_resources
@@ -1966,13 +1617,6 @@ msgstr "シフトテンプレートが見つかりません。シフトテンプ
 #: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_role
 msgid "No shifts found. Let's create one!"
 msgstr "シフトが見つかりません。新しいシフトを作成しましょう！"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid ""
-"No waste of time in enterprise processes, real responsibilities and autonomy"
-msgstr "企業プロセス、真の責任、自律性に無駄はありません"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__name
@@ -2054,40 +1698,10 @@ msgid ""
 msgstr "サポートされていない作業です。overlap_slot_count を常に0の値がオペレータと=または >と比較する必要があります。"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Our Product"
-msgstr "当社製品"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Passion for software products"
-msgstr "ソフトウェア製品に対する情熱"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Perfect written English"
-msgstr "完璧な英語の文章"
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__start_datetime
 #: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
 msgid "Period"
 msgstr "期間"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Perks"
-msgstr "パークス"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Personal Evolution"
-msgstr "個人の進化"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -2225,12 +1839,6 @@ msgid "Plans"
 msgstr "計画"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Play any sport with colleagues, <br>the bill is covered."
-msgstr "同僚と遊び、スポーツして下さい、<br>費用はカバーされます。"
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_email
 msgid ""
 "Please add a work email for the following employee so that they can receive "
@@ -2261,6 +1869,7 @@ msgstr "プロジェクター"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__slot_properties
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
 msgid "Properties"
 msgstr "属性"
 
@@ -2295,12 +1904,6 @@ msgid "Published"
 msgstr "公開済"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Qualify the customer needs"
-msgstr "顧客ニーズの審査"
-
-#. module: planning
 #: model:hr.job,name:planning.job_quality_control
 #: model:planning.role,name:planning.planning_quality_control
 msgid "Quality Control Inspector"
@@ -2311,12 +1914,6 @@ msgstr "品質管理検査官"
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_generation_interval
 msgid "Rate Of Shift Generation"
 msgstr "シフト発生速度"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Real responsibilities and challenges in a fast evolving company"
-msgstr "急成長企業での真の責任と挑戦"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__recurrence_update
@@ -2427,12 +2024,6 @@ msgstr "リソース色"
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 msgid "Resources"
 msgstr "リソース"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Responsibilities"
-msgstr "責任"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__role_id
@@ -2701,12 +2292,6 @@ msgid "Span"
 msgstr "期間"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Sport Activity"
-msgstr "スポーツアクティビティ"
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Start"
 msgstr "開始"
@@ -2737,21 +2322,9 @@ msgid "Stop Date"
 msgstr "停止日"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Strong analytical skills"
-msgstr "強い分析スキル"
-
-#. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__res_company__planning_employee_unavailabilities__switch
 msgid "Switch shifts with other employees"
 msgstr "他の従業員とシフトを交換する"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Technical Expertise"
-msgstr "技術職経験"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_res_company_planning_self_unassign_days_before_positive
@@ -2960,12 +2533,6 @@ msgid "Total"
 msgstr "合計"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Trainings"
-msgstr "トレーニング"
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__resource_type
 #: model:ir.model.fields,field_description:planning.field_planning_slot__resource_type
 msgid "Type"
@@ -3000,12 +2567,6 @@ msgid "User"
 msgstr "ユーザ"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Valid work permit for Belgium"
-msgstr "ベルギーの有効なワークパーミット"
-
-#. module: planning
 #. odoo-python
 #: code:addons/planning/models/hr.py:0
 msgid "View Planning"
@@ -3028,18 +2589,6 @@ msgstr "週"
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_unit__week
 msgid "Weeks"
 msgstr "週"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "What We Offer"
-msgstr "当社からオファーするもの"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "What's great in the job?"
-msgstr "この職の素晴らしい点"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__work_email

@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Chris Egal <sodaswed@web.de>, 2024
-# Wil Odoo, 2024
 # Larissa Manderfeld, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:15+0000\n"
+"POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,6 +41,11 @@ msgstr "Akzeptieren"
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__acknowledged
 msgid "Acknowledged"
 msgstr "Anerkannt"
+
+#. module: pos_urban_piper
+#: model:ir.model.fields,help:pos_urban_piper.field_pos_config__name
+msgid "An internal identification of the point of sale."
+msgstr "Eine interne Identifikation des Kassensystems."
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
@@ -284,6 +289,11 @@ msgstr "Fehler beim Senden ans Zubereitungsdisplay."
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
+msgid "Fill this form to get Username &amp; Api key"
+msgstr ""
+
+#. module: pos_urban_piper
+#: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "Fiscal Position"
 msgstr "Steuerposition"
 
@@ -395,7 +405,7 @@ msgstr "JSON-Daten der Bestellung."
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__journal_code
 msgid "Journal Short Code"
-msgstr "Kurzcode des Journals"
+msgstr "Kurzzeichen des Journals"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_config__urbanpiper_last_sync_date
@@ -575,6 +585,11 @@ msgid "Placed"
 msgstr "Aufgegeben"
 
 #. module: pos_urban_piper
+#: model:ir.model.fields,field_description:pos_urban_piper.field_pos_config__name
+msgid "Point of Sale"
+msgstr "Kassensystem"
+
+#. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_pos_config
 msgid "Point of Sale Configuration"
 msgstr "Kassensystem-Konfiguration"
@@ -732,7 +747,7 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__journal_code
 msgid "Short code of the journal to be used for journal creation"
-msgstr "Kurzcode des für die Journalerstellung verwendete Journal"
+msgstr "Kurzzeichen des für die Journalerstellung verwendete Journal"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -794,7 +809,7 @@ msgstr "Talabat-Code"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Talabat Short Code"
-msgstr "Talabat-Kurzcode"
+msgstr "Talabat-Kurzzeichen"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__technical_name

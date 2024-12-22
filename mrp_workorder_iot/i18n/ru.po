@@ -1,20 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* mrp_workorder_iot
-#
+# 
 # Translators:
+# Anton Kaligin, 2024
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-12-19 13:00+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: mrp_workorder_iot
@@ -28,19 +31,31 @@ msgid "Boxes"
 msgstr "Блоки"
 
 #. module: mrp_workorder_iot
-#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__cancel
+#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__canc
 msgid "Cancel"
 msgstr "Отменить"
 
 #. module: mrp_workorder_iot
-#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__clomo
+#. odoo-javascript
+#: code:addons/mrp_workorder_iot/static/src/mrp_display/mrp_quality_check_confirmation_dialog.js:0
+msgid "Check IoT Box connection. Try restarting if needed."
+msgstr ""
+
+#. module: mrp_workorder_iot
+#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__clmo
 msgid "Close MO"
 msgstr "Закрыть МО"
 
 #. module: mrp_workorder_iot
-#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__clowo
+#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__clwo
 msgid "Close WO"
 msgstr "Закрыть WO"
+
+#. module: mrp_workorder_iot
+#. odoo-javascript
+#: code:addons/mrp_workorder_iot/static/src/mrp_display/mrp_quality_check_confirmation_dialog.js:0
+msgid "Connection failed"
+msgstr ""
 
 #. module: mrp_workorder_iot
 #: model:ir.model.fields,field_description:mrp_workorder_iot.field_iot_trigger__create_uid
@@ -63,7 +78,7 @@ msgid "Display Name"
 msgstr "Отображаемое имя"
 
 #. module: mrp_workorder_iot
-#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__finish
+#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__fini
 msgid "Finish"
 msgstr "Завершить"
 
@@ -114,9 +129,15 @@ msgid "Pack"
 msgstr "Набор"
 
 #. module: mrp_workorder_iot
-#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__pause
+#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__paus
 msgid "Pause"
 msgstr "Пауза"
+
+#. module: mrp_workorder_iot
+#. odoo-javascript
+#: code:addons/mrp_workorder_iot/static/src/mrp_display/pedal_status_button.xml:0
+msgid "Pedal Status"
+msgstr ""
 
 #. module: mrp_workorder_iot
 #: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__prev
@@ -124,17 +145,17 @@ msgid "Previous"
 msgstr "Предыдущий"
 
 #. module: mrp_workorder_iot
-#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__print-slip
+#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__prsl
 msgid "Print Delivery Slip"
 msgstr "Распечатать Delivery Slip"
 
 #. module: mrp_workorder_iot
-#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__print
+#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__prnt
 msgid "Print Labels"
 msgstr "Печать этикеток"
 
 #. module: mrp_workorder_iot
-#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__print-op
+#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__prop
 msgid "Print Operation"
 msgstr "Операция печати"
 
@@ -144,14 +165,14 @@ msgid "Quality Check"
 msgstr "Проверка качества"
 
 #. module: mrp_workorder_iot
-#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__record
+#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__reco
 msgid "Record Production"
 msgstr "Производство записей"
 
 #. module: mrp_workorder_iot
-#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__scrap
+#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__scra
 msgid "Scrap"
-msgstr "Несоответствующая продукция"
+msgstr "Брак"
 
 #. module: mrp_workorder_iot
 #: model:ir.model.fields,field_description:mrp_workorder_iot.field_iot_trigger__sequence
@@ -179,9 +200,9 @@ msgid "Triggers"
 msgstr "Триггеры"
 
 #. module: mrp_workorder_iot
-#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__validate
+#: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__vali
 msgid "Validate"
-msgstr "Проверка"
+msgstr "Подтвердить"
 
 #. module: mrp_workorder_iot
 #: model:ir.model,name:mrp_workorder_iot.model_mrp_workcenter

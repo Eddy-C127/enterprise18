@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"POT-Creation-Date: 2024-12-19 12:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
@@ -84,12 +84,6 @@ msgstr "1 llamada telefónica"
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "100"
 msgstr "100"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "12 days / year, including <br>6 of your choice."
-msgstr "12 días al año, con<br> 6 a su elección."
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -186,7 +180,7 @@ msgid ""
 "<div>\n"
 "                    <p t-if=\"ctx.get('old_assignee_name')\">Dear <t t-out=\"ctx['old_assignee_name']\">Anita Oliver</t>,</p>\n"
 "                    <p t-else=\"\">Hello,</p>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p>\n"
 "                        The following shift that you requested to switch has been re-assigned\n"
 "                        <t t-if=\"ctx.get('new_assignee_name')\"> to <t t-out=\"ctx['new_assignee_name']\">Marc Demo</t></t>.\n"
@@ -223,89 +217,36 @@ msgid ""
 "                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
 "                        </tr>\n"
 "                    </table>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                </div>\n"
 "            "
 msgstr ""
-"<div>\n"
-"                    <p t-if=\"ctx.get('old_assignee_name')\">Estimado/a <t t-out=\"ctx['old_assignee_name']\">Anita Oliver</t>,</p>\n"
-"                    <p t-else=\"\">Hola,</p>\n"
-"                    <br>\n"
-"                    <p>\n"
-"                        El siguiente turno que pidió cambiar se ha asignado\n"
-"                        <t t-if=\"ctx.get('new_assignee_name')\"> a <t t-out=\"ctx['new_assignee_name']\">Marc Demo</t></t>.\n"
-"                    </p>\n"
-"                    <table style=\"margin-left: 30px;\">\n"
-"                        <tr t-if=\"(ctx.get('start_datetime') and ctx.get('end_datetime'))                                   or ctx.get('allocated_hours')                                   or ctx.get('allocated_percentage')\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">Fecha</th>\n"
-"                            <td style=\"padding: 5px;\">\n"
-"                                <span t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\" t-out=\"'%s ⟶ %s' % (                                     ctx['start_datetime'],                                     ctx['end_datetime'],                                 )\">\n"
-"                                    31/05/2021, 8:00 ⟶ 31/05/2021, 16:00\n"
-"                                </span>\n"
-"                                <span t-if=\"ctx.get('allocated_hours')\" style=\"opacity: 0.5;\">\n"
-"                                    (<t t-out=\"ctx['allocated_hours']\">4:00</t>h)\n"
-"                                </span>\n"
-"                                <span t-if=\"ctx.get('allocated_percentage') and ctx['allocated_percentage'] != '100'\" style=\"opacity: 0.5;\">\n"
-"                                    (<t t-out=\"ctx['allocated_percentage']\">50</t> %)\n"
-"                                </span>\n"
-"                            </td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"object.role_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">Rol</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.role_id.name or ''\">Bartender</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'project_id') and object.project_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">Proyecto</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().project_id.name or ''\">Reunión</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'sale_line_id') and object.sale_line_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">Artículo del pedido de venta</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\">Café</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'name') and object.name\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">Nota</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
-"                        </tr>\n"
-"                    </table>\n"
-"                    <br>\n"
-"                </div>\n"
-"            "
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-check-circle text-success\"/>\n"
+"<i class=\"fa fa-check-circle\"/>\n"
 "                        You have successfully requested to switch your shift. You will be notified when another employee takes over your shift."
 msgstr ""
-"<i class=\"fa fa-check-circle text-success\"/>\n"
-"                        Ha solicitado cambiar de turno con éxito, se le notificará cuando otro empleado lo tome."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-check-circle text-success\"/> Request to switch shift "
-"cancelled successfully."
+"<i class=\"fa fa-check-circle\"/> Request to switch shift cancelled "
+"successfully."
 msgstr ""
-"<i class=\"fa fa-check-circle text-success\"/> Solicite para cambiar de "
-"turno cancelada de forma correcta."
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
+msgid "<i class=\"fa fa-check-circle\"/> This shift is no longer assigned to you."
+msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-check-circle text-success\"/> This shift is no longer "
-"assigned to you."
+"<i class=\"fa fa-check-circle\"/> You were successfully assigned this open "
+"shift."
 msgstr ""
-"<i class=\"fa fa-check-circle text-success\"/> Este turno ya no está "
-"asignado a usted."
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
-msgid ""
-"<i class=\"fa fa-check-circle text-success\"/> You were successfully "
-"assigned this open shift."
-msgstr ""
-"<i class=\"fa fa-check-circle text-success\"/> Se le ha asignado con éxito "
-"este turno abierto."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_kanban
@@ -324,20 +265,16 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/> This shift is already "
-"assigned to another employee."
+"<i class=\"fa fa-exclamation-circle\"/> This shift is already assigned to "
+"another employee."
 msgstr ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/> Este turno ya ha sido "
-"asignado a otro empleado."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/> You can no longer "
-"unassign yourself from this shift."
+"<i class=\"fa fa-exclamation-circle\"/> You can no longer unassign yourself "
+"from this shift."
 msgstr ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/> Ya no puede "
-"desasignarse usted mismo de este turno."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
@@ -365,10 +302,8 @@ msgstr "<i class=\"fa fa-phone\" title=\"Phone\" role=\"img\" style=\"padding-ri
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_kanban
-msgid "<i class=\"me-1 mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
+msgid "<i class=\"mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
 msgstr ""
-"<i class=\"me-1 mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Fecha\" "
-"title=\"Fecha\"/>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -387,12 +322,6 @@ msgid ""
 msgstr ""
 "<i class=\"o_group_caret fa fa-fw me-1 fa-caret-down\"></i> <span "
 "class=\"text-truncate w-0 flex-grow-1 text-start\">Camarero</span>"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "<small><b>READ</b></small>"
-msgstr "<small><b>LEER</b></small>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -599,10 +528,10 @@ msgid ""
 "                        margin: 20px 15px 0px 15px;\n"
 "                    }\n"
 "                </style>\n"
-"                <div>\n"
+"                <body><div>\n"
 "                    <p t-if=\"ctx.get('employee_name')\">Dear <t t-out=\"ctx['employee_name']\">Anita Oliver</t>,</p>\n"
 "                    <p t-else=\"\">Hello,</p>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('open_shift_available')\">We have a new shift opening:</p>\n"
 "                    <p t-else=\"\">You have been assigned the following shift:</p>\n"
 "                    <table style=\"margin-left: 30px;\">\n"
@@ -643,86 +572,12 @@ msgid ""
 "                        <a t-if=\"ctx.get('google_url')\" t-att-href=\"ctx['google_url']\" target=\"_blank\" class=\"planning_mail_template_button\">Add to Google Calendar</a>\n"
 "                        <a t-if=\"ctx.get('iCal_url')\" t-att-href=\"ctx['iCal_url']\" target=\"_blank\" class=\"planning_mail_template_button\">Add to iCal/Outlook</a>\n"
 "                    </div>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('open_shift_available')\">If you are interested and available, please assign yourself this open shift.</p>\n"
 "                    <p t-else=\"\">In case the current shift doesn't suit you, we encourage you to reach out to your colleagues and request to switch shifts. They might be interested in exchanging shifts with you.</p>\n"
 "                </div>\n"
-"            "
+"            </body>"
 msgstr ""
-"<style>\n"
-"                    .planning_mail_template_button {\n"
-"                        padding: 5px 10px;\n"
-"                        text-decoration: none;\n"
-"                        border: 1px;\n"
-"                        border-radius: 3px;\n"
-"                        text-align: center;\n"
-"                        color: #374151;\n"
-"                        background-color: #E7E9ED;\n"
-"                        border: solid #E7E9ED;\n"
-"                        flex: 1 1 40%;\n"
-"                    }\n"
-"                    .top_button {\n"
-"                        color: #FFFFFF;\n"
-"                        background-color: #714B67;\n"
-"                        border: solid #714B67;\n"
-"                        flex: 1 1 60%;\n"
-"                    }\n"
-"                    .button_box {\n"
-"                        display: flex;\n"
-"                        flex-wrap: wrap;\n"
-"                        gap: 10px;\n"
-"                        margin: 20px 15px 0px 15px;\n"
-"                    }\n"
-"                </style>\n"
-"                <div>\n"
-"                    <p t-if=\"ctx.get('employee_name')\">Estimado/a <t t-out=\"ctx['employee_name']\">Anita Oliver</t>,</p>\n"
-"                    <p t-else=\"\">Hola,</p>\n"
-"                    <br>\n"
-"                    <p t-if=\"ctx.get('open_shift_available')\">Hay un nuevo turno abierto disponible:</p>\n"
-"                    <p t-else=\"\">Se le ha asignado el siguiente turno:</p>\n"
-"                    <table style=\"margin-left: 30px;\">\n"
-"                        <tr t-if=\"(ctx.get('start_datetime') and ctx.get('end_datetime'))                                   or ctx.get('allocated_hours')                                   or ctx.get('allocated_percentage')\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">Fecha</th>\n"
-"                            <td style=\"padding: 5px;\">\n"
-"                                <span t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\" t-out=\"'%s ⟶ %s' % (                                     ctx['start_datetime'],                                     ctx['end_datetime'],                                 )\">\n"
-"                                    31/05/2021, 8:00 ⟶ 31/05/2021, 16:00\n"
-"                                </span>\n"
-"                                <span t-if=\"ctx.get('allocated_hours')\" style=\"opacity: 0.5;\">\n"
-"                                    (<t t-out=\"ctx['allocated_hours']\">4:00</t> h)\n"
-"                                </span>\n"
-"                                <span t-if=\"ctx.get('allocated_percentage') and ctx['allocated_percentage'] != '100'\" style=\"opacity: 0.5;\">\n"
-"                                    (<t t-out=\"ctx['allocated_percentage']\">50</t> %)\n"
-"                                </span>\n"
-"                            </td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"object.role_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">Rol</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.role_id.name or ''\">Bartender</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'project_id') and object.project_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">Proyecto</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().project_id.name or ''\">Reunión</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'sale_line_id') and object.sale_line_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">Artículo del pedido de venta</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\">Café</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'name') and object.name\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">Nota</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
-"                        </tr>\n"
-"                    </table>\n"
-"                    <div class=\"button_box\">\n"
-"                        <a t-if=\"ctx.get('available_link')\" t-att-href=\"ctx['available_link']\" target=\"_blank\" class=\"planning_mail_template_button top_button\">Asignarme este turno</a>\n"
-"                        <a t-if=\"ctx.get('unavailable_link')\" t-att-href=\"ctx['unavailable_link']\" target=\"_blank\" class=\"planning_mail_template_button top_button\">No estoy disponible</a>\n"
-"                        <a t-if=\"ctx.get('google_url')\" t-att-href=\"ctx['google_url']\" target=\"_blank\" class=\"planning_mail_template_button\">Agregar al Google Calendar</a>\n"
-"                        <a t-if=\"ctx.get('iCal_url')\" t-att-href=\"ctx['iCal_url']\" target=\"_blank\" class=\"planning_mail_template_button\">Agregar a iCal/Outlook</a>\n"
-"                    </div>\n"
-"                    <br>\n"
-"                    <p t-if=\"ctx.get('open_shift_available')\">Asígnese este turno si le interesa y está disponible.</p>\n"
-"                    <p t-else=\"\">En caso de que no pueda tomar este turno le invitamos a que se comunique con alguno de sus colegas para que puedan cambiar de turno, puede que alguno quiera intercambiarlo.</p>\n"
-"                </div>\n"
-"            "
 
 #. module: planning
 #: model:mail.template,body_html:planning.email_template_planning_planning
@@ -738,10 +593,10 @@ msgid ""
 "                    text-align: center;\n"
 "                }\n"
 "                </style>\n"
-"                <div>\n"
+"                <body><div>\n"
 "                    <p t-if=\"ctx.get('employee')\">Dear <t t-out=\"ctx['employee'].name or ''\">Anita Oliver</t>,</p>\n"
 "                    <p t-else=\"\">Hello,</p>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\">\n"
 "                        Your upcoming shifts from <t t-out=\"format_date(ctx['start_datetime'])\">05-05-2021</t>\n"
 "                        to <t t-out=\"format_date(ctx['end_datetime'])\">05-11-2021</t> have been published.\n"
@@ -754,7 +609,7 @@ msgid ""
 "                            <a t-att-href=\"ctx['planning_url_ics']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #374151; background-color: #E7E9ED; border: solid #E7E9ED;\">Add to Calendar</a>\n"
 "                        </div>\n"
 "                    </div>\n"
-"                    <br>\n"
+"                    <br/>\n"
 "                    <p t-if=\"ctx.get('slot_unassigned') or (object.allow_self_unassign and object.self_unassign_days_before)\">\n"
 "                        <t t-if=\"ctx.get('slot_unassigned')\">\n"
 "                            We would also like to remind you that there are some open shifts available, and if you are interested and available, please assign yourself to those shifts.\n"
@@ -763,57 +618,11 @@ msgid ""
 "                            If you are unable to work a shift that has been assigned to you, please unassign yourself within <t t-out=\"object.self_unassign_days_before or ''\">5</t> day(s) before the start of the shift.\n"
 "                        </t>\n"
 "                    </p>\n"
-"                    <p t-if=\"ctx.get('message')\" t-out=\"ctx['message']\"></p>\n"
+"                    <p t-if=\"ctx.get('message')\" t-out=\"ctx['message']\"/>\n"
 "                    <p t-if=\"object.allow_self_unassign\">In case your current schedule doesn't suit you, we encourage you to reach out to your colleagues and request to switch shifts. They might be interested in exchanging shifts with you.</p>\n"
 "                </div>\n"
-"            "
+"            </body>"
 msgstr ""
-"<style>\n"
-"                .planning_mail_template_button {\n"
-"                    padding: 5px 10px;\n"
-"                    text-decoration: none;\n"
-"                    border: 1px;\n"
-"                    border-radius: 3px;\n"
-"                    display: inline-block; \n"
-"                    width: 190px;\n"
-"                    text-align: center;\n"
-"                }\n"
-"                </style>\n"
-"                <div>\n"
-"                    <p t-if=\"ctx.get('employee')\">Estimado/a <t t-out=\"ctx['employee'].name or ''\">Anita Oliver</t>,</p>\n"
-"                    <p t-else=\"\">Hola,</p>\n"
-"                    <br>\n"
-"                    <p t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\">\n"
-"                        Sus próximos turnos del <t t-out=\"format_date(ctx['start_datetime'])\">05-05-2021</t>\n"
-"                        al <t t-out=\"format_date(ctx['end_datetime'])\">11-05-2021</t> se han publicado.\n"
-"                    </p>\n"
-"                    <div style=\"display: flex; margin: 15px;\">\n"
-"                        <div t-if=\"ctx.get('planning_url')\" style=\"margin-right: 15px;\">\n"
-"                            <a t-att-href=\"ctx['planning_url']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #FFFFFF; background-color: #875A7B; border: solid #875A7B;\">Ver la planificación</a>\n"
-"                        </div>\n"
-"                        <div t-if=\"ctx.get('planning_url_ics')\">\n"
-"                            <a t-att-href=\"ctx['planning_url_ics']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #374151; background-color: #E7E9ED; border: solid #E7E9ED;\">Agregar al calendario</a>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    <br>\n"
-"                    <p t-if=\"ctx.get('slot_unassigned') or (object.allow_self_unassign and object.self_unassign_days_before)\">\n"
-"                        <t t-if=\"ctx.get('slot_unassigned')\">\n"
-"                            También queremos recordarle que tenemos turnos disponibles para tomar, si le interesan y está libre, asígnese esos turnos.\n"
-"                        </t>\n"
-"                        <t t-if=\"object.allow_self_unassign and object.self_unassign_days_before\">\n"
-"                            Si no puede trabajar un turno que se le asignó, quítese de la asignación <t t-out=\"object.self_unassign_days_before or ''\">5</t> día(s) antes del inicio del turno.\n"
-"                        </t>\n"
-"                    </p>\n"
-"                    <p t-if=\"ctx.get('message')\" t-out=\"ctx['message']\"></p>\n"
-"                    <p t-if=\"object.allow_self_unassign\">En caso de que no pueda cumplir con su horario actual, le pedimos que se ponga en contacto con alguno de sus colegas, es posible que alguno de ellos esté interesado en cambiar turnos con usted.</p>\n"
-"                </div>\n"
-"            "
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "A full-time position <br>Attractive salary package."
-msgstr "Puesto de tiempo completo<br> Sueldo atractivo."
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_until_limit
@@ -830,12 +639,6 @@ msgid "A shift must be in the same company as its recurrence."
 msgstr "Un turno debe estar en la misma compañía que su recurrencia."
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Achieve monthly sales objectives"
-msgstr "Alcance los objetivos de ventas mensuales"
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_role__active
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__active
 msgid "Active"
@@ -845,13 +648,7 @@ msgstr "Activo"
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.js:0
 msgid "Add Shift"
-msgstr "Agregar turno"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Additional languages"
-msgstr "Idiomas adicionales"
+msgstr "Añadir turno"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_send__note
@@ -871,12 +668,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 msgid "Additional note sent to the employee"
 msgstr "Nota adicional enviada al empleado"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Administrative Work"
-msgstr "Trabajo administrativo"
 
 #. module: planning
 #: model:res.groups,name:planning.group_planning_manager
@@ -999,30 +790,6 @@ msgid "Arrow icon"
 msgstr "Icono de flecha"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid ""
-"As an employee of our company, you will <b>collaborate with each department\n"
-"                        to create and deploy disruptive products.</b> Come work at a growing company\n"
-"                        that offers great benefits with opportunities to moving forward and learn\n"
-"                        alongside accomplished leaders. We're seeking an experienced and outstanding\n"
-"                        member of staff.\n"
-"                        <br><br>\n"
-"                        This position is both <b>creative and rigorous</b> by nature you need to think\n"
-"                        outside the box. We expect the candidate to be proactive and have a \"get it done\"\n"
-"                        spirit. To be successful, you will have solid solving problem skills."
-msgstr ""
-"Como empleado de nuestra empresa, <b>colaborará con cada departamento\n"
-"                        para crear e implementar productos revolucionarios.</b> Venga a trabajar en una empresa en crecimiento\n"
-"                        que ofrece grandes beneficios con oportunidades para avanzar y aprender\n"
-"                        junto con líderes consumados. Buscamos un miembro del personal experimentado\n"
-"                        y excepcional.\n"
-"                        <br><br>\n"
-"                        Este puesto es <b>creativo y riguroso</b> por naturaleza, debe pensar\n"
-"                        más allá de lo común. Esperamos que el candidato sea proactivo y tenga una mentalidad orientada hacia los\n"
-"                        resultados. Para tener éxito, debe tener sólidas habilidades para resolver problemas."
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
@@ -1068,22 +835,10 @@ msgid "Automatically plan open shifts and sales orders"
 msgstr "Planificar automáticamente turnos abiertos y pedidos de venta"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Autonomy"
-msgstr "Autonomía"
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_filter_panel/planning_calendar_filter_panel.xml:0
 msgid "Avatar"
 msgstr "Avatar"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Bachelor Degree or Higher"
-msgstr "Título de grado o superior"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -1192,12 +947,6 @@ msgid "Crane"
 msgstr "Grúa"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Create content that will help our users on a daily basis"
-msgstr "Crear contenido que ayude a nuestros usuarios a diario"
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__create_uid
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__create_uid
 #: model:ir.model.fields,field_description:planning.field_planning_role__create_uid
@@ -1216,12 +965,6 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__create_date
 msgid "Created on"
 msgstr "Creado el"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Customer Relationship"
-msgstr "Relación con el cliente"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
@@ -1348,12 +1091,6 @@ msgid "Discard"
 msgstr "Descartar"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Discover our products."
-msgstr "Descubra nuestros productos."
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__display_name
 #: model:ir.model.fields,field_description:planning.field_planning_planning__display_name
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__display_name
@@ -1404,28 +1141,6 @@ msgstr "Duración"
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__duration_days
 msgid "Duration Days"
 msgstr "Días de duración"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid ""
-"Each employee has a chance to see the impact of his work.\n"
-"                    You can make a real contribution to the success of the company.\n"
-"                    <br>\n"
-"                    Several activities are often organized all over the year, such as weekly\n"
-"                    sports sessions, team building events, monthly drink, and much more"
-msgstr ""
-"Cada empleado tiene la oportunidad de ver el impacto de su trabajo.\n"
-"                     Usted puede hacer una contribución real al éxito de la compañía.\n"
-"                     <br>\n"
-"                     Se organizan varias actividades a lo largo del año, como actividades deportivas\n"
-"                        semanales, eventos para fomentar el trabajo en equipo, una convivencia al mes, ¡y mucho más!"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Eat &amp; Drink"
-msgstr "Comer y beber"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_kanban
@@ -1530,18 +1245,6 @@ msgid "Every %(repeat_interval)s week(s) until %(repeat_until)s"
 msgstr "Cada %(repeat_interval)s semana(s) hasta %(repeat_until)s"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Expand your knowledge of various business industries"
-msgstr "Amplíe su conocimiento de diversas industrias comerciales"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Experience in writing online content"
-msgstr "Experiencia en redacción de contenido online"
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__note
 msgid "Extra Message"
 msgstr "Mensaje adicional"
@@ -1589,12 +1292,6 @@ msgid "Forever, every %s week(s)"
 msgstr "Para siempre, cada %s semana(s)"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Fruit, coffee and <br>snacks provided."
-msgstr "Ofrecemos fruta, café <br>y aperitivos."
-
-#. module: planning
 #: model:planning.role,name:planning.planning_furniture_assembler
 msgid "Furniture Assembler"
 msgstr "Constructor de muebles"
@@ -1615,18 +1312,6 @@ msgid "Give depth to your"
 msgstr "Dele profundidad a su"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Google Adwords experience"
-msgstr "Experiencia de Google Adwords"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Great team of smart people, in a friendly and open culture"
-msgstr "Gran equipo de gente inteligente, en una cultura amigable y abierta"
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
@@ -1644,12 +1329,6 @@ msgstr "Tiene espacios"
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__request_to_switch
 msgid "Has there been a request to switch on this shift slot?"
 msgstr "¿Ha habido alguna solicitud para cambiar este espacio del turno?"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Highly creative and autonomous"
-msgstr "Altamente creativo y autónomo"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__name
@@ -1756,12 +1435,6 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Lead the entire sales cycle"
-msgstr "Dirigir todo el ciclo de ventas"
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 msgid "Legend"
@@ -1852,12 +1525,6 @@ msgid "Marc Demo"
 msgstr "Marc Demo"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Master demos of our software"
-msgstr "Ser maestro en demos de nuestro software"
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__material
@@ -1896,12 +1563,6 @@ msgid "Months"
 msgstr "Meses"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Must Have"
-msgstr "Debe tener"
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Department"
@@ -1938,12 +1599,6 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Negotiate and contract"
-msgstr "Negociar y contratar"
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.js:0
 msgid "New Event"
@@ -1969,12 +1624,6 @@ msgid "Next Week"
 msgstr "Próxima semana"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Nice to have"
-msgstr "Deseable"
-
-#. module: planning
 #. odoo-python
 #: code:addons/planning/wizard/planning_send.py:0
 msgid "No Email Address for Some Employees"
@@ -1989,14 +1638,6 @@ msgstr "Número de repeticiones de la planificación"
 #: model_terms:ir.actions.act_window,help:planning.planning_report_action_analysis
 msgid "No data yet!"
 msgstr "¡Todavía no hay información!"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "No dumb managers, no stupid tools to use, no rigid working hours"
-msgstr ""
-"Sin gerentes tontos, sin herramientas estúpidas para usar, sin horarios de "
-"trabajo rígidos"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_resources
@@ -2019,15 +1660,6 @@ msgstr "No se encontraron plantillas. ¡Creemos una!"
 #: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_role
 msgid "No shifts found. Let's create one!"
 msgstr "No se encontraron turnos. ¡Creemos uno!"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid ""
-"No waste of time in enterprise processes, real responsibilities and autonomy"
-msgstr ""
-"Sin pérdida de tiempo en los procesos empresariales, responsabilidades "
-"reales y autonomía"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__name
@@ -2113,40 +1745,10 @@ msgstr ""
 "overlap_slot_count a un valor de 0 con un operador = o >."
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Our Product"
-msgstr "Nuestro producto"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Passion for software products"
-msgstr "Pasión por los productos de software"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Perfect written English"
-msgstr "Inglés escrito perfecto"
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__start_datetime
 #: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
 msgid "Period"
 msgstr "Periodo"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Perks"
-msgstr "Beneficios"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Personal Evolution"
-msgstr "Evolución personal"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -2290,20 +1892,13 @@ msgid "Plans"
 msgstr "Planes"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Play any sport with colleagues, <br>the bill is covered."
-msgstr ""
-"Practique cualquier deporte con sus compañeros, <br>y nosotros lo pagaremos."
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_email
 msgid ""
 "Please add a work email for the following employee so that they can receive "
 "their planning:"
 msgstr ""
-"Agregue un correo electrónico de trabajo al siguiente empleado para que "
-"pueda recibir su horario:"
+"Añada un correo electrónico de trabajo al siguiente empleado para que pueda "
+"recibir su horario:"
 
 #. module: planning
 #. odoo-javascript
@@ -2329,6 +1924,7 @@ msgstr "Proyector"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__slot_properties
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
 msgid "Properties"
 msgstr "Propiedades"
 
@@ -2363,12 +1959,6 @@ msgid "Published"
 msgstr "Publicado"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Qualify the customer needs"
-msgstr "Calificar las necesidades del cliente"
-
-#. module: planning
 #: model:hr.job,name:planning.job_quality_control
 #: model:planning.role,name:planning.planning_quality_control
 msgid "Quality Control Inspector"
@@ -2379,13 +1969,6 @@ msgstr "Inspector de control de calidad"
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_generation_interval
 msgid "Rate Of Shift Generation"
 msgstr "Tasa de generación de turnos"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Real responsibilities and challenges in a fast evolving company"
-msgstr ""
-"Responsabilidades y desafíos reales en una empresa en rápida evolución"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__recurrence_update
@@ -2496,12 +2079,6 @@ msgstr "Color del recurso"
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 msgid "Resources"
 msgstr "Recursos"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Responsibilities"
-msgstr "Responsabilidades"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__role_id
@@ -2774,12 +2351,6 @@ msgid "Span"
 msgstr "Periodo"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Sport Activity"
-msgstr "Actividad deportiva"
-
-#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Start"
 msgstr "Iniciar"
@@ -2810,21 +2381,9 @@ msgid "Stop Date"
 msgstr "Fecha de finalización"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Strong analytical skills"
-msgstr "Habilidades analíticas avanzadas"
-
-#. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__res_company__planning_employee_unavailabilities__switch
 msgid "Switch shifts with other employees"
 msgstr "Cambiar turnos con otros empleados"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Technical Expertise"
-msgstr "Conocimientos técnicos"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_res_company_planning_self_unassign_days_before_positive
@@ -3055,12 +2614,6 @@ msgid "Total"
 msgstr "Total"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Trainings"
-msgstr "Entrenamientos"
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__resource_type
 #: model:ir.model.fields,field_description:planning.field_planning_slot__resource_type
 msgid "Type"
@@ -3095,12 +2648,6 @@ msgid "User"
 msgstr "Usuario"
 
 #. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "Valid work permit for Belgium"
-msgstr "Permiso de trabajo válido para Bélgica"
-
-#. module: planning
 #. odoo-python
 #: code:addons/planning/models/hr.py:0
 msgid "View Planning"
@@ -3123,18 +2670,6 @@ msgstr "Semana"
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_unit__week
 msgid "Weeks"
 msgstr "Semanas"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "What We Offer"
-msgstr "Lo que ofrecemos"
-
-#. module: planning
-#: model_terms:hr.job,website_description:planning.job_maintenance_technician
-#: model_terms:hr.job,website_description:planning.job_quality_control
-msgid "What's great in the job?"
-msgstr "¿Qué hay de bueno en el trabajo?"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__work_email

@@ -28,6 +28,10 @@ msgid ""
 "                            <span invisible=\"not is_trusted_bank_account\" class=\"text-success\">Trusted</span>\n"
 "                        </span>"
 msgstr ""
+"<span class=\"d-flex gap-2 w-50\">\n"
+"                            <span invisible=\"is_trusted_bank_account\" class=\"text-muted\">ไม่น่าเชื่อถือ</span>\n"
+"                            <span invisible=\"not is_trusted_bank_account\" class=\"text-success\">เชื่อถือได้</span>\n"
+"                        </span>"
 
 #. module: hr_payroll_account_iso20022
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account_iso20022.view_employee_form

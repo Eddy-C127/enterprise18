@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:14+0000\n"
+"POT-Creation-Date: 2024-12-19 13:01+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Daye Jeong, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
@@ -25,6 +25,12 @@ msgstr ""
 #: code:addons/documents_spreadsheet/wizard/save_spreadsheet_template.py:0
 msgid "\"%s\" saved as template"
 msgstr "\"%s\" 저장된 양식"
+
+#. module: documents_spreadsheet
+#. odoo-python
+#: code:addons/documents_spreadsheet/models/documents_document.py:0
+msgid "%(folder)s is used by %(company)s"
+msgstr "%(folder)s는 %(company)s에서 사용됩니다."
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -438,6 +444,24 @@ msgstr "서식"
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_save_spreadsheet_template__template_name
 msgid "Template Name"
 msgstr "서식명"
+
+#. module: documents_spreadsheet
+#. odoo-python
+#: code:addons/documents_spreadsheet/models/documents_document.py:0
+msgid ""
+"The company for a folder cannot be changed if it is already used as the "
+"spreadsheet workspace for at least one other company: %s"
+msgstr "폴더가 이미 다른 회사에 대한 스프레드시트 작업 공간으로 사용된 경우, 폴더의 회사를 변경할 수 없습니다: %s"
+
+#. module: documents_spreadsheet
+#. odoo-python
+#: code:addons/documents_spreadsheet/models/res_company.py:0
+msgid ""
+"The company of %(folder)s should either be undefined or set to %(company)s. "
+"Otherwise, it is not possible to link the workspace to the company."
+msgstr ""
+"%(folder)s의 회사는 정의되지 않거나 %(company)s로 설정되어야 합니다. 그렇지 않으면 작업 공간을 회사에 연결할 수 "
+"없습니다."
 
 #. module: documents_spreadsheet
 #. odoo-python

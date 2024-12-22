@@ -10,20 +10,20 @@
 # Ayhan Kızıltan, 2024
 # Ömer ABA <omeraba93@gmail.com>, 2024
 # Levent Karakaş <levent@mektup.at>, 2024
-# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2024
 # abc Def <hdogan1974@gmail.com>, 2024
 # Martin Trigaux, 2024
 # Umur Akın <umura@projetgrup.com>, 2024
 # Halil, 2024
 # Nadir Gazioglu <nadirgazioglu@gmail.com>, 2024
 # Ediz Duman <neps1192@gmail.com>, 2024
+# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2024
 # Murat Kaplan <muratk@projetgrup.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:15+0000\n"
+"POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Murat Kaplan <muratk@projetgrup.com>, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
@@ -51,6 +51,11 @@ msgstr "Kabul Et"
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__acknowledged
 msgid "Acknowledged"
 msgstr ""
+
+#. module: pos_urban_piper
+#: model:ir.model.fields,help:pos_urban_piper.field_pos_config__name
+msgid "An internal identification of the point of sale."
+msgstr "Satış noktası için bir iç kimlik."
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
@@ -287,6 +292,11 @@ msgstr "Hata"
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/store/pos_store.js:0
 msgid "Error to send in preparation display."
+msgstr ""
+
+#. module: pos_urban_piper
+#: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
+msgid "Fill this form to get Username &amp; Api key"
 msgstr ""
 
 #. module: pos_urban_piper
@@ -578,6 +588,11 @@ msgstr "Telefon"
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__placed
 msgid "Placed"
 msgstr ""
+
+#. module: pos_urban_piper
+#: model:ir.model.fields,field_description:pos_urban_piper.field_pos_config__name
+msgid "Point of Sale"
+msgstr "Satış Noktası"
 
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_pos_config

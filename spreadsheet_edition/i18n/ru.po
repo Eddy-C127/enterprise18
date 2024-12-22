@@ -1,20 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* spreadsheet_edition
-#
+# 
 # Translators:
+# Martin Trigaux, 2024
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:57+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-12-19 09:54+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: spreadsheet_edition
@@ -25,45 +28,57 @@ msgstr "%(field name)s на %(order)s"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/list/list_init_callback.js:0
+msgid "%(list_name)s (List #%(list_id)s)"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/version_history_action.js:0
 msgid "%(name)s (restored from %(timestamp)s)"
 msgstr "%(name)s (восстановлено из %(timestamp)s)"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
-msgid "%(name)s by %(field)s"
-msgstr "%(name)s на %(field)s"
+#: code:addons/spreadsheet_edition/static/src/bundle/pivot/pivot_init_callback.js:0
+msgid "%(pivot_name)s (Pivot #%(pivot_id)s)"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
-msgid "%(name)s by %(field)s (%(period)s)"
-msgstr "%(name)s на %(field)s (%(period)s)"
+msgid "%(pivot_title)s by %(group_by)s"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.js:0
-msgid "%(sortName)s (ascending)"
-msgstr "%(sortName)s (по возрастанию)"
+#: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
+msgid "%(pivot_title)s by %(group_by)s (%(granularity)s)"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.js:0
-msgid "%(sortName)s (descending)"
-msgstr "%(sortName)s (по убыванию)"
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/side_panel/comment_threads_side_panel.js:0
+msgid "%s threads"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/actions/control_panel/spreadsheet_control_panel.js:0
+#: code:addons/spreadsheet_edition/static/src/bundle/components/locale_status/locale_status.js:0
 msgid "- dates: %s"
 msgstr "- даты: %s"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/actions/control_panel/spreadsheet_control_panel.js:0
+#: code:addons/spreadsheet_edition/static/src/bundle/components/locale_status/locale_status.js:0
 msgid "- numbers: %s"
 msgstr "- номера: %s"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/side_panel/comment_threads_side_panel.js:0
+msgid "1 thread"
+msgstr ""
 
 #. module: spreadsheet_edition
 #: model:ir.model.constraint,message:spreadsheet_edition.constraint_spreadsheet_revision_parent_unique
@@ -71,9 +86,21 @@ msgid "A revision based on the same revision already exists"
 msgstr ""
 
 #. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_needaction
+msgid "Action Needed"
+msgstr "Требуются действия"
+
+#. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__active
 msgid "Active"
 msgstr "Активный"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/components/cell_thread.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/components/cell_thread_popover.xml:0
+msgid "Add a comment..."
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -89,15 +116,46 @@ msgstr "После следующего"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/index.js:0
+msgid "All Comments"
+msgstr "Все комментарии"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/side_panel/comment_threads_side_panel.xml:0
+msgid "All sheets"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.js:0
 msgid "Are you sure you want to delete this list?"
 msgstr "Вы уверены, что хотите удалить этот список?"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.js:0
-msgid "Are you sure you want to delete this pivot?"
-msgstr "Вы уверены, что хотите удалить этот стержень?"
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/index.js:0
+msgid "Area"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/edit_list_sorting_section/edit_list_sorting_section.xml:0
+msgid "Ascending"
+msgstr "По возрастанию"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/relation_filter_editor_side_panel.js:0
+msgid ""
+"At least one data source has an invalid model. Please delete it before "
+"editing this global filter."
+msgstr ""
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_attachment_count
+msgid "Attachment Count"
+msgstr "Количество вложений"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -113,8 +171,12 @@ msgstr "Автоматическая фильтрация по текущему 
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.xml:0
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "Axis"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_side_panel.xml:0
 msgid "Back"
 msgstr "Назад"
@@ -127,9 +189,15 @@ msgstr "Перед предыдущим"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_panel.xml:0
+#: code:addons/spreadsheet_edition/static/src/assets/components/spreadsheet_selector_grid/spreadsheet_selector_grid.js:0
 msgid "Blank spreadsheet"
 msgstr "Пустая электронная таблица"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "Bottom"
+msgstr "Низ"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -142,13 +210,27 @@ msgid "Cancel"
 msgstr "Отменить"
 
 #. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.js:0
+msgid ""
+"Changing the pivot definition requires to reload the data. It may take some "
+"time."
+msgstr ""
+
+#. module: spreadsheet_edition
 #: model:ir.model,name:spreadsheet_edition.model_spreadsheet_revision
 msgid "Collaborative spreadsheet revision"
 msgstr "Совместный пересмотр электронных таблиц"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/index.js:0
+msgid "Column"
+msgstr "Колонка"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.xml:0
 msgid "Columns"
 msgstr "Колонки"
 
@@ -159,6 +241,12 @@ msgstr "Команды"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/index.js:0
+msgid "Comments"
+msgstr "Комментарии"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_dialog.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/input_dialog/input_dialog.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/ir_menu_selector/ir_menu_selector.xml:0
@@ -166,20 +254,16 @@ msgid "Confirm"
 msgstr "Подтвердить"
 
 #. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__create_uid
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__create_uid
 msgid "Created by"
 msgstr "Создано"
 
 #. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__create_date
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__create_date
 msgid "Created on"
 msgstr "Создано"
-
-#. module: spreadsheet_edition
-#. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_line/odoo_line_config_panel.js:0
-msgid "Cumulative data"
-msgstr "Кумулятивные данные"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -188,23 +272,17 @@ msgid "Currency"
 msgstr "Валюта"
 
 #. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.xml:0
+msgid "Current"
+msgstr "Текущий"
+
+#. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard__current_revision_uuid
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard_share__current_revision_uuid
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_mixin__current_revision_uuid
 msgid "Current Revision Uuid"
 msgstr ""
-
-#. module: spreadsheet_edition
-#. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
-msgid "Current Version"
-msgstr "Текущая версия"
-
-#. module: spreadsheet_edition
-#. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_dialog.js:0
-msgid "Dashboards"
-msgstr "Панели управления"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -220,9 +298,15 @@ msgstr "Поле даты"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/assets/helpers.js:0
+#: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
 msgid "Day"
 msgstr "День"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
+msgid "Day of Month"
+msgstr "День месяца"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -234,33 +318,49 @@ msgstr "Значение по умолчанию"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.xml:0
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
-msgid "Delete"
-msgstr "Удалить"
+#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.js:0
+msgid "Defer updates"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/actions/control_panel/spreadsheet_control_panel.js:0
-msgid "Difference between user locale (%(user_locale)s) and spreadsheet locale (%(spreadsheet_locale)s). This spreadsheet is using the formats below:"
-msgstr "Разница между локалью пользователя (%(user_locale)s) и локалью электронной таблицы (%(spreadsheet_locale)s). Эта электронная таблица использует форматы, приведенные ниже:"
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "Degree"
+msgstr "Градус"
 
 #. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
+msgid "Delete Pivot"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/edit_list_sorting_section/edit_list_sorting_section.xml:0
+msgid "Descending"
+msgstr "По убыванию"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/components/locale_status/locale_status.js:0
+msgid ""
+"Difference between user locale (%(user_locale)s) and spreadsheet locale "
+"(%(spreadsheet_locale)s). This spreadsheet is using the formats below:"
+msgstr ""
+"Разница между локалью пользователя (%(user_locale)s) и локалью электронной "
+"таблицы (%(spreadsheet_locale)s). Эта электронная таблица использует "
+"форматы, приведенные ниже:"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__display_name
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__display_name
 msgid "Display Name"
 msgstr "Отображаемое имя"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/pivot_dialog.xml:0
-msgid "Display missing cells only"
-msgstr "Отображать только отсутствующие ячейки"
-
-#. module: spreadsheet_edition
-#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/common/config_panel.xml:0
-#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.xml:0
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/components/side_panel_domain/side_panel_domain.xml:0
 msgid "Domain"
 msgstr "Домен"
 
@@ -278,18 +378,6 @@ msgstr "Загрузить в формате JSON"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.xml:0
-msgid "Duplicate List"
-msgstr ""
-
-#. module: spreadsheet_edition
-#. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
-msgid "Duplicate Pivot"
-msgstr ""
-
-#. module: spreadsheet_edition
-#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/filter_editor_side_panel.js:0
 msgid "Duplicated Label"
 msgstr "Дублированная этикетка"
@@ -303,10 +391,15 @@ msgstr "Редактировать"
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/common/config_panel.xml:0
-#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.xml:0
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/components/side_panel_domain/side_panel_domain.xml:0
 msgid "Edit domain"
 msgstr "Редактирование домена"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "Exponential"
+msgstr "Экспоненциальный"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -318,16 +411,38 @@ msgstr "Согласование полей"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/side_panel/comment_threads_side_panel.xml:0
+msgid "Filter comments"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/index.js:0
 msgid "Filter properties"
 msgstr "Свойства фильтра"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/global_filter_side_panel.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/text_filter_editor_side_panel.xml:0
+msgid "Filter value"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/filter_component.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/index.js:0
 msgid "Filters"
 msgstr "Фильтры"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_follower_ids
+msgid "Followers"
+msgstr "Подписчики"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Подписчики"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -336,15 +451,39 @@ msgid "From / To"
 msgstr "От /До"
 
 #. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__has_message
+msgid "Has Message"
+msgstr "Есть сообщение"
+
+#. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/version_history_action.js:0
 msgid "Heads up!"
 msgstr ""
 
 #. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.js:0
+msgid "Horizontal axis"
+msgstr ""
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__id
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__id
 msgid "ID"
 msgstr "ID"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,help:spreadsheet_edition.field_spreadsheet_cell_thread__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+"Если флажок установлен, значит, новые сообщения требуют вашего внимания."
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,help:spreadsheet_edition.field_spreadsheet_cell_thread__message_has_error
+#: model:ir.model.fields,help:spreadsheet_edition.field_spreadsheet_cell_thread__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Если отмечено, некоторые сообщения имеют ошибку доставки."
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -352,6 +491,18 @@ msgstr "ID"
 msgid ""
 "If you go ahead, your document will go back to the version from %s.\n"
 "Any changes you've made after that time will disappear. Ready to proceed?"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/relation_filter_editor_side_panel.xml:0
+msgid "Include children"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/index.js:0
+msgid "Insert comment"
 msgstr ""
 
 #. module: spreadsheet_edition
@@ -375,22 +526,14 @@ msgstr "Вставка списка в электронную таблицу"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
-msgid "Insert pivot"
-msgstr "Вставьте шарнир"
-
-#. module: spreadsheet_edition
-#. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/pivot_actions.js:0
-msgid "Insert pivot cell"
-msgstr "Вставка поворотной ячейки"
-
-#. module: spreadsheet_edition
-#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_dialog.xml:0
 msgid "Insert the first"
 msgstr "Вставьте первый"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_is_follower
+msgid "Is Follower"
+msgstr "Является подписчиком"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -399,11 +542,13 @@ msgid "Label"
 msgstr "Метка"
 
 #. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__write_uid
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__write_uid
 msgid "Last Updated by"
 msgstr "Последнее обновление"
 
 #. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__write_date
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__write_date
 msgid "Last Updated on"
 msgstr "Последнее обновление"
@@ -415,6 +560,30 @@ msgstr "Последнее обновление"
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
 msgid "Last updated at"
 msgstr "Последнее обновление"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "Left"
+msgstr "Слева"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "Legend position"
+msgstr "Позиция легенды"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/index.js:0
+msgid "Line"
+msgstr "Линия"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "Linear"
+msgstr "Линейный"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -443,7 +612,9 @@ msgstr "Имя списка"
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.js:0
-msgid "List duplicated. Use the \"Re-insert list\" menu item to insert it in a sheet."
+msgid ""
+"List duplicated. Use the \"Re-insert list\" menu item to insert it in a "
+"sheet."
 msgstr ""
 
 #. module: spreadsheet_edition
@@ -466,6 +637,12 @@ msgstr "Загрузить больше"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "Logarithmic"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
 msgid "Make a copy"
@@ -485,15 +662,19 @@ msgstr "Сопоставьте этот фильтр с полем для каж
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
-msgid "Measures"
-msgstr "Меры"
-
-#. module: spreadsheet_edition
-#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/ir_menu_selector/ir_menu_selector.js:0
 msgid "Menu Items"
 msgstr "Пункты меню"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_has_error
+msgid "Message Delivery error"
+msgstr "Ошибка доставки сообщения"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_ids
+msgid "Messages"
+msgstr "Сообщения"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -505,13 +686,13 @@ msgstr "Отсутствующий список #%s"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/plugins/pivot_autofill_plugin.js:0
 msgid "Missing pivot"
-msgstr "Отсутствующий шарнир"
+msgstr "Отсутствующая Сводная таблица "
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/plugins/pivot_autofill_plugin.js:0
 msgid "Missing pivot #%s"
-msgstr "Отсутствующий стержень #%s"
+msgstr "Отсутствующая сводная таблица #%s"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -523,17 +704,34 @@ msgid "Model"
 msgstr "Модель"
 
 #. module: spreadsheet_edition
+#: model:ir.model,name:spreadsheet_edition.model_ir_model
+msgid "Models"
+msgstr "Модели"
+
+#. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/assets/helpers.js:0
-#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.xml:0
+#: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.js:0
 msgid "Month"
 msgstr "Месяц"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
+msgid "Month & Year"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.js:0
 msgid "Month / Quarter"
 msgstr "Месяц / квартал"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.xml:0
+msgid "Months"
+msgstr "Месяцев"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -560,6 +758,12 @@ msgid "New %s filter"
 msgstr "Новый фильтр %s"
 
 #. module: spreadsheet_edition
+#. odoo-python
+#: code:addons/spreadsheet_edition/models/spreadsheet_cell_thread.py:0
+msgid "New Mention in %s"
+msgstr "Новое упоминание в %s"
+
+#. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_panel.js:0
 msgid "New sheet inserted in '%s'"
@@ -573,9 +777,35 @@ msgstr "Следующий"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_panel.xml:0
+#: code:addons/spreadsheet_edition/static/src/assets/components/spreadsheet_selector_grid/spreadsheet_selector_grid.xml:0
 msgid "No preview"
 msgstr "Без предварительного просмотра"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "None"
+msgstr "Нет"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Число действий"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_has_error_counter
+msgid "Number of errors"
+msgstr "Число ошибок"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,help:spreadsheet_edition.field_spreadsheet_cell_thread__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Количество сообщений, требующих принятия мер"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,help:spreadsheet_edition.field_spreadsheet_cell_thread__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Количество недоставленных сообщений"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -583,6 +813,24 @@ msgstr "Без предварительного просмотра"
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/version_history_action.js:0
 msgid "Odoo Spreadsheet"
 msgstr "Электронная таблица Odoo"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/components/cell_thread_popover.xml:0
+msgid "Open all comments"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/edit_list_sorting_section/edit_list_sorting_section.xml:0
+msgid "Order"
+msgstr "Заказ"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/version_history_action.js:0
+msgid "Original data"
+msgstr ""
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__parent_revision_id
@@ -603,33 +851,34 @@ msgstr "Смещение периода, применяемое к данном�
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/index.js:0
+msgid "Pie"
+msgstr "Круговая"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
 msgid "Pivot contains duplicate groupbys"
-msgstr "Точка разворота содержит дубликаты групп"
+msgstr "Сводная таблица содержит дубликаты группировок"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.js:0
-msgid "Pivot duplicated. Use the \"Re-insert pivot\" menu item to insert it in a sheet."
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/input_dialog/input_dialog.js:0
+msgid "Please enter a valid number."
 msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.js:0
-msgid "Pivot duplication failed"
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "Polynomial"
 msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
-msgid "Pivot name"
-msgstr "Название поворотного пункта"
-
-#. module: spreadsheet_edition
-#. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/index.js:0
-msgid "Pivot properties"
-msgstr "Поворотные свойства"
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/relation_filter_editor_side_panel.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/text_filter_editor_side_panel.xml:0
+msgid "Possible values"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -645,14 +894,37 @@ msgstr "Печать"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/assets/helpers.js:0
-#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.xml:0
+#: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.js:0
 msgid "Quarter"
 msgstr "Квартал"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/actions/spreadsheet_component.js:0
+#: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
+msgid "Quarter & Year"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.xml:0
+msgid "Quarters"
+msgstr ""
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__rating_ids
+msgid "Ratings"
+msgstr "Рейтинги"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
+msgid "Re-insert dynamic pivot"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/abstract_spreadsheet_action.js:0
 #: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
 msgid "Re-insert list"
 msgstr "Повторная вставка списка"
@@ -660,14 +932,20 @@ msgstr "Повторная вставка списка"
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
-msgid "Re-insert pivot"
-msgstr "Установите на место шарнир"
+msgid "Re-insert static pivot"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/side_panel/comment_threads_side_panel.js:0
+msgid "Re-open this thread"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/list/plugins/list_autofill_plugin.js:0
-msgid "Record #"
-msgstr "Запись №"
+msgid "Record #%(record_number)s"
+msgstr ""
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__res_id
@@ -679,14 +957,6 @@ msgstr "Идентификатор записи"
 #: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
 msgid "Refresh all data"
 msgstr "Обновить все данные"
-
-#. module: spreadsheet_edition
-#. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/common/config_panel.xml:0
-#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.xml:0
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
-msgid "Refresh values"
-msgstr "Обновить значения"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -715,7 +985,6 @@ msgstr "Удалить"
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/control_panel/spreadsheet_name.xml:0
-#: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/editable_name/editable_name.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
 msgid "Rename"
 msgstr "Переименовать"
@@ -728,6 +997,18 @@ msgstr "Требуется выбранное поле"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/side_panel/comment_threads_side_panel.js:0
+msgid "Resolve this thread"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/side_panel/comment_threads_side_panel.xml:0
+msgid "Resolved"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
 msgid "Restore this version"
 msgstr ""
@@ -737,6 +1018,12 @@ msgstr ""
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/text_filter_editor_side_panel.xml:0
 msgid "Restrict values to a range"
 msgstr "Ограничение значений диапазоном"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/relation_filter_editor_side_panel.xml:0
+msgid "Restrict values with a domain"
+msgstr ""
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__revision_uuid
@@ -756,14 +1043,18 @@ msgstr "Ревизии"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
-msgid "Rows"
-msgstr "Ряды"
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "Right"
+msgstr "Справа"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Ошибка доставки SMS"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/filter_editor_side_panel.xml:0
-#: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/editable_name/editable_name.xml:0
 msgid "Save"
 msgstr "Сохранить"
 
@@ -775,13 +1066,13 @@ msgstr "Сохранить как шаблон"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/actions/control_panel/spreadsheet_breadcrumbs.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/components/collaborative_status/collaborative_status.xml:0
 msgid "Saved"
 msgstr "Сохранено"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/actions/control_panel/spreadsheet_breadcrumbs.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/components/collaborative_status/collaborative_status.xml:0
 msgid "Saving"
 msgstr "Сохранение"
 
@@ -801,7 +1092,7 @@ msgstr "Посмотреть список свойств"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/index.js:0
 msgid "See pivot properties"
-msgstr "См. свойства поворота"
+msgstr "См. свойства Сводной таблицы "
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -823,21 +1114,39 @@ msgstr "Выберите электронную таблицу для встав
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/ir_menu_selector/ir_menu_selector.js:0
+#: code:addons/spreadsheet_edition/static/src/bundle/ir_menu_selector/ir_menu_selector.xml:0
 msgid "Select an Odoo menu to link in your spreadsheet"
 msgstr "Выберите меню Odoo для ссылки в вашей электронной таблице"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/actions/spreadsheet_component.js:0
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/abstract_spreadsheet_action.js:0
 msgid "Select the number of records to insert"
 msgstr "Выберите количество записей для вставки"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/components/composer_patch.js:0
+msgid "Send"
+msgstr "Отправить"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/index.js:0
 msgid "Set as filter"
 msgstr "Установите в качестве фильтра"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "Show trend line"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "Show values"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -853,7 +1162,7 @@ msgstr "Некоторые обязательные поля не действи
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/edit_list_sorting_section/edit_list_sorting_section.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
 msgid "Sorting"
 msgstr "Сортировка"
@@ -861,6 +1170,7 @@ msgstr "Сортировка"
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/spreadsheet_cog_menu/spreadsheet_cog_menu.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/components/spreadsheet_navbar/spreadsheet_navbar.xml:0
 #: model:ir.ui.menu,name:spreadsheet_edition.menu_technical_spreadsheet
 msgid "Spreadsheet"
 msgstr "Таблица"
@@ -880,22 +1190,32 @@ msgid "Spreadsheet Snapshot"
 msgstr "Снимок электронной таблицы"
 
 #. module: spreadsheet_edition
+#: model:ir.model,name:spreadsheet_edition.model_spreadsheet_cell_thread
+msgid "Spreadsheet discussion thread"
+msgstr ""
+
+#. module: spreadsheet_edition
 #: model:ir.model,name:spreadsheet_edition.model_spreadsheet_mixin
 msgid "Spreadsheet mixin"
 msgstr "Миксин для электронных таблиц"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_dialog.js:0
-msgid "Spreadsheets"
-msgstr "Электронные таблицы"
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/index.js:0
+msgid "Stacked Area"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_bar/odoo_bar_config_panel.js:0
-#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_line/odoo_line_config_panel.js:0
-msgid "Stacked linechart"
-msgstr "Линейная диаграмма со стеком"
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/index.js:0
+msgid "Stacked Column"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/index.js:0
+msgid "Stacked Line"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -906,14 +1226,46 @@ msgstr "Текст"
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/version_history_action.js:0
-msgid "The history of your spreadsheet is corrupted and you are likely missing recent revisions. This feature cannot be used."
-msgstr "История вашей электронной таблицы повреждена, и вы, вероятно, пропустили последние изменения. Эта функция не может быть использована."
+msgid ""
+"The history of your spreadsheet is corrupted and you are likely missing "
+"recent revisions. This feature cannot be used."
+msgstr ""
+"История вашей электронной таблицы повреждена, и вы, вероятно, пропустили "
+"последние изменения. Эта функция не может быть использована."
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/common/config_panel.js:0
+msgid ""
+"The model (%(model)s) of this chart is not valid (it may have been "
+"renamed/deleted). Please re-insert a new chart."
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.js:0
+msgid ""
+"The model (%(model)s) of this list is not valid (it may have been "
+"renamed/deleted). Please re-insert a new list."
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.js:0
+msgid ""
+"The model (%(model)s) of this pivot is not valid (it may have been "
+"renamed/deleted). Please re-insert a new pivot."
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-python
 #: code:addons/spreadsheet_edition/models/spreadsheet_mixin.py:0
-msgid "The operation could not be applied because of a concurrent update. Please try again."
-msgstr "Операция не может быть применена из-за одновременного обновления. Пожалуйста, попробуйте еще раз."
+msgid ""
+"The operation could not be applied because of a concurrent update. Please "
+"try again."
+msgstr ""
+"Операция не может быть применена из-за одновременного обновления. "
+"Пожалуйста, попробуйте еще раз."
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -947,9 +1299,14 @@ msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/icons.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.js:0
 msgid "This pivot is not used"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/side_panel/comment_threads_side_panel.xml:0
+msgid "This sheet"
 msgstr ""
 
 #. module: spreadsheet_edition
@@ -960,9 +1317,27 @@ msgstr "Диапазон времени"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "Top"
+msgstr "Сверху"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/plugins/pivot_autofill_plugin.js:0
 msgid "Total"
 msgstr "Всего"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "Type"
+msgstr "Тип"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.xml:0
+msgid "Value options"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -978,14 +1353,42 @@ msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/assets/helpers.js:0
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.js:0
+msgid "Vertical axis"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "Vertical axis position"
+msgstr "Положение вертикальной оси"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__website_message_ids
+msgid "Website Messages"
+msgstr "Веб-сайт сообщения"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,help:spreadsheet_edition.field_spreadsheet_cell_thread__website_message_ids
+msgid "Website communication history"
+msgstr "История общений с сайта"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
 msgid "Week"
 msgstr "Неделя"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/assets/helpers.js:0
-#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.xml:0
+#: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
+msgid "Week & Year"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.js:0
 msgid "Year"
 msgstr "Год"
 
@@ -996,10 +1399,16 @@ msgid "Yes, restore"
 msgstr ""
 
 #. module: spreadsheet_edition
-#. odoo-python
-#: code:addons/spreadsheet_edition/models/spreadsheet_mixin.py:0
-msgid "You are not allowed to access this spreadsheet."
-msgstr "Вам не разрешен доступ к этой электронной таблице."
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/side_panel/comment_threads_side_panel.xml:0
+msgid "activeSheet"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/comments/side_panel/comment_threads_side_panel.xml:0
+msgid "allSheets"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -1009,9 +1418,27 @@ msgstr "по возрастанию"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "bottom"
+msgstr "низ"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.js:0
 msgid "descending"
 msgstr "по убыванию"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "exponential"
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/edit_list_sorting_section/edit_list_sorting_section.xml:0
+msgid "false"
+msgstr "ложь"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -1021,9 +1448,15 @@ msgstr "граф"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/pivot_dialog.xml:0
-msgid "has no cell missing from this sheet"
-msgstr "не имеет ни одной ячейки, отсутствующей на этом листе"
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "left"
+msgstr "слева"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "linear"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -1039,6 +1472,17 @@ msgstr "список"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "logarithmic"
+msgstr ""
+
+#. module: spreadsheet_edition
+#: model_terms:ir.ui.view,arch_db:spreadsheet_edition.mail_notification_layout
+msgid "mentioned you in a comment:"
+msgstr "упомянул вас в комментарии:"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/common/config_panel.js:0
 #: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.js:0
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.js:0
@@ -1047,15 +1491,45 @@ msgstr "никогда"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "none"
+msgstr "нет"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_dialog.js:0
 msgid "pivot"
-msgstr "поворот"
+msgstr "Сводная таблица"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "polynomial"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_dialog.xml:0
 msgid "records of the list."
 msgstr "записи в списке."
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "right"
+msgstr "справа"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
+msgid "top"
+msgstr "вверх"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/edit_list_sorting_section/edit_list_sorting_section.xml:0
+msgid "true"
+msgstr "верно"
 
 #. module: spreadsheet_edition
 #: model:ir.model,name:spreadsheet_edition.model_ir_websocket

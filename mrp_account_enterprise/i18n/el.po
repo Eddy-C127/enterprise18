@@ -1,26 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * mrp_account
-#
+# 	* mrp_account_enterprise
+# 
 # Translators:
-# Martin Trigaux, 2019
-# Stelios Steiakakis <fs_corpse@yahoo.gr>, 2019
-# Kostas Goutoudis <goutoudis@gmail.com>, 2019
-# Stefanos Nikou <stefanos.nikou@gmail.com>, 2019
-# George Tarasidis <george_tarasidis@yahoo.com>, 2019
-#
+# George Tarasidis <george_tarasidis@yahoo.com>, 2024
+# Martin Trigaux, 2024
+# Kostas Goutoudis <goutoudis@gmail.com>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~11.5+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:02+0000\n"
-"PO-Revision-Date: 2016-08-05 13:29+0000\n"
-"Last-Translator: George Tarasidis <george_tarasidis@yahoo.com>, 2019\n"
-"Language-Team: Greek (https://www.transifex.com/odoo/teams/41243/el/)\n"
-"Language: el\n"
+"POT-Creation-Date: 2024-09-25 09:27+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Kostas Goutoudis <goutoudis@gmail.com>, 2024\n"
+"Language-Team: Greek (https://app.transifex.com/odoo/teams/41243/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: mrp_account_enterprise
@@ -39,7 +37,6 @@ msgid ", from"
 msgstr ""
 
 #. module: mrp_account_enterprise
-#: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_production_form_inherit_view6
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.product_product_inherit_form_view_cost_structure
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.product_template_inherit_form_view_cost_structure
 msgid "<span class=\"o_stat_text\">Cost Analysis</span>"
@@ -83,7 +80,7 @@ msgstr ""
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Quantity</span>"
-msgstr "Ποσότητα"
+msgstr "<span>Ποσότητα</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
@@ -163,7 +160,7 @@ msgstr ""
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__company_id
 msgid "Company"
-msgstr ""
+msgstr "Εταιρία"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__unit_component_cost
@@ -172,7 +169,8 @@ msgstr ""
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__unit_component_cost
-msgid "Component cost per unit produced (in product UoM) of manufacturing order"
+msgid ""
+"Component cost per unit produced (in product UoM) of manufacturing order"
 msgstr ""
 
 #. module: mrp_account_enterprise
@@ -243,7 +241,7 @@ msgstr ""
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__currency_id
 msgid "Currency"
-msgstr ""
+msgstr "Νόμισμα"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__display_name
@@ -259,12 +257,32 @@ msgstr ""
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__date_finished
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_report_search_view
 msgid "End Date"
+msgstr "Ημερ. Λήξης"
+
+#. module: mrp_account_enterprise
+#: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__expected_component_cost_unit
+msgid "Expected Component Cost / Unit"
+msgstr ""
+
+#. module: mrp_account_enterprise
+#: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__expected_employee_cost_unit
+msgid "Expected Employee Cost / Unit"
+msgstr ""
+
+#. module: mrp_account_enterprise
+#: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__expected_operation_cost_unit
+msgid "Expected Operation Cost / Unit"
+msgstr ""
+
+#. module: mrp_account_enterprise
+#: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__expected_total_cost_unit
+msgid "Expected Total Cost / Unit"
 msgstr ""
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_report_search_view
 msgid "Group by"
-msgstr ""
+msgstr "Ομαδοποίηση κατά"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__id
@@ -280,7 +298,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__production_id
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_report_search_view
 msgid "Manufacturing Order"
-msgstr ""
+msgstr "Εντολή Παραγωγής"
 
 #. module: mrp_account_enterprise
 #: model:ir.model,name:mrp_account_enterprise.model_mrp_report
@@ -294,7 +312,8 @@ msgstr ""
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__unit_operation_cost
-msgid "Operation cost per unit produced (in product UoM) of manufacturing order"
+msgid ""
+"Operation cost per unit produced (in product UoM) of manufacturing order"
 msgstr ""
 
 #. module: mrp_account_enterprise
@@ -322,7 +341,7 @@ msgstr ""
 #. module: mrp_account_enterprise
 #: model:ir.model,name:mrp_account_enterprise.model_product_product
 msgid "Product Variant"
-msgstr ""
+msgstr "Μεταβλητή Είδους"
 
 #. module: mrp_account_enterprise
 #: model:ir.actions.act_window,name:mrp_account_enterprise.mrp_report_dashboard_action
@@ -331,9 +350,19 @@ msgid "Production Analysis"
 msgstr ""
 
 #. module: mrp_account_enterprise
+#: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__qty_demanded
+msgid "Quantity Demanded"
+msgstr ""
+
+#. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__qty_produced
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_report_pivot_view
 msgid "Quantity Produced"
+msgstr "Παραγόμενη Ποσότητα"
+
+#. module: mrp_account_enterprise
+#: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__yield_rate
+msgid "Ratio of quantity produced over quantity demanded"
 msgstr ""
 
 #. module: mrp_account_enterprise
@@ -349,7 +378,7 @@ msgstr ""
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__total_cost
 msgid "Total Cost"
-msgstr ""
+msgstr "Σύνολο Κόστους"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
@@ -378,7 +407,9 @@ msgstr ""
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__total_cost
-msgid "Total cost of manufacturing order (component + operation costs + subcontracting cost)"
+msgid ""
+"Total cost of manufacturing order (component + operation costs + "
+"subcontracting cost)"
 msgstr ""
 
 #. module: mrp_account_enterprise
@@ -392,8 +423,18 @@ msgid "Total duration (minutes) of operations for manufacturing order"
 msgstr ""
 
 #. module: mrp_account_enterprise
+#: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__qty_demanded
+msgid "Total quantity demanded in product's UoM"
+msgstr ""
+
+#. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__qty_produced
 msgid "Total quantity produced in product's UoM"
+msgstr ""
+
+#. module: mrp_account_enterprise
+#: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__yield_rate
+msgid "Yield Percentage(%)"
 msgstr ""
 
 #. module: mrp_account_enterprise

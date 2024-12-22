@@ -4,22 +4,36 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Fernanda Alvarez, 2024
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:26+0000\n"
+"POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Fernanda Alvarez, 2024\n"
+"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: es_419\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#. module: account_online_payment
+#. odoo-python
+#: code:addons/account_online_payment/models/account_batch_payment.py:0
+msgid ""
+"\n"
+"                    This payment requires a KYC flow. As this process can take a few days, please use SEPA XML export in the meantime.\n"
+"                    You will be notified once the KYC flow is completed and you can proceed with the online payment.\n"
+"                "
+msgstr ""
+"\n"
+"                    Este pago requiere un flujo de cliente nuevo. Como este proceso puede tomar unos días, use la exportación XML SEPA por ahora.\n"
+"                    Se le notificará cuando el flujo de cliente nuevo se completo y pueda seguir con el pago en línea.\n"
+"                "
 
 #. module: account_online_payment
 #: model:ir.model.fields.selection,name:account_online_payment.selection__account_batch_payment__payment_online_status__accepted

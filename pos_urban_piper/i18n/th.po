@@ -3,16 +3,16 @@
 # 	* pos_urban_piper
 # 
 # Translators:
-# Wil Odoo, 2024
 # Rasareeyar Lappiam, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:15+0000\n"
+"POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Rasareeyar Lappiam, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,6 +38,11 @@ msgstr "ยอมรับ"
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__acknowledged
 msgid "Acknowledged"
 msgstr "ได้รับการตอบรับแล้ว"
+
+#. module: pos_urban_piper
+#: model:ir.model.fields,help:pos_urban_piper.field_pos_config__name
+msgid "An internal identification of the point of sale."
+msgstr "การระบุภายในของการขายหน้าร้าน"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
@@ -82,7 +87,7 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_payment_method__is_delivery_payment
 msgid "Check this if this payment method is used for online delivery orders."
-msgstr ""
+msgstr "เลือกตัวเลือกนี้หากใช้สำหรับการสั่งซื้อสินค้าแบบจัดส่งออนไลน์"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -278,6 +283,11 @@ msgstr ""
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
+msgid "Fill this form to get Username &amp; Api key"
+msgstr ""
+
+#. module: pos_urban_piper
+#: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "Fiscal Position"
 msgstr "ฐานะทางการเงิน"
 
@@ -320,6 +330,8 @@ msgid ""
 "Handle products with urban piper and pos config - Product is linked or not "
 "with appropriate store."
 msgstr ""
+"จัดการผลิตภัณฑ์ด้วย Urban Piper และ POS - "
+"ผลิตภัณฑ์เชื่อมโยงกับร้านค้าที่เหมาะสมหรือไม่"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -567,6 +579,11 @@ msgid "Placed"
 msgstr "สั่งไว้แล้ว"
 
 #. module: pos_urban_piper
+#: model:ir.model.fields,field_description:pos_urban_piper.field_pos_config__name
+msgid "Point of Sale"
+msgstr "การขายหน้าร้าน"
+
+#. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_pos_config
 msgid "Point of Sale Configuration"
 msgstr "กำหนดค่าการขายหน้าร้าน"
@@ -721,7 +738,7 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__journal_code
 msgid "Short code of the journal to be used for journal creation"
-msgstr ""
+msgstr "รหัสย่อของสมุดรายวันที่จะใช้ในการสร้างสมุดรายวัน"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -971,4 +988,4 @@ msgstr ""
 #: code:addons/pos_urban_piper/models/res_config_settings.py:0
 msgid ""
 "Your company %s needs to have a correct city in order create the store."
-msgstr ""
+msgstr "บริษัทของคุณ %s จำเป็นต้องมีเมืองที่ถูกต้องเพื่อสร้างร้านค้า"

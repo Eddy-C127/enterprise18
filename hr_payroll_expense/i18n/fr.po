@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:26+0000\n"
+"POT-Creation-Date: 2024-12-19 13:01+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
@@ -40,6 +40,16 @@ msgstr "<span class=\"o_stat_text\">Fiche de paie</span>"
 #: model:ir.model,name:hr_payroll_expense.model_hr_expense_sheet
 msgid "Expense Report"
 msgstr "Note de frais"
+
+#. module: hr_payroll_expense
+#. odoo-python
+#: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
+msgid ""
+"Expense reimbursement rule needs to be configured to add expenses to payslips.\n"
+"Please create one salary rule with the \"%(code)s\" code on the relevant salary structures."
+msgstr ""
+"La règle de remboursement des notes de frais doit être configurée pour ajouter les frais aux fiches de paie.\n"
+"Veuillez créer une règle salariale avec le code \"%(code)s\" sur les structures salariales concernées."
 
 #. module: hr_payroll_expense
 #. odoo-python
@@ -77,6 +87,12 @@ msgstr "Remboursement des notes de frais"
 #: model:ir.model.fields,help:hr_payroll_expense.field_hr_payslip__expense_sheet_ids
 msgid "Expenses to reimburse to employee."
 msgstr "Notes de frais à rembouser à l'employé."
+
+#. module: hr_payroll_expense
+#. odoo-python
+#: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
+msgid "Go to salary rules"
+msgstr "Aller aux règles salariales"
 
 #. module: hr_payroll_expense
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_account_payment_register__is_already_paid_through_a_payslip

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -19,12 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid " You can safely close this window."
-msgstr " Je kan dit venster zonder problemen sluiten."
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_partner__signature_count
@@ -44,7 +38,7 @@ msgid ""
 "%(partner)s validated the signature by SMS with the phone number "
 "%(phone_number)s."
 msgstr ""
-"%(partner)s heeft de handtekening per sms bevestigd via het telefoonnummer "
+"%(contact)s heeft de handtekening per sms bevestigd via het telefoonnummer "
 "%(phone_number)s."
 
 #. module: sign
@@ -145,12 +139,12 @@ msgstr "20-03-2000"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "2023-08-18"
-msgstr "18-08-2023"
+msgstr "2023-08-18"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "2023-08-18 - 12:30:45"
-msgstr "18-08-2023 - 12:30:45"
+msgstr "2023-08-18 - 12:30:45"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -392,7 +386,7 @@ msgid ""
 "A non-shared sign request's should not have any signer with an empty partner"
 msgstr ""
 "Een niet-gedeeld ibdertekenverzoek mag geen ondertekenaar hebben met een "
-"lege relatie"
+"lege contact"
 
 #. module: sign
 #. odoo-python
@@ -401,7 +395,7 @@ msgid ""
 "A shared sign request should only have one signer with an empty partner"
 msgstr ""
 "Een gedeeld ondertekenverzoek mag slechts één ondertekenaar hebben met een "
-"lege relatie"
+"lege contact"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -687,7 +681,7 @@ msgstr "Bevoegde gebruikers:"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__auto_field
 msgid "Auto-fill Partner Field"
-msgstr "Relatieveld automatisch invullen"
+msgstr "Contactveld automatisch invullen"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_option__available
@@ -745,7 +739,6 @@ msgstr "CC-bericht"
 #: code:addons/sign/static/src/dialogs/public_signer_dialog.xml:0
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.xml:0
 #: code:addons/sign/static/src/dialogs/sign_refusal_dialog.xml:0
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__action__cancel
 #: model_terms:ir.ui.view,arch_db:sign.sign_duplicate_template_with_pdf_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
@@ -826,6 +819,12 @@ msgstr "Klik om te starten"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
 #: code:addons/sign/static/src/js/tours/sign.js:0
+#: model:sign.template,redirect_url_text:sign.template_sign_1
+#: model:sign.template,redirect_url_text:sign.template_sign_2
+#: model:sign.template,redirect_url_text:sign.template_sign_3
+#: model:sign.template,redirect_url_text:sign.template_sign_4
+#: model:sign.template,redirect_url_text:sign.template_sign_5
+#: model:sign.template,redirect_url_text:sign.template_sign_tour
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 #: model_terms:ir.ui.view,arch_db:sign.sign_terms_conditions_setting_banner
 msgid "Close"
@@ -1118,7 +1117,7 @@ msgstr "Demo lengtegraad"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Demo Partner"
-msgstr "Demopartner"
+msgstr "Democontact"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
@@ -1250,10 +1249,15 @@ msgstr "Certificaat downloaden"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_request/sign_request_control_panel.xml:0
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "Download Document"
 msgstr "Download document"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Download it"
+msgstr "Downloaden"
 
 #. module: sign
 #. odoo-javascript
@@ -1476,7 +1480,7 @@ msgstr "Volgers"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Relaties)"
+msgstr "Volgers (Contacten)"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__activity_type_icon
@@ -2281,16 +2285,6 @@ msgid "Oops"
 msgstr "Oep"
 
 #. module: sign
-#: model:sign.template,redirect_url_text:sign.template_sign_1
-#: model:sign.template,redirect_url_text:sign.template_sign_2
-#: model:sign.template,redirect_url_text:sign.template_sign_3
-#: model:sign.template,redirect_url_text:sign.template_sign_4
-#: model:sign.template,redirect_url_text:sign.template_sign_5
-#: model:sign.template,redirect_url_text:sign.template_sign_tour
-msgid "Open Link"
-msgstr "Link openen"
-
-#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
 msgid "Operation successful"
 msgstr "Succesvolle bewerking"
@@ -2353,7 +2347,7 @@ msgstr "Deelnemers"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__partner_id
 msgid "Partner"
-msgstr "Relatie"
+msgstr "Contact"
 
 #. module: sign
 #. odoo-javascript
@@ -2438,7 +2432,7 @@ msgstr "Keuzerondjes"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_radio_set__radio_items
 msgid "Radio Items"
-msgstr "Radio Artikelen"
+msgstr "Radio-items"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__radio_set_id
@@ -2469,6 +2463,7 @@ msgstr "Doorverwijzing URL"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sign_refusal_dialog.xml:0
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__action__refuse
 msgid "Refuse"
 msgstr "Afkeuren"
@@ -2649,7 +2644,6 @@ msgstr "Opslaan als sjabloon"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_body.js:0
-#: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.js:0
 msgid "Saved"
 msgstr "Opgeslagen"
 
@@ -2807,7 +2801,6 @@ msgstr "Algemene voorwaarden weergeven op ondertekenverzoeken"
 #: code:addons/sign/static/src/backend_components/sign_request/sign_request_control_panel.js:0
 #: code:addons/sign/static/src/dialogs/next_direct_sign_dialog.js:0
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.xml:0
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #: model:ir.ui.menu,name:sign.menu_document
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
@@ -2913,6 +2906,12 @@ msgstr "Alles ondertekenen"
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
 msgid "Sign document"
 msgstr "Document ondertekenen"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Sign now"
+msgstr "Teken nu"
 
 #. module: sign
 #. odoo-python
@@ -3332,7 +3331,7 @@ msgid ""
 "Technical name of the field on the partner model to auto-complete this "
 "signature field at the time of signature."
 msgstr ""
-"Technische naam van het veld op het partnermodel om dit handtekeningveld "
+"Technische naam van het veld op het contactmodel om dit handtekeningenveld "
 "automatisch in te vullen op het moment van ondertekening."
 
 #. module: sign
@@ -3526,7 +3525,7 @@ msgid ""
 "The mail address of %(partner)s has been updated. The request will be "
 "automatically resent."
 msgstr ""
-"Het e-mailadres van %(partner)s is bijgewerkt. Het verzoek wordt automatisch"
+"Het e-mailadres van %(contact)s is bijgewerkt. Het verzoek wordt automatisch"
 " opnieuw verzonden."
 
 #. module: sign
@@ -3558,13 +3557,13 @@ msgstr "Het ondertekenverzoek is niet volledig ondertekend"
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
 msgid "The signature has been canceled by %(partner)s(%(role)s)"
-msgstr "De handtekening is geannuleerd door %(partner)s(%(role)s)"
+msgstr "De handtekening is geannuleerd door %(contact)s(%(role)s)"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "The signature has been refused by %(partner)s(%(role)s)"
-msgstr "De handtekening is afgewezen door %(partner)s(%(role)s)"
+msgstr "De handtekening is afgewezen door %(contact)s(%(role)s)"
 
 #. module: sign
 #. odoo-python
@@ -4155,8 +4154,8 @@ msgid ""
 "You cannot share this document by link, because it has fields to be filled "
 "by different roles. Use Send button instead."
 msgstr ""
-"Je kan dit document niet delen via een link, omdat het velden bevat die door"
-" verschillende rollen moeten worden ingevuld. Gebruik liever de knop "
+"Je kunt dit document niet delen via een link, omdat het velden bevat die "
+"door verschillende rollen moeten worden ingevuld. Gebruik liever de knop "
 "Verzenden."
 
 #. module: sign

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:13+0000\n"
+"POT-Creation-Date: 2024-12-19 13:01+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
@@ -197,7 +197,7 @@ msgstr "Tình trạng còn hàng"
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_report_mrp_report_bom_structure
 msgid "BOM Overview Report"
-msgstr "Báo cáo tổng quan ĐMNL"
+msgstr "Báo cáo tổng quan DMVT"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -214,7 +214,7 @@ msgstr "Mã vạch được quét"
 #: model:ir.model,name:mrp_workorder.model_mrp_bom
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_point__bom_id
 msgid "Bill of Material"
-msgstr "Định mức nguyên liệu"
+msgstr "Danh mục vật tư"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -232,18 +232,18 @@ msgstr "Chặn"
 #. odoo-python
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
 msgid "BoM feedback %(step)s (%(production)s - %(operation)s)"
-msgstr "Phản hồi ĐMNL %(step)s (%(production)s - %(operation)s)"
+msgstr "Phản hồi DMVT %(step)s (%(production)s - %(operation)s)"
 
 #. module: mrp_workorder
 #. odoo-python
 #: code:addons/mrp_workorder/models/quality.py:0
 msgid "BoM feedback (%(production)s - %(operation)s)"
-msgstr "Phản hồi ĐMNL (%(production)s - %(operation)s)"
+msgstr "Phản hồi DMVT (%(production)s - %(operation)s)"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_point__bom_product_ids
 msgid "Bom Product"
-msgstr "Sản phẩm ĐMNL"
+msgstr "Sản phẩm DMVT"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
@@ -819,7 +819,7 @@ msgstr "Sản xuất hàng loạt"
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 msgid "Measure:"
-msgstr "Số đo"
+msgstr "Thước đo"
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1701,6 +1701,12 @@ msgid "Waiting"
 msgstr "Đang chờ"
 
 #. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.js:0
+msgid "What do you want to do?"
+msgstr "Bạn muốn làm gì?"
+
+#. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_production_additional_workorder_wizard
 msgid "Will be placed at the beginning if emtpy"
 msgstr "Sẽ được đặt ở đầu nếu trống"
@@ -1754,7 +1760,7 @@ msgid ""
 "            Operations are defined in the bill of materials or added in the manufacturing order directly."
 msgstr ""
 "Công đoạn là các hoạt động thành phần của một lệnh sản xuất. \n"
-"                    Các hoạt động được nêu rõ trong định mức nguyên liệu hoặc thêm trực tiếp vào lệnh sản xuất. "
+"                    Các hoạt động được nêu rõ trong danh mục vật tư hoặc thêm trực tiếp vào lệnh sản xuất. "
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.stock_picking_type_view_kanban

@@ -1,20 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* knowledge
-#
+# 
 # Translators:
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:54+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: knowledge
@@ -38,14 +40,34 @@ msgstr "\" (дата)"
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-msgid "\"%(article_name)s\" is a template and can not be a child of an article (\"%(parent_article_name)s\")."
-msgstr "\"%(article_name)s\" является шаблоном и не может быть дочерним элементом статьи (\"%(parent_article_name)s\")."
+msgid ""
+"\"%(article_item_name)s\" is an Article Item from \"%(article_name)s\" and "
+"cannot be restored on its own. Contact the owner of \"%(article_name)s\" to "
+"have it restored instead."
+msgstr ""
+"\"%(article_item_name)s\" - это артикул из \"%(article_name)s\" и не может "
+"быть восстановлен самостоятельно. Свяжитесь с владельцем "
+"\"%(article_name)s\", чтобы восстановить его."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-msgid "\"%(article_name)s\" is an article and can not be a child of a template (\"%(parent_article_name)s\").\""
-msgstr "\"%(article_name)s\" является артиклем и не может быть дочерним элементом шаблона (\"%(parent_article_name)s\").\""
+msgid ""
+"\"%(article_name)s\" is a template and can not be a child of an article "
+"(\"%(parent_article_name)s\")."
+msgstr ""
+"\"%(article_name)s\" является шаблоном и не может быть дочерним элементом "
+"статьи (\"%(parent_article_name)s\")."
+
+#. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+msgid ""
+"\"%(article_name)s\" is an article and can not be a child of a template "
+"(\"%(parent_article_name)s\").\""
+msgstr ""
+"\"%(article_name)s\" является артиклем и не может быть дочерним элементом "
+"шаблона (\"%(parent_article_name)s\").\""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -464,8 +486,12 @@ msgstr "<font class=\"text-600\">Конкурент 3</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
-msgid "<font class=\"text-600\">Detailed Explanation of the feature, with screenshots or a GIF</font>"
-msgstr "<font class=\"text-600\">Подробное объяснение функции, со скриншотами или GIF</font>"
+msgid ""
+"<font class=\"text-600\">Detailed Explanation of the feature, with "
+"screenshots or a GIF</font>"
+msgstr ""
+"<font class=\"text-600\">Подробное объяснение функции, со скриншотами или "
+"GIF</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -484,28 +510,44 @@ msgstr "<font class=\"text-600\">С этого момента ...</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
-msgid "<font class=\"text-600\">How do stakeholders interact regarding offers?</font>"
-msgstr "<font class=\"text-600\">Как заинтересованные стороны взаимодействуют по поводу предложений?</font>"
+msgid ""
+"<font class=\"text-600\">How do stakeholders interact regarding "
+"offers?</font>"
+msgstr ""
+"<font class=\"text-600\">Как заинтересованные стороны взаимодействуют по "
+"поводу предложений?</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">How do they compare and evaluate offers?</font>"
-msgstr "<font class=\"text-600\">Как они сравнивают и оценивают предложения?</font>"
+msgstr ""
+"<font class=\"text-600\">Как они сравнивают и оценивают предложения?</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
-msgid "<font class=\"text-600\">I made sure any visual change is responsive</font>"
-msgstr "<font class=\"text-600\">Я убедился, что любые визуальные изменения реагируют</font>"
+msgid ""
+"<font class=\"text-600\">I made sure any visual change is responsive</font>"
+msgstr ""
+"<font class=\"text-600\">Я убедился, что любые визуальные изменения "
+"реагируют</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
-msgid "<font class=\"text-600\">I made sure it did not introduce any obvious regression</font>"
-msgstr "<font class=\"text-600\">Я убедился, что в нем нет очевидного регресса</font>"
+msgid ""
+"<font class=\"text-600\">I made sure it did not introduce any obvious "
+"regression</font>"
+msgstr ""
+"<font class=\"text-600\">Я убедился, что в нем нет очевидного "
+"регресса</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
-msgid "<font class=\"text-600\">I made sure it did not introduce any security flaw</font>"
-msgstr "<font class=\"text-600\">Я убедился, что в нем нет никаких изъянов в системе безопасности</font>"
+msgid ""
+"<font class=\"text-600\">I made sure it did not introduce any security "
+"flaw</font>"
+msgstr ""
+"<font class=\"text-600\">Я убедился, что в нем нет никаких изъянов в системе"
+" безопасности</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -620,7 +662,9 @@ msgstr "<font class=\"text-600\">Каков путь их покупателей
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
 msgid "<font class=\"text-600\">What is their key decision criteria?</font>"
-msgstr "<font class=\"text-600\">Каковы их ключевые критерии принятия решений?</font>"
+msgstr ""
+"<font class=\"text-600\">Каковы их ключевые критерии принятия "
+"решений?</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -648,17 +692,12 @@ msgstr ""
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_invite_view_form
-msgid "<i class=\"fa fa-w fa-info-circle\"/> All external users you selected won't be added to the members."
-msgstr "<i class=\"fa fa-w fa-info-circle\"/> Все выбранные вами внешние пользователи не будут добавлены в состав участников."
-
-#. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_kanban
 msgid ""
-"<i invisible=\"not is_user_favorite\" class=\"fa fa-star\" title=\"Remove from favorites\"/>\n"
-"                                        <i invisible=\"is_user_favorite\" class=\"fa fa-star-o\" title=\"Add to favorites\"/>"
+"<i class=\"fa fa-w fa-info-circle\"/> All external users you selected won't "
+"be added to the members."
 msgstr ""
-"<i invisible=\"not is_user_favorite\" class=\"fa fa-star\" title=\"Remove from favorites\"/>\n"
-"                                        <i invisible=\"is_user_favorite\" class=\"fa fa-star-o\" title=\"Add to favorites\"/>"
+"<i class=\"fa fa-w fa-info-circle\"/> Все выбранные вами внешние "
+"пользователи не будут добавлены в состав участников."
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_kanban_items
@@ -668,6 +707,13 @@ msgid ""
 msgstr ""
 "<i invisible=\"not is_user_favorite\" class=\"fa fa-star\" title=\"Remove from favorites\"/>\n"
 "                                    <i invisible=\"is_user_favorite\" class=\"fa fa-star-o\" title=\"Add to favorites\"/>"
+
+#. module: knowledge
+#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_kanban
+msgid ""
+"<i invisible=\"not is_user_favorite\" class=\"fa fa-star\" title=\"Remove from favorites\"/>\n"
+"                                <i invisible=\"is_user_favorite\" class=\"fa fa-star-o\" title=\"Add to favorites\"/>"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -1237,28 +1283,10 @@ msgid ""
 "        <span style=\"font-weight: bolder;\">\n"
 "            <font class=\"text-o-color-2\">Command Palette</font>\n"
 "        </span>\n"
-"        (Ctrl + k/⌘ + k) then search through articles by starting your query with\n"
+"        (Ctrl+k/⌘+k) then search through articles by starting your query with\n"
 "        \"<span style=\"font-weight: bolder;\">?</span>\".\n"
 "    </span>"
 msgstr ""
-"<span style=\"font-size: 14px;\">\n"
-"        Хочется\n"
-"       <span style=\"font-style: italic;\">ещё</span>\n"
-"        быстрее? ⚡️\n"
-"    </span>\n"
-"    <br/>\n"
-"    <span style=\"font-size: 14px;\">\n"
-"        Доступ\n"
-"        <span style=\"font-weight: bolder;\">\n"
-"            <font class=\"text-o-color-2\">Статьи</font>\n"
-"        </span>\n"
-"        открыв\n"
-"        <span style=\"font-weight: bolder;\">\n"
-"            <font class=\"text-o-color-2\">Палитра команд</font>\n"
-"        </span>\n"
-"        (Ctrl + k/⌘ + k), затем выполните поиск по статьям, начав свой запрос с\n"
-"        \"<span style=\"font-weight: bolder;\">?</span>\".\n"
-"    </span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1286,48 +1314,78 @@ msgstr "<span style=\"font-size: 14px;\">И вуаля, все так прост
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "<span style=\"font-size: 14px;\">Check this box to indicate it's done</span>"
-msgstr "<span style=\"font-size: 14px;\">Установите этот флажок, чтобы указать, что это сделано</span>"
+msgid ""
+"<span style=\"font-size: 14px;\">Check this box to indicate it's done</span>"
+msgstr ""
+"<span style=\"font-size: 14px;\">Установите этот флажок, чтобы указать, что "
+"это сделано</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "<span style=\"font-size: 14px;\">Click anywhere, and just start typing</span>"
-msgstr "<span style=\"font-size: 14px;\">Щелкните в любом месте и просто начните печатать</span>"
+msgid ""
+"<span style=\"font-size: 14px;\">Click anywhere, and just start "
+"typing</span>"
+msgstr ""
+"<span style=\"font-size: 14px;\">Щелкните в любом месте и просто начните "
+"печатать</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "<span style=\"font-size: 14px;\">Each of them can be used both as:</span>"
-msgstr "<span style=\"font-size: 14px;\">Каждый из них можно использовать как в качестве:</span>"
+msgstr ""
+"<span style=\"font-size: 14px;\">Каждый из них можно использовать как в "
+"качестве:</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "<span style=\"font-size: 14px;\">From any Odoo document, find this article by clicking on the 📗 icon in the chatter.</span>"
-msgstr "<span style=\"font-size: 14px;\">В любом документе Odoo найдите эту статью, нажав на значок 📗 в чате.</span>"
+msgid ""
+"<span style=\"font-size: 14px;\">From any Odoo document, find this article "
+"by clicking on the 📗 icon in the chatter.</span>"
+msgstr ""
+"<span style=\"font-size: 14px;\">В любом документе Odoo найдите эту статью, "
+"нажав на значок 📗 в чате.</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "<span style=\"font-size: 14px;\">From this box, files can be previewed, forwarded and downloaded. 📁</span>"
-msgstr "<span style=\"font-size: 14px;\">Из этого окна можно просматривать, пересылать и загружать файлы. 📁</span>"
+msgid ""
+"<span style=\"font-size: 14px;\">From this box, files can be previewed, "
+"forwarded and downloaded. 📁</span>"
+msgstr ""
+"<span style=\"font-size: 14px;\">Из этого окна можно просматривать, "
+"пересылать и загружать файлы. 📁</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "<span style=\"font-size: 14px;\">Got it? Now let's try advanced features 🧠</span>"
-msgstr "<span style=\"font-size: 14px;\">Получилось? Теперь давайте попробуем расширенные возможности 🧠</span>"
+msgid ""
+"<span style=\"font-size: 14px;\">Got it? Now let's try advanced features "
+"🧠</span>"
+msgstr ""
+"<span style=\"font-size: 14px;\">Получилось? Теперь давайте попробуем "
+"расширенные возможности 🧠</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "<span style=\"font-size: 14px;\">Need this document somewhere? Come back here by clicking on the 📗 icon in the chatter.</span>"
-msgstr "<span style=\"font-size: 14px;\">Вам нужен этот документ? Вернитесь сюда, нажав на значок 📗 в чате.</span>"
+msgid ""
+"<span style=\"font-size: 14px;\">Need this document somewhere? Come back "
+"here by clicking on the 📗 icon in the chatter.</span>"
+msgstr ""
+"<span style=\"font-size: 14px;\">Вам нужен этот документ? Вернитесь сюда, "
+"нажав на значок 📗 в чате.</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "<span style=\"font-size: 14px;\">Not sure how to do it? Check the video below 👇</span>"
-msgstr "<span style=\"font-size: 14px;\">Не знаете, как это сделать? Посмотрите видео ниже 👇</span>"
+msgid ""
+"<span style=\"font-size: 14px;\">Not sure how to do it? Check the video "
+"below 👇</span>"
+msgstr ""
+"<span style=\"font-size: 14px;\">Не знаете, как это сделать? Посмотрите "
+"видео ниже 👇</span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "<span style=\"font-size: 14px;\">Press Ctrl-Z to undo any change</span>"
-msgstr "<span style=\"font-size: 14px;\">Нажмите Ctrl-Z, чтобы отменить любое изменение</span>"
+msgid ""
+"<span style=\"font-size: 14px;\">Press Ctrl+Z/⌘+Z to undo any change</span>"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -1347,8 +1405,13 @@ msgstr "<span style=\"font-size: 14px;\">Попробуйте следующее
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "<span style=\"font-size: 14px;\">You can use the clipboard as a description, a message or simply copy it to your clipboard! 👌</span>"
-msgstr "<span style=\"font-size: 14px;\">Вы можете использовать буфер обмена в качестве описания, сообщения или просто скопировать его в свой буфер обмена! 👌</span>"
+msgid ""
+"<span style=\"font-size: 14px;\">You can use the clipboard as a description,"
+" a message or simply copy it to your clipboard! 👌</span>"
+msgstr ""
+"<span style=\"font-size: 14px;\">Вы можете использовать буфер обмена в "
+"качестве описания, сообщения или просто скопировать его в свой буфер обмена!"
+" 👌</span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -1506,13 +1569,19 @@ msgstr ""
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "<span style=\"font-weight: bolder;\"><font class=\"text-o-color-1\">Facebook</font></span>"
-msgstr "<span style=\"font-weight: bolder;\"><font class=\"text-o-color-1\">Facebook</font></span>"
+msgid ""
+"<span style=\"font-weight: bolder;\"><font class=\"text-o-"
+"color-1\">Facebook</font></span>"
+msgstr ""
+"<span style=\"font-weight: bolder;\"><font class=\"text-o-"
+"color-1\">Facebook</font></span>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "<span style=\"font-weight: bolder;\"><font class=\"text-o-color-1\">Twitter</font></span>"
-msgstr "<span style=\"font-weight: bolder;\"><font class=\"text-o-color-1\">Twitter</font></span>"
+msgid ""
+"<span style=\"font-weight: bolder;\"><font class=\"text-o-"
+"color-1\">X</font></span>"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -1699,18 +1768,31 @@ msgstr ""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
-msgid "<strong><font class=\"text-o-color-2\">PRO TIP</font></strong>: From a lead, use the book button in the chatter to find this article and autocomplete your description with this qualification template."
-msgstr "<strong><font class=\"text-o-color-2\">PRO TIP</font></strong>: Если вы получили лид, используйте кнопку \"Книга\" в чате, чтобы найти эту статью и автозаполнить описание с помощью этого шаблона квалификации."
+msgid ""
+"<strong><font class=\"text-o-color-2\">PRO TIP</font></strong>: From a lead,"
+" use the book button in the chatter to find this article and autocomplete "
+"your description with this qualification template."
+msgstr ""
+"<strong><font class=\"text-o-color-2\">PRO TIP</font></strong>: Если вы "
+"получили лид, используйте кнопку \"Книга\" в чате, чтобы найти эту статью и "
+"автозаполнить описание с помощью этого шаблона квалификации."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
-msgid "<strong><font class=\"text-o-color-2\">PRO TIP</font></strong>: From a lead, use the book button in the chatter to find this article and autocomplete your email with this template."
-msgstr "<strong><font class=\"text-o-color-2\">PRO TIP</font></strong>: Чтобы найти эту статью и автозаполнить письмо этим шаблоном, воспользуйтесь кнопкой \"Книга\" в чате."
+msgid ""
+"<strong><font class=\"text-o-color-2\">PRO TIP</font></strong>: From a lead,"
+" use the book button in the chatter to find this article and autocomplete "
+"your email with this template."
+msgstr ""
+"<strong><font class=\"text-o-color-2\">PRO TIP</font></strong>: Чтобы найти "
+"эту статью и автозаполнить письмо этим шаблоном, воспользуйтесь кнопкой "
+"\"Книга\" в чате."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "<strong><font style=\"color: rgb(231, 99, 99);\">Do Not</font></strong>"
-msgstr "<strong><font style=\"color: rgb(231, 99, 99);\">Не делать</font></strong>"
+msgstr ""
+"<strong><font style=\"color: rgb(231, 99, 99);\">Не делать</font></strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -1806,8 +1888,12 @@ msgstr "<strong>Q1,2,3,4</strong>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
-msgid "<strong>Summary</strong>: <font class=\"text-600\">What an exciting release! This time the focus was on...</font>"
-msgstr "<strong>Краткое содержание</strong>: <font class=\"text-600\">Какой захватывающий выпуск! На этот раз в центре внимания...</font>"
+msgid ""
+"<strong>Summary</strong>: <font class=\"text-600\">What an exciting release!"
+" This time the focus was on...</font>"
+msgstr ""
+"<strong>Краткое содержание</strong>: <font class=\"text-600\">Какой "
+"захватывающий выпуск! На этот раз в центре внимания...</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -1862,8 +1948,12 @@ msgstr "День или меньше"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
-msgid "A must listen for all developers out there and anyone interested in Javascript!"
-msgstr "Обязательно к прослушиванию для всех разработчиков и всех, кто интересуется Javascript!"
+msgid ""
+"A must listen for all developers out there and anyone interested in "
+"Javascript!"
+msgstr ""
+"Обязательно к прослушиванию для всех разработчиков и всех, кто интересуется "
+"Javascript!"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
@@ -1889,6 +1979,12 @@ msgstr ""
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Absent for more than a day"
 msgstr "Отсутствует более одного дня"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/js/knowledge_controller.js:0
+msgid "Access Denied"
+msgstr "Доступ запрещён"
 
 #. module: knowledge
 #. odoo-javascript
@@ -1945,6 +2041,18 @@ msgstr "Значок типа активности"
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
+msgid "Add Cover"
+msgstr ""
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
+msgid "Add Icon"
+msgstr ""
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 msgid "Add Properties"
 msgstr "Добавить свойства"
 
@@ -1956,21 +2064,33 @@ msgstr "Добавить поля свойств"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comment/comment.js:0
+#: code:addons/knowledge/static/src/comments/comment/comment.xml:0
 msgid "Add a Comment..."
 msgstr "Добавить комментарий..."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_clipboard_plugin/embedded_clipboard_plugin.js:0
 msgid "Add a clipboard section"
 msgstr "Добавьте раздел буфера обмена"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/xml/knowledge_wysiwyg.xml:0
+#: code:addons/knowledge/static/src/editor/plugins/comments_plugin/comments_plugin.js:0
+msgid "Add a comment to an image"
+msgstr ""
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/plugins/comments_plugin/comments_plugin.js:0
 msgid "Add a comment to selection"
 msgstr "Добавить комментарий к выбору"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/comments/comments_popover/comments_popover.xml:0
+msgid "Add a comment..."
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
@@ -1980,31 +2100,21 @@ msgstr "Добавьте случайный значок"
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_stage_action
-msgid "Add an embed kanban view of article items in the body of an article by using '/kanban' command."
-msgstr "Добавьте встроенный просмотр канбан-статей в тело статьи с помощью команды '/kanban'."
+msgid ""
+"Add an embed kanban view of article items in the body of an article by using"
+" '/kanban' command."
+msgstr ""
+"Добавьте встроенный просмотр канбан-статей в тело статьи с помощью команды "
+"'/kanban'."
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_favorite_action
-msgid "Add articles in your list of favorites by clicking on the <i class=\"fa fa-star-o\"></i> next to the article name."
-msgstr "Добавьте статьи в список избранного, нажав на <i class=\"fa fa-star-o\"></i> рядом с названием статьи."
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
-msgid "Add cover"
-msgstr "Добавить обложку"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/table_of_content_behavior/table_of_content_behavior.xml:0
-msgid "Add headings in this Article to create a Table of Content"
-msgstr "Добавьте заголовки в эту статью, чтобы создать оглавление"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
-msgid "Add icon"
-msgstr "Добавить иконку"
+msgid ""
+"Add articles in your list of favorites by clicking on the <i class=\"fa fa-"
+"star-o\"></i> next to the article name."
+msgstr ""
+"Добавьте статьи в список избранного, нажав на <i class=\"fa fa-star-o\"></i>"
+" рядом с названием статьи."
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_invite_view_form
@@ -2026,8 +2136,12 @@ msgstr "Добавить в избранное"
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_member_action
-msgid "Adding members allows you to share Articles while granting specific access rights<br>(can write, can read, ...)."
-msgstr "Добавление участников позволяет вам делиться статьями, предоставляя определенные права доступа<br>(можно писать, можно читать, ...)."
+msgid ""
+"Adding members allows you to share Articles while granting specific access "
+"rights<br>(can write, can read, ...)."
+msgstr ""
+"Добавление участников позволяет вам делиться статьями, предоставляя "
+"определенные права доступа<br>(можно писать, можно читать, ...)."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2054,28 +2168,67 @@ msgstr "Реклама, которая будет появляться в Инт
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
-msgid "After-Sales Service <span class=\"o_stars o_five_stars\" id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
-msgstr "Послепродажное обслуживание <span class=\"o_stars o_five_stars\" id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
+msgid ""
+"After-Sales Service <span class=\"o_stars o_five_stars\" id=\"checkId-5\"><i"
+" class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
+msgstr ""
+"Послепродажное обслуживание <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
-msgid "After-Sales Service <span class=\"o_stars o_five_stars\" id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Послепродажное обслуживание <span class=\"o_stars o_five_stars\" id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"After-Sales Service <span class=\"o_stars o_five_stars\" id=\"checkId-5\"><i"
+" class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
+msgstr ""
+"Послепродажное обслуживание <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
-msgid "After-Sales Service <span class=\"o_stars o_five_stars\" id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Послепродажное обслуживание <span class=\"o_stars o_five_stars\" id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"After-Sales Service <span class=\"o_stars o_five_stars\" id=\"checkId-5\"><i"
+" class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
+msgstr ""
+"Послепродажное обслуживание <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
-msgid "After-Sales Service​ <span class=\"o_stars o_five_stars\" id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Послепродажное обслуживание <span class=\"o_stars o_five_stars\" id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"After-Sales Service​ <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
+msgstr ""
+"Послепродажное обслуживание <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-5\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
-msgid "After-Sales Service​ <span class=\"o_stars o_five_stars\" id=\"checkId-5\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Послепродажное обслуживание <span class=\"o_stars o_five_stars\" id=\"checkId-5\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"After-Sales Service​ <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-5\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i></span>"
+msgstr ""
+"Послепродажное обслуживание <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-5\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
@@ -2100,14 +2253,20 @@ msgstr "Возраст: 42 года"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
-msgid "All Comments"
-msgstr "Все комментарии"
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "All Discussions"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
 msgid "All Models 📖"
 msgstr "Все модели 📖"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/form_status_indicator/form_status_indicator.xml:0
+msgid "All changes saved"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -2121,8 +2280,12 @@ msgstr "Всегда оставляйте достаточно свободно�
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "Always type <strong>YourCompany</strong> in the same font size and style as the content of the text"
-msgstr "Всегда печатайте <strong>YourCompany</strong> тем же размером и стилем шрифта, что и содержание текста"
+msgid ""
+"Always type <strong>YourCompany</strong> in the same font size and style as "
+"the content of the text"
+msgstr ""
+"Всегда печатайте <strong>YourCompany</strong> тем же размером и стилем "
+"шрифта, что и содержание текста"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
@@ -2131,8 +2294,17 @@ msgstr "Час или два (прием у врача, ...)"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_post_mortem
-msgid "Analyze what went wrong and the underlying causes. Extract insights to avoid making similar mistakes in the future."
-msgstr "Проанализируйте, что именно пошло не так, и выявите основные причины. Извлеките полезные сведения, чтобы избежать подобных ошибок в будущем."
+msgid ""
+"Analyze what went wrong and the underlying causes. Extract insights to avoid"
+" making similar mistakes in the future."
+msgstr ""
+"Проанализируйте, что именно пошло не так, и выявите основные причины. "
+"Извлеките полезные сведения, чтобы избежать подобных ошибок в будущем."
+
+#. module: knowledge
+#: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__article_anchor_text
+msgid "Anchor Text"
+msgstr ""
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_hr_faq
@@ -2148,44 +2320,64 @@ msgstr "Архивировано"
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover_dialog.js:0
-msgid "Are you sure you want to delete this cover? It will be removed from every article it is used in."
-msgstr "Вы уверены, что хотите удалить эту обложку? Она будет удалена из всех статей, в которых она используется."
+msgid ""
+"Are you sure you want to delete this cover? It will be removed from every "
+"article it is used in."
+msgstr ""
+"Вы уверены, что хотите удалить эту обложку? Она будет удалена из всех "
+"статей, в которых она используется."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
-msgid "Are you sure you want to leave your private Article? As you are its last member, it will be moved to the Trash."
-msgstr "Вы уверены, что хотите покинуть приватную статью? Поскольку вы являетесь ее последним участником, она будет перемещена в Корзину."
+msgid ""
+"Are you sure you want to leave your private Article? As you are its last "
+"member, it will be moved to the Trash."
+msgstr ""
+"Вы уверены, что хотите покинуть приватную статью? Поскольку вы являетесь ее "
+"последним участником, она будет перемещена в Корзину."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
-msgid "Are you sure you want to move \"%s%s\" to private? Only you will be able to access it."
-msgstr "Вы уверены, что хотите переместить \"%s%s\" в приват? Только вы сможете получить к нему доступ."
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
-msgid "Are you sure you want to move \"%s%s\" to the Shared section? It will be shared with all listed members."
+msgid ""
+"Are you sure you want to move \"%(icon)s%(title)s\" to private? Only you "
+"will be able to access it."
 msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
-msgid "Are you sure you want to move \"%s%s\" to the Workspace? It will be shared with all internal users."
-msgstr "Вы уверены, что хотите переместить \"%s%s\" в рабочую область? Она будет доступна всем внутренним пользователям."
+msgid ""
+"Are you sure you want to move \"%(icon)s%(title)s\" to the Shared section? "
+"It will be shared with all listed members."
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
-msgid "Are you sure you want to move \"%s%s\" under \"%s%s\"? It will be shared with the same persons."
-msgstr "Вы уверены, что хотите переместить \"%s%s\" под \"%s%s\"? Он будет использоваться совместно с теми же лицами."
+msgid ""
+"Are you sure you want to move \"%(icon)s%(title)s\" to the Workspace? It "
+"will be shared with all internal users."
+msgstr ""
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
+msgid ""
+"Are you sure you want to move \"%(icon)s%(title)s\" under "
+"\"%(parentIcon)s%(parentTitle)s\"? It will be shared with the same persons."
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
-msgid "Are you sure you want to remove your member? By leaving an article, you may lose access to it."
-msgstr "Вы уверены, что хотите удалить своего участника? Оставив статью, вы можете потерять к ней доступ."
+msgid ""
+"Are you sure you want to remove your member? By leaving an article, you may "
+"lose access to it."
+msgstr ""
+"Вы уверены, что хотите удалить своего участника? Оставив статью, вы можете "
+"потерять к ней доступ."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2196,14 +2388,22 @@ msgstr "Вы уверены, что хотите удалить свой соб�
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
-msgid "Are you sure you want to restore access? This means this article will now inherit any access set on its parent articles."
-msgstr "Вы уверены, что хотите восстановить доступ? Это означает, что данная статья унаследует все настройки доступа, установленные для ее родительских статей."
+msgid ""
+"Are you sure you want to restore access? This means this article will now "
+"inherit any access set on its parent articles."
+msgstr ""
+"Вы уверены, что хотите восстановить доступ? Это означает, что данная статья "
+"унаследует все настройки доступа, установленные для ее родительских статей."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
-msgid "Are you sure you want to restrict access to this article? This means it will no longer inherit access rights from its parents."
-msgstr "Вы уверены, что хотите ограничить доступ к этой статье? Это означает, что она больше не будет наследовать права доступа от своих родителей."
+msgid ""
+"Are you sure you want to restrict access to this article? This means it will"
+" no longer inherit access rights from its parents."
+msgstr ""
+"Вы уверены, что хотите ограничить доступ к этой статье? Это означает, что "
+"она больше не будет наследовать права доступа от своих родителей."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2214,18 +2414,26 @@ msgstr "Вы уверены, что хотите отправить эту ст�
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
-msgid "Are you sure you want to set the internal permission to \"none\"? If you do, you will no longer have access to the article."
-msgstr "Вы уверены, что хотите установить внутреннее разрешение на \"нет\"? Если да, то у вас больше не будет доступа к статье."
+msgid ""
+"Are you sure you want to set the internal permission to \"none\"? If you do,"
+" you will no longer have access to the article."
+msgstr ""
+"Вы уверены, что хотите установить внутреннее разрешение на \"нет\"? Если да,"
+" то у вас больше не будет доступа к статье."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
-msgid "Are you sure you want to set your permission to \"none\"? If you do, you will no longer have access to the article."
-msgstr "Вы уверены, что хотите установить разрешение \"нет\"? В противном случае вы больше не будете иметь доступа к статье."
+msgid ""
+"Are you sure you want to set your permission to \"none\"? If you do, you "
+"will no longer have access to the article."
+msgstr ""
+"Вы уверены, что хотите установить разрешение \"нет\"? В противном случае вы "
+"больше не будете иметь доступа к статье."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_favorite__article_id
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_member__article_id
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__article_id
@@ -2239,8 +2447,12 @@ msgstr "Статья"
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article_member.py:0
-msgid "Article '%s' should always have a writer: inherit write permission, or have a member with write access"
-msgstr "Статья '%s' всегда должна иметь писателя: наследовать право на запись или иметь члена с доступом на запись"
+msgid ""
+"Article '%s' should always have a writer: inherit write permission, or have "
+"a member with write access"
+msgstr ""
+"Статья '%s' всегда должна иметь писателя: наследовать право на запись или "
+"иметь члена с доступом на запись"
 
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_article_thread
@@ -2254,7 +2466,7 @@ msgstr "Свойства элементов статьи"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_action_item_calendar
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_item_action
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_item_action_stages
@@ -2331,8 +2543,10 @@ msgstr "Статьи"
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-msgid "Articles %s cannot be updated as this would create a recursive hierarchy."
-msgstr "Статьи %s не могут быть обновлены, так как это создаст рекурсивную иерархию."
+msgid ""
+"Articles %s cannot be updated as this would create a recursive hierarchy."
+msgstr ""
+"Статьи %s не могут быть обновлены, так как это создаст рекурсивную иерархию."
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_cover__article_ids
@@ -2348,8 +2562,10 @@ msgstr "Как читатель, вы не можете оставить ста�
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.xml:0
-msgid "As an administrator, you can always modify this article and its members."
-msgstr "Как администратор, вы всегда можете изменить эту статью и ее участников."
+msgid ""
+"As an administrator, you can always modify this article and its members."
+msgstr ""
+"Как администратор, вы всегда можете изменить эту статью и ее участников."
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_attachment_count
@@ -2418,23 +2634,53 @@ msgstr "Активы бренда"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
-msgid "Brand Attraction <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Привлечение бренда <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Brand Attraction <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgstr ""
+"Привлечение бренда <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
-msgid "Brand Attraction <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Привлечение бренда <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Brand Attraction <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
+msgstr ""
+"Привлечение бренда <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
-msgid "Brand Attraction <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Привлечение бренда <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Brand Attraction <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
+msgstr ""
+"Привлечение бренда <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
-msgid "Brand Attraction <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Привлечение бренда <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Brand Attraction <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
+msgstr ""
+"Привлечение бренда <span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -2454,26 +2700,30 @@ msgstr "Исправления ошибок 🔨"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Build an Item Calendar"
 msgstr "Постройте календарь предметов"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Build an Item Kanban"
 msgstr "Построение элементов Канбан"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Build an Item List"
 msgstr "Построение списка элементов"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_marketing_customer_personas
-msgid "Build fictional representation of your customers to better tailor your advertising messages for them. "
-msgstr "Создайте вымышленное представление о своих клиентах, чтобы лучше адаптировать для них свои рекламные сообщения."
+msgid ""
+"Build fictional representation of your customers to better tailor your "
+"advertising messages for them. "
+msgstr ""
+"Создайте вымышленное представление о своих клиентах, чтобы лучше "
+"адаптировать для них свои рекламные сообщения. "
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
@@ -2487,13 +2737,13 @@ msgstr "Процесс покупки"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Calendar of %s"
 msgstr "Календарь из %s"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Calendar of Article Items"
 msgstr "Календарь статей"
 
@@ -2552,10 +2802,9 @@ msgstr "Может ли пользователь увидеть статью?"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior_dialog/article_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/components/article_selection_dialog/article_selection_dialog.xml:0
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.xml:0
-#: code:addons/knowledge/static/src/components/video_selector_dialog/video_selector_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_invite_view_form
 msgid "Cancel"
 msgstr "Отменить"
@@ -2563,23 +2812,27 @@ msgstr "Отменить"
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-msgid "Cannot create an article under article %(parent_name)s which is a non-private parent"
-msgstr "Невозможно создать статью под статьей %(parent_name)s, которая является неприватным родителем"
+msgid ""
+"Cannot create an article under article %(parent_name)s which is a non-"
+"private parent"
+msgstr ""
+"Невозможно создать статью под статьей %(parent_name)s, которая является "
+"неприватным родителем"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "Capitalize the word <strong>YourCompany</strong>, except if it's part of an URL e.g. website/company"
-msgstr "Напишите слово <strong>YourCompany</strong> с заглавной буквы, за исключением случаев, когда оно является частью URL-адреса, например, веб-сайт/компания"
+msgid ""
+"Capitalize the word <strong>YourCompany</strong>, except if it's part of an "
+"URL e.g. website/company"
+msgstr ""
+"Напишите слово <strong>YourCompany</strong> с заглавной буквы, за "
+"исключением случаев, когда оно является частью URL-адреса, например, веб-"
+"сайт/компания"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Car Policy"
 msgstr "Политика в отношении автомобилей"
-
-#. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
-msgid "Car_Catalog.png"
-msgstr "Car_Catalog.png"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2599,13 +2852,21 @@ msgstr "Смак"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_account_management
-msgid "Centralize account insights in one document for comprehensive monitoring and follow-up."
-msgstr "Централизуйте информацию о счетах в одном документе для всестороннего мониторинга и последующих действий."
+msgid ""
+"Centralize account insights in one document for comprehensive monitoring and"
+" follow-up."
+msgstr ""
+"Централизуйте информацию о счетах в одном документе для всестороннего "
+"мониторинга и последующих действий."
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_meeting_minutes
-msgid "Centralize team meetings in a single article, while making sure notes are handled efficiently."
-msgstr "Централизуйте командные совещания в одной статье и обеспечьте эффективную обработку заметок."
+msgid ""
+"Centralize team meetings in a single article, while making sure notes are "
+"handled efficiently."
+msgstr ""
+"Централизуйте командные совещания в одной статье и обеспечьте эффективную "
+"обработку заметок."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -2646,13 +2907,13 @@ msgstr "Детские статьи и предметы"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover_dialog.js:0
+#: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover_dialog.xml:0
 msgid "Choose a nice cover"
 msgstr "Выберите красивую обложку"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior_dialog/article_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/components/article_selection_dialog/article_selection_dialog.js:0
 #: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.js:0
 msgid "Choose an Article..."
 msgstr "Выберите статью..."
@@ -2665,8 +2926,8 @@ msgstr "Нажмите и удерживайте, чтобы изменить п
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_clipboard_plugin/embedded_clipboard_plugin.js:0
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -2675,15 +2936,15 @@ msgstr "Буфер обмена"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
+#: code:addons/knowledge/static/src/js/knowledge_controller.js:0
 #: code:addons/knowledge/static/src/macros/abstract_macro.js:0
 msgid "Close"
 msgstr "Закрыть"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/xml/knowledge_wysiwyg.xml:0
+#: code:addons/knowledge/static/src/editor/plugins/comments_plugin/comments_plugin.js:0
 msgid "Comment"
 msgstr "Комментарий"
 
@@ -2724,8 +2985,13 @@ msgstr "Структура компании:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
-msgid "Compiled below are tips &amp; tricks collected among our veterans to help newcomers get started. We hope it will help you sign deals."
-msgstr "Ниже собраны советы и рекомендации, собранные нашими ветеранами, чтобы помочь новичкам начать работу. Мы надеемся, что они помогут вам заключать сделки."
+msgid ""
+"Compiled below are tips &amp; tricks collected among our veterans to help "
+"newcomers get started. We hope it will help you sign deals."
+msgstr ""
+"Ниже собраны советы и рекомендации, собранные нашими ветеранами, чтобы "
+"помочь новичкам начать работу. Мы надеемся, что они помогут вам заключать "
+"сделки."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -2762,7 +3028,7 @@ msgstr "Свяжитесь с нашим адвокатом"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.js:0
 msgid "Content copied to clipboard."
 msgstr "Содержимое копируется в буфер обмена."
 
@@ -2785,13 +3051,19 @@ msgstr "Преобразовать в статью"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.xml:0
 msgid "Copy"
 msgstr "Копировать"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_popover.xml:0
+msgid "Copy Link"
+msgstr "Копировать ссылку"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.xml:0
 msgid "Copy to Clipboard"
 msgstr "Копировать в буфер обмена"
 
@@ -2803,8 +3075,11 @@ msgstr "Стоит слишком много денег"
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
-msgid "Could not move \"%s%s\" under \"%s%s\", because you do not have write permission on the latter."
-msgstr "Не удалось переместить \"%s%s\" под \"%s%s\", потому что у вас нет прав на запись последнего."
+msgid ""
+"Could not move \"%(icon)s%(title)s\" under "
+"\"%(parentIcon)s%(parentTitle)s\", because you do not have write permission "
+"on the latter."
+msgstr ""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -2814,12 +3089,6 @@ msgid ""
 msgstr ""
 "Не могли бы вы сообщить мне, по какому номеру я могу с вами связаться, чтобы мы могли связаться?<br>\n"
 "                        Это не должно занять более 15 минут."
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
-msgid "Cover"
-msgstr "Обложка"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_cover__attachment_url
@@ -2850,7 +3119,7 @@ msgstr "Создать \""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior_dialog/article_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/components/article_selection_dialog/article_selection_dialog.js:0
 msgid "Create \"%s\""
 msgstr "Создайте \"%s\""
 
@@ -2873,9 +3142,18 @@ msgid "Create a new article in workspace"
 msgstr "Создайте новую статью в рабочей области"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/sidebar/sidebar_section.xml:0
+msgid "Create a new private article"
+msgstr ""
+
+#. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_product_catalog
-msgid "Create a simple catalog to provide technical details about your products."
-msgstr "Создайте простой каталог для предоставления технической информации о ваших продуктах."
+msgid ""
+"Create a simple catalog to provide technical details about your products."
+msgstr ""
+"Создайте простой каталог для предоставления технической информации о ваших "
+"продуктах."
 
 #. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_action_item_calendar
@@ -2997,8 +3275,13 @@ msgstr "Масштаб по умолчанию"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__internal_permission
-msgid "Default permission for all internal users. (External users can still have access to this article if they are added to its members)"
-msgstr "Разрешение по умолчанию для всех внутренних пользователей. (Внешние пользователи могут иметь доступ к этой статье, если они добавлены в ее состав)"
+msgid ""
+"Default permission for all internal users. (External users can still have "
+"access to this article if they are added to its members)"
+msgstr ""
+"Разрешение по умолчанию для всех внутренних пользователей. (Внешние "
+"пользователи могут иметь доступ к этой статье, если они добавлены в ее "
+"состав)"
 
 #. module: knowledge
 #. odoo-python
@@ -3026,11 +3309,19 @@ msgid "Desyncronized with parents"
 msgstr "Десинхронизация с родителями"
 
 #. module: knowledge
+#: model_terms:digest.tip,tip_description:knowledge.digest_tip_knowledge_0
+msgid ""
+"Did you know that access rights can be defined per user on any Knowledge "
+"Article?"
+msgstr ""
+
+#. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/article_template_picker_dialog/article_template_picker_dialog.xml:0
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover_dialog.xml:0
 #: code:addons/knowledge/static/src/components/prompt_embedded_view_name_dialog/prompt_embedded_view_name_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 msgid "Discard"
 msgstr "Отменить"
 
@@ -3048,8 +3339,12 @@ msgstr "Отображаемое имя"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_brand_assets
-msgid "Distribute brand digital assets while ensuring compliance with company policies and guidelines."
-msgstr "Распространять цифровые активы бренда, обеспечивая при этом соблюдение политики и рекомендаций компании."
+msgid ""
+"Distribute brand digital assets while ensuring compliance with company "
+"policies and guidelines."
+msgstr ""
+"Распространять цифровые активы бренда, обеспечивая при этом соблюдение "
+"политики и рекомендаций компании."
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -3058,13 +3353,20 @@ msgstr "Погружение в"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_marketing_campaign_brief
-msgid "Document your Marketing Campaigns to prioritize key objectives and outcomes."
-msgstr "Документируйте свои маркетинговые кампании, чтобы определить приоритетность ключевых целей и результатов."
+msgid ""
+"Document your Marketing Campaigns to prioritize key objectives and outcomes."
+msgstr ""
+"Документируйте свои маркетинговые кампании, чтобы определить приоритетность "
+"ключевых целей и результатов."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
-msgid "Don't forget to spread the word, we're <em>so</em> looking forward to unveiling this new Odoo version! 🥳"
-msgstr "Не забудьте рассказать об этом, мы с <em>нетерпением</em> ждем выхода новой версии Odoo! 🥳"
+msgid ""
+"Don't forget to spread the word, we're <em>so</em> looking forward to "
+"unveiling this new Odoo version! 🥳"
+msgstr ""
+"Не забудьте рассказать об этом, мы с <em>нетерпением</em> ждем выхода новой "
+"версии Odoo! 🥳"
 
 #. module: knowledge
 #. odoo-python
@@ -3072,12 +3374,6 @@ msgstr "Не забудьте рассказать об этом, мы с <em>н
 #: model:knowledge.article.stage,name:knowledge.knowledge_article_template_stage_done
 msgid "Done"
 msgstr "Готово"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.xml:0
-msgid "Download"
-msgstr "Скачать"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3101,6 +3397,13 @@ msgstr "РЕДАКТИРОВАТЬ"
 #: code:addons/knowledge/static/src/components/embedded_view_actions_menu/embedded_view_actions_menu.xml:0
 msgid "Edit"
 msgstr "Редактировать"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_popover.xml:0
+msgid "Edit Link"
+msgstr "Править ссылку"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
@@ -3144,12 +3447,6 @@ msgid "Embed a View"
 msgstr "Вставить Представление GravityView"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/video_selector_dialog/video_selector_dialog.js:0
-msgid "Embed a video"
-msgstr "Вставить видео"
-
-#. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__icon
 msgid "Emoji"
 msgstr "Смайлики"
@@ -3162,12 +3459,15 @@ msgstr "Дата окончания Время"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_software_specification
-msgid "Ensure all stakeholders of a product change are aligned by clearly communicating the requirements."
-msgstr "Обеспечьте согласованность действий всех заинтересованных сторон при изменении продукта, четко изложив требования."
+msgid ""
+"Ensure all stakeholders of a product change are aligned by clearly "
+"communicating the requirements."
+msgstr ""
+"Обеспечьте согласованность действий всех заинтересованных сторон при "
+"изменении продукта, четко изложив требования."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior/article_behavior.js:0
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
 #: code:addons/knowledge/static/src/macros/abstract_macro.js:0
 msgid "Error"
@@ -3237,12 +3537,6 @@ msgid "Favorites"
 msgstr "Избранное"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "File"
-msgstr "Файл"
-
-#. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.portal_my_home_knowledge
 msgid "Find all articles shared with you"
 msgstr "Найдите все статьи, которыми с вами поделились"
@@ -3271,8 +3565,12 @@ msgstr "Шрифт, отличный значок, например. к.-а.-з�
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "For all other categories, we simply require you to follow the rules listed below."
-msgstr "Для всех остальных категорий мы просто требуем, чтобы вы следовали правилам, перечисленным ниже."
+msgid ""
+"For all other categories, we simply require you to follow the rules listed "
+"below."
+msgstr ""
+"Для всех остальных категорий мы просто требуем, чтобы вы следовали правилам,"
+" перечисленным ниже."
 
 #. module: knowledge
 #. odoo-javascript
@@ -3304,7 +3602,7 @@ msgstr "Пол(ы): W"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Generate an Article with AI"
 msgstr "Создание статьи с помощью искусственного интеллекта"
 
@@ -3358,8 +3656,11 @@ msgstr "Есть ли у нормальных детей статьи?"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__user_has_access_parent_path
-msgid "Has the user access to each parent from current article until its root?"
-msgstr "Имеет ли пользователь доступ к каждому родителю, начиная с текущей статьи и заканчивая ее корнем?"
+msgid ""
+"Has the user access to each parent from current article until its root?"
+msgstr ""
+"Имеет ли пользователь доступ к каждому родителю, начиная с текущей статьи и "
+"заканчивая ее корнем?"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_invite__have_share_partners
@@ -3399,8 +3700,11 @@ msgstr ""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
-msgid "Here is a short guide that will help you pick the right tiny house for you."
-msgstr "Вот краткое руководство, которое поможет вам выбрать подходящий крошечный домик."
+msgid ""
+"Here is a short guide that will help you pick the right tiny house for you."
+msgstr ""
+"Вот краткое руководство, которое поможет вам выбрать подходящий крошечный "
+"домик."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -3415,15 +3719,9 @@ msgstr "Скрытый"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "Highlight content and use the"
 msgstr "Выделите содержимое и используйте"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Highlight the structure of this article"
-msgstr "Выделите структуру этой статьи"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__html_field_history
@@ -3441,6 +3739,12 @@ msgstr "Исторические метаданные"
 #: model:ir.ui.menu,name:knowledge.knowledge_menu_home
 msgid "Home"
 msgstr "Главная"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
+msgid "Hours Display"
+msgstr ""
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_product_catalog_house_cielo
@@ -3519,7 +3823,8 @@ msgstr "Я не буду тратить время и силы на то, что
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "I will only sell a project if I am convinced it can be a success"
-msgstr "Я продам проект только в том случае, если буду уверен, что он будет успешным"
+msgstr ""
+"Я продам проект только в том случае, если буду уверен, что он будет успешным"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__id
@@ -3534,8 +3839,6 @@ msgid "ID"
 msgstr "ID"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__activity_exception_icon
 msgid "Icon"
 msgstr "Иконка"
@@ -3554,7 +3857,8 @@ msgstr "Определите болевые точки и предложите �
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__message_needaction
 #: model:ir.model.fields,help:knowledge.field_knowledge_article_thread__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Если флажок установлен, значит, новые сообщения требуют вашего внимания."
+msgstr ""
+"Если флажок установлен, значит, новые сообщения требуют вашего внимания."
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__message_has_error
@@ -3566,13 +3870,22 @@ msgstr "Если отмечено, некоторые сообщения име�
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
-msgid "If none of those offers convinced you, just get in touch with our team.<br>At MyCompany, your happiness is our utmost priority, and we'll go the extra mile to make sure you find what you're looking for!"
-msgstr "Если ни одно из этих предложений не убедило вас, просто свяжитесь с нашей командой.<br>В MyCompany ваше счастье - наш главный приоритет, и мы сделаем все возможное, чтобы вы нашли то, что искали!"
+msgid ""
+"If none of those offers convinced you, just get in touch with our "
+"team.<br>At MyCompany, your happiness is our utmost priority, and we'll go "
+"the extra mile to make sure you find what you're looking for!"
+msgstr ""
+"Если ни одно из этих предложений не убедило вас, просто свяжитесь с нашей "
+"командой.<br>В MyCompany ваше счастье - наш главный приоритет, и мы сделаем "
+"все возможное, чтобы вы нашли то, что искали!"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__is_desynchronized
-msgid "If set, this article won't inherit access rules from its parents anymore."
-msgstr "Если установлено, эта статья больше не будет наследовать правила доступа от своих родителей."
+msgid ""
+"If set, this article won't inherit access rules from its parents anymore."
+msgstr ""
+"Если установлено, эта статья больше не будет наследовать правила доступа от "
+"своих родителей."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -3616,7 +3929,7 @@ msgstr "Непостоянный опыт работы с клиентами"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/article_index_plugin/article_index_plugin.js:0
 msgid "Index"
 msgstr "Индекс"
 
@@ -3638,7 +3951,9 @@ msgstr "Сообщите об этом в отдел кадров и своем�
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_release_note
 msgid "Inform users about your latest software updates and improvements."
-msgstr "Информируйте пользователей о последних обновлениях и улучшениях вашего программного обеспечения."
+msgstr ""
+"Информируйте пользователей о последних обновлениях и улучшениях вашего "
+"программного обеспечения."
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__inherited_permission
@@ -3660,15 +3975,9 @@ msgstr "Вставить"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
 msgid "Insert Link"
 msgstr "Вставить ссылку"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/video_selector_dialog/video_selector_dialog.xml:0
-msgid "Insert Video"
-msgstr "Вставить видео"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3678,13 +3987,13 @@ msgstr "Вставка представления календаря"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a Calendar view of article items"
 msgstr "Вставка календарного представления статей"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a Card view of article items"
 msgstr "Вставка карточного представления элементов статьи"
 
@@ -3696,7 +4005,7 @@ msgstr "Вставка представления Kanban"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a Kanban view of article items"
 msgstr "Вставка представления Kanban для элементов статьи"
 
@@ -3708,15 +4017,15 @@ msgstr "Вставка представления списка"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a List view of article items"
 msgstr "Вставка представления списка элементов статьи"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Insert a Video"
-msgstr "Вставить видео"
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
+msgid "Insert an Article shortcut"
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
@@ -3732,8 +4041,14 @@ msgstr "Вставить вид в статью"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
-msgid "Instead of setting up complicated processes, <strong>we prefer to let our employees buy whatever they need</strong>. Just fill in an expense and we will reimburse you."
-msgstr "Вместо того чтобы создавать сложные процессы, <strong>мы предпочитаем позволить нашим сотрудникам покупать все, что им нужно</strong>. Просто укажите расходы, и мы возместим их."
+msgid ""
+"Instead of setting up complicated processes, <strong>we prefer to let our "
+"employees buy whatever they need</strong>. Just fill in an expense and we "
+"will reimburse you."
+msgstr ""
+"Вместо того чтобы создавать сложные процессы, <strong>мы предпочитаем "
+"позволить нашим сотрудникам покупать все, что им нужно</strong>. Просто "
+"укажите расходы, и мы возместим их."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
@@ -3865,25 +4180,25 @@ msgstr "Элемент 4"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item Calendar"
 msgstr "Календарь предметов"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item Cards"
 msgstr "Карточки с предметами"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item Kanban"
 msgstr "Канбан элементов"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item List"
 msgstr "Список предметов"
 
@@ -3898,14 +4213,9 @@ msgid "Items"
 msgstr "Элементы"
 
 #. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "JPG"
-msgstr "JPG"
-
-#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Job Position:"
-msgstr "Отрасль вакансии:"
+msgstr "Должность:"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form
@@ -3925,13 +4235,13 @@ msgstr "Джулиус"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Kanban of %s"
 msgstr "Канбан из %s"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Kanban of Article Items"
 msgstr "Канбан статей"
 
@@ -3942,13 +4252,17 @@ msgstr "Следите за делами компании и делитесь и
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_company_newsletter
-msgid "Keep your colleagues informed about the company's latest developments and activities through periodic updates."
-msgstr "Периодически информируйте своих коллег о последних событиях и деятельности компании."
+msgid ""
+"Keep your colleagues informed about the company's latest developments and "
+"activities through periodic updates."
+msgstr ""
+"Периодически информируйте своих коллег о последних событиях и деятельности "
+"компании."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/external_embedded_view_favorite_menu/insert_embedded_view.xml:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/article_index_plugin/article_index_plugin.js:0
 #: model:ir.ui.menu,name:knowledge.knowledge_menu_root
 #: model:ir.ui.menu,name:knowledge.knowledge_menu_technical
 #: model_terms:ir.ui.view,arch_db:knowledge.portal_my_home_knowledge
@@ -3964,12 +4278,6 @@ msgstr "Статья о знаниях"
 #: model:ir.model,name:knowledge.model_knowledge_cover
 msgid "Knowledge Cover"
 msgstr "Обложка знаний"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Knowledge Databases"
-msgstr "Базы данных знаний"
 
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_invite
@@ -4059,27 +4367,39 @@ msgstr "Заранее сообщите об этом своему руково�
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/embedded_view_link/embedded_view_link_style.js:0
+msgid "Link"
+msgstr "Ссылка"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
 msgid "Link an Article"
 msgstr "Ссылка на статью"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Link an article"
-msgstr "Ссылка на статью"
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_link_plugin/embedded_view_link_plugin.js:0
+msgid "Link copied to clipboard."
+msgstr "Ссылка копируется в буфер обмена."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "List of %s"
 msgstr "Список %s"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "List of Article Items"
 msgstr "Список статей"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "Load More Discussions"
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
@@ -4089,7 +4409,7 @@ msgstr "Загрузить Шаблон"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Load a Template"
 msgstr "Загрузить шаблон"
 
@@ -4107,8 +4427,12 @@ msgstr "Заблокировано"
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-msgid "Logging changes from %(partner_name)s without write access on article %(article_name)s due to hierarchy tree update"
-msgstr "Регистрация изменений из %(partner_name)s без доступа на запись в статью %(article_name)s из-за обновления дерева иерархии"
+msgid ""
+"Logging changes from %(partner_name)s without write access on article "
+"%(article_name)s due to hierarchy tree update"
+msgstr ""
+"Регистрация изменений из %(partner_name)s без доступа на запись в статью "
+"%(article_name)s из-за обновления дерева иерархии"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -4128,8 +4452,12 @@ msgstr "Потерять доступ"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_personal_organizer
-msgid "Make every week a success by proactively organizing your priority and optional tasks."
-msgstr "Сделайте каждую неделю успешной, заблаговременно организовав приоритетные и необязательные задачи."
+msgid ""
+"Make every week a success by proactively organizing your priority and "
+"optional tasks."
+msgstr ""
+"Сделайте каждую неделю успешной, заблаговременно организовав приоритетные и "
+"необязательные задачи."
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_sprint_calendar
@@ -4143,6 +4471,12 @@ msgid "Mark Comment as Closed"
 msgstr "Отметить комментарий как закрытый"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_actions.js:0
+msgid "Mark the discussion as resolved"
+msgstr ""
+
+#. module: knowledge
 #: model:knowledge.article.template.category,name:knowledge.knowledge_article_template_category_marketing
 msgid "Marketing"
 msgstr "Маркетинг"
@@ -4152,12 +4486,6 @@ msgstr "Маркетинг"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "Marketing Campaign Brief"
 msgstr "Краткое описание маркетинговой кампании"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Media"
-msgstr "Медиа"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_sprint_calendar_meeting
@@ -4220,6 +4548,18 @@ msgid "Message Delivery error"
 msgstr "Ошибка доставки сообщения"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_model_patch.js:0
+msgid "Message Link Copied!"
+msgstr ""
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_model_patch.js:0
+msgid "Message Link Copy Failed (Permission denied?)!"
+msgstr ""
+
+#. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_ids
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__message_ids
 msgid "Messages"
@@ -4230,12 +4570,6 @@ msgstr "Сообщения"
 #: code:addons/knowledge/static/src/views/item_calendar/item_calendar_views.xml:0
 msgid "Missing Calendar configuration."
 msgstr "Отсутствует конфигурация календаря."
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
-msgid "Missing File"
-msgstr "Отсутствующий файл"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4274,7 +4608,7 @@ msgstr "Перейти к"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.js:0
+#: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.xml:0
 msgid "Move an Article"
 msgstr "Переместить статью"
 
@@ -4340,6 +4674,8 @@ msgid "My New Item"
 msgstr "Моя новая вещь"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_stage__name
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_template_view_tree
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_tree
@@ -4357,12 +4693,6 @@ msgstr "Естественный стиль ☘ -"
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "Navigation Basics 🐣"
 msgstr "Основы навигации 🐣"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
-msgid "Nest articles under this one to generate a structure"
-msgstr "Вложите статьи под эту, чтобы создать структуру"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4462,7 +4792,13 @@ msgstr "Нет доступа"
 #. odoo-javascript
 #: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
 msgid "No article found."
-msgstr "Статья не найдена"
+msgstr "Статья не найдена."
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/core/article_index/readonly_article_index.xml:0
+msgid "No article to display"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form
@@ -4470,15 +4806,9 @@ msgid "No article yet."
 msgstr "Пока нет статьи."
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
-msgid "No hidden articles found"
-msgstr "Скрытые статьи не найдены"
-
-#. module: knowledge
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_stage_action
 msgid "No stage yet!"
-msgstr "Еще нет сцены!"
+msgstr "Еще нет стадии!"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4488,7 +4818,7 @@ msgstr "Шаблона пока нет."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "Nothing going on!"
 msgstr "Ничего не происходит!"
 
@@ -4541,30 +4871,9 @@ msgid "Odoo Experience 🎉"
 msgstr "Опыт работы в Odoo 🎉"
 
 #. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "Odoo Logo"
-msgstr "Логотип Odoo"
-
-#. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "Odoo Survival Guide"
-msgstr "Руководство по выживанию в Odoo"
-
-#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "Odoo: Manage your SME online"
 msgstr "Odoo: Управляйте своим малым и средним бизнесом онлайн"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior/article_behavior.js:0
-msgid "Ok"
-msgstr "Ок"
-
-#. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "Onboarding.pdf"
-msgstr "Onboarding.pdf"
 
 #. module: knowledge
 #. odoo-python
@@ -4583,7 +4892,9 @@ msgstr "Изменять членство могут только внутрен
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "Only internal users are allowed to create workspace root articles."
-msgstr "Только внутренним пользователям разрешено создавать корневые статьи рабочего пространства."
+msgstr ""
+"Только внутренним пользователям разрешено создавать корневые статьи рабочего"
+" пространства."
 
 #. module: knowledge
 #. odoo-python
@@ -4600,14 +4911,18 @@ msgstr "Удалять членство могут только внутренн
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-msgid "Only internal users are allowed to restore the original article access information."
-msgstr "Восстановление исходной информации о доступе к статье разрешено только внутренним пользователям."
+msgid ""
+"Only internal users are allowed to restore the original article access "
+"information."
+msgstr ""
+"Восстановление исходной информации о доступе к статье разрешено только "
+"внутренним пользователям."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
-msgid "Oops, the file %s could not be found. Please replace this file box by a new one to re-upload the file."
-msgstr "Упс, файл %s не найден. Пожалуйста, замените это поле на новое, чтобы повторно загрузить файл."
+#: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
+msgid "Oops, there's nothing here. Try another search."
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
@@ -4619,9 +4934,9 @@ msgstr "Открыть"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/knowledge_plugin.js:0
-msgid "Open Video"
-msgstr "Открыть видео"
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "Open Discussions"
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
@@ -4659,12 +4974,17 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_shared_todos
 msgid "Otherwise, feel free to handle others listed below:"
-msgstr "В противном случае не стесняйтесь обращаться к другим, перечисленным ниже:"
+msgstr ""
+"В противном случае не стесняйтесь обращаться к другим, перечисленным ниже:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
-msgid "Our catalog can be found here and is updated every 2 years. If you do not manage to find the specific model you are looking for,"
-msgstr "Наш каталог находится здесь и обновляется каждые 2 года. Если вам не удалось найти конкретную модель, которую вы ищете,"
+msgid ""
+"Our catalog can be found here and is updated every 2 years. If you do not "
+"manage to find the specific model you are looking for,"
+msgstr ""
+"Наш каталог находится здесь и обновляется каждые 2 года. Если вам не удалось"
+" найти конкретную модель, которую вы ищете,"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -4762,13 +5082,19 @@ msgstr "Пожалуйста, ознакомьтесь с приведенной
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "Please submit a request for assistance to the Marketing Team if you fall into one of the following:"
-msgstr "Отправьте запрос на помощь в отдел маркетинга, если вы относитесь к одной из следующих категорий:"
+msgid ""
+"Please submit a request for assistance to the Marketing Team if you fall "
+"into one of the following:"
+msgstr ""
+"Отправьте запрос на помощь в отдел маркетинга, если вы относитесь к одной из"
+" следующих категорий:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Pluralize the trademark (e.g.<em>YourCompanies</em>)"
-msgstr "Используйте множественное число для обозначения торговой марки (например,<em>YourCompanies</em>)"
+msgstr ""
+"Используйте множественное число для обозначения торговой марки "
+"(например,<em>YourCompanies</em>)"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -4792,33 +5118,79 @@ msgstr "Потенциальные риски:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
-msgid "Prepare your demos in advance and integrate the prospect's use case into it"
-msgstr "Заранее подготовьте демонстрационные ролики и включите в них сценарий использования потенциального клиента"
+msgid ""
+"Prepare your demos in advance and integrate the prospect's use case into it"
+msgstr ""
+"Заранее подготовьте демонстрационные ролики и включите в них сценарий "
+"использования потенциального клиента"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
+msgid "Preview"
+msgstr "Предпросмотр"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
-msgid "Price <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
-msgstr "Цена <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
+msgid ""
+"Price <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa "
+"fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
+msgstr ""
+"Цена <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
-msgid "Price <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Цена <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Price <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa "
+"fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgstr ""
+"Цена <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
-msgid "Price <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Цена <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Price <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa "
+"fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgstr ""
+"Цена <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
-msgid "Price <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Цена <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Price <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa "
+"fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i"
+" class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgstr ""
+"Цена <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
-msgid "Price <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>​"
-msgstr "Цена <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Price <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa "
+"fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>​"
+msgstr ""
+"Цена <span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/core/embedded_view_link/embedded_view_link_style.js:0
+msgid "Primary"
+msgstr "Основной"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4840,8 +5212,6 @@ msgid "Productivity"
 msgstr "Продуктивность"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__article_properties
 msgid "Properties"
 msgstr "Свойства"
@@ -4849,8 +5219,11 @@ msgstr "Свойства"
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
-msgid "Properties are fields that can only be added on articles that have a parent."
-msgstr "Свойства - это поля, которые можно добавлять только в те статьи, у которых есть родитель."
+msgid ""
+"Properties are fields that can only be added on articles that have a parent."
+msgstr ""
+"Свойства - это поля, которые можно добавлять только в те статьи, у которых "
+"есть родитель."
 
 #. module: knowledge
 #. odoo-javascript
@@ -4870,8 +5243,12 @@ msgstr "Шаблоны проспектов"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_sales_playbook
-msgid "Provide salespeople with tips, lexicon and templates to help them sell faster."
-msgstr "Предоставьте продавцам советы, лексику и шаблоны, которые помогут им продавать быстрее."
+msgid ""
+"Provide salespeople with tips, lexicon and templates to help them sell "
+"faster."
+msgstr ""
+"Предоставьте продавцам советы, лексику и шаблоны, которые помогут им "
+"продавать быстрее."
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_sprint_calendar_public_holiday
@@ -4882,12 +5259,12 @@ msgstr "Государственные праздники"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "Q1: <font class=\"text-600\">Would it be possible to...</font>"
-msgstr "Вопрос 1: <font class=\"text-600\">Можно</font> ли..."
+msgstr "Вопрос 1: <font class=\"text-600\">Можно ли...</font>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
 msgid "Q2: <font class=\"text-600\">Would there be an issue if...</font>"
-msgstr "Вопрос 2: Возникнут <font class=\"text-600\">ли проблемы, если</font>..."
+msgstr "Вопрос 2: Возникнут <font class=\"text-600\">ли проблемы, если...</font>"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_mail_invite
@@ -4899,6 +5276,12 @@ msgstr "ЧИТАТЬ"
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__rating_ids
 msgid "Ratings"
 msgstr "Рейтинги"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_actions.js:0
+msgid "Re-open the discussion"
+msgstr ""
 
 #. module: knowledge
 #. odoo-python
@@ -4918,7 +5301,7 @@ msgstr "Востановление"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Refresh"
 msgstr "Обновить"
 
@@ -4940,9 +5323,22 @@ msgstr "Удалить"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/emoji_picker/emoji_picker_patch.xml:0
+#: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
+msgid "Remove Cover"
+msgstr ""
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
+#: code:addons/knowledge/static/src/mail/emoji_picker/emoji_picker_patch.xml:0
 msgid "Remove Icon"
 msgstr "Удалить иконку"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_popover.xml:0
+msgid "Remove Link"
+msgstr "Убрать ссылку"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4971,21 +5367,15 @@ msgstr "Переименовать"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/discuss/message_actions.js:0
-msgid "Reopen the Thread"
-msgstr "Открыть тему заново"
+#: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
+msgid "Replace"
+msgstr "Заменить"
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 msgid "Replace cover"
 msgstr "Замените крышку"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comment/comment.xml:0
-msgid "Reply"
-msgstr "Ответить"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5001,15 +5391,9 @@ msgstr "Установите крышку на место"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/discuss/message_actions.js:0
-msgid "Resolve the Thread"
-msgstr "Решить проблему"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
-msgid "Resolved Comments"
-msgstr "Решенные комментарии"
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "Resolved Discussions"
+msgstr ""
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__activity_user_id
@@ -5093,6 +5477,7 @@ msgstr "Учебник по продажам"
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 msgid "Save"
 msgstr "Сохранить"
 
@@ -5136,12 +5521,6 @@ msgstr "Этапы поиска"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
-msgid "Search a hidden article to join"
-msgstr "Поиск скрытой статьи, чтобы присоединиться"
-
-#. module: knowledge
-#. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
 msgid "Search an Article..."
 msgstr "Поиск статьи..."
@@ -5159,6 +5538,23 @@ msgid "Search for an article..."
 msgstr "Поиск статьи..."
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
+msgid "Search hidden Articles..."
+msgstr ""
+
+#. module: knowledge
+#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_search
+msgid "Search results"
+msgstr ""
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/core/embedded_view_link/embedded_view_link_style.js:0
+msgid "Secondary"
+msgstr "Вторичный"
+
+#. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__category
 msgid "Section"
 msgstr "Раздел"
@@ -5170,20 +5566,20 @@ msgstr "Обратитесь к врачу и пришлите нам больн
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/article_template_picker_dialog/article_template_picker_dialog.js:0
+#: code:addons/knowledge/static/src/components/article_template_picker_dialog/article_template_picker_dialog.xml:0
 msgid "Select a Template"
 msgstr "Выберите шаблон"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/external_embedded_view_insertion/views_renderers_patches.js:0
+#: code:addons/knowledge/static/src/components/external_embedded_view_favorite_menu/embedded_view_favorite_menu.js:0
 msgid "Select an article"
 msgstr "Выберите статью"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/clipboard/macros_embedded_clipboard.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/file/macros_file_mixin.xml:0
 msgid "Send as Message"
 msgstr "Отправить как сообщение"
 
@@ -5230,15 +5626,22 @@ msgstr "Общий список дел"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Show All"
 msgstr "Показать все"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/comments/comment/comment.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Show Less"
 msgstr "Показать меньше"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/comments/comment/comment.xml:0
+msgid "Show More"
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
@@ -5248,7 +5651,13 @@ msgstr "Показать свойства"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
+msgid "Show Weekends?"
+msgstr ""
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/article_index_plugin/article_index_plugin.js:0
 msgid "Show nested articles"
 msgstr "Показать вложенные статьи"
 
@@ -5259,28 +5668,62 @@ msgstr "Размер:"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
-msgid "Social <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
-msgstr "Социальная <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
+msgid ""
+"Social <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i class=\"fa "
+"fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
+msgstr ""
+"Социальная <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
-msgid "Social Status <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Социальный статус <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Social Status <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgstr ""
+"Социальный статус <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
-msgid "Social Status <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Социальный статус <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Social Status <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
+msgstr ""
+"Социальный статус <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
-msgid "Social Status <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Социальный статус <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Social Status <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
+msgstr ""
+"Социальный статус <span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
-msgid "Social Status ​<span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Социальный статус<span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Social Status ​<span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgstr ""
+"Социальный статус<span class=\"o_stars o_five_stars\" id=\"checkId-4\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_software_specification
@@ -5296,7 +5739,7 @@ msgstr "Некоторые статьи были отправлены в мус�
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/embedded_view.xml:0
 msgid "Something went wrong!"
 msgstr "Что-то пошло не так!"
 
@@ -5312,24 +5755,55 @@ msgstr "Источник Отзывы"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
-msgid "Speed of Service <span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Скорость обслуживания <span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Speed of Service <span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgstr ""
+"Скорость обслуживания <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-2\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_4
-msgid "Speed of Service <span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Скорость обслуживания <span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Speed of Service <span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
+msgstr ""
+"Скорость обслуживания <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-2\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_2
-msgid "Speed of Service <span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Скорость обслуживания <span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Speed of Service <span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i "
+"class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
+msgstr ""
+"Скорость обслуживания <span class=\"o_stars o_five_stars\" "
+"id=\"checkId-2\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_personas
-msgid "Speed of Service ​<span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "Скорость обслуживания<span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"Speed of Service ​<span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i></span>"
+msgstr ""
+"Скорость обслуживания<span class=\"o_stars o_five_stars\" "
+"id=\"checkId-2\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_sprint_calendar
@@ -5348,7 +5822,7 @@ msgstr "Этап"
 #: model:ir.ui.menu,name:knowledge.knowledge_article_stage_menu
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_stage_view_tree
 msgid "Stages"
-msgstr "Туры"
+msgstr "Стадии"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article_stage__parent_id
@@ -5380,9 +5854,20 @@ msgstr "Начать печатать"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
-msgid "Start typing to continue with an empty page or pick an option below to get started."
-msgstr "Начните вводить текст, чтобы продолжить работу с пустой страницы, или выберите вариант ниже, чтобы начать работу."
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
+msgid ""
+"Start typing to continue with an empty page or pick an option below to get "
+"started."
+msgstr ""
+"Начните вводить текст, чтобы продолжить работу с пустой страницы, или "
+"выберите вариант ниже, чтобы начать работу."
+
+#. module: knowledge
+#: model_terms:digest.tip,tip_description:knowledge.digest_tip_knowledge_2
+msgid ""
+"Start working together on any Knowledge Article by sharing your article with"
+" others."
+msgstr ""
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__activity_state
@@ -5405,15 +5890,9 @@ msgstr "Стоп Дата"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Switch Mode"
 msgstr "Режим переключения"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Table Of Content"
-msgstr "Таблица контента"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -5543,16 +6022,35 @@ msgid "The article '%s' needs at least one member with 'Write' access."
 msgstr "Для статьи '%s' нужен хотя бы один участник с доступом 'Write'."
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/js/knowledge_controller.js:0
+msgid ""
+"The article you are trying to open has either been removed or is "
+"inaccessible."
+msgstr ""
+
+#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-msgid "The destination placement of %(article_name)s is ambiguous, you should specify the category."
-msgstr "Размещение назначения %(article_name)s неоднозначно, необходимо указать категорию."
+msgid ""
+"The destination placement of %(article_name)s is ambiguous, you should "
+"specify the category."
+msgstr ""
+"Размещение назначения %(article_name)s неоднозначно, необходимо указать "
+"категорию."
 
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/macros/abstract_macro.js:0
 msgid "The operation could not be completed."
 msgstr "Операция не может быть завершена."
+
+#. module: knowledge
+#: model:ir.model.fields,help:knowledge.field_knowledge_article_thread__article_anchor_text
+msgid ""
+"The original highlighted anchor text, giving initial context if that text is"
+" modified or removed afterwards."
+msgstr ""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -5579,8 +6077,10 @@ msgstr "Выбранный член не существует или уже уд
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__sequence
-msgid "The sequence is computed only among the articles that have the same parent."
-msgstr "Последовательность вычисляется только среди статей, имеющих одного родителя."
+msgid ""
+"The sequence is computed only among the articles that have the same parent."
+msgstr ""
+"Последовательность вычисляется только среди статей, имеющих одного родителя."
 
 #. module: knowledge
 #. odoo-javascript
@@ -5590,17 +6090,22 @@ msgstr "Свойство \"Дата начала\" является обязат
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__root_article_id
-msgid "The subject is the title of the highest parent in the article hierarchy."
+msgid ""
+"The subject is the title of the highest parent in the article hierarchy."
 msgstr "Тема - это название самого высокого родителя в иерархии статей."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
-msgid "The tickets to participate to Odoo Experience 23 are now available and they are cheaper if you book them now!"
-msgstr "Билеты на Odoo Experience 23 уже в продаже, и они станут дешевле, если вы забронируете их сейчас!"
+msgid ""
+"The tickets to participate to Odoo Experience 23 are now available and they "
+"are cheaper if you book them now!"
+msgstr ""
+"Билеты на Odoo Experience 23 уже в продаже, и они станут дешевле, если вы "
+"забронируете их сейчас!"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/embedded_view.xml:0
 msgid "The view does not exist or you are not allowed to access to it."
 msgstr "Представление не существует или вам не разрешен доступ к нему."
 
@@ -5637,12 +6142,6 @@ msgid "This article is only displayed to its members."
 msgstr "Эта статья отображается только для членов клуба."
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior/article_behavior.js:0
-msgid "This article was deleted or you don't have the rights to access it."
-msgstr "Эта статья была удалена или у вас нет прав для доступа к ней."
-
-#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid ""
 "This year again, Odoo was present at the <em>Tech and Innovation festival for students</em> in\n"
@@ -5656,7 +6155,8 @@ msgstr ""
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/properties_panel/properties_panel.xml:0
-msgid "Those fields will be available on all articles that share the same parent."
+msgid ""
+"Those fields will be available on all articles that share the same parent."
 msgstr "Эти поля будут доступны во всех статьях, имеющих одного родителя."
 
 #. module: knowledge
@@ -5669,6 +6169,24 @@ msgstr "Нить закрыта"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
 msgid "Tiny House Catalog"
 msgstr "Каталог миниатюрных домов"
+
+#. module: knowledge
+#: model:digest.tip,name:knowledge.digest_tip_knowledge_0
+#: model_terms:digest.tip,tip_description:knowledge.digest_tip_knowledge_0
+msgid "Tip: A Knowledge well kept"
+msgstr ""
+
+#. module: knowledge
+#: model:digest.tip,name:knowledge.digest_tip_knowledge_2
+#: model_terms:digest.tip,tip_description:knowledge.digest_tip_knowledge_2
+msgid "Tip: Be on the same page"
+msgstr ""
+
+#. module: knowledge
+#: model:digest.tip,name:knowledge.digest_tip_knowledge_1
+#: model_terms:digest.tip,tip_description:knowledge.digest_tip_knowledge_1
+msgid "Tip: Use Clipboards to easily inject repetitive content"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -5701,6 +6219,7 @@ msgstr "Болтовня"
 
 #. module: knowledge
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_action_trashed
+#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_tree_items
 msgid "Trash"
 msgstr "Корзина"
 
@@ -5723,6 +6242,12 @@ msgid "Trying to remove wrong member."
 msgstr "Пытаюсь удалить неправильного пользователя."
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
+msgid "Type"
+msgstr "Тип"
+
+#. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr "Тип Дела для исключения в записи."
@@ -5741,12 +6266,6 @@ msgid "Unlock"
 msgstr "Разблокировать"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
-msgid "Unresolved Comments"
-msgstr "Неразрешенные комментарии"
-
-#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "Unsupported search operation"
@@ -5756,8 +6275,9 @@ msgstr "Неподдерживаемая операция поиска"
 #. odoo-javascript
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
+#: code:addons/knowledge/static/src/components/hierarchy/hierarchy.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_row.xml:0
-#: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
+#: code:addons/knowledge/static/src/editor/html_migrations/migration-1.0.js:0
 #: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
 #: code:addons/knowledge/static/src/xml/knowledge_command_palette.xml:0
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_hierarchy
@@ -5767,15 +6287,9 @@ msgstr "Без названия"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Update"
 msgstr "Обновить"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Upload a file"
-msgstr "Загрузить файл"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -5784,20 +6298,26 @@ msgstr "Применение"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/clipboard/macros_embedded_clipboard.js:0
 msgid "Use as %s"
 msgstr "Использовать как %s"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/file/macros_file_mixin.xml:0
 msgid "Use as Attachment"
 msgstr "Использовать в качестве приложения"
 
 #. module: knowledge
+#: model_terms:digest.tip,tip_description:knowledge.digest_tip_knowledge_1
+msgid "Use the /clipboard command on a Knowledge Article and get going."
+msgstr ""
+
+#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Use the expression \"YourCompanions\" to refer to our community"
-msgstr "Используйте выражение \"YourCompanions\" для обозначения нашего сообщества"
+msgstr ""
+"Используйте выражение \"YourCompanions\" для обозначения нашего сообщества"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -5807,12 +6327,15 @@ msgstr "Используйте логотип вместо слова внутр
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "Use this template whenever you have an announcement to make."
-msgstr "Используйте этот шаблон каждый раз, когда вам нужно сделать объявление."
+msgstr ""
+"Используйте этот шаблон каждый раз, когда вам нужно сделать объявление."
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__category
-msgid "Used to categozie articles in UI, depending on their main permission definitions."
-msgstr "Используется для категоризации статей в UI в зависимости от их основных разрешений."
+msgid ""
+"Used to categorize articles in UI, depending on their main permission "
+"definitions."
+msgstr ""
 
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_res_users
@@ -5846,18 +6369,6 @@ msgstr "Разрешение пользователя"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "VersionName - ReleaseDate"
 msgstr "VersionName - ReleaseDate"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Video"
-msgstr "Видео"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/video_behavior/video_behavior.xml:0
-msgid "Video player"
-msgstr "Видео плеер"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5927,8 +6438,12 @@ msgstr "Какими предметами вы хотите управлять?"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__is_locked
-msgid "When locked, users cannot write on the body or change the title, even if they have write access on the article."
-msgstr "Если статья заблокирована, пользователи не могут писать в теле или изменять заголовок, даже если у них есть доступ к записи в статье."
+msgid ""
+"When locked, users cannot write on the body or change the title, even if "
+"they have write access on the article."
+msgstr ""
+"Если статья заблокирована, пользователи не могут писать в теле или изменять "
+"заголовок, даже если у них есть доступ к записи в статье."
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__to_delete
@@ -5945,13 +6460,28 @@ msgstr ""
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__full_width
-msgid "When set, the article body will take the full width available on the article page. Otherwise, the body will have large horizontal margins."
-msgstr "Если этот параметр установлен, тело статьи будет занимать всю ширину, доступную на странице статьи. В противном случае тело статьи будет иметь большие горизонтальные поля."
+msgid ""
+"When set, the article body will take the full width available on the article"
+" page. Otherwise, the body will have large horizontal margins."
+msgstr ""
+"Если этот параметр установлен, тело статьи будет занимать всю ширину, "
+"доступную на странице статьи. В противном случае тело статьи будет иметь "
+"большие горизонтальные поля."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
-msgid "Whether your heart leans towards the rustic charm of a wooden hut or the intricate beauty of Victorian steelworks, we have you covered. Desiring a specific option? Rest assured, we are here to fulfill your wishes! Just get in touch with our architects and we will make sure to provide any specific choice you desire."
-msgstr "Если ваше сердце склоняется к деревенскому очарованию деревянной хижины или замысловатой красоте викторианских сталелитейных заводов, мы поможем вам. Хотите конкретный вариант? Будьте уверены, мы готовы выполнить ваши пожелания! Просто свяжитесь с нашими архитекторами, и мы обязательно предоставим любой желаемый вариант."
+msgid ""
+"Whether your heart leans towards the rustic charm of a wooden hut or the "
+"intricate beauty of Victorian steelworks, we have you covered. Desiring a "
+"specific option? Rest assured, we are here to fulfill your wishes! Just get "
+"in touch with our architects and we will make sure to provide any specific "
+"choice you desire."
+msgstr ""
+"Если ваше сердце склоняется к деревенскому очарованию деревянной хижины или "
+"замысловатой красоте викторианских сталелитейных заводов, мы поможем вам. "
+"Хотите конкретный вариант? Будьте уверены, мы готовы выполнить ваши "
+"пожелания! Просто свяжитесь с нашими архитекторами, и мы обязательно "
+"предоставим любой желаемый вариант."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
@@ -5970,13 +6500,34 @@ msgstr "Какой текст мы должны напечатать на рек
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
-msgid "While tiny houses are inherently small, it's important to prioritize comfort when sharing such limited space. To ensure everyone's happiness, we recommend allowing at least 9m² per person. If you plan to live with multiple roommates, our Serenità model is highly recommended, providing ample space for each individual to enjoy<br>"
-msgstr "Несмотря на то, что крошечные домики по своей природе маленькие, при совместном использовании такого ограниченного пространства важно уделять первостепенное внимание комфорту. Чтобы все были счастливы, мы рекомендуем выделять не менее 9 м² на человека. Если вы планируете жить с несколькими соседями, мы настоятельно рекомендуем нашу модель Serenità, которая предоставляет достаточно места для каждого человека, чтобы насладиться<br>"
+msgid ""
+"While tiny houses are inherently small, it's important to prioritize comfort"
+" when sharing such limited space. To ensure everyone's happiness, we "
+"recommend allowing at least 9m² per person. If you plan to live with "
+"multiple roommates, our Serenità model is highly recommended, providing "
+"ample space for each individual to enjoy<br>"
+msgstr ""
+"Несмотря на то, что крошечные домики по своей природе маленькие, при "
+"совместном использовании такого ограниченного пространства важно уделять "
+"первостепенное внимание комфорту. Чтобы все были счастливы, мы рекомендуем "
+"выделять не менее 9 м² на человека. Если вы планируете жить с несколькими "
+"соседями, мы настоятельно рекомендуем нашу модель Serenità, которая "
+"предоставляет достаточно места для каждого человека, чтобы насладиться<br>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
-msgid "While tiny houses do offer a more cost-effective alternative to traditional houses, at MyCompany, we prioritize durability, which comes with a price. However, if you're on a tight budget, we have the perfect solution: our Cielo model.<br>It provides everything you need while allowing you to save.<br>"
-msgstr "Хотя миниатюрные дома и являются более экономичной альтернативой традиционным домам, в MyCompany мы отдаем предпочтение долговечности, за которую приходится платить. Однако если у вас ограниченный бюджет, у нас есть идеальное решение: наша модель Cielo.<br>Она обеспечивает все необходимое, позволяя при этом экономить.<br>"
+msgid ""
+"While tiny houses do offer a more cost-effective alternative to traditional "
+"houses, at MyCompany, we prioritize durability, which comes with a price. "
+"However, if you're on a tight budget, we have the perfect solution: our "
+"Cielo model.<br>It provides everything you need while allowing you to "
+"save.<br>"
+msgstr ""
+"Хотя миниатюрные дома и являются более экономичной альтернативой "
+"традиционным домам, в MyCompany мы отдаем предпочтение долговечности, за "
+"которую приходится платить. Однако если у вас ограниченный бюджет, у нас "
+"есть идеальное решение: наша модель Cielo.<br>Она обеспечивает все "
+"необходимое, позволяя при этом экономить.<br>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
@@ -5986,7 +6537,8 @@ msgstr "Кто может управлять моей машиной?"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Who do I need to address if I need office supplies?"
-msgstr "К кому мне следует обратиться, если мне нужны канцелярские принадлежности?"
+msgstr ""
+"К кому мне следует обратиться, если мне нужны канцелярские принадлежности?"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -6015,14 +6567,18 @@ msgstr "Запись"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/knowledge_wysiwyg.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Write an article about"
 msgstr "Напишите статью о"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "Write it without any article(<em><s>the</s> YourCompany, <s>a</s> YourCompany, ...</em>)"
-msgstr "Напишите его без артиклей<em><s>(the</s> YourCompany, <s>a</s> YourCompany, ...</em>)"
+msgid ""
+"Write it without any article(<em><s>the</s> YourCompany, <s>a</s> "
+"YourCompany, ...</em>)"
+msgstr ""
+"Напишите его без артиклей<em><s>(the</s> YourCompany, <s>a</s> YourCompany, "
+"...</em>)"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_shared_todos_write_the_next_newsletter
@@ -6048,6 +6604,12 @@ msgid "You are not allowed to create a new template."
 msgstr "Вы не можете создать новый шаблон."
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/readonly_embedded_view.js:0
+msgid "You are not allowed to delete a favorite filter in this article."
+msgstr ""
+
+#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "You are not allowed to delete a template."
@@ -6062,13 +6624,20 @@ msgstr "Вам не разрешается делать '%(article_name)s' ча�
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-msgid "You are not allowed to move '%(article_name)s' under '%(parent_name)s'."
+msgid ""
+"You are not allowed to move '%(article_name)s' under '%(parent_name)s'."
 msgstr "Не разрешается перемещать '%(article_name)s' под '%(parent_name)s'."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "You are not allowed to move '%(article_name)s'."
+msgstr ""
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/readonly_embedded_view.js:0
+msgid "You are not allowed to save a favorite filter in this article."
 msgstr ""
 
 #. module: knowledge
@@ -6085,18 +6654,6 @@ msgstr "Вам не разрешается изменять тип статьи 
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.js:0
-msgid "You can not delete favorite from this article"
-msgstr "Вы не можете удалить избранное из этой статьи"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.js:0
-msgid "You can not save favorite on this article"
-msgstr "Вы не можете сохранить избранное на этой статье"
-
-#. module: knowledge
-#. odoo-javascript
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.xml:0
 msgid "You can't leave an article for which you are the last writer"
 msgstr "Вы не можете оставить статью, в которой вы были последним автором"
@@ -6104,8 +6661,12 @@ msgstr "Вы не можете оставить статью, в которой 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-msgid "You can't move %(article_name)s under %(item_name)s, as %(item_name)s is an Article Item. Convert %(item_name)s into an Article first."
-msgstr "Вы не можете переместить %(article_name)s под %(item_name)s, так как %(item_name)s - это статья. Сначала преобразуйте %(item_name)s в статью."
+msgid ""
+"You can't move %(article_name)s under %(item_name)s, as %(item_name)s is an "
+"Article Item. Convert %(item_name)s into an Article first."
+msgstr ""
+"Вы не можете переместить %(article_name)s под %(item_name)s, так как "
+"%(item_name)s - это статья. Сначала преобразуйте %(item_name)s в статью."
 
 #. module: knowledge
 #. odoo-javascript
@@ -6146,8 +6707,17 @@ msgstr "Вы не можете создать статью под статьям
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-msgid "You cannot move an article under %(parent_name)s as you cannot write on it"
-msgstr "Вы не можете переместить статью под %(parent_name)s, так как не можете писать на ней"
+msgid ""
+"You cannot move an article under %(parent_name)s as you cannot write on it"
+msgstr ""
+"Вы не можете переместить статью под %(parent_name)s, так как не можете "
+"писать на ней"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/hierarchy/hierarchy.xml:0
+msgid "You do not have access to this article"
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
@@ -6159,31 +6729,43 @@ msgstr "У вас нет ни одной частной статьи."
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "You have to be editor on %(article_name)s to add members."
-msgstr "Вы должны быть редактором на %(article_name)s, чтобы добавлять участников."
+msgstr ""
+"Вы должны быть редактором на %(article_name)s, чтобы добавлять участников."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-msgid "You have to be editor on %(article_name)s to change its internal permission."
-msgstr "Вы должны быть редактором на %(article_name)s, чтобы изменить его внутреннее разрешение."
+msgid ""
+"You have to be editor on %(article_name)s to change its internal permission."
+msgstr ""
+"Вы должны быть редактором на %(article_name)s, чтобы изменить его внутреннее"
+" разрешение."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-msgid "You have to be editor on %(article_name)s to modify members permissions."
-msgstr "Вы должны быть редактором на %(article_name)s, чтобы изменять права пользователей."
+msgid ""
+"You have to be editor on %(article_name)s to modify members permissions."
+msgstr ""
+"Вы должны быть редактором на %(article_name)s, чтобы изменять права "
+"пользователей."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-msgid "You have to be editor on %(article_name)s to remove or exclude member %(member_name)s."
-msgstr "Вы должны быть редактором на %(article_name)s, чтобы удалить или исключить участника %(member_name)s."
+msgid ""
+"You have to be editor on %(article_name)s to remove or exclude member "
+"%(member_name)s."
+msgstr ""
+"Вы должны быть редактором на %(article_name)s, чтобы удалить или исключить "
+"участника %(member_name)s."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "You have to be editor on %(article_name)s to restore it."
-msgstr "Чтобы восстановить его, вам нужно быть редактором на %(article_name)s."
+msgstr ""
+"Чтобы восстановить его, вам нужно быть редактором на %(article_name)s."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -6206,13 +6788,18 @@ msgstr ""
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "You need to have access to this article in order to join its members."
-msgstr "Для того чтобы присоединиться к ее участникам, вам необходимо получить доступ к этой статье."
+msgstr ""
+"Для того чтобы присоединиться к ее участникам, вам необходимо получить "
+"доступ к этой статье."
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-msgid "You need to have access to this article's root in order to join its members."
-msgstr "Чтобы присоединиться к участникам этой статьи, вам необходимо иметь доступ к ее корню."
+msgid ""
+"You need to have access to this article's root in order to join its members."
+msgstr ""
+"Чтобы присоединиться к участникам этой статьи, вам необходимо иметь доступ к"
+" ее корню."
 
 #. module: knowledge
 #. odoo-python
@@ -6221,15 +6808,14 @@ msgid "Your Access: %s"
 msgstr "Ваш доступ: %s"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/video_behavior/video_behavior.xml:0
-msgid "Your browser does not support iframe."
-msgstr "Ваш браузер не поддерживает iframe."
-
-#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
-msgid "Your car can be driven by <strong>you, your spouse and by any person living under the same roof</strong> as long as they have a valid permit."
-msgstr "Вашим автомобилем можете управлять <strong>вы, ваш супруг или супруга, а также любой человек, проживающий с вами под одной крышей</strong>, при условии, что у него есть действующее разрешение."
+msgid ""
+"Your car can be driven by <strong>you, your spouse and by any person living "
+"under the same roof</strong> as long as they have a valid permit."
+msgstr ""
+"Вашим автомобилем можете управлять <strong>вы, ваш супруг или супруга, а "
+"также любой человек, проживающий с вами под одной крышей</strong>, при "
+"условии, что у него есть действующее разрешение."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -6246,6 +6832,12 @@ msgstr ""
 "YourCompany очень гордится имиджем своего бренда.\n"
 "               <br>\n"
 "                Поэтому, представляя бренд, мы просим вас быть очень осторожными в том, как вы упоминаете компанию."
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "all"
+msgstr "все"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
@@ -6265,7 +6857,7 @@ msgstr "были отправлены в корзину.<br/><br/>"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "button to add comments"
 msgstr "кнопка для добавления комментариев"
 
@@ -6325,17 +6917,12 @@ msgstr "пригласил вас получить доступ к статье.
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_behavior.xml:0
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_row.xml:0
+#: code:addons/knowledge/static/src/components/with_lazy_loading/with_lazy_loading.xml:0
 msgid "loader"
 msgstr "загрузчик"
-
-#. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "logo.jpg"
-msgstr "логотип.jpg"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_mail_notification_layout
@@ -6353,19 +6940,15 @@ msgid "or"
 msgstr "или"
 
 #. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "pdf"
-msgstr "pdf"
-
-#. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
-msgid "png"
-msgstr "png"
-
-#. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__user_permission__read
 msgid "read"
 msgstr "читать"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "resolved"
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
@@ -6385,9 +6968,9 @@ msgstr "чтобы высвободить силу Знания!"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
-msgid "untitled"
-msgstr "безымянный"
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "unresolved"
+msgstr ""
 
 #. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__user_permission__write
@@ -6396,18 +6979,36 @@ msgstr "запись"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
-msgid "​<span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "<span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"​<span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgstr ""
+"<span class=\"o_stars o_five_stars\" id=\"checkId-1\"><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
-msgid "​<span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "<span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"​<span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgstr ""
+"<span class=\"o_stars o_five_stars\" id=\"checkId-2\"><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
-msgid "​<span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
-msgstr "<span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgid ""
+"​<span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
+msgstr ""
+"<span class=\"o_stars o_five_stars\" id=\"checkId-3\"><i class=\"fa fa-"
+"star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i "
+"class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i></span>"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
@@ -6439,6 +7040,21 @@ msgstr "⭐ Примечания к выпуску"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "🎯 Target Audience"
 msgstr "🎯 Целевая аудитория"
+
+#. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🏘️ House Model - Incanto"
+msgstr ""
+
+#. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🏠 House Model - Cielo"
+msgstr ""
+
+#. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🏢 House Model - Serenità"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
@@ -6486,6 +7102,11 @@ msgstr "🙌🏼 Принятые решения"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "🚀 Objective"
 msgstr "🚀 Цель"
+
+#. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🛕 House Model - Dolcezza"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification

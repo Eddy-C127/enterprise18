@@ -3,16 +3,17 @@
 # 	* sale_commission
 # 
 # Translators:
-# Wil Odoo, 2024
+# Mustafa J. Kadhem <safi2266@gmail.com>, 2024
 # Malaz Abuidris <msea@odoo.com>, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"POT-Creation-Date: 2024-12-19 09:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,11 +26,6 @@ msgstr ""
 #: code:addons/sale_commission/model/commission_plan.py:0
 msgid "%s (copy)"
 msgstr "%s (نسخة)"
-
-#. module: sale_commission
-#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
-msgid "-&gt;"
-msgstr "-&gt;"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
@@ -211,6 +207,11 @@ msgid "Based on"
 msgstr "بناءً على"
 
 #. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
+msgid "By Quarter"
+msgstr ""
+
+#. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_user_wizard
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
 msgid "Cancel"
@@ -268,7 +269,7 @@ msgstr "هدف خطة عمولة المبيعات "
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_plan_target_commission
 msgid "Commission Plan Target Commission"
-msgstr ""
+msgstr "العمولة المستهدفة في خطة عمولة المبيعات "
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_plan_target_forecast
@@ -392,7 +393,6 @@ msgstr "سعر صرف العملة"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_achievement_report_view_search
-#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
 msgid "Current Period"
 msgstr "الفترة الحالية "
 
@@ -406,6 +406,11 @@ msgstr "التاريخ"
 #: model:ir.model.fields,help:sale_commission.field_crm_team__commission_plan_ids
 msgid "Default commission plan for team members."
 msgstr "خطة العمولة الافتراضية لأعضاء الفريق. "
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
+msgid "Details"
+msgstr "التفاصيل"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__display_name
@@ -462,7 +467,7 @@ msgstr ""
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_res_users__filtered_commission_plan_users_ids
 msgid "Filtered Commission Plan Users"
-msgstr ""
+msgstr "مستخدمو خطة العمولة الذين تمت تصفيتهم "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__message_follower_ids
@@ -478,7 +483,6 @@ msgstr "المتابعين (الشركاء) "
 #: model:ir.actions.act_window,name:sale_commission.sale_commission_action_forecast
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_target_forecast__amount
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__forecast
-#: model:ir.ui.menu,name:sale_commission.sale_commission_forecast
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_target_forecast_view_graph
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_target_forecast_view_list
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_target_forecast_view_pivot
@@ -615,7 +619,6 @@ msgstr "عمولاتي "
 
 #. module: sale_commission
 #: model:ir.actions.act_window,name:sale_commission.sale_commission_action_my_forecast
-#: model:ir.ui.menu,name:sale_commission.sale_commission_my_forecast
 msgid "My Forecast"
 msgstr "توقعاتي "
 
@@ -682,13 +685,9 @@ msgstr "الخطط الأخرى "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__payment_date
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
 msgid "Payment Date"
 msgstr "تاريخ الدفع "
-
-#. module: sale_commission
-#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
-msgid "Payment Frequency"
-msgstr "وتيرة الدفع "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement_report__target_id
@@ -844,7 +843,7 @@ msgstr "تاريخ البدء "
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__state
 msgid "State"
-msgstr "الولاية "
+msgstr "الحالة "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_user_wizard
@@ -871,6 +870,11 @@ msgstr "العمولة المُراد تحقيقها "
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__target_commission_graph
 msgid "Target Commission Graph"
 msgstr "الرسم البياني للعمولة المُراد تحقيقها "
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
+msgid "Target Frequency"
+msgstr ""
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_target_commission__target_rate
@@ -921,6 +925,7 @@ msgstr "هذا العام "
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__date_to
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_target__date_to
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_user__date_to
+#: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__date_to
 msgid "To"
 msgstr "إلى"
 
@@ -1009,7 +1014,7 @@ msgstr "fc"
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
 msgid "i.e. Commissions plan 2025"
-msgstr ""
+msgstr "مثال: خطة العمولة لعام 2025 "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form

@@ -1,38 +1,54 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* industry_fsm_stock
-#
+# 
 # Translators:
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-09-25 09:27+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: industry_fsm_stock
+#: model_terms:ir.ui.view,arch_db:industry_fsm_stock.view_task_form2_inherit
+msgid ""
+"<span class=\"o_stat_text\">\n"
+"                            to Pick up\n"
+"                        </span>"
+msgstr ""
+
+#. module: industry_fsm_stock
+#: model_terms:ir.ui.view,arch_db:industry_fsm_stock.view_task_form2_inherit
+msgid "<span>Products</span>"
+msgstr "<span>Продукция</span>"
 
 #. module: industry_fsm_stock
 #. odoo-python
 #: code:addons/industry_fsm_stock/models/product.py:0
-msgid "Adding or updating this product is restricted due to its tracked status. Your current access rights do not allow you to perform these actions. Please contact your administrator to request the necessary permissions."
-msgstr "Добавление или обновление этого продукта ограничено из-за его отслеживаемого статуса. Ваши текущие права доступа не позволяют вам выполнить эти действия. Обратитесь к своему администратору, чтобы запросить необходимые права."
+msgid ""
+"Adding or updating this product is restricted due to its tracked status. "
+"Your current access rights do not allow you to perform these actions. Please"
+" contact your administrator to request the necessary permissions."
+msgstr ""
+"Добавление или обновление этого продукта ограничено из-за его отслеживаемого"
+" статуса. Ваши текущие права доступа не позволяют вам выполнить эти "
+"действия. Обратитесь к своему администратору, чтобы запросить необходимые "
+"права."
 
 #. module: industry_fsm_stock
 #: model_terms:ir.ui.view,arch_db:industry_fsm_stock.fsm_stock_tracking_line_view_form
 msgid "Already Delivered"
 msgstr "Уже доставлено"
-
-#. module: industry_fsm_stock
-#: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking__company_id
-#: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking_line__company_id
-msgid "Company"
-msgstr "Компания"
 
 #. module: industry_fsm_stock
 #: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking__create_uid
@@ -108,8 +124,13 @@ msgid "Lot/Serial number"
 msgstr "Партия/серийный номер"
 
 #. module: industry_fsm_stock
+#. odoo-python
+#: code:addons/industry_fsm_stock/models/project_task.py:0
+msgid "Pick Up Material"
+msgstr ""
+
+#. module: industry_fsm_stock
 #: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking__product_id
-#: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking_line__product_id
 msgid "Product"
 msgstr "Товар"
 
@@ -119,24 +140,19 @@ msgid "Product Variant"
 msgstr "Вариант продукта"
 
 #. module: industry_fsm_stock
+#: model_terms:ir.ui.view,arch_db:industry_fsm_stock.view_task_form2_inherit
+msgid "Products"
+msgstr "Товары"
+
+#. module: industry_fsm_stock
 #: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking_line__quantity
 msgid "Quantity"
 msgstr "Количество"
 
 #. module: industry_fsm_stock
-#: model:ir.model.fields,field_description:industry_fsm_stock.field_product_product__quantity_decreasable
-msgid "Quantity Decreasable"
-msgstr "Количество уменьшаемое"
-
-#. module: industry_fsm_stock
-#: model:ir.model.fields,field_description:industry_fsm_stock.field_product_product__quantity_decreasable_sum
-msgid "Quantity Decreasable Sum"
-msgstr "Количество Уменьшаемая сумма"
-
-#. module: industry_fsm_stock
-#: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking_line__sale_order_line_id
-msgid "Sale Order Line"
-msgstr "Линия заказов на продажу"
+#: model:ir.model,name:industry_fsm_stock.model_sale_order
+msgid "Sales Order"
+msgstr "Заказ на продажу"
 
 #. module: industry_fsm_stock
 #: model:ir.model,name:industry_fsm_stock.model_sale_order_line
@@ -144,20 +160,14 @@ msgid "Sales Order Line"
 msgstr "Позиция заказа на продажу"
 
 #. module: industry_fsm_stock
-#: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking__is_same_warehouse
-#: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking_line__is_same_warehouse
-msgid "Same warehouse"
-msgstr "Тот же склад"
-
-#. module: industry_fsm_stock
-#: model:ir.model.fields,field_description:industry_fsm_stock.field_product_product__serial_missing
-msgid "Serial Missing"
-msgstr "Сериал пропал"
-
-#. module: industry_fsm_stock
 #: model:ir.model,name:industry_fsm_stock.model_stock_move
 msgid "Stock Move"
 msgstr "Движение запасов"
+
+#. module: industry_fsm_stock
+#: model:ir.model.fields,field_description:industry_fsm_stock.field_project_task__stock_move_customer_product_count
+msgid "Stock Move Customer Product Count"
+msgstr ""
 
 #. module: industry_fsm_stock
 #: model:ir.model,name:industry_fsm_stock.model_project_task
@@ -168,8 +178,12 @@ msgstr "Задача"
 #. module: industry_fsm_stock
 #. odoo-python
 #: code:addons/industry_fsm_stock/models/product.py:0
-msgid "The ordered quantity cannot be decreased below the amount already delivered. Instead, create a return in your inventory."
-msgstr "Заказанное количество не может быть уменьшено ниже уже поставленного. Вместо этого создайте возврат в инвентаре."
+msgid ""
+"The ordered quantity cannot be decreased below the amount already delivered."
+" Instead, create a return in your inventory."
+msgstr ""
+"Заказанное количество не может быть ниже уже доставленного. Вместо этого "
+"создайте возврат на Склад. "
 
 #. module: industry_fsm_stock
 #: model:ir.model,name:industry_fsm_stock.model_fsm_stock_tracking
@@ -184,33 +198,12 @@ msgid "Tracking"
 msgstr "Отслеживание"
 
 #. module: industry_fsm_stock
-#: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking__tracking_line_ids
-#: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking_line__wizard_tracking_line
-msgid "Tracking Line"
-msgstr "Линия слежения"
-
-#. module: industry_fsm_stock
-#: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking__tracking_validated_line_ids
-msgid "Tracking Validated Line"
-msgstr "Отслеживание подтвержденной линии"
-
-#. module: industry_fsm_stock
 #: model_terms:ir.ui.view,arch_db:industry_fsm_stock.fsm_stock_tracking_line_view_form
 msgid "Validate"
-msgstr "Проверка"
+msgstr "Подтвердить"
 
 #. module: industry_fsm_stock
 #. odoo-python
 #: code:addons/industry_fsm_stock/models/product.py:0
 msgid "Validate Lot/Serial Number"
 msgstr "Подтверждение номера партии/серийного номера"
-
-#. module: industry_fsm_stock
-#: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking_line__wizard_tracking_line_validated
-msgid "Validated Tracking Line"
-msgstr "Проверенная линия отслеживания"
-
-#. module: industry_fsm_stock
-#: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking_line__warehouse_id
-msgid "Warehouse"
-msgstr "Склад"

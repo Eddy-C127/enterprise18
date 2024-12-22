@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"POT-Creation-Date: 2024-12-19 12:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -102,8 +102,14 @@ msgstr "新增預訂"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__description
+#: model_terms:ir.ui.view,arch_db:room.room_room_view_form
 msgid "Amenities"
 msgstr "設施"
+
+#. module: room
+#: model_terms:ir.ui.view,arch_db:room.room_room_view_form
+msgid "Appearance"
+msgstr "外觀"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form
@@ -280,6 +286,11 @@ msgid "Followers (Partners)"
 msgstr "關注人（業務夥伴）"
 
 #. module: room
+#: model:ir.model,name:room.model_ir_http
+msgid "HTTP Routing"
+msgstr "http路由"
+
+#. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__has_message
 #: model:ir.model.fields,field_description:room.field_room_room__has_message
 msgid "Has Message"
@@ -305,9 +316,7 @@ msgstr "勾選代表有新訊息需要您留意。"
 
 #. module: room
 #: model:ir.model.fields,help:room.field_room_booking__message_has_error
-#: model:ir.model.fields,help:room.field_room_booking__message_has_sms_error
 #: model:ir.model.fields,help:room.field_room_room__message_has_error
-#: model:ir.model.fields,help:room.field_room_room__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "勾選代表有訊息發生傳送錯誤。"
 
@@ -554,12 +563,6 @@ msgid "Rooms"
 msgstr "房間"
 
 #. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__message_has_sms_error
-#: model:ir.model.fields,field_description:room.field_room_room__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "簡訊發送錯誤"
-
-#. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_form
 msgid "Select a Room..."
 msgstr "選擇一個房間⋯"
@@ -629,18 +632,6 @@ msgstr "直至"
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
 msgid "Update Meeting"
 msgstr "更新會議"
-
-#. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,field_description:room.field_room_room__website_message_ids
-msgid "Website Messages"
-msgstr "網站資訊"
-
-#. module: room
-#: model:ir.model.fields,help:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,help:room.field_room_room__website_message_ids
-msgid "Website communication history"
-msgstr "網站溝通記錄"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:26+0000\n"
+"POT-Creation-Date: 2024-12-19 13:01+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -44,6 +44,16 @@ msgstr "経費報告"
 #. module: hr_payroll_expense
 #. odoo-python
 #: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
+msgid ""
+"Expense reimbursement rule needs to be configured to add expenses to payslips.\n"
+"Please create one salary rule with the \"%(code)s\" code on the relevant salary structures."
+msgstr ""
+"経費を給与明細に追加するには、経費精算規則を設定する必要があります。\n"
+"該当する給与規則に \"%(code)s\" コードを使用して、1つの給与規則を作成して下さい。"
+
+#. module: hr_payroll_expense
+#. odoo-python
+#: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
 msgid "Expense report (\"%(name)s\") was removed from the next payslip."
 msgstr "次の給与明細から経費報告(\"%(name)s\")が削除されました。"
 
@@ -73,6 +83,12 @@ msgstr "経費精算"
 #: model:ir.model.fields,help:hr_payroll_expense.field_hr_payslip__expense_sheet_ids
 msgid "Expenses to reimburse to employee."
 msgstr "従業員に払戻す経費"
+
+#. module: hr_payroll_expense
+#. odoo-python
+#: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
+msgid "Go to salary rules"
+msgstr "給与規則に移動"
 
 #. module: hr_payroll_expense
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_account_payment_register__is_already_paid_through_a_payslip

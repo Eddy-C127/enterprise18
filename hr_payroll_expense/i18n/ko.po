@@ -5,14 +5,15 @@
 # Translators:
 # Wil Odoo, 2024
 # Sarah Park, 2024
+# Daye Jeong, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:26+0000\n"
+"POT-Creation-Date: 2024-12-19 13:01+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Sarah Park, 2024\n"
+"Last-Translator: Daye Jeong, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,6 +41,16 @@ msgstr "<span class=\"o_stat_text\">급여 명세서</span>"
 #: model:ir.model,name:hr_payroll_expense.model_hr_expense_sheet
 msgid "Expense Report"
 msgstr "지출결의서"
+
+#. module: hr_payroll_expense
+#. odoo-python
+#: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
+msgid ""
+"Expense reimbursement rule needs to be configured to add expenses to payslips.\n"
+"Please create one salary rule with the \"%(code)s\" code on the relevant salary structures."
+msgstr ""
+"급여 명세서에 경비를 추가하려면 경비 상환 규칙을 설정해야 합니다.\n"
+"해당 급여 구조에 \"%(code)s\" 코드를 사용하여 급여 규칙을 만드십시오. "
 
 #. module: hr_payroll_expense
 #. odoo-python
@@ -73,6 +84,12 @@ msgstr "비용 환급"
 #: model:ir.model.fields,help:hr_payroll_expense.field_hr_payslip__expense_sheet_ids
 msgid "Expenses to reimburse to employee."
 msgstr "직원에게 상환되는 비용"
+
+#. module: hr_payroll_expense
+#. odoo-python
+#: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
+msgid "Go to salary rules"
+msgstr "급여 규정으로 이동"
 
 #. module: hr_payroll_expense
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_account_payment_register__is_already_paid_through_a_payslip

@@ -1,20 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* mrp_maintenance
-#
+# 
 # Translators:
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-09-25 09:27+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: mrp_maintenance
@@ -74,8 +76,11 @@ msgstr "Блокировать рабочий центр"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_maintenance_request__recurring_leaves_count
-msgid "Block the workcenter for this many time slots in the future in advance."
-msgstr "Заранее заблокируйте рабочий центр на такое количество временных интервалов в будущем."
+msgid ""
+"Block the workcenter for this many time slots in the future in advance."
+msgstr ""
+"Заранее заблокируйте рабочий центр на такое количество временных интервалов "
+"в будущем."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__company_id
@@ -116,7 +121,7 @@ msgstr "Сверлильный станок"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__effective_date
 msgid "Effective Date"
-msgstr "Срок действия"
+msgstr "Фактическая дата"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__equipment_id
@@ -153,7 +158,8 @@ msgstr "Ожидаемое среднее время наработки на о�
 
 #. module: mrp_maintenance
 #: model_terms:ir.actions.act_window,help:mrp_maintenance.mrp_workcenter_request_action_from_workcenter
-msgid "Follow the process of the request and communicate with the collaborator."
+msgid ""
+"Follow the process of the request and communicate with the collaborator."
 msgstr "Следите за процессом запроса и общайтесь с соавтором."
 
 #. module: mrp_maintenance
@@ -199,7 +205,8 @@ msgstr "Значок, обозначающий исключение Дела."
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Если флажок установлен, значит, новые сообщения требуют вашего внимания."
+msgstr ""
+"Если флажок установлен, значит, новые сообщения требуют вашего внимания."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__message_has_error
@@ -214,8 +221,12 @@ msgstr "Является подписчиком"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_maintenance_request__block_workcenter
-msgid "It won't be possible to plan work orders or other maintenances on this workcenter during this time."
-msgstr "В это время нельзя будет планировать заказы на работы или другие виды технического обслуживания на этом рабочем центре."
+msgid ""
+"It won't be possible to plan work orders or other maintenances on this "
+"workcenter during this time."
+msgstr ""
+"В это время нельзя будет планировать заказы на работы или другие виды "
+"технического обслуживания на этом рабочем центре."
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
@@ -289,6 +300,7 @@ msgid "Maintenance Team"
 msgstr "Команда обслуживания"
 
 #. module: mrp_maintenance
+#: model:ir.model,name:mrp_maintenance.model_mrp_production
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__production_id
 msgid "Manufacturing Order"
 msgstr "Заказ на производство"
@@ -309,8 +321,11 @@ msgstr "Среднее время между отказами"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__mtbf
-msgid "Mean Time Between Failure, computed based on done corrective maintenances."
-msgstr "Среднее время наработки на отказ, рассчитанное на основе проведенных профилактических ремонтов."
+msgid ""
+"Mean Time Between Failure, computed based on done corrective maintenances."
+msgstr ""
+"Среднее время наработки на отказ, рассчитанное на основе проведенных "
+"профилактических ремонтов."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__mttr
@@ -395,11 +410,6 @@ msgid "Production Company"
 msgstr "Производственная компания"
 
 #. module: mrp_maintenance
-#: model:ir.model,name:mrp_maintenance.model_mrp_production
-msgid "Production Order"
-msgstr "Заказ на производство"
-
-#. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__rating_ids
 msgid "Ratings"
 msgstr "Рейтинги"
@@ -474,8 +484,12 @@ msgstr "Запрос на обслуживание успешно создан."
 #. module: mrp_maintenance
 #. odoo-python
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
-msgid "The schedule has changed from %(desired_date)s to %(effective_date)s due to planned manufacturing orders."
-msgstr "Расписание изменилось с %(desired_date)s на %(effective_date)s из-за запланированных производственных заказов."
+msgid ""
+"The schedule has changed from %(desired_date)s to %(effective_date)s due to "
+"planned manufacturing orders."
+msgstr ""
+"Расписание изменилось с %(desired_date)s на %(effective_date)s из-за "
+"запланированных производственных заказов."
 
 #. module: mrp_maintenance
 #. odoo-python
@@ -486,7 +500,8 @@ msgstr "Рабочий центр отсутствует для %s."
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__effective_date
 msgid "This date will be used to compute the Mean Time Between Failure."
-msgstr "Эта дата будет использоваться для расчета среднего времени между отказами."
+msgstr ""
+"Эта дата будет использоваться для расчета среднего времени между отказами."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__activity_exception_decoration

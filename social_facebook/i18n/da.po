@@ -1,26 +1,27 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* social_facebook
-#
+# 
 # Translators:
-# JonathanStein <jstein@image.dk>, 2022
-# Martin Trigaux, 2022
-# Walther Barnett <walther@gundogpro.dk>, 2022
-# Mads Søndergaard, 2022
-# Mads Søndergaard, 2022
-#
+# JonathanStein <jstein@image.dk>, 2024
+# Mads Søndergaard, 2024
+# Martin Trigaux, 2024
+# Mads Søndergaard, 2024
+# Walther Barnett <walther@gundogpro.dk>, 2024
+# Sanne Kristensen <sanne@vkdata.dk>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Mads Søndergaard, 2022\n"
+"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Sanne Kristensen <sanne@vkdata.dk>, 2024\n"
 "Language-Team: Danish (https://app.transifex.com/odoo/teams/41243/da/)\n"
-"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: social_facebook
@@ -31,12 +32,7 @@ msgstr "<b class=\"d-block mb-2\">Facebook side</b>"
 #. module: social_facebook
 #: model_terms:ir.ui.view,arch_db:social_facebook.social_stream_post_view_kanban
 msgid "<i class=\"fa fa-comments me-1\" title=\"Comments\"/>"
-msgstr ""
-
-#. module: social_facebook
-#: model_terms:ir.ui.view,arch_db:social_facebook.social_stream_post_view_kanban
-msgid "<i class=\"fa fa-thumbs-up me-1\" title=\"Likes\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-comments me-1\" title=\"Comments\"/>"
 
 #. module: social_facebook
 #: model:ir.model.fields,field_description:social_facebook.field_social_live_post__facebook_post_id
@@ -68,7 +64,9 @@ msgstr "Forfatter billede"
 
 #. module: social_facebook
 #: model:ir.model.fields,help:social_facebook.field_res_config_settings__facebook_use_own_account
-msgid "Check this if you want to use your personal Facebook Developer Account instead of the provided one."
+msgid ""
+"Check this if you want to use your personal Facebook Developer Account "
+"instead of the provided one."
 msgstr ""
 
 #. module: social_facebook
@@ -90,6 +88,7 @@ msgstr "Vis Facebook forhåndsvisning"
 #. module: social_facebook
 #: model:ir.model.fields.selection,name:social_facebook.selection__social_media__media_type__facebook
 #: model:social.media,name:social_facebook.social_media_facebook
+#: model_terms:ir.ui.view,arch_db:social_facebook.social_post_template_view_form
 msgid "Facebook"
 msgstr "Facebook"
 
@@ -130,6 +129,18 @@ msgid "Facebook Developer Account"
 msgstr ""
 
 #. module: social_facebook
+#: model:ir.model.fields,field_description:social_facebook.field_social_post__facebook_image_ids
+#: model:ir.model.fields,field_description:social_facebook.field_social_post_template__facebook_image_ids
+msgid "Facebook Images"
+msgstr ""
+
+#. module: social_facebook
+#: model:ir.model.fields,field_description:social_facebook.field_social_post__facebook_message
+#: model:ir.model.fields,field_description:social_facebook.field_social_post_template__facebook_message
+msgid "Facebook Message"
+msgstr ""
+
+#. module: social_facebook
 #: model:ir.model.fields,help:social_facebook.field_social_account__facebook_access_token
 msgid ""
 "Facebook Page Access Token provided by the Facebook API, this should never be set manually.\n"
@@ -140,8 +151,12 @@ msgstr ""
 
 #. module: social_facebook
 #: model:ir.model.fields,help:social_facebook.field_social_account__facebook_account_id
-msgid "Facebook Page ID provided by the Facebook API, this should never be set manually."
-msgstr "Faceboko side ID tildelt af Facebook API'en, dette bør aldrig angives manuelt."
+msgid ""
+"Facebook Page ID provided by the Facebook API, this should never be set "
+"manually."
+msgstr ""
+"Faceboko side ID tildelt af Facebook API'en, dette bør aldrig angives "
+"manuelt."
 
 #. module: social_facebook
 #: model:ir.model.fields,field_description:social_facebook.field_social_stream_post__facebook_post_id
@@ -158,13 +173,25 @@ msgstr "Facebook forhåndsvisning"
 #. odoo-python
 #: code:addons/social_facebook/controllers/main.py:0
 msgid "Facebook did not provide a valid access token or it may have expired."
-msgstr "Facebook tildelte ikke en gyldig adgangs token, eller den kan være udløbet."
+msgstr ""
+"Facebook tildelte ikke en gyldig adgangs token, eller den kan være udløbet."
 
 #. module: social_facebook
 #. odoo-python
 #: code:addons/social_facebook/controllers/main.py:0
 msgid "Facebook did not provide a valid access token."
 msgstr "Facebook tildelte ikke en gyldig adgangs token."
+
+#. module: social_facebook
+#: model:ir.model.fields,field_description:social_facebook.field_social_post__has_facebook_account
+#: model:ir.model.fields,field_description:social_facebook.field_social_post_template__has_facebook_account
+msgid "Has Facebook Account"
+msgstr ""
+
+#. module: social_facebook
+#: model_terms:ir.ui.view,arch_db:social_facebook.social_post_template_view_form
+msgid "Images"
+msgstr "Billeder"
 
 #. module: social_facebook
 #: model:ir.model.fields,field_description:social_facebook.field_social_stream_post__facebook_is_event_post
@@ -174,6 +201,11 @@ msgstr "Er begivenheds indlæg"
 #. module: social_facebook
 #. odoo-javascript
 #: code:addons/social_facebook/static/src/xml/social_facebook_templates.xml:0
+#: model_terms:ir.ui.view,arch_db:social_facebook.social_stream_post_view_kanban
+msgid "Like"
+msgstr "Synes om"
+
+#. module: social_facebook
 #: model:ir.model.fields,field_description:social_facebook.field_social_stream_post__facebook_likes_count
 msgid "Likes"
 msgstr "Synes om"
@@ -182,6 +214,11 @@ msgstr "Synes om"
 #: model:ir.model.fields,field_description:social_facebook.field_social_media__media_type
 msgid "Media Type"
 msgstr "Medietype"
+
+#. module: social_facebook
+#: model_terms:ir.ui.view,arch_db:social_facebook.social_post_template_view_form
+msgid "Message"
+msgstr "Besked"
 
 #. module: social_facebook
 #: model:social.stream.type,name:social_facebook.stream_type_page_mentions
@@ -194,6 +231,13 @@ msgid "Page Posts"
 msgstr "Side indlæg"
 
 #. module: social_facebook
+#. odoo-python
+#: code:addons/social_facebook/models/social_post_template.py:0
+msgid ""
+"Please specify either a Facebook Message or upload some Facebook Images."
+msgstr ""
+
+#. module: social_facebook
 #: model_terms:ir.ui.view,arch_db:social_facebook.facebook_preview
 msgid "Post Image"
 msgstr "Postér billed"
@@ -201,8 +245,12 @@ msgstr "Postér billed"
 #. module: social_facebook
 #. odoo-python
 #: code:addons/social_facebook/models/social_stream_post.py:0
-msgid "Post not found. It could be because the post has been deleted on the Social Platform."
-msgstr "Indlæg ikke fundet. Det kan være fordi at indlægget er blevet slettet på den Sociale platform."
+msgid ""
+"Post not found. It could be because the post has been deleted on the Social "
+"Platform."
+msgstr ""
+"Indlæg ikke fundet. Det kan være fordi at indlægget er blevet slettet på den"
+" Sociale platform."
 
 #. module: social_facebook
 #: model_terms:ir.ui.view,arch_db:social_facebook.facebook_preview
@@ -213,6 +261,11 @@ msgstr "Udgivet af Facebook side •"
 #: model:ir.model.fields,field_description:social_facebook.field_social_stream_post__facebook_reach
 msgid "Reach"
 msgstr "Rækkevidde"
+
+#. module: social_facebook
+#: model:ir.model.fields,field_description:social_facebook.field_social_stream_post__facebook_reactions_count
+msgid "Reactions Count"
+msgstr ""
 
 #. module: social_facebook
 #. odoo-python
@@ -282,8 +335,10 @@ msgstr "Brug din egen Facebook konto"
 
 #. module: social_facebook
 #: model:ir.model.fields,help:social_facebook.field_social_media__media_type
-msgid "Used to make comparisons when we need to restrict some features to a specific media ('facebook', 'twitter', ...)."
-msgstr "Bruges til at foretage sammenligninger når vi begrænser visse funktioner til specifikke medier ('facebook', 'twitter', ...)."
+msgid ""
+"Used to make comparisons when we need to restrict some features to a "
+"specific media ('facebook', 'x', ...)."
+msgstr ""
 
 #. module: social_facebook
 #: model:ir.model.fields,field_description:social_facebook.field_social_stream_post__facebook_user_likes
@@ -301,8 +356,18 @@ msgstr "Visninger"
 #. odoo-python
 #: code:addons/social_facebook/models/social_live_post.py:0
 #: code:addons/social_facebook/models/social_post.py:0
-msgid "We could not upload your image, try reducing its size and posting it again (error: %s)."
-msgstr "Vi kunne ikke sende dit billede, prøv at mindske størrelsen og send igen (Fejl: %s)."
+msgid ""
+"We could not upload your image, try reducing its size and posting it again "
+"(error: %s)."
+msgstr ""
+"Vi kunne ikke sende dit billede, prøv at mindske størrelsen og send igen "
+"(Fejl: %s)."
+
+#. module: social_facebook
+#: model:ir.model.fields,help:social_facebook.field_social_post__facebook_image_ids
+#: model:ir.model.fields,help:social_facebook.field_social_post_template__facebook_image_ids
+msgid "Will attach images to your posts."
+msgstr ""
 
 #. module: social_facebook
 #. odoo-python
@@ -326,4 +391,4 @@ msgstr "tilføjet en begivenhed"
 #. module: social_facebook
 #: model_terms:ir.ui.view,arch_db:social_facebook.facebook_preview
 msgid "• <i class=\"fa fa-globe\"/>"
-msgstr ""
+msgstr "• <i class=\"fa fa-globe\"/>"

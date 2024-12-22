@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Paweł Michoń <michon.pawel@wp.pl>, 2024
-# Wil Odoo, 2024
 # Marta Wacławek, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:16+0000\n"
+"POT-Creation-Date: 2024-12-19 09:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Marta Wacławek, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -146,6 +146,14 @@ msgid "Ascending"
 msgstr "Rosnąco"
 
 #. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/relation_filter_editor_side_panel.js:0
+msgid ""
+"At least one data source has an invalid model. Please delete it before "
+"editing this global filter."
+msgstr ""
+
+#. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_attachment_count
 msgid "Attachment Count"
 msgstr "Liczba załączników"
@@ -262,12 +270,6 @@ msgstr "Data utworzenia"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_line/odoo_line_config_panel.js:0
-msgid "Cumulative data"
-msgstr "Dane kumulatywne"
-
-#. module: spreadsheet_edition
-#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/hooks.js:0
 msgid "Currency"
 msgstr "Waluta"
@@ -321,13 +323,19 @@ msgstr "Domyślna wartość"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.js:0
 msgid "Defer updates"
-msgstr ""
+msgstr "Wstrzymaj aktualizacje"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
 msgid "Degree"
 msgstr "Stopień"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
+msgid "Delete Pivot"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -457,7 +465,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.js:0
 msgid "Horizontal axis"
-msgstr ""
+msgstr "Oś pozioma"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__id
@@ -631,7 +639,7 @@ msgstr "Załaduj więcej"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
 msgid "Logarithmic"
-msgstr ""
+msgstr "Logarytmicznie"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -711,7 +719,7 @@ msgstr "Miesiąc"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
 msgid "Month & Year"
-msgstr ""
+msgstr "Miesiąc i rok"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -753,7 +761,7 @@ msgstr "Nowy filtr %s"
 #. odoo-python
 #: code:addons/spreadsheet_edition/models/spreadsheet_cell_thread.py:0
 msgid "New Mention in %s"
-msgstr ""
+msgstr "Nowa wzmianka w %s"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -804,7 +812,7 @@ msgstr "Liczba wiadomości z błędami przy doręczeniu"
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/input_dialog/input_dialog.js:0
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/version_history_action.js:0
 msgid "Odoo Spreadsheet"
-msgstr ""
+msgstr "Arkusze kalkulacyjne Odoo"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -863,7 +871,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
 msgid "Polynomial"
-msgstr ""
+msgstr "Wielomian"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -895,7 +903,7 @@ msgstr "Kwartał"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
 msgid "Quarter & Year"
-msgstr ""
+msgstr "Kwartał i rok"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -912,7 +920,7 @@ msgstr "Oceny"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
 msgid "Re-insert dynamic pivot"
-msgstr ""
+msgstr "Ponownie wstaw dynamiczną tabelę przestawną"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -925,7 +933,7 @@ msgstr "Wstaw ponownie listę"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
 msgid "Re-insert static pivot"
-msgstr ""
+msgstr "Ponownie wstaw statyczną tabelę przestawną"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -1133,13 +1141,13 @@ msgstr "Ustaw jako filtr"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
 msgid "Show trend line"
-msgstr ""
+msgstr "Pokaż linię trendu"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
 msgid "Show values"
-msgstr ""
+msgstr "Pokaż wartości"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -1163,6 +1171,7 @@ msgstr "Sortowanie"
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/spreadsheet_cog_menu/spreadsheet_cog_menu.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/components/spreadsheet_navbar/spreadsheet_navbar.xml:0
 #: model:ir.ui.menu,name:spreadsheet_edition.menu_technical_spreadsheet
 msgid "Spreadsheet"
 msgstr "Arkusz kalkulacyjny"
@@ -1195,26 +1204,19 @@ msgstr "Mixin arkusza kalkulacyjnego"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/index.js:0
 msgid "Stacked Area"
-msgstr ""
+msgstr "Wykres obszarowy skumulowany"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/index.js:0
 msgid "Stacked Column"
-msgstr ""
+msgstr "Wykres kolumnowy skumulowany"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/index.js:0
 msgid "Stacked Line"
-msgstr ""
-
-#. module: spreadsheet_edition
-#. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_bar/odoo_bar_config_panel.js:0
-#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_line/odoo_line_config_panel.js:0
-msgid "Stacked linechart"
-msgstr "Wykres liniowy skumulowany"
+msgstr "Skumulowana linia"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -1228,6 +1230,30 @@ msgstr "Tekst"
 msgid ""
 "The history of your spreadsheet is corrupted and you are likely missing "
 "recent revisions. This feature cannot be used."
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/common/config_panel.js:0
+msgid ""
+"The model (%(model)s) of this chart is not valid (it may have been "
+"renamed/deleted). Please re-insert a new chart."
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.js:0
+msgid ""
+"The model (%(model)s) of this list is not valid (it may have been "
+"renamed/deleted). Please re-insert a new list."
+msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.js:0
+msgid ""
+"The model (%(model)s) of this pivot is not valid (it may have been "
+"renamed/deleted). Please re-insert a new pivot."
 msgstr ""
 
 #. module: spreadsheet_edition
@@ -1323,7 +1349,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.js:0
 msgid "Vertical axis"
-msgstr ""
+msgstr "Oś pionowa"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -1351,7 +1377,7 @@ msgstr "Tydzień"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/pivot_view/pivot_view.js:0
 msgid "Week & Year"
-msgstr ""
+msgstr "Tydzień i rok"
 
 #. module: spreadsheet_edition
 #. odoo-javascript

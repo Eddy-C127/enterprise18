@@ -3,16 +3,16 @@
 # 	* web_studio
 # 
 # Translators:
-# Wil Odoo, 2024
 # Maitê Dietze, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Maitê Dietze, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -266,6 +266,11 @@ msgid "Action: %s"
 msgstr "Ação: %s"
 
 #. module: web_studio
+#: model:ir.model,name:web_studio.model_ir_actions_actions
+msgid "Actions"
+msgstr "Ações"
+
+#. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_mail_activity_type__category
 msgid ""
 "Actions may trigger specific behavior like opening calendar view or "
@@ -461,6 +466,12 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/map/map_editor_sidebar.xml:0
 msgid "Allow Resequencing"
 msgstr "Permitir ressequenciamento"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility.xml:0
+msgid "Allow visibility to groups"
+msgstr ""
 
 #. module: web_studio
 #. odoo-javascript
@@ -1854,6 +1865,12 @@ msgstr ""
 "\"create\", \"write\" e \"unlink\" são proibidos."
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility.xml:0
+msgid "Forbid visibility to groups"
+msgstr ""
+
+#. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_delegate_approvers
 msgid "Forever"
 msgstr "Para sempre"
@@ -2389,7 +2406,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
-#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility.xml:0
 msgid "Limit visibility to groups"
 msgstr "Limitar visibilidade para grupos"
 
@@ -2822,7 +2838,7 @@ msgstr "Notas"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_delegate__users_to_notify
 msgid "Notify to"
-msgstr "Notificar para"
+msgstr "Notificar a"
 
 #. module: web_studio
 #. odoo-javascript

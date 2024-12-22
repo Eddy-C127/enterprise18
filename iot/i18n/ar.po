@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Malaz Abuidris <msea@odoo.com>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
@@ -79,12 +79,6 @@ msgstr "<span class=\"badge text-bg-success\">متصل</span>"
 #: model:ir.model,name:iot.model_add_iot_box
 msgid "Add IoT Box wizard"
 msgstr "إضافة معالج جهاز IoT "
-
-#. module: iot
-#. odoo-javascript
-#: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
-msgid "Are you sure you want to reboot the IoT box?"
-msgstr "هل أنت متأكد من أنك ترغب في إعادة تشغيل جهاز IoT؟ "
 
 #. module: iot
 #. odoo-javascript
@@ -312,7 +306,7 @@ msgstr "تحميل السجلات "
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_report_action.js:0
 msgid "Failed to send to printer."
-msgstr ""
+msgstr "تعذر الإرسال إلى الطابعة. "
 
 #. module: iot
 #. odoo-javascript
@@ -417,7 +411,7 @@ msgstr "ماسح ضوئي "
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__is_websocket_active
 msgid "Is Websocket active?"
-msgstr ""
+msgstr "هل الـ Websocket نشط؟ "
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__keyboard
@@ -505,7 +499,7 @@ msgstr "الشبكة"
 #. odoo-javascript
 #: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
 msgid "New IoT Box connected!"
-msgstr ""
+msgstr "تم توصيل جهاز IoT جديد! "
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
@@ -516,7 +510,7 @@ msgstr "لم يتم العثور على جهاز IoT! "
 #. odoo-javascript
 #: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
 msgid "No new IoT Box found."
-msgstr ""
+msgstr "لم يتم العثور على جهاز IoT جديد. "
 
 #. module: iot
 #. odoo-javascript
@@ -587,7 +581,7 @@ msgstr "يرجى التحقق ما إذا كان جهاز IoT لا يزال مت
 #. odoo-python
 #: code:addons/iot/wizard/add_iot_box.py:0
 msgid "Please enter a pairing code."
-msgstr ""
+msgstr "يُرجى إدخال رمز الاقتران. "
 
 #. module: iot
 #. odoo-javascript
@@ -619,7 +613,7 @@ msgstr "الطابعات "
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 msgid "Printing operation completed on printer %s"
-msgstr ""
+msgstr "اكتملت عملية الطباعة باستخدام الطابعة %s "
 
 #. module: iot
 #: model:ir.model,name:iot.model_publisher_warranty_contract
@@ -651,14 +645,14 @@ msgstr "التقارير"
 #. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 msgid "Reports with linked printers"
-msgstr ""
+msgstr "التقارير التي تحتوي على طابعات مرتبطة "
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 #: model:ir.ui.menu,name:iot.iot_clear_selected_devices
 msgid "Reset Linked Printers"
-msgstr ""
+msgstr "إعادة ضبط الطابعات المرتبطة "
 
 #. module: iot
 #. odoo-javascript
@@ -704,7 +698,7 @@ msgstr "خيارات الطابعات "
 #: code:addons/iot/static/src/iot_report_action.js:0
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 msgid "Sending to printer %s..."
-msgstr ""
+msgstr "جاري الإرسال إلى الطابعة %s... "
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__serial
@@ -806,7 +800,7 @@ msgstr "USB"
 #. odoo-python
 #: code:addons/iot/wizard/add_iot_box.py:0
 msgid "Using Pairing Code to connect..."
-msgstr ""
+msgstr "جاري الاتصال باستخدام خاصية الاقتران... "
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__variant
@@ -817,7 +811,7 @@ msgstr "المتغير "
 #. odoo-javascript
 #: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
 msgid "Waiting for a new IoT Box..."
-msgstr ""
+msgstr "بانتظار جهاز IoT جديد... "
 
 #. module: iot
 #. odoo-python

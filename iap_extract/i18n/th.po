@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Rasareeyar Lappiam, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:27+0000\n"
+"POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Rasareeyar Lappiam, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,20 +24,13 @@ msgstr ""
 #: model:mail.template,body_html:iap_extract.iap_extract_no_credit
 msgid ""
 "<div style=\"margin: 0px; padding: 0px;\">\n"
-"    <p>Dear,<br></p>\n"
-"    <p>There are no more credits on your IAP OCR account.<br>\n"
+"    <p>Dear,<br/></p>\n"
+"    <p>There are no more credits on your IAP OCR account.<br/>\n"
 "    You can charge your IAP OCR account in the settings page.</p>\n"
-"    <p>Best regards,<br></p>\n"
+"    <p>Best regards,<br/></p>\n"
 "    <p>Odoo S.A.</p>\n"
 "</div>"
 msgstr ""
-"<div style=\"margin: 0px; padding: 0px;\">\n"
-"   <p>เรียน<br></p>\n"
-"   <p>ไม่มีเครดิตเหลืออยู่ในบัญชี IAP OCR ของคุณ<br>\n"
-"   คุณสามารถเติมเงินในบัญชี IAP OCR ของคุณได้ในหน้าตั้งค่า</p>\n"
-"    <p>ขอแสดงความนับถือ<br></p>\n"
-"    <p>Odoo S.A.</p>\n"
-"</div>"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_needaction
@@ -50,6 +44,7 @@ msgid ""
 "All fields will be automatically populated by Artificial Intelligence, it "
 "might take 5 seconds."
 msgstr ""
+"ฟิลด์ทั้งหมดจะถูกกรอกโดยปัญญาประดิษฐ์โดยอัตโนมัติ ซึ่งอาจใช้เวลา 5 วินาที"
 
 #. module: iap_extract
 #. odoo-python
@@ -104,6 +99,8 @@ msgid ""
 "Digitize your scanned or PDF vendor bills, expenses and resumes with OCR and"
 " Artificial Intelligence."
 msgstr ""
+"แปลงใบแจ้งหนี้ ค่าใช้จ่าย และประวัติย่อของผู้ขายที่สแกนหรือ PDF "
+"ให้เป็นดิจิทัลด้วย OCR และ AI"
 
 #. module: iap_extract
 #. odoo-python
@@ -371,7 +368,7 @@ msgstr "กำลังรอการตรวจสอบ"
 #. odoo-javascript
 #: code:addons/iap_extract/static/src/components/status_header/status.xml:0
 msgid "You don't have enough credit to extract data from your document."
-msgstr ""
+msgstr "คุณไม่มีเครดิตเพียงพอที่จะดึงข้อมูลจากเอกสารของคุณ"
 
 #. module: iap_extract
 #. odoo-python

@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
@@ -34,17 +34,17 @@ msgstr ""
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view
 msgid "<span invisible=\"enable_batch_size\">No Batch Size</span>"
-msgstr ""
+msgstr "<span invisible=\"enable_batch_size\">Ei Erän koko</span>"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view
 msgid "<span invisible=\"enable_max_replenish\">No Maximum</span>"
-msgstr ""
+msgstr "<span invisible=\"enable_max_replenish\">Ei Enimmäismäärä</span>"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_bom_form_view_inherit_mps
 msgid "<span>Schedules</span>"
-msgstr ""
+msgstr "<span>Aikataulut</span>"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -69,6 +69,7 @@ msgstr "Todellinen kysyntä"
 #: code:addons/mrp_mps/models/mrp_mps.py:0
 msgid "Actual Demand %(product)s %(date)s (%(date_start)s - %(date_end)s)"
 msgstr ""
+"Todellinen kysyntä %(product)s %(date)s (%(date_start)s - %(date_end)s)"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -97,6 +98,7 @@ msgstr "Todellinen täydennys"
 msgid ""
 "Actual Replenishment %(product)s %(date)s (%(date_start)s - %(date_end)s)"
 msgstr ""
+"Todellinen täydennys %(product)s %(date)s (%(date_start)s - %(date_end)s)"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -130,7 +132,7 @@ msgstr "Automaattinen"
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
 msgid "Automatically Replenished"
-msgstr ""
+msgstr "Täydennetään automaattisesti"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -141,7 +143,7 @@ msgstr "Saatavilla luvattavaksi"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__batch_size
 msgid "Batch Size"
-msgstr ""
+msgstr "Erän koko"
 
 #. module: mrp_mps
 #: model:ir.model,name:mrp_mps.model_mrp_bom
@@ -217,7 +219,7 @@ msgstr "Päivä"
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.res_config_settings_view_form
 msgid "Default Time Range"
-msgstr ""
+msgstr "Oletusaika-alue"
 
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__product_uom_id
@@ -304,12 +306,12 @@ msgstr "Näytä täydentäminen"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__enable_batch_size
 msgid "Enable Batch Size"
-msgstr ""
+msgstr "Ota erän koko käyttöön"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__enable_max_replenish
 msgid "Enable Max Replenish"
-msgstr ""
+msgstr "Ota enimmäistäydennys käyttöön"
 
 #. module: mrp_mps
 #: model:ir.model.fields.selection,name:mrp_mps.selection__mrp_production_schedule__replenish_state__excessive_replenishment
@@ -367,7 +369,7 @@ msgstr "ID"
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__bom_id
 msgid "If set, the bill of materials components will also be imported."
-msgstr ""
+msgstr "Jos asetettu, myös osaluettelon osat tuodaan."
 
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__batch_size
@@ -375,18 +377,20 @@ msgid ""
 "If set, the generated manufacturing orders will be split in quantities of "
 "this value at maximum."
 msgstr ""
+"Jos tämä asetus on asetettu, luodut valmistustilaukset jaetaan enintään "
+"tämän arvon suuruisiin määriin."
 
 #. module: mrp_mps
 #. odoo-python
 #: code:addons/mrp_mps/models/mrp_mps.py:0
 msgid "Import Template for Master Production Schedule"
-msgstr ""
+msgstr "Tuo Tuotannon pääaikataulun malli"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
 msgid "Indirect Demand"
-msgstr ""
+msgstr "Epäsuora kysyntä"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -398,12 +402,12 @@ msgstr "Epäsuoran kysynnän ennuste"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__is_indirect
 msgid "Indirect demand product"
-msgstr ""
+msgstr "Epäsuoran kysynnän tuote"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__is_manufacture_route
 msgid "Is Manufacture Route"
-msgstr ""
+msgstr "On valmistusreitti"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__write_uid
@@ -427,7 +431,7 @@ msgstr "MPS"
 #. module: mrp_mps
 #: model:ir.actions.server,name:mrp_mps.ir_cron_replenish_automated_mps_ir_actions_server
 msgid "MPS: replenish automated schedules"
-msgstr ""
+msgstr "MPS: täydennä automaattisten aikataulujen mukaan"
 
 #. module: mrp_mps
 #: model:ir.model.fields.selection,name:mrp_mps.selection__mrp_production_schedule__replenish_trigger__manual
@@ -441,16 +445,19 @@ msgid ""
 "Automatic: Product replenished automatically via scheduled action.\n"
 "Never: Product is not replenished from MPS."
 msgstr ""
+"Käsikirja: MPS:stä manuaalisesti täydennettävä tuote.\n"
+"Automaattinen: Tuote täydennetään automaattisesti ajastetun toiminnon kautta.\n"
+"Ei koskaan: Tuotetta ei täydennetä MPS:stä."
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
 msgid "Manually Replenished"
-msgstr ""
+msgstr "Manuaalisesti täydennetty"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__manufacture_string
 msgid "Manufacture String"
-msgstr ""
+msgstr "Valmistuksen merkkijono"
 
 #. module: mrp_mps
 #. odoo-python
@@ -478,6 +485,7 @@ msgid ""
 "Manufacturing Settings: Your Master Production Schedule must always display "
 "at least 1 period."
 msgstr ""
+"Valmistusasetukset: Tuotantoaikataulussasi on aina oltava vähintään 1 jakso."
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -517,7 +525,7 @@ msgstr "Siirto"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__moves_string
 msgid "Moves String"
-msgstr ""
+msgstr "Siirron merkkijono"
 
 #. module: mrp_mps
 #: model:ir.model.fields.selection,name:mrp_mps.selection__mrp_production_schedule__replenish_trigger__never
@@ -533,32 +541,32 @@ msgstr "Ei vielä tuotetta. Lisää sellainen aloittaaksesi aikataulutuksen."
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
 msgid "Not Replenished from MPS"
-msgstr ""
+msgstr "Ei täydennetty MPS:stä"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_day
 msgid "Number of Daily Manufacturing Period Columns"
-msgstr ""
+msgstr "Päivittäisten valmistusjakson sarakkeiden lukumäärä"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_month
 msgid "Number of Monthly Manufacturing Period Columns"
-msgstr ""
+msgstr "Kuukausittaisten valmistuskauden sarakkeiden lukumäärä"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.res_config_settings_view_form
 msgid "Number of Periods"
-msgstr ""
+msgstr "Jaksojen lukumäärä"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_week
 msgid "Number of Weekly Manufacturing Period Columns"
-msgstr ""
+msgstr "Viikoittaisten valmistusjakson sarakkeiden lukumäärä"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_year
 msgid "Number of Yearly Manufacturing Period Columns"
-msgstr ""
+msgstr "Vuosittaisten valmistusjaksosarakkeiden lukumäärä"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_day
@@ -566,6 +574,8 @@ msgid ""
 "Number of columns for the daily period to display in Master Production "
 "Schedule"
 msgstr ""
+"Päivittäisen jakson sarakkeiden lukumäärä, joka näytetään tuotannon "
+"pääsuunnitelmassa"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_month
@@ -573,6 +583,8 @@ msgid ""
 "Number of columns for the monthly period to display in Master Production "
 "Schedule"
 msgstr ""
+"Kuukausijakson sarakkeiden lukumäärä, joka näytetään tuotannon "
+"pääsuunnitelmassa"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_week
@@ -580,6 +592,8 @@ msgid ""
 "Number of columns for the weekly period to display in Master Production "
 "Schedule"
 msgstr ""
+"Viikoittaisen jakson sarakkeiden lukumäärä, joka näytetään tuotannon "
+"pääsuunnitelmassa"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_year
@@ -587,6 +601,8 @@ msgid ""
 "Number of columns for the yearly period to display in Master Production "
 "Schedule"
 msgstr ""
+"Tuotannon pääsuunnitelman aikataulussa näytettävien vuosijakson sarakkeiden "
+"lukumäärä"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -724,19 +740,19 @@ msgstr "Täydennys on liian alhainen"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__replenish_trigger
 msgid "Replenishment Trigger"
-msgstr ""
+msgstr "Täydennyksen laukaisija"
 
 #. module: mrp_mps
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/components/line.xml:0
 msgid "Replenishment:"
-msgstr ""
+msgstr "Täydennys:"
 
 #. module: mrp_mps
 #. odoo-python
 #: code:addons/mrp_mps/wizard/mrp_mps_forecast_details.py:0
 msgid "Request for quotation"
-msgstr ""
+msgstr "Tarjouspyyntö"
 
 #. module: mrp_mps
 #. odoo-python
@@ -748,7 +764,7 @@ msgstr "Tarjouspyyntö"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__rfq_string
 msgid "Rfq String"
-msgstr ""
+msgstr "Tarjouspyynnön merkkijono"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view
@@ -758,7 +774,7 @@ msgstr "Reitti"
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__route_id
 msgid "Route to replenish your product."
-msgstr ""
+msgstr "Reitti tuotteen täydentämiseksi."
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -802,7 +818,7 @@ msgstr "Järjestys"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__show_bom
 msgid "Show Bom"
-msgstr ""
+msgstr "Näytä osaluettelo"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__show_vendor
@@ -883,6 +899,10 @@ msgid ""
 "if the demand is higher than that amount, the remaining quantity will be "
 "transferred to the next period automatically."
 msgstr ""
+"Maksimitäydennys, jonka haluat käynnistää kullekin MPS:n jaksolle. Tätä "
+"sovelletaan vain asetuksissa määritetylle jaksolle. Huomaa, että jos kysyntä"
+" on tätä määrää suurempi, jäljelle jäävä määrä siirretään automaattisesti "
+"seuraavalle jaksolle."
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -912,7 +932,7 @@ msgstr ""
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
 msgid "To Forecast"
-msgstr ""
+msgstr "Ennustamaan"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -927,7 +947,7 @@ msgstr "Täydennettävä"
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/components/main.js:0
 msgid "Toggle Indirect Demand"
-msgstr ""
+msgstr "Kytke Epäsuora kysyntä"
 
 #. module: mrp_mps
 #: model:ir.model.fields.selection,name:mrp_mps.selection__mrp_production_schedule__replenish_state__under_replenishment
@@ -967,6 +987,8 @@ msgstr "Viikottainen"
 msgid ""
 "When checked, this product will not appear in the 'To Forecast' filter."
 msgstr ""
+"Kun valintaruutu on valittuna, tämä tuote ei näy 'Ennusteeseen' "
+"-suodattimessa."
 
 #. module: mrp_mps
 #. odoo-javascript

@@ -1,23 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * quality_mrp_workorder
-#
+# 	* quality_mrp_workorder
+# 
 # Translators:
-# Martin Trigaux, 2019
-# Kostas Goutoudis <goutoudis@gmail.com>, 2019
-#
+# George Tarasidis <george_tarasidis@yahoo.com>, 2024
+# Martin Trigaux, 2024
+# Kostas Goutoudis <goutoudis@gmail.com>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~11.5+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2017-12-13 15:26+0000\n"
-"Last-Translator: Kostas Goutoudis <goutoudis@gmail.com>, 2019\n"
-"Language-Team: Greek (https://www.transifex.com/odoo/teams/41243/el/)\n"
-"Language: el\n"
+"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Kostas Goutoudis <goutoudis@gmail.com>, 2024\n"
+"Language-Team: Greek (https://app.transifex.com/odoo/teams/41243/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: quality_mrp_workorder
@@ -33,11 +34,17 @@ msgstr ""
 #. module: quality_mrp_workorder
 #: model:ir.model.fields,field_description:quality_mrp_workorder.field_mrp_production__check_ids
 msgid "Checks"
-msgstr ""
+msgstr "Με Επιταγές"
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_inherit_mrp_workorder
 msgid "Component Lot/Serial"
+msgstr ""
+
+#. module: quality_mrp_workorder
+#. odoo-javascript
+#: code:addons/quality_mrp_workorder/static/src/components/menuPopup.xml:0
+msgid "Create a Quality Alert"
 msgstr ""
 
 #. module: quality_mrp_workorder
@@ -48,7 +55,7 @@ msgstr "Απόρριψη"
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.mrp_production_workorder_tree_editable_view_inherit_quality
 msgid "Done"
-msgstr ""
+msgstr "Ολοκληρωμένη"
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_tablet_inherit_quality
@@ -67,6 +74,16 @@ msgid "Finished Lot/Serial"
 msgstr ""
 
 #. module: quality_mrp_workorder
+#: model:ir.model,name:quality_mrp_workorder.model_stock_lot
+msgid "Lot/Serial"
+msgstr "Παρτίδα/Σειριακός"
+
+#. module: quality_mrp_workorder
+#: model:ir.model,name:quality_mrp_workorder.model_mrp_production
+msgid "Manufacturing Order"
+msgstr "Εντολή Παραγωγής"
+
+#. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_search_inherit_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_point_view_search_inherit_mrp_workorder
 msgid "Manufacturing Steps"
@@ -78,9 +95,15 @@ msgid "Measure:"
 msgstr ""
 
 #. module: quality_mrp_workorder
+#. odoo-javascript
+#: code:addons/quality_mrp_workorder/static/src/mrp_display/mrp_quality_check_confirmation_dialog/mrp_quality_check_confirmation_dialog.xml:0
+msgid "Open spreadsheet"
+msgstr ""
+
+#. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_alert_view_search_inherit_quality_mrp_workorder
 msgid "Operation"
-msgstr ""
+msgstr "Λειτουργία"
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_tablet_inherit_quality
@@ -90,7 +113,7 @@ msgstr ""
 #. module: quality_mrp_workorder
 #: model:ir.model,name:quality_mrp_workorder.model_product_template
 msgid "Product"
-msgstr ""
+msgstr "Είδος"
 
 #. module: quality_mrp_workorder
 #: model:ir.model,name:quality_mrp_workorder.model_stock_move_line
@@ -100,18 +123,7 @@ msgstr ""
 #. module: quality_mrp_workorder
 #: model:ir.model,name:quality_mrp_workorder.model_product_product
 msgid "Product Variant"
-msgstr ""
-
-#. module: quality_mrp_workorder
-#: model:ir.model,name:quality_mrp_workorder.model_mrp_production
-msgid "Production Order"
-msgstr "Εντολή Παραγωγής"
-
-#. module: quality_mrp_workorder
-#. odoo-javascript
-#: code:addons/quality_mrp_workorder/static/src/components/menuPopup.xml:0
-msgid "Quality Alert"
-msgstr ""
+msgstr "Μεταβλητή Είδους"
 
 #. module: quality_mrp_workorder
 #: model:ir.model,name:quality_mrp_workorder.model_quality_check
@@ -125,6 +137,8 @@ msgid "Quality Check Failed"
 msgstr ""
 
 #. module: quality_mrp_workorder
+#. odoo-javascript
+#: code:addons/quality_mrp_workorder/static/src/mrp_display/mrp_display_record.xml:0
 #: model:ir.actions.act_window,name:quality_mrp_workorder.quality_check_action_wo
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_search_inherit_mrp_workorder
 msgid "Quality Checks"
@@ -146,10 +160,30 @@ msgid "Save"
 msgstr "Αποθήκευση"
 
 #. module: quality_mrp_workorder
+#: model:ir.model.fields,field_description:quality_mrp_workorder.field_quality_check__operation_id
+msgid "Step"
+msgstr "Βήμα"
+
+#. module: quality_mrp_workorder
 #. odoo-python
 #: code:addons/quality_mrp_workorder/models/quality.py:0
 msgid "Success"
 msgstr "Επιτυχία"
+
+#. module: quality_mrp_workorder
+#. odoo-python
+#: code:addons/quality_mrp_workorder/models/quality.py:0
+msgid ""
+"The On-demand frequency is not possible with work order quality points."
+msgstr ""
+
+#. module: quality_mrp_workorder
+#. odoo-python
+#: code:addons/quality_mrp_workorder/models/quality.py:0
+msgid ""
+"The Quantity quality check type is not possible with manufacturing operation"
+" types."
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_tablet_inherit_quality
@@ -162,7 +196,7 @@ msgid "Work Order"
 msgstr "Εντολή εργασίας"
 
 #. module: quality_mrp_workorder
-#. odoo-python
-#: code:addons/quality_mrp_workorder/models/mrp_workorder.py:0
-msgid "You first need to complete the Quality Check using the Tablet View before marking the Operation as Done."
+#: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_inherit_mrp_workorder
+#: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_tree_inherit_mrp_workorder
+msgid "Work Order Operation"
 msgstr ""

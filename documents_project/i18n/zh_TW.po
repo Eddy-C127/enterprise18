@@ -3,16 +3,16 @@
 # 	* documents_project
 # 
 # Translators:
-# Wil Odoo, 2024
 # Tony Ng, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:15+0000\n"
+"POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,6 +85,7 @@ msgstr "文件"
 
 #. module: documents_project
 #. odoo-python
+#: code:addons/documents_project/controllers/portal.py:0
 #: code:addons/documents_project/models/project_project.py:0
 #: model:ir.actions.act_window,name:documents_project.action_view_documents_project_project
 #: model:ir.actions.act_window,name:documents_project.action_view_documents_project_task
@@ -130,6 +131,16 @@ msgstr "此專案所有文件進行分類的資料夾。所有任務附件也會
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Impossible to create a task on a deprecated document"
 msgstr "無法為已棄用文件建立任務"
+
+#. module: documents_project
+#. odoo-python
+#: code:addons/documents_project/models/documents_document.py:0
+msgid ""
+"Impossible to update write `res_id` without `access_internal` for records "
+"with different `res_models` when some are linked to projects or tasks."
+msgstr ""
+"若有部份記錄已連結至專案或任務，如果沒有 `access_internal` 可用於不同 `res_models` 的記錄，便無法更新寫入 "
+"`res_id`。"
 
 #. module: documents_project
 #. odoo-python
@@ -221,9 +232,9 @@ msgstr "資料夾「%(folder)s」應與此專案一樣放在 %(company)s 公司�
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid ""
-"The \"%s\" folder is required by the Project application and cannot be "
+"The \"%s\" workspace is required by the Project application and cannot be "
 "deleted."
-msgstr "資料夾「%s」是專案管理應用程式所需要使用的，不可刪除。"
+msgstr "「%s」工作區是專案管理應用程式所需的，不可刪除"
 
 #. module: documents_project
 #. odoo-python

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
@@ -94,7 +94,7 @@ msgstr ""
 #: code:addons/mrp_mps/static/src/components/main.xml:0
 #: model:ir.actions.act_window,name:mrp_mps.action_mrp_mps_form_view
 msgid "Add a Product"
-msgstr "Agregar un producto"
+msgstr "Añadir un producto"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__allowed_route_ids
@@ -531,7 +531,7 @@ msgstr "Nunca"
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/components/main.xml:0
 msgid "No product yet. Add one to start scheduling."
-msgstr "Todavía no hay productos. Agregue uno para empezar a programar."
+msgstr "Todavía no hay productos. Añada uno para empezar a programar."
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
@@ -895,6 +895,10 @@ msgid ""
 "if the demand is higher than that amount, the remaining quantity will be "
 "transferred to the next period automatically."
 msgstr ""
+"La reposición máxima que desea usar en cada periodo en el plan maestro de "
+"producción. Sólo se aplica durante el periodo definido en los ajustes. Tome "
+"en cuenta que si la demanda es mayor que esta cifra, la cantidad restante se"
+" transferirá automáticamente al siguiente periodo."
 
 #. module: mrp_mps
 #. odoo-javascript

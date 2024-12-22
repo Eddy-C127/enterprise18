@@ -233,6 +233,7 @@ msgstr "Annulla"
 #: model:ir.model.fields.selection,name:sale_renting.selection__sale_rental_report__state__cancel
 #: model:ir.model.fields.selection,name:sale_renting.selection__sale_rental_schedule__rental_status__cancel
 #: model:ir.model.fields.selection,name:sale_renting.selection__sale_rental_schedule__state__cancel
+#: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_gantt
 msgid "Cancelled"
 msgstr "Annullato"
 
@@ -839,14 +840,14 @@ msgstr "Prodotti ritiro/riconsegna"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_gantt
 msgid "Picked-Up"
-msgstr "Ritirato"
+msgstr "Consegnato"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_rental_order_wizard_line__qty_delivered
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_form_view
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_form
 msgid "Picked-up"
-msgstr "Ritirato"
+msgstr "Consegnato"
 
 #. module: sale_renting
 #: model:ir.model.fields.selection,name:sale_renting.selection__sale_order__rental_status__return
@@ -854,7 +855,7 @@ msgstr "Ritirato"
 #: model:ir.model.fields.selection,name:sale_renting.selection__sale_rental_schedule__report_line_status__pickedup
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
 msgid "Pickedup"
-msgstr "Ritirato"
+msgstr "Consegnato"
 
 #. module: sale_renting
 #: model:ir.model.fields.selection,name:sale_renting.selection__rental_order_wizard__status__pickup

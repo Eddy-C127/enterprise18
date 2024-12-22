@@ -3,7 +3,6 @@
 # 	* marketing_automation
 # 
 # Translators:
-# Fernanda Alvarez, 2024
 # Wil Odoo, 2024
 # Larissa Manderfeld, 2024
 # 
@@ -11,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
@@ -55,11 +54,6 @@ msgstr "# Filtros favoritos"
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__mass_mailing_count
 msgid "# Mailings"
 msgstr "# Correos"
-
-#. module: marketing_automation
-#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__mailing_sms_count
-msgid "# SMS Mailings"
-msgstr "# Envíos por SMS"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__total_participant_count
@@ -148,7 +142,7 @@ msgstr "<i class=\"fa fa-pie-chart\"/> Detalles"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "<i class=\"fa fa-plus-circle\"/> Add child activity"
-msgstr "<i class=\"fa fa-plus-circle\"/> Agregar actividad hija"
+msgstr "<i class=\"fa fa-plus-circle\"/> Añadir actividad hija"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -240,11 +234,6 @@ msgid "A/B Test Mailings #"
 msgstr "# correos de prueba A/B"
 
 #. module: marketing_automation
-#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_mailings_sms_count
-msgid "A/B Test Mailings SMS #"
-msgstr "Prueba A/B de envío de SMS #"
-
-#. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_completed
 msgid "A/B Testing Campaign Finished"
 msgstr "Campaña de prueba A/B terminada"
@@ -307,35 +296,35 @@ msgstr ""
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 msgid "Add Hot Category"
-msgstr "Agregar categoría principal"
+msgstr "Añadir categoría principal"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 msgid "Add Tag"
-msgstr "Agregar etiqueta"
+msgstr "Añadir etiqueta"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 msgid "Add To Confirmed List"
-msgstr "Agregar a lista de confirmados"
+msgstr "Añadir a lista de confirmados"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "Add new activity"
-msgstr "Agregar una nueva actividad"
+msgstr "Añadir una nueva actividad"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.mailing_mailing_view_form_marketing_activity
 msgid "Add to Templates"
-msgstr "Agregar a plantillas"
+msgstr "Añadir a plantillas"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 msgid "Add to list"
-msgstr "Agregar a la lista"
+msgstr "Añadir a la lista"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.mailing_mailing_view_form_marketing_activity
@@ -532,11 +521,6 @@ msgid "Commercial prospection"
 msgstr "Prospección comercial "
 
 #. module: marketing_automation
-#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__company_id
-msgid "Company"
-msgstr "Empresa"
-
-#. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_participant__state__completed
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_search
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_trace_view_search
@@ -609,11 +593,6 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__create_date
 msgid "Created on"
 msgstr "Creado el"
-
-#. module: marketing_automation
-#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__currency_id
-msgid "Currency"
-msgstr "Moneda"
 
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_campaign__ab_testing_schedule_datetime
@@ -1103,11 +1082,6 @@ msgid "Mass Mailings"
 msgstr "Correos masivos"
 
 #. module: marketing_automation
-#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__mailing_sms_ids
-msgid "Mass SMS"
-msgstr "Envío masivo de SMS"
-
-#. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__mailing_trace_ids
 msgid "Mass mailing statistics"
 msgstr "Estadísticas de correo masivo"
@@ -1358,11 +1332,6 @@ msgid "Processed"
 msgstr "Procesado"
 
 #. module: marketing_automation
-#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__quotation_count
-msgid "Quotation Count"
-msgstr "Número de presupuestos"
-
-#. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "REJECTED"
 msgstr "RECHAZADO"
@@ -1466,11 +1435,6 @@ msgid "Responsible"
 msgstr "Responsable"
 
 #. module: marketing_automation
-#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__invoiced_amount
-msgid "Revenues generated by the campaign"
-msgstr "Ingresos generados por la campaña"
-
-#. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
 msgid "Run"
@@ -1491,11 +1455,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_trace_view_search
 msgid "Running"
 msgstr "En proceso"
-
-#. module: marketing_automation
-#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_sms_winner_selection
-msgid "SMS Winner Selection"
-msgstr "Elección del SMS ganador"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form

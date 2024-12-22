@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Martin Trigaux, 2024
-# Wil Odoo, 2024
 # Junko Augias, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:13+0000\n"
+"POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Junko Augias, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -162,28 +162,6 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid ""
-"<span class=\"text-muted\" invisible=\"min_purchase_lock_date_exception_for_me_id or min_purchase_lock_date_exception_for_everyone_id\">\n"
-"                                    <i>to lock bills</i>\n"
-"                                </span>"
-msgstr ""
-"<span class=\"text-muted\" invisible=\"min_purchase_lock_date_exception_for_me_id or min_purchase_lock_date_exception_for_everyone_id\">\n"
-"                                    <i>仕入先請求書をロック</i>\n"
-"                                </span>"
-
-#. module: account_accountant
-#: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
-msgid ""
-"<span class=\"text-muted\" invisible=\"min_sale_lock_date_exception_for_me_id or min_sale_lock_date_exception_for_everyone_id\">\n"
-"                                    <i>to lock invoices</i>\n"
-"                                </span>"
-msgstr ""
-"<span class=\"text-muted\" invisible=\"min_sale_lock_date_exception_for_me_id or min_sale_lock_date_exception_for_everyone_id\">\n"
-"                                    <i>顧客請求書をロック</i>\n"
-"                                </span>"
-
-#. module: account_accountant
-#: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
-msgid ""
 "<span class=\"text-muted\" invisible=\"min_tax_lock_date_exception_for_me_id or min_tax_lock_date_exception_for_everyone_id\">\n"
 "                                    <i>after a tax closing</i>\n"
 "                                </span>"
@@ -270,11 +248,6 @@ msgstr "前払費用みに使用される勘定科目"
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_revenue_account_id
 msgid "Account used for deferred revenues"
 msgstr "前受収益に使用される勘定科目"
-
-#. module: account_accountant
-#: model_terms:ir.ui.view,arch_db:account_accountant.res_partner_view_form
-msgid "Accounting"
-msgstr "会計"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__account_ids
@@ -411,16 +384,7 @@ msgid "Anglo-Saxon Accounting"
 msgstr "アングロサクソン会計"
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
-msgid ""
-"Any entry implying with taxes up to and including that date will be "
-"postponed to a later time, in accordance with its journal's sequence. The "
-"tax lock date is automatically set when the tax closing entry is posted."
-msgstr ""
-"その日付以前の税に関連するとみられる仕訳は全て、仕訳帳の順序に従って、後日まで延期されます。 "
-"税のロック日付は、税決算仕訳が記帳された時点で自動的に設定されます。"
-
-#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__current_hard_lock_date
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
 msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
@@ -434,6 +398,15 @@ msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
 "in accordance with its journal's sequence."
 msgstr "その日付まで(その日付を含む)の仕訳は、仕訳帳の順序に従って、後日に行われる予定です。"
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
+msgid ""
+"Any entry with taxes up to and including that date will be postponed to a "
+"later time, in accordance with its journal's sequence. The tax lock date is "
+"automatically set when the tax closing entry is posted."
+msgstr ""
+"その日付以前の税仕訳は全て、仕訳帳の順序に従って、後日まで延期されます。 税のロック日付は、税決算仕訳が記帳された時点で自動的に設定されます。"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
@@ -628,7 +601,7 @@ msgstr "コンフィグ設定"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Confirm the transaction."
-msgstr ""
+msgstr "取引を確定します。"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -667,7 +640,7 @@ msgstr "新しい勘定グループを作成します。"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Create a new transaction."
-msgstr ""
+msgstr "新規取引を作成します。"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -714,6 +687,7 @@ msgstr "クロン最終チェック"
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
+#: model:ir.model,name:account_accountant.model_res_currency
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__currency_id
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Currency"
@@ -1426,15 +1400,6 @@ msgid "Let’s go back to the dashboard."
 msgstr "ダッシュボードに戻りましょう。"
 
 #. module: account_accountant
-msgid "Like the \"Everyone Lock\", but no exceptions are possible."
-msgstr "\"全員ロック\"同様ですが、例外は不可です。"
-
-#. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__current_hard_lock_date
-msgid "Like the \"Global Lock Date\", but no exceptions are possible."
-msgstr "\"全体ロック日\"に似ていますが、例外は不可です。"
-
-#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__line_ids
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__line_ids
 msgid "Line"
@@ -1451,23 +1416,19 @@ msgid "Lock Dates"
 msgstr "ロック日"
 
 #. module: account_accountant
-msgid "Lock Everyone"
-msgstr "全員をロック"
-
-#. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_everyone
-msgid "Lock Everyone For Everyone"
-msgstr "全員をロック 全員に適用"
-
-#. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_me
-msgid "Lock Everyone For Me"
-msgstr "全員をロック 自分に適用"
-
-#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everything"
 msgstr "全てをロック"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_everyone
+msgid "Lock Everything For Everyone"
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_me
+msgid "Lock Everything For Me"
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date
@@ -1935,33 +1896,6 @@ msgid ""
 msgstr "請求書や支払照合の際に仕訳を作成するためのプリセット"
 
 #. module: account_accountant
-msgid ""
-"Prevents Journal Entry creation or modification up to the defined date "
-"inclusive for all users. As a closed period, all accounting operations are "
-"prohibited."
-msgstr "全てのユーザーに対して、定義された日付までの仕訳の作成または変更を禁止します。クローズ期間として、全ての会計処理が禁止されます。"
-
-#. module: account_accountant
-msgid ""
-"Prevents Tax Returns modification up to the defined date inclusive (Journal "
-"Entries involving taxes). The Tax Return Lock Date is automatically set when"
-" the corresponding Journal Entry is posted."
-msgstr ""
-"定められた日付までの税務申告の修正を防止します（税金を含む仕訳入力）。税務申告ロック日は、対応する仕訳が計上される際に自動的に設定されます。"
-
-#. module: account_accountant
-msgid ""
-"Prevents creation and modification of entries in purchase journals up to the"
-" defined date inclusive"
-msgstr "定義された日付(その日付を含む)までの購買仕訳帳の仕訳の作成と修正を防止します。"
-
-#. module: account_accountant
-msgid ""
-"Prevents creation and modification of entries in sales journals up to the "
-"defined date inclusive"
-msgstr "定義された日付(その日付を含む)までの販売仕訳帳の仕訳の作成と修正を防止します。"
-
-#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__rating_ids
 msgid "Ratings"
 msgstr "評価"
@@ -2139,7 +2073,7 @@ msgstr "選択された消込モデル"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Set an amount."
-msgstr ""
+msgstr "金額を設定します。"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2151,7 +2085,7 @@ msgstr "チェック済として設定"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Set the payment reference."
-msgstr ""
+msgstr "支払参照番号を設定します。"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__show_draft_entries_warning
@@ -2163,6 +2097,11 @@ msgstr "ドラフト仕訳警告を表示"
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__show_signature_area
 msgid "Show Signature Area"
 msgstr "署名エリアを表示"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__module_sign
+msgid "Sign"
+msgstr "署名"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__signature
@@ -2594,7 +2533,7 @@ msgstr "検証"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/list_view_switcher.js:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
 msgid "View"
-msgstr "ビュー"
+msgstr "照会"
 
 #. module: account_accountant
 #. odoo-python
@@ -2825,7 +2764,7 @@ msgstr "無限"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 msgid "in"
-msgstr "に"
+msgstr ":"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__liquidity

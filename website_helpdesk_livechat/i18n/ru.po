@@ -1,33 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* website_helpdesk_livechat
-#
+# 
 # Translators:
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:01+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-
-#. module: website_helpdesk_livechat
-#. odoo-python
-#: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
-msgid ""
-"\n"
-"                    Create a new helpdesk ticket by typing <b>/ticket <i>ticket title</i></b><br>\n"
-"                    "
-msgstr ""
-"\n"
-"                    Создайте новый тикет в службе поддержки, набрав <b>/ticket <i>название тикета</i></b><br>\n"
-"                    "
 
 #. module: website_helpdesk_livechat
 #. odoo-python
@@ -41,14 +31,17 @@ msgid "Alright, we should have everything we need"
 msgstr "Хорошо, у нас есть все необходимое"
 
 #. module: website_helpdesk_livechat
+#. odoo-python
+#: code:addons/website_helpdesk_livechat/models/chatbot_script.py:0
+msgid ""
+"An \"Email\" step type must exist before the \"Create Ticket\" step for a "
+"ticket to be created."
+msgstr ""
+
+#. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_technical_serial_misc
 msgid "Anything else to add?"
 msgstr "Что-нибудь еще добавить?"
-
-#. module: website_helpdesk_livechat
-#: model:ir.ui.menu,name:website_helpdesk_livechat.helpdesk_team_canned_response_menu
-msgid "Canned Responses"
-msgstr "Подготовленные ответы"
 
 #. module: website_helpdesk_livechat
 #: model:ir.model,name:website_helpdesk_livechat.model_chatbot_script
@@ -67,11 +60,6 @@ msgstr "Чат-боты"
 
 #. module: website_helpdesk_livechat
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_livechat.helpdesk_team_view_form_inherit_website_helpdesk_livechat
-msgid "Configure Canned Responses"
-msgstr "Настройка шаблона ответов"
-
-#. module: website_helpdesk_livechat
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_livechat.helpdesk_team_view_form_inherit_website_helpdesk_livechat
 msgid "Configure Chatbots"
 msgstr ""
 
@@ -87,9 +75,18 @@ msgstr "Создать билет"
 
 #. module: website_helpdesk_livechat
 #. odoo-javascript
-#: code:addons/website_helpdesk_livechat/static/src/messaging_service_patch.js:0
+#: code:addons/website_helpdesk_livechat/static/src/core/web/store_service_patch.js:0
 msgid "Create a new helpdesk ticket (/ticket ticket title)"
-msgstr "Создайте новый билет службы технической поддержки (/ticket название билета)"
+msgstr ""
+"Создайте новый билет службы технической поддержки (/ticket название билета)"
+
+#. module: website_helpdesk_livechat
+#. odoo-python
+#: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
+msgid ""
+"Create a new helpdesk ticket by typing: %(pre_start)s%(ticket_command)s "
+"%(i_start)sticket title%(i_end)s%(pre_end)s"
+msgstr ""
 
 #. module: website_helpdesk_livechat
 #. odoo-python
@@ -106,11 +103,6 @@ msgstr "Дискуссионный канал"
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_dispatch
 msgid "First, what is the nature of your issue?"
 msgstr "Во-первых, каков характер вашей проблемы?"
-
-#. module: website_helpdesk_livechat
-#: model:ir.model.fields,field_description:website_helpdesk_livechat.field_chatbot_script__ticket_count
-msgid "Generated Ticket Count"
-msgstr "Количество сгенерированных билетов"
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_customer_ref_yes
@@ -165,12 +157,6 @@ msgid "Load More"
 msgstr "Загрузить больше"
 
 #. module: website_helpdesk_livechat
-#. odoo-python
-#: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
-msgid "Make sure you are using the right format:"
-msgstr "Убедитесь, что вы используете правильный формат:"
-
-#. module: website_helpdesk_livechat
 #: model:chatbot.script.answer,name:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_customer_ref_answer_no
 msgid "No"
 msgstr "Нет"
@@ -178,13 +164,20 @@ msgstr "Нет"
 #. module: website_helpdesk_livechat
 #. odoo-python
 #: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
-msgid "No tickets found for %s."
-msgstr "Для %s билетов не найдено."
+msgid ""
+"No tickets found for %(b_start)s%(keywords)s%(b_end)s.%(br)sMake sure you "
+"are using the right format: %(pre_start)s%(search_tickets_command)s "
+"%(i_start)skeywords%(i_end)s%(pre_end)s"
+msgstr ""
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_ticket
-msgid "OK, I just created a ticket for you. You should receive an email confirmation very soon."
-msgstr "Хорошо, я только что создал для вас билет. Вы должны получить подтверждение по электронной почте очень скоро."
+msgid ""
+"OK, I just created a ticket for you. You should receive an email "
+"confirmation very soon."
+msgstr ""
+"Хорошо, я только что создал для вас билет. Вы должны получить подтверждение "
+"по электронной почте очень скоро."
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_technical_serial
@@ -198,15 +191,18 @@ msgstr "Пожалуйста, напишите ниже отзыв о вашем
 
 #. module: website_helpdesk_livechat
 #. odoo-javascript
-#: code:addons/website_helpdesk_livechat/static/src/messaging_service_patch.js:0
+#: code:addons/website_helpdesk_livechat/static/src/core/web/store_service_patch.js:0
 msgid "Search helpdesk tickets (/search_tickets keyword)"
-msgstr "Поиск билетов службы технической поддержки (ключевое слово /search_tickets)"
+msgstr ""
+"Поиск билетов службы технической поддержки (ключевое слово /search_tickets)"
 
 #. module: website_helpdesk_livechat
 #. odoo-python
 #: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
-msgid "Search helpdesk tickets by typing <b>/search_tickets <i>keyword</i></b>"
-msgstr "Найдите билеты службы поддержки, набрав <b> <i>ключевое слово</i> /search_tickets</b>"
+msgid ""
+"Search helpdesk tickets by typing: %(pre_start)s%(search_tickets_command)s "
+"%(i_start)skeywords%(i_end)s%(pre_end)s"
+msgstr ""
 
 #. module: website_helpdesk_livechat
 #. odoo-python
@@ -238,7 +234,9 @@ msgstr "Билеты"
 #. module: website_helpdesk_livechat
 #. odoo-python
 #: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
-msgid "Tickets search results for "
+msgid ""
+"Tickets search results for %(b_start)s%(keywords)s%(b_end)s: "
+"%(br)s%(tickets)s"
 msgstr ""
 
 #. module: website_helpdesk_livechat
@@ -269,9 +267,3 @@ msgstr "Все готово. А теперь, что у вас за пробле
 #: model:chatbot.script.answer,name:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_customer_ref_answer_yes
 msgid "Yes"
 msgstr "Да"
-
-#. module: website_helpdesk_livechat
-#. odoo-python
-#: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
-msgid "keyword"
-msgstr "ключевое слово"

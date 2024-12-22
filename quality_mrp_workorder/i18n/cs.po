@@ -3,13 +3,14 @@
 # 	* quality_mrp_workorder
 # 
 # Translators:
+# Aleš Fiala <f.ales1@seznam.cz>, 2024
 # Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
@@ -69,7 +70,12 @@ msgstr ""
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_search_inherit_quality_mrp_workorder
 msgid "Finished Lot/Serial"
-msgstr ""
+msgstr "Dokončené výrobní / sériové číslo"
+
+#. module: quality_mrp_workorder
+#: model:ir.model,name:quality_mrp_workorder.model_stock_lot
+msgid "Lot/Serial"
+msgstr "Šarže/sériové číslo"
 
 #. module: quality_mrp_workorder
 #: model:ir.model,name:quality_mrp_workorder.model_mrp_production
@@ -127,7 +133,7 @@ msgstr "Kontrola kvality"
 #. odoo-python
 #: code:addons/quality_mrp_workorder/models/quality.py:0
 msgid "Quality Check Failed"
-msgstr ""
+msgstr "Kontrola kvality selhala"
 
 #. module: quality_mrp_workorder
 #. odoo-javascript
@@ -145,7 +151,7 @@ msgstr "Bod kontroly kvality"
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_point_view_search_inherit_mrp_workorder
 msgid "Quality Points"
-msgstr ""
+msgstr "Body kvality"
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_alert_view_form_inherit_mrp
@@ -192,4 +198,4 @@ msgstr "Pracovní příkaz"
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_inherit_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_tree_inherit_mrp_workorder
 msgid "Work Order Operation"
-msgstr ""
+msgstr "Operace pracovního příkazu"

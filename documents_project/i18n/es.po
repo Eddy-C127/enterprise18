@@ -3,16 +3,16 @@
 # 	* documents_project
 # 
 # Translators:
-# Wil Odoo, 2024
 # Larissa Manderfeld, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:15+0000\n"
+"POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,17 +23,17 @@ msgstr ""
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_draft
 msgid "Add Tag Draft"
-msgstr "Agregar etiqueta “Borrador”"
+msgstr "Añadir etiqueta “Borrador”"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_to_validate
 msgid "Add Tag To Validate"
-msgstr "Agregar etiqueta “A validar”"
+msgstr "Añadir etiqueta “A validar”"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_validated
 msgid "Add Tag Validated"
-msgstr "Agregar etiqueta “Validado”"
+msgstr "Añadir etiqueta “Validado”"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_ask_for_validation_code
@@ -85,6 +85,7 @@ msgstr "Documento"
 
 #. module: documents_project
 #. odoo-python
+#: code:addons/documents_project/controllers/portal.py:0
 #: code:addons/documents_project/models/project_project.py:0
 #: model:ir.actions.act_window,name:documents_project.action_view_documents_project_project
 #: model:ir.actions.act_window,name:documents_project.action_view_documents_project_task
@@ -125,7 +126,7 @@ msgid ""
 "documents in this workspace as well."
 msgstr ""
 "Carpeta en la que se clasificarán todos los documentos de este proyecto. "
-"Todos los archivos adjuntos de sus tareas se agregarán automáticamente como "
+"Todos los archivos adjuntos de sus tareas se añadirán automáticamente como "
 "documentos a este espacio de trabajo."
 
 #. module: documents_project
@@ -133,6 +134,17 @@ msgstr ""
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Impossible to create a task on a deprecated document"
 msgstr "No es posible crear una tarea en un documento obsoleto."
+
+#. module: documents_project
+#. odoo-python
+#: code:addons/documents_project/models/documents_document.py:0
+msgid ""
+"Impossible to update write `res_id` without `access_internal` for records "
+"with different `res_models` when some are linked to projects or tasks."
+msgstr ""
+"No es posible actualizar `res_id` sin `access_internal` para los registros "
+"con distintos `res_models` cuando algunos están vinculados a proyectos o "
+"tareas."
 
 #. module: documents_project
 #. odoo-python
@@ -226,11 +238,11 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid ""
-"The \"%s\" folder is required by the Project application and cannot be "
+"The \"%s\" workspace is required by the Project application and cannot be "
 "deleted."
 msgstr ""
-"La carpeta “%s” es necesaria para la aplicación Proyecto y no puede "
-"eliminarse."
+"La aplicación Proyecto necesita del espacio de trabajo \"%s\" así que no lo "
+"puede eliminar."
 
 #. module: documents_project
 #. odoo-python

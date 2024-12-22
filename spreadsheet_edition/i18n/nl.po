@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Martin Trigaux, 2024
-# Wil Odoo, 2024
 # Manon Rondou, 2024
+# Wil Odoo, 2024
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:16+0000\n"
+"POT-Creation-Date: 2024-12-19 09:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -147,6 +147,16 @@ msgid "Ascending"
 msgstr "Oplopend"
 
 #. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/relation_filter_editor_side_panel.js:0
+msgid ""
+"At least one data source has an invalid model. Please delete it before "
+"editing this global filter."
+msgstr ""
+"Ten minste één gegevensbron heeft een ongeldig model. Verwijder het voordat "
+"je dit globale filter bewerkt."
+
+#. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_attachment_count
 msgid "Attachment Count"
 msgstr "Aantal bijlagen"
@@ -263,12 +273,6 @@ msgstr "Aangemaakt op"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_line/odoo_line_config_panel.js:0
-msgid "Cumulative data"
-msgstr "Cumulatieve gegevens"
-
-#. module: spreadsheet_edition
-#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/hooks.js:0
 msgid "Currency"
 msgstr "Valuta"
@@ -329,6 +333,12 @@ msgstr "Updates uitstellen"
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
 msgid "Degree"
 msgstr "Diploma"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.xml:0
+msgid "Delete Pivot"
+msgstr "Draaitabel verwijderen"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -438,13 +448,13 @@ msgstr "Volgers"
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Relaties)"
+msgstr "Volgers (Contacten)"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.js:0
 msgid "From / To"
-msgstr "Van / Tot"
+msgstr "Van / T/m"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__has_message
@@ -494,7 +504,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/relation_filter_editor_side_panel.xml:0
 msgid "Include children"
-msgstr "Onderliggende inbegrepen"
+msgstr "Inclusief onderliggende"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -663,7 +673,7 @@ msgstr "Koppel dit filter aan een veld voor elke gegevensbron"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/ir_menu_selector/ir_menu_selector.js:0
 msgid "Menu Items"
-msgstr "Menu items"
+msgstr "Menu-items"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_has_error
@@ -823,7 +833,7 @@ msgstr "Alle reacties openen"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/edit_list_sorting_section/edit_list_sorting_section.xml:0
 msgid "Order"
-msgstr "Order"
+msgstr "Volgorde"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -1169,6 +1179,7 @@ msgstr "Sorteren"
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/spreadsheet_cog_menu/spreadsheet_cog_menu.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/components/spreadsheet_navbar/spreadsheet_navbar.xml:0
 #: model:ir.ui.menu,name:spreadsheet_edition.menu_technical_spreadsheet
 msgid "Spreadsheet"
 msgstr "Spreadsheet"
@@ -1217,13 +1228,6 @@ msgstr "Lijn gestapeld"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_bar/odoo_bar_config_panel.js:0
-#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_line/odoo_line_config_panel.js:0
-msgid "Stacked linechart"
-msgstr "Gestapeld lijndiagram"
-
-#. module: spreadsheet_edition
-#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/global_filter_side_panel.xml:0
 msgid "Text"
 msgstr "Tekst"
@@ -1237,6 +1241,36 @@ msgid ""
 msgstr ""
 "De geschiedenis van je spreadsheet is beschadigd en je mist waarschijnlijk "
 "recente revisies. Deze functie kan niet worden gebruikt."
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/common/config_panel.js:0
+msgid ""
+"The model (%(model)s) of this chart is not valid (it may have been "
+"renamed/deleted). Please re-insert a new chart."
+msgstr ""
+"Het model (%(model)s) van deze grafiek is niet geldig (het is mogelijk "
+"hernoemd/verwijderd). Voeg een nieuwe grafiek in."
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/list_details_side_panel.js:0
+msgid ""
+"The model (%(model)s) of this list is not valid (it may have been "
+"renamed/deleted). Please re-insert a new list."
+msgstr ""
+"Het model (%(model)s) van deze lijst is niet geldig (het is mogelijk "
+"hernoemd/verwijderd). Voeg een nieuwe lijst in."
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/pivot/side_panels/pivot_details_side_panel.js:0
+msgid ""
+"The model (%(model)s) of this pivot is not valid (it may have been "
+"renamed/deleted). Please re-insert a new pivot."
+msgstr ""
+"Het model (%(model)s) van deze draaitabel is niet geldig (het is mogelijk "
+"hernoemd/verwijderd). Voeg een nieuwe draaitabel in."
 
 #. module: spreadsheet_edition
 #. odoo-python

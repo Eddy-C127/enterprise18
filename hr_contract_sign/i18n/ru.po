@@ -1,33 +1,35 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* hr_contract_sign
-#
+# 
 # Translators:
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:02+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-12-19 09:53+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: hr_contract_sign
+#. odoo-python
+#: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
+msgid "%(employee)s and %(responsible)s are the signatories."
+msgstr ""
 
 #. module: hr_contract_sign
 #. odoo-python
 #: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
 msgid "%(user_name)s requested a new signature on the following documents:"
 msgstr "%(user_name)s запросил новую подпись на следующих документах:"
-
-#. module: hr_contract_sign
-#. odoo-python
-#: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
-msgid "%s and %s are the signatories."
-msgstr "%s и %s являются подписантами."
 
 #. module: hr_contract_sign
 #. odoo-python
@@ -67,6 +69,11 @@ msgstr "Прикрепить файл"
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__attachment_ids
 msgid "Attachment"
 msgstr "Вложение"
+
+#. module: hr_contract_sign
+#: model:sign.template,redirect_url_text:hr_contract_sign.template_sign_termination
+msgid "Close"
+msgstr "Закрыть"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__contract_id
@@ -166,8 +173,12 @@ msgstr "Роль сотрудника"
 #. module: hr_contract_sign
 #: model:ir.model.fields,help:hr_contract_sign.field_hr_contract_sign_document_wizard__employee_role_id
 #: model:ir.model.fields,help:hr_contract_sign.field_mail_activity_plan_template__employee_role_id
-msgid "Employee's role on the templates to sign. The same role must be present in all the templates"
-msgstr "Роль сотрудника в шаблонах для подписи. Одна и та же роль должна присутствовать во всех шаблонах"
+msgid ""
+"Employee's role on the templates to sign. The same role must be present in "
+"all the templates"
+msgstr ""
+"Роль сотрудника в шаблонах для подписи. Одна и та же роль должна "
+"присутствовать во всех шаблонах"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__employee_ids
@@ -222,8 +233,12 @@ msgstr "Сообщение"
 #. module: hr_contract_sign
 #. odoo-python
 #: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
-msgid "No appropriate template could be found, please make sure you configured them properly."
-msgstr "Не удалось найти подходящий шаблон, убедитесь, что вы настроили его правильно."
+msgid ""
+"No appropriate template could be found, please make sure you configured them"
+" properly."
+msgstr ""
+"Не удалось найти подходящий шаблон, убедитесь, что вы настроили его "
+"правильно."
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
@@ -235,11 +250,6 @@ msgstr "Шаблон не доступен"
 #: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
 msgid "Only %s has to sign."
 msgstr "Подписывать нужно только %s."
-
-#. module: hr_contract_sign
-#: model:sign.template,redirect_url_text:hr_contract_sign.template_sign_termination
-msgid "Open Link"
-msgstr "Открыть ссылку"
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
@@ -302,7 +312,9 @@ msgstr "Подпишите документ в договоре"
 
 #. module: hr_contract_sign
 #. odoo-python
+#: code:addons/hr_contract_sign/models/hr_employee.py:0
 #: code:addons/hr_contract_sign/wizard/mail_activity_schedule.py:0
+#: model:ir.actions.server,name:hr_contract_sign.action_signature_request_multi
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.hr_contract_history_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.hr_employee_sign_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
@@ -327,7 +339,9 @@ msgstr "Предупреждение о шаблонах"
 #. module: hr_contract_sign
 #. odoo-python
 #: code:addons/hr_contract_sign/models/hr_contract.py:0
-msgid "This sign request has been cancelled due to the cancellation of the related contract."
+msgid ""
+"This sign request has been cancelled due to the cancellation of the related "
+"contract."
 msgstr ""
 
 #. module: hr_contract_sign
@@ -348,8 +362,11 @@ msgstr "Написать на электронный адрес или найт�
 #. module: hr_contract_sign
 #. odoo-python
 #: code:addons/hr_contract_sign/models/hr_contract.py:0
-msgid "You can't delete a contract linked to a signed document, archive it instead."
-msgstr "Вы не можете удалить договор, связанный с подписанным документом, вместо этого заархивируйте его."
+msgid ""
+"You can't delete a contract linked to a signed document, archive it instead."
+msgstr ""
+"Вы не можете удалить договор, связанный с подписанным документом, вместо "
+"этого заархивируйте его."
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.hr_contract_history_view_form

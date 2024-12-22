@@ -3,16 +3,16 @@
 # 	* documents_project
 # 
 # Translators:
-# Wil Odoo, 2024
 # Thi Huong Nguyen, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:15+0000\n"
+"POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,6 +85,7 @@ msgstr "Tài liệu"
 
 #. module: documents_project
 #. odoo-python
+#: code:addons/documents_project/controllers/portal.py:0
 #: code:addons/documents_project/models/project_project.py:0
 #: model:ir.actions.act_window,name:documents_project.action_view_documents_project_project
 #: model:ir.actions.act_window,name:documents_project.action_view_documents_project_task
@@ -133,6 +134,17 @@ msgstr ""
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Impossible to create a task on a deprecated document"
 msgstr "Không thể tạo nhiệm vụ trên một tài liệu đã bị từ chối"
+
+#. module: documents_project
+#. odoo-python
+#: code:addons/documents_project/models/documents_document.py:0
+msgid ""
+"Impossible to update write `res_id` without `access_internal` for records "
+"with different `res_models` when some are linked to projects or tasks."
+msgstr ""
+"Không thể cập nhật ghi `res_id` mà không có `access_internal` cho các bản "
+"ghi có `res_models` khác nhau khi một số bản ghi được liên kết với các dự án"
+" hoặc nhiệm vụ."
 
 #. module: documents_project
 #. odoo-python
@@ -226,10 +238,11 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid ""
-"The \"%s\" folder is required by the Project application and cannot be "
+"The \"%s\" workspace is required by the Project application and cannot be "
 "deleted."
 msgstr ""
-"Không thể xóa thư mục \"%s\" vì đây là yếu tố bắt buộc cho ứng dụng Dự án."
+"Không thể xóa không gian làm việc \"%s\" vì đây là yếu tố bắt buộc cho ứng "
+"dụng Dự án."
 
 #. module: documents_project
 #. odoo-python

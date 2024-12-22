@@ -9,6 +9,7 @@
 # Anton Vassilev, 2024
 # Maria Boyadjieva <marabo2000@gmail.com>, 2024
 # Vladimir Petrov <vladimir.petrov@gmail.com>, 2024
+# Emil Krastev, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:27+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Vladimir Petrov <vladimir.petrov@gmail.com>, 2024\n"
+"Last-Translator: Emil Krastev, 2024\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -98,7 +99,7 @@ msgstr ""
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Total Cost</span>"
-msgstr ""
+msgstr "<span>Общи разходи</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
@@ -118,7 +119,7 @@ msgstr ""
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<strong>Total Cost of Components</strong>"
-msgstr ""
+msgstr "Обща себестойност на компонентите"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
@@ -133,7 +134,7 @@ msgstr "<strong>Обща стойност на скрап</strong>"
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<strong>Total Production Cost</strong>"
-msgstr ""
+msgstr "<strong>Общи производствени разходи</strong>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_report_pivot_view
@@ -376,7 +377,7 @@ msgstr "Някои от избраните производствени поръ
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__component_cost
 msgid "Total Component Cost"
-msgstr ""
+msgstr "Обща себестойност на компонента"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__total_cost
@@ -391,22 +392,22 @@ msgstr ""
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__duration
 msgid "Total Duration of Operations"
-msgstr ""
+msgstr "Обща продължителност на операциите"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__operation_cost
 msgid "Total Operation Cost"
-msgstr ""
+msgstr "Обща себестойност на операцията"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__unit_operation_cost
 msgid "Total Operation Cost / Unit"
-msgstr ""
+msgstr "Обща себестойност на операцията / за брой"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__component_cost
 msgid "Total cost of components for manufacturing order"
-msgstr ""
+msgstr "Обща стойност на компонентите за поръчка за производство"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__total_cost
@@ -414,16 +415,19 @@ msgid ""
 "Total cost of manufacturing order (component + operation costs + "
 "subcontracting cost)"
 msgstr ""
+"Обща себестойност на производствената поръчка (компонент + оперативни "
+"разходи + разходи за подизпълнители)"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__operation_cost
 msgid "Total cost of operations for manufacturing order"
-msgstr ""
+msgstr "Обща стойност на операциите за поръчка за производство"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__duration
 msgid "Total duration (minutes) of operations for manufacturing order"
 msgstr ""
+"Обща продължителност (в минути) на операциите за производствена поръчка"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__qty_demanded
@@ -433,7 +437,7 @@ msgstr ""
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__qty_produced
 msgid "Total quantity produced in product's UoM"
-msgstr ""
+msgstr "Общо количество, произведено в МЕ на продукта"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__yield_rate

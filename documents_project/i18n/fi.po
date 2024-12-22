@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Svante Suominen <svante.suominen@web-veistamo.fi>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # Martin Trigaux, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:15+0000\n"
+"POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,27 +24,27 @@ msgstr ""
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_draft
 msgid "Add Tag Draft"
-msgstr ""
+msgstr "Lisää tunnisteen luonnos"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_to_validate
 msgid "Add Tag To Validate"
-msgstr ""
+msgstr "Lisää tunniste vahvistusta varten"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_validated
 msgid "Add Tag Validated"
-msgstr ""
+msgstr "Lisää tunniste Vahvistettu"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_ask_for_validation_code
 msgid "Ask For Validation - Check conditions"
-msgstr ""
+msgstr "Pyydä vahvistusta - Tarkista ehdot"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_ask_for_validation
 msgid "Ask for validation"
-msgstr ""
+msgstr "Pyydä vahvistusta"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_ir_attachment
@@ -77,7 +77,7 @@ msgstr "Poista käytöstä"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_deprecate_code
 msgid "Deprecate - Check conditions"
-msgstr ""
+msgstr "Poistetaan käytöstä - Tarkista ehdot"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_documents_document
@@ -86,6 +86,7 @@ msgstr "Dokumentti"
 
 #. module: documents_project
 #. odoo-python
+#: code:addons/documents_project/controllers/portal.py:0
 #: code:addons/documents_project/models/project_project.py:0
 #: model:ir.actions.act_window,name:documents_project.action_view_documents_project_project
 #: model:ir.actions.act_window,name:documents_project.action_view_documents_project_task
@@ -110,7 +111,7 @@ msgstr "Asiakirjat ja analytiikka"
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Documents already linked to a task."
-msgstr ""
+msgstr "Tehtävään jo linkitetyt asiakirjat."
 
 #. module: documents_project
 #: model:ir.model.fields,field_description:documents_project.field_project_project__documents_folder_id
@@ -125,12 +126,26 @@ msgid ""
 "All of the attachments of your tasks will be automatically added as "
 "documents in this workspace as well."
 msgstr ""
+"Kansio, johon kaikki tämän projektin asiakirjat luokitellaan. Kaikki "
+"tehtävien liitetiedostot lisätään automaattisesti asiakirjoiksi myös tähän "
+"työtilaan."
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Impossible to create a task on a deprecated document"
+msgstr "Tehtävää ei voida luoda vanhentuneelle asiakirjalle"
+
+#. module: documents_project
+#. odoo-python
+#: code:addons/documents_project/models/documents_document.py:0
+msgid ""
+"Impossible to update write `res_id` without `access_internal` for records "
+"with different `res_models` when some are linked to projects or tasks."
 msgstr ""
+"Kirjoitusta ei voi päivittää ilman `res_id` pääsyä `access_internal` "
+"tietueille, joilla on eri `res_models`. Jotkin tietueet on linkitetty "
+"projekteihin tai tehtäviin."
 
 #. module: documents_project
 #. odoo-python
@@ -147,12 +162,12 @@ msgstr "Virheellinen tehtävähaku"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_mark_as_draft_code
 msgid "Mark As Draft - Check conditions"
-msgstr ""
+msgstr "Merkitse luonnokseksi - Tarkista ehdot"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_mark_as_draft
 msgid "Mark as draft"
-msgstr ""
+msgstr "Merkitse luonnokseksi"
 
 #. module: documents_project
 #. odoo-python
@@ -174,17 +189,17 @@ msgstr "Projektit"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_remove_draft
 msgid "Remove Tag Draft"
-msgstr ""
+msgstr "Poista tunniste Luonnos"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_remove_to_validate
 msgid "Remove Tag To Validate"
-msgstr ""
+msgstr "Poista tunniste Vahvistettavaksi"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_remove_validated
 msgid "Remove Tag Validated"
-msgstr ""
+msgstr "Poista tunniste Vahvistettu"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_project_task
@@ -217,14 +232,16 @@ msgid ""
 "The \"%(folder)s\" folder should either be in the \"%(company)s\" company "
 "like this project or be open to all companies."
 msgstr ""
+"\"%(folder)s\" -kansio pitäisi joko olla \"%(company)s\" -yrityksessä, kuten"
+" tässä projektissa, tai sen pitäisi olla avoin kaikille yrityksille."
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid ""
-"The \"%s\" folder is required by the Project application and cannot be "
+"The \"%s\" workspace is required by the Project application and cannot be "
 "deleted."
-msgstr ""
+msgstr "Project-sovellus tarvitsee työtilan \"%s\", eikä sitä voi poistaa."
 
 #. module: documents_project
 #. odoo-python
@@ -234,6 +251,9 @@ msgid ""
 " to which it is linked. Please update the company of the \"%(project)s\" "
 "project, or leave the company of this workspace empty."
 msgstr ""
+"Tämän kansion on oltava samassa yrityksessä kuin \"%(project)s\" -projekti, "
+"johon se on linkitetty. Päivitä \"%(project)s-projektin yritys tai jätä "
+"tämän työtilan yritys tyhjäksi."
 
 #. module: documents_project
 #. odoo-python
@@ -244,6 +264,10 @@ msgid ""
 "\n"
 "Please update the company of those projects, or leave the company of this workspace empty."
 msgstr ""
+"Tämän kansion on oltava samassa yrityksessä kuin seuraavat projektit, joihin se on linkitetty:\n"
+"%s\n"
+"\n"
+"Päivitä näiden projektien yritys tai jätä tämän työtilan yritys tyhjäksi."
 
 #. module: documents_project
 #: model_terms:ir.actions.act_window,help:documents_project.action_view_documents_project_project
@@ -268,7 +292,7 @@ msgstr "Vahvista"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_validate_code
 msgid "Validate - Check conditions"
-msgstr ""
+msgstr "Vahvista - Tarkista ehdot"
 
 #. module: documents_project
 #. odoo-python
@@ -279,21 +303,25 @@ msgid ""
 "\n"
 "Please update the company of all projects so that they remain in the same company as their workspace, or leave the company of the \"%(workspace)s\" workspace blank."
 msgstr ""
+"Et voi muuttaa tämän projektin yritystä, koska sen työtila on linkitetty muihin seuraaviin projekteihin, jotka ovat edelleen \"%(other_company)s\" -yrityksessä:\n"
+"%(other_workspaces)s\n"
+"\n"
+"Päivitä kaikkien projektien yritys niin, että ne pysyvät samassa yrityksessä kuin niiden työtila, tai jätä \"%(workspace)s\" -työtilan yritys tyhjäksi."
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "You cannot create a task from a folder."
-msgstr ""
+msgstr "Et voi luoda tehtävää kansiosta."
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "You cannot set a company on the %s folder."
-msgstr ""
+msgstr "Et voi asettaa yritystä %s-kansioon."
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "new %(model)s from %(new_record)s"
-msgstr ""
+msgstr "uusi %(model)s tietueista %(new_record)s"

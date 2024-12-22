@@ -3,15 +3,15 @@
 # 	* sale_commission
 # 
 # Translators:
-# Wil Odoo, 2024
 # Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
+# Wil Odoo, 2024
 # Fernanda Alvarez, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"POT-Creation-Date: 2024-12-19 09:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Fernanda Alvarez, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
@@ -26,11 +26,6 @@ msgstr ""
 #: code:addons/sale_commission/model/commission_plan.py:0
 msgid "%s (copy)"
 msgstr "%s (copia)"
-
-#. module: sale_commission
-#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
-msgid "-&gt;"
-msgstr "-&gt;"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
@@ -210,6 +205,11 @@ msgstr "Número de archivos adjuntos"
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
 msgid "Based on"
 msgstr "Según"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
+msgid "By Quarter"
+msgstr "Por trimestre"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_user_wizard
@@ -393,7 +393,6 @@ msgstr "Tasa de cambio"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_achievement_report_view_search
-#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
 msgid "Current Period"
 msgstr "Periodo actual"
 
@@ -407,6 +406,11 @@ msgstr "Fecha"
 #: model:ir.model.fields,help:sale_commission.field_crm_team__commission_plan_ids
 msgid "Default commission plan for team members."
 msgstr "Plan de comisión automático para miembros del equipo."
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
+msgid "Details"
+msgstr "Detalles"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__display_name
@@ -479,7 +483,6 @@ msgstr "Seguidores (contactos)"
 #: model:ir.actions.act_window,name:sale_commission.sale_commission_action_forecast
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_target_forecast__amount
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__forecast
-#: model:ir.ui.menu,name:sale_commission.sale_commission_forecast
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_target_forecast_view_graph
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_target_forecast_view_list
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_target_forecast_view_pivot
@@ -618,7 +621,6 @@ msgstr "Mis comisiones"
 
 #. module: sale_commission
 #: model:ir.actions.act_window,name:sale_commission.sale_commission_action_my_forecast
-#: model:ir.ui.menu,name:sale_commission.sale_commission_my_forecast
 msgid "My Forecast"
 msgstr "Mi pronóstico"
 
@@ -685,13 +687,9 @@ msgstr "Otros planes"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__payment_date
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
 msgid "Payment Date"
 msgstr "Fecha de pago"
-
-#. module: sale_commission
-#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
-msgid "Payment Frequency"
-msgstr "Frecuencia de pago"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement_report__target_id
@@ -876,6 +874,11 @@ msgid "Target Commission Graph"
 msgstr "Gráfica de comisiones en objetivo"
 
 #. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
+msgid "Target Frequency"
+msgstr "Frecuencia objetivo"
+
+#. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_target_commission__target_rate
 msgid "Target completion (%)"
 msgstr "Objetivos completados (%)"
@@ -924,6 +927,7 @@ msgstr "Este año"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__date_to
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_target__date_to
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_user__date_to
+#: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__date_to
 msgid "To"
 msgstr "Hasta"
 

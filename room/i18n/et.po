@@ -8,18 +8,18 @@
 # Patrick-Jordan Kiudorv, 2024
 # Arma Gedonsky <armagedonsky@hot.ee>, 2024
 # Tairi Tiimann, 2024
-# Rivo Zängov <eraser@eraser.ee>, 2024
 # Eneli Õigus <enelioigus@gmail.com>, 2024
 # JanaAvalah, 2024
 # Triine Aavik <triine@avalah.ee>, 2024
 # Anna, 2024
+# Rivo Zängov <eraser@eraser.ee>, 2024
 # Stevin Lilla, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"POT-Creation-Date: 2024-12-19 12:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Stevin Lilla, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
@@ -112,8 +112,14 @@ msgstr "Lisa broneering"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__description
+#: model_terms:ir.ui.view,arch_db:room.room_room_view_form
 msgid "Amenities"
 msgstr "Mugavused"
+
+#. module: room
+#: model_terms:ir.ui.view,arch_db:room.room_room_view_form
+msgid "Appearance"
+msgstr "Välimus"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form
@@ -290,6 +296,11 @@ msgid "Followers (Partners)"
 msgstr "Jälgijad(Partnerid)"
 
 #. module: room
+#: model:ir.model,name:room.model_ir_http
+msgid "HTTP Routing"
+msgstr "HTTP Routing"
+
+#. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__has_message
 #: model:ir.model.fields,field_description:room.field_room_room__has_message
 msgid "Has Message"
@@ -315,9 +326,7 @@ msgstr "Kui kontrollitud, siis uued sõnumid nõuavad Teie tähelepanu."
 
 #. module: room
 #: model:ir.model.fields,help:room.field_room_booking__message_has_error
-#: model:ir.model.fields,help:room.field_room_booking__message_has_sms_error
 #: model:ir.model.fields,help:room.field_room_room__message_has_error
-#: model:ir.model.fields,help:room.field_room_room__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Kui valitud, on mõningate sõnumitel saatmiserror"
 
@@ -564,12 +573,6 @@ msgid "Rooms"
 msgstr "Jututoad"
 
 #. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__message_has_sms_error
-#: model:ir.model.fields,field_description:room.field_room_room__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Sõnumi kohaletoimetamise viga"
-
-#. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_form
 msgid "Select a Room..."
 msgstr ""
@@ -639,18 +642,6 @@ msgstr "Kuni"
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
 msgid "Update Meeting"
 msgstr ""
-
-#. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,field_description:room.field_room_room__website_message_ids
-msgid "Website Messages"
-msgstr "Veebilehe sõnumid"
-
-#. module: room
-#: model:ir.model.fields,help:room.field_room_booking__website_message_ids
-#: model:ir.model.fields,help:room.field_room_room__website_message_ids
-msgid "Website communication history"
-msgstr "Veebilehe suhtluse ajalugu"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form

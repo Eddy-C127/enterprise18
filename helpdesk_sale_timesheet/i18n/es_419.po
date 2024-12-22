@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
+# Fernanda Alvarez, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:27+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
+"Last-Translator: Fernanda Alvarez, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -167,7 +168,7 @@ msgstr "Orden de venta"
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket_report_analysis__sale_line_id
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Sales Order Item"
-msgstr "Artículo en la orden de venta"
+msgstr "Artículo de la orden de venta"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,help:helpdesk_sale_timesheet.field_helpdesk_ticket__sale_line_id
@@ -177,10 +178,10 @@ msgid ""
 "Remove the sales order item in order to make this ticket non-billable.\n"
 "You can also change or remove the sales order item of each timesheet entry individually."
 msgstr ""
-"El artículo de la orden de venta al que se agregará el tiempo dedicado a este ticket para que se facture a su cliente.\n"
-"De forma predeterminada, se seleccionará el último artículo de orden de venta prepagado que tenga tiempo restante.\n"
-"Elimine el artículo de la orden de venta para que este ticket no sea facturable.\n"
-"También puede cambiar o eliminar el artículo de la orden de venta de cada entrada de la hoja de horas de forma individual."
+"El artículo de la orden de venta al que se agregará el tiempo utilizado en este ticket para facturarlo al cliente.\n"
+"De forma predeterminada, se seleccionará el último artículo prepagado de la orden de venta que tenga tiempo restante.\n"
+"Elimine el artículo de la orden de venta para que este ticket no se pueda facturar.\n"
+"También puede cambiar o eliminar el artículo de la orden de venta de las entradas de las hojas de horas."
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_sale_order_line
@@ -197,7 +198,7 @@ msgstr "Buscar en la orden de venta"
 #. odoo-python
 #: code:addons/helpdesk_sale_timesheet/controllers/portal.py:0
 msgid "Search in Ticket"
-msgstr "Bucar en el ticket"
+msgstr "Buscar en el ticket"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla__product_ids

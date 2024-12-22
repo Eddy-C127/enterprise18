@@ -149,6 +149,15 @@ msgid ""
 "                 You can also manually schedule open shifts for your Sales "
 "Order or assign them to any employee you prefer."
 msgstr ""
+"Si cette option est activée, une équipe sera automatiquement générée pour le"
+" rôle sélectionné lors de la confirmation de la commande client."
+"                 Avec la fonction \"planification automatique\", seuls les "
+"employés avec ce rôle seront automatiquement affectés à des postes pour les "
+"commandes clients qui comprennent ce service.                 Le système "
+"tient compte de la disponibilité des employés et du temps restant à "
+"planifier.                 Vous pouvez également programmer manuellement des"
+" postes ouverts pour votre commande client ou les attribuer à l'employé de "
+"votre choix."
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_search_inherit_sale_planning
@@ -178,13 +187,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sale_planning/static/src/views/planning_hooks.js:0
 msgid "Open shifts and sales orders assigned"
-msgstr ""
+msgstr "Postes ouverts et commandes clients assignés"
 
 #. module: sale_planning
 #. odoo-javascript
 #: code:addons/sale_planning/static/src/views/planning_hooks.js:0
 msgid "Open shifts and sales orders unscheduled"
-msgstr ""
+msgstr "Postes ouverts et commandes clients non planifiés"
 
 #. module: sale_planning
 #: model_terms:product.template,description:sale_planning.developer_product_product_template
@@ -311,7 +320,7 @@ msgstr ""
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_role__product_ids
 msgid "Services"
-msgstr "Interventions"
+msgstr "Services"
 
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_slot__start_datetime

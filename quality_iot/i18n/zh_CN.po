@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Chloe Wang, 2024
+# Raymond Yu <cl_yu@hotmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:15+0000\n"
+"POT-Creation-Date: 2024-12-19 13:02+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Chloe Wang, 2024\n"
+"Last-Translator: Raymond Yu <cl_yu@hotmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,6 +47,18 @@ msgstr "设备名称："
 #: model:ir.model.fields,field_description:quality_iot.field_quality_check__ip
 msgid "Domain Address"
 msgstr "域地址"
+
+#. module: quality_iot
+#. odoo-javascript
+#: code:addons/quality_iot/static/src/iot_measure.xml:0
+msgid "Get Measurement"
+msgstr "获取测量结果"
+
+#. module: quality_iot
+#. odoo-javascript
+#: code:addons/quality_iot/static/src/iot_measure.js:0
+msgid "Getting measurement..."
+msgstr "测量..."
 
 #. module: quality_iot
 #: model:ir.model,name:quality_iot.model_iot_device
@@ -89,15 +101,3 @@ msgstr "质量控制点"
 #: model:ir.model.fields,field_description:quality_iot.field_iot_device__quality_point_ids
 msgid "Quality Point"
 msgstr "质量点"
-
-#. module: quality_iot
-#. odoo-javascript
-#: code:addons/quality_iot/static/src/iot_measure.xml:0
-msgid "Take Measure"
-msgstr "称量"
-
-#. module: quality_iot
-#. odoo-javascript
-#: code:addons/quality_iot/static/src/iot_measure.js:0
-msgid "Take measure..."
-msgstr "称量..."

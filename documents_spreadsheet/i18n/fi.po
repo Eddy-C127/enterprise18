@@ -8,17 +8,17 @@
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Eino Mäkitalo <eino.makitalo@netitbe.fi>, 2024
 # Martin Trigaux, 2024
-# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # Veikko Väätäjä <veikko.vaataja@gmail.com>, 2024
 # Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:14+0000\n"
+"POT-Creation-Date: 2024-12-19 13:01+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,6 +31,12 @@ msgstr ""
 #: code:addons/documents_spreadsheet/wizard/save_spreadsheet_template.py:0
 msgid "\"%s\" saved as template"
 msgstr "\"%s\" tallennettu mallina"
+
+#. module: documents_spreadsheet
+#. odoo-python
+#: code:addons/documents_spreadsheet/models/documents_document.py:0
+msgid "%(folder)s is used by %(company)s"
+msgstr "%(folder)s käytetään %(company)s"
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -52,7 +58,7 @@ msgstr "Laskentataulukon ja käyttäjän yhdistelmä on jo olemassa"
 #. module: documents_spreadsheet
 #: model:ir.model.constraint,message:documents_spreadsheet.constraint_documents_document_frozen_spreadsheet_access_via_link_access_internal
 msgid "A frozen spreadsheet can not be editable"
-msgstr ""
+msgstr "Jäädytettyä laskentataulukkoa ei voi muokata"
 
 #. module: documents_spreadsheet
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.save_spreadsheet_template_view_form
@@ -150,13 +156,13 @@ msgstr "Dokumentti"
 #. module: documents_spreadsheet
 #: model:ir.model,name:documents_spreadsheet.model_documents_access
 msgid "Document / Partner"
-msgstr ""
+msgstr "Asiakirja / Kumppani"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_res_company__document_spreadsheet_folder_id
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_res_config_settings__document_spreadsheet_folder_id
 msgid "Document Spreadsheet Folder"
-msgstr ""
+msgstr "Asiakirja Taulukkolaskentakansio"
 
 #. module: documents_spreadsheet
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.spreadsheet_template_view_tree
@@ -172,7 +178,7 @@ msgstr "Excel-vienti"
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/documents_view/documents_spreadsheet_controller_mixin.js:0
 msgid "Excel file preview"
-msgstr ""
+msgstr "Excel-tiedoston esikatselu"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -181,6 +187,8 @@ msgid ""
 "Excel files cannot be previewed or edited directly in Odoo. Opening your "
 "file with Odoo Spreadsheet will allow you to do so."
 msgstr ""
+"Excel-tiedostoja ei voi esikatsella tai muokata suoraan Odoossa. Avaamalla "
+"tiedoston Odoo Spreadsheet -ohjelmalla voit tehdä niin."
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_template__file_name
@@ -192,35 +200,35 @@ msgstr "Tiedostonimi"
 #: code:addons/documents_spreadsheet/static/src/bundle/actions/spreadsheet_freeze_and_share/spreadsheet_freeze_and_share.xml:0
 #: code:addons/documents_spreadsheet/static/src/documents_control_panel/documents_control_panel.xml:0
 msgid "Freeze and share"
-msgstr ""
+msgstr "Jäädytä ja jaa"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields.selection,name:documents_spreadsheet.selection__documents_document__handler__frozen_folder
 msgid "Frozen Folder"
-msgstr ""
+msgstr "Jäädytetty kansio"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields.selection,name:documents_spreadsheet.selection__documents_document__handler__frozen_spreadsheet
 msgid "Frozen Spreadsheet"
-msgstr ""
+msgstr "Jäädytetty laskentataulukko"
 
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_access.py:0
 msgid "Frozen Spreadsheets can not be editable."
-msgstr ""
+msgstr "Jäädytettyjä laskentataulukoita ei voi muokata."
 
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "Frozen at %(date)s: %(name)s"
-msgstr ""
+msgstr "Jäädytetty kohtaan %(date)s: %(name)s"
 
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "Frozen spreadsheets"
-msgstr ""
+msgstr "Jäädytetyt laskentataulukot"
 
 #. module: documents_spreadsheet
 #: model:ir.model,name:documents_spreadsheet.model_ir_http
@@ -321,7 +329,7 @@ msgstr "Tallenna mallipohjana"
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/documents_control_panel/documents_control_panel.js:0
 msgid "Select one and only one spreadsheet"
-msgstr ""
+msgstr "Valitse yksi ja vain yksi laskentataulukko"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -438,6 +446,8 @@ msgstr "Taulukot"
 #: code:addons/documents_spreadsheet/models/documents_access.py:0
 msgid "Spreadsheets can not be shared in edit mode to non-internal users."
 msgstr ""
+"Taulukkolaskentataulukoita ei voi jakaa muokkaustilassa muille kuin "
+"sisäisille käyttäjille."
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_cell_thread__template_id
@@ -452,6 +462,26 @@ msgstr "Mallin nimi"
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
+msgid ""
+"The company for a folder cannot be changed if it is already used as the "
+"spreadsheet workspace for at least one other company: %s"
+msgstr ""
+"Kansion yritystä ei voi vaihtaa, jos se on jo käytössä vähintään yhden "
+"toisen yrityksen laskentataulukon työtilana: %s"
+
+#. module: documents_spreadsheet
+#. odoo-python
+#: code:addons/documents_spreadsheet/models/res_company.py:0
+msgid ""
+"The company of %(folder)s should either be undefined or set to %(company)s. "
+"Otherwise, it is not possible to link the workspace to the company."
+msgstr ""
+"Yrityksen %(folder)s pitäisi olla joko määrittelemätön tai sen pitäisi olla "
+"%(company)s. Muussa tapauksessa työtilaa ei voida yhdistää yritykseen."
+
+#. module: documents_spreadsheet
+#. odoo-python
+#: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "The file is not a xlsx file"
 msgstr "Tiedosto ei ole xlsx-tiedosto"
 
@@ -461,7 +491,7 @@ msgstr "Tiedosto ei ole xlsx-tiedosto"
 #: code:addons/documents_spreadsheet/static/src/documents_permission_panel/documents_member_invite.js:0
 #: code:addons/documents_spreadsheet/static/src/documents_permission_panel/documents_partner_access.js:0
 msgid "The frozen spreadsheets are readonly."
-msgstr ""
+msgstr "Jäädytettyjä laskentataulukkoja voi ainoastaan lukea."
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -476,6 +506,8 @@ msgid ""
 "The spreadsheets can not be shared in edit mode with a link, change Internal"
 " to give write access."
 msgstr ""
+"Taulukkolaskentataulukoita ei voi jakaa muokkaustilassa linkin avulla, "
+"vaihda Sisäinen antamaan kirjoitusoikeus."
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -493,6 +525,8 @@ msgstr "Xlsx-tiedosto on liian suuri"
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.documents_error_live_data
 msgid "This spreadsheet contains live data, only internal users can view it."
 msgstr ""
+"Tämä laskentataulukko sisältää reaaliaikaisia tietoja, joita vain sisäiset "
+"käyttäjät voivat tarkastella."
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_document__thumbnail
@@ -505,6 +539,8 @@ msgstr "Pikkukuva"
 #: model:ir.model.constraint,message:documents_spreadsheet.constraint_documents_document_spreadsheet_access_via_link
 msgid "To share a spreadsheet in edit mode, add the user in the accesses"
 msgstr ""
+"Jos haluat jakaa taulukkolaskentataulukon muokkaustilassa, lisää käyttäjä "
+"käyttöoikeudet-kohtaan"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -540,19 +576,19 @@ msgstr "Työtila"
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "You are not allowed to freeze spreadsheets in Company"
-msgstr ""
+msgstr "Et saa jäädyttää taulukkolaskentataulukoita yrityksessä"
 
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "You can not edit a frozen spreadsheet"
-msgstr ""
+msgstr "Jäädytettyä laskentataulukkoa ei voi muokata"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/bundle/actions/spreadsheet_action.js:0
 msgid "You can not freeze a frozen spreadsheet"
-msgstr ""
+msgstr "Jäädytettyä taulukkoa ei voi uudelleenjäädyttää"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -560,6 +596,8 @@ msgstr ""
 #: code:addons/documents_spreadsheet/static/src/documents_permission_panel/documents_partner_access.js:0
 msgid "You can not share spreadsheet in edit mode to non-internal user."
 msgstr ""
+"Muokkaustilassa olevaa laskentataulukkoa ei voi jakaa muille kuin sisäisille"
+" käyttäjille."
 
 #. module: documents_spreadsheet
 #. odoo-python

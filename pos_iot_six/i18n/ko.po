@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:27+0000\n"
+"POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Daye Jeong, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
@@ -51,10 +51,10 @@ msgid "Display Name"
 msgstr "표시명"
 
 #. module: pos_iot_six
-#. odoo-python
-#: code:addons/pos_iot_six/wizard/add_six_terminal.py:0
-msgid "Failed to save Six Terminal ID to IoT Box"
-msgstr "Six 단말기 ID를 IoT Box에 저장하지 못했습니다."
+#. odoo-javascript
+#: code:addons/pos_iot_six/static/src/js/six_terminal_id_field.xml:0
+msgid "Failed to save Terminal ID to IoT Box"
+msgstr ""
 
 #. module: pos_iot_six
 #: model:ir.model.fields,field_description:pos_iot_six.field_pos_iot_six_add_six_terminal__id
@@ -83,9 +83,21 @@ msgid "Last Updated on"
 msgstr "최근 갱신 일자"
 
 #. module: pos_iot_six
+#. odoo-javascript
+#: code:addons/pos_iot_six/static/src/js/six_terminal_id_field.xml:0
+msgid "Must only contain digits"
+msgstr ""
+
+#. module: pos_iot_six
 #: model:ir.model,name:pos_iot_six.model_pos_payment_method
 msgid "Point of Sale Payment Methods"
 msgstr "POS 결제 수단"
+
+#. module: pos_iot_six
+#. odoo-javascript
+#: code:addons/pos_iot_six/static/src/js/six_terminal_id_field.xml:0
+msgid "Saved Terminal ID to IoT Box"
+msgstr ""
 
 #. module: pos_iot_six
 #: model_terms:ir.ui.view,arch_db:pos_iot_six.pos_payment_method_view_form_six_iot
@@ -105,12 +117,6 @@ msgid "Six Terminal ID (TID)"
 msgstr "Six 터미널 ID (TID)"
 
 #. module: pos_iot_six
-#. odoo-python
-#: code:addons/pos_iot_six/wizard/add_six_terminal.py:0
-msgid "Six Terminal ID must only contain digits."
-msgstr "Six 단말기 ID는 숫자만 포함해야 합니다."
-
-#. module: pos_iot_six
 #: model:ir.model.fields,field_description:pos_iot_six.field_pos_iot_six_add_six_terminal__terminal_device_id
 msgid "Terminal Device"
 msgstr "터미널 장치"
@@ -128,9 +134,3 @@ msgstr "Six 결제 단말기의 ID입니다. 입력 후 단말기가 장치 목�
 #: model:ir.model.fields,help:pos_iot_six.field_pos_iot_six_add_six_terminal__iot_box_id
 msgid "The IoT Box that your Six terminal is connected to."
 msgstr "Six 단말기가 연결되어 있는 IoT 박스입니다."
-
-#. module: pos_iot_six
-#. odoo-python
-#: code:addons/pos_iot_six/wizard/add_six_terminal.py:0
-msgid "Warning"
-msgstr "주의 사항"

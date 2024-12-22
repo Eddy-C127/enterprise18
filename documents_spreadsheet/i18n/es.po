@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:14+0000\n"
+"POT-Creation-Date: 2024-12-19 13:01+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
@@ -25,6 +25,12 @@ msgstr ""
 #: code:addons/documents_spreadsheet/wizard/save_spreadsheet_template.py:0
 msgid "\"%s\" saved as template"
 msgstr "\"%s\" guardado como plantilla"
+
+#. module: documents_spreadsheet
+#. odoo-python
+#: code:addons/documents_spreadsheet/models/documents_document.py:0
+msgid "%(folder)s is used by %(company)s"
+msgstr "%(company)s usa %(folder)s"
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -450,6 +456,27 @@ msgstr "Nombre de plantilla"
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
+msgid ""
+"The company for a folder cannot be changed if it is already used as the "
+"spreadsheet workspace for at least one other company: %s"
+msgstr ""
+"La compañía para una carpeta no puede cambiarse si ya se utiliza como "
+"espacio de trabajo de hoja de cálculo para al menos otra compañía: %s"
+
+#. module: documents_spreadsheet
+#. odoo-python
+#: code:addons/documents_spreadsheet/models/res_company.py:0
+msgid ""
+"The company of %(folder)s should either be undefined or set to %(company)s. "
+"Otherwise, it is not possible to link the workspace to the company."
+msgstr ""
+"La compañía de %(folder)s debe estar indefinida o establecida como "
+"%(company)s. De lo contrario, no será posible vincular el espacio de trabajo"
+" a la compañía."
+
+#. module: documents_spreadsheet
+#. odoo-python
+#: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "The file is not a xlsx file"
 msgstr "Este archivo no es un archivo xlsx"
 
@@ -507,8 +534,8 @@ msgstr "Miniatura"
 #: model:ir.model.constraint,message:documents_spreadsheet.constraint_documents_document_spreadsheet_access_via_link
 msgid "To share a spreadsheet in edit mode, add the user in the accesses"
 msgstr ""
-"Para compartir una hoja de cálculo en modo de edición, agregue un usuario en"
-" los permisos de acceso."
+"Para compartir una hoja de cálculo en modo de edición, añada un usuario en "
+"los permisos de acceso."
 
 #. module: documents_spreadsheet
 #. odoo-javascript

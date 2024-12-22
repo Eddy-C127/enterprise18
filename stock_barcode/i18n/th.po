@@ -690,6 +690,8 @@ msgstr ""
 #: model:ir.model.fields,help:stock_barcode.field_res_config_settings__barcode_max_time_between_keys_in_ms
 msgid "Maximum delay between each key in ms (100 ms by default)"
 msgstr ""
+"ความล่าช้าสูงสุดระหว่างแต่ละคีย์เป็นมิลลิวินาที (ค่าเริ่มต้นคือ 100 "
+"มิลลิวินาที)"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__barcode_separator_regex
@@ -1330,6 +1332,8 @@ msgstr "หมายเลขซีเรียล/ล็อต"
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
 msgid "Set the maximum delay between each key in ms (100 ms by default.)"
 msgstr ""
+"ตั้งค่าความล่าช้าสูงสุดระหว่างแต่ละคีย์เป็นมิลลิวินาที (ค่าเริ่มต้นคือ 100 "
+"มิลลิวินาที)"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__show_barcode_nomenclature
@@ -1517,6 +1521,8 @@ msgid ""
 "Time before processing a batch. Used to group communication to the server "
 "and improve global performance at the cost of reactivity."
 msgstr ""
+"เวลาที่ใช้ก่อนการประมวลผลชุดข้อมูล "
+"ใช้เพื่อจัดกลุ่มการสื่อสารไปยังเซิร์ฟเวอร์และปรับปรุงประสิทธิภาพโดยรวมโดยแลกกับการตอบสนองที่รวดเร็ว"
 
 #. module: stock_barcode
 #. odoo-javascript

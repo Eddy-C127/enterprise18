@@ -3,16 +3,16 @@
 # 	* documents_project
 # 
 # Translators:
-# Wil Odoo, 2024
 # Larissa Manderfeld, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:15+0000\n"
+"POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,6 +85,7 @@ msgstr "Dokument"
 
 #. module: documents_project
 #. odoo-python
+#: code:addons/documents_project/controllers/portal.py:0
 #: code:addons/documents_project/models/project_project.py:0
 #: model:ir.actions.act_window,name:documents_project.action_view_documents_project_project
 #: model:ir.actions.act_window,name:documents_project.action_view_documents_project_task
@@ -134,6 +135,17 @@ msgstr ""
 msgid "Impossible to create a task on a deprecated document"
 msgstr ""
 "Es ist unmöglich, eine Aufgabe zu einem veralteten Dokument zu erstellen"
+
+#. module: documents_project
+#. odoo-python
+#: code:addons/documents_project/models/documents_document.py:0
+msgid ""
+"Impossible to update write `res_id` without `access_internal` for records "
+"with different `res_models` when some are linked to projects or tasks."
+msgstr ""
+"Es ist nicht möglich, `res_id` ohne `access_internal` für Datensätze mit "
+"unterschiedlichen `res_models` zu aktualisieren, wenn einige mit Projekten "
+"oder Aufgaben verknüpft sind."
 
 #. module: documents_project
 #. odoo-python
@@ -227,11 +239,11 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid ""
-"The \"%s\" folder is required by the Project application and cannot be "
+"The \"%s\" workspace is required by the Project application and cannot be "
 "deleted."
 msgstr ""
-"Der Ordner „%s“ ist für die Projekte-App erforderlich und kann nicht "
-"gelöscht werden."
+"Der Arbeitsbereich „%s“ ist für die Projekte-App erforderlich und kann nicht"
+" gelöscht werden."
 
 #. module: documents_project
 #. odoo-python

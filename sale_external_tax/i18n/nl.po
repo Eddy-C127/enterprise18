@@ -3,13 +3,14 @@
 # 	* sale_external_tax
 # 
 # Translators:
+# Manon Rondou, 2024
 # Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:15+0000\n"
+"POT-Creation-Date: 2024-12-19 09:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -22,7 +23,7 @@ msgstr ""
 #. module: sale_external_tax
 #: model_terms:ir.ui.view,arch_db:sale_external_tax.order_form_inherit
 msgid "Compute Taxes"
-msgstr "Berekenen BTW"
+msgstr "Berekenen btw"
 
 #. module: sale_external_tax
 #: model:ir.model.fields,field_description:sale_external_tax.field_sale_order__is_avatax
@@ -33,6 +34,11 @@ msgstr "Is Avatax"
 #: model:ir.model.fields,field_description:sale_external_tax.field_sale_order__is_tax_computed_externally
 msgid "Is Tax Computed Externally"
 msgstr "Belasting wordt externe berekend"
+
+#. module: sale_external_tax
+#: model:ir.model,name:sale_external_tax.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Verkoop vooruibetaling factuur"
 
 #. module: sale_external_tax
 #: model:ir.model,name:sale_external_tax.model_sale_order

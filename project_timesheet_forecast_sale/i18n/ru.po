@@ -1,20 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* project_timesheet_forecast_sale
-#
+# 
 # Translators:
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-12-19 09:54+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: project_timesheet_forecast_sale
@@ -25,13 +27,13 @@ msgstr "временные таблицы и анализ планировани
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model,name:project_timesheet_forecast_sale.model_account_analytic_line
-msgid "Analytic Account"
-msgstr "Аналитический Счёт"
+msgid "Analytic Line"
+msgstr "Аналитическая линия"
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_planning_analysis_report__billable_allocated_hours
-msgid "Billable Hours Allocated"
-msgstr "Распределение оплачиваемых часов"
+msgid "Billable Time Allocated"
+msgstr ""
 
 #. module: project_timesheet_forecast_sale
 #: model:planning.role,name:project_timesheet_forecast_sale.planning_role_consultant
@@ -39,14 +41,9 @@ msgid "Consultant"
 msgstr "Консультант"
 
 #. module: project_timesheet_forecast_sale
-#: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_project__display_planning_timesheet_analysis
-msgid "Display Planning Timesheet Analysis"
-msgstr "Планирование отображения Анализ временных таблиц"
-
-#. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_timesheet_forecast_report_analysis__effective_billable_hours
-msgid "Effective Billable Hours"
-msgstr "Эффективные оплачиваемые часы"
+msgid "Effective Billable Time"
+msgstr ""
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_timesheet_forecast_report_analysis__effective_margin
@@ -55,8 +52,8 @@ msgstr "Эффективная маржа"
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_timesheet_forecast_report_analysis__effective_non_billable_hours
-msgid "Effective Non-Billable Hours"
-msgstr "Эффективные неоплачиваемые часы"
+msgid "Effective Non-Billable Time"
+msgstr ""
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_timesheet_forecast_report_analysis__effective_revenues
@@ -65,13 +62,13 @@ msgstr "Эффективная выручка"
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_planning_analysis_report__non_billable_allocated_hours
-msgid "Non-billable Hours Allocated"
-msgstr "Распределенные не оплачиваемые часы"
+msgid "Non-billable Time Allocated"
+msgstr ""
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_timesheet_forecast_report_analysis__planned_billable_hours
-msgid "Planned Billable Hours"
-msgstr "Планируемые оплачиваемые часы"
+msgid "Planned Billable Time"
+msgstr ""
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_timesheet_forecast_report_analysis__planned_margin
@@ -80,8 +77,8 @@ msgstr "Плановая маржа"
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_timesheet_forecast_report_analysis__planned_non_billable_hours
-msgid "Planned Non-Billable Hours"
-msgstr "Запланированные не оплачиваемые часы"
+msgid "Planned Non-Billable Time"
+msgstr ""
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_timesheet_forecast_report_analysis__planned_revenues
@@ -112,11 +109,6 @@ msgstr "Обновление проекта"
 #: model:ir.model,name:project_timesheet_forecast_sale.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Позиция заказа на продажу"
-
-#. module: project_timesheet_forecast_sale
-#: model:ir.model.fields,help:project_timesheet_forecast_sale.field_project_project__display_planning_timesheet_analysis
-msgid "Should we display the planning and timesheet analysis button?"
-msgstr "Нужно ли отображать кнопку планирования и анализа табеля учета рабочего времени?"
 
 #. module: project_timesheet_forecast_sale
 #: model:planning.role,name:project_timesheet_forecast_sale.planning_role_junior_architect
