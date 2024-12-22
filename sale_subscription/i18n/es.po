@@ -1105,32 +1105,33 @@ msgstr "Tipos de actividad"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_quantity
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_quantity
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Add Products"
-msgstr "Agregar productos"
+msgstr "Añadir productos"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 msgid "Add Quantity"
-msgstr "Agregar cantidad"
+msgstr "Añadir cantidad"
 
 #. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.mail_activity_plan_action_subscription
 msgid "Add a new plan"
-msgstr "Agregar un nuevo plan"
+msgstr "Añadir un nuevo plan"
 
 #. module: sale_subscription
 #. odoo-javascript
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Add a new rule"
-msgstr "Agregue una nueva regla"
+msgstr "Añada una nueva regla"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.product_pricelist_view
 #: model_terms:ir.ui.view,arch_db:sale_subscription.product_template_view_form_recurring
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_view_form
 msgid "Add a price rule"
-msgstr "Agregar una regla de precios"
+msgstr "Añadir una regla de precios"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -1140,7 +1141,7 @@ msgid ""
 "Add a recurring plan for this product, or create a new one with the desired "
 "recurrence (e.g., Monthly)"
 msgstr ""
-"Agregue un plan recurrente para este producto, o cree uno nuevo con la "
+"Añada un plan recurrente para este producto, o cree uno nuevo con la "
 "recurrencia deseada (p. ej. mensualmente)"
 
 #. module: sale_subscription
@@ -1256,6 +1257,7 @@ msgstr "Cierre automático"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__auto_close_limit_display
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Automatic Closing After"
 msgstr "Cierre automático después de"
 
@@ -1531,10 +1533,11 @@ msgstr "Cancelada"
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Click here to add some products or services"
-msgstr "Haga clic aquí para agregar algún producto o servicio"
+msgstr "Haga clic aquí para añadir algún producto o servicio"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
 msgid "Closable"
 msgstr "Se puede cerrar"
@@ -2517,7 +2520,7 @@ msgstr "Añadamos un precio con recurrencia"
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Let's add price for selected recurrence"
-msgstr "Agreguemos un precio para la recurrencia seleccionada"
+msgstr "Añadamos un precio para la recurrencia seleccionada"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -3498,6 +3501,7 @@ msgstr "Orden relacionada"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_extend
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_extend
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 #, python-format
 msgid "Renew"
