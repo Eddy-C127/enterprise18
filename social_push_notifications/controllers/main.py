@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import logging
 import requests
 from werkzeug.urls import url_join
 
 from odoo import http, _, tools
 from odoo.http import request
+
+_logger = logging.getLogger(__name__)
 
 
 class SocialPushNotificationsController(http.Controller):
@@ -32,6 +35,16 @@ class SocialPushNotificationsController(http.Controller):
            not current_website.firebase_sender_id):
             self._register_iap_firebase_info(current_website)
 
+        firebase_web_app_id = request.env['ir.config_parameter'].sudo().get_param(
+            'social_push_notification.firebase_web_app_id')
+
+        if not firebase_web_app_id:
+            _logger.error(
+                'No Firebase App ID provided in the configuration. '
+                'Please, make sure to add an Odoo system parameter '
+                '`social_push_notification.firebase_web_app_id` '
+                'with the App ID of your Firebase App.')
+
         return {
             'notification_request_title': title,
             'notification_request_body': body,
@@ -39,6 +52,7 @@ class SocialPushNotificationsController(http.Controller):
             'notification_request_icon': icon,
             'firebase_project_id': current_website.firebase_project_id,
             'firebase_web_api_key': current_website.firebase_web_api_key,
+            'firebase_web_app_id': firebase_web_app_id,
             'firebase_push_certificate_key': current_website.firebase_push_certificate_key,
             'firebase_sender_id': current_website.firebase_sender_id
         }
@@ -63,6 +77,8 @@ class SocialPushNotificationsController(http.Controller):
                 'firebase_push_certificate_key': result_json['firebase_push_certificate_key'],
                 'firebase_sender_id': result_json['firebase_sender_id'],
             })
+            request.env['ir.config_parameter'].sudo().set_param(
+                'social_push_notification.firebase_web_app_id', result_json['firebase_web_app_id'])
 
     @http.route('/social_push_notifications/register', type='json', auth='public', website=True)
     def register(self, token):

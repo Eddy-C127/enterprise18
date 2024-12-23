@@ -78,8 +78,15 @@ class SocialAccountPushNotifications(models.Model):
                     f'https://fcm.googleapis.com/v1/projects/{firebase_data["project_id"]}/messages:send',
                     json={
                         'message': {
-                            'data': data,
-                            'token': token
+                            'token': token,
+                            'notification': {
+                                'title': data['title'],
+                                'body': data['body'],
+                                'image': data['icon']
+                            },
+                            'data': {
+                                'target_url': data['target_url']
+                            }
                         }
                     },
                     headers={'authorization': f'Bearer {auth_token}'},
