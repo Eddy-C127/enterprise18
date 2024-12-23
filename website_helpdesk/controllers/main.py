@@ -167,6 +167,8 @@ class WebsiteForm(form.WebsiteForm):
         if model_name == "helpdesk.ticket":
             ticket = model.env[model_name].browse(id_record)
             attachments = request.env['ir.attachment'].sudo().search([('res_model', '=', model_name), ('res_id', '=', ticket.id), ('access_token', '=', False)])
+            if not attachments:
+                return
             attachments.generate_access_token()
             message = ticket.message_ids.filtered(lambda m: m.attachment_ids == attachments)
             message.is_internal = False
