@@ -397,3 +397,27 @@ class TestAccountFollowupReports(AccountTestInvoicingCommon):
 
         self.assertTrue(mail_cc in reminder.email_recipient_ids, "John Carmac should be in the Email Recipients list.")
         self.assertTrue(mail_partner in reminder.email_recipient_ids, "Mai Lang should still be in the Email Recipients List")
+
+    def test_followup_invoice_payment_partially_used(self):
+        """
+        Overdue Invoice 1: $500
+        Payment: $600
+        Invoice 2: $500
+
+        This scenario tests the following:
+        When a payment exceeds the amount of an overdue invoice.
+        When part of the payment is applied to another invoice.
+        The follow-up status remains "In Need of Action".
+        """
+        followup_10 = self.create_followup(delay=10)
+        self.create_invoice('2022-01-01')  # overdue invoice
+        invoice_2 = self.create_invoice('2022-03-01')
+        payment = self.env['account.payment'].create({
+            'move_type': 'inbound',
+            'partner_id': self.partner_a.id,
+            'amount': 600,
+        })
+        payment.action_post()
+        (payment.move_id + invoice_2).line_ids.filtered(lambda x: x.account_id == self.company_data['default_account_receivable']).reconcile()
+        with freeze_time('2022-02-11'):
+            self.assertPartnerFollowup(self.partner_a, 'in_need_of_action', followup_10)

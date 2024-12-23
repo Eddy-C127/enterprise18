@@ -416,14 +416,14 @@ class ResPartner(models.Model):
         return f"""
             SELECT partner.id as partner_id,
                    ful.id as followup_line_id,
-                   CASE WHEN partner.balance <= 0 THEN 'no_action_needed'
+                   CASE WHEN partner.amount_residual <= 0 THEN 'no_action_needed'
                         WHEN in_need_of_action_aml.id IS NOT NULL AND (prop_date.value_datetime IS NULL OR prop_date.value_datetime::date <= %(current_date)s) THEN 'in_need_of_action'
                         WHEN exceeded_unreconciled_aml.id IS NOT NULL THEN 'with_overdue_invoices'
                         ELSE 'no_action_needed' END as followup_status
             FROM (
           SELECT partner.id,
                  MAX(COALESCE(next_ful.delay, ful.delay)) as followup_delay,
-                 SUM(aml.balance) as balance
+                 SUM(aml.amount_residual) as amount_residual
             FROM res_partner partner
             JOIN account_move_line aml ON aml.partner_id = partner.id
             JOIN account_account account ON account.id = aml.account_id
