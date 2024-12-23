@@ -582,12 +582,15 @@ class SignRequest(models.Model):
 
     @staticmethod
     def get_page_size(pdf_reader):
-        first_page = pdf_reader.pages and pdf_reader.pages[0]
-        media_box = first_page and first_page.mediaBox
-        width = media_box and media_box.getWidth()
-        height = media_box and media_box.getHeight()
+        max_width = max_height = 0
+        for page in pdf_reader.pages:
+            media_box = page.mediaBox
+            width = media_box and media_box.getWidth()
+            height = media_box and media_box.getHeight()
+            max_width = width if width > max_width else max_width
+            max_height = height if height > max_height else max_height
 
-        return (width, height) if width and height else None
+        return (max_width, max_height) if max_width and max_height else None
 
     def _get_user_formatted_datetime(self, datetime_val):
         """
