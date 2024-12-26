@@ -3048,7 +3048,8 @@ QUnit.module("View Editors", (hooks) => {
         await click(target, ".o_web_studio_editX2Many[data-type='form']");
         await nextTick();
         assert.containsOnce(target, ".o-form-buttonbox");
-        assert.containsOnce(target, ".o-form-buttonbox button[name='some_action']");
+        assert.containsNone(target, ".o-form-buttonbox .o_web_studio_button_hook");
+        assert.containsNone(target, ".o-form-buttonbox button[name='some_action']");
     });
 
     QUnit.test("cannot add a related properties field", async (assert) => {
@@ -4038,27 +4039,6 @@ QUnit.module("View Editors", (hooks) => {
                 target.querySelector(".o_inner_group .o_web_studio_hook")
             );
             assert.verifySteps(["/web_studio/edit_view", "/web/dataset/call_kw/partner/web_read"]);
-
-            // add a new button
-            await click(
-                target.querySelector(".o_web_studio_form_view_editor .o_web_studio_button_hook")
-            );
-            assert.verifySteps([]);
-
-            assert.containsOnce(target, ".modal .o_web_studio_new_button_dialog");
-            await click(
-                target.querySelector(
-                    ".modal .o_web_studio_new_button_dialog .o_input_dropdown input"
-                )
-            );
-            assert.verifySteps(["/web/dataset/call_kw/ir.model.fields/name_search"]);
-            await click(target.querySelector(".modal .o_web_studio_new_button_dialog li a"));
-            assert.strictEqual(
-                target.querySelector(
-                    ".modal .o_web_studio_new_button_dialog .o-autocomplete--input"
-                ).value,
-                "Partner"
-            );
         }
     );
 
