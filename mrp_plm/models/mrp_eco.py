@@ -7,7 +7,8 @@ from random import randint
 import ast
 
 from odoo import api, fields, models, tools, Command, SUPERUSER_ID, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
+from odoo.osv import expression
 
 
 class MrpEcoType(models.Model):
@@ -71,6 +72,18 @@ class MrpEcoApprovalTemplate(models.Model):
         default='mandatory', required=True, index=True)
     user_ids = fields.Many2many('res.users', string='Users', domain=lambda self: [('groups_id', 'in', self.env.ref('mrp_plm.group_plm_user').id)], required=True)
     stage_id = fields.Many2one('mrp.eco.stage', 'Stage', required=True)
+
+    @api.constrains('user_ids', 'stage_id')
+    def _check_unique_user_stage(self):
+        domain = expression.OR([
+            [('id', '!=', record.id),
+            ('stage_id', '=', record.stage_id.id),
+            ('user_ids', 'in', record.user_ids.ids)]
+            for record in self.filtered('user_ids')
+        ])
+        duplicate = self.env['mrp.eco.approval.template'].search_count(domain, limit=1)
+        if duplicate:
+            raise ValidationError(_('A user cannot be assigned more than once to the same stage'))
 
 
 class MrpEcoApproval(models.Model):

@@ -4,6 +4,7 @@
 from .test_common import TestPlmCommon
 from odoo import Command
 from odoo.tests import Form
+from odoo.exceptions import ValidationError
 
 class TestMrpPlm(TestPlmCommon):
 
@@ -437,3 +438,20 @@ class TestMrpPlm(TestPlmCommon):
         mrp_eco.action_apply()
         self.assertEqual(mrp_eco.state, 'done')
         self.assertEqual(self.table.product_tmpl_id.version, version_num + 1)
+
+    def test_duplicate_eco_template_with_same_user_and_stage(self):
+        """Test that two ECO approval templates cannot be created
+        with the same user for the same stage."""
+        self.env['mrp.eco.approval.template'].create({
+            'name': 'eco approval template',
+            'approval_type': 'mandatory',
+            'user_ids': [Command.set(self.env.ref('base.user_admin').ids)],
+            'stage_id': self.eco_stage.id,
+        })
+        with self.assertRaises(ValidationError):
+            self.env['mrp.eco.approval.template'].create({
+                'name': 'eco approval template',
+                'approval_type': 'mandatory',
+                'user_ids': [Command.set(self.env.ref('base.user_admin').ids)],
+                'stage_id': self.eco_stage.id,
+            })
