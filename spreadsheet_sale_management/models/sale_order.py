@@ -32,3 +32,9 @@ class SaleOrder(models.Model):
         if not self.spreadsheet_id:
             self.spreadsheet_template_id.copy({"order_id": self.id})
         return self.spreadsheet_id.action_open_spreadsheet()
+    
+    def unlink(self):
+        for order in self:
+            if order.spreadsheet_ids:
+                order.spreadsheet_ids.unlink()
+        return super().unlink()
