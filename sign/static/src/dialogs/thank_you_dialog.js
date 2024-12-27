@@ -45,7 +45,7 @@ export class ThankYouDialog extends Component {
         });
         this.redirectURL = this.processURL(this.props.redirectURL);
         this.message =
-            this.props.message || _t("You will receive the final signed document by email.");
+            this.props.message || _t("You will get the signed document by email.");
         onWillStart(this.willStart);
         this.isMobileOS = isMobileOS();
     }
@@ -118,23 +118,13 @@ export class ThankYouDialog extends Component {
                 classes: 'o_sign_thankyou_redirect_button',
             });
         }
-
-        if (this.suggestSignUp) {
-            this.state.buttons.push({
-                name: _t("Sign Up for free"),
-                classes: "btn btn-link ms-auto",
-                ignored: true,
-                click: () => {
-                    window.open(
-                        "https://www.odoo.com/trial?selected_app=sign&utm_source=db&utm_medium=sign",
-                        "_blank"
-                    );
-                },
-            });
-        } else if (!this.redirectURL) {
+        if (!this.redirectURL) {
             this.state.buttons.push({
                 name: this.closeLabel,
                 click: () => {
+                    if (this.suggestSignUp) {
+                        window.open(`https://odoo.com/app/sign`);
+                    }
                     if (session.is_frontend) {
                         const signatureRequestId = this.signInfo.get("documentId");
                         window.location.assign(`/my/signature/${signatureRequestId}`);
@@ -151,7 +141,7 @@ export class ThankYouDialog extends Component {
             if (this.state.buttons[i].ignored) {
                 continue;
             }
-            const buttonClass = i === 0 ? "btn btn-primary" : "btn btn-secondary";
+            const buttonClass = "btn btn-secondary";
             this.state.buttons[i].classes = `${this.state.buttons[i].classes} ${buttonClass}`;
         }
     }
