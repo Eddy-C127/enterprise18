@@ -881,7 +881,7 @@ msgstr ""
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "You cannot add payments that are already sent."
-msgstr ""
+msgstr "Bạn không thể thêm các khoản thanh toán đã được gửi đi."
 
 #. module: account_batch_payment
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
@@ -903,7 +903,7 @@ msgstr ""
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "You cannot add the same payment to multiple batches."
-msgstr ""
+msgstr "Bạn không thể thêm cùng một khoản thanh toán vào nhiều loạt."
 
 #. module: account_batch_payment
 #. odoo-python
@@ -913,6 +913,8 @@ msgstr ""
 msgid ""
 "You cannot create a batch with payments that are already in another batch."
 msgstr ""
+"Bạn không thể tạo một loạt thanh toán chứa các khoản thanh toán đã có trong "
+"loạt khác."
 
 #. module: account_batch_payment
 #. odoo-python
@@ -920,3 +922,5 @@ msgstr ""
 #, python-format
 msgid "You cannot create batches with overlapping payments."
 msgstr ""
+"Bạn không thể tạo các loạt thanh toán chứa những khoản thanh toán chồng "
+"chéo."

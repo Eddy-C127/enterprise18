@@ -35,9 +35,9 @@ msgid ""
 "\t%s"
 msgstr ""
 "\n"
-"Некоторые товары слишком тяжелы для доступного метода доставки.\n"
-"                             \n"
-" Разделите их на несколько посылок или выберите другого перевозчика:\n"
+"Некоторые товары слишком тяжелые для доставки. \n"
+"                                \n"
+"Разделите их по упаковкам или выберите другого перевозчика:\n"
 "\t%s"
 
 #. module: delivery_sendcloud
@@ -182,12 +182,12 @@ msgstr "Создано"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
 msgid "Default Package Type"
-msgstr "Тип пакета по умолчанию"
+msgstr "Тип упаковки по умолчанию"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_default_package_type_id
 msgid "Default Package Type for Sendcloud"
-msgstr "Тип пакета по умолчанию для Sendcloud"
+msgstr "Тип упаковки по умолчанию для Sendcloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_wizard__carrier_id
@@ -233,9 +233,7 @@ msgstr ""
 msgid ""
 "Ensure picking has shipping weight, if using packages, each package should "
 "have a shipping weight"
-msgstr ""
-"Убедитесь, что упаковка имеет транспортировочный вес, если используются "
-"пакеты, то на каждом пакете должен быть указан транспортировочный вес"
+msgstr "Убедитесь, что у сборки и каждой упаковки есть вес для отправки."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -383,8 +381,9 @@ msgid ""
 "Note that this price is for %s packages since the order weight is more than "
 "the maximum weight allowed by the shipping method."
 msgstr ""
-"Обратите внимание, что эта цена указана для %s упаковок, поскольку вес "
-"заказа превышает максимальный вес, допустимый для данного способа доставки."
+"Обратите внимание, что эта цена рассчитана для %s упаковок, так как вес "
+"заказа превышает максимальный допустимый вес для выбранного способа "
+"доставки."
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form

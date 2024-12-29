@@ -16,13 +16,13 @@
 # marcescu, 2023
 # Sandra Franch <sandra.franch@upc.edu>, 2023
 # Marc Tormo i Bochaca <mtbochaca@gmail.com>, 2023
-# AncesLatino2004, 2023
+# 7b9408628f00af852f513eb4f12c005b_f9c6891, 2023
 # jabiri7, 2023
 # martioodo hola, 2023
 # Harcogourmet, 2023
 # Óscar Fonseca <tecnico@pyming.com>, 2023
 # Ivan Espinola, 2024
-# Quim - eccit <quim@eccit.com>, 2024
+# Quim - coopdevs <quim.rebull@coopdevs.org>, 2024
 # RGB Consulting <odoo@rgbconsulting.com>, 2024
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2024
 # Martin Trigaux, 2024
@@ -726,7 +726,7 @@ msgstr "Activitat"
 #. module: sale_subscription
 #: model:ir.ui.menu,name:sale_subscription.mail_activity_plan_menu_config_subscription
 msgid "Activity Plans"
-msgstr ""
+msgstr "Plans d'activitat"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__activity_type_id
@@ -742,6 +742,7 @@ msgstr "Tipus d'activitats"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_quantity
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_quantity
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Add Products"
 msgstr ""
 
@@ -886,6 +887,7 @@ msgstr "Tancament automàtic"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__auto_close_limit_display
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Automatic Closing After"
 msgstr ""
 
@@ -1154,6 +1156,7 @@ msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
 msgid "Closable"
 msgstr ""
@@ -1445,12 +1448,12 @@ msgstr "Referència del client"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__state_id
 msgid "Customer State"
-msgstr ""
+msgstr "Província del client"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__partner_zip
 msgid "Customer ZIP"
-msgstr ""
+msgstr "C.P. del client"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__user_closable
@@ -1679,7 +1682,7 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "Expiration Date:"
-msgstr ""
+msgstr "Data de validesa:"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
@@ -3095,6 +3098,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_extend
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_extend
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 #, python-format
 msgid "Renew"

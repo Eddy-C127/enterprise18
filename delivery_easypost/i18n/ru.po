@@ -8,6 +8,7 @@
 # Ivan Kropotkin <yelizariev@itpp.dev>, 2023
 # Martin Trigaux, 2023
 # Wil Odoo, 2024
+# Ilya Rozhkov, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Ilya Rozhkov, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -111,12 +112,12 @@ msgstr "Создано"
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_delivery_carrier_form_inherit_delivery_easypost
 msgid "Default Package Type"
-msgstr "Тип пакета по умолчанию"
+msgstr "Тип упаковки по умолчанию"
 
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier__easypost_default_package_type_id
 msgid "Default Package Type for Easypost"
-msgstr "Тип пакета по умолчанию для Easypost"
+msgstr "Тип упаковки по умолчанию для Easypost"
 
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier__easypost_default_service_id
@@ -260,8 +261,8 @@ msgid ""
 "It seems Easypost do not provide shipments for this order.                We"
 " advise you to try with another package type or service level."
 msgstr ""
-"Похоже, Easypost не обеспечивает доставку этого заказа.                Мы "
-"советуем вам попробовать другой тип посылки или уровень обслуживания."
+"Похоже, Easypost не предоставляет доставку для этого заказа.            "
+"Рекомендуем попробовать другой тип упаковки или уровень обслуживания."
 
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_delivery_carrier_form_inherit_delivery_easypost
@@ -305,7 +306,7 @@ msgstr "PNG"
 #: code:addons/delivery_easypost/models/easypost_request.py:0
 #, python-format
 msgid "Package type used in pack %s is not configured for easypost."
-msgstr "Тип пакета, используемый в упаковке %s, не настроен для easypost."
+msgstr "Тип упаковки %s не настроен для Easypost."
 
 #. module: delivery_easypost
 #. odoo-python
@@ -375,7 +376,7 @@ msgstr "Регистрация"
 #. module: delivery_easypost
 #: model:ir.model,name:delivery_easypost.model_stock_package_type
 msgid "Stock package type"
-msgstr "Тип комплекта поставки"
+msgstr "Тип складской упаковки"
 
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier__easypost_test_api_key
@@ -390,8 +391,8 @@ msgid ""
 "The %s carrier is missing (Missing field(s) :\n"
 " Default Package Type)"
 msgstr ""
-"Носитель %s отсутствует (Отсутствующее поле (поля) :\n"
-" Тип пакета по умолчанию)"
+"Для перевозчика %s отсутствует поле:\n"
+"Тип упаковки по умолчанию"
 
 #. module: delivery_easypost
 #. odoo-python
@@ -456,8 +457,7 @@ msgid ""
 "There is no rate available for the selected service level for one of your "
 "package. Please choose another service level."
 msgstr ""
-"Для выбранного уровня обслуживания нет тарифа для одного из ваших пакетов. "
-"Пожалуйста, выберите другой уровень обслуживания."
+"Нет тарифов для выбранного уровня обслуживания. Выберите другой уровень."
 
 #. module: delivery_easypost
 #: model:ir.model,name:delivery_easypost.model_stock_picking

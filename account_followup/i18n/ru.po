@@ -285,7 +285,7 @@ msgstr "Заметки о деятельности"
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__activity_type_id
 msgid "Activity Type"
-msgstr "Тип активности"
+msgstr "Тип действия"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.template_followup_report
@@ -1161,4 +1161,4 @@ msgid ""
 " }} Payment Reminder - {{ object.commercial_company_name }}"
 msgstr ""
 "{{ (object.company_id or object._get_followup_responsible().company_id).name"
-" }} Напоминание о платеже - {{ object.commercial_company_name }}"
+" }} Напоминание о платеже – {{ object.commercial_company_name }}"
