@@ -8,6 +8,8 @@ import { setCellContent } from "@spreadsheet/../tests/utils/commands";
 import { getCellContent } from "@spreadsheet/../tests/utils/getters";
 import { getBasicServerData } from "@spreadsheet/../tests/utils/data";
 import { convertFromSpreadsheetTemplate } from "@documents_spreadsheet/bundle/helpers";
+import { parseDate } from "@web/core/l10n/dates";
+
 
 /**
  * @param {object} params
@@ -462,6 +464,70 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
                 '=ODOO.PIVOT.HEADER(1,"foo",1,"bar","true","measure","probability")'
             );
             assert.equal(cells.B4.content, '=ODOO.PIVOT(1,"probability","foo",1,"bar","true")');
+        }
+    );
+
+    QUnit.test(
+        "Can Convert a pivot with group by date with granularity to a template",
+        async (assert) => {
+            let model;
+            const serverData = getBasicServerData();
+            const mockRPC = function (route, args) {
+                if (route === '/web/dataset/call_kw/partner/search_read') {
+                    // only one call is made in this test
+                    const domain = args.kwargs.domain;
+                    const values = domain[0] && domain[0][2];
+                    if (!values) {
+                        assert.step("no date with granularity in domain");                            
+                    }
+                    else {
+                        assert.ok(values.every(v => parseDate(v)), "All values are defined");
+                        assert.step("the dates in the domain are valid");
+                    }
+                }
+            };
+            ({ model } = await createSpreadsheetWithPivot({
+                arch: /* xml */ `
+                    <pivot>
+                        <field name="foo" type="col"/>
+                        <field name="bar" type="row"/>
+                        <field name="date" interval="week" type="row"/>
+                        <field name="foo" type="measure"/>
+                        <field name="probability" type="measure"/>
+                    </pivot>`,
+                serverData,
+                mockRPC,
+            }));
+            await model.getters.getPivotDataSource("1").prepareForTemplateGeneration();
+            assert.verifySteps(["no date with granularity in domain"]);
+            ({ model } = await createSpreadsheetWithPivot({
+                arch: /* xml */ `
+                    <pivot>
+                        <field name="foo" type="col"/>
+                        <field name="bar" type="row"/>
+                        <field name="date" interval="day" type="row"/>
+                        <field name="foo" type="measure"/>
+                        <field name="probability" type="measure"/>
+                    </pivot>`,
+                serverData,
+                mockRPC,
+            }));
+            await model.getters.getPivotDataSource("1").prepareForTemplateGeneration();
+            assert.verifySteps(["the dates in the domain are valid"]);
+            ({ model } = await createSpreadsheetWithPivot({
+                arch: /* xml */ `
+                    <pivot>
+                        <field name="foo" type="col"/>
+                        <field name="bar" type="row"/>
+                        <field name="date" type="row"/>
+                        <field name="foo" type="measure"/>
+                        <field name="probability" type="measure"/>
+                    </pivot>`,
+                serverData,
+                mockRPC,
+            }));
+            await model.getters.getPivotDataSource("1").prepareForTemplateGeneration();
+            assert.verifySteps(["the dates in the domain are valid"]);
         }
     );
 });

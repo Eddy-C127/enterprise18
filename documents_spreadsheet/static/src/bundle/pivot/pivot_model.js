@@ -76,10 +76,16 @@ patch(SpreadsheetPivotModel.prototype, {
         const context = this.searchParams.context;
         const baseDomain = this.searchParams.domain;
         const requestField = field.relation ? "id" : field.name;
-        const domain = Domain.and([
-            field.relation ? [] : baseDomain,
-            [[requestField, "in", values]],
-        ]).toList();
+        let domain;
+        const hasNonDefaultGranularity = groupBy.split(":")[1] && groupBy.split(":")[1] !== "day";
+        if (hasNonDefaultGranularity) {
+            domain = field.relation ? [] : baseDomain;
+        } else {
+            domain = Domain.and([
+                field.relation ? [] : baseDomain,
+                [[requestField, "in", values]],
+            ]).toList();
+        }
         // orderby is omitted for relational fields on purpose to have the default order of the model
         const records = await this.orm.searchRead(
             field.relation ? field.relation : model,
