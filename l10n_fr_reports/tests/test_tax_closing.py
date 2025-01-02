@@ -234,6 +234,24 @@ class TestFrenchTaxClosing(TestAccountReportsCommon):
             edi_vals['declarations'][0]['identif']['zones'],
         )
 
+        with patch.object(self.env.registry['account.move'], '_get_vat_report_attachments', return_value=[]):
+            may_closing_entry = self.report_handler._get_periodic_vat_entries(options)
+            may_closing_entry.refresh_tax_entry()
+            may_closing_entry._post()
+
+        with patch.object(self.env.registry['l10n_fr_reports.send.vat.report'], '_send_xml_to_aspone', return_value=[]):
+            send_vat_wizard.send_vat_return()
+            report_line_26 = self.env.ref('l10n_fr_account.tax_report_26_external')
+            line_26_values = next(
+                line for line in self.report._get_lines(options)
+                if self.report._get_model_info_from_id(line['id']) == ('account.report.line', report_line_26.id)
+            )
+            self.assertEqual(
+                line_26_values.get('columns')[0].get('name'),
+                '667.00',
+                "The line 26 should be filled with the asked reimbursement amount",
+            )
+
     def test_fr_send_edi_vat_values_vat_carry_over(self):
         """ The aim of this test is to verify edi VAT values
             once generated and when VAT is carry over for the
