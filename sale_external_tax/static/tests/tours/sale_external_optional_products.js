@@ -15,7 +15,8 @@ registry.category("web_tour.tours").add("sale_external_optional_products", {
             trigger: ".o_portal_sidebar_content h2:contains($):contains(10.00)",
         },
         {
-            trigger: 'li a:contains("Communication history")', // Element on the left
+            content: "Await communication shadow root to avoid rerenderer just before clicking",
+            trigger: ":shadow button:contains(send)",
         },
         {
             content: "add the optional product",
@@ -26,16 +27,29 @@ registry.category("web_tour.tours").add("sale_external_optional_products", {
             trigger: ".o_portal_sidebar_content h2:contains($):contains(11.15)",
         },
         {
+            content: "Await communication shadow root to avoid rerenderer just before clicking",
+            trigger: ":shadow button:contains(send)",
+        },
+        {
+            content: "Check the quantity",
+            trigger: "tr:contains(optional product) input.js_quantity:value(1.0)",
+        },
+        {
             content: "increase the quantity of the optional product by 1",
-            trigger: ".js_update_line_json[title='Add one']",
+            trigger:
+                "tr:contains(optional product) .js_quantity_container .js_update_line_json[title='Add one']",
             run: "click",
         },
         {
-            content: "wait for the quantity to be updated",
-            trigger: "input.js_quantity:value(2.0)",
+            trigger: ".o_portal_sidebar_content h2:contains($):contains(12.30)",
         },
         {
-            trigger: ".o_portal_sidebar_content h2:contains($):contains(12.30)",
+            content: "Await communication shadow root to avoid rerenderer just before clicking",
+            trigger: ":shadow button:contains(send)",
+        },
+        {
+            content: "wait for the quantity to be updated",
+            trigger: "tr:contains(optional product) input.js_quantity:value(2.0)",
         },
         {
             content: "delete the optional line",
@@ -44,6 +58,10 @@ registry.category("web_tour.tours").add("sale_external_optional_products", {
         },
         {
             trigger: ".o_portal_sidebar_content h2:contains($):contains(10.00)",
+        },
+        {
+            content: "Await communication shadow root to avoid rerenderer just before clicking",
+            trigger: ":shadow button:contains(send)",
         },
         {
             content: "wait for line to be deleted and show up again in optional products",
