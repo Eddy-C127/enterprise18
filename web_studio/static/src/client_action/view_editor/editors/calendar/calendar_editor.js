@@ -57,7 +57,7 @@ export class CalendarEditorSidebar extends Component {
 
     get colorFields() {
         return fieldsToChoices(this.viewEditorModel.fields, (field) =>
-            ["many2one", "selection"].includes(field.type)
+            ["many2one", "selection", "integer"].includes(field.type)
         );
     }
 
