@@ -49,7 +49,7 @@ export class CalendarEditorSidebar extends Component {
     }
 
     get colorFields() {
-        return fieldsToChoices(this.viewEditorModel.fields, ["many2one", "selection"]);
+        return fieldsToChoices(this.viewEditorModel.fields, ["many2one", "selection", "integer"]);
     }
 
     get allDayFields() {
