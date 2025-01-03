@@ -43,6 +43,7 @@ patch(PosStore.prototype, {
             this.config.currency_id.id,
         ]);
         partner.update({ total_due });
+        this.data.dispatchData({ "res.partner": [partner] });
         return [partner];
     },
     async settleCustomerDue(partner) {
