@@ -7,6 +7,7 @@
 # Ivan Kropotkin <yelizariev@itpp.dev>, 2023
 # Martin Trigaux, 2023
 # Wil Odoo, 2024
+# Ilya Rozhkov, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Ilya Rozhkov, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -188,32 +189,32 @@ msgstr "PDF"
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_mail_type__package
 msgid "Package"
-msgstr "Пакет"
+msgstr "Посылка"
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_custom_container_girth
 msgid "Package Girth"
-msgstr "Обхват упаковки"
+msgstr "Обхват посылки"
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_custom_container_height
 msgid "Package Height"
-msgstr "Высота упаковки"
+msgstr "Высота посылки"
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_custom_container_length
 msgid "Package Length"
-msgstr "Длина упаковки"
+msgstr "Длина посылки"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_first_class_mail_type__package_service
 msgid "Package Service"
-msgstr "Служба посылок"
+msgstr "Служба доставки посылок"
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_custom_container_width
 msgid "Package Width"
-msgstr "Ширина упаковки"
+msgstr "Ширина посылки"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_domestic_regular_container__padded_flat_rate_envelope
@@ -231,8 +232,8 @@ msgstr "Пакет"
 msgid ""
 "Please check on USPS website to ensure that your package is machinable."
 msgstr ""
-"Пожалуйста, проверьте на сайте USPS, чтобы убедиться, что ваш пакет можно "
-"обрабатывать."
+"Пожалуйста, проверьте на сайте USPS, подходит ли ваша посылка для "
+"автоматической сортировки."
 
 #. module: delivery_usps
 #. odoo-python
@@ -420,9 +421,7 @@ msgstr ""
 #: code:addons/delivery_usps/models/usps_request.py:0
 #, python-format
 msgid "The selected USPS service (%s) cannot be used to deliver this package."
-msgstr ""
-"Выбранная служба USPS (%s) не может быть использована для доставки этого "
-"пакета."
+msgstr "Выбранная служба USPS (%s) не подходит для доставки этой посылки."
 
 #. module: delivery_usps
 #. odoo-python

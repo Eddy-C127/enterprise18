@@ -41,7 +41,7 @@ msgstr ""
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
 msgid "<span class=\"o_form_label\">Package Length Unit</span>"
-msgstr "<span class=\"o_form_label\">Единица измерения длины упаковки</span>"
+msgstr "<span class=\"o_form_label\">Единица измерения длины посылки</span>"
 
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
@@ -242,12 +242,12 @@ msgstr "FIRST_OVERNIGHT"
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__delivery_type__fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__stock_package_type__package_carrier_type__fedex
 msgid "FedEx (Legacy)"
-msgstr ""
+msgstr "FedEx (устаревший)"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_account_number
 msgid "FedEx Legacy Account Number"
-msgstr ""
+msgstr "Устаревший номер аккаунта FedEx"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_saturday_delivery
@@ -447,7 +447,7 @@ msgstr "PRIORITY_OVERNIGHT"
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
 msgid "Package Weight Unit"
-msgstr "Единица измерения веса упаковки"
+msgstr "Единица измерения веса посылки"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_developer_password
@@ -569,8 +569,8 @@ msgid ""
 "Shipment created into Fedex<br/><b>Tracking Numbers:</b> "
 "%s<br/><b>Packages:</b> %s"
 msgstr ""
-"Создана отправка в FedEx <br/><b>Номера для отслеживания: "
-"</b>%s<br/><b>Упаковки: </b> %s"
+"Отправка создана в FedEx <br/><b>Номера для "
+"отслеживания:</b>%s<br/><b>Посылки:</b>%s"
 
 #. module: delivery_fedex
 #: model:ir.model,name:delivery_fedex.model_delivery_carrier
@@ -606,7 +606,7 @@ msgstr "Стандартные услуги"
 #. module: delivery_fedex
 #: model:ir.model,name:delivery_fedex.model_stock_package_type
 msgid "Stock package type"
-msgstr "Тип складской упаковки"
+msgstr "Тип посылки на складе"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,help:delivery_fedex.field_delivery_carrier__fedex_extra_data_rate_request

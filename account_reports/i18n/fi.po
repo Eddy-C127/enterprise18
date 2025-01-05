@@ -27,6 +27,8 @@
 # Karoliina Nisula <karoliina.nisula@tawasta.fi>, 2024
 # Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # Pekko Tuomisto <pekko.tuomisto@web-veistamo.fi>, 2024
+# Jessica Jakara, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
@@ -34,7 +36,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Pekko Tuomisto <pekko.tuomisto@web-veistamo.fi>, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -502,7 +504,7 @@ msgstr "Kaikki"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "All Journals"
-msgstr "Kaikki päiväkirjat"
+msgstr "Kaikki lokikirjat"
 
 #. module: account_reports
 #. odoo-javascript
@@ -626,7 +628,7 @@ msgstr "Alkaen"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "As of %s"
-msgstr "Päivästä %s alkaen"
+msgstr "%s"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_period0
@@ -1714,7 +1716,7 @@ msgstr "Tiedostonimi"
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 #, python-format
 msgid "Filters"
-msgstr "Suotimet"
+msgstr "Suodattimet"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2246,7 +2248,7 @@ msgstr "Päiväkirjan kirjaus"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Journal Groups"
-msgstr "Päiväkirjaryhmät"
+msgstr "Lokikirjaryhmät"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_move_line
@@ -2266,7 +2268,7 @@ msgstr "Päiväkirjatapahtuma"
 #: code:addons/account_reports/static/src/components/partner_ledger/line_name.xml:0
 #, python-format
 msgid "Journal Items"
-msgstr "Päiväkirjan tapahtumat"
+msgstr "Lokikirjan tapahtumat"
 
 #. module: account_reports
 #. odoo-python
@@ -2300,7 +2302,7 @@ msgstr "Päiväkirjamerkinnät, joissa on arkistoituja verotunnisteita"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Journals"
-msgstr "Päiväkirjat"
+msgstr "Lokikirjat"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2825,7 +2827,7 @@ msgstr "Partnerin tilikirjan mukautettu käsittelijä"
 #. module: account_reports
 #: model:ir.ui.menu,name:account_reports.account_reports_partners_reports_menu
 msgid "Partner Reports"
-msgstr "Partnerin raportit"
+msgstr "Yhteistyökumppanin raportit"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3004,6 +3006,27 @@ msgstr "Esikatsele dataa"
 #, python-format
 msgid "Previous Period"
 msgstr "Edellinen jakso"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
+#, python-format
+msgid "Previous Periods"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
+#, python-format
+msgid "Previous Year"
+msgstr "Edellinen vuosi"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
+#, python-format
+msgid "Previous Years"
+msgstr ""
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_previous_year_earnings0
@@ -4173,7 +4196,7 @@ msgstr "laskut"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "journal items"
-msgstr "päiväkirjan tapahtumat"
+msgstr "lokikirjan tapahtumat"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4259,7 +4282,7 @@ msgstr "->"
 #: code:addons/account_reports/static/src/components/account_report/warnings.xml:0
 #, python-format
 msgid "unposted Journal Entries"
-msgstr "kirjaamattomat päiväkirjaviennit"
+msgstr "kirjaamattomia lokimerkintöjä"
 
 #. module: account_reports
 #. odoo-javascript

@@ -6,6 +6,7 @@
 # Сергей Шебанин <sergey@shebanin.ru>, 2023
 # Martin Trigaux, 2023
 # Wil Odoo, 2024
+# Ilya Rozhkov, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Ilya Rozhkov, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -68,7 +69,7 @@ msgstr ""
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_gantt
 msgid "<strong>Assignees — </strong>"
-msgstr "<strong>Получатели - </strong>"
+msgstr "<strong>Исполнители — </strong>"
 
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_project_view_gantt
@@ -84,7 +85,7 @@ msgstr "<strong>Срок сдачи:</strong>"
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_gantt
 msgid "<strong>Milestone — </strong>"
-msgstr "<strong>Веха - </strong>"
+msgstr "<strong>Этап — </strong>"
 
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.portal_my_task
@@ -106,7 +107,7 @@ msgstr "<strong>Проект - </strong>"
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_map_view
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_map_view_no_title
 msgid "Assignees"
-msgstr "Ответственные"
+msgstr "Исполнители"
 
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_form
@@ -189,7 +190,7 @@ msgstr ""
 #: code:addons/project_enterprise/models/project_task.py:0
 #, python-format
 msgid "Overlapping Tasks"
-msgstr "Пересекающиеся задачи"
+msgstr "Перекрывающиеся задачи"
 
 #. module: project_enterprise
 #. odoo-python
@@ -249,7 +250,7 @@ msgid ""
 "too far ahead in the future"
 msgstr ""
 "Некоторые задачи не были запланированы, потому что ближайшая доступная дата "
-"начала выполнения была слишком далеко в будущем"
+"начала была слишком далеко в будущем"
 
 #. module: project_enterprise
 #: model:ir.model.fields,field_description:project_enterprise.field_project_task__planned_date_begin
@@ -270,7 +271,7 @@ msgstr "Задача"
 #. module: project_enterprise
 #: model:ir.model,name:project_enterprise.model_project_task_recurrence
 msgid "Task Recurrence"
-msgstr "Повторение заданий"
+msgstr "Повторение задачи"
 
 #. module: project_enterprise
 #: model:ir.model,name:project_enterprise.model_report_project_task_user
@@ -282,7 +283,7 @@ msgstr "Анализ задач"
 #: code:addons/project_enterprise/models/project_task.py:0
 #, python-format
 msgid "Tasks have been successfully scheduled for the upcoming periods."
-msgstr "Задачи были успешно запланированы на ближайшие периоды."
+msgstr "Задачи успешно запланированы на будущие периоды."
 
 #. module: project_enterprise
 #: model:ir.model.constraint,message:project_enterprise.constraint_project_task_planned_dates_check
@@ -315,8 +316,7 @@ msgstr ""
 #, python-format
 msgid "This task cannot be planned before Tasks %s, on which it depends."
 msgstr ""
-"Эта задача не может быть запланирована раньше задачи %s, от которой она "
-"зависит."
+"Эту задачу нельзя запланировать раньше задач %s, от которых она зависит."
 
 #. module: project_enterprise
 #. odoo-python
@@ -326,8 +326,8 @@ msgid ""
 "This user isn't expected to have any tasks assigned during this period "
 "because they don't have any running contract. Planned hours :"
 msgstr ""
-"Ожидается, что у этого пользователя не будет заданий в этот период, "
-"поскольку у него нет действующего контракта. Планируемые часы :"
+"У этого пользователя не должно быть назначенных задач в этот период, так как"
+" у него нет действующего контракта. Запланированные часы:"
 
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.res_config_settings_view_form

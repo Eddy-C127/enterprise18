@@ -18,6 +18,7 @@
 # Collex100, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
+# Ilya Rozhkov, 2024
 # 
 msgid ""
 msgstr ""
@@ -25,7 +26,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Ilya Rozhkov, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -112,7 +113,7 @@ msgstr "%(original_name)s (копия)"
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "%s - Let's meet"
-msgstr "%s - Давай встретимся"
+msgstr "%s — Давай встретимся"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -143,6 +144,8 @@ msgid ""
 "<br/>\n"
 "                                    <span>Duration</span>"
 msgstr ""
+"<br/>\n"
+"                                    <span>Продолжительность</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -150,6 +153,8 @@ msgid ""
 "<br/>\n"
 "                                <span>(Last 30 Days)</span>"
 msgstr ""
+"<br/>\n"
+"                                <span>(Последние 30 дней)</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -157,6 +162,8 @@ msgid ""
 "<br/>\n"
 "                                <span>Scheduled</span>"
 msgstr ""
+"<br/>\n"
+"                                <span>Запланировано</span>"
 
 #. module: appointment
 #: model:mail.template,body_html:appointment.attendee_invitation_mail_template
@@ -845,8 +852,8 @@ msgid ""
 "<strong>Appointment canceled!</strong>\n"
 "                                            You can schedule another appointment from here."
 msgstr ""
-"<strong>Назначение отменено!</strong>\n"
-"                                            Вы можете назначить другую встречу здесь."
+"<strong>Запись отменена!</strong>\n"
+"                                             Вы можете запланировать другую встречу здесь."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -856,10 +863,10 @@ msgid ""
 "                                            Someone has booked the same time slot a few\n"
 "                                            seconds before you."
 msgstr ""
-"<strong>Назначение не состоялось!</strong>\n"
-"                                            Выбранный временной интервал больше не доступен.\n"
-"                                            Кто-то забронировал тот же временной интервал за несколько\n"
-"                                            секунд до вас."
+"<strong>Запись не удалась!</strong>\n"
+"                                            Выбранный временной слот больше не доступен.\n"
+"                                            Кто-то забронировал тот же временной слот \n"
+"                                            за несколько секунд до вас."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -868,7 +875,7 @@ msgid ""
 "                                            The selected timeslot is not available.\n"
 "                                            It appears you already have another meeting with us at that date."
 msgstr ""
-"<strong>Назначение не состоялось!</strong>\n"
+"<strong>Запись не удалась!</strong>\n"
 "                                            Выбранное время недоступно.\n"
 "                                            Похоже, у вас уже есть другая встреча с нами на эту дату."
 
@@ -1381,6 +1388,8 @@ msgid ""
 "Are you sure you want to delete this Booking? Once it's gone, it's gone for "
 "good!"
 msgstr ""
+"Вы уверены, что хотите удалить эту бронь? После удаления её невозможно будет"
+" восстановить!"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__resources_choice
@@ -2819,7 +2828,7 @@ msgstr "Заполнитель"
 #: code:addons/appointment/controllers/appointment.py:0
 #, python-format
 msgid "Please connect to book the appointment"
-msgstr ""
+msgstr "Пожалуйста, подключитесь, чтобы забронировать встречу"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3177,7 +3186,7 @@ msgstr "Поделиться"
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 #, python-format
 msgid "Share Appointment Link"
-msgstr ""
+msgstr "Поделиться ссылкой на встречу"
 
 #. module: appointment
 #. odoo-javascript
@@ -3427,7 +3436,7 @@ msgstr "Время окончания должно быть позже врем�
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "The event %s cannot book resources without an appointment type."
-msgstr ""
+msgstr "Событие %s не может бронировать ресурсы без типа записи."
 
 #. module: appointment
 #. odoo-python
@@ -3714,7 +3723,7 @@ msgstr "Пользователь"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__user_assign_method
 msgid "User Assign Method"
-msgstr ""
+msgstr "Метод назначения пользователя"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__staff_user_ids

@@ -35,9 +35,9 @@ msgid ""
 "\t%s"
 msgstr ""
 "\n"
-"Некоторые товары слишком тяжелые для доставки. \n"
-"                                \n"
-"Разделите их по упаковкам или выберите другого перевозчика:\n"
+"Кроме того, некоторые товары слишком тяжелые для доступных способов доставки.\n"
+"                              \n"
+"Попробуйте разделить количество следующих товаров по посылкам или выберите другого перевозчика:\n"
 "\t%s"
 
 #. module: delivery_sendcloud
@@ -182,12 +182,12 @@ msgstr "Создано"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
 msgid "Default Package Type"
-msgstr "Тип упаковки по умолчанию"
+msgstr "Тип посылки по умолчанию"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_default_package_type_id
 msgid "Default Package Type for Sendcloud"
-msgstr "Тип упаковки по умолчанию для Sendcloud"
+msgstr "Тип посылки по умолчанию для Sendcloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_wizard__carrier_id
@@ -233,7 +233,7 @@ msgstr ""
 msgid ""
 "Ensure picking has shipping weight, if using packages, each package should "
 "have a shipping weight"
-msgstr "Убедитесь, что у сборки и каждой упаковки есть вес для отправки."
+msgstr "Убедитесь, что у сборки и каждой посылки есть вес для доставки."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -381,7 +381,7 @@ msgid ""
 "Note that this price is for %s packages since the order weight is more than "
 "the maximum weight allowed by the shipping method."
 msgstr ""
-"Обратите внимание, что эта цена рассчитана для %s упаковок, так как вес "
+"Обратите внимание, что эта цена рассчитана для %s посылок, так как вес "
 "заказа превышает максимальный допустимый вес для выбранного способа "
 "доставки."
 
@@ -547,8 +547,8 @@ msgid ""
 "Some carriers require package dimensions, you can define these in a package "
 "type that you set as default"
 msgstr ""
-"Для некоторых перевозчиков требуются размеры упаковки, их можно задать в "
-"типе упаковки, установленном по умолчанию"
+"Некоторые перевозчики требуют указания размеров посылки. Вы можете задать "
+"эти размеры в типе посылки, который установите по умолчанию"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -558,8 +558,8 @@ msgid ""
 "Some packages in your transfer are too heavy for the heaviest available "
 "shipping method."
 msgstr ""
-"Некоторые посылки в вашей отправке превышают допустимый вес для доступных "
-"методов доставки."
+"Некоторые посылки в вашей отгрузке слишком тяжелые для самого тяжелого "
+"доступного метода доставки."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -583,7 +583,7 @@ msgstr "Что-то пошло не так, пожалуйста, повтори
 #. module: delivery_sendcloud
 #: model:ir.model,name:delivery_sendcloud.model_stock_package_type
 msgid "Stock package type"
-msgstr "Тип комплекта поставки"
+msgstr "Тип посылки на складе"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -634,7 +634,7 @@ msgstr ""
 msgid ""
 "The total weight of your transfer is too heavy for the heaviest available "
 "shipping method."
-msgstr "Общий вес отправки превышает доступный предел для доставки."
+msgstr "Общий вес отгрузки превышает максимальный доступный метод доставки."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -682,9 +682,9 @@ msgid ""
 "%s\n"
 "You can either choose another carrier, change your filters or redefine the content of your package(s)."
 msgstr ""
-"Нет метода с подходящим диапазоном веса для пакетов:\n"
+"Нет метода, подходящего для веса посылок:\n"
 "%s\n"
-"Вы можете либо выбрать другого перевозчика, либо изменить фильтры, либо пересмотреть содержимое вашего пакета (пакетов)."
+"Вы можете выбрать другого перевозчика, изменить фильтры или пересмотреть содержимое ваших посылок."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -707,7 +707,7 @@ msgstr "Единицы измерения с названием \"%s\" не су
 #. module: delivery_sendcloud
 #: model:ir.model,name:delivery_sendcloud.model_stock_picking
 msgid "Transfer"
-msgstr "Перевод"
+msgstr "Отгрузка"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_use_batch_shipping

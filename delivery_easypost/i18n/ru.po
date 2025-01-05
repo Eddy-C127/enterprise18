@@ -112,12 +112,12 @@ msgstr "Создано"
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_delivery_carrier_form_inherit_delivery_easypost
 msgid "Default Package Type"
-msgstr "Тип упаковки по умолчанию"
+msgstr "Тип посылки по умолчанию"
 
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier__easypost_default_package_type_id
 msgid "Default Package Type for Easypost"
-msgstr "Тип упаковки по умолчанию для Easypost"
+msgstr "Тип посылки по умолчанию для Easypost"
 
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier__easypost_default_service_id
@@ -261,8 +261,8 @@ msgid ""
 "It seems Easypost do not provide shipments for this order.                We"
 " advise you to try with another package type or service level."
 msgstr ""
-"Похоже, Easypost не предоставляет доставку для этого заказа.            "
-"Рекомендуем попробовать другой тип упаковки или уровень обслуживания."
+"Кажется, Easypost не может доставить этот заказ.                      "
+"Попробуйте выбрать другой тип посылки или способ доставки."
 
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_delivery_carrier_form_inherit_delivery_easypost
@@ -306,7 +306,7 @@ msgstr "PNG"
 #: code:addons/delivery_easypost/models/easypost_request.py:0
 #, python-format
 msgid "Package type used in pack %s is not configured for easypost."
-msgstr "Тип упаковки %s не настроен для Easypost."
+msgstr "Тип посылки %s не настроен для Easypost."
 
 #. module: delivery_easypost
 #. odoo-python
@@ -376,7 +376,7 @@ msgstr "Регистрация"
 #. module: delivery_easypost
 #: model:ir.model,name:delivery_easypost.model_stock_package_type
 msgid "Stock package type"
-msgstr "Тип складской упаковки"
+msgstr "Тип посылки на складе"
 
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier__easypost_test_api_key
@@ -391,8 +391,8 @@ msgid ""
 "The %s carrier is missing (Missing field(s) :\n"
 " Default Package Type)"
 msgstr ""
-"Для перевозчика %s отсутствует поле:\n"
-"Тип упаковки по умолчанию"
+"У перевозчика %s отсутствует поле: \n"
+"Тип посылки по умолчанию)"
 
 #. module: delivery_easypost
 #. odoo-python
@@ -457,12 +457,13 @@ msgid ""
 "There is no rate available for the selected service level for one of your "
 "package. Please choose another service level."
 msgstr ""
-"Нет тарифов для выбранного уровня обслуживания. Выберите другой уровень."
+"Для выбранного способа доставки нет доступных тарифов для одной из ваших "
+"посылок. Пожалуйста, выберите другой способ доставки."
 
 #. module: delivery_easypost
 #: model:ir.model,name:delivery_easypost.model_stock_picking
 msgid "Transfer"
-msgstr "Перевод"
+msgstr "Отгрузка"
 
 #. module: delivery_easypost
 #. odoo-python
