@@ -4,9 +4,9 @@
 # 
 # Translators:
 # Trần Hà <tranthuha13590@gmail.com>, 2024
-# Thi Huong Nguyen, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -134,6 +134,26 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Xin chào <t t-out=\"ctx.get('employee_to_name', 'employee')\">nhân viên</t>,\n"
+"                        <br/>\n"
+"                        <t t-out=\"ctx.get('author_name', '')\">Addison Olson</t> (<t t-out=\"ctx.get('author_mail', '')\">addison.olson28@example.com</t>) muốn tiến hành đánh giá.\n"
+"                        <t t-if=\"ctx.get('user_body')\">\n"
+"                            <div style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; background-color: #F1F1F1;\">\n"
+"                                <t t-out=\"ctx.get('user_body')\">Đánh giá hàng năm.</t>\n"
+"                            </div>\n"
+"                        </t>\n"
+"                        <t t-if=\"ctx.get('recipient_users')\">\n"
+"                            <p style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; text-align: center;\">\n"
+"                                <a t-att-href=\"ctx.get('url')\" style=\" margin: auto; background-color:#875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;\">\n"
+"                                    Xem đánh giá\n"
+"                                </a>\n"
+"                            </p>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: hr_appraisal
 #: model:mail.template,body_html:hr_appraisal.mail_template_appraisal_request
@@ -162,6 +182,29 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Xin chào <t t-out=\"ctx.get('employee_to_name', 'employee')\">nhân viên</t>,\n"
+"                        <br/>\n"
+"                        <t t-out=\"ctx.get('author_name', '')\">Addison Olson</t> đã đề nghị tiến hành một buổi đánh giá\n"
+"                        <br/>\n"
+"                        (<t t-out=\"ctx.get('author_mail', '')\">addison.olson28@example.com</t>).\n"
+"                        <t t-if=\"ctx.get('user_body')\">\n"
+"                            <div style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; background-color: #F1F1F1;\">\n"
+"                                <t t-out=\"ctx.get('user_body')\">Đánh giá hàng năm.</t>\n"
+"                            </div>\n"
+"                        </t>\n"
+"                        <t t-if=\"ctx.get('recipient_users')\">\n"
+"                            <p style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; text-align: center;\">\n"
+"                                <a t-att-href=\"ctx.get('url')\" style=\" margin: auto; background-color:#875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;\">\n"
+"                                    Xem đánh giá\n"
+"                                </a>\n"
+"                            </p>\n"
+"                        </t>\n"
+"                        <br/>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -541,6 +584,10 @@ msgid ""
 "                                    <br>\n"
 "                                </strong>"
 msgstr ""
+"<strong class=\"text-o-color-4\">\n"
+"                                    ÍT NHẤT\n"
+"                                    <br>\n"
+"                                </strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
@@ -550,21 +597,25 @@ msgid ""
 "                                    <br>\n"
 "                                </strong>"
 msgstr ""
+"<strong class=\"text-o-color-4\">\n"
+"                                    NHIỀU NHẤT\n"
+"                                    <br>\n"
+"                                </strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>360 feedback :</strong>"
-msgstr ""
+msgstr "<strong>Phản hồi 360:</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 msgid "<strong>Any particular remark on the training ?</strong>"
-msgstr ""
+msgstr "<strong>Bạn có nhận xét cụ thể nào về khóa đào tạo không?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Are you happy with your current role ?</strong>"
-msgstr ""
+msgstr "<strong>Bạn có hài lòng với công việc hiện tại không?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_post_training_template
@@ -572,31 +623,33 @@ msgid ""
 "<strong>Can the employee accurately recall and explain the key concepts from"
 " the training ?</strong>"
 msgstr ""
+"<strong>Nhân viên có thể nhớ lại và giải thích chính xác các khái niệm chính"
+" trong khóa đào tạo không?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Career objective</strong>"
-msgstr ""
+msgstr "<strong>Mục tiêu nghề nghiệp</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>Career opportunities</strong>"
-msgstr ""
+msgstr "<strong>Cơ hội nghề nghiệp</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>Company Feedback</strong>"
-msgstr ""
+msgstr "<strong>Phản hồi của công ty</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "<strong>Could you provide examples ?</strong>"
-msgstr ""
+msgstr "<strong>Bạn có thể nêu ví dụ không?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Create your SWOT</strong>"
-msgstr ""
+msgstr "<strong>Tạo SWOT của bạn</strong>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_report_view_gantt
@@ -608,21 +661,23 @@ msgstr "<strong>Ngày tháng — </strong>"
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Do you seek any particular career path ?</strong>"
 msgstr ""
+"<strong>Bạn có đang hướng đến một con đường sự nghiệp cụ thể nào "
+"không?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "<strong>Feedback on management</strong>"
-msgstr ""
+msgstr "<strong>Phản hồi về đội ngũ quản lý</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>GOALS :</strong>"
-msgstr ""
+msgstr "<strong>MỤC TIÊU:</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "<strong>Handover to manage inside the team</strong>"
-msgstr ""
+msgstr "<strong>Bàn giao quản lý trong bộ phận</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_post_training_template
@@ -630,6 +685,8 @@ msgid ""
 "<strong>Has the employee effectively integrated the new skills or knowledge "
 "into their daily work tasks ?</strong>"
 msgstr ""
+"<strong>Nhân viên có áp dụng hiệu quả các kỹ năng hoặc kiến ​​thức mới vào "
+"công việc hàng ngày của mình không?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_post_training_template
@@ -637,6 +694,8 @@ msgid ""
 "<strong>How actively did the employee participate during the training "
 "sessions (e.g., asking questions, contributing to discussions) ?</strong>"
 msgstr ""
+"<strong>Nhân viên đã tham gia tích cực như thế nào trong các buổi đào tạo "
+"(VD: đặt câu hỏi, góp ý khi thảo luận)?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
@@ -644,6 +703,8 @@ msgid ""
 "<strong>How confident do you feel in using the skills and knowledge gained "
 "from the training in your work ?</strong>"
 msgstr ""
+"<strong>Bạn cảm thấy tự tin như thế nào khi áp dụng những kỹ năng và kiến "
+"​​thức thu được từ khóa đào tạo vào công việc?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
@@ -651,21 +712,27 @@ msgid ""
 "<strong>How do you feel about the support and resources provided to you "
 "during this period ?</strong>"
 msgstr ""
+"<strong>Bạn cảm thấy thế nào về sự hỗ trợ và tài nguyên được cung cấp cho "
+"bạn trong khoảng thời gian này?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 msgid "<strong>How helpful were the provided materials ?</strong>"
-msgstr ""
+msgstr "<strong>Tài liệu được cung cấp có hữu ích không?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 msgid "<strong>How would you asses your level before the training ?</strong>"
 msgstr ""
+"<strong>Bạn đánh giá trình độ của mình như thế nào trước khi tham gia đào "
+"tạo?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 msgid "<strong>How would you assess your level post training ?</strong>"
 msgstr ""
+"<strong>Bạn đánh giá trình độ của mình như thế nào sau khi tham gia đào "
+"tạo?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_post_training_template
@@ -673,17 +740,19 @@ msgid ""
 "<strong>How would you rate the employee's proficiency in the skill on a "
 "scale from 1 to 10 ?</strong>"
 msgstr ""
+"<strong>Bạn đánh giá trình độ thành thạo kỹ năng của nhân viên như thế nào "
+"trên thang điểm từ 1 đến 10?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Management feedback and assessment</strong>"
-msgstr ""
+msgstr "<strong>Phản hồi và đánh giá của đội ngũ quản lý</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>Motivations</strong>"
-msgstr ""
+msgstr "<strong>Động lực</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_post_training_template
@@ -691,16 +760,18 @@ msgid ""
 "<strong>On a scale of 1 to 10, how would you rate the employee’s overall "
 "improvement since the training ?</strong>"
 msgstr ""
+"<strong>Bạn đánh giá tổng thể mức độ cải thiện của nhân viên kể từ khi đào "
+"tạo như thế nào trên thang điểm từ 1 đến 10?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>Opportunity</strong>"
-msgstr ""
+msgstr "<strong>Cơ hội</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>Overall experience feedback</strong>"
-msgstr ""
+msgstr "<strong>Phản hồi về trải nghiệm tổng thể</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
@@ -708,62 +779,62 @@ msgstr ""
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Overall personal experience</strong>"
-msgstr ""
+msgstr "<strong>Trải nghiệm cá nhân tổng thể</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "<strong>Position succession and candidate suggestion</strong>"
-msgstr ""
+msgstr "<strong>Kế nhiệm và đề xuất ứng viên</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>SWOT results</strong>"
-msgstr ""
+msgstr "<strong>Kết quả SWOT</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>SWOT</strong>"
-msgstr ""
+msgstr "<strong>SWOT</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 msgid "<strong>Skills at stakes :</strong>"
-msgstr ""
+msgstr "<strong>Kỹ năng đang bị thui chột:</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>Strength</strong>"
-msgstr ""
+msgstr "<strong>Điểm mạnh</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Things to keep doing ?</strong>"
-msgstr ""
+msgstr "<strong>Những việc cần tiếp tục làm?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Things to start doing ?</strong>"
-msgstr ""
+msgstr "<strong>Những việc cần bắt đầu làm?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Things to stop doing ?</strong>"
-msgstr ""
+msgstr "<strong>Những việc cần ngừng làm?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>Threats</strong>"
-msgstr ""
+msgstr "<strong>Thách thức</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Time to assess the leadership team:</strong>"
-msgstr ""
+msgstr "<strong>Đánh giá đội ngũ lãnh đạo:</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 msgid "<strong>Training assessment</strong>"
-msgstr ""
+msgstr "<strong>Đánh giá đào tạo</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
@@ -771,11 +842,13 @@ msgid ""
 "<strong>We wish you the best of success and sincerely thank you for your "
 "invaluable contribution to the company's achievements.</strong>"
 msgstr ""
+"<strong>Chúng tôi chúc bạn thành công và chân thành cảm ơn những đóng góp vô"
+" giá của bạn vào thành tựu của công ty.</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>Weakness</strong>"
-msgstr ""
+msgstr "<strong>Điểm yếu</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
@@ -783,11 +856,13 @@ msgid ""
 "<strong>What advice do you have for improving management's leadership and "
 "support for future employees ?</strong>"
 msgstr ""
+"<strong>Bạn có lời khuyên nào để ban quản lý cải thiện khả năng lãnh đạo và "
+"hỗ trợ cho nhân viên tương lai không?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "<strong>What advice would you give to the successor ?</strong>"
-msgstr ""
+msgstr "<strong>Bạn sẽ đưa ra lời khuyên gì cho người kế nhiệm?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
@@ -795,6 +870,7 @@ msgid ""
 "<strong>What are your thoughts on the company culture and work environment "
 "?</strong>"
 msgstr ""
+"<strong>Bạn nghĩ gì về văn hóa công ty và môi trường làm việc?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
@@ -802,11 +878,13 @@ msgid ""
 "<strong>What are your thoughts on the recent changes in the company ? Were "
 "you able to adapt ?</strong>"
 msgstr ""
+"<strong>Bạn nghĩ gì về những thay đổi gần đây trong công ty? Bạn có thể "
+"thích nghi được không?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>What are your thoughts on working with your team ?</strong>"
-msgstr ""
+msgstr "<strong>Bạn nghĩ sao khi làm việc với bộ phận của mình?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
@@ -814,6 +892,8 @@ msgid ""
 "<strong>What are your thoughts on your overall experience during the "
 "probationary period ?</strong>"
 msgstr ""
+"<strong>Bạn nghĩ gì về trải nghiệm tổng thể của mình trong thời gian thử "
+"việc?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
@@ -821,17 +901,21 @@ msgid ""
 "<strong>What aspects of management and leadership at the company were most "
 "effective in helping you succeed ?</strong>"
 msgstr ""
+"<strong>Những khía cạnh nào về đội ngũ quản lý và lãnh đạo tại công ty có "
+"hiệu quả nhất trong việc giúp bạn thành công?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid ""
 "<strong>What aspects of your role have you enjoyed the most/least ?</strong>"
 msgstr ""
+"<strong>Bạn thích/không thích khía cạnh nào nhất trong vai trò của "
+"mình?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>What change would you see in the company ?</strong>"
-msgstr ""
+msgstr "<strong>Bạn mong đợi thấy sự thay đổi gì ở công ty?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_post_training_template
@@ -839,12 +923,14 @@ msgid ""
 "<strong>What further actions (e.g., additional training, mentoring) do you "
 "recommend to support the employee’s continued development ?</strong>"
 msgstr ""
+"<strong>Bạn đề xuất những hành động nào tiếp theo (VD: đào tạo bổ sung, cố "
+"vấn) để hỗ trợ sự phát triển liên tục của nhân viên?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid ""
 "<strong>What is your overall feeling about the previous year ?</strong>"
-msgstr ""
+msgstr "<strong>Cảm nhận chung của bạn về năm trước thế nào?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
@@ -852,6 +938,8 @@ msgid ""
 "<strong>What key skills should the management team focus on for a smooth "
 "transition ?</strong>"
 msgstr ""
+"<strong>Đội ngũ quản lý nên tập trung vào những kỹ năng chính nào để quá "
+"trình chuyển đổi diễn ra suôn sẻ?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
@@ -859,23 +947,25 @@ msgid ""
 "<strong>What motivates you to continue working with us, and what are your "
 "career aspirations here ?</strong>"
 msgstr ""
+"<strong>Điều gì thúc đẩy bạn tiếp tục làm việc với chúng tôi và nguyện vọng "
+"nghề nghiệp của bạn ở đây là gì?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "<strong>What were the key challenges in your position ?</strong>"
-msgstr ""
+msgstr "<strong>Những thách thức chính trong vị trí của bạn là gì?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Which emotions were prevalent ?</strong>"
-msgstr ""
+msgstr "<strong>Những cảm xúc nào mạnh mẽ nhất?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid ""
 "<strong>Which skills do you possess that you feel the company is not "
 "utilizing ?</strong>"
-msgstr ""
+msgstr "<strong>Bạn có những kỹ năng nào chưa được tận dụng không?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
@@ -883,16 +973,18 @@ msgid ""
 "<strong>Which skills would you like to prioritize for training, and why "
 "?</strong>"
 msgstr ""
+"<strong>Bạn muốn ưu tiên rèn luyện những kỹ năng nào và tại sao?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "<strong>Who would you see as your successor ?</strong>"
-msgstr ""
+msgstr "<strong>Bạn nghĩ ai sẽ là người kế nhiệm mình?</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 msgid "<strong>Would you need extra help from the management team ?</strong>"
 msgstr ""
+"<strong>Bạn có cần thêm sự trợ giúp từ đội ngũ quản lý không?</strong>"
 
 #. module: hr_appraisal
 #: model:ir.model.constraint,message:hr_appraisal.constraint_hr_appraisal_goal_tag_name_uniq
@@ -2150,7 +2242,7 @@ msgstr ""
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "Overall experience feedback"
-msgstr ""
+msgstr "Phản hồi về trải nghiệm tổng thể"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_employee__parent_user_id
@@ -2386,7 +2478,7 @@ msgstr ""
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "Strengths"
-msgstr ""
+msgstr "Điểm mạnh"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -2517,7 +2609,7 @@ msgstr "Trường này không hiển thị cho nhân viên."
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "Threats"
-msgstr ""
+msgstr "Thách thức"
 
 #. module: hr_appraisal
 #: model:ir.model.fields.selection,name:hr_appraisal.selection__hr_appraisal__state__new
@@ -2622,7 +2714,7 @@ msgstr "Đang chờ phản hồi từ nhân viên/quản lý"
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "Weaknesses"
-msgstr ""
+msgstr "Điểm yếu"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__website_message_ids

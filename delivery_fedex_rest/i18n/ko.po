@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Sarah Park, 2024
+# Daye Jeong, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 13:00+0000\n"
 "PO-Revision-Date: 2024-12-01 01:20+0000\n"
-"Last-Translator: Sarah Park, 2024\n"
+"Last-Translator: Daye Jeong, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -66,6 +67,8 @@ msgid ""
 "<span invisible=\"fedex_rest_weight_unit != 'KG'\">Centimeters</span>\n"
 "                                <span invisible=\"fedex_rest_weight_unit != 'LB'\">Inches</span>"
 msgstr ""
+"<span invisible=\"fedex_rest_weight_unit != 'KG'\">센티미터</span>\n"
+"                                <span invisible=\"fedex_rest_weight_unit != 'LB'\">인치</span>"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_developer_key
@@ -90,12 +93,12 @@ msgstr "운송업체"
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_residential_address__check
 msgid "Check using FedEx Address API"
-msgstr ""
+msgstr "FedEx 주소 API를 사용하여 확인"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_droppoff_type__contact_fedex_to_schedule
 msgid "Contact FedEx for pickup"
-msgstr ""
+msgstr "픽업 관련 내용은 FedEx에 문의해 주세요."
 
 #. module: delivery_fedex_rest
 #. odoo-python
@@ -115,7 +118,7 @@ msgstr ""
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_droppoff_type__dropoff_at_fedex_location
 msgid "Drop off at FedEx location"
-msgstr ""
+msgstr "FedEx 지점에서 수령"
 
 #. module: delivery_fedex_rest
 #: model_terms:ir.ui.view,arch_db:delivery_fedex_rest.view_delivery_carrier_form_with_provider_fedex
@@ -130,12 +133,12 @@ msgstr "EPL2"
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_documentation_type__etd
 msgid "Electronic Trade Documents"
-msgstr ""
+msgstr "전자 무역 문서"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_email_notifications
 msgid "Email Notifications"
-msgstr ""
+msgstr "이메일 알림"
 
 #. module: delivery_fedex_rest
 #. odoo-python
@@ -144,6 +147,8 @@ msgid ""
 "Error(s) from FedEx:\n"
 "%s"
 msgstr ""
+"FedEx 오류: \n"
+"%s"
 
 #. module: delivery_fedex_rest
 #: model_terms:ir.ui.view,arch_db:delivery_fedex_rest.view_delivery_carrier_form_with_provider_fedex
@@ -174,32 +179,32 @@ msgstr "FedEx"
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_1_day_freight
 msgid "FedEx 1Day® Freight"
-msgstr ""
+msgstr "FedEx 1Day® 화물"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_2_day
 msgid "FedEx 2Day®"
-msgstr ""
+msgstr "FedEx 2Day®"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_2_day_am
 msgid "FedEx 2Day® AM"
-msgstr ""
+msgstr "FedEx 2Day® AM"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_2_day_freight
 msgid "FedEx 2Day® Freight"
-msgstr ""
+msgstr "FedEx 2Day® 화물"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_3_day_freight
 msgid "FedEx 3Day® Freight"
-msgstr ""
+msgstr "FedEx 3Day® 화물"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_access_token
 msgid "FedEx Access Token"
-msgstr ""
+msgstr "FedEx 액세스 토큰"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_account_number
@@ -209,182 +214,182 @@ msgstr "FedEx 계정 번호"
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_droppoff_type
 msgid "FedEx Drop-Off Type"
-msgstr ""
+msgstr "FedEx 드롭오프 유형"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_economy
 msgid "FedEx Economy"
-msgstr ""
+msgstr "FedEx 이코노미"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_economy_select
 msgid "FedEx Economy (Only U.K.)"
-msgstr ""
+msgstr "FedEx Economy (영국만 해당)"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_economy_freight
 msgid "FedEx Economy Freight"
-msgstr ""
+msgstr "FedEx 이코노미 화물"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__europe_first_international_priority
 msgid "FedEx Europe First®"
-msgstr ""
+msgstr "FedEx Europe First®"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_express_saver
 msgid "FedEx Express Saver®"
-msgstr ""
+msgstr "FedEx Express Saver®"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_first
 msgid "FedEx First"
-msgstr ""
+msgstr "FedEx 퍼스트"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__first_overnight
 msgid "FedEx First Overnight®"
-msgstr ""
+msgstr "FedEx First Overnight®"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_first_freight
 msgid "FedEx First Overnight® Freight"
-msgstr ""
+msgstr "FedEx First Overnight® Freight"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__smart_post
 msgid "FedEx Ground® Economy (Formerly known as FedEx SmartPost®)"
-msgstr ""
+msgstr "FedEx Ground® Economy (이전 명칭: FedEx SmartPost®)"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__ground_home_delivery
 msgid "FedEx Home Delivery® "
-msgstr ""
+msgstr "FedEx Home Delivery® "
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_international_connect_plus
 msgid "FedEx International Connect Plus®"
-msgstr ""
+msgstr "FedEx International Connect Plus®"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__international_economy_distribution
 msgid "FedEx International Economy DirectDistribution"
-msgstr ""
+msgstr "FedEx International Economy DirectDistribution"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__international_economy_freight
 msgid "FedEx International Economy® Freight"
-msgstr ""
+msgstr "FedEx International Economy® Freight"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__international_first
 msgid "FedEx International First®"
-msgstr ""
+msgstr "FedEx International First®"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_ground
 msgid "FedEx International Ground® and FedEx Domestic Ground®"
-msgstr ""
+msgstr "FedEx International Ground® and FedEx Domestic Ground®"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__international_priority_distribution
 msgid "FedEx International Priority DirectDistribution®"
-msgstr ""
+msgstr "FedEx International Priority DirectDistribution®"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__international_distribution_freight
 msgid "FedEx International Priority DirectDistribution® Freight"
-msgstr ""
+msgstr "FedEx International Priority DirectDistribution® Freight"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_international_priority
 msgid "FedEx International Priority®"
-msgstr ""
+msgstr "FedEx International Priority®"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_international_priority_express
 msgid "FedEx International Priority® Express"
-msgstr ""
+msgstr "FedEx International Priority® Express"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__international_priority_freight
 msgid "FedEx International Priority® Freight"
-msgstr ""
+msgstr "FedEx International Priority® Freight"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_default_package_type_id
 msgid "FedEx Package Type"
-msgstr ""
+msgstr "FedEx 패키지 유형"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_priority
 msgid "FedEx Priority"
-msgstr ""
+msgstr "FedEx Priority"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_priority_express
 msgid "FedEx Priority Express"
-msgstr ""
+msgstr "FedEx Priority Express"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_priority_express_freight
 msgid "FedEx Priority Express Freight"
-msgstr ""
+msgstr "FedEx Priority Express Freight"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_priority_freight
 msgid "FedEx Priority Freight"
-msgstr ""
+msgstr "FedEx Priority Freight"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__priority_overnight
 msgid "FedEx Priority Overnight®"
-msgstr ""
+msgstr "FedEx Priority Overnight®"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__same_day
 msgid "FedEx SameDay®"
-msgstr ""
+msgstr "FedEx SameDay®"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__same_day_city
 msgid "FedEx SameDay® City"
-msgstr ""
+msgstr "FedEx SameDay® City"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_service_type
 msgid "FedEx Service Type"
-msgstr ""
+msgstr "FedEx 서비스 유형"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__standard_overnight
 msgid "FedEx Standard Overnight®"
-msgstr ""
+msgstr "FedEx Standard Overnight®"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_international_deferred_freight
 msgid "FedEx® International Deferred Freight"
-msgstr ""
+msgstr "FedEx® International Deferred Freight"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__international_economy
 msgid "FedEx® International Economy"
-msgstr ""
+msgstr "FedEx® International Economy"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_regional_economy
 msgid "FedEx® Regional Economy"
-msgstr ""
+msgstr "FedEx® Regional Economy"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__fedex_regional_economy_freight
 msgid "FedEx® Regional Economy Freight"
-msgstr ""
+msgstr "FedEx® Regional Economy Freight"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_uom_uom__fedex_code
 msgid "Fedex Code"
-msgstr ""
+msgstr "Fedex 코드"
 
 #. module: delivery_fedex_rest
 #: model_terms:ir.ui.view,arch_db:delivery_fedex_rest.view_delivery_carrier_form_with_provider_fedex
@@ -394,7 +399,7 @@ msgstr "FedEx 환경 설정"
 #. module: delivery_fedex_rest
 #: model_terms:ir.ui.view,arch_db:delivery_fedex_rest.view_delivery_carrier_form_with_provider_fedex
 msgid "Fedex Developer Website"
-msgstr ""
+msgstr "Fedex 개발자 웹사이트"
 
 #. module: delivery_fedex_rest
 #: model:delivery.carrier,name:delivery_fedex_rest.delivery_carrier_fedex_inter
@@ -405,12 +410,12 @@ msgstr "Fedex International"
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_duty_payment
 msgid "Fedex Rest Duty Payment"
-msgstr ""
+msgstr "Fedex 통관 수수료 지불"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_weight_unit
 msgid "Fedex Rest Weight Unit"
-msgstr ""
+msgstr "Fedex 통관 무게 단위"
 
 #. module: delivery_fedex_rest
 #: model_terms:ir.ui.view,arch_db:delivery_fedex_rest.view_delivery_carrier_form_with_provider_fedex
@@ -437,7 +442,7 @@ msgstr ""
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_documentation_type
 msgid "Generate invoice"
-msgstr ""
+msgstr "청구서 생성"
 
 #. module: delivery_fedex_rest
 #: model_terms:ir.ui.view,arch_db:delivery_fedex_rest.view_delivery_carrier_form_with_provider_fedex
@@ -447,7 +452,7 @@ msgstr "이동하기"
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__intl_ground_distribution
 msgid "International Ground® Distribution (IGD)"
-msgstr ""
+msgstr "International Ground® Distribution (IGD)"
 
 #. module: delivery_fedex_rest
 #. odoo-python
@@ -463,7 +468,7 @@ msgstr "킬로그램"
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_label_file_type
 msgid "Label File Type"
-msgstr ""
+msgstr "라벨 파일 유형"
 
 #. module: delivery_fedex_rest
 #: model_terms:ir.ui.view,arch_db:delivery_fedex_rest.view_delivery_carrier_form_with_provider_fedex
@@ -473,7 +478,7 @@ msgstr "라벨 양식"
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_label_stock_type
 msgid "Label Size"
-msgstr ""
+msgstr "라벨 크기"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_residential_address__never
@@ -554,7 +559,7 @@ msgstr "패키지:"
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_droppoff_type__use_scheduled_pickup
 msgid "Part of regular scheduled pickup"
-msgstr ""
+msgstr "정기 픽업 서비스의 일부"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_weight_unit__lb
@@ -564,7 +569,7 @@ msgstr "파운드"
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_documentation_type__invoice
 msgid "Print PDF"
-msgstr ""
+msgstr "PDF 인쇄"
 
 #. module: delivery_fedex_rest
 #: model:ir.model,name:delivery_fedex_rest.model_uom_uom
@@ -585,12 +590,12 @@ msgstr "수신인"
 #. odoo-python
 #: code:addons/delivery_fedex_rest/models/delivery_fedex.py:0
 msgid "Required documents:"
-msgstr ""
+msgstr "필요한 서류:"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_residential_address
 msgid "Residential delivery"
-msgstr ""
+msgstr "가정집 배달"
 
 #. module: delivery_fedex_rest
 #. odoo-python
@@ -657,13 +662,13 @@ msgstr "보낸 사람"
 #. odoo-python
 #: code:addons/delivery_fedex_rest/models/delivery_fedex.py:0
 msgid "Shipment %s has been cancelled"
-msgstr ""
+msgstr "배송 %s이 취소되었습니다."
 
 #. module: delivery_fedex_rest
 #. odoo-python
 #: code:addons/delivery_fedex_rest/models/delivery_fedex.py:0
 msgid "Shipment created into Fedex"
-msgstr ""
+msgstr "Fedex로 배송 생성"
 
 #. module: delivery_fedex_rest
 #: model:ir.model,name:delivery_fedex_rest.model_delivery_carrier
@@ -700,17 +705,17 @@ msgstr "배송 조회 번호:"
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__transborder_distribution
 msgid "Transborder distribution"
-msgstr ""
+msgstr "국경 간 유통"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_override_shipper_vat
 msgid "Union tax id (EORI/IOSS)"
-msgstr ""
+msgstr "연합 세금 식별 번호 (EORI/IOSS)"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,help:delivery_fedex_rest.field_uom_uom__fedex_code
 msgid "UoM Code sent to FedEx"
-msgstr ""
+msgstr "UoM 코드, FedEx 발송"
 
 #. module: delivery_fedex_rest
 #. odoo-python
@@ -719,6 +724,8 @@ msgid ""
 "Warning(s) from FedEx:\n"
 "%s"
 msgstr ""
+"FedEx 경고:\n"
+"%s"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,help:delivery_fedex_rest.field_delivery_carrier__fedex_rest_email_notifications
@@ -751,4 +758,4 @@ msgstr "ZPLII"
 #. module: delivery_fedex_rest
 #: model_terms:ir.ui.view,arch_db:delivery_fedex_rest.view_delivery_carrier_form_with_provider_fedex
 msgid "to create a FedEx developer account"
-msgstr ""
+msgstr "FedEx 개발자 계정 만들기"

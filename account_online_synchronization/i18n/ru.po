@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Ilya Rozhkov, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Ilya Rozhkov, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -286,7 +287,7 @@ msgstr "Отменить"
 #. odoo-python
 #: code:addons/account_online_synchronization/models/account_online.py:0
 msgid "Check the documentation"
-msgstr ""
+msgstr "Проверьте документацию"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_duplicate_transaction_wizard_view_form
@@ -616,6 +617,9 @@ msgid ""
 "                \n"
 "If the automatic sync is disabled. that will be due to security policy on the bank's end. So, they have to launch the sync manually"
 msgstr ""
+"Если возможно, мы попробуем автоматически получить новые транзакции для этой записи.\n"
+"                  \n"
+"Если автоматическая синхронизация отключена, это связано с политикой безопасности банка. В этом случае синхронизацию нужно будет запустить вручную"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -687,6 +691,9 @@ msgid ""
 "already has existing entries. You can't link selected bank account in "
 "%(currency_name)s to it"
 msgstr ""
+"Журнал %(journal_name)s настроен с другой валютой и уже содержит "
+"существующие записи. Вы не можете связать выбранный банковский счёт в "
+"%(currency_name)s с ним"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__last_refresh
@@ -1106,7 +1113,7 @@ msgstr "Спасибо!"
 #. odoo-python
 #: code:addons/account_online_synchronization/models/account_online.py:0
 msgid "The consent for the selected account has expired."
-msgstr ""
+msgstr "Срок действия согласия для выбранного аккаунта истек."
 
 #. module: account_online_synchronization
 #. odoo-python

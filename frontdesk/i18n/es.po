@@ -64,6 +64,11 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"                    <p>Hola <t t-if=\"ctx.get('host_name')\"><t t-out=\"ctx.get('host_name')\"/>, </t><b><t t-out=\"object.name\"/></b> <t t-if=\"object.phone\">(<t t-out=\"object.phone\"/>)</t><t t-if=\"object.company\">, que viene de <t t-out=\"object.company\"/></t> solicitó reunirse con usted en <t t-out=\"object.station_id.name\"/>. Hágale saber que estará ahí en un momento.\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: frontdesk
 #: model_terms:web_tour.tour,rainbow_man_message:frontdesk.frontdesk_tour

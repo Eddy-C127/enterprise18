@@ -9,7 +9,6 @@
 # Munkhbilguun Altankhuyag <munkhbilguunaltankhuyag@gmail.com>, 2024
 # tumenjargal hadbaatar <tumenjargal7903@gmail.com>, 2024
 # Cheemee Bumtsend <cheemeesun@gmail.com>, 2024
-# Ganbaatar Buriad <Ganbaatar@asterisk-tech.mn>, 2024
 # Батболд <batbold.ts@gmail.com>, 2024
 # Munkhbaatar g <muuguu17@gmail.com>, 2024
 # Гэрэлтцог Цогтбаатар, 2024
@@ -20,8 +19,8 @@
 # Minj P <pminj322@gmail.com>, 2024
 # Sanjaajamts Badamjunai <b.sanjaajamtsfc@gmail.com>, 2024
 # Batmunkh Ganbat <batmunkh2522@gmail.com>, 2024
-# Bayarkhuu Bataa, 2024
 # Martin Trigaux, 2024
+# Bayarkhuu Bataa, 2024
 # 
 msgid ""
 msgstr ""
@@ -29,7 +28,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Bayarkhuu Bataa, 2024\n"
 "Language-Team: Mongolian (https://app.transifex.com/odoo/teams/41243/mn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -253,7 +252,7 @@ msgstr ""
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_view_form
 msgid "<span class=\"o_stat_text\">Employees</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Ажилтан</span>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
@@ -1211,7 +1210,7 @@ msgstr "Улсын код"
 #. module: hr_payroll
 #: model:ir.actions.server,name:hr_payroll.action_hr_payroll_confirm_payroll
 msgid "Create Draft Entry"
-msgstr "Ноорог бичилт үүсгэх"
+msgstr "Батлах"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_form
@@ -1820,7 +1819,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_line_filter
 msgid "Employees"
-msgstr "Хүний нөөц"
+msgstr "Ажилтан"
 
 #. module: hr_payroll
 #: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_employee_missing_from_open_batch
@@ -2604,7 +2603,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Mark as paid"
-msgstr ""
+msgstr "Төлөгдсөнөөр тэмдэглэх"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__master_department_id
@@ -2961,7 +2960,7 @@ msgstr "10-р сар"
 #. module: hr_payroll
 #: model:res.groups,name:hr_payroll.group_hr_payroll_user
 msgid "Officer: Manage all contracts"
-msgstr ""
+msgstr "Мэргэжилтэн: Бүх ажилтны гэрээг удирдах"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
@@ -3430,7 +3429,7 @@ msgstr "Цалингийн хуудсын багцууд"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_tree
 msgid "Payslips Count"
-msgstr ""
+msgstr "Цалингийн хуудасны тоо"
 
 #. module: hr_payroll
 #: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_payslips_previous_contract
@@ -3636,7 +3635,7 @@ msgstr "Үнэлгээнүүд"
 #. module: hr_payroll
 #: model:ir.actions.server,name:hr_payroll.action_hr_payroll_recompute_whole_sheet
 msgid "Recompute Whole Sheet"
-msgstr ""
+msgstr "Хуудсыг бүхэлд нь дахин тооцоолох"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
@@ -4040,6 +4039,8 @@ msgid ""
 "Set a specific department if you wish to select all the employees from this "
 "department (and subdepartments) at once."
 msgstr ""
+"Тухайн сонгосон хэлтэс(мөн дэд хэлтсүүд)-ийн бүх ажилтнуудыг сонгохыг хүсвэл"
+" энд хэлтсийг тохируулна уу."
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
@@ -4098,7 +4099,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:0
 msgid "Some work entries could not be validated."
-msgstr "Зарим ажлын цагийн тооцооны мөрүүд батлах боломжгүй байна."
+msgstr "Зарим ажлын цагийн тооцоонууд батлах боломжгүй байна."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__standard_calendar_id
@@ -4479,7 +4480,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:0
 msgid "Time intervals to look for:%s"
-msgstr ""
+msgstr "Шалгах хугацааны интервал нь:%s"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount__date_to

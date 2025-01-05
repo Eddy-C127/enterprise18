@@ -13,7 +13,6 @@
 # UAB "Draugiški sprendimai" <transifex@draugiskisprendimai.lt>, 2024
 # grupoda2 <dmitrijus.ivanovas@gmail.com>, 2024
 # Silvija Butko <silvija.butko@gmail.com>, 2024
-# Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024
 # Greta Šeštokė, 2024
 # Arunas V. <arunas@devoro.com>, 2024
 # Linas Versada <linaskrisiukenas@gmail.com>, 2024
@@ -22,6 +21,7 @@
 # Audrius Palenskis <audrius.palenskis@gmail.com>, 2024
 # Martin Trigaux, 2024
 # Jonas Zinkevicius <jozi@odoo.com>, 2024
+# Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -29,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Jonas Zinkevicius <jozi@odoo.com>, 2024\n"
+"Last-Translator: Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024\n"
 "Language-Team: Lithuanian (https://app.transifex.com/odoo/teams/41243/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,7 +61,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_invite_count
 msgid "# Invitation Links"
-msgstr ""
+msgstr "# Pakvietimo nuoroda"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_resource_count
@@ -131,7 +131,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/appointment/controllers/calendar.py:0
 msgid ", All Day"
-msgstr ""
+msgstr ", Visą dieną"
 
 #. module: appointment
 #. odoo-javascript
@@ -147,6 +147,8 @@ msgid ""
 "<br/>\n"
 "                                    <span>Duration</span>"
 msgstr ""
+"<br/>\n"
+"                                    <span>Trukmė</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -543,7 +545,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<i class=\"fa fa-plus me-1\"/>Add Guests"
-msgstr ""
+msgstr "<i class=\"fa fa-plus me-1\"/>Pridėti svečių"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -593,7 +595,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
 msgid "<small class=\"text-uppercase text-muted\">Meeting details</small>"
-msgstr ""
+msgstr "<small class=\"text-uppercase text-muted\">Susitikimo detalės</small>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -613,17 +615,17 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-pencil\"/> Edit"
-msgstr ""
+msgstr "<span class=\"fa fa-pencil\"/> Pataisyti"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-share-alt\"/> Share"
-msgstr ""
+msgstr "<span class=\"fa fa-share-alt\"/> Dalintis"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-trash\"/> Delete"
-msgstr ""
+msgstr "<span class=\"fa fa-trash\"/> Ištrinti"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -738,22 +740,22 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Contact Information</strong>"
-msgstr ""
+msgstr "<strong>Kontaktinė informacija</strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Email: </strong>"
-msgstr ""
+msgstr "<strong>el.paštas: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Name: </strong>"
-msgstr ""
+msgstr "<strong>Vardas ar pavadinimas: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Phone: </strong>"
-msgstr ""
+msgstr "<strong>Telefonas: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -871,7 +873,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Add Guests"
-msgstr ""
+msgstr "Pridėti svečius"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
@@ -895,7 +897,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Add an intro message here..."
-msgstr ""
+msgstr "Čia pridėkite įžanginį pranešimą..."
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_manage_leaves
@@ -939,7 +941,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__country_ids
 msgid "Allowed Countries"
-msgstr ""
+msgstr "Leidžiamos šalys"
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_answer_input_value_check
@@ -995,7 +997,7 @@ msgstr "Atsakymai"
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__anytime
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Any Time"
-msgstr ""
+msgstr "Bet kuriuo metu"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__all_assigned_resources
@@ -1026,7 +1028,7 @@ msgstr ""
 #: model:mail.message.subtype,name:appointment.mt_appointment_type_booked
 #: model:mail.message.subtype,name:appointment.mt_calendar_event_booked
 msgid "Appointment Booked"
-msgstr ""
+msgstr "Vizitas suplanuotas"
 
 #. module: appointment
 #: model:mail.template,subject:appointment.appointment_booked_mail_template
@@ -1074,17 +1076,17 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_invite_id
 msgid "Appointment Invitation"
-msgstr ""
+msgstr "Kvietimas susitikti"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_search
 msgid "Appointment Invitation Links"
-msgstr ""
+msgstr "Kvietimo susitikti nuoroda"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_tree_invitation
 msgid "Appointment Invitations"
-msgstr ""
+msgstr "Kvietimai susitikti"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_invite
@@ -1109,7 +1111,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_question
 msgid "Appointment Questions"
-msgstr ""
+msgstr "Susitikimo klausimai"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_resource
@@ -1143,7 +1145,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__name
 msgid "Appointment Title"
-msgstr ""
+msgstr "Susitikimo antraštė"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_type
@@ -1184,12 +1186,12 @@ msgstr ""
 #. module: appointment
 #: model:mail.template,name:appointment.appointment_booked_mail_template
 msgid "Appointment: Appointment Booked"
-msgstr ""
+msgstr "Susitikimai: Vizitas suplanuotas"
 
 #. module: appointment
 #: model:mail.template,name:appointment.appointment_canceled_mail_template
 msgid "Appointment: Appointment Canceled"
-msgstr ""
+msgstr "Susitikimai: Vizitas atšauktas"
 
 #. module: appointment
 #: model:mail.template,name:appointment.attendee_invitation_mail_template
@@ -1499,7 +1501,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "Choose your appointment"
-msgstr ""
+msgstr "Pasirinkite savo vizitą"
 
 #. module: appointment
 #. odoo-python
@@ -1614,7 +1616,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/appointment/static/src/components/appointment_invite/appointment_invite_copy_close.xml:0
 msgid "Copy Link & Close"
-msgstr ""
+msgstr "Nukopijuoti nuorodą ir uždaryti"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
@@ -1745,7 +1747,7 @@ msgstr ""
 #. module: appointment
 #: model:appointment.type,name:appointment.appointment_type_dental_care
 msgid "Dental Care"
-msgstr ""
+msgstr "Dantų priežiūra"
 
 #. module: appointment
 #. odoo-python
@@ -2512,13 +2514,13 @@ msgstr "Žinučių su pristatymo klaida skaičius"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Number of people"
-msgstr ""
+msgstr "Žmonių skaičius"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__event_videocall_source__discuss
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Odoo Discuss"
-msgstr ""
+msgstr "Odoo diskusijos"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__slot_type__unique
@@ -2566,7 +2568,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
 msgid "Opening Hours"
-msgstr ""
+msgstr "Darbo valandos"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
@@ -2603,7 +2605,7 @@ msgstr "Praėję"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_booker_id
 msgid "Person who is booking the appointment"
-msgstr ""
+msgstr "Asmuo, kuris rezervuoja šį vizitą"
 
 #. module: appointment
 #. odoo-python
@@ -2614,7 +2616,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Phone number*"
-msgstr ""
+msgstr "Telefono numeris*"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__resource_time
@@ -2645,7 +2647,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_staff_user_ids
 msgid "Possible users"
-msgstr ""
+msgstr "Galimi naudotojai"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -2934,7 +2936,7 @@ msgstr "Ieškoti pagal atsakingą"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Select Dates"
-msgstr ""
+msgstr "Pasirinkti datas"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
@@ -2964,13 +2966,13 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Select a date &amp; time"
-msgstr ""
+msgstr "Pasirinkite datą &amp; laiką"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_slots.xml:0
 msgid "Select a time"
-msgstr ""
+msgstr "Pasirinkite laiką"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -3103,13 +3105,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 msgid "Sorry,"
-msgstr ""
+msgstr "Atsiprašome,"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 msgid "Sorry, it is no longer possible to schedule an appointment."
-msgstr ""
+msgstr "Atsiprašome, susitikimo suplanuoti nebegalima."
 
 #. module: appointment
 #. odoo-javascript
@@ -3254,12 +3256,12 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer_input__value_text_box
 msgid "Text Answer"
-msgstr ""
+msgstr "Tekstinis atsakymas"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_answer_input_view_search
 msgid "Text Questions"
-msgstr ""
+msgstr "Tekstiniai klausimai"
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_invite_short_code_uniq
@@ -3293,7 +3295,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_slot_check_start_and_end_hour
 msgid "The end time must be later than the start time."
-msgstr ""
+msgstr "Pabaigos laikas negali būti ankstesnis nei pradžios laikas."
 
 #. module: appointment
 #. odoo-python
@@ -3462,7 +3464,7 @@ msgstr "Žetonas"
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_total_capacity
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_tree
 msgid "Total Capacity"
-msgstr ""
+msgstr "Bendra talpa"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__resource_total_capacity_reserved

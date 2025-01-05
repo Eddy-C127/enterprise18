@@ -3,10 +3,10 @@
 # 	* sale_subscription
 # 
 # Translators:
-# Ilya Rozhkov, 2024
 # Nadia Martynova, 2024
 # Anton Kaligin, 2024
 # Wil Odoo, 2024
+# Ilya Rozhkov, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Ilya Rozhkov, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -752,7 +752,7 @@ msgstr "Добавить количество"
 #. odoo-javascript
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 msgid "Add a new rule"
-msgstr ""
+msgstr "Добавить новое правило"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.product_pricelist_view
@@ -768,6 +768,8 @@ msgid ""
 "Add a recurring plan for this product, or create a new one with the desired "
 "recurrence (e.g., Monthly)"
 msgstr ""
+"Добавьте регулярный план для товара или создайте новый с нужной "
+"периодичностью (например, раз в месяц)."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_subscription_plan__billing_first_day
@@ -915,6 +917,8 @@ msgid ""
 "Automatic payment failed. Check the corresponding invoice %s. We can't "
 "automatically process negative payment"
 msgstr ""
+"Автоматический платеж не удался. Проверьте счет %s. Нельзя обработать "
+"отрицательный платеж."
 
 #. module: sale_subscription
 #. odoo-python
@@ -1130,7 +1134,7 @@ msgstr "Выберите название продукта.<br/><i>(наприм
 #. odoo-javascript
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 msgid "Choose the invoice duration for your subscription"
-msgstr ""
+msgstr "Выберите период выставления счетов для вашей подписки"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log__event_type__2_churn
@@ -1155,7 +1159,7 @@ msgstr "Взбитый"
 #. odoo-javascript
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 msgid "Click here to add some products or services"
-msgstr ""
+msgstr "Нажмите здесь, чтобы добавить товары или услуги"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
@@ -1882,6 +1886,8 @@ msgid ""
 "If present, this condition must be satisfied before the update of the "
 "record. Not checked on record creation."
 msgstr ""
+"Если условие задано, оно должно быть выполнено перед обновлением записи. При"
+" создании записи проверка не производится."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__end_date
@@ -2151,13 +2157,13 @@ msgstr "Давайте добавим ценообразование с повт
 #. odoo-javascript
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 msgid "Let's add price for selected recurrence"
-msgstr ""
+msgstr "Давайте добавим цену для выбранной периодичности"
 
 #. module: sale_subscription
 #. odoo-javascript
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 msgid "Let's choose the customer for your subscription"
-msgstr ""
+msgstr "Выберите клиента для вашей подписки"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -4406,6 +4412,8 @@ msgid ""
 "Want a recurring billing through subscription management? Get started by "
 "clicking here"
 msgstr ""
+"Хотите настроить регулярное выставление счетов через управление подписками? "
+"Начните, кликнув здесь."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__warehouse_id
@@ -4527,6 +4535,8 @@ msgid ""
 "You can not churn a contract that has not been invoiced. Please cancel the "
 "contract instead."
 msgstr ""
+"Нельзя завершить контракт, по которому не выставлен счёт. Пожалуйста, "
+"отмените контракт."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4736,6 +4746,7 @@ msgstr "например, Предложить обсудить"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "existing for this subscription, please confirm it or reject it."
 msgstr ""
+"существует для этой подписки, пожалуйста, подтвердите или отклоните его."
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__rating_operator__>
@@ -4807,7 +4818,7 @@ msgstr "в год"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "quotation"
-msgstr ""
+msgstr "коммерческое предложение"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template

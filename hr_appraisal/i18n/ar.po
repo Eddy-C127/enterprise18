@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Martin Trigaux, 2024
-# Malaz Abuidris <msea@odoo.com>, 2024
 # Wil Odoo, 2024
+# Malaz Abuidris <msea@odoo.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -132,6 +132,26 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        عزيزنا <t t-out=\"ctx.get('employee_to_name', 'employee')\">الموظف</t>،\n"
+"                        <br/>\n"
+"                        طلب <t t-out=\"ctx.get('author_name', '')\">أديسون أولسون</t> (<t t-out=\"ctx.get('author_mail', '')\">addison.olson28@example.com</t>) تقييماً.\n"
+"                        <t t-if=\"ctx.get('user_body')\">\n"
+"                            <div style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; background-color: #F1F1F1;\">\n"
+"                                <t t-out=\"ctx.get('user_body')\">التقييم السنوي.</t>\n"
+"                            </div>\n"
+"                        </t>\n"
+"                        <t t-if=\"ctx.get('recipient_users')\">\n"
+"                            <p style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; text-align: center;\">\n"
+"                                <a t-att-href=\"ctx.get('url')\" style=\" margin: auto; background-color:#875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;\">\n"
+"                                    عرض التقييم\n"
+"                                </a>\n"
+"                            </p>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: hr_appraisal
 #: model:mail.template,body_html:hr_appraisal.mail_template_appraisal_request
@@ -160,6 +180,29 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        عزيزنا <t t-out=\"ctx.get('employee_to_name', 'employee')\">الموظف</t>،\n"
+"                        <br/>\n"
+"                        لقد تم طلب تقييم من قِبَل <t t-out=\"ctx.get('author_name', '')\">أديسون أولسن</t>\n"
+"                        <br/>\n"
+"                        (<t t-out=\"ctx.get('author_mail', '')\">addison.olson28@example.com</t>).\n"
+"                        <t t-if=\"ctx.get('user_body')\">\n"
+"                            <div style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; background-color: #F1F1F1;\">\n"
+"                                <t t-out=\"ctx.get('user_body')\">التقييم السنوي.</t>\n"
+"                            </div>\n"
+"                        </t>\n"
+"                        <t t-if=\"ctx.get('recipient_users')\">\n"
+"                            <p style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; text-align: center;\">\n"
+"                                <a t-att-href=\"ctx.get('url')\" style=\" margin: auto; background-color:#875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;\">\n"
+"                                    عرض التقييم\n"
+"                                </a>\n"
+"                            </p>\n"
+"                        </t>\n"
+"                        <br/>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -479,6 +522,10 @@ msgid ""
 "                                    <br>\n"
 "                                </strong>"
 msgstr ""
+"<strong class=\"text-o-color-4\">\n"
+"                                    الأقل\n"
+"                                    <br>\n"
+"                                </strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
@@ -488,21 +535,25 @@ msgid ""
 "                                    <br>\n"
 "                                </strong>"
 msgstr ""
+"<strong class=\"text-o-color-4\">\n"
+"                                    الأقل\n"
+"                                    <br>\n"
+"                                </strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>360 feedback :</strong>"
-msgstr ""
+msgstr "<strong>الملاحظات الشاملة:</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 msgid "<strong>Any particular remark on the training ?</strong>"
-msgstr ""
+msgstr "<strong>ألديك أية ملاحظات معينة على التدريب؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Are you happy with your current role ?</strong>"
-msgstr ""
+msgstr "<strong>هل أنت سعيد بوظيفتك الحالية؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_post_training_template
@@ -510,26 +561,28 @@ msgid ""
 "<strong>Can the employee accurately recall and explain the key concepts from"
 " the training ?</strong>"
 msgstr ""
+"<strong>هل يمكن للموظف أن يتذكر ويشرح بدقة المفاهيم الرئيسية من "
+"التدريب؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Career objective</strong>"
-msgstr ""
+msgstr "<strong>الأهداف المهنية</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>Career opportunities</strong>"
-msgstr ""
+msgstr "<strong>الفرص المهنية</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>Company Feedback</strong>"
-msgstr ""
+msgstr "<strong>ملاحظات الشركة</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "<strong>Could you provide examples ?</strong>"
-msgstr ""
+msgstr "<strong>هل يمكنك تقديم أمثلة على ذلك؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
@@ -545,22 +598,22 @@ msgstr "<strong>التاريخ — </strong>"
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Do you seek any particular career path ?</strong>"
-msgstr ""
+msgstr "<strong>هل تسعى إلى أي مسار وظيفي معين؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "<strong>Feedback on management</strong>"
-msgstr ""
+msgstr "<strong>ملاحظاتك عن الإدارة</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>GOALS :</strong>"
-msgstr ""
+msgstr "<strong>الأهداف:</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "<strong>Handover to manage inside the team</strong>"
-msgstr ""
+msgstr "<strong>نقل المهام لإدارة الفريق داخلياً </strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_post_training_template
@@ -568,6 +621,8 @@ msgid ""
 "<strong>Has the employee effectively integrated the new skills or knowledge "
 "into their daily work tasks ?</strong>"
 msgstr ""
+"<strong>هل قام الموظف بتوظيف المهارات أو المعرفة الجديدة بشكل فعال في مهام "
+"عمله اليومي؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_post_training_template
@@ -575,6 +630,8 @@ msgid ""
 "<strong>How actively did the employee participate during the training "
 "sessions (e.g., asking questions, contributing to discussions) ?</strong>"
 msgstr ""
+"<strong>ما مدى فعالية مشاركة الموظف أثناء جلسات التدريب (مثل طرح الأسئلة "
+"والمساهمة في المناقشات)؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
@@ -582,6 +639,8 @@ msgid ""
 "<strong>How confident do you feel in using the skills and knowledge gained "
 "from the training in your work ?</strong>"
 msgstr ""
+"<strong>ما مدى ثقتك في استخدام المهارات والمعرفة المكتسبة من التدريب في "
+"عملك؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
@@ -589,34 +648,35 @@ msgid ""
 "<strong>How do you feel about the support and resources provided to you "
 "during this period ?</strong>"
 msgstr ""
+"<strong>ما رأيك في الدعم والموارد المقدمة لك خلال هذه الفترة؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 msgid "<strong>How helpful were the provided materials ?</strong>"
-msgstr ""
+msgstr "<strong>إلى أي مدى أفادتك المواد المقدمة؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 msgid "<strong>How would you asses your level before the training ?</strong>"
-msgstr ""
+msgstr "<strong>كيف تُقيّم مستواك قبل التدريب؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 msgid "<strong>How would you assess your level post training ?</strong>"
-msgstr ""
+msgstr "<strong>كيف تُقيّم مستواك بعد التدريب؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 msgid ""
 "<strong>How would you rate the employee's proficiency in the skill on a "
 "scale from 1 to 10 ?</strong>"
-msgstr ""
+msgstr "<strong>كيف تقيّم كفاءة الموظف في المهارة من 1 إلى 10؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Management feedback and assessment</strong>"
-msgstr ""
+msgstr "<strong>ملاحظات وتقييم الإدارة</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
@@ -629,16 +689,18 @@ msgid ""
 "<strong>On a scale of 1 to 10, how would you rate the employee’s overall "
 "improvement since the training ?</strong>"
 msgstr ""
+"<strong>كيف تقيم مدى تحسُّن الموظف بشكل عام منذ التدريب من 1 إلى "
+"10؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>Opportunity</strong>"
-msgstr ""
+msgstr "<strong>الفرصة</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>Overall experience feedback</strong>"
-msgstr ""
+msgstr "<strong>ملاحظاتك حول تجربتك بشكل عام</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
@@ -646,12 +708,12 @@ msgstr ""
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Overall personal experience</strong>"
-msgstr ""
+msgstr "<strong>تجربتك الشخصية بشكل عام</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "<strong>Position succession and candidate suggestion</strong>"
-msgstr ""
+msgstr "<strong>تعاقب المناصب واقتراح المرشحين</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_yearly_template
@@ -666,42 +728,42 @@ msgstr ""
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 msgid "<strong>Skills at stakes :</strong>"
-msgstr ""
+msgstr "<strong>المهارات في مواجهة الأزمات:</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>Strength</strong>"
-msgstr ""
+msgstr "<strong>نقاط القوة</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Things to keep doing ?</strong>"
-msgstr ""
+msgstr "<strong>ما الأشياء التي ستسمر بالقيام بها؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Things to start doing ?</strong>"
-msgstr ""
+msgstr "<strong>ما الأشياء التي ستبدأ بالقيام بها؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Things to stop doing ?</strong>"
-msgstr ""
+msgstr "<strong>ما الأشياء التي ستتوقف عن القيام بها؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>Threats</strong>"
-msgstr ""
+msgstr "<strong>المخاطر</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Time to assess the leadership team:</strong>"
-msgstr ""
+msgstr "<strong>حان الوقت لتقييم فريق القيادة:</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 msgid "<strong>Training assessment</strong>"
-msgstr ""
+msgstr "<strong>تقييم التدريب</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
@@ -709,11 +771,13 @@ msgid ""
 "<strong>We wish you the best of success and sincerely thank you for your "
 "invaluable contribution to the company's achievements.</strong>"
 msgstr ""
+"<strong>نتمنى لك كل التوفيق والنجاح ونتقدم لك بخالص الشكر على مساهمتك القيمة"
+" في إنجازات الشركة.</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>Weakness</strong>"
-msgstr ""
+msgstr "<strong>نقاط الضعف</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
@@ -721,18 +785,20 @@ msgid ""
 "<strong>What advice do you have for improving management's leadership and "
 "support for future employees ?</strong>"
 msgstr ""
+"<strong>ما هي النصيحة التي تقدّمها لتحسين قيادة الإدارة ودعمها للموظفين في "
+"المستقبل؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "<strong>What advice would you give to the successor ?</strong>"
-msgstr ""
+msgstr "<strong>ما هي النصيحة التي تسديها لمن سيأتي بعدك؟</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid ""
 "<strong>What are your thoughts on the company culture and work environment "
 "?</strong>"
-msgstr ""
+msgstr "<strong>ما رأيك في ثقافة الشركة وبيئة العمل بها؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
@@ -740,18 +806,20 @@ msgid ""
 "<strong>What are your thoughts on the recent changes in the company ? Were "
 "you able to adapt ?</strong>"
 msgstr ""
+"<strong>ما رأيك في التغييرات الأخيرة في الشركة؟ هل تمكنت من التكيف؟</strong>"
+" "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>What are your thoughts on working with your team ?</strong>"
-msgstr ""
+msgstr "<strong>ما رأيك في العمل مع فريقك؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid ""
 "<strong>What are your thoughts on your overall experience during the "
 "probationary period ?</strong>"
-msgstr ""
+msgstr "<strong>ما رأيك في تجربتك بشكل عام خلال الفترة الاختبارية؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
@@ -759,17 +827,19 @@ msgid ""
 "<strong>What aspects of management and leadership at the company were most "
 "effective in helping you succeed ?</strong>"
 msgstr ""
+"<strong>ما هي جوانب الإدارة والقيادة في الشركة التي كانت الأكثر فعالية في "
+"مساعدتك على النجاح؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid ""
 "<strong>What aspects of your role have you enjoyed the most/least ?</strong>"
-msgstr ""
+msgstr "<strong>ما أكثر/ أقل الجوانب التي استمتعت بها في عملك؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
 msgid "<strong>What change would you see in the company ?</strong>"
-msgstr ""
+msgstr "<strong>ما التغييرات التي تود رؤيتها في الشركة؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_post_training_template
@@ -777,12 +847,14 @@ msgid ""
 "<strong>What further actions (e.g., additional training, mentoring) do you "
 "recommend to support the employee’s continued development ?</strong>"
 msgstr ""
+"<strong>ما هي الإجراءات الإضافية (مثل التدريب الإضافي والتوجيه) التي توصي "
+"بها لدعم التطوير المستمر للموظف؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid ""
 "<strong>What is your overall feeling about the previous year ?</strong>"
-msgstr ""
+msgstr "<strong>ما هو شعورك بشكل عام حول السنة الماضية؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
@@ -790,6 +862,8 @@ msgid ""
 "<strong>What key skills should the management team focus on for a smooth "
 "transition ?</strong>"
 msgstr ""
+"<strong>ما هي المهارات الأساسية التي يجب أن يركز عليها فريق الإدارة لتحقيق "
+"نقلة سلسة؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_probationary_period_template
@@ -797,16 +871,18 @@ msgid ""
 "<strong>What motivates you to continue working with us, and what are your "
 "career aspirations here ?</strong>"
 msgstr ""
+"<strong>ما الذي يحفزك على مواصلة العمل معنا، وما هي تطلعاتك المهنية "
+"هنا؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "<strong>What were the key challenges in your position ?</strong>"
-msgstr ""
+msgstr "<strong>ما هي أهم التحديات التي واجهتك في منصبك؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "<strong>Which emotions were prevalent ?</strong>"
-msgstr ""
+msgstr "<strong>ما هي المشاعر التي كانت سائدة؟</strong>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
@@ -814,6 +890,8 @@ msgid ""
 "<strong>Which skills do you possess that you feel the company is not "
 "utilizing ?</strong>"
 msgstr ""
+"<strong>ما هي المهارات التي تمتلكها وتشعر أن الشركة لا تستفيد منها؟</strong>"
+" "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
@@ -821,16 +899,18 @@ msgid ""
 "<strong>Which skills would you like to prioritize for training, and why "
 "?</strong>"
 msgstr ""
+"<strong>ما هي المهارات التي ترغب في إعطاء الأولوية للتدريب عليها، "
+"ولماذا؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "<strong>Who would you see as your successor ?</strong>"
-msgstr ""
+msgstr "<strong>من برأيك من الممكن أن يكون خليفتك؟</strong> "
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_post_training_template
 msgid "<strong>Would you need extra help from the management team ?</strong>"
-msgstr ""
+msgstr "<strong>هل ستحتاج إلى مساعدة إضافية من فريق الإدارة؟</strong> "
 
 #. module: hr_appraisal
 #: model:ir.model.constraint,message:hr_appraisal.constraint_hr_appraisal_goal_tag_name_uniq
@@ -2084,7 +2164,7 @@ msgstr ""
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_exit_interview_template
 msgid "Overall experience feedback"
-msgstr ""
+msgstr "ملاحظاتك حول تجربتك بشكل عام "
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_employee__parent_user_id
@@ -2322,7 +2402,7 @@ msgstr ""
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "Strengths"
-msgstr ""
+msgstr "نقاط القوة "
 
 #. module: hr_appraisal
 #. odoo-python
@@ -2449,7 +2529,7 @@ msgstr "هذا الحقل غير مرئي للموظف. "
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "Threats"
-msgstr ""
+msgstr "المخاطر "
 
 #. module: hr_appraisal
 #: model:ir.model.fields.selection,name:hr_appraisal.selection__hr_appraisal__state__new
@@ -2548,7 +2628,7 @@ msgstr "بانتظار الملاحظات من الموظف/المدراء "
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_yearly_template
 msgid "Weaknesses"
-msgstr ""
+msgstr "نقاط الضعف "
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__website_message_ids

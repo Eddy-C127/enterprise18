@@ -1,25 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* project_timesheet_forecast_sale
-#
+# 
 # Translators:
-# Jan Prokop, 2022
-# Martin Trigaux, 2022
-# Rastislav Brencic <rastislav.brencic@azet.sk>, 2022
-# Damian Brencic <brencicdamian12313@gmail.com>, 2022
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0beta+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:48+0000\n"
-"Last-Translator: Damian Brencic <brencicdamian12313@gmail.com>, 2022\n"
+"POT-Creation-Date: 2024-12-19 09:54+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Slovak (https://app.transifex.com/odoo/teams/41243/sk/)\n"
-"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: sk\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #. module: project_timesheet_forecast_sale
@@ -30,12 +27,12 @@ msgstr ""
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model,name:project_timesheet_forecast_sale.model_account_analytic_line
-msgid "Analytic Account"
-msgstr "Analytický účet"
+msgid "Analytic Line"
+msgstr "Analytický riadok"
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_planning_analysis_report__billable_allocated_hours
-msgid "Billable Hours Allocated"
+msgid "Billable Time Allocated"
 msgstr ""
 
 #. module: project_timesheet_forecast_sale
@@ -44,13 +41,8 @@ msgid "Consultant"
 msgstr "Konzultant"
 
 #. module: project_timesheet_forecast_sale
-#: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_project__display_planning_timesheet_analysis
-msgid "Display Planning Timesheet Analysis"
-msgstr ""
-
-#. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_timesheet_forecast_report_analysis__effective_billable_hours
-msgid "Effective Billable Hours"
+msgid "Effective Billable Time"
 msgstr ""
 
 #. module: project_timesheet_forecast_sale
@@ -60,7 +52,7 @@ msgstr ""
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_timesheet_forecast_report_analysis__effective_non_billable_hours
-msgid "Effective Non-Billable Hours"
+msgid "Effective Non-Billable Time"
 msgstr ""
 
 #. module: project_timesheet_forecast_sale
@@ -69,23 +61,13 @@ msgid "Effective Revenues"
 msgstr ""
 
 #. module: project_timesheet_forecast_sale
-#: model_terms:ir.ui.view,arch_db:project_timesheet_forecast_sale.project_update_default_description
-msgid "N/A"
-msgstr ""
-
-#. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_planning_analysis_report__non_billable_allocated_hours
-msgid "Non-billable Hours Allocated"
+msgid "Non-billable Time Allocated"
 msgstr ""
-
-#. module: project_timesheet_forecast_sale
-#: model_terms:ir.ui.view,arch_db:project_timesheet_forecast_sale.project_update_default_description
-msgid "Planned"
-msgstr "Plánované"
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_timesheet_forecast_report_analysis__planned_billable_hours
-msgid "Planned Billable Hours"
+msgid "Planned Billable Time"
 msgstr ""
 
 #. module: project_timesheet_forecast_sale
@@ -95,7 +77,7 @@ msgstr ""
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_timesheet_forecast_report_analysis__planned_non_billable_hours
-msgid "Planned Non-Billable Hours"
+msgid "Planned Non-Billable Time"
 msgstr ""
 
 #. module: project_timesheet_forecast_sale
@@ -107,6 +89,11 @@ msgstr ""
 #: model:ir.model,name:project_timesheet_forecast_sale.model_planning_analysis_report
 msgid "Planning Analysis Report"
 msgstr ""
+
+#. module: project_timesheet_forecast_sale
+#: model:ir.model,name:project_timesheet_forecast_sale.model_planning_slot
+msgid "Planning Shift"
+msgstr "Plánovacia zmena"
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model,name:project_timesheet_forecast_sale.model_project_project
@@ -122,11 +109,6 @@ msgstr "Aktualizácia projektu"
 #: model:ir.model,name:project_timesheet_forecast_sale.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Položka objednávok"
-
-#. module: project_timesheet_forecast_sale
-#: model:ir.model.fields,help:project_timesheet_forecast_sale.field_project_project__display_planning_timesheet_analysis
-msgid "Should we display the planning and timesheet analysis button?"
-msgstr ""
 
 #. module: project_timesheet_forecast_sale
 #: model:planning.role,name:project_timesheet_forecast_sale.planning_role_junior_architect
@@ -151,7 +133,7 @@ msgstr ""
 #. module: project_timesheet_forecast_sale
 #: model:ir.model,name:project_timesheet_forecast_sale.model_project_timesheet_forecast_report_analysis
 msgid "Timesheet & Planning Statistics"
-msgstr ""
+msgstr "Pracovný výkaz a štatistika plánovania"
 
 #. module: project_timesheet_forecast_sale
 #. odoo-python

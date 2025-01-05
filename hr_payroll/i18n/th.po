@@ -3,9 +3,9 @@
 # 	* hr_payroll
 # 
 # Translators:
-# Rasareeyar Lappiam, 2024
 # Wichanon Jamwutthipreecha, 2024
 # Wil Odoo, 2024
+# Rasareeyar Lappiam, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Rasareeyar Lappiam, 2025\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +43,7 @@ msgstr "# สลิปเงินเดือน"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payroll_declaration_mixin.py:0
 msgid "%(employee_name)s-declaration-%(year)s"
-msgstr ""
+msgstr "%(employee_name)s-declaration-%(year)s"
 
 #. module: hr_payroll
 #. odoo-python
@@ -320,7 +320,7 @@ msgstr "<span>วัน</span>"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_form
 msgid "<span>Payslips</span>"
-msgstr ""
+msgstr "<span>สลิปเงินเดือน</span>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
@@ -419,7 +419,7 @@ msgstr "<strong>ทั้งหมด</strong>"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
 msgid "<strong>YTD</strong>"
-msgstr ""
+msgstr "<strong>ต้นปี</strong>"
 
 #. module: hr_payroll
 #: model:mail.template,body_html:hr_payroll.mail_template_new_payslip
@@ -1542,7 +1542,7 @@ msgstr "แผนก"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
 msgid "Department:"
-msgstr ""
+msgstr "แผนก:"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_index__description
@@ -2187,7 +2187,7 @@ msgstr "มียอดรวม"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_view_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_view_tree
 msgid "Headcount"
-msgstr ""
+msgstr "จำนวนพนักงาน"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_headcount_line
@@ -2986,7 +2986,7 @@ msgstr "จำนวนครั้งที่เอกสารเงินเ
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__occurrences
 msgid "Occurrences"
-msgstr ""
+msgstr "การเกิดขึ้น"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_export_mixin__reference_month__10
@@ -3549,7 +3549,7 @@ msgstr "โปรดเลือกการประกาศที่คุณ
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_view_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_mixin_form_view
 msgid "Populate"
-msgstr ""
+msgstr "ถิ่นฐาน"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
@@ -5126,7 +5126,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_worked_days__ytd
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "YTD"
-msgstr ""
+msgstr "ต้นปี"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
@@ -5264,7 +5264,7 @@ msgstr "คุณควรลงชื่อเข้าใช้บริษั
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_employee_mixin_list_view
 msgid "contracts"
-msgstr ""
+msgstr "สัญญา"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_type__current_companies_country_codes
@@ -5309,7 +5309,7 @@ msgstr "เช่น การจ่ายปกติ"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__headcount_id
 msgid "headcount_id"
-msgstr ""
+msgstr "headcount_id"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
@@ -5331,7 +5331,7 @@ msgstr "ผลลัพธ์จะส่งผลต่อตัวแปร"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "xxxxxxxxxxxx"
-msgstr ""
+msgstr "xxxxxxxxxxxx"
 
 #. module: hr_payroll
 #: model:mail.template,subject:hr_payroll.mail_template_new_payslip

@@ -63,6 +63,11 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"                    <p>Xin chào <t t-if=\"ctx.get('host_name')\"><t t-out=\"ctx.get('host_name')\"/>, </t><b><t t-out=\"object.name\"/></b> <t t-if=\"object.phone\">(<t t-out=\"object.phone\"/>)</t><t t-if=\"object.company\">, đến từ <t t-out=\"object.company\"/></t> muốn gặp bạn tại <t t-out=\"object.station_id.name\"/>. Vui lòng thông báo với họ là bạn sẽ sớm có mặt.\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: frontdesk
 #: model_terms:web_tour.tour,rainbow_man_message:frontdesk.frontdesk_tour

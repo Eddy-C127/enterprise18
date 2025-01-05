@@ -74,6 +74,27 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<t t-set=\"logged_user\" t-value=\"ctx.get('logged_user')\"/>\n"
+"                <t t-set=\"employee\" t-value=\"ctx.get('employee')\"/>\n"
+"                <t t-set=\"deadline\" t-value=\"ctx.get('deadline')\"/>\n"
+"                <div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        </p><p style=\"margin-left:5px\">Bonjour <t t-out=\"object.partner_id.name or 'participant'\">[participant]</t></p>\n"
+"                        <span>\n"
+"                            <t t-out=\"logged_user\">[Utilisateur actuel]</t> vous invite à participer à un sondage et donner du feedback sur <t t-out=\"employee\">[employé]</t>.\n"
+"                            Veuillez compléter le sondage avant le <t t-out=\"deadline\">[échéance prévue]</t>.\n"
+"                        </span>\n"
+"                        <br/>\n"
+"                        Merci !\n"
+"                        <br/><br/>\n"
+"                        <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
+"                            <a t-att-href=\"object.get_start_url()\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                Donner votre feedback\n"
+"                            </a>\n"
+"                        </div>\n"
+"                    \n"
+"                </div>\n"
+"            "
 
 #. module: hr_appraisal_survey
 #. odoo-python
@@ -856,7 +877,7 @@ msgstr ""
 #. module: hr_appraisal_survey
 #: model_terms:survey.survey,description_done:hr_appraisal_survey.appraisal_360_feedback_template
 msgid "Thanks a lot for your time and participation !"
-msgstr ""
+msgstr "Merci beaucoup pour votre temps et votre participation !"
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_3
@@ -989,6 +1010,10 @@ msgid ""
 "                By working with him/her, you're the best to share your thoughts and explain how your collaboration was.<br><br>\n"
 "                Your answers will be viewed only by the managers. This is not an anonymous survey."
 msgstr ""
+"Bienvenue dans ce sondage, <br><br>\n"
+"                Vous avez été invité à participer à un Feedback 360. Il s'agit d'un petit sondage qui permettra aux managers d'obtenir plus de feedback concernant leurs employés. \n"
+"                En travaillant avec lui/elle, vous êtes les mieux placés pour partager vos réflexions et expliquer comment s'est déroulée votre collaboration.<br><br>\n"
+"                Vos réponses seront uniquement consultées par les managers. Il ne s'agit pas d'un sondage anonyme."
 
 #. module: hr_appraisal_survey
 #: model:survey.question,title:hr_appraisal_survey.appraisal_360_6

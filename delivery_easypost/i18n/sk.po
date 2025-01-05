@@ -1,25 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* delivery_easypost
-#
+# 
 # Translators:
-# Rastislav Brencic <rastislav.brencic@azet.sk>, 2022
-# Jaroslav Bosansky <jaro.bosansky@ekoenergo.sk>, 2022
-# Jan Prokop, 2022
-# Martin Trigaux, 2022
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~15.4+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:46+0000\n"
-"Last-Translator: Martin Trigaux, 2022\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Slovak (https://app.transifex.com/odoo/teams/41243/sk/)\n"
-"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: sk\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #. module: delivery_easypost
@@ -42,7 +39,7 @@ msgstr ""
 
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_stock_package_type_form_inherit_easypost
-msgid "<span attrs=\"{'invisible': [('package_carrier_type', '!=', 'easypost')]}\">Inches</span>"
+msgid "<span invisible=\"package_carrier_type != 'easypost'\">Inches</span>"
 msgstr ""
 
 #. module: delivery_easypost
@@ -131,7 +128,9 @@ msgstr "Zobrazovaný názov"
 
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_delivery_carrier_form_inherit_delivery_easypost
-msgid "Do not forget to load your Easypost carrier accounts for a valid configuration."
+msgid ""
+"Do not forget to load your Easypost carrier accounts for a valid "
+"configuration."
 msgstr ""
 
 #. module: delivery_easypost
@@ -242,7 +241,9 @@ msgstr ""
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-msgid "It seems Easypost do not provide shipments for this order.                We advise you to try with another package type or service level."
+msgid ""
+"It seems Easypost do not provide shipments for this order.                We"
+" advise you to try with another package type or service level."
 msgstr ""
 
 #. module: delivery_easypost
@@ -392,8 +393,11 @@ msgstr ""
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-msgid "The estimated price cannot be computed because the weight of your product is missing."
-msgstr "Odhadovaná cena nemôže by vypočítaná, pretože chýba váha vášho produktu."
+msgid ""
+"The estimated price cannot be computed because the weight of your product is"
+" missing."
+msgstr ""
+"Odhadovaná cena nemôže by vypočítaná, pretože chýba váha vášho produktu."
 
 #. module: delivery_easypost
 #. odoo-python
@@ -406,7 +410,9 @@ msgstr ""
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-msgid "There is no rate available for the selected service level for one of your package. Please choose another service level."
+msgid ""
+"There is no rate available for the selected service level for one of your "
+"package. Please choose another service level."
 msgstr ""
 
 #. module: delivery_easypost
@@ -441,7 +447,9 @@ msgstr ""
 #. module: delivery_easypost
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
-msgid "You have no carrier linked to your Easypost Account.                Please connect to Easypost, link your account to carriers and then retry."
+msgid ""
+"You have no carrier linked to your Easypost Account.                Please "
+"connect to Easypost, link your account to carriers and then retry."
 msgstr ""
 
 #. module: delivery_easypost

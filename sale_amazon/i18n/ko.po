@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Daye Jeong, 2024
+# Daye Jeong, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Daye Jeong, 2024\n"
+"Last-Translator: Daye Jeong, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +39,21 @@ msgid ""
 "        </div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"            <p>아마존 주문 참조번호 <t t-out=\"ctx.get('amazon_order_ref') or ''\">REF</t>가 오류로 인해 동기화되지 못했습니다.</p>\n"
+"            <p>판매자 페이지에서 주문이 취소되지 않는 한, 동기화는 더 실행되지 않습니다.</p>\n"
+"            <p>새로 동기화를 시도하도록 예약하려면 다음과 같이 진행하십시오:\n"
+"                </p><ol>\n"
+"                    <li>개발자 도구에 접속합니다.</li>\n"
+"                    <li>주문받은 Amazon 계정의 양식을 엽니다.</li>\n"
+"                    <li>주문 후속조치 탭으로 이동합니다.</li>\n"
+"                    <li>날짜 설정을 <em>최근 주문 동기화</em>로 하여 주문의 최근 상태 업데이트 이전으로 설정합니다.</li>\n"
+"                    <li>변경 사항을 저장하고 <em>주문 동기화</em> 버튼을 클릭합니다.</li>\n"
+"                </ol>\n"
+"            \n"
+"            <p>문제가 계속될 경우에는 <a href=\"https://www.odoo.com/help/\">Odoo 고객지원</a>으로 문의주시기 바랍니다.</p>\n"
+"        </div>\n"
+"        "
 
 #. module: sale_amazon
 #: model:mail.template,body_html:sale_amazon.picking_sync_failure

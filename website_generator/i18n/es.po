@@ -33,6 +33,15 @@ msgid ""
 "            </div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"            <p><b>¡Buenas noticias!</b> La conversión de su sitio web se ha completado y su nuevo sitio web Odoo integrado ya está activo.</p>\n"
+"            <p>Aquí está su nuevo sitio web: <a t-att-href=\"ctx.get('website_url')\"><t t-out=\"ctx.get('website_url')\"/></a></p>\n"
+"            <p>Gracias por elegir Odoo para integrar su sitio web.</p>\n"
+"            <p>Saludos,</p>\n"
+"            <br/>\n"
+"            <p>Odoo - El mejor creador de sitios web de código abierto.</p>\n"
+"            </div>\n"
+"            "
 
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__additional_urls

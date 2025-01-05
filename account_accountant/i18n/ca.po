@@ -18,7 +18,6 @@
 # Josep Anton Belchi, 2024
 # Martin Trigaux, 2024
 # martioodo hola, 2024
-# Harcogourmet, 2024
 # marcescu, 2024
 # Quim - coopdevs <quim.rebull@coopdevs.org>, 2024
 # Ivan Espinola, 2024
@@ -27,6 +26,7 @@
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2024
 # Óscar Fonseca <tecnico@pyming.com>, 2024
 # Arnau Ros, 2024
+# Xavier, 2024
 # 
 msgid ""
 msgstr ""
@@ -34,7 +34,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Arnau Ros, 2024\n"
+"Last-Translator: Xavier, 2024\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -397,6 +397,9 @@ msgid ""
 "in accordance with its journal sequence. This lock date is irreversible and "
 "does not allow any exception."
 msgstr ""
+"Qualsevol assentament fins a aquesta data es posposarà per a una data "
+"posterior d'acord amb la seqüència del vostre diari. Aquesta data de "
+"bloqueig és irreversible i no permet realitzar cap excepció."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
@@ -404,6 +407,8 @@ msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
 "in accordance with its journal's sequence."
 msgstr ""
+"Qualsevol assentament anterior o fins a aquesta data es posposarà per a una "
+"data posterior d'acord amb la seqüència del seu diari."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
@@ -412,6 +417,10 @@ msgid ""
 "later time, in accordance with its journal's sequence. The tax lock date is "
 "automatically set when the tax closing entry is posted."
 msgstr ""
+"Qualsevol assentament amb impostos anterior o fins a aquesta data es "
+"posposarà per a una data posterior d'acord amb la seqüència del seu diari. "
+"La data de bloqueig d'impostos s'estableix automàticament en publicar el "
+"seient de tancament fiscal."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
@@ -419,6 +428,8 @@ msgid ""
 "Any purchase entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
 msgstr ""
+"Qualsevol entrada de compra anterior i inclosa aquesta data s'ajornarà a una"
+" data posterior, d'acord amb la seqüència del seu diari."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
@@ -426,6 +437,8 @@ msgid ""
 "Any sales entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
 msgstr ""
+"Qualsevol assentament de vendes anterior i inclosa aquesta data s'ajornarà a"
+" una data posterior, d'acord amb la seqüència del seu diari."
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_attachment_count
@@ -917,7 +930,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__distribution_analytic_account_ids
 msgid "Distribution Analytic Account"
-msgstr ""
+msgstr "Compte analític de distribució"
 
 #. module: account_accountant
 #. odoo-python
@@ -1202,7 +1215,7 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "In Currency"
-msgstr ""
+msgstr "En moneda"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_search_bank_rec_widget
