@@ -337,7 +337,7 @@ class AccountReport(models.Model):
     @api.model
     def _get_options_journals(self, options):
         selected_journals = [
-            journal for journal in options.get('journals', [])
+            journal for journal in options.get('journals') or []
             if journal['model'] == 'account.journal' and journal['selected']
         ]
         if not selected_journals:
@@ -345,7 +345,7 @@ class AccountReport(models.Model):
             # This is needed, because some reports will not use ALL available journals and filter by type.
             # Without getting them from the options, we will use them all, which is wrong.
             selected_journals = [
-                journal for journal in options.get('journals', [])
+                journal for journal in options.get('journals') or []
                 if journal['model'] == 'account.journal'
             ]
         return selected_journals

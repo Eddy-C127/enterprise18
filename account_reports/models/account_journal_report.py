@@ -140,21 +140,22 @@ class JournalReportCustomHandler(models.AbstractModel):
         for name, default_val in custom_filters.items():
             options[name] = (previous_options or {}).get(name, default_val)
 
-        # if no journal is selected (so, all are) and no other line is unfolded, unfold the first journal
-        # Ensure that all selected journals are unfolded by default
-        available_journal_ids = [j['id'] for j in options['journals'] if j['model'] == 'account.journal']
-        selected_journal_ids = {j['id'] for j in options['journals'] if j.get('selected', False) and j['model'] == 'account.journal'}
-        any_unfolded_journal = any(report._parse_line_id(unfolded_line)[-1][1] == 'account.journal' for unfolded_line in options['unfolded_lines'] if report._parse_line_id(unfolded_line)[-1][2] in available_journal_ids)
-        unfolded_lines = options['unfolded_lines']
-        if selected_journal_ids:
-            for journal_id in selected_journal_ids:
-                line_id = report._get_generic_line_id('account.journal', journal_id)
+        if options.get('journals'):
+            # if no journal is selected (so, all are) and no other line is unfolded, unfold the first journal
+            # Ensure that all selected journals are unfolded by default
+            available_journal_ids = [j['id'] for j in options['journals'] if j['model'] == 'account.journal']
+            selected_journal_ids = {j['id'] for j in options['journals'] if j.get('selected', False) and j['model'] == 'account.journal'}
+            any_unfolded_journal = any(report._parse_line_id(unfolded_line)[-1][1] == 'account.journal' for unfolded_line in options['unfolded_lines'] if report._parse_line_id(unfolded_line)[-1][2] in available_journal_ids)
+            unfolded_lines = options['unfolded_lines']
+            if selected_journal_ids:
+                for journal_id in selected_journal_ids:
+                    line_id = report._get_generic_line_id('account.journal', journal_id)
+                    if line_id not in unfolded_lines:
+                        unfolded_lines.append(line_id)
+            elif not any_unfolded_journal and options['export_mode'] != 'print' and available_journal_ids:
+                line_id = report._get_generic_line_id('account.journal', available_journal_ids[0])
                 if line_id not in unfolded_lines:
                     unfolded_lines.append(line_id)
-        elif not any_unfolded_journal and options['export_mode'] != 'print' and available_journal_ids:
-            line_id = report._get_generic_line_id('account.journal', available_journal_ids[0])
-            if line_id not in unfolded_lines:
-                unfolded_lines.append(line_id)
 
         if self.user_has_groups('base.group_multi_currency'):
             options['multi_currency'] = True
