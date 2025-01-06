@@ -24,6 +24,12 @@ export class BankRecUploadKanbanRenderer extends BankRecKanbanRenderer {
             visible: false,
         });
     }
+
+    onDragStart(ev) {
+        if (ev.dataTransfer.types.includes("Files")) {
+            this.dropzoneState.visible = true
+        }
+    }
 }
 
 export const BankRecKanbanUploadView = {
