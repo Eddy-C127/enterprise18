@@ -87,7 +87,13 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 total_line = self._create_report_total_line(options, total_values_dict)
                 lines.append((0, total_line))
         else:
-            lines = [(0, line) for line in self._get_lines(options)]
+            generated_lines = self._get_lines(options)
+            load_more_limit = self._get_load_more_limit(options)
+            lines = [(0, line) for line in (generated_lines[:load_more_limit] if load_more_limit else generated_lines)]
+    
+            report = self.env['account.report'].browse(options['report_id'])
+            if load_more_limit and len(generated_lines) > load_more_limit:
+                lines.append((0, report._get_load_more_line(len(lines), None, '_report_expand_unfoldable_line_intrastat_line', None, None, options)))
         return lines
 
     def _get_move_info_name(self, move_info):
@@ -254,14 +260,20 @@ class IntrastatReportCustomHandler(models.AbstractModel):
 
     def _report_expand_unfoldable_line_intrastat_line(self, line_dict_id, groupby, options, progress, offset, unfold_all_batch_data=None):
         options['account_report'] = self.env['account.report'].browse(options['report_id'])
-        lines = self._get_lines(options, line_dict_id)
+        lines = self._get_lines(options, line_dict_id, offset)
+        load_more_limit = self._get_load_more_limit(options)
+        lines_to_render = lines[:load_more_limit] if load_more_limit else lines
         return {
-            'lines': lines,
-            'offset_increment': len(lines),
-            'has_more': self._has_more_lines(options['account_report'], len(lines)),
+            'lines': lines_to_render,
+            'offset_increment': len(lines_to_render),
+            'has_more': len(lines) > len(lines_to_render),
         }
 
-    def _get_lines(self, options, parent_line=None):
+    def _get_load_more_limit(self, options):
+        report = self.env['account.report'].browse(options['report_id'])
+        return report.load_more_limit or None if not self._context.get('print_mode') else None
+
+    def _get_lines(self, options, parent_line=None, offset=0):
         """ This functions gets every line (account.move.line) that matches the selected options. """
         report = self.env['account.report'].browse(options['report_id'])
         expanded_line_options = None
@@ -271,7 +283,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         queries = []
         full_query_params = []
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            query, params, = self._prepare_query(column_group_options, column_group_key, expanded_line_options)
+            query, params, = self._prepare_query(column_group_options, column_group_key, expanded_line_options, offset, report.load_more_limit + 1 if not self._context.get('print_mode') else None)
             queries.append(query)
             full_query_params += params
 
@@ -282,19 +294,9 @@ class IntrastatReportCustomHandler(models.AbstractModel):
 
         lines = []
         for raw_intrastat_line in raw_intrastat_lines:
-            if self._has_more_lines(report, len(lines)):
-                # Enough elements loaded. Only the one due to the +1 in the limit passed when computing aml_results is left.
-                # This element won't generate a line now, but we use it to know that we'll need to add a load_more line.
-                break
-
             lines.append(self._get_aml_line(report, parent_line, options, raw_intrastat_line))
 
         return lines
-
-    def _has_more_lines(self, report, treated_results_count):
-        limit_to_load = report.load_more_limit + 1 if report.load_more_limit and not self._context.get('print_mode') else None
-
-        return limit_to_load and treated_results_count == report.load_more_limit
 
     def _get_aml_line(self, report, parent_line_id, options, aml_data):
         line_columns = []
@@ -346,14 +348,13 @@ class IntrastatReportCustomHandler(models.AbstractModel):
     ####################################################
 
     @api.model
-    def _prepare_query(self, options, column_group_key=None, expanded_line_options=None):
-        query_blocks, where_params = self._build_query(options, column_group_key, expanded_line_options)  # pylint: disable=sql-injection
-        query = SQL("({select} {from} {where} {order})").format(**query_blocks)
+    def _prepare_query(self, options, column_group_key=None, expanded_line_options=None, offset=0, limit=None):
+        query_blocks, where_params = self._build_query(options, column_group_key, expanded_line_options, offset, limit)
+        query = SQL("({select} {from} {where} {order} {limit})").format(**query_blocks)
         return query, where_params
 
     @api.model
-    def _build_query(self, options, column_group_key=None, expanded_line_options=None):
-        # pylint: disable=sql-injection
+    def _build_query(self, options, column_group_key=None, expanded_line_options=None, offset=0, limit=None):
         def format_where_params(option_key, comparison_value=('None',)):
             if expanded_line_options[option_key] not in comparison_value:
                 return expanded_line_options[option_key]
@@ -518,6 +519,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             'from': from_,
             'where': where,
             'order': order,
+            'limit': SQL(""),
         }
 
         query_params = [
@@ -530,12 +532,23 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             *where_params,
         ]
 
+        if limit:
+            query['limit'] = SQL(
+            """
+                OFFSET %s
+                LIMIT %s
+            """)
+            query_params.extend([
+                offset,
+                limit,
+            ])
+
         return query, query_params
 
     @api.model
     def _build_query_group(self, options, column_group_key=None):
         """ This is the query to have the line grouped by country, currency and commodity code. """
-        inner_query, params = self._prepare_query(options, column_group_key)
+        inner_query, params = self._prepare_query(options, column_group_key, offset=0, limit=None)
 
         query = SQL("""
           SELECT %s AS column_group_key,

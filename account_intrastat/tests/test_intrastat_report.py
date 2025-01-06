@@ -299,6 +299,113 @@ class TestIntrastatReport(TestAccountReportsCommon):
             options
         )
 
+    def test_intrastat_ungrouped_report_lines_load_more(self):
+        partner_be, partner_no_vat = self.env['res.partner'].create([
+            {
+                'name': 'BE Partner',
+                'country_id': self.env.ref('base.be').id,
+                'vat': 'BE0477472701',
+            },
+            {
+                'name': 'FR No VAT Partner',
+                'country_id': self.env.ref('base.fr').id,
+                'vat': None,
+            },
+        ])
+        moves = self.env['account.move'].create([
+            {
+                'move_type': 'out_invoice',
+                'partner_id': partner_be.id,
+                'invoice_date': '2022-01-01',
+                'date': '2022-01-01',
+                'intrastat_country_id': self.env.ref('base.be').id,
+                'invoice_line_ids': [
+                    Command.create({
+                        'name': 'line_1',
+                        'product_id': self.spanish_rioja.id,
+                        'intrastat_transaction_id': None,
+                        'product_uom_id': self.env.ref('uom.product_uom_unit').id,
+                        'quantity': 1.0,
+                        'account_id': self.company_data['default_account_revenue'].id,
+                        'price_unit': 80.0,
+                        'tax_ids': [],
+                    }),
+                ],
+            },
+            {
+                'move_type': 'out_invoice',
+                'partner_id': partner_be.id,
+                'invoice_date': '2022-01-02',
+                'date': '2022-01-02',
+                'intrastat_country_id': self.env.ref('base.be').id,
+                'invoice_line_ids': [
+                    Command.create({
+                        'name': 'line_1',
+                        'product_id': self.spanish_rioja.id,
+                        'intrastat_transaction_id': None,
+                        'product_uom_id': self.env.ref('uom.product_uom_unit').id,
+                        'quantity': 1.0,
+                        'account_id': self.company_data['default_account_revenue'].id,
+                        'price_unit': 80.0,
+                        'tax_ids': [],
+                    }),
+                ],
+
+            },
+            {
+                'move_type': 'out_invoice',
+                'partner_id': partner_no_vat.id,
+                'invoice_date': '2022-01-03',
+                'date': '2022-01-03',
+                'intrastat_country_id': self.env.ref('base.fr').id,
+                'invoice_line_ids': [
+                    Command.create({
+                        'name': 'line_1',
+                        'product_id': self.product_1.id,
+                        'intrastat_transaction_id': self.intrastat_codes['transaction'].id,
+                        'product_uom_id': self.env.ref('uom.product_uom_unit').id,
+                        'quantity': 1.0,
+                        'account_id': self.company_data['default_account_revenue'].id,
+                        'price_unit': 50.0,
+                        'tax_ids': [],
+                    }),
+                ],
+
+            },
+        ])
+        moves.action_post()
+
+        options = self._generate_options(self.report, '2022-01-01', '2022-01-31', default_options={'unfold_all': True})
+        self.report.load_more_limit = 2
+        lines = self.report._get_lines(options)
+        self.assertLinesValues(
+            # pylint: disable=C0326
+            lines,
+            # 0/name
+            [    0],
+            [
+                # FR Partner without VAT
+                ('INV/2022/00003',),
+                # BE Partner with VAT
+                ('INV/2022/00002',),
+                ('Load more...',),
+            ],
+            options,
+        )
+
+        load_more_lines = self.report._expand_unfoldable_line('_report_expand_unfoldable_line_intrastat_line', None, None, options, None, lines[2]['offset'])
+
+        self.assertLinesValues(
+            load_more_lines,
+            # 0/name
+            [    0],
+            [
+                # FR Partner without VAT
+                ('INV/2022/00001',),
+            ],
+            options,
+        )
+
     def test_unfold_intrastat_report_lines(self):
         partner_be, partner_no_vat = self.env['res.partner'].create([
             {
@@ -776,6 +883,65 @@ class TestIntrastatReport(TestAccountReportsCommon):
                 ('INV/2022/00001',                                              -80.0),
             ],
             options
+        )
+
+    def test_intrastat_grouped_load_more(self):
+        """ This test checks that a move with for example
+            a line having a quantity set to 10 and a line with a
+            quantity set to -1 (like one item free) is correctly
+            handled by the intrastat report.
+        """
+        move = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'partner_id': self.partner_a.id,
+            'invoice_date': '2022-01-15',
+            'intrastat_country_id': self.env.ref('base.be').id,
+            'invoice_line_ids': [
+                Command.create({
+                    'product_id': self.spanish_rioja.id,
+                    'product_uom_id': self.env.ref('uom.product_uom_unit').id,
+                    'quantity': 10.0,
+                    'account_id': self.company_data['default_account_revenue'].id,
+                    'price_unit': 80.0,
+                }),
+                Command.create({
+                    'product_id': self.spanish_rioja.id,
+                    'product_uom_id': self.env.ref('uom.product_uom_unit').id,
+                    'quantity': -1.0,
+                    'account_id': self.company_data['default_account_revenue'].id,
+                    'price_unit': 80.0,
+                }),
+            ],
+        })
+        move.action_post()
+
+        options = self._generate_options(self.report, '2022-01-01', '2022-01-31', default_options={'unfold_all': True})
+        options['intrastat_grouped'] = True
+        self.report.load_more_limit = 1
+        lines = self.report._get_lines(options)
+        self.assertLinesValues(
+            # pylint: disable=C0326
+            lines,
+            # 0/name,                                                           12/value
+            [0,                                                                 12],
+            [
+                ('Dispatch - None - 22042176 - ES - QV999999999999 - BE - 102', 720.0),
+                ('INV/2022/00001',                                              800.0),
+                ('Load more...',                                                ''),
+            ],
+            options,
+        )
+
+        load_more_lines = self.report._expand_unfoldable_line('_report_expand_unfoldable_line_intrastat_line', lines[0]['id'], None, options, None, lines[2]['offset'])
+
+        self.assertLinesValues(
+            load_more_lines,
+            # 0/name
+            [0,                                                                 12],
+            [
+                ('INV/2022/00001',                                              -80),
+            ],
+            options,
         )
 
     def test_intrastat_no_service_product(self):
