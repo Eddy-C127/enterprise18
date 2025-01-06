@@ -7091,3 +7091,37 @@ QUnit.test("date fields: dialog", async function (assert) {
     );
     assert.strictEqual(modal.querySelector(".o_field_widget[name=stop] input").value, "12/22/2018");
 });
+
+QUnit.test("markup html server values", async function (assert) {
+    serverData.models.tasks.fields.description = { string: "Description", type: "html" };
+    serverData.models.tasks.records = serverData.models.tasks.records.slice(0, 1);
+    serverData.models.tasks.records[0].description = `<span>Hello</span>`;
+
+    patchWithCleanup(browser, { setTimeout: (fn) => fn() });
+
+    await makeView({
+        type: "gantt",
+        resModel: "tasks",
+        serverData,
+        arch: `
+            <gantt date_start="start" date_stop="stop">
+                <field name="description"/>
+                <templates>
+                    <t t-name="gantt-popover">
+                        <div>
+                            <t t-out="description"/>
+                        </div>
+                    </t>
+                </templates>
+            </gantt>
+        `,
+    });
+    assert.containsNone(target, ".o_popover");
+
+    await click(target, ".o_gantt_pill");
+    assert.containsOnce(target, ".o_popover");
+    assert.deepEqual(getTexts(".o_popover .popover-body"), ["Hello"]);
+
+    await click(target, ".o_popover .popover-header i.fa.fa-close");
+    assert.containsNone(target, ".o_popover");
+});

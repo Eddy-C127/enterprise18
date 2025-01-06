@@ -15,6 +15,7 @@ import { groupBy, unique } from "@web/core/utils/arrays";
 import { KeepLast, Mutex } from "@web/core/utils/concurrency";
 import { pick } from "@web/core/utils/objects";
 import { sprintf } from "@web/core/utils/strings";
+import { parseServerValue } from "@web/model/relational_model/utils";
 import { formatFloatTime } from "@web/views/fields/formatters";
 import { Model } from "@web/model/model";
 
@@ -136,6 +137,10 @@ export function parseServerValues(fields, values) {
                 } else {
                     parsedValues[fieldName] = value;
                 }
+                break;
+            }
+            case "html": {
+                parsedValues[fieldName] = parseServerValue(field, value);
                 break;
             }
             case "many2one": {
