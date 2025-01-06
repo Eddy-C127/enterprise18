@@ -316,6 +316,24 @@ class SpreadsheetORMAccess(SpreadsheetTestCommon):
                 self.new_revision_data(self.spreadsheet)
             )
 
+    def test_join_portal_user_with_doc_access(self):
+        portal_user = new_test_user(self.env, login="Raoul", groups="base.group_portal")
+
+        self.env['documents.access'].create({
+            'document_id': self.spreadsheet.id,
+            'partner_id': portal_user.partner_id.id,
+            'role': 'view',
+        })
+
+        # can read
+        self.spreadsheet.with_user(portal_user).join_spreadsheet_session()
+
+        # can't write
+        with self.assertRaises(AccessError):
+            self.spreadsheet.with_user(portal_user).dispatch_spreadsheet_message(
+                self.new_revision_data(self.spreadsheet)
+            )
+
     def test_join_new_spreadsheet_user(self):
         # only read access
         self.spreadsheet.access_internal = 'view'
