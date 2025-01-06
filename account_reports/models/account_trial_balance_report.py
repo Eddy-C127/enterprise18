@@ -19,7 +19,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
             line['columns'][column_key]['no_format'] = new_value
             line['columns'][column_key]['is_zero'] = self.env.company.currency_id.is_zero(new_value)
 
-        def _update_balance_columns(line, debit_column_key, credit_column_key):
+        def _update_balance_columns(line, debit_column_key, credit_column_key, balance_column_key=None):
             debit_value = line['columns'][debit_column_key]['no_format'] if debit_column_key is not None else False
             credit_value = line['columns'][credit_column_key]['no_format'] if credit_column_key is not None else False
 
@@ -35,6 +35,9 @@ class TrialBalanceCustomHandler(models.AbstractModel):
                 _update_column(line, debit_column_key, new_debit_value)
                 _update_column(line, credit_column_key, new_credit_value)
 
+            if balance_column_key is not None:
+                _update_column(line, balance_column_key, debit_value - credit_value)
+
         lines = [line[1] for line in self.env['account.general.ledger.report.handler']._dynamic_lines_generator(report, options, all_column_groups_expression_totals, warnings=warnings)]
 
         # We need to find the index of debit and credit columns for initial and end balance in case of extra custom columns
@@ -43,6 +46,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
 
         end_balance_debit_index = next((index for index, column in enumerate(options['columns']) if column.get('expression_label') == 'debit' and column.get('column_group_key') == TRIAL_BALANCE_END_COLUMN_GROUP_KEY), None)
         end_balance_credit_index = next((index for index, column in enumerate(options['columns']) if column.get('expression_label') == 'credit' and column.get('column_group_key') == TRIAL_BALANCE_END_COLUMN_GROUP_KEY), None)
+        end_balance_balance_index = next((index for index, column in enumerate(options['columns']) if column.get('expression_label') == 'balance' and column.get('column_group_key') == TRIAL_BALANCE_END_COLUMN_GROUP_KEY), None)
 
         currency = self.env.company.currency_id
         for line in lines[:-1]:
@@ -66,7 +70,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
                 )
                 _update_column(line, end_balance_credit_index, end_balance_credit_sum)
 
-            _update_balance_columns(line, end_balance_debit_index, end_balance_credit_index)
+            _update_balance_columns(line, end_balance_debit_index, end_balance_credit_index, end_balance_balance_index)
 
             line.pop('expand_function', None)
             line.pop('groupby', None)
