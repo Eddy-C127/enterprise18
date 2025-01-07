@@ -578,28 +578,29 @@ class SaleOrder(models.Model):
                 non_recurring += order
                 continue
 
-            non_recurring_lines = order.order_line.filtered(lambda line: not line.recurring_invoice)
-            amount_invoiced = 0
-            for invoice in order.invoice_ids.filtered(lambda invoice: invoice.state == 'posted'):
-                prices = sum(
-                    invoice_line.price_total for invoice_line in invoice.line_ids
-                    if all(sale_line in non_recurring_lines for sale_line in invoice_line.sale_line_ids)
-                )
-                amount_invoiced += invoice.currency_id._convert(
-                    prices * -invoice.direction_sign,
-                    order.currency_id,
-                    invoice.company_id,
-                    invoice.date,
-                )
-
+            amount_invoiced = order._get_subscription_order_invoiced_amount()
             amount_invoicable = sum(
-                line.price_total if line.product_id.invoice_policy != 'delivery' else line.price_total * line.qty_to_invoice / (
+                line.price_total if line.product_id.invoice_policy != 'delivery' else line.price_total * line.qty_delivered / (
                             line.product_uom_qty or 1)
                 for line in order.order_line
             )
             order.amount_to_invoice = amount_invoicable - amount_invoiced
 
         super(SaleOrder, non_recurring)._compute_amount_to_invoice()
+
+    @api.depends('amount_total', 'amount_to_invoice')
+    def _compute_amount_invoiced(self):
+        non_recurring = self.env['sale.order']
+        for order in self:
+            if not order.is_subscription:
+                non_recurring += order
+                continue
+
+            amount_invoiced = order._get_subscription_order_invoiced_amount()
+            order.amount_invoiced = amount_invoiced
+
+        if non_recurring:
+            super(SaleOrder, non_recurring)._compute_amount_invoiced()
 
     def _notify_thread(self, message, msg_vals=False, **kwargs):
         if not kwargs.get('model_description') and self.is_subscription:
@@ -2024,3 +2025,21 @@ class SaleOrder(models.Model):
                 self.subscription_state in SUBSCRIPTION_DRAFT_STATE + SUBSCRIPTION_PROGRESS_STATE
         else:
             return super()._can_be_edited_on_portal()
+
+    def _get_subscription_order_invoiced_amount(self):
+        self.ensure_one()
+        non_recurring_lines = self.order_line.filtered(lambda line: not line.recurring_invoice)
+        amount_invoiced = 0
+        for invoice in self.invoice_ids.filtered(lambda invoice: invoice.state == 'posted'):
+            prices = sum(
+                invoice_line.price_total for invoice_line in invoice.line_ids
+                if all(sale_line in non_recurring_lines for sale_line in invoice_line.sale_line_ids)
+            )
+            amount_invoiced += invoice.currency_id._convert(
+                prices * -invoice.direction_sign,
+                self.currency_id,
+                invoice.company_id,
+                invoice.date,
+            )
+
+        return amount_invoiced

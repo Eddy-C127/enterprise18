@@ -4041,3 +4041,43 @@ class TestSubscription(TestSubscriptionCommon):
         upsell = self.env['sale.order'].browse(action['res_id'])
         self.assertEqual(set(upsell.order_line.mapped('discount')), {0, 50}, 'Upsell discounts should match subscription discounts')
 
+    def test_subscription_already_invoice_amount(self):
+        """ Test that the 'already invoiced amount' field is correctly computed when creating an invoice. """
+        product_delivered = self.env['product.product'].create([
+            {
+                'name': 'Delivered',
+                'type': 'service',
+                'invoice_policy': 'delivery',
+            }
+        ])
+
+        sub = self.env['sale.order'].create({
+                'partner_id': self.partner.id,
+                'plan_id': self.plan_month.id,
+                'order_line': [
+                    Command.create({
+                        'name': "Product 1",
+                        'product_id': self.product.id,
+                        'product_uom_qty': 1,
+                        'price_unit': 20,
+                    }),
+                    Command.create({
+                        'product_id': product_delivered.id,
+                        'product_uom_qty': 2,
+                        'price_unit': 5,
+                    })
+                ],
+            })
+
+        sub.order_line.tax_id = [Command.clear()]
+        sub.action_confirm()
+        # create a downpayment invoice and cancel it.
+        self.env['sale.advance.payment.inv'].create({
+                'sale_order_ids': sub.ids,
+                'advance_payment_method': 'fixed',
+                'fixed_amount': 10
+            })._create_invoices(sub).button_cancel()
+
+        self.assertEqual(sub.amount_to_invoice, 20, "The amount to invoice should be 20")
+        self.assertEqual(sub.amount_invoiced, 0, "The amount invoiced should be 0")
+
