@@ -834,3 +834,22 @@ test("CharField can edit its placeholder_field option", async () => {
         }
     );
 });
+
+test("always invisible fields are flagged as not present in arch", async () => {
+    await mountViewEditor({
+        type: "form",
+        resModel: "coucou",
+        arch: `<form>
+            <field name="display_name" />
+            <field name="m2o" invisible="True" />
+            <field name="char_field" invisible="1" />
+        </form>
+    `,
+    });
+
+    expect(".o_web_studio_view_renderer .o_field_widget").toHaveCount(1);
+    await contains(".o_web_studio_sidebar .o_web_studio_existing_fields_header").click();
+    expect(".o_web_studio_sidebar .o_web_studio_existing_fields").toHaveText(
+        "Product\nChar field\nId\nLast Modified on\nCreated on"
+    );
+});
