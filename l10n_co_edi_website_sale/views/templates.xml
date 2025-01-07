@@ -24,6 +24,25 @@
 
     <template id="address" inherit_id="website_sale.address">
 
+        <xpath expr="//t[@t-if='website._display_partner_b2b_fields()']" position="replace">
+            <t t-if="website._display_partner_b2b_fields()">
+                <div class="w-100"/>
+                <div t-attf-class="#{error.get('company_name') and 'o_has_error'} col-lg-6 mb-2">
+                    <label class="col-form-label fw-normal label-optional" for="company_name">Company Name</label>
+                    <input type="text" name="company_name" t-attf-class="form-control #{error.get('company_name') and 'is-invalid' or ''}" t-att-value="'commercial_company_name' in checkout and checkout['commercial_company_name'] or 'company_name' in checkout and checkout['company_name']" t-att-readonly="'1' if vat_warning else None" />
+                    <small t-if="vat_warning" class="form-text text-muted d-block d-lg-none">Changing company name is not allowed once document(s) have been issued for your account. Please contact us directly for this operation.</small>
+                </div>
+                <div t-attf-class="#{error.get('vat') and 'o_has_error'} div_vat col-lg-6 mb-2">
+                    <label class="col-form-label fw-normal label-optional" for="vat">VAT</label>
+                    <input type="text" name="vat" t-attf-class="form-control #{error.get('vat') and 'is-invalid' or ''}" t-att-value="'vat' in checkout and checkout['vat']" t-att-readonly="'1' if vat_warning else None"/>
+                    <small t-if="vat_warning" class="form-text text-muted d-block d-lg-none">Changing VAT number is not allowed once document(s) have been issued for your account. Please contact us directly for this operation.</small>
+                </div>
+                <div t-if="vat_warning" class="col-12 d-none d-lg-block mb-1">
+                    <small class="form-text text-muted">Changing company name or VAT number is not allowed once document(s) have been issued for your account. Please contact us directly for this operation.</small>
+                </div>
+            </t>
+        </xpath>
+
         <xpath expr="//input[@name='vat']/.." position="before">
             <t t-if="mode[1] == 'billing'">
                 <t t-if="res_company.account_fiscal_country_id.code == 'CO'">

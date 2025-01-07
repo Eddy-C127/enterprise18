@@ -1,4 +1,4 @@
-from odoo import http
+from odoo import http, _
 from odoo.http import request
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale
@@ -62,11 +62,13 @@ class L10nCOWebsiteSale(WebsiteSale):
             if id_type and id_type.name == 'NIT':
                 if not data.get('l10n_co_edi_obligation_type_ids'):
                     error['l10n_co_edi_obligation_type_ids'] = 'missing'
+                    error_message.append(_("Obligation is required for the NIT identification type."))
                 if not data.get('l10n_co_edi_fiscal_regimen'):
                     error['l10n_co_edi_fiscal_regimen'] = 'missing'
+                    error_message.append(_("Fiscal Regimen is required for NIT identification type."))
                 if not data.get('company_name'):
                     error['company_name'] = 'missing'
-
+                    error_message.append(_("Company name is required for NIT identification type."))
         return error, error_message
 
     def _get_country_related_render_values(self, kw, render_values):
