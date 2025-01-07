@@ -14,12 +14,14 @@ class WorksheetValidationController extends FormController {
     async saveButtonClicked(params = {}) {
         // closable is a param that is set by default on form saves and will trigger a close window action if true
         // its set to false here to prevent the action close from closing the action in `onRecordSaved`
-        params.closable = false;
+        if (this.props.context['quality_wizard_id']) {
+            params.closable = false;
+        }
         return super.saveButtonClicked(params);
     }
 
     async onRecordSaved(record) {
-        if (record.mode != "readonly") {
+        if (record.mode != "readonly" && record.context['quality_wizard_id']) {
             record.context['from_worksheet'] = true
             const action = await this.orm.call(
                 "quality.check",
