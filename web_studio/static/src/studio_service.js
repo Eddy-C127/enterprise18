@@ -48,7 +48,7 @@ export const studioService = {
 
         function _getCurrentAction() {
             const currentController = env.services.action.currentController;
-            return currentController ? currentController.action : null;
+            return currentController && !currentController.virtual ? currentController.action : null;
         }
 
         function _isStudioEditable(action) {
