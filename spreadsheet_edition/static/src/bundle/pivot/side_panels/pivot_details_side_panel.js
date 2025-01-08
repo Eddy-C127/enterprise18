@@ -1,7 +1,7 @@
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 import { components, helpers, stores, hooks } from "@odoo/o-spreadsheet";
-import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
+import { Component, onWillStart, onWillUpdateProps, useRef } from "@odoo/owl";
 import { OdooPivotLayoutConfigurator } from "./odoo_pivot_layout_configurator/odoo_pivot_layout_configurator";
 import { SidePanelDomain } from "../../components/side_panel_domain/side_panel_domain";
 
@@ -30,6 +30,7 @@ export class PivotDetailsSidePanel extends Component {
         this.notification = useService("notification");
         /**@type {PivotSidePanelStore} */
         this.store = useLocalStore(PivotSidePanelStore, this.props.pivotId);
+        this.pivotSidePanelRef = useRef("pivotSidePanel");
 
         const loadData = async () => {
             await this.pivot.load();
@@ -55,6 +56,10 @@ export class PivotDetailsSidePanel extends Component {
             definition?.sortedColumn &&
             definition.measures.find((m) => m.fieldName === definition.sortedColumn.measure)
         );
+    }
+
+    getScrollableContainerEl() {
+        return this.pivotSidePanelRef.el;
     }
 
     formatSort() {
