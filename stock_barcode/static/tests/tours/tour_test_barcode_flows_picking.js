@@ -4754,3 +4754,59 @@ registry.category("web_tour.tours").add("test_satisfy_existing_lot_line_before_e
         ...stepUtils.validateBarcodeOperation(".o_barcode_line:last-child.o_faulty .qty-done:contains(2)"),
     ]
 });
+
+registry.category("web_tour.tours").add("test_select_with_same_product_and_lot", {
+    test: true, steps: () => [
+        {
+            trigger: '.o_barcode_client_action',
+            run: function() {
+                helper.assertLinesCount(2);
+                helper.assertValidateVisible(true);
+                helper.assertValidateEnabled(true);
+            }
+        },
+        // Scan source location
+        {
+            trigger: '.o_barcode_client_action',
+            run: 'scan LOC-01-00-00'
+        },
+        // Select the second line
+        { trigger: '.o_barcode_line:last-child' },
+        // Scan the lot 2 times
+        {
+            trigger: '.o_barcode_client_action',
+            run: 'scan lot_xyz',
+        },
+        {
+            trigger: '.o_barcode_client_action',
+            run: 'scan lot_xyz',
+        },
+        {
+            trigger: '.o_barcode_lines',
+            run: function() {
+                const line1 = document.querySelector('.o_barcode_line:first-child');
+                const line2 = document.querySelector('.o_barcode_line:last-child');
+                helper.assert(line1.querySelector('.o_barcode_scanner_qty .qty-done').innerText, '0');
+                helper.assert(line2.querySelector('.o_barcode_scanner_qty .qty-done').innerText, '2');
+            },
+        },
+        // Select the first line
+        { trigger: '.o_barcode_line:first-child' },
+        // Scan the lot 2 times
+        {
+            trigger: '.o_barcode_client_action',
+            run: 'scan lot_xyz',
+        },
+        {
+            trigger: '.o_barcode_client_action',
+            run: 'scan lot_xyz',
+        },
+        {
+            trigger: '.o_barcode_line.o_line_completed',
+            run: function() {
+                // Both lines should be completed
+                helper.assertLinesCount(2);
+            },
+        },
+    ]
+});
