@@ -546,7 +546,11 @@ class AnalyticLine(models.Model):
 
     def _get_timesheet_timer_data(self, timer=None):
         if self.company_id in self.env.companies:
-            return {'id': (timer or self.user_timer_id).res_id}
+            return {
+                'id': (timer or self.user_timer_id).res_id,
+                'project_id': self.project_id.id,
+                'task_id': self.task_id.id,
+            }
         return {'other_company': True}
 
     @api.model
