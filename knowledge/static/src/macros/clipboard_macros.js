@@ -1,8 +1,11 @@
 /** @odoo-module */
 
 import { AbstractMacro } from "@knowledge/macros/abstract_macro";
-import { pasteElements } from "@knowledge/macros/utils";
 import { click } from "@odoo/hoot-dom";
+import {
+    pasteElements,
+    replaceHtmlFieldContentWith
+} from "@knowledge/macros/utils";
 
 /**
  * Macro that will open the Full Composer Form view dialog in the Form view
@@ -63,7 +66,7 @@ export class SendAsMessageMacro extends AbstractMacro {
                     return null;
                 },
                 action: (el) => {
-                    pasteElements(this.data.dataTransfer, el);
+                    replaceHtmlFieldContentWith(this.data.dataTransfer, el);
                 },
             },
             {
