@@ -137,6 +137,7 @@ class PaymentProvider(models.Model):
                 'start_date': datetime.now(),
                 'payment_journal_id': self.journal_id.id,
                 'state': 'draft',
+                'company_id': self.company_id.id,
             })
         return mandate
 
