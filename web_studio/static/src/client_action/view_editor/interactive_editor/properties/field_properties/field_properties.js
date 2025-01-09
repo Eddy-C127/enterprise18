@@ -62,6 +62,8 @@ export class FieldProperties extends Component {
     setup() {
         this.dialog = useService("dialog");
         this.rpc = useService("rpc");
+        this.companyService = useService("company");
+        this.multiCompany = Object.keys(this.companyService.allowedCompanies).length > 1;
         this.state = useState({});
         this.editNodeAttributes = useEditNodeAttributes();
         onWillStart(async () => {
@@ -104,18 +106,21 @@ export class FieldProperties extends Component {
         return this.editNodeAttributes({ [name]: value });
     }
 
-    onChangeDefaultValue(value) {
-        this.rpc("/web_studio/set_default_value", {
+    async onChangeDefaultValue(value) {
+        await this.rpc("/web_studio/set_default_value", {
             model_name: this.env.viewEditorModel.resModel,
             field_name: this.props.node.field.name,
             value,
+            company_id: this.companyService.currentCompany.id,
         });
+        this.state.defaultValue = value;
     }
 
     async getDefaultValue(node) {
         const defaultValueObj = await this.rpc("/web_studio/get_default_value", {
             model_name: this.env.viewEditorModel.resModel,
             field_name: node.field.name,
+            company_id: this.companyService.currentCompany.id,
         });
         return defaultValueObj.default_value;
     }

@@ -59,6 +59,9 @@
             childProps="defaultValuesChoices"
         >
             Default value
+            <span t-if="multiCompany">
+            for company <b t-esc="companyService.currentCompany.name"/>
+            </span>
         </Property>
     </t>
 
