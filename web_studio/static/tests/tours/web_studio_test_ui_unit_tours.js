@@ -1945,3 +1945,38 @@ registry.category("web_tour.tours").add("web_studio_test_drag_before_sheet", {
         },
     ],
 });
+
+registry.category("web_tour.tours").add("web_studio_test_default_value_company", {
+    steps: () => [
+        {
+            trigger: "a[data-menu-xmlid='web_studio.studio_test_partner_menu']",
+            run: "click",
+        },
+        {
+            trigger: ".o_form_view .o_form_editable",
+            run: "click",
+        },
+        {
+            trigger: ".o_web_studio_navbar_item button",
+            run: "click",
+        },
+        {
+            trigger: ".o_web_studio_view_renderer .o_form_view .o_field_widget[name='name']",
+            run: "click",
+        },
+        {
+            trigger: ".o_web_studio_sidebar input[id='default_value']",
+            async run(helpers) {
+                // in this flow, only the input's value is changing
+                // We want to wait for the RPC to return. That will
+                // "commit" the value in the input.
+                await helpers.edit("from studio", this.anchor);
+                await helpers.click('body');
+                this.anchor.value = "";
+            },
+        },
+        {
+            trigger: ".o_web_studio_sidebar input[id='default_value']:value(from studio)",
+        },
+    ],
+});
