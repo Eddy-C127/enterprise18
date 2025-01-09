@@ -108,8 +108,7 @@ class AccountJournal(models.Model):
         limit_time = tools.config['limit_time_real_cron'] or -1
         if limit_time <= 0:
             limit_time = tools.config['limit_time_real'] or 120
-        journals = self.search([(
-            'account_online_account_id', '!=', False),
+        journals = self.search([
             '|',
                 ('online_sync_fetching_status', 'in', ('planned', 'waiting')),
                 '&',
@@ -369,3 +368,9 @@ class AccountJournal(models.Model):
         # Extends 'account_accountant'
         self._consume_connection_state_details()
         return super().action_open_bank_transactions()
+
+    @api.model
+    def _toggle_asynchronous_fetching_cron(self):
+        cron = self.env.ref('account_online_synchronization.online_sync_cron_waiting_synchronization', raise_if_not_found=False)
+        if cron:
+            cron.toggle(model=self._name, domain=[('account_online_account_id', '!=', False)])
