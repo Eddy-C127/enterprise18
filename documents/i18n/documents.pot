@@ -132,12 +132,12 @@ msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_year_previous
-msgid "2023"
+msgid "2024"
 msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_year_current
-msgid "2024"
+msgid "2025"
 msgstr ""
 
 #. module: documents
@@ -994,12 +994,6 @@ msgstr ""
 
 #. module: documents
 #. odoo-javascript
-#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_configure.js:0
-msgid "Configure"
-msgstr ""
-
-#. module: documents
-#. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.model,name:documents.model_res_partner
 #: model:ir.model.fields,field_description:documents.field_documents_document__partner_id
@@ -1152,13 +1146,6 @@ msgstr ""
 
 #. module: documents
 #. odoo-javascript
-#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_details.js:0
-#: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
-msgid "Details"
-msgstr ""
-
-#. module: documents
-#. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 #: code:addons/documents/static/src/views/hooks.js:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -1215,6 +1202,7 @@ msgstr ""
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__document_count
 #: model:ir.model.fields,field_description:documents.field_res_partner__document_count
+#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 msgid "Document Count"
 msgstr ""
 
@@ -1291,7 +1279,6 @@ msgstr ""
 #: model:ir.actions.act_window,name:documents.document_action
 #: model:ir.actions.act_window,name:documents.document_action_portal
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__document_ids
-#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 #: model:ir.ui.menu,name:documents.dashboard
 #: model:ir.ui.menu,name:documents.menu_root
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -1315,6 +1302,18 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "Documents in the Trash cannot be shared"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
+msgid "Documents moved to trash will show up here"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
+msgid "Documents shared with you will appear here"
 msgstr ""
 
 #. module: documents
@@ -1399,7 +1398,6 @@ msgstr ""
 
 #. module: documents
 #. odoo-javascript
-#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_configure.js:0
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 #: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
 msgid "Edit"
@@ -1445,18 +1443,6 @@ msgstr ""
 #. module: documents
 #: model:ir.actions.act_window,name:documents.mail_alias_action
 msgid "Email links"
-msgstr ""
-
-#. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/documents_model_mixin.js:0
-msgid "Enter folder"
-msgstr ""
-
-#. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/documents_model_mixin.js:0
-msgid "Entering this folder will deselect all items. Do you want to proceed?"
 msgstr ""
 
 #. module: documents
@@ -2354,12 +2340,6 @@ msgid "Open #{document_url.name}"
 msgstr ""
 
 #. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/documents_model_mixin.js:0
-msgid "Open folder"
-msgstr ""
-
-#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Open folder #{subfolder.name}"
 msgstr ""
@@ -2531,6 +2511,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Recent"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
+msgid "Recently accessed Documents will show up here"
 msgstr ""
 
 #. module: documents
@@ -2751,6 +2737,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.xml:0
 msgid "Saving..."
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
+msgid "Select a folder to upload a document"
 msgstr ""
 
 #. module: documents
@@ -3565,6 +3557,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Your individual space."
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
+msgid "Your personal space"
 msgstr ""
 
 #. module: documents
