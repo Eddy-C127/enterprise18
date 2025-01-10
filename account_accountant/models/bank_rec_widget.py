@@ -493,6 +493,7 @@ class BankRecWidget(models.Model):
             balance=-aml.amount_residual,
             source_amount_currency=-aml.amount_residual_currency,
             source_balance=-aml.amount_residual,
+            source_rate=(aml.amount_currency / aml.balance) if aml.balance else 0.0,
             **kwargs,
         )
 
@@ -546,7 +547,7 @@ class BankRecWidget(models.Model):
             balance_after_partial = current_balance + auto_balance
 
             # Get the rate of the original journal item.
-            rate = abs(line.source_amount_currency) / abs(line.source_balance)
+            rate = line.source_rate
 
             # Compute the amounts to make a partial.
             new_line_balance = line.company_currency_id.round(balance_after_partial * abs(line.balance) / abs(current_balance))
@@ -796,8 +797,7 @@ class BankRecWidget(models.Model):
             line = base_line_vals['record']
             amount_currency = to_update['price_subtotal']
             if line.flag == 'new_aml':
-                rate = abs(line.source_amount_currency) / abs(line.source_balance)
-                balance = line.company_currency_id.round(amount_currency / rate)
+                balance = line.company_currency_id.round(amount_currency / line.source_rate) if line.source_rate else 0.0
             else:
                 balance = self.st_line_id\
                     ._prepare_counterpart_amounts_using_st_line_rate(line.currency_id, line.source_balance, amount_currency)['balance']
@@ -838,14 +838,6 @@ class BankRecWidget(models.Model):
 
         new_amls = self.line_ids.filtered(lambda x: x.flag == 'new_aml')
         for new_aml in new_amls:
-
-            # Compute the balance of the line using the rate/currency coming from the bank transaction.
-            amounts_in_st_curr = self.st_line_id._prepare_counterpart_amounts_using_st_line_rate(
-                new_aml.currency_id,
-                new_aml.balance,
-                new_aml.amount_currency,
-            )
-            balance = amounts_in_st_curr['balance']
             if new_aml.currency_id == self.company_currency_id and self.transaction_currency_id != self.company_currency_id:
                 # The reconciliation will be expressed using the rate of the statement line.
                 balance = new_aml.balance
@@ -854,6 +846,14 @@ class BankRecWidget(models.Model):
                 # case.
                 balance = new_aml.currency_id\
                     ._convert(new_aml.amount_currency, self.transaction_currency_id, self.company_id, self.st_line_id.date)
+            else:
+                # Compute the balance of the line using the rate/currency coming from the bank transaction.
+                amounts_in_st_curr = self.st_line_id._prepare_counterpart_amounts_using_st_line_rate(
+                    new_aml.currency_id,
+                    new_aml.balance,
+                    new_aml.amount_currency,
+                )
+                balance = amounts_in_st_curr['balance']
 
             # Compute the exchange difference balance.
             exchange_diff_balance = balance - new_aml.balance
@@ -1013,9 +1013,8 @@ class BankRecWidget(models.Model):
                 line.balance = line.source_balance
             else:
                 # Apply the rate.
-                if line.source_balance:
-                    rate = abs(line.source_amount_currency / line.source_balance)
-                    line.balance = line.company_currency_id.round(line.amount_currency / rate)
+                if line.source_rate:
+                    line.balance = line.company_currency_id.round(line.amount_currency / line.source_rate)
                 else:
                     line.balance = 0.0
         elif line.flag in ('manual', 'early_payment', 'tax_line'):
