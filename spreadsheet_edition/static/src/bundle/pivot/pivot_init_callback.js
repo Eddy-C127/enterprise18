@@ -37,17 +37,22 @@ function addEmptyGranularity(dimensions, fields) {
 
 export function insertPivot(pivotData) {
     const fields = pivotData.metaData.fields;
-    const measures = pivotData.metaData.activeMeasures.map((measure) => ({
+    const activeMeasures = pivotData.metaData.activeMeasures;
+    const measures = activeMeasures.map((measure) => ({
         id: fields[measure]?.aggregator ? `${measure}:${fields[measure].aggregator}` : measure,
         fieldName: measure,
         aggregator: fields[measure]?.aggregator,
     }));
+    const sortedMeasure = pivotData.metaData.sortedColumn?.measure;
+    const sortedColumn = activeMeasures.includes(sortedMeasure)
+        ? pivotData.metaData.sortedColumn
+        : null;
     /** @type {import("@spreadsheet").OdooPivotCoreDefinition} */
     const pivot = deepCopy({
         type: "ODOO",
         domain: new Domain(pivotData.searchParams.domain).toJson(),
         context: pivotData.searchParams.context,
-        sortedColumn: pivotData.metaData.sortedColumn,
+        sortedColumn,
         measures,
         model: pivotData.metaData.resModel,
         columns: addEmptyGranularity(
