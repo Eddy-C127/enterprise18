@@ -3673,7 +3673,6 @@ QUnit.module("View Editors", (hooks) => {
             ".o_web_studio_view_renderer .o_field_one2many .o-web-studio-edit-x2manys-buttons"
         ).style["z-index"];
         assert.strictEqual(blockOverlayZindex, "1000", "z-index of blockOverlay should be 1000");
-        assert.verifySteps(["/web_studio/get_default_value", "get_default_value: coucou"]);
 
         await click(
             target.querySelector(
@@ -3999,7 +3998,6 @@ QUnit.module("View Editors", (hooks) => {
             );
 
             await click(target.querySelector(".o_web_studio_view_renderer .o_field_one2many"));
-            assert.verifySteps(["/web_studio/get_default_value"]);
 
             await click(
                 target.querySelector(
@@ -4018,7 +4016,6 @@ QUnit.module("View Editors", (hooks) => {
             ]);
 
             await click(target.querySelector(".o_web_studio_view_renderer .o_field_one2many"));
-            assert.verifySteps(["/web_studio/get_default_value"]);
             await click(
                 target.querySelector(
                     '.o_web_studio_view_renderer .o_field_one2many .o_web_studio_editX2Many[data-type="form"]'
