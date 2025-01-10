@@ -239,6 +239,10 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         return smlData;
     }
 
+    _getLineMoveId(line) {
+        return line.move_id.id;
+    }
+
     _createLinesState() {
         const lines = [];
         if (!this.resId && !this.record.id) {

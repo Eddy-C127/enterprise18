@@ -42,7 +42,7 @@ QUnit.module('Barcode', {
                 return Promise.resolve(self.clientData.currentState);
             } else if (route === '/stock_barcode/static/img/barcode.svg') {
                 return Promise.resolve();
-            } else if (route === "/web/dataset/call_kw/stock.move/split_uncompleted_moves") {
+            } else if (route === "/web/dataset/call_kw/stock.move/post_barcode_process") {
                 return Promise.resolve([]);
             }
         };

@@ -4895,6 +4895,61 @@ registry.category("web_tour.tours").add('test_split_line_on_exit_for_receipt', {
     },
 ]});
 
+registry.category("web_tour.tours").add("test_split_line_on_exit_for_delivery_with_lot", { steps: () => [
+    // Opens the delivery and checks its lines.
+    { trigger: ".o_stock_barcode_main_menu", run: "scan delivery_split_move_on_exit" },
+    {
+        trigger: ".o_barcode_client_action",
+        run: () => {
+            helper.assertLinesCount(1);
+            helper.assertLineProduct(0, "productlot1");
+            helper.assertLineQty(0, "0/3");
+        }
+    },
+    // Scans 3x productlot1: 2x LOT002 and 1x LOT001.
+    { trigger: ".o_barcode_client_action", run: "scan productlot1" },
+    { trigger: ".o_barcode_line.o_selected", run: "scan LOT002" },
+    { trigger: ".o_barcode_line.o_selected", run: "scan LOT002" },
+    { trigger: ".o_barcode_line.o_selected", run: "scan LOT001" },
+    {
+        trigger: ".o_barcode_line.o_selected.o_line_completed  .o_line_button.o_toggle_sublines",
+        run: "click",
+    },
+    {
+        trigger: ".o_barcode_line_details .o_line_lot_name:contains(LOT001)",
+        run: () => {
+            helper.assertLinesCount(1);
+            helper.assertLineQty(0, "3/3");
+            const [ lot001Line, lot002Line ] = helper.getSublines();
+            helper.assert(lot001Line.querySelector(".o_line_lot_name").innerText, "LOT001");
+            helper.assert(lot001Line.querySelector(".o_barcode_scanner_qty").innerText, "1");
+            helper.assert(lot002Line.querySelector(".o_line_lot_name").innerText, "LOT002");
+            helper.assert(lot002Line.querySelector(".o_barcode_scanner_qty").innerText, "2");
+        }
+    },
+    // Leaves the delivery and re-open it directly, then checks not lines were splitted.
+    { trigger: "button.o_exit", run: "click" },
+    { trigger: ".o_stock_barcode_main_menu", run: "scan delivery_split_move_on_exit" },
+    {
+        trigger: ".o_barcode_line.o_line_completed  .o_line_button.o_toggle_sublines",
+        run: "click",
+    },
+    {
+        trigger: ".o_barcode_line_details .o_line_lot_name:contains(LOT001)",
+        run: () => {
+            helper.assertLinesCount(1);
+            helper.assertLineQty(0, "3/3");
+            const [ lot001Line, lot002Line ] = helper.getSublines();
+            helper.assert(lot001Line.querySelector(".o_line_lot_name").innerText, "LOT001");
+            helper.assert(lot001Line.querySelector(".o_barcode_scanner_qty").innerText, "1");
+            helper.assert(lot002Line.querySelector(".o_line_lot_name").innerText, "LOT002");
+            helper.assert(lot002Line.querySelector(".o_barcode_scanner_qty").innerText, "2");
+        }
+    },
+    { trigger: "button.o_exit", run: "click" },
+    { trigger: ".o_stock_barcode_main_menu", run(){} },
+]});
+
 registry.category("web_tour.tours").add('test_split_line_on_scan', { steps: () => [
     // Scan product2 twice
     {
