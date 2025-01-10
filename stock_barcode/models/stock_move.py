@@ -49,3 +49,16 @@ class StockMove(models.Model):
                         move_lines_to_unlink |= move_line
             move_lines_to_unlink.unlink()
         return new_moves
+
+    def _truncate_overreserved_moves(self, barcode_quantities):
+        """ Truncate moves with an exceeding quantity due to barcode move line creations."""
+        for move in self.filtered("picked"):
+            move_qties = barcode_quantities.get(str(move.id))
+            max_reserved_qty = max(move_qties['quantity_done'], move_qties['reserved_uom_qty'])
+            if float_compare(move.quantity, max_reserved_qty, precision_digits=move.product_id.uom_id.rounding) > 0:
+                move.with_context({'unreserve_unpicked_only': True}).quantity = max_reserved_qty
+
+    def post_barcode_process(self, barcode_quantities):
+        new_moves = self.split_uncompleted_moves()
+        self._truncate_overreserved_moves(barcode_quantities)
+        return new_moves
