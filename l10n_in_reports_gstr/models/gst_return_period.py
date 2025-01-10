@@ -11,7 +11,7 @@ from dateutil import relativedelta
 from itertools import groupby
 from markupsafe import Markup
 
-from odoo import api, fields, models, tools, _
+from odoo import api, fields, models, tools, _, SUPERUSER_ID
 from odoo.exceptions import UserError, AccessError, ValidationError, RedirectWarning
 from odoo.tools import date_utils, get_lang, html_escape, SQL
 from odoo.tools.misc import format_date
@@ -1189,13 +1189,59 @@ class L10nInGSTReturnPeriod(models.Model):
         self._check_config(next_gst_action='gstr1_status')
         self.check_gstr1_status()
 
+    def _get_gstr_responsible_activity_and_user(self):
+        """
+        Retrieve the mail activity type for GSTR-1 exceptions and identify the responsible user.
+        """
+        act_type_xmlid = 'l10n_in_reports_gstr.mail_activity_type_gstr1_exception_to_be_sent'
+        act_type = self.env.ref(act_type_xmlid, raise_if_not_found=False)
+        # Ensure the activity type exists; create if missing
+        if not act_type:
+            act_type = self.env['mail.activity.type'].sudo()._load_records({
+                'xml_id': act_type_xmlid,
+                'noupdate': False,
+                'values': {
+                    'name': 'GSTR-1 Exception',
+                    'summary': 'GSTR-1 exception sent to the responsible user of the journal entry',
+                    'category': 'default',
+                    'delay_count': 0,
+                    'delay_unit': 'days',
+                    'delay_from': 'current_date',
+                    'res_model': 'account.move',
+                    'chaining_type': 'suggest',
+                }
+            })
+
+        # Determine the responsible user
+        advisor_user = self.env['res.users']
+        company_ids = self.company_ids or self.company_id
+        if (
+            act_type.default_user_id and
+            act_type.default_user_id.has_group(self.env.ref('account.group_account_manager').id) and
+            any(company in act_type.default_user_id.company_ids for company in company_ids)
+        ):
+            advisor_user = act_type.default_user_id
+        else:
+            field_id = self.env['ir.model.fields'].search([
+                ('name', '=', 'gstr1_status'),
+                ('model_id.model', '=', self._name),
+            ])
+            # Search for the last relevant mail message to find a responsible user
+            last_message = self.env['mail.message'].search([
+                ('model', '=', self._name),
+                ('res_id', '=', self.id),
+                ('create_uid', '!=', SUPERUSER_ID),
+                ('create_uid.groups_id', 'in', self.env.ref('account.group_account_manager').ids),
+                ('tracking_value_ids.field_id', '=', field_id.id),
+            ], limit=1)
+            advisor_user = last_message and last_message.create_uid or self.env.user
+
+        return act_type_xmlid, advisor_user
+
     def check_gstr1_status(self):
         response = self._get_gstr_status(
             company=self.company_id, month_year=self.return_period_month_year, reference_id=self.gstr_reference)
         if response.get('data'):
-            advisor_user = self.env['res.users'].search([
-                ('company_ids', 'in', self.company_ids.ids or self.company_id.ids),
-                ('groups_id', 'in', self.env.ref('account.group_account_manager').ids)], limit=1, order="id ASC")
             data = response["data"]
             if data.get("status_cd") == "P":
                 self.sudo().write({
@@ -1222,6 +1268,7 @@ class L10nInGSTReturnPeriod(models.Model):
                     error_report = data.get('error_report', {})
                     message = "[%s] %s"%(error_report.get('error_cd'), error_report.get('error_msg'))
                 else:
+                    act_type_xmlid, advisor_user = self._get_gstr_responsible_activity_and_user()
                     error_report_summary = {}
                     for section_code, invoices in data.get('error_report', {}).items():
                         error_report_summary[section_code] = {}
@@ -1262,8 +1309,8 @@ class L10nInGSTReturnPeriod(models.Model):
                                     "<ul><li>Invoice : <a href='#' data-oe-model='account.move' data-oe-id='%s'>%s</a></li>%s</ul>"
                                 ) % (move.id, move.name, error_note)
                                 move.activity_schedule(
-                                    act_type_xmlid='mail.mail_activity_data_warning',
-                                    user_id=advisor_user.id or self.env.user.id,
+                                    act_type_xmlid=act_type_xmlid,
+                                    user_id=advisor_user.id,
                                     note=_('GSTR-1 Processed with Error: %s', error_note)
                                 )
                             else:
