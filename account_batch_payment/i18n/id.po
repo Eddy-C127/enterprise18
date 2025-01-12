@@ -3,8 +3,8 @@
 # 	* account_batch_payment
 # 
 # Translators:
-# Abe Manyo, 2024
 # Wil Odoo, 2024
+# Abe Manyo, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Abe Manyo, 2025\n"
 "Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -897,7 +897,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 msgid "You cannot add payments that are already sent."
-msgstr ""
+msgstr "Anda tidak dapat menambahkan pembayaran yang sudah dikirim."
 
 #. module: account_batch_payment
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
@@ -917,6 +917,7 @@ msgstr ""
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 msgid "You cannot add the same payment to multiple batches."
 msgstr ""
+"Anda tidak dapat menambahkan pembayaran yang sama ke lebih dari satu batch."
 
 #. module: account_batch_payment
 #. odoo-python
@@ -925,9 +926,13 @@ msgstr ""
 msgid ""
 "You cannot create a batch with payments that are already in another batch."
 msgstr ""
+"Anda tidak dapat membuat batch dengan pembayaran yang sudah ada di batch "
+"lain."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 msgid "You cannot create batches with overlapping payments."
 msgstr ""
+"Anda tidak dapat membuat batch dengan pembayaran-pembayaran yang tumpang "
+"tindih."

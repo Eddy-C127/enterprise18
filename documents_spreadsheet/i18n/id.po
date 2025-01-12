@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Abe Manyo, 2024
+# Abe Manyo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 13:01+0000\n"
+"POT-Creation-Date: 2024-10-25 09:14+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Abe Manyo, 2024\n"
+"Last-Translator: Abe Manyo, 2025\n"
 "Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +30,7 @@ msgstr "\"%s\" disimpan sebagai templat"
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "%(folder)s is used by %(company)s"
-msgstr ""
+msgstr "%(folder)s digunakan oleh %(company)s"
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -289,6 +289,13 @@ msgstr "Spreadsheet baru dibuat di Dokumen"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
+#: code:addons/documents_spreadsheet/models/documents_document.py:0
+#: code:addons/documents_spreadsheet/static/src/bundle/actions/spreadsheet_action.js:0
+msgid "New spreadsheet created in My Drive"
+msgstr ""
+
+#. module: documents_spreadsheet
+#. odoo-javascript
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/spreadsheet_template.py:0
 #: code:addons/documents_spreadsheet/static/src/bundle/actions/spreadsheet_template/spreadsheet_template_action.js:0
@@ -457,6 +464,8 @@ msgid ""
 "The company for a folder cannot be changed if it is already used as the "
 "spreadsheet workspace for at least one other company: %s"
 msgstr ""
+"Perusahaan untuk folder tidak dapat diubah bila sudah digunakan sebagai "
+"workspace spreadsheet untuk setidaknya satu perusahaan lain: %s"
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -465,6 +474,8 @@ msgid ""
 "The company of %(folder)s should either be undefined or set to %(company)s. "
 "Otherwise, it is not possible to link the workspace to the company."
 msgstr ""
+"Perusahaan %(folder)s harus undefined atau ditetapkan menjadi %(company)s. "
+"Bila tidak, tidak mungkin untuk menghubungkan workspace ke perusahaan"
 
 #. module: documents_spreadsheet
 #. odoo-python

@@ -14,7 +14,7 @@
 # Jorunn D. Newth, 2024
 # Marius Stedjan <marius@stedjan.com>, 2024
 # Martin Trigaux, 2024
-# Rune Restad, 2024
+# Rune Restad, 2025
 # 
 msgid ""
 msgstr ""
@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Rune Restad, 2024\n"
+"Last-Translator: Rune Restad, 2025\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/odoo/teams/41243/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,6 +76,18 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "%s file(s) not moved because they are locked by another user"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_control_panel.js:0
+msgid "%s has been copied in My Drive."
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_control_panel.js:0
+msgid "%s have been copied in My Drive."
 msgstr ""
 
 #. module: documents
@@ -688,7 +700,7 @@ msgstr "Alias"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_contact
 msgid "Alias Contact Security"
-msgstr ""
+msgstr "Alias kontaktsikkerhet"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_domain_id
@@ -703,7 +715,7 @@ msgstr "Alias domenenavn"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_full_name
 msgid "Alias Email"
-msgstr ""
+msgstr "Alias epost"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_name
@@ -713,7 +725,7 @@ msgstr "Aliasnavn"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_status
 msgid "Alias Status"
-msgstr ""
+msgstr "Alias status"
 
 #. module: documents
 #. odoo-javascript
@@ -725,12 +737,12 @@ msgstr ""
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_status
 msgid "Alias status assessed on the last message received."
-msgstr ""
+msgstr "Alias-status vurderes på den siste meldingen mottatt."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_model_id
 msgid "Aliased Model"
-msgstr ""
+msgstr "Modell med alias"
 
 #. module: documents
 #. odoo-javascript
@@ -1039,7 +1051,7 @@ msgstr ""
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_create_activity
 msgid "Create Activity"
-msgstr ""
+msgstr "Opprett aktivitet"
 
 #. module: documents
 #. odoo-javascript
@@ -1094,7 +1106,7 @@ msgstr "Opprettelsesdato"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_bounced_content
 msgid "Custom Bounced Message"
-msgstr ""
+msgstr "Tilpasset returmelding"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__create_activity_date_deadline_range_type__days
@@ -1387,13 +1399,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_activity_date_deadline_range
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__activity_date_deadline_range
 msgid "Due Date In"
-msgstr ""
+msgstr "Forfallsdato i"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_activity_date_deadline_range_type
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__activity_date_deadline_range_type
 msgid "Due type"
-msgstr ""
+msgstr "Forfallstype"
 
 #. module: documents
 #. odoo-javascript
@@ -1560,7 +1572,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/views/kanban/documents_kanban_renderer.xml:0
 msgid "Files"
-msgstr ""
+msgstr "Filer"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
@@ -1581,7 +1593,7 @@ msgstr ""
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_financial
 msgid "Financial"
-msgstr ""
+msgstr "Finansiell"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_fiscal
@@ -1965,7 +1977,7 @@ msgstr ""
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__url
 msgid "Link URL"
-msgstr ""
+msgstr "URL link"
 
 #. module: documents
 #. odoo-javascript
@@ -1994,7 +2006,7 @@ msgstr ""
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_incoming_local
 msgid "Local-part based incoming detection"
-msgstr ""
+msgstr "Inngående deteksjon basert på lokal del"
 
 #. module: documents
 #. odoo-javascript
@@ -2459,7 +2471,7 @@ msgstr "Overordnet sti"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_parent_thread_id
 msgid "Parent Record Thread ID"
-msgstr ""
+msgstr "Hovedposterings tråd ID"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_parent_model_id
@@ -2536,7 +2548,7 @@ msgstr "Vurderinger"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Recent"
-msgstr ""
+msgstr "Nylig"
 
 #. module: documents
 #. odoo-python

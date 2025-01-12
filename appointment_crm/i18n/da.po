@@ -7,6 +7,7 @@
 # Sanne Kristensen <sanne@vkdata.dk>, 2024
 # lhmflexerp <lhm@flexerp.dk>, 2024
 # Martin Trigaux, 2024
+# Sammi Iversen <sammi@vkdata.dk>, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:29+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Sammi Iversen <sammi@vkdata.dk>, 2025\n"
 "Language-Team: Danish (https://app.transifex.com/odoo/teams/41243/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,12 +42,12 @@ msgstr "Kalender begivenhed"
 #. odoo-javascript
 #: code:addons/appointment_crm/static/src/views/appointment_calendar/appointment_crm_calendar_controller.xml:0
 msgid "Click in your calendar to pick meeting time proposals for"
-msgstr ""
+msgstr "Klik i din kalender for at vælge mødetidsforslag til"
 
 #. module: appointment_crm
 #: model:ir.model.fields,field_description:appointment_crm.field_appointment_type__lead_create
 msgid "Create Opportunities"
-msgstr ""
+msgstr "Opret salgsmulighed"
 
 #. module: appointment_crm
 #: model:ir.model.fields,help:appointment_crm.field_appointment_type__lead_create
@@ -54,6 +55,8 @@ msgid ""
 "For each scheduled appointment, create a new opportunity and assign it to "
 "the responsible user."
 msgstr ""
+"For hver planlagte aftale skal du oprette en ny mulighed og tildele den til "
+"den ansvarlige bruger."
 
 #. module: appointment_crm
 #: model_terms:ir.ui.view,arch_db:appointment_crm.appointment_type_view_form
@@ -76,12 +79,14 @@ msgid ""
 "Link an opportunity/lead to the appointment invite created.\n"
 "Used when creating an invitation from the Meeting action in the crm form view."
 msgstr ""
+"Link en mulighed/lead til den oprettede aftaleinvitation.\n"
+"Bruges ved oprettelse af en invitation fra mødehandlingen i crm-formularvisningen."
 
 #. module: appointment_crm
 #. odoo-python
 #: code:addons/appointment_crm/models/calendar_event.py:0
 msgid "Meeting linked to Lead/Opportunity %s"
-msgstr ""
+msgstr "Møde knyttet til Lead/Salgsmulighed %s"
 
 #. module: appointment_crm
 #: model:ir.model.fields,field_description:appointment_crm.field_calendar_event__opportunity_id

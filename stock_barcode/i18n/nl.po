@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +35,7 @@ msgstr "<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Serie/Partijnummer\"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 msgid "<i class=\"fa fa-fw fa-lg fa-cube me-3\" title=\"Quantity\"/>"
-msgstr "<i class=\"fa fa-fw fa-lg fa-cube me-3\" title=\"Hoeveelheid\"/>"
+msgstr "<i class=\"fa fa-fw fa-lg fa-cube me-3\" title=\"Aantal\"/>"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
@@ -157,8 +157,8 @@ msgstr ""
 msgid ""
 "Allow users to see the expected quantity of a product to count in a location"
 msgstr ""
-"Laat gebruikers de verwachte hoeveelheid zien van een te tellen product op "
-"een locatie"
+"Laat gebruikers het verwachte aantal zien van een te tellen product op een "
+"locatie"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__show_reserved_sns
@@ -332,7 +332,7 @@ msgstr "Volledige locaties tellen"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
 msgid "Counted Quantity"
-msgstr "Getelde hoeveelheid"
+msgstr "Getelde aantal"
 
 #. module: stock_barcode
 #: model_terms:ir.actions.act_window,help:stock_barcode.stock_picking_action_kanban
@@ -837,7 +837,7 @@ msgstr "Verpakking"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_packaging_uom_qty
 msgid "Packaging Quantity"
-msgstr "Verpakkingshoeveelheid"
+msgstr "Verpakkingsaantal"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__parent_location_id
@@ -997,23 +997,23 @@ msgstr "Aantal gedaan"
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 msgid "Quantity"
-msgstr "Hoeveelheid"
+msgstr "Aantal"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode_kanban
 msgid "Quantity Done"
-msgstr "Hoeveelheid gereed"
+msgstr "Aantal gereed"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 msgid "Quantity in stock"
-msgstr "Hoeveelheid op voorraad"
+msgstr "Aantal op voorraad"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_move_line__product_packaging_uom_qty
 msgid "Quantity of the Packaging in the UoM of the Stock Move Line."
 msgstr ""
-"Hoeveelheid van de verpakking in de maateenheid van de "
+"Aantal van de verpakking in de maateenheid van de "
 "voorraadverplaatsingsregel."
 
 #. module: stock_barcode
@@ -1217,8 +1217,7 @@ msgstr "Scan een ander serienummer"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 msgid "Scan lot numbers for product %s to change their quantity"
-msgstr ""
-"Scan partijnummers voor product %s om de hoeveelheid ervan te wijzigen"
+msgstr "Scan partijnummers voor product %s om het aantal ervan te wijzigen"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1260,7 +1259,7 @@ msgstr "Scannen of tikken"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 msgid "Scan serial numbers for product %s to change their quantity"
-msgstr "Scan serienummers voor product %s om de hoeveelheid te wijzigen"
+msgstr "Scan serienummers voor product %s om het aantal te wijzigen"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1303,8 +1302,8 @@ msgid ""
 "Scanned quantity uses %(unit)s as its Unit of Measure (UoM), but it is not "
 "compatible with the line's UoM (%(lineUnit)s)."
 msgstr ""
-"De gescande hoeveelheid gebruikt %(unit)s als maateenheid, maar deze "
-"maateenheid is niet compatibel met die van de regel (%(lineUnit)s)."
+"De gescande aantal gebruikt %(unit)s als maateenheid, maar deze maateenheid "
+"is niet compatibel met die van de regel (%(lineUnit)s)."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1314,8 +1313,8 @@ msgid ""
 "Scanned quantity uses %(unit)s as its Unit of Measure (UoM), but it is not "
 "compatible with the product's UoM (%(productUnit)s)."
 msgstr ""
-"De gescande hoeveelheid gebruikt %(unit)s als maateenheid, maar deze "
-"maateenheid is niet compatibel met die van het product (%(productUnit)s)."
+"De gescande aantal gebruikt %(unit)s als maateenheid, maar deze maateenheid "
+"is niet compatibel met die van het product (%(productUnit)s)."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1368,7 +1367,7 @@ msgstr "Barcode Validatie weergeven"
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__group_barcode_show_quantity_count
 #: model:res.groups,name:stock_barcode.group_barcode_show_quantity_count
 msgid "Show Quantity to Count"
-msgstr "Te tellen hoeveelheid weergeven"
+msgstr "Te tellen aantallen weergeven"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__show_reserved_sns
@@ -1585,7 +1584,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/count_screen_rfid.xml:0
 msgid "Unique Tags"
-msgstr "Unieke tags"
+msgstr "Unieke labels"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector

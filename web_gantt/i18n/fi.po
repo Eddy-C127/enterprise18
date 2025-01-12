@@ -7,9 +7,9 @@
 # Miku Laitinen <miku.laitinen@gmail.com>, 2024
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # Mikko Salmela <salmemik@gmail.com>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Martin Trigaux, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +35,7 @@ msgstr "%(hour)sh%(minute)s"
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
 msgid "%s cannot be scheduled in the past"
-msgstr ""
+msgstr "%s ei voida ajoittaa menneisyyteen"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -52,13 +52,13 @@ msgstr "Toimintoikkunan näkymä"
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
 msgid "Activate dense mode"
-msgstr ""
+msgstr "Aktivoi tiheä tila"
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
 msgid "Activate sparse mode"
-msgstr ""
+msgstr "Aktivoi harva tila"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -99,7 +99,7 @@ msgstr "Muokkaa"
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer.js:0
 msgid "Ending date cannot be before the starting date"
-msgstr ""
+msgstr "Loppupäivä ei voi olla ennen alkupäivää"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -111,7 +111,7 @@ msgstr "Laajenna rivit"
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
 msgid "Focus Today"
-msgstr ""
+msgstr "Keskitä nykypäivään"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -123,7 +123,7 @@ msgstr "Alkaa"
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer_controls.js:0
 msgid "From: %(from_date)s to: %(to_date)s"
-msgstr ""
+msgstr "Alkaen: %(from_date)s päättyen: %(to_date)s"
 
 #. module: web_gantt
 #: model:ir.model.fields.selection,name:web_gantt.selection__ir_actions_act_window_view__view_mode__gantt
@@ -169,13 +169,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer_controls.js:0
 msgid "Gantt start date"
-msgstr ""
+msgstr "Ganttin aloituspäivä"
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer_controls.js:0
 msgid "Gantt stop date"
-msgstr ""
+msgstr "Ganttin lopetuspäivä"
 
 #. module: web_gantt
 #. odoo-python
@@ -187,7 +187,7 @@ msgstr "Gantt-näkymä voi sisältää vain yhden mallitunnisteen"
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
 msgid "Impossible to schedule in the past."
-msgstr ""
+msgstr "Menneisyyteen ei voi ajastaa."
 
 #. module: web_gantt
 #. odoo-python
@@ -202,12 +202,14 @@ msgid ""
 "Invalid attributes (%(invalid_attributes)s) in gantt view. Attributes must "
 "be in (%(valid_attributes)s)"
 msgstr ""
+"Gantt-näkymän virheelliset attribuutit (%(invalid_attributes)s). "
+"Attribuuttien on oltava (%(valid_attributes)s)"
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/ir_ui_view.py:0
 msgid "Invalid default_range '%s' in gantt"
-msgstr ""
+msgstr "Epäkelpo default_range '%s' ganttissa"
 
 #. module: web_gantt
 #. odoo-python
@@ -219,7 +221,7 @@ msgstr "Ganttissa on virheellinen default_scale '%s'"
 #. odoo-python
 #: code:addons/web_gantt/models/ir_ui_view.py:0
 msgid "Invalid display_mode '%s' in gantt"
-msgstr ""
+msgstr "Ganttissa on virheellinen display_mode '%s'"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -249,7 +251,7 @@ msgstr "Suunnittele"
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
 msgid "Reschedule done successfully."
-msgstr ""
+msgstr "Aikataulujen uudelleenjärjestely onnistui."
 
 #. module: web_gantt
 #. odoo-javascript
@@ -261,7 +263,7 @@ msgstr "Aloitus"
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer.js:0
 msgid "Starting date cannot be after the ending date"
-msgstr ""
+msgstr "Alkamispäivä ei voi olla päättymispäivän jälkeen"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -273,13 +275,13 @@ msgstr "Lopeta"
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
 msgid "The dependencies are not valid, there is a cycle."
-msgstr ""
+msgstr "Riippuvuudet eivät ole voimassa. Kyseessä on sykli."
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
 msgid "There are no valid candidates to re-plan"
-msgstr ""
+msgstr "Uudelleensuunnitteluun ei ole kelvollisia ehdokkaita"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -291,7 +293,7 @@ msgstr "Tässä kuussa"
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
 msgid "This quarter"
-msgstr ""
+msgstr "tällä vuosineljänneksellä"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -315,7 +317,7 @@ msgstr "Tänään"
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
 msgid "Toolbar menu"
-msgstr ""
+msgstr "Työkalurivin valikko"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -346,13 +348,13 @@ msgstr "Näkymän tyyppi"
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
 msgid "You cannot move %(record)s towards %(related_record)s."
-msgstr ""
+msgstr "Et voi siirtää %(record)s kohti %(related_record)s."
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
 msgid "You cannot reschedule %(main_record)s towards %(other_record)s."
-msgstr ""
+msgstr "Aikataulua %(main_record)s ei voi siirtää kohti %(other_record)s."
 
 #. module: web_gantt
 #. odoo-javascript
@@ -382,4 +384,4 @@ msgstr "->"
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_row_progress_bar.xml:0
 msgid "{{ props.progressBar.warning }}"
-msgstr ""
+msgstr "{{ props.progressBar.warning }}"

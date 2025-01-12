@@ -7,6 +7,7 @@
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
 # Martin Trigaux, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
+# Jessica Jakara, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:29+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024\n"
+"Last-Translator: Jessica Jakara, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,6 +55,8 @@ msgid ""
 "This subscription is not compatible with the one(s) already in your cart.\n"
 "                Please order them separately or empty your cart."
 msgstr ""
+"Tämä tilaus ei ole yhteensopiva ostoskorissasi olevien muiden tilausten kanssa.\n"
+"                Ole hyvä ja tilaa ne erikseen tai tyhjennä ostoskorisi."
 
 #. module: website_sale_subscription
 #. odoo-python
@@ -61,9 +64,10 @@ msgstr ""
 msgid ""
 "You cannot have an optional product that has a no common pricing's plan."
 msgstr ""
+"Et voi valita vaihtoehtoisia tuotteita, joilla ei ole yhteistä hinnoittelua."
 
 #. module: website_sale_subscription
 #. odoo-python
 #: code:addons/website_sale_subscription/models/sale_order.py:0
 msgid "You cannot mix different subscription plans in the same order."
-msgstr ""
+msgstr "Et voi sekoittaa erilaisia tilaussuunnitelmia samaan tilaukseen."

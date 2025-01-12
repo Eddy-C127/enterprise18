@@ -5,7 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Ryoko Tsuda <ryoko@quartile.co>, 2024
-# Junko Augias, 2024
+# Junko Augias, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Junko Augias, 2024\n"
+"Last-Translator: Junko Augias, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -82,6 +82,26 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"    <t t-set=\"date_begin\" t-value=\"format_datetime(object.planned_date_begin, tz=object.partner_id.tz, lang_code=object.partner_id.lang)\"/>\n"
+"\n"
+"    <t t-set=\"date_end\" t-value=\"format_datetime(object.date_deadline, tz=object.partner_id.tz, lang_code=object.partner_id.lang)\"/>\n"
+"\n"
+"     <t t-out=\"object.partner_id.name or 'customer'\">お客様</t>、<br/><br/>\n"
+"    <t t-if=\"date_begin and date_end\">\n"
+"        <t t-out=\"object.name or ''\">ボイラー整備</t> は <t t-out=\"date_begin or ''\">05/31/2021 12:30:00</t> から <t t-out=\"date_end or ''\">05/31/2021 14:30:00</t>の予定です。\n"
+"    </t>\n"
+"    <t t-else=\"\">\n"
+"        <t t-out=\"object.name or ''\">ボイラー整備</t> が予定されました。\n"
+"    </t>\n"
+"    <br/><br/>\n"
+"    宜しくお願い致します。\n"
+"    <t t-if=\"user.signature\" data-o-mail-quote-container=\"1\">\n"
+"        <br/>\n"
+"        <t t-out=\"user.signature or ''\" data-o-mail-quote=\"1\">--<br data-o-mail-quote=\"1\"/>Mitchell Admin</t>\n"
+"    </t>\n"
+"</div>\n"
+"        "
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.portal_task_sign_button
@@ -99,6 +119,13 @@ msgid ""
 "            </p>\n"
 "        "
 msgstr ""
+"<p>\n"
+"                <t t-out=\"object.partner_id.name or 'Customer'\">お客様</t>、<br/><br/>\n"
+"                現場でのサービス報告書を添付致します。<br/><br/>\n"
+"                ご質問がございましたら、お気軽にお問合せ下さい。<br/><br/>\n"
+"                宜しくお願い致します。<br/><br/>\n"
+"            </p>\n"
+"        "
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.view_task_form2_inherit

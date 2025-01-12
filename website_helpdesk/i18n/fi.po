@@ -11,9 +11,9 @@
 # Martin Trigaux, 2024
 # Kari Lindgren <karisatu@gmail.com>, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # Sanna Edelman <direct@generare.com>, 2024
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # Jessica Jakara, 2025
 # 
 msgid ""
@@ -38,7 +38,7 @@ msgstr "<b>Tietoa tiimistämme</b>"
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar
 msgid "<i class=\"fa fa-chevron-left me-2\"/>Back to help"
-msgstr ""
+msgstr "<i class=\"fa fa-chevron-left me-2\"/>Takaisin apu-sivulle"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
@@ -47,6 +47,8 @@ msgid ""
 "<span class=\"s_website_form_label_content\">Ask Your Question</span>\n"
 "                                            <span class=\"s_website_form_mark\"> *</span>"
 msgstr ""
+"<span class=\"s_website_form_label_content\">Kysy kysymyksesi</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
@@ -58,7 +60,7 @@ msgstr "<span class=\"s_website_form_label_content\">Liite</span>"
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submit_form
 msgid "<span class=\"s_website_form_label_content\">Company Name</span>"
-msgstr ""
+msgstr "<span class=\"s_website_form_label_content\">Yrityksen nimi</span>"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
@@ -67,6 +69,8 @@ msgid ""
 "<span class=\"s_website_form_label_content\">Email Address</span>\n"
 "                                            <span class=\"s_website_form_mark\"> *</span>"
 msgstr ""
+"<span class=\"s_website_form_label_content\">Sähköpostiosoite</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
@@ -75,12 +79,14 @@ msgid ""
 "<span class=\"s_website_form_label_content\">Full Name</span>\n"
 "                                            <span class=\"s_website_form_mark\"> *</span>"
 msgstr ""
+"<span class=\"s_website_form_label_content\">Koko nimi</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submit_form
 msgid "<span class=\"s_website_form_label_content\">Helpdesk Team</span>"
-msgstr ""
+msgstr "<span class=\"s_website_form_label_content\">Asiakastukitiimi</span>"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
@@ -89,6 +95,8 @@ msgid ""
 "<span class=\"s_website_form_label_content\">Message Subject</span>\n"
 "                                            <span class=\"s_website_form_mark\"> *</span>"
 msgstr ""
+"<span class=\"s_website_form_label_content\">Viestin aihe</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
@@ -99,7 +107,7 @@ msgstr "<span class=\"s_website_form_label_content\">Puhelinnumero</span>"
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar
 msgid "<span class=\"text-muted\">Results for</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">Tulokset</span>"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_date
@@ -119,7 +127,7 @@ msgstr "Kaikki tyypit"
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_date
 msgid "All dates"
-msgstr ""
+msgstr "Kaikki päivämäärät"
 
 #. module: website_helpdesk
 #. odoo-javascript
@@ -130,18 +138,18 @@ msgstr "Kaikki tulokset"
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_tag
 msgid "All tags"
-msgstr ""
+msgstr "Kaikki tunnisteet"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_type
 msgid "All types"
-msgstr ""
+msgstr "Kaikki tyypit"
 
 #. module: website_helpdesk
 #. odoo-javascript
 #: code:addons/website_helpdesk/static/src/js/website_helpdesk_form_editor.js:0
 msgid "Ask Your Question"
-msgstr ""
+msgstr "Kysy kysymyksesi"
 
 #. module: website_helpdesk
 #. odoo-javascript
@@ -153,7 +161,7 @@ msgstr "Liitä tiedosto"
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.search_results
 msgid "Back to help"
-msgstr ""
+msgstr "Takaisin apu-sivulle"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_date
@@ -178,7 +186,7 @@ msgstr "Voi julkaista"
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.footer
 msgid "Can't find your answer?"
-msgstr ""
+msgstr "Eikö vastausta löydy?"
 
 #. module: website_helpdesk
 #. odoo-javascript
@@ -200,7 +208,7 @@ msgstr "Ota yhteyttä"
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.helpdesk_all_team
 msgid "Contact us <i class=\"oi oi-arrow-right\"/>"
-msgstr ""
+msgstr "Ota meihin yhteyttä <i class=\"oi oi-arrow-right\"/>"
 
 #. module: website_helpdesk
 #. odoo-python
@@ -213,6 +221,8 @@ msgstr "Asiakaspalvelu (julkinen)"
 msgid ""
 "DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS ALL HELPDESK TEAMS"
 msgstr ""
+"PUDOTA DESIGN-RAKENNUSPALIKAT TÄHÄN, JOTTA NE OVAT KAIKKIEN "
+"ASIAKATUKITIIMIEN SAATAVILLA "
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.knowledge_base
@@ -220,6 +230,8 @@ msgid ""
 "DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS THE KNOWLEDGE PAGE "
 "OF ALL HELPDESK TEAMS"
 msgstr ""
+"PUDOTA DESIGN-RAKENNUSPALIKAT TÄHÄN, JOTTA NE OVAT KAIKKIEN "
+"ASIAKATUKITIIMIEN SAATAVILLA KAIKILLA TIETO-OSION SIVUILLA"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.snippet_options
@@ -235,17 +247,17 @@ msgstr "Sähköpostiosoite"
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_date
 msgid "Filter by date"
-msgstr ""
+msgstr "Suodata päivämäärän mukaan"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_tag
 msgid "Filter by tags"
-msgstr ""
+msgstr "Suodata tunnisteiden mukaan"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_type
 msgid "Filter by type"
-msgstr ""
+msgstr "Suodata tyypin mukaan"
 
 #. module: website_helpdesk
 #. odoo-javascript
@@ -325,12 +337,12 @@ msgstr "Edellinen vuosi"
 #. odoo-javascript
 #: code:addons/website_helpdesk/static/src/js/website_helpdesk_form_editor.js:0
 msgid "Message Subject"
-msgstr ""
+msgstr "Viestin aihe"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.search_results
 msgid "No results found for"
-msgstr ""
+msgstr "Tuloksia ei löytynyt haulle"
 
 #. module: website_helpdesk
 #. odoo-javascript
@@ -341,12 +353,12 @@ msgstr "Ei tuloksia. Kokeile jotain muuta hakusanaa."
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.footer
 msgid "Our support team is here to help."
-msgstr ""
+msgstr "Tukitiimimme on valmiina auttamaan."
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
 msgid "Our team will get right on it."
-msgstr ""
+msgstr "Tiimimme tarttuu asiaan välittömästi."
 
 #. module: website_helpdesk
 #. odoo-javascript
@@ -357,7 +369,7 @@ msgstr "Puhelinnumero"
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.search_results
 msgid "Please try another search  or"
-msgstr ""
+msgstr "Ole hyvä ja kokeile toista hakua tai"
 
 #. module: website_helpdesk
 #: model:ir.model.fields,field_description:website_helpdesk.field_helpdesk_team__is_seo_optimized
@@ -372,7 +384,7 @@ msgstr "Etsi artikkeleita, parhaita käytäntöjä ja muuta..."
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.helpdesk_all_team
 msgid "Select your Team for help"
-msgstr ""
+msgstr "Valitse Tiimi avuksi"
 
 #. module: website_helpdesk
 #: model:ir.model.fields,field_description:website_helpdesk.field_helpdesk_team__seo_name
@@ -406,7 +418,7 @@ msgstr "Kiitoksia!"
 #. odoo-python
 #: code:addons/website_helpdesk/models/helpdesk.py:0
 msgid "The companies of the team and the website should match."
-msgstr ""
+msgstr "Tiimin yritysten ja verkkosivun tulisi olla yhdenmukaisia."
 
 #. module: website_helpdesk
 #: model:ir.model.fields,help:website_helpdesk.field_helpdesk_team__website_url
@@ -467,9 +479,9 @@ msgstr "Verkkosivun opengraph kuva"
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
 msgid "Your ticket has been sent."
-msgstr ""
+msgstr "Tukipyyntösi on lähetetty."
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.search_results
 msgid "go back to help page"
-msgstr ""
+msgstr "palaa takaisin apua-sivulle"

@@ -9,13 +9,14 @@
 # eriiikgt, 2024
 # jabiri7, 2024
 # Santiago Payà <santiagopim@gmail.com>, 2024
-# Quim - eccit <quim@eccit.com>, 2024
+# Quim - coopdevs <quim.rebull@coopdevs.org>, 2024
 # Óscar Fonseca <tecnico@pyming.com>, 2024
 # Susanna Pujol, 2024
 # marcescu, 2024
 # Arnau Ros, 2024
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2024
 # Josep Anton Belchi, 2024
+# Xavier, 2025
 # 
 msgid ""
 msgstr ""
@@ -23,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Josep Anton Belchi, 2024\n"
+"Last-Translator: Xavier, 2025\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,7 +70,7 @@ msgstr "Paràmetres de configuració"
 #. module: account_bank_statement_extract
 #: model:ir.model.fields,field_description:account_bank_statement_extract.field_res_company__extract_bank_statement_digitalization_mode
 msgid "Digitization mode on bank statements"
-msgstr ""
+msgstr "Mode de digitalització dels extractes bancaris"
 
 #. module: account_bank_statement_extract
 #: model:ir.model.fields.selection,name:account_bank_statement_extract.selection__res_company__extract_bank_statement_digitalization_mode__auto_send
@@ -89,7 +90,7 @@ msgstr "Missatge d'error"
 #. module: account_bank_statement_extract
 #: model:ir.model.fields,field_description:account_bank_statement_extract.field_account_bank_statement__extract_state_processed
 msgid "Extract State Processed"
-msgstr ""
+msgstr "Estat d'extracte processat"
 
 #. module: account_bank_statement_extract
 #: model:ir.model.fields,field_description:account_bank_statement_extract.field_account_bank_statement__extract_state
@@ -99,7 +100,7 @@ msgstr "Extreu l'estat"
 #. module: account_bank_statement_extract
 #: model:ir.model.fields,field_description:account_bank_statement_extract.field_account_bank_statement__extract_status
 msgid "Extract status"
-msgstr ""
+msgstr "Estat de l'extracte"
 
 #. module: account_bank_statement_extract
 #: model:ir.model.fields,field_description:account_bank_statement_extract.field_account_bank_statement__message_follower_ids
@@ -115,7 +116,7 @@ msgstr "Seguidors (Partners)"
 #. odoo-python
 #: code:addons/account_bank_statement_extract/models/account_journal.py:0
 msgid "Generated Bank Statements"
-msgstr ""
+msgstr "Extractes bancaris generats"
 
 #. module: account_bank_statement_extract
 #: model:ir.model.fields,field_description:account_bank_statement_extract.field_account_bank_statement__has_message
@@ -125,7 +126,7 @@ msgstr "Té un missatge"
 #. module: account_bank_statement_extract
 #: model:ir.model.fields,field_description:account_bank_statement_extract.field_account_bank_statement__extract_document_uuid
 msgid "ID of the request to IAP-OCR"
-msgstr ""
+msgstr "ID de la sol·licitud a IAP-OCR"
 
 #. module: account_bank_statement_extract
 #: model:ir.model.fields,help:account_bank_statement_extract.field_account_bank_statement__message_needaction
@@ -147,7 +148,7 @@ msgstr "És un seguidor"
 #. module: account_bank_statement_extract
 #: model:ir.model.fields,field_description:account_bank_statement_extract.field_account_bank_statement__is_in_extractable_state
 msgid "Is In Extractable State"
-msgstr ""
+msgstr "Es troba en estat d'extracció"
 
 #. module: account_bank_statement_extract
 #: model:ir.model,name:account_bank_statement_extract.model_account_journal
@@ -173,7 +174,7 @@ msgstr "Missatges"
 #. odoo-python
 #: code:addons/account_bank_statement_extract/models/account_journal.py:0
 msgid "Mixing PDF/Image files with other file types is not allowed."
-msgstr ""
+msgstr "No es permet barrejar fitxers PDF/Imatge amb altres tipus de fitxers."
 
 #. module: account_bank_statement_extract
 #: model:ir.model.fields,field_description:account_bank_statement_extract.field_account_bank_statement__message_needaction_counter
@@ -209,7 +210,7 @@ msgstr "Error de lliurament SMS"
 #. odoo-python
 #: code:addons/account_bank_statement_extract/models/account_bank_statement.py:0
 msgid "Statement %s"
-msgstr ""
+msgstr "Extracte %s"
 
 #. module: account_bank_statement_extract
 #. odoo-python
@@ -217,6 +218,8 @@ msgstr ""
 msgid ""
 "Statement and transactions have been updated using Artificial Intelligence."
 msgstr ""
+"Els extractes i les transaccions s'han actualitzat mitjançant la "
+"intel·ligència artificial."
 
 #. module: account_bank_statement_extract
 #: model:ir.model.fields,field_description:account_bank_statement_extract.field_account_bank_statement__website_message_ids

@@ -31,6 +31,11 @@ msgstr ""
 " Google Meeting não serão adicionados às suas reuniões."
 
 #. module: appointment_google_calendar
+#: model_terms:ir.ui.view,arch_db:appointment_google_calendar.appointment_type_view_form
+msgid "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/> Settings"
+msgstr ""
+
+#. module: appointment_google_calendar
 #: model:ir.model,name:appointment_google_calendar.model_appointment_type
 msgid "Appointment Type"
 msgstr "Tipo de compromisso"
@@ -59,6 +64,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:appointment_google_calendar.appointment_validated
 msgid "Google Meet"
 msgstr "Google Meet"
+
+#. module: appointment_google_calendar
+#. odoo-python
+#: code:addons/appointment_google_calendar/models/appointment_type.py:0
+msgid ""
+"Google Sync is either paused or not properly configured. Google Meet links "
+"won't be added to the meetings."
+msgstr ""
 
 #. module: appointment_google_calendar
 #: model:ir.model.fields,field_description:appointment_google_calendar.field_appointment_type__users_wo_google_calendar_msg

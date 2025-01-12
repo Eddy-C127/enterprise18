@@ -5,7 +5,7 @@
 # Translators:
 # Yenthe Van Ginneken <yenthespam@gmail.com>, 2024
 # Wil Odoo, 2024
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,7 +91,7 @@ msgstr "Vink dit aan als het product beschikbaar is voor voedsellevering."
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_payment_method__is_delivery_payment
 msgid "Check this if this payment method is used for online delivery orders."
 msgstr ""
-"Vink dit aan als deze betaalmethode wordt gebruikt voor online bestellingen."
+"Vink dit aan als deze betaalmethode wordt gebruikt voor online orders."
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -192,7 +192,7 @@ msgstr "Levering JSON"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Delivery Order Status"
-msgstr "Status bestelling"
+msgstr "Status order"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -398,7 +398,7 @@ msgstr "JSON-gegevens van de bezorger."
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__delivery_json
 msgid "JSON data of the order."
-msgstr "JSON-gegevens van de bestelling."
+msgstr "JSON-gegevens van de order."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__journal_code
@@ -468,7 +468,7 @@ msgstr "Nieuw"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/store/pos_store.js:0
 msgid "New online order received."
-msgstr "Nieuwe online bestelling ontvangen."
+msgstr "Nieuwe online order ontvangen."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__product_template__urbanpiper_meal_type__2
@@ -478,7 +478,7 @@ msgstr "Niet-vegetarisch"
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.product_template_only_form_view_inherit_pos_urban_piper
 msgid "Not available for online orders."
-msgstr "Niet beschikbaar voor online bestellingen."
+msgstr "Niet beschikbaar voor online orders."
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -501,7 +501,7 @@ msgstr "Online bezorgers"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Order ID"
-msgstr "ID bestelling"
+msgstr "ID order"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -531,7 +531,7 @@ msgstr "Tijd order"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/store/pos_store.js:0
 msgid "Order does not load from server"
-msgstr "Bestelling wordt niet geladen vanaf de server"
+msgstr "Order wordt niet geladen vanaf de server"
 
 #. module: pos_urban_piper
 #: model:product.template,name:pos_urban_piper.product_other_charges_product_template
@@ -620,7 +620,7 @@ msgstr "Pos ID van Urban Piper (Atlas)"
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_pos_preparation_display_order
 msgid "Preparation orders"
-msgstr "Voorbereiding bestellingen"
+msgstr "Voorbereiding orders"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__prep_time
@@ -722,13 +722,13 @@ msgstr ""
 msgid ""
 "Responsible delivery provider for online order, e.g., UberEats, Zomato."
 msgstr ""
-"Verantwoordelijke bezorger voor online bestellingen, bijv. UberEats, Zomato."
+"Verantwoordelijke bezorger voor online orders, bijv. UberEats, Zomato."
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/store/pos_store.js:0
 msgid "Review Orders"
-msgstr "Controleer bestellingen"
+msgstr "Controleer orders"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -757,7 +757,7 @@ msgstr "Status"
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__delivery_status
 msgid "Status of the order as provided by UrbanPiper."
-msgstr "Status van de bestelling zoals verstrekt door UrbanPiper."
+msgstr "Status van de order zoals verstrekt door UrbanPiper."
 
 #. module: pos_urban_piper
 #: model:ir.model.constraint,message:pos_urban_piper.constraint_pos_config_urbanpiper_store_identifier_uniq
@@ -850,7 +850,7 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__pos_urbanpiper_pricelist_id
 msgid "The pricelist used for UrbanPiper orders."
-msgstr "De prijslijst die wordt gebruikt voor bestellingen bij UrbanPiper."
+msgstr "De prijslijst die wordt gebruikt voor orders bij UrbanPiper."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__urbanpiper_username
@@ -861,7 +861,7 @@ msgstr "De gebruikersnaam voor het UrbanPiper account."
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/delivery_button/delivery_button.xml:0
 msgid "There are no active order(s)."
-msgstr "Er zijn geen actieve bestelling(en)."
+msgstr "Er zijn geen actieve order(en)."
 
 #. module: pos_urban_piper
 #. odoo-javascript

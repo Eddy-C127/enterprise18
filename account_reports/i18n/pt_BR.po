@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Martin Trigaux, 2024
-# Maitê Dietze, 2024
 # Wil Odoo, 2024
+# Maitê Dietze, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Maitê Dietze, 2025\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3335,7 +3335,7 @@ msgstr "Enviar relatórios de conta automaticamente"
 #. odoo-python
 #: code:addons/account_reports/models/account_move.py:0
 msgid "Send tax report: %s"
-msgstr ""
+msgstr "Enviar relatório fiscal: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -3675,6 +3675,13 @@ msgstr ""
 "Os anexos do relatório fiscal podem ser encontrados no<a href='#' data-oe-"
 "model='account.move' data-oe-id='%s'>lançamento de fechamento</a> da empresa"
 " representante."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_partner_ledger.py:0
+#, python-format
+msgid "The column '%s' is not available for this report."
+msgstr ""
 
 #. module: account_reports
 #. odoo-python

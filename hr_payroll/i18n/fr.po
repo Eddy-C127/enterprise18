@@ -5,9 +5,9 @@
 # Translators:
 # Tivisse <yti@odoo.com>, 2024
 # Jolien De Paepe, 2024
-# Manon Rondou, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
+# Manon Rondou, 2025
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Manon Rondou, 2025\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -344,7 +344,7 @@ msgstr "<span>Versions</span>"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Address:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">Adresse :</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
@@ -1449,6 +1449,7 @@ msgstr "Journée"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Day where the 'Year To Date' will be reset every year."
 msgstr ""
+"Jour où le \"Cumul annuel\" (Year To Date) sera réinitialisé chaque année."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_res_company__ytd_reset_day
@@ -1457,6 +1458,8 @@ msgid ""
 "Day where the YTD will be reset every year. If zero or negative, then the first day of the month will be selected instead.\n"
 "        If greater than the last day of a month, then the last day of the month will be selected instead."
 msgstr ""
+"Jour où le cumul annuel sera réinitialisé chaque année. Si zéro ou négatif, le premier jour du mois sera sélectionné à la place.\n"
+"        Si supérieur au dernier jour du mois, le dernier jour du mois sera sélectionné à la place."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_report__number_of_days
@@ -1695,7 +1698,7 @@ msgstr "Fiche de paie brouillon"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "Earnings"
-msgstr ""
+msgstr "Gains"
 
 #. module: hr_payroll
 #. odoo-python
@@ -1857,6 +1860,9 @@ msgid ""
 "        When left empty, the employee is considered to have a fully flexible schedule, allowing them to work without any time limit, anytime of the week.\n"
 "        "
 msgstr ""
+"Emploi du temps de l'employé.\n"
+"        Si laissé vide, l'employé est considéré comme ayant un emploi du temps totalement flexible, lui permettant de travailler sans aucune limite de temps, n'importe quel jour de la semaine.\n"
+"        "
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_employees__employee_ids
@@ -1876,7 +1882,7 @@ msgstr ""
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
 msgid "Employees Selection"
-msgstr ""
+msgstr "Sélection des employés"
 
 #. module: hr_payroll
 #: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_employee_ambiguous_contract
@@ -1979,7 +1985,7 @@ msgstr "Exporter le fichier .csv relatif à cette fiche de paie"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_mixin_form_view
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_mixin_list_view
 msgid "Export Employee Work Entries"
-msgstr ""
+msgstr "Exporter les prestations des employés"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__export_file
@@ -2343,6 +2349,8 @@ msgid ""
 "If empty, the default salary structure from the Salary structure type of the"
 " employee will be used"
 msgstr ""
+"Si vide, la structure salariale par défaut du type de structure salariale de"
+" l'employé sera utilisée."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_employee__is_non_resident
@@ -2357,6 +2365,8 @@ msgid ""
 "If set, hide currency and consider the manual input as a quantity for every "
 "rule computation using this input."
 msgstr ""
+"Si défini, masquer la devise et considérer l'entrée manuelle comme une "
+"quantité pour chaque règle de calcul utilisant cette entrée."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__active
@@ -2465,7 +2475,7 @@ msgstr "Mauvaise durée"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__is_quantity
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__is_quantity
 msgid "Is quantity?"
-msgstr ""
+msgstr "Est une quantité ?"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__quantity
@@ -2887,7 +2897,7 @@ msgstr "Aucune duplication des numéros d'enregistrement n'est autorisée"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__default_no_end_date
 msgid "No end date by default"
-msgstr ""
+msgstr "Pas de date de fin par défaut"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3181,7 +3191,7 @@ msgstr "Partenaire"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
 msgid "Pay Period:"
-msgstr ""
+msgstr "Période de paie :"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip
@@ -3372,7 +3382,7 @@ msgstr ""
 #. module: hr_payroll
 #: model:ir.actions.report,name:hr_payroll.action_report_light_payslip
 msgid "Payslip (Light)"
-msgstr ""
+msgstr "Fiche de paie (Light)"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__monthly_amount
@@ -3398,7 +3408,7 @@ msgstr "Nombre de fiches de paie"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
 msgid "Payslip Generation"
-msgstr ""
+msgstr "Génération de fiches de paie"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_input
@@ -3426,7 +3436,7 @@ msgstr "Entrées de la fiche de paie"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_hr_employee_view_form
 msgid "Payslip Language"
-msgstr ""
+msgstr "Langue de la fiche de paie"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_line
@@ -3568,12 +3578,12 @@ msgstr "Période"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__period_start
 msgid "Period Start"
-msgstr ""
+msgstr "Début de la période"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__period_stop
 msgid "Period Stop"
-msgstr ""
+msgstr "Fin de la période"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_report__work_entry_source__planning
@@ -3788,7 +3798,7 @@ msgstr "Remboursement"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_tree
 msgid "Related Payslips"
-msgstr ""
+msgstr "Fiches de paie associées"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__remaining_amount
@@ -3809,7 +3819,7 @@ msgstr "Le montant restant doit être payé."
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 msgid "Remove \"Conflicting\" filter"
-msgstr ""
+msgstr "Supprimer le filtre \"Conflituel\""
 
 #. module: hr_payroll
 #. odoo-python
@@ -3827,7 +3837,7 @@ msgstr "Analyse"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
 msgid "Resolve Conflicts"
-msgstr ""
+msgstr "Résoudre les conflits"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_resource_calendar
@@ -4132,6 +4142,8 @@ msgid ""
 "Set a specific job if you wish to select all the employees from this job at "
 "once."
 msgstr ""
+"Définissez un poste spécifique si vous souhaitez sélectionner tous les "
+"employés de ce poste d'un seul coup."
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
@@ -4139,6 +4151,8 @@ msgid ""
 "Set a specific structure type if you wish to select all the employees from "
 "this structure type at once."
 msgstr ""
+"Définissez un type de structure spécifique si vous souhaitez sélectionner "
+"tous les employés de ce type de structure d'un seul coup."
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -4177,6 +4191,8 @@ msgid ""
 "Some work entries are in conflict. Please resolve the conflicts before "
 "exporting."
 msgstr ""
+"Certaines entrées de travail sont en conflit. Veuillez résoudre les conflits"
+" avant d'exporter."
 
 #. module: hr_payroll
 #. odoo-python
@@ -4336,6 +4352,8 @@ msgid ""
 "The YTD reset day must be a valid day of the month : since the current month"
 " is %(month)s, it should be between 1 and %(day)s."
 msgstr ""
+"Le jour de réinitialisation du cumul annuel doit être un jour valide du mois"
+" : comme le mois actuel est %(month)s, il doit être entre 1 et %(day)s."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payroll_edit_payslip_line__code
@@ -4978,7 +4996,7 @@ msgstr "Rapport d'analyse des prestations"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
 msgid "Work Entries Export"
-msgstr ""
+msgstr "Exportation des Prestations"
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -4994,7 +5012,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
 msgid "Work Entries for %(employee)s"
-msgstr ""
+msgstr "Prestations de %(employee)s"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_employee_mixin__work_entry_ids
@@ -5009,12 +5027,12 @@ msgstr "Analyse des prestations"
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_work_entry_export_employee_mixin
 msgid "Work Entry Export Employee"
-msgstr ""
+msgstr "Exportation des prestations de travail de l'employé"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_work_entry_export_mixin
 msgid "Work Entry Export Mixin"
-msgstr ""
+msgstr "Mixin d'exportation de prestations"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__work_entry_source
@@ -5226,7 +5244,7 @@ msgstr "Année"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__ytd_computation
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__ytd_computation
 msgid "Year to Date Computation"
-msgstr ""
+msgstr "Calcul du cumul annuel"
 
 #. module: hr_payroll
 #. odoo-python
@@ -5244,6 +5262,8 @@ msgstr ""
 msgid ""
 "You can't delete a batch with payslips if they are not draft or cancelled."
 msgstr ""
+"Vous ne pouvez pas supprimer un lot contenant des fiches de paie si celles-"
+"ci ne sont ni en brouillon ni annulées."
 
 #. module: hr_payroll
 #. odoo-python
@@ -5316,6 +5336,8 @@ msgstr ""
 #: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
 msgid "You must be logged in a %(country_code)s company to use this feature"
 msgstr ""
+"Vous devez être connecté à une entreprise %(country_code)s pour utiliser "
+"cette fonctionnalité"
 
 #. module: hr_payroll
 #. odoo-python
@@ -5350,12 +5372,12 @@ msgstr ""
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_employee_mixin_list_view
 msgid "contracts"
-msgstr ""
+msgstr "contrats"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_type__current_companies_country_codes
 msgid "country codes"
-msgstr ""
+msgstr "codes pays"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
@@ -5365,7 +5387,7 @@ msgstr "par ex. avril 2021"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_form
 msgid "e.g. Child Support"
-msgstr ""
+msgstr "par exemple, Pension alimentaire"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_structure_type_view_form

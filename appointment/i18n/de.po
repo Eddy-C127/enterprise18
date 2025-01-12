@@ -3,8 +3,8 @@
 # 	* appointment
 # 
 # Translators:
-# Wil Odoo, 2024
 # Larissa Manderfeld, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1345,7 +1345,6 @@ msgstr "Antworten"
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
-#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__anytime
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Any Time"
 msgstr "Jederzeit"
@@ -1735,6 +1734,11 @@ msgid "Booking Details"
 msgstr "Buchungsdetails"
 
 #. module: appointment
+#: model:ir.model.fields,field_description:appointment.field_appointment_type__booked_mail_template_id
+msgid "Booking Email"
+msgstr ""
+
+#. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__event_stop
 msgid "Booking End"
 msgstr "Buchungsende"
@@ -1919,11 +1923,6 @@ msgid "Confirm Appointment"
 msgstr "Termin bestätigen"
 
 #. module: appointment
-#: model:ir.model.fields,field_description:appointment.field_appointment_type__booked_mail_template_id
-msgid "Confirmation Email"
-msgstr "Bestätigungsmail"
-
-#. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_confirmation
 msgid "Confirmation Message"
 msgstr "Bestätigungsnachricht"
@@ -2046,11 +2045,6 @@ msgid "Created on"
 msgstr "Erstellt am"
 
 #. module: appointment
-#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__custom
-msgid "Custom"
-msgstr "Benutzerdefiniert"
-
-#. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Custom Link"
@@ -2103,15 +2097,11 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__slot_type
 msgid ""
-"Defines the type of slot. The recurring slot is the default type which is used for\n"
+"Defines the type of slot. The regular slot is the default type which is used for\n"
 "        appointment type that are used recurringly in type like medical appointment.\n"
 "        The one shot type is only used when an user create a custom appointment type for a client by\n"
 "        defining non-recurring time slot (e.g. 10th of April 2021 from 10 to 11 am) from its calendar."
 msgstr ""
-"Legt den Typ des Zeitfenster fest. Das wiederkehrende Zeitfenster ist der Standardtyp, der verwendet wird für\n"
-"        wiederkehrende Terminarten wie z. B. Arzttermine.\n"
-"        Die einmalige Terminart wird nur verwendet, wenn ein Benutzer einen benutzerdefinierten Terminart für einen Kunden erstellt, indem er\n"
-"        ein einmaliges Zeitfenster (z. B. 10. April 2021 von 10 bis 11 Uhr) in seinem Kalender definiert."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__event_videocall_source
@@ -2475,6 +2465,12 @@ msgstr ""
 "hinterlegt ist, verwendet"
 
 #. module: appointment
+#: model:ir.model.fields,help:appointment.field_appointment_type__booked_mail_template_id
+msgid ""
+"If set an email will be sent to the customer when the appointment is booked."
+msgstr ""
+
+#. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
 msgid ""
 "If set an email will be sent to the customer when the appointment is "
@@ -2482,15 +2478,6 @@ msgid ""
 msgstr ""
 "Bei dieser Einstellung wird der Kunde benachrichtigt, wenn der Termin "
 "abgesagt wurde."
-
-#. module: appointment
-#: model:ir.model.fields,help:appointment.field_appointment_type__booked_mail_template_id
-msgid ""
-"If set an email will be sent to the customer when the appointment is "
-"confirmed."
-msgstr ""
-"Bei dieser Einstellung wird der Kunde benachrichtigt, wenn der Termin "
-"bestätigt wurde."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__active
@@ -2880,6 +2867,11 @@ msgid "No Show"
 msgstr "Teilnehmer nicht erschienen"
 
 #. module: appointment
+#: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
+msgid "No Specific Slots Availabilities Shared!"
+msgstr ""
+
+#. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__appointment_type_info_msg
 msgid "No User Assigned Message"
 msgstr "Meldung Kein Benutzer zugewiesen"
@@ -3080,6 +3072,12 @@ msgid "Preview"
 msgstr "Vorschau"
 
 #. module: appointment
+#. odoo-javascript
+#: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
+msgid "Propose Slots"
+msgstr ""
+
+#. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__punctual
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Punctual"
@@ -3122,8 +3120,6 @@ msgid "Reason"
 msgstr "Begründung"
 
 #. module: appointment
-#: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__slot_type__recurring
-#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__recurring
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Recurring"
 msgstr "Wiederkehrend"
@@ -3132,6 +3128,13 @@ msgstr "Wiederkehrend"
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__redirect_url
 msgid "Redirect URL"
 msgstr "URL umleiten"
+
+#. module: appointment
+#: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__slot_type__recurring
+#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__recurring
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
+msgid "Regular"
+msgstr "Regulär"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__reminder_ids
@@ -3353,6 +3356,11 @@ msgid "Search in Responsible"
 msgstr "In Verantwortlich suchen"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
+msgid "Select Appointments to share..."
+msgstr ""
+
+#. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Select Dates"
@@ -3433,11 +3441,19 @@ msgid "Sequence"
 msgstr "Sequenz"
 
 #. module: appointment
+#. odoo-javascript
+#: code:addons/appointment/static/src/views/kanban/kanban_controller.xml:0
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_tree
 msgid "Share"
 msgstr "Teilen"
+
+#. module: appointment
+#. odoo-javascript
+#: code:addons/appointment/static/src/views/kanban/kanban_controller.js:0
+msgid "Share Appointment"
+msgstr ""
 
 #. module: appointment
 #. odoo-javascript
@@ -3452,6 +3468,12 @@ msgstr "Terminlink teilen"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form_custom_share
 msgid "Share Availabilities"
 msgstr "Verfügbarkeiten teilen"
+
+#. module: appointment
+#. odoo-javascript
+#: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
+msgid "Share Calendar"
+msgstr ""
 
 #. module: appointment
 #. odoo-javascript
@@ -3476,6 +3498,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__shareable
 msgid "Shareable"
 msgstr "Teilbar"
+
+#. module: appointment
+#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__anytime
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
+msgid "Shared Calendar"
+msgstr ""
 
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_appointment_invite
@@ -3559,6 +3587,11 @@ msgstr "Es tut uns leid, wir haben diesen Monat keine Verfügbarkeiten mehr."
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__source_resource_ids
 msgid "Source combination"
 msgstr "Quellkombination"
+
+#. module: appointment
+#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__custom
+msgid "Specific Slots"
+msgstr ""
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__specific_resources
@@ -4012,25 +4045,14 @@ msgid ""
 "\n"
 "        Can be one of:\n"
 "\n"
-"            - Recurring: the default category, weekly recurring slots. Accessible from the website\n"
+"            - Regular: the default category, weekly recurring slots. Accessible from the website\n"
 "\n"
-"            - Punctual: recurring slots limited between 2 datetimes. Accessible from the website\n"
+"            - Punctual: regular slots limited between 2 datetimes. Accessible from the website\n"
 "\n"
-"            - Custom: the user will create and share to another user a custom appointment type with hand-picked time slots\n"
+"            - Specific Slots: the user will create and share to another user a custom appointment type with hand-picked time slots\n"
 "\n"
-"            - Anytime: the user will create and share to another user an appointment type covering all their time slots"
+"            - Shared Calendar: the user will create and share to another user an appointment type covering all their time slots"
 msgstr ""
-"Dient dazu, die Kategorie dieser Terminart festzulegen.\n"
-"\n"
-"        Kann eine der folgenden sein:\n"
-"\n"
-"            - Wiederkehrend: die Standardkategorie, wöchentlich wiederholende Zeitfenster. Über die Website zugänglich\n"
-"\n"
-"            - Pünktlich: wiederkehrende Zeitfenster zwischen 2 Terminen begrenzt. Zugänglich über die Website\n"
-"\n"
-"            - Benutzerdefiniert: Der Nutzer erstellt eine benutzerdefinierte Terminart mit selbst ausgewählten Zeitfenstern und teilt sie mit anderen Benutzern.\n"
-"\n"
-"            - Jederzeit: Der Nutzer erstellt eine Terminart, die alle seine Zeitfenster abdeckt, und teilt sie mit einem anderen Benutzer."
 
 #. module: appointment
 #: model:res.groups,name:appointment.group_appointment_user

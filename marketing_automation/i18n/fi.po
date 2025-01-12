@@ -20,7 +20,7 @@
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # Martin Trigaux, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
@@ -28,7 +28,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,22 +39,22 @@ msgstr ""
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
 msgid "\" <strong>bounced</strong>,"
-msgstr ""
+msgstr "\" <strong>pomppasi</strong>,"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
 msgid "\" did <strong>not receive a reply</strong>,"
-msgstr ""
+msgstr "\" <strong>ei saanut vastausta</strong>,"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
 msgid "\" gets clicked,"
-msgstr ""
+msgstr "\" klikataan,"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
 msgid "\" was <strong>not opened</strong>,"
-msgstr ""
+msgstr "\" <strong>ei avattu</strong>,"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__link_tracker_click_count
@@ -94,7 +94,7 @@ msgstr "# testiin osallistujia"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
 msgid "<br/>This activity will be"
-msgstr ""
+msgstr "<br/>Tämä toiminta on"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -231,6 +231,8 @@ msgid ""
 "<strong>Summary</strong><br/>\n"
 "            Starting from"
 msgstr ""
+"<strong>Yhteenveto</strong><br/>\n"
+"            Alkaen"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -562,7 +564,7 @@ msgstr "Vahvistetut yhteystiedot"
 #. odoo-javascript
 #: code:addons/marketing_automation/static/src/components/campaign_template_picker_dialog/campaign_template_picker_dialog.xml:0
 msgid "Create Campaign"
-msgstr ""
+msgstr "Luo kampanja"
 
 #. module: marketing_automation
 #: model_terms:ir.actions.act_window,help:marketing_automation.marketing_campaign_action
@@ -587,6 +589,8 @@ msgid ""
 "Create one or load a template prepared by our experts.<br>\n"
 "                            Then sit down and let Odoo handle the rest!"
 msgstr ""
+"Luo oma tai lataa asiantuntijoidemme laatima malli.<br>\n"
+"                            Istu sitten alas ja anna Odoon hoitaa loput!"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__create_uid
@@ -646,7 +650,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 msgid "Design your own marketing campaign from the ground up."
-msgstr ""
+msgstr "Suunnittele oma markkinointikampanjasi alusta alkaen."
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__child_ids
@@ -706,7 +710,7 @@ msgstr "Sähköposti"
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_activity.py:0
 msgid "Email cancelled"
-msgstr ""
+msgstr "Sähköposti peruutettu"
 
 #. module: marketing_automation
 #: model:ir.model,name:marketing_automation.model_mail_compose_message
@@ -903,7 +907,7 @@ msgstr ""
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__links_click_datetime
 msgid "Links Click Datetime"
-msgstr ""
+msgstr "Linkkien klikkauksen päivämäärää"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__trigger_category__email
@@ -984,6 +988,8 @@ msgid ""
 "Mailings %(mailing_names)s are used in marketing campaigns. You should take "
 "care of this before unlinking the mailings."
 msgstr ""
+"Postituksia %(mailing_names)s käytetään markkinointikampanjoissa. Sinun "
+"kannattaa huolehtia tästä ennen postitusten linkityksen poistamista."
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1314,12 +1320,12 @@ msgstr "Ilmoittautuneita yhteensä"
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_activity.py:0
 msgid "Participants of %(activity)s (%(filter)s)"
-msgstr ""
+msgstr "Osallistujat %(activity)s (%(filter)s)"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
 msgid "Pick a Server Action..."
-msgstr ""
+msgstr "Valitse palvelimen toiminto..."
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -1329,7 +1335,7 @@ msgstr "Valitse tietue..."
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
 msgid "Pick or Create a Template..."
-msgstr ""
+msgstr "Valitse tai luo malli..."
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_test_view_form
@@ -1539,6 +1545,8 @@ msgstr ""
 msgid ""
 "Send a welcome email to new subscribers, remove the addresses that bounced."
 msgstr ""
+"Lähetä uusille tilaajille tervetulosähköposti ja poista osoitteet, jotka "
+"ovat kimpoilleet."
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__interval_number
@@ -1607,7 +1615,7 @@ msgstr "Aloitus"
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 msgid "Start from scratch"
-msgstr ""
+msgstr "Aloita tyhjästä"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__state
@@ -1901,6 +1909,8 @@ msgid ""
 "You are trying to set the activity \"%(parent_activity)s\" as \"%(parent_type)s\" while its child \"%(activity)s\" has the trigger type \"%(trigger_type)s\"\n"
 "Please modify one of those activities before saving."
 msgstr ""
+"Yrität asettaa aktiviteetin \"%(parent_activity)s\" arvoksi \"%(parent_type)s\", kun sen lapsella \"%(activity)s\" on laukaisutyyppi \"%(trigger_type)s\"\n"
+"Muokkaa jompaakumpaa aktiviteettia ennen tallentamista."
 
 #. module: marketing_automation
 #. odoo-python
@@ -1933,12 +1943,12 @@ msgstr ""
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
 msgid "after the <strong>Mailing</strong> sent by the Activity \""
-msgstr ""
+msgstr "toiminnan lähettämän <strong>postituksen</strong> jälkeen \""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
 msgid "after the <strong>beginning of the workflow</strong>,<br/>the"
-msgstr ""
+msgstr "<strong>työnkulun alun</strong> jälkeen,<br/>"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
@@ -1946,6 +1956,9 @@ msgid ""
 "after the Participant <strong>clicked</strong>,<br/>on any link included in "
 "the <strong>Mailing</strong> sent by the Activity \""
 msgstr ""
+"sen jälkeen, kun osallistuja on <strong>napsauttanut</strong><br/>mitä "
+"tahansa linkkiä, joka sisältyy toiminnan lähettämään "
+"<strong>sähköpostiviestiin</strong>.\""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
@@ -1953,6 +1966,8 @@ msgid ""
 "after the Participant <strong>opened</strong> the <strong>Mailing</strong> "
 "sent by the Activity \""
 msgstr ""
+"sen jälkeen, kun osallistuja <strong>avasi</strong> toiminnan lähettämän "
+"<strong>postilähetyksen</strong> \""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
@@ -1960,11 +1975,13 @@ msgid ""
 "after the Participant <strong>replied</strong> to the "
 "<strong>Mailing</strong> sent by the Activity \""
 msgstr ""
+"sen jälkeen, kun osallistuja on <strong>vastannut</strong> toiminnan "
+"lähettämään <strong>sähköpostiviestiin</strong> \""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
 msgid "after the execution of the Activity \""
-msgstr ""
+msgstr "sen jälkeen, kun toiminto \""
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__trigger_type__activity
@@ -1979,7 +1996,7 @@ msgstr "työnkulun alku"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
 msgid "cancelled, if"
-msgstr ""
+msgstr "peruutettu, jos"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_test_view_form
@@ -1999,23 +2016,25 @@ msgstr "esim. verkkokaupan tarjoussuunnitelma"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
 msgid "have passed since the scheduled date."
-msgstr ""
+msgstr "on kulunut suunnitellusta päivästä."
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
 msgid ""
 "if no link included in the <strong>Mailing</strong> sent by the Activity \""
 msgstr ""
+"jos toiminnan lähettämässä <strong>sähköpostiviestissä</strong> ei ole "
+"linkkiä \""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
 msgid "if the <strong>Mailing</strong> sent by the Activity \""
-msgstr ""
+msgstr "jos toiminnan lähettämä <strong>postitus</strong> \""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
 msgid "run"
-msgstr ""
+msgstr "aja"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
@@ -2035,10 +2054,10 @@ msgstr "luoda testiosallistuja"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
 msgid "will be"
-msgstr ""
+msgstr "tulee olemaan"
 
 #. module: marketing_automation
 #. odoo-javascript
 #: code:addons/marketing_automation/static/src/components/campaign_template_picker_dialog/campaign_template_picker_dialog.xml:0
 msgid "{{template_value.title}}"
-msgstr ""
+msgstr "{{template_value.title}}"

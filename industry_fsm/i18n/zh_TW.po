@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Tony Ng, 2024
+# Tony Ng, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Tony Ng, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,6 +81,26 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"    <t t-set=\"date_begin\" t-value=\"format_datetime(object.planned_date_begin, tz=object.partner_id.tz, lang_code=object.partner_id.lang)\"/>\n"
+"\n"
+"    <t t-set=\"date_end\" t-value=\"format_datetime(object.date_deadline, tz=object.partner_id.tz, lang_code=object.partner_id.lang)\"/>\n"
+"\n"
+"    親愛的 <t t-out=\"object.partner_id.name or '客戶'\">客戶</t>：<br/><br/>\n"
+"    <t t-if=\"date_begin and date_end\">\n"
+"        你的「<t t-out=\"object.name or ''\">鍋爐維修</t>」工作已排期，將於 <t t-out=\"date_begin or ''\">05/31/2021 12:30:00</t> 至 <t t-out=\"date_end or ''\">05/31/2021 14:30:00</t> 進行。\n"
+"    </t>\n"
+"    <t t-else=\"\">\n"
+"        你的「<t t-out=\"object.name or ''\">鍋爐維修</t>」工作已排期。\n"
+"    </t>\n"
+"    <br/><br/>\n"
+"    順祝  安康\n"
+"    <t t-if=\"user.signature\" data-o-mail-quote-container=\"1\">\n"
+"        <br/>\n"
+"        <t t-out=\"user.signature or ''\" data-o-mail-quote=\"1\">--<br data-o-mail-quote=\"1\"/>Mitchell Admin</t>\n"
+"    </t>\n"
+"</div>\n"
+"        "
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.portal_task_sign_button
@@ -98,6 +118,13 @@ msgid ""
 "            </p>\n"
 "        "
 msgstr ""
+"<p>\n"
+"                親愛的 <t t-out=\"object.partner_id.name or '客戶'\">客戶</t>：<br/><br/>\n"
+"                附上我們早前到現場進行操作的外勤服務報告，供你參閱。<br/><br/>\n"
+"                如有疑問，歡迎聯絡我們。<br/><br/>\n"
+"                順祝 安康<br/><br/>\n"
+"            </p>\n"
+"        "
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.view_task_form2_inherit

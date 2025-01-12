@@ -6,7 +6,7 @@
 # Martin Trigaux, 2024
 # Manon Rondou, 2024
 # Wil Odoo, 2024
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -403,7 +403,7 @@ msgid ""
 "does not allow any exception."
 msgstr ""
 "Elke boeking tot en met die datum wordt uitgesteld tot een later tijdstip, "
-"in overeenstemming met de volgorde van het dagboek. Deze blokkeerdatum is "
+"in overeenstemming met de volgorde van het dagboek. Deze vergrendeldatum is "
 "onomkeerbaar en staat geen uitzondering toe."
 
 #. module: account_accountant
@@ -424,8 +424,8 @@ msgid ""
 msgstr ""
 "Elke boeking met belastingen tot en met die datum wordt uitgesteld tot een "
 "later tijdstip, in overeenstemming met de volgorde van het dagboek. De btw-"
-"blokkeerdatum wordt automatisch ingesteld wanneer de btw-afsluitingsboeking "
-"wordt geboekt."
+"vergrendeldatum wordt automatisch ingesteld wanneer de btw-"
+"afsluitingsboeking wordt geboekt."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
@@ -552,7 +552,7 @@ msgstr "Annuleren"
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_change_lock_date
 msgid "Change Lock Date"
-msgstr "Verander blokkeerdatum"
+msgstr "Verander vergrendeldatum"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_reconcile_wizard__to_check
@@ -729,7 +729,7 @@ msgstr "Te gebruiken valuta voor aflettering"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__current_hard_lock_date
 msgid "Current Hard Lock"
-msgstr "Huidige harde blokkade"
+msgstr "Huidige harde vergrendeling"
 
 #. module: account_accountant
 #. odoo-python
@@ -1170,7 +1170,7 @@ msgstr "Groepeer btw"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__hard_lock_date
 msgid "Hard Lock"
-msgstr "Harde blokkade"
+msgstr "Harde vergrendeling"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_move_line__has_abnormal_deferred_dates
@@ -1318,7 +1318,7 @@ msgstr "Een overboeking is nodig om af te letteren"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__lock_date_violated_warning_message
 msgid "Is the date violating the lock date of moves"
-msgstr "De datum schendt de blokkeerdatum van boekingen"
+msgstr "De datum schendt de vergrendeldatum van boekingen"
 
 #. module: account_accountant
 #. odoo-python
@@ -1456,47 +1456,47 @@ msgstr "Regel van de bankafletterwidget"
 #. module: account_accountant
 #: model:ir.ui.menu,name:account_accountant.menu_action_change_lock_date
 msgid "Lock Dates"
-msgstr "Blokkeerdatums"
+msgstr "Vergrendeldatums"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everything"
-msgstr "Blokkeer alles"
+msgstr "Vergrendel alles"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_everyone
 msgid "Lock Everything For Everyone"
-msgstr "Alles voor iedereen blokkeren"
+msgstr "Alles voor iedereen vergrendelen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_me
 msgid "Lock Everything For Me"
-msgstr "Alles voor mij blokkeren"
+msgstr "Alles voor mij vergrendelen"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date
 msgid "Lock Journal Entries"
-msgstr "Boekingen blokkeren"
+msgstr "Boekingen vergrendelen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__purchase_lock_date
 msgid "Lock Purchases"
-msgstr "Blokkeer inkopen"
+msgstr "Inkopen vergrendelen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__purchase_lock_date_for_everyone
 msgid "Lock Purchases For Everyone"
-msgstr "Blokkeer inkopen voor iedereen"
+msgstr "Inkopen voor iedereen vergrendelen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__purchase_lock_date_for_me
 msgid "Lock Purchases For Me"
-msgstr "Inkopen voor mij blokkeren"
+msgstr "Inkopen voor mij vergrendelen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__sale_lock_date
 msgid "Lock Sales"
-msgstr "Blokkeer verkopen"
+msgstr "Verkopen vergrendelen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__sale_lock_date_for_everyone
@@ -1511,12 +1511,12 @@ msgstr "Lock Verkoop Voor Mij"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__tax_lock_date
 msgid "Lock Tax Return"
-msgstr "Blokkeer btw-aangifte"
+msgstr "Btw-aangifte vergrendelen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__tax_lock_date_for_everyone
 msgid "Lock Tax Return For Everyone"
-msgstr "Blokkeer btw-aangifte voor Iedereen"
+msgstr "Btw-aangifte voor Iedereen vergrendelen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__tax_lock_date_for_me
@@ -1728,7 +1728,7 @@ msgstr "Openstaand"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Not locked"
-msgstr "Niet geblokkeerd"
+msgstr "Niet vergrendeld"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1748,7 +1748,7 @@ msgstr "Niets te doen hier!"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Now, we'll create your first invoice (accountant)"
-msgstr "Laten we nu jouw eerste factuur aanmaken (boekhouding)"
+msgstr "Laten we nu je eerste factuur aanmaken (boekhouding)"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_needaction_counter
@@ -2366,7 +2366,7 @@ msgid ""
 "The date you set violates the lock date of one of your entry. It will be "
 "overriden by the following date : %(replacement_date)s"
 msgstr ""
-"De bepaalde datum schendt de blokkeerdatum van één van je boekingen. Het "
+"De bepaalde datum schendt de vergrendeldatum van één van je boekingen. Het "
 "wordt overschreven door de volgende datum: %(replacement_date)s"
 
 #. module: account_accountant
@@ -2436,7 +2436,7 @@ msgid ""
 "There are still draft entries in the period you want to lock.\n"
 "                                You should either post or delete them."
 msgstr ""
-"Er zijn nog conceptboekingen in de periode die je wilt blokkeren.\n"
+"Er zijn nog conceptboekingen in de periode die je wilt vergrendelen.\n"
 "                                Je moet ze plaatsen of verwijderen."
 
 #. module: account_accountant

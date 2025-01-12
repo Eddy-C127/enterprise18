@@ -6,8 +6,8 @@
 # Tiffany Chang, 2024
 # Manon Rondou, 2024
 # Wil Odoo, 2024
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # Dylan Kiss, 2025
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2025
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Dylan Kiss, 2025\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,6 +75,18 @@ msgstr ""
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_control_panel.js:0
+msgid "%s has been copied in My Drive."
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_control_panel.js:0
+msgid "%s have been copied in My Drive."
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 msgid "%s new document(s) created"
 msgstr "%s nieuwe documenten aangemaakt"
@@ -106,7 +118,7 @@ msgid ""
 msgstr ""
 ". Gescande bestanden verschijnen automatisch in je werkruimte. Verwerk "
 "vervolgens je documenten in bulk met de splitstool: start door de gebruiker "
-"gedefinieerde acties, vraag een handtekening, converteer naar "
+"gedefinieerde acties, vraag een handtekening, zet om naar "
 "leveranciersfacturen met AI, enz."
 
 #. module: documents
@@ -924,7 +936,7 @@ msgstr "Status alias"
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_tag_ids
 msgid "Alias Tags"
-msgstr "Alias-tags"
+msgstr "Alias-labels"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_status
@@ -985,7 +997,7 @@ msgstr ""
 "zo te configureren dat deze PDF's naar je werkruimte-e-mail verzendt. "
 "Gescande bestanden verschijnen automatisch in je werkruimte. Verwerk "
 "vervolgens je documenten in bulk met de splitstool: start door de gebruiker "
-"gedefinieerde acties, vraag een handtekening aan, converteer naar "
+"gedefinieerde acties, vraag een handtekening aan, zet om naar "
 "leveranciersfacturen met AI, etc."
 
 #. module: documents
@@ -2263,12 +2275,12 @@ msgstr "Vergrendelen"
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_locked
 msgid "Locked"
-msgstr "Geblokkeerd"
+msgstr "Vergrendeld"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__lock_uid
 msgid "Locked by"
-msgstr "Geblokkeerd door"
+msgstr "Vergrendeld door"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -2870,7 +2882,7 @@ msgstr "Label verwijderen om te valideren"
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_remove_tags
 msgid "Remove all tags"
-msgstr "Alle tags verwijderen"
+msgstr "Alle labels verwijderen"
 
 #. module: documents
 #. odoo-javascript
@@ -3392,7 +3404,7 @@ msgid ""
 "<jobs@example.odoo.com>"
 msgstr ""
 "De naam van de e-mailalias, bijvoorbeeld: 'vacature' als je alle e-mails van"
-" vacature@jouwbedrijf.nl wilt afvangen"
+" vacature@jebedrijf.nl wilt afvangen"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__last_access_date_group__1_month
@@ -3829,7 +3841,7 @@ msgstr "Je kunt niet kopiëren in die map"
 #. odoo-python
 #: code:addons/documents/models/documents_tag.py:0
 msgid "You cannot delete tags used in server actions."
-msgstr "Je kunt geen tags verwijderen die gebruikt worden in serveracties."
+msgstr "Je kunt geen labels verwijderen die gebruikt worden in serveracties."
 
 #. module: documents
 #. odoo-python
@@ -3893,13 +3905,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Your Role: %s"
-msgstr "Jouw rol: %s"
+msgstr "Je rol: %s"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Your individual space."
-msgstr "Jouw individuele ruimte."
+msgstr "Je individuele ruimte."
 
 #. module: documents
 #. odoo-javascript

@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Junko Augias, 2024
+# Junko Augias, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Junko Augias, 2024\n"
+"Last-Translator: Junko Augias, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +39,21 @@ msgid ""
 "        </div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"            <p>Amazonオーダ <t t-out=\"ctx.get('amazon_order_ref') or ''\">REF</t> の同期中にエラーが発生し完了できませんでした。</p>\n"
+"            <p>オーダがSellerCentralでキャンセルされない限り、他の同期を試みることはありません。</p>\n"
+"            <p>新しい同期の試行を予定するには以下を行います:\n"
+"                </p><ol>\n"
+"                    <li>ディベロッパーツールを入力する。</li>\n"
+"                    <li>注文したAmazonアカウントのフォームを開く。</li>\n"
+"                    <li>注文フォローアップタブに移動します。</li>\n"
+"                    <li>以下の日付を設定: <em>最終オーダ同期</em> tオーダの最後のステータス更新より前のものであるもの。</li>\n"
+"                    <li>変更を保存し、以下をクリック <em>オーダを同期</em> ボタン。</li>\n"
+"                </ol>\n"
+"            \n"
+"            <p>問題が解決しない場合は、 <a href=\"https://www.odoo.com/help/\">Odooサポート</a>にご連絡下さい。</p>\n"
+"        </div>\n"
+"        "
 
 #. module: sale_amazon
 #: model:mail.template,body_html:sale_amazon.picking_sync_failure

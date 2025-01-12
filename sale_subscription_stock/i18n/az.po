@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-12-12 08:37+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Jumshud Sultanov <cumshud@gmail.com>, 2024\n"
 "Language-Team: Azerbaijani (https://app.transifex.com/odoo/teams/41243/az/)\n"
@@ -19,6 +19,21 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: az\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: sale_subscription_stock
+#. odoo-python
+#: code:addons/sale_subscription_stock/models/sale_order.py:0
+msgid ""
+"A system error prevented the automatic creation of delivery orders for this "
+"subscription. To ensure your delivery is processed, please trigger it "
+"manually by using the \"Subscription: Generate delivery\" action."
+msgstr ""
+
+#. module: sale_subscription_stock
+#. odoo-python
+#: code:addons/sale_subscription_stock/models/sale_order.py:0
+msgid "Delivery creation failed"
+msgstr ""
 
 #. module: sale_subscription_stock
 #: model:product.template,name:sale_subscription_stock.product_recurring_detergent_product_template
@@ -50,6 +65,11 @@ msgstr "Satış Sifarişi Sətri"
 #. module: sale_subscription_stock
 #: model:ir.model,name:sale_subscription_stock.model_stock_forecasted_product_product
 msgid "Stock Replenishment Report"
+msgstr ""
+
+#. module: sale_subscription_stock
+#: model:ir.actions.server,name:sale_subscription_stock.action_compute_price_bom_product
+msgid "Subscription: Generate delivery"
 msgstr ""
 
 #. module: sale_subscription_stock

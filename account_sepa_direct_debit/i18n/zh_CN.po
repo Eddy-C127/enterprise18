@@ -6,7 +6,7 @@
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2024
 # Wil Odoo, 2024
 # Odoo哥 <vnsoft.he@gmail.com>, 2024
-# Chloe Wang, 2024
+# Chloe Wang, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Chloe Wang, 2024\n"
+"Last-Translator: Chloe Wang, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -80,6 +80,26 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        <t t-out=\"object.partner_id.display_name or ''\">Azure Interior</t> 您好！\n"
+"                        <br/>\n"
+"                        <br/>\n"
+"                        SEPA 只接受欧元付款。有些付款使用其他货币。\n"
+"                        <t t-out=\"object.company_id.display_name or ''\">YourCompany</t>\n"
+"                        向您的银行发送指示，以便按照\n"
+"                        <t t-out=\"object.company_id.display_name or ''\">YourCompany</t>\n"
+"                        的指示从您的账户扣款。\n"
+"                       如有任何疑问，欢迎联系我们。\n"
+"                        <br/>\n"
+"                        顺祝  安康\n"
+"                        <t t-if=\"not is_html_empty(user.signature)\" data-o-mail-quote-container=\"1\">\n"
+"                            <br/><br/>\n"
+"                            <t t-out=\"user.signature\" data-o-mail-quote=\"1\">--<br data-o-mail-quote=\"1\"/>Mitchell Admin</t>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sepa_direct_debit_mandate_form

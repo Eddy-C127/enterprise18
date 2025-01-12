@@ -3,8 +3,8 @@
 # 	* appointment
 # 
 # Translators:
-# Wil Odoo, 2024
 # Malaz Abuidris <msea@odoo.com>, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1331,7 +1331,6 @@ msgstr "الإجابات"
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
-#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__anytime
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Any Time"
 msgstr "في أي وقت "
@@ -1715,6 +1714,11 @@ msgid "Booking Details"
 msgstr "تفاصيل الحجز "
 
 #. module: appointment
+#: model:ir.model.fields,field_description:appointment.field_appointment_type__booked_mail_template_id
+msgid "Booking Email"
+msgstr ""
+
+#. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__event_stop
 msgid "Booking End"
 msgstr "نهاية الحجز "
@@ -1897,11 +1901,6 @@ msgid "Confirm Appointment"
 msgstr "تأكيد الموعد "
 
 #. module: appointment
-#: model:ir.model.fields,field_description:appointment.field_appointment_type__booked_mail_template_id
-msgid "Confirmation Email"
-msgstr "البريد الإلكتروني للتأكيد "
-
-#. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_confirmation
 msgid "Confirmation Message"
 msgstr "رسالة التأكيد"
@@ -2021,11 +2020,6 @@ msgid "Created on"
 msgstr "أنشئ في"
 
 #. module: appointment
-#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__custom
-msgid "Custom"
-msgstr "مُخصص"
-
-#. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Custom Link"
@@ -2076,15 +2070,11 @@ msgstr "لا يمكن تطبيق الفترات الافتراضية على فئ
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__slot_type
 msgid ""
-"Defines the type of slot. The recurring slot is the default type which is used for\n"
+"Defines the type of slot. The regular slot is the default type which is used for\n"
 "        appointment type that are used recurringly in type like medical appointment.\n"
 "        The one shot type is only used when an user create a custom appointment type for a client by\n"
 "        defining non-recurring time slot (e.g. 10th of April 2021 from 10 to 11 am) from its calendar."
 msgstr ""
-"يحدد نوع الفترة. الفترة الدورية هي نوع الفترات الافتراضي المستخدَم لأنواع\n"
-"        المواعيد المُستخدَمة بشكل دوري في الأنواع كموعد طبي.\n"
-"        يُستخدَم نوع المرة الواحدة عندما يقوم المستخدِم بإنشاء نوع موعد مخصص لعميل عن طريق\n"
-"        تحديد الفترة الزمنية غير الدورية (مثال: 10 إبريل 2021 من الساعة 10 إلى 11 صباحاً) من التقويم. "
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__event_videocall_source
@@ -2439,21 +2429,18 @@ msgid ""
 msgstr "إذا تم تركه فارغاً، سيتم استخدام جدول عمل الشركة المحدد لدى المَورد "
 
 #. module: appointment
+#: model:ir.model.fields,help:appointment.field_appointment_type__booked_mail_template_id
+msgid ""
+"If set an email will be sent to the customer when the appointment is booked."
+msgstr ""
+
+#. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
 msgid ""
 "If set an email will be sent to the customer when the appointment is "
 "cancelled."
 msgstr ""
 "إذا كان محدداً، سيتم إرسال رسالة بريد الكتروني إلى العميل عند إلغاء الموعد. "
-
-#. module: appointment
-#: model:ir.model.fields,help:appointment.field_appointment_type__booked_mail_template_id
-msgid ""
-"If set an email will be sent to the customer when the appointment is "
-"confirmed."
-msgstr ""
-"إذا كان محدداً، سيتم إرسال رسالة بريد الكتروني إلى العميل عند تأكيد الموعد."
-"  "
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__active
@@ -2608,7 +2595,7 @@ msgstr "أتح للحاضرين دعوة الضيوف عند تسجيل اجتم
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Let customers book tables (bars, restaurants, etc.)"
-msgstr ""
+msgstr "السماح للعملاء بحجز الطاولات (الحانات والمطاعم وغيرها) "
 
 #. module: appointment
 #. odoo-javascript
@@ -2837,6 +2824,11 @@ msgid "No Show"
 msgstr "لم يحضر "
 
 #. module: appointment
+#: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
+msgid "No Specific Slots Availabilities Shared!"
+msgstr ""
+
+#. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__appointment_type_info_msg
 msgid "No User Assigned Message"
 msgstr "رسالة بعدم وجود مستخدم مسند "
@@ -2927,7 +2919,7 @@ msgstr "يُسمح بنوع موعد \"أي وقت\" واحد فقط لمستخ�
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Oops! Your appointment is scheduled in less than"
-msgstr ""
+msgstr "عذراً! تمت جدولة اجتماعك في أقل من "
 
 #. module: appointment
 #. odoo-javascript
@@ -3031,6 +3023,12 @@ msgid "Preview"
 msgstr "معاينة"
 
 #. module: appointment
+#. odoo-javascript
+#: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
+msgid "Propose Slots"
+msgstr ""
+
+#. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__punctual
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Punctual"
@@ -3073,8 +3071,6 @@ msgid "Reason"
 msgstr "السبب"
 
 #. module: appointment
-#: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__slot_type__recurring
-#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__recurring
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Recurring"
 msgstr "متكررة "
@@ -3083,6 +3079,13 @@ msgstr "متكررة "
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__redirect_url
 msgid "Redirect URL"
 msgstr "إعادة توجيه رابط URL "
+
+#. module: appointment
+#: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__slot_type__recurring
+#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__recurring
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
+msgid "Regular"
+msgstr "منتظم"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__reminder_ids
@@ -3304,6 +3307,11 @@ msgid "Search in Responsible"
 msgstr "البحث في المسؤول "
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
+msgid "Select Appointments to share..."
+msgstr ""
+
+#. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Select Dates"
@@ -3384,11 +3392,19 @@ msgid "Sequence"
 msgstr "تسلسل "
 
 #. module: appointment
+#. odoo-javascript
+#: code:addons/appointment/static/src/views/kanban/kanban_controller.xml:0
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_tree
 msgid "Share"
 msgstr "مشاركة"
+
+#. module: appointment
+#. odoo-javascript
+#: code:addons/appointment/static/src/views/kanban/kanban_controller.js:0
+msgid "Share Appointment"
+msgstr ""
 
 #. module: appointment
 #. odoo-javascript
@@ -3403,6 +3419,12 @@ msgstr "مشاركة رابط الموعد "
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form_custom_share
 msgid "Share Availabilities"
 msgstr "مشاركة الإتاحات "
+
+#. module: appointment
+#. odoo-javascript
+#: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
+msgid "Share Calendar"
+msgstr ""
 
 #. module: appointment
 #. odoo-javascript
@@ -3425,6 +3447,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__shareable
 msgid "Shareable"
 msgstr "قابل للمشاركة "
+
+#. module: appointment
+#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__anytime
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
+msgid "Shared Calendar"
+msgstr ""
 
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_appointment_invite
@@ -3506,6 +3534,11 @@ msgstr "عذراً، لا توجد المزيد من الفترات المتاح
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__source_resource_ids
 msgid "Source combination"
 msgstr "تركيبة المصدر "
+
+#. module: appointment
+#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__custom
+msgid "Specific Slots"
+msgstr ""
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__specific_resources
@@ -3834,7 +3867,7 @@ msgstr "لإجراء أي تغييرات، يُرجى التواصل مع "
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "To make any changes, please contact us."
-msgstr ""
+msgstr "لإجراء أي تغييرات، يُرجى التواصل معنا. "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__access_token
@@ -3946,25 +3979,14 @@ msgid ""
 "\n"
 "        Can be one of:\n"
 "\n"
-"            - Recurring: the default category, weekly recurring slots. Accessible from the website\n"
+"            - Regular: the default category, weekly recurring slots. Accessible from the website\n"
 "\n"
-"            - Punctual: recurring slots limited between 2 datetimes. Accessible from the website\n"
+"            - Punctual: regular slots limited between 2 datetimes. Accessible from the website\n"
 "\n"
-"            - Custom: the user will create and share to another user a custom appointment type with hand-picked time slots\n"
+"            - Specific Slots: the user will create and share to another user a custom appointment type with hand-picked time slots\n"
 "\n"
-"            - Anytime: the user will create and share to another user an appointment type covering all their time slots"
+"            - Shared Calendar: the user will create and share to another user an appointment type covering all their time slots"
 msgstr ""
-"يُستخدم لتحديد فئة نوع الموعد هذا.\n"
-"\n"
-"        يمكن أن يكون واحدًا من:\n"
-"\n"
-"            - المتكررة: الفئة الافتراضية، فتحات متكررة أسبوعية. يمكن الوصول إليها من الموقع\n"
-"\n"
-"            - المنضبطة: فتحات متكررة محدودة بين تاريخين. يمكن الوصول إليها من الموقع\n"
-"\n"
-"            - مخصص: سيقوم المستخدم بإنشاء نوع موعد مخصص ومشاركته مع مستخدم آخر مع فترات زمنية منتقاة بعناية\n"
-"\n"
-"            - في أي وقت: سيقوم المستخدم بإنشاء نوع موعد يغطي جميع الفترات الزمنية الخاصة به ومشاركته مع مستخدم آخر "
 
 #. module: appointment
 #: model:res.groups,name:appointment.group_appointment_user
@@ -4169,7 +4191,7 @@ msgstr "لا توجد به أي فترات متاحة لهذا الشهر. "
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "hour(s) and cannot be cancelled at this time.<br/>"
-msgstr ""
+msgstr "ساعات ولا يمكن إلغاؤه في هذا الوقت.<br/> "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form

@@ -119,6 +119,13 @@ msgid ""
 "            </p>\n"
 "        "
 msgstr ""
+"<p>\n"
+"                안녕하세요, <t t-out=\"object.partner_id.name or 'Customer'\">Customer</t>님.<br/><br/>\n"
+"                현장 운영과 관련된 현장 서비스 보고서를 첨부해 드립니다.<br/><br/>\n"
+"                첨부 파일과 관련하여 궁금한 점이 있으시면 언제든지 문의주시기 바랍니다.<br/><br/>\n"
+"                감사합니다.<br/><br/>\n"
+"            </p>\n"
+"        "
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.view_task_form2_inherit
