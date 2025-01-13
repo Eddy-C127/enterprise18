@@ -8,6 +8,8 @@ class AccountEdiProxyClientUser(models.Model):
     def _peppol_import_invoice(self, attachment, partner_endpoint, peppol_state, uuid):
         # EXTENDS account_peppol
         """Save new documents in the Documents app, when a folder has been set on the company.
+
+        Reminder: partner_endpoint DEPRECATED - to be removed in master
         """
         self.ensure_one()
         res = super()._peppol_import_invoice(attachment, partner_endpoint, peppol_state, uuid)
@@ -20,9 +22,8 @@ class AccountEdiProxyClientUser(models.Model):
             })
             document._message_log(
                 body=_(
-                    "Peppol document (UUID: %(uuid)s) has been received successfully.\n(Sender endpoint: %(endpoint)s)",
+                    "Peppol document (UUID: %(uuid)s) has been received successfully.",
                     uuid=uuid,
-                    endpoint=partner_endpoint,
                 ),
             )
             return True
