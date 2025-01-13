@@ -10,7 +10,7 @@ from odoo.addons.sale.models.sale_order import SALE_ORDER_STATE
 class BaseAutomation(models.Model):
     _inherit = 'base.automation'
 
-    is_sale_order_alert = fields.Boolean(readonly=True, default=False, string='Is Sale Order Alert')
+    is_sale_order_alert = fields.Boolean(readonly=True, default=False, copy=False, string='Is Sale Order Alert')
 
 
 class SaleOrderAlert(models.Model):
