@@ -728,16 +728,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             trigger: "iframe input.ui-selected",
             run: "text 17/09/2018",
         },
-        {
-            content: "Next 2",
-            trigger: "iframe .o_sign_sign_item_navigator",
-            run: "click",
-        },
-        {
-            content: "Type Number",
-            trigger: "iframe input.ui-selected",
-            run: "text 58/4",
-        },
         // fill signature
         {
             content: "Next 3",
@@ -1355,16 +1345,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             content: "Type Date",
             trigger: "iframe input.ui-selected",
             run: "text 17/09/2018",
-        },
-        {
-            content: "Next 7",
-            trigger: "iframe .o_sign_sign_item_navigator",
-            run: "click",
-        },
-        {
-            content: "Type Number",
-            trigger: "iframe input.ui-selected",
-            run: "text 58/4",
         },
         // fill signature
         {
