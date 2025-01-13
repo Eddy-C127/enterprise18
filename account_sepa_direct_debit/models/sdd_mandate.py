@@ -188,6 +188,8 @@ class SDDMandate(models.Model):
                     expiring_mandates += mandate  # Used to send warnings
                 else:
                     valid_mandates += mandate
+            elif today < mandate.start_date:
+                invalid_mandates += mandate
             else:
                 to_close += mandate
                 invalid_mandates += mandate
