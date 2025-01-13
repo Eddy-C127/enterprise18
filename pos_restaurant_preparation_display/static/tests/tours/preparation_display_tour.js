@@ -167,7 +167,20 @@ registry.category("web_tour.tours").add("PreparationDisplayPaymentNotCancelDispl
             ProductScreen.orderlinesHaveNoChange(),
             ProductScreen.clickNumpad("⌫"),
             ProductScreen.clickNumpad("1"),
+            {
+                trigger: ".submit-order:contains(-1)",
+            },
             ProductScreen.clickOrderButton(),
+            Order.hasLine({
+                productName: "Coca-Cola",
+                quantity: 2,
+                withClass: ":eq(0)",
+            }),
+            Order.hasLine({
+                productName: "Coca-Cola",
+                quantity: 1,
+                withClass: ":eq(1)",
+            }),
             ProductScreen.orderlinesHaveNoChange(),
             ProductScreen.clickPayButton(),
             PaymentScreen.clickPaymentMethod("Bank"),
