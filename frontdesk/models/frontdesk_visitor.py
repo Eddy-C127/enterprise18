@@ -102,7 +102,7 @@ class FrontdeskVisitor(models.Model):
                 })
                 name = f"{self.name} ({self.company})" if self.company else self.name
                 msg = _("%(name)s just checked-in. Requested Drink: %(drink)s.",
-                    name=Markup('<a href="%s">%s</a>') % (url_join(visitor.get_base_url(), '/web?#%s' % url), name),
+                    name=Markup('<a href="%s">%s</a>') % (url_join(self.env['frontdesk.visitor'].get_base_url(), '/web?#%s' % url), name),
                     drink=', '.join(drink.name for drink in visitor.drink_ids),
                 )
                 visitor._notify_by_discuss(visitor.drink_ids.notify_user_ids, msg)
