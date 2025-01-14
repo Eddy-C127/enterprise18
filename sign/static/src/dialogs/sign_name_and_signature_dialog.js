@@ -135,6 +135,7 @@ export class SignNameAndSignatureDialog extends Component {
     setup() {
         this.footerState = useState({
             buttonsDisabled: !this.props.signature.name,
+            signAllButtonsDisabled: !this.props.signature.name,
         });
     }
 
@@ -162,8 +163,12 @@ export class SignNameAndSignatureDialog extends Component {
     }
 
     onNameChange(name) {
-        if (this.footerState.buttonsDisabled !== !name) {
-            this.footerState.buttonsDisabled = !name;
+        const isNameEmpty = !name;
+        if (this.footerState.buttonsDisabled !== isNameEmpty) {
+            this.footerState.buttonsDisabled = isNameEmpty;
+        }
+        if (this.footerState.signAllButtonsDisabled !== isNameEmpty) {
+            this.footerState.signAllButtonsDisabled = isNameEmpty;
         }
     }
 
