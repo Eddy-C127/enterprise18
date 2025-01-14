@@ -330,6 +330,16 @@ class TestDocumentsBridgeProject(TestProjectCommon, TransactionCaseDocuments):
         with self.assertRaises(UserError, msg="It should not be possible to delete an ancestor of the 'Projects' folder"):
             current.unlink()
 
+        # But it shouldn't interfere with legit deletion/archiving
+        project_folder.action_update_access_rights(
+            access_internal='none', access_via_link='none',
+            partners={self.doc_user.partner_id.id: (False, False)})
+        project_folder.invalidate_recordset(fnames=['parent_path'])
+        self.document_txt.with_user(self.doc_user).action_archive()
+        self.assertFalse(self.document_txt.active)
+        self.document_txt.with_user(self.doc_user).unlink()
+        self.assertFalse(self.document_txt.exists())
+
     @users('proj_admin')
     def test_sync_project_privacy_visibility_access_internal(self):
         self.assertEqual(self.document_txt_2.access_internal, 'view')
