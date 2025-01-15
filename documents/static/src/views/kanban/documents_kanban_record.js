@@ -88,6 +88,7 @@ export class DocumentsKanbanRecord extends KanbanRecord {
                         : _t("Shared with me")
                 );
         }
+        context.mimetype = this.props.record.shortcutTarget.data.mimetype;
         return context;
     }
     /**
