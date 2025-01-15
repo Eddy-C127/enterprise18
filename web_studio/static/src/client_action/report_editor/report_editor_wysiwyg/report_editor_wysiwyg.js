@@ -17,7 +17,12 @@ import { sortBy } from "@web/core/utils/arrays";
 import { useOwnedDialogs, useService } from "@web/core/utils/hooks";
 import { SelectMenu } from "@web/core/select_menu/select_menu";
 import { QWebPlugin } from "@web_editor/js/backend/QWebPlugin";
-import { setSelection, startPos, endPos } from "@web_editor/js/editor/odoo-editor/src/utils/utils";
+import {
+    setSelection,
+    startPos,
+    endPos,
+    closestElement,
+} from "@web_editor/js/editor/odoo-editor/src/utils/utils";
 
 import { StudioDynamicPlaceholderPopover } from "./studio_dynamic_placeholder_popover";
 import { Many2ManyTagsField } from "@web/views/fields/many2many_tags/many2many_tags_field";
@@ -557,6 +562,16 @@ export class ReportEditorWysiwyg extends Component {
     }
 
     getPowerboxCommands() {
+        const isDisabled = () => {
+            const odooEditor = this.wysiwyg.odooEditor;
+            const doc = odooEditor.document;
+            const { anchorNode } = doc.getSelection();
+
+            const { availableQwebVariables } = this.getQwebVariables(
+                anchorNode.nodeType === 1 ? anchorNode : anchorNode.parentElement
+            );
+            return Object.keys(availableQwebVariables || {}).length === 0;
+        };
         return [
             {
                 category: _t("Report Tools"),
@@ -565,6 +580,7 @@ export class ReportEditorWysiwyg extends Component {
                 description: _t("Insert a field"),
                 fontawesome: "fa-magic",
                 callback: () => this.insertField(),
+                isDisabled,
             },
             {
                 category: _t("Report Tools"),
@@ -573,33 +589,52 @@ export class ReportEditorWysiwyg extends Component {
                 description: _t("Insert a table based on a relational field."),
                 fontawesome: "fa-magic",
                 callback: () => this.insertTableX2Many(),
+                isDisabled,
             },
         ];
     }
 
+    getQwebVariables(element) {
+        if (!element) {
+            return {};
+        }
+        const nodeOeContext = element.closest("[oe-context]");
+        let availableQwebVariables =
+            nodeOeContext && JSON.parse(nodeOeContext.getAttribute("oe-context"));
+
+        const isInHeaderFooter = closestElement(element, ".header,.footer");
+        let initialQwebVar;
+        if (isInHeaderFooter) {
+            const companyVars = Object.entries(availableQwebVariables).filter(
+                ([k, v]) => v.model === "res.company"
+            );
+            initialQwebVar = companyVars[0]?.[0];
+            availableQwebVariables = Object.fromEntries(companyVars);
+        } else {
+            initialQwebVar = getOrderedTAs(element)[0] || "";
+        }
+        return {
+            isInHeaderFooter,
+            availableQwebVariables,
+            initialQwebVar,
+        };
+    }
+
     getFieldPopoverParams() {
+        const resModel = this.reportEditorModel.reportResModel;
         const odooEditor = this.wysiwyg.odooEditor;
         const doc = odooEditor.document;
 
-        const resModel = this.reportEditorModel.reportResModel;
-        const docSelection = doc.getSelection();
-        const { anchorNode } = docSelection;
-        const isEditingFooterHeader =
-            !!(doc.querySelector(".header") && doc.querySelector(".header").contains(anchorNode)) ||
-            !!(doc.querySelector(".footer") && doc.querySelector(".footer").contains(anchorNode));
-
+        const { anchorNode } = doc.getSelection();
         const popoverAnchor = anchorNode.nodeType === 1 ? anchorNode : anchorNode.parentElement;
-
-        const nodeOeContext = popoverAnchor.closest("[oe-context]");
-        const availableQwebVariables =
-            nodeOeContext && JSON.parse(nodeOeContext.getAttribute("oe-context"));
-
+        const { availableQwebVariables, initialQwebVar, isInHeaderFooter } =
+            this.getQwebVariables(popoverAnchor);
         return {
             popoverAnchor,
             props: {
                 availableQwebVariables,
-                initialQwebVar: getOrderedTAs(popoverAnchor)[0] || "",
-                isEditingFooterHeader,
+                initialQwebVar,
+                isEditingFooterHeader: !!isInHeaderFooter,
                 resModel,
             },
         };
