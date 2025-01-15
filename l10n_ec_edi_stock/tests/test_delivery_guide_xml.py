@@ -139,6 +139,7 @@ L10N_EC_EDI_XML_DELIVERY_GUIDE = """<autorizacion>
                     <motivoTraslado>Goods Dispatch</motivoTraslado>
                     <detalles>
                         <detalle>
+                            <codigoInterno>N/A</codigoInterno>
                             <descripcion>Computadora</descripcion>
                             <cantidad>1.0</cantidad>
                         </detalle>
