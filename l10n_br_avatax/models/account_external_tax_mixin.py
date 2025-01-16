@@ -134,8 +134,11 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
     def _l10n_br_avatax_validate_lines(self, lines):
         """ Avoids doing requests to Avatax that are guaranteed to fail. """
         errors = []
+        max_length_description = 7_000 if self.l10n_br_is_service_transaction else 120
+        doc_type = self.env.ref("l10n_br.dt_SE" if self.l10n_br_is_service_transaction else "l10n_br.dt_55").doc_code_prefix
         for line in lines:
             product = line['tempProduct']
+            description = line['itemDescriptor']['description']
             cean = line['itemDescriptor']['cean']
             if not product:
                 errors.append(_('- A product is required on each line when using Avatax.'))
@@ -145,6 +148,11 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
                 errors.append(_("- Avatax Brazil doesn't support negative lines."))
             elif cean and (not cean.isdigit() or not (len(cean) == 8 or 12 <= len(cean) <= 14)):
                 errors.append(_("- The barcode of %s must have either 8, or 12 to 14 digits when using Avatax.", product.display_name))
+            elif description and len(description) > max_length_description:
+                errors.append(_(
+                    "- The following label exceeds the %(max_characters)s character limit for %(doc_type)s: %(line)s",
+                    max_characters=max_length_description, doc_type=doc_type, line=description
+                ))
 
         service_lines, consumable_lines = partition(
             lambda line: line["tempProduct"].product_tmpl_id._l10n_br_is_only_allowed_on_service_invoice(), lines
@@ -170,8 +178,6 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
                         products=format_list(self.env, [line["tempProduct"].display_name for line in consumable_lines]),
                     )
                 )
-
-            errors = []
 
             partner = self.partner_shipping_id
             city = partner.city_id
