@@ -286,6 +286,15 @@ export class DocumentsControlPanel extends ControlPanel {
         this.notification.add(message, { type: "success" });
     }
 
+    get canDuplicateSelection() {
+        return (
+            this.currentFolderId !== "TRASH" &&
+            this.documentService.isEditable(
+                this.env.searchModel.getFolderById(this.currentFolderId)
+            )
+        );
+    }
+
     /**
      * Unselect the records in the kanban / list view.
      */

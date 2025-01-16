@@ -25,6 +25,9 @@ export class FileViewer extends WebFileViewer {
         });
     }
     get hasSplitPdf() {
+        if (!this.documentService.userIsInternal) {
+            return false;
+        }
         if (this.documentService.documentList?.initialRecordSelectionLength === 1) {
             return this.documentService.documentList.selectedDocument.attachment.isPdf;
         }
