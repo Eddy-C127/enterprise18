@@ -58,3 +58,23 @@ class TestPayslipComputationMX(TransactionCase):
         self.assertAlmostEqual(roque_payslip.paid_amount, 4500, places=2, msg="It should be paid the full wage")
         line_ids_dict = {line['code']: line['amount'] for line in roque_payslip.line_ids}
         self.assertAlmostEqual(line_ids_dict['BASIC'], 4500, places=2, msg="It should be paid the full wage")
+
+    def test_weekly_schedule_pay_no_code(self):
+        self.contract_roque.l10n_mx_schedule_pay = 'weekly'
+        self.contract_roque.schedule_pay = 'weekly'
+        struct = self.env['hr.payroll.structure'].create({
+            'name': 'Test Structure',
+            'country_id': self.env.ref('base.mx').id,
+            'type_id': self.env.ref('l10n_mx_hr_payroll.structure_type_employee_mx').id,
+            'report_id': self.env.ref('l10n_mx_hr_payroll.action_report_payslip_mx').id,
+        })
+        roque_payslip = self.env['hr.payslip'].create({
+            'name': 'Payslip of Roque',
+            'employee_id': self.roque_emp.id,
+            'contract_id': self.contract_roque.id,
+            'struct_id': struct.id,
+            'date_from': date(2018, 1, 1),
+            'date_to': date(2018, 1, 7)
+        })
+        roque_payslip.compute_sheet()
+        self.assertAlmostEqual(roque_payslip.paid_amount, 4500, places=2, msg="It should be paid the full wage")
