@@ -437,9 +437,10 @@ class Planning(models.Model):
 
     @api.depends('role_id', 'employee_id')
     def _compute_template_autocomplete_ids(self):
-        domain = self._get_domain_template_slots()
-        templates = self.env['planning.slot.template'].search(domain, order='start_time', limit=10)
-        self.template_autocomplete_ids = templates + self.template_id
+        for slot in self:
+            domain = slot._get_domain_template_slots()
+            templates = self.env['planning.slot.template'].search(domain, order='start_time', limit=10)
+            slot.template_autocomplete_ids = templates + slot.template_id
 
     @api.depends('employee_id', 'role_id', 'start_datetime', 'end_datetime')
     def _compute_template_id(self):
