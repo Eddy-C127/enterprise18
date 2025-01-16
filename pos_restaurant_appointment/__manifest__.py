@@ -34,6 +34,7 @@
             'html_editor/static/src/position_hook.js',
             'html_editor/static/src/local_overlay_container.js',
             'html_editor/static/src/local_overlay_container.xml',
+            'html_editor/static/src/html_migrations/**/*',
             'html_editor/static/src/core/**/*',
             'html_editor/static/src/main/**/*',
             'html_editor/static/src/fields/**/*',
