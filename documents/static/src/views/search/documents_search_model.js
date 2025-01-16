@@ -5,7 +5,6 @@ import { SearchModel } from "@web/search/search_model";
 import { browser } from "@web/core/browser/browser";
 import { router } from "@web/core/browser/router";
 import { Domain } from "@web/core/domain";
-import { _t } from "@web/core/l10n/translation";
 import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 
@@ -157,9 +156,6 @@ export class DocumentsSearchModel extends SearchModel {
             folders.push(folder);
             folder = folder.folder_id ? folderSection.values.get(folder.folder_id) : false;
         }
-        if (folders.length === 1 && !folders[0].id && folders[0].display_name === _t("All")) {
-            folders[0].display_name = _t("Home");
-        }
         return folders;
     }
 
@@ -192,9 +188,6 @@ export class DocumentsSearchModel extends SearchModel {
      * @override
      */
     toggleCategoryValue(sectionId, valueId) {
-        if (!valueId) {
-            this.query = [];
-        }
         super.toggleCategoryValue(...arguments);
         browser.localStorage.setItem("searchpanel_documents_document", valueId);
 
@@ -385,7 +378,7 @@ export class DocumentsSearchModel extends SearchModel {
             }
             browser.localStorage.setItem("searchpanel_documents_document", category.activeValueId);
         } else {
-            // If still not a valid value, default to HOME(id=false) for internal users
+            // If still not a valid value, default to All (id=false) for internal users
             // or root folder for portal users
             category.activeValueId = this.documentService.userIsInternal ? false : valueIds[0];
         }
