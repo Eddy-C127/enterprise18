@@ -266,7 +266,7 @@ export class MapModel extends Model {
         };
         for (const fieldName of fieldNames) {
             specification[fieldName] = {};
-            if (metaData.resPartnerField === "id") {
+            if (fieldName === "id" && metaData.resPartnerField === "id") {
                 Object.assign(specification, fieldsToAdd);
             } else if (
                 ["many2one", "one2many", "many2many"].includes(metaData.fields[fieldName].type)
