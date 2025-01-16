@@ -161,6 +161,7 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
         return {
             name: "lot_id",
             record: this.props.record,
+            canQuickCreate: false,
             context: {
                 default_product_id: productId,
                 active_mo_id: this.recordData.production_id[0],
