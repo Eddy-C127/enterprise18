@@ -15,6 +15,9 @@ patch(PosOrder.prototype, {
             l10n_ke_edi_oscu_pos_signature: this.l10n_ke_edi_oscu_pos_signature,
             l10n_ke_edi_oscu_pos_order_json: this.l10n_ke_edi_oscu_pos_order_json,
             l10n_ke_edi_oscu_pos_serial_number: this.l10n_ke_edi_oscu_pos_serial_number,
+            // This field is used to switch the sign on numeric fields if it's a refund, as the
+            // json used in the back-end contains only positive values (eTims requirement)
+            l10n_ke_edi_oscu_pos_is_refund: this.refunded_order_id !== undefined ? -1 : 1,
         };
     },
 
