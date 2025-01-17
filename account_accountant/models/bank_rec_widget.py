@@ -873,7 +873,7 @@ class BankRecWidget(models.Model):
                 'source_aml_id': new_aml.source_aml_id.id,
                 'account_id': account.id,
                 'date': new_aml.date,
-                'name': _("Exchange Difference: %s", new_aml.name),
+                'name': _("Exchange Difference%s", ': ' + new_aml.name if new_aml.name else ''),
                 'partner_id': new_aml.partner_id.id,
                 'currency_id': new_aml.currency_id.id,
                 'amount_currency': exchange_diff_balance if new_aml.currency_id == self.company_currency_id else 0.0,
