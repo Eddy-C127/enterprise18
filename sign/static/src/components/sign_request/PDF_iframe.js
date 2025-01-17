@@ -238,6 +238,11 @@ export class PDFIframe {
             for (const id in this.signItems[page]) {
                 const signItem = this.signItems[page][id].el;
                 signItem.classList.remove("d-none");
+                if (signItem && signItem.hasAttribute('data-signature')) {
+                    signItem.addEventListener('dragstart', (event) => {
+                        event.preventDefault();
+                    });
+                }
                 if (!signItem.parentElement || !signItem.parentElement.classList.contains("page")) {
                     pageContainer.append(signItem);
                 }
