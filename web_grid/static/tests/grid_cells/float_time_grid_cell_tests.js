@@ -89,6 +89,7 @@ QUnit.module("Grid Cells", (hook) => {
         await click(target, ".o_grid_cell");
         await nextTick();
         assert.containsOnce(target, ".o_grid_cell input", "The component should be in edit mode.");
+        assert.hasAttrValue(target.querySelector(".o_grid_cell input"), "inputmode", "text");
         assert.containsNone(
             target,
             ".o_grid_cell span",

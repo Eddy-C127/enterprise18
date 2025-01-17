@@ -14,6 +14,10 @@ export class FloatTimeGridCell extends GridCell {
         return formatter(this.value);
     }
 
+    get inputMode() {
+        return "text";
+    }
+
     parse(value) {
         return parseFloatTime(value);
     }
