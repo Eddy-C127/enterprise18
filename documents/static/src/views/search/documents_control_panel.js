@@ -295,6 +295,27 @@ export class DocumentsControlPanel extends ControlPanel {
         );
     }
 
+    get canManageVersions() {
+        if (this.targetRecords.length !== 1) {
+            return false;
+        }
+        const singleSelection = this.targetRecords[0];
+        return (
+            this.userIsInternal &&
+            singleSelection &&
+            this.currentFolderId !== "TRASH" &&
+            singleSelection.data.type === "binary" &&
+            singleSelection.data.attachment_id
+        );
+    }
+
+    /**
+     * Open the "Version" modal.
+     */
+    async onManageVersions() {
+        await this.documentService.openDialogManageVersions(this.targetRecords[0].data.id);
+    }
+
     /**
      * Unselect the records in the kanban / list view.
      */
