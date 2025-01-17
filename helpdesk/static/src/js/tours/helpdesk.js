@@ -43,7 +43,7 @@ registry.category("web_tour.tours").add('helpdesk_tour', {
     position: 'right',
     auto: true,
 }, {
-    trigger: 'button:contains(Add)',
+    trigger: '.o_kanban_quick_create button.o_kanban_add',
     content: _t('Save this ticket and the modifications you\'ve made to it.'),
     position: 'bottom',
 }, {
@@ -52,19 +52,19 @@ registry.category("web_tour.tours").add('helpdesk_tour', {
     run: 'click',
     position: 'bottom',
 }, {
-    trigger: ".o-mail-Chatter-topbar button:contains(Send message)",
+    trigger: ".o-mail-Chatter-topbar button.o-mail-Chatter-sendMessage",
     extra_trigger: '.o_form_view',
     content: markup(_t("Use the chatter to <b>send emails</b> and communicate efficiently with your customers. Add new people to the followers' list to make them aware of the progress of this ticket.")),
     width: 350,
     position: "bottom",
 }, {
-    trigger: "button:contains(Log note)",
+    trigger: "button.o-mail-Chatter-logNote",
     extra_trigger: '.o_form_view',
     content: markup(_t("<b>Log notes</b> for internal communications (you will only notify the persons you specifically tag). Use <b>@ mentions</b> to ping a colleague or <b># mentions</b> to contact a group of people.")),
     width: 350,
     position: "bottom"
 }, {
-    trigger: "button:contains(Activities)",
+    trigger: "button.o-mail-Chatter-activity",
     extra_trigger: '.o_form_view .o_form_saved',
     content: markup(_t("Use <b>activities</b> to organize your daily work.")),
 }, {
@@ -85,11 +85,11 @@ registry.category("web_tour.tours").add('helpdesk_tour', {
 }, {
     trigger: ".o_column_quick_create .o_quick_create_folded",
     content: markup(_t('Adapt your <b>pipeline</b> to your workflow by adding <b>stages</b> <i>(e.g. Awaiting Customer Feedback, etc.).</i>')),
-    position: 'right',
+    position: 'bottom',
 }, {
     trigger: ".o_column_quick_create .o_kanban_add",
     content: _t("Add your stage and place it at the right step of your workflow by dragging & dropping it."),
-    position: 'right',
+    position: 'bottom',
 }, {
     trigger: ".o_column_quick_create .o_kanban_add",
     content: "Clicking on 'Add' when input name is empty won't do anything, 'Add' will still be displayed",
