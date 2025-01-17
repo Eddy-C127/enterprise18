@@ -16,6 +16,7 @@ Key Features
 * FBM/Hybrid: Delivery information is fetched from Shopee, track and synchronize the stock level to Shopee
 """,
     'category': 'Sales/Sales',
+    'sequence': 325,
     'application': True,
     'depends': [
         'sale_management',
