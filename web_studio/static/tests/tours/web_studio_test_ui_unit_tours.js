@@ -1,6 +1,6 @@
 /** @odoo-module */
 import { registry } from "@web/core/registry";
-import { stepNotInStudio, assertEqual } from "@web_studio/../tests/tours/tour_helpers";
+import { stepNotInStudio, assertEqual, nextTick } from "@web_studio/../tests/tours/tour_helpers";
 import { queryFirst, drag, waitFor } from "@odoo/hoot-dom";
 
 registry
@@ -1971,7 +1971,8 @@ registry.category("web_tour.tours").add("web_studio_test_default_value_company",
                 // We want to wait for the RPC to return. That will
                 // "commit" the value in the input.
                 await helpers.edit("from studio", this.anchor);
-                await helpers.click('body');
+                await helpers.click("body");
+                await nextTick();
                 this.anchor.value = "";
             },
         },
