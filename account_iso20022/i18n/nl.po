@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Manon Rondou, 2024
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
+# Manon Rondou, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
+"Last-Translator: Manon Rondou, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -177,13 +177,13 @@ msgstr "Niet-EUR betalingen"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_journal.py:0
 msgid "Partner %s has no country code defined."
-msgstr "Bij het contact %s is geen landcode ingesteld."
+msgstr "Bij de partner %s is geen landcode ingesteld."
 
 #. module: account_iso20022
 #. odoo-python
 #: code:addons/account_iso20022/models/account_journal.py:0
 msgid "Partner %s has not bank account defined."
-msgstr "Bij het contact %s is geen bankrekening ingesteld."
+msgstr "Bij de partner %s is geen bankrekening ingesteld."
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_payment_register
@@ -326,7 +326,7 @@ msgid ""
 "- 2 letters or digits: location code\n"
 "- 3 letters or digits: branch code, optional\n"
 msgstr ""
-"De BIC-code '%(bic_code)s' die is gekoppeld aan de bankinstelling '%(bank)s' van bankrekening '%(account)s' van contact '%(contact)s' voldoet niet aan de vereiste conventie.\n"
+"De BIC-code '%(bic_code)s' die is gekoppeld aan de bankinstelling '%(bank)s' van bankrekening '%(account)s' van partner '%(partner)s' voldoet niet aan de vereiste conventie.\n"
 "Het moet 8 of 11 tekens bevatten en overeenkomen met de volgende structuur:\n"
 "- 4 letters: bankinstellingscode of bankcode\n"
 "- 2 letters: landcode\n"

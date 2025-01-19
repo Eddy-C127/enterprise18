@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Manon Rondou, 2024
+# Manon Rondou, 2025
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2025
 # 
 msgid ""
@@ -966,7 +966,7 @@ msgstr "Volgers"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Contacten)"
+msgstr "Volgers (Partners)"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__activity_type_icon
@@ -1847,6 +1847,13 @@ msgstr "Je kunt het activum niet opnieuw evalueren vóór de vergrendeldatum."
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
+msgid ""
+"You cannot add or remove bills when the asset is already running or closed."
+msgstr ""
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/models/account_asset.py:0
 msgid "You cannot archive a record that is not closed"
 msgstr "Je kunt geen record archiveren dat niet is gesloten"
 
@@ -1884,7 +1891,7 @@ msgid ""
 "You cannot delete an asset linked to posted entries.\n"
 "You should either confirm the asset, then, sell or dispose of it, or cancel the linked journal entries."
 msgstr ""
-"Je kunt geen activum verwijderen dat is gekoppeld aan geboekte posten.\n"
+"Je kunt geen activum verwijderen dat is gekoppeld aan geboekte boekingen.\n"
 "Je moet het activum bevestigen en vervolgens verkopen of afstoten, of de gekoppelde boekingen annuleren."
 
 #. module: account_asset

@@ -3,10 +3,10 @@
 # 	* account_reports
 # 
 # Translators:
-# Manon Rondou, 2024
 # Tiffany Chang, 2024
 # Wil Odoo, 2024
 # nierodoo, 2024
+# Manon Rondou, 2025
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2025
 # 
 msgid ""
@@ -480,7 +480,7 @@ msgstr "Geavanceerd"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_aged_partner_balance_report_handler
 msgid "Aged Partner Balance Custom Handler"
-msgstr "Verouderde Contact Balans Custom Handler"
+msgstr "Verouderde Partner Balans Custom Handler"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.aged_payable_report
@@ -989,7 +989,7 @@ msgstr "Wijzig vergrendeldatum"
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "Check Partner(s) Email(s)"
-msgstr "Controleer de e-mails van het contact(s)"
+msgstr "Controleer de e-mails van de partner(s)"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1637,7 +1637,7 @@ msgstr "Motor"
 #. odoo-python
 #: code:addons/account_reports/models/account_sales_report.py:0
 msgid "Entries with partners with no VAT"
-msgstr "Boekingen met relateis zonder btw"
+msgstr "Boekingen met partners zonder btw"
 
 #. module: account_reports
 #. odoo-python
@@ -2822,45 +2822,45 @@ msgstr "Bovenliggende wizard"
 #: model:account.report.column,name:account_reports.general_ledger_report_partner_name
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__partner_ids
 msgid "Partner"
-msgstr "Contact"
+msgstr "Partner"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Partner Categories"
-msgstr "Contactcategorieën"
+msgstr "Categorieën Partners"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.partner_ledger_report
 #: model:ir.actions.client,name:account_reports.action_account_report_partner_ledger
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_partner_ledger
 msgid "Partner Ledger"
-msgstr "Saldilijst"
+msgstr "Grootboek Partner"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_partner_ledger_report_handler
 msgid "Partner Ledger Custom Handler"
-msgstr "Contact Ledger Custom Handler"
+msgstr "Aangepaste handler voor partnerboek"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/line_name/line_name.xml:0
 #: code:addons/account_reports/static/src/components/partner_ledger/line_name.xml:0
 msgid "Partner is bad"
-msgstr "Contact is slecht"
+msgstr "Partner is slecht"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/line_name/line_name.xml:0
 #: code:addons/account_reports/static/src/components/partner_ledger/line_name.xml:0
 msgid "Partner is good"
-msgstr "Contact is goed"
+msgstr "Partner is goed"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "Partner(s) should have an email address."
-msgstr "Contact(s) moet(en een e-mailadres hebben."
+msgstr "Partner(s) moet(en een e-mailadres hebben."
 
 #. module: account_reports
 #. odoo-javascript
@@ -2868,17 +2868,17 @@ msgstr "Contact(s) moet(en een e-mailadres hebben."
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_partner.xml:0
 msgid "Partners"
-msgstr "Contacten"
+msgstr "Partners"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Partners Categories:"
-msgstr "Contactcategorieën:"
+msgstr "Partnercategorieën:"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Partners:"
-msgstr "Contacten:"
+msgstr "Partners:"
 
 #. module: account_reports
 #: model:mail.activity.type,name:account_reports.mail_activity_type_tax_report_to_pay
@@ -3048,7 +3048,7 @@ msgstr "Positie"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 msgid "Post"
-msgstr "Posten"
+msgstr "Boeken"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3317,7 +3317,7 @@ msgstr "Mail verzenden alleen lezen"
 #. odoo-python
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 msgid "Send Partner Ledgers"
-msgstr "Verstuur saldilijsten"
+msgstr "Verstuur partnergrootboeken"
 
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.ir_cron_account_report_send_ir_actions_server
@@ -3672,7 +3672,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 #, python-format
 msgid "The column '%s' is not available for this report."
-msgstr ""
+msgstr "De kolom '%s' is niet beschikbaar voor dit rapport."
 
 #. module: account_reports
 #. odoo-python
@@ -4034,7 +4034,7 @@ msgstr "Onbekend"
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 #: code:addons/account_reports/models/account_sales_report.py:0
 msgid "Unknown Partner"
-msgstr "Onbekende contact"
+msgstr "Onbekende partner"
 
 #. module: account_reports
 #. odoo-python
@@ -4116,13 +4116,13 @@ msgstr "Boeking bekijken"
 #: code:addons/account_reports/models/account_sales_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_tree
 msgid "View Partner"
-msgstr "Bekijk contact"
+msgstr "Bekijk partner"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "View Partner(s)"
-msgstr "Bekijk contact(s)"
+msgstr "Bekijk partner(s)"
 
 #. module: account_reports
 #. odoo-python
@@ -4179,7 +4179,7 @@ msgstr "Verkeerde ID voor grootboekregel om uit te vouwen: %s"
 #. odoo-python
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 msgid "Wrong ID for partner ledger line to expand: %s"
-msgstr "Verkeerde ID voor saldilijstregel om uit te vouwen: %s"
+msgstr "Verkeerde ID voor  partnerboekregel om uit te vouwen: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -4376,7 +4376,7 @@ msgstr "n/b"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 msgid "partners"
-msgstr "contacten"
+msgstr "partners"
 
 #. module: account_reports
 #. odoo-javascript

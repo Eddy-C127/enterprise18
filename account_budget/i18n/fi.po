@@ -17,12 +17,12 @@
 # Martin Trigaux, 2024
 # Mikko Salmela <salmemik@gmail.com>, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # Tuomas Lyyra <tuomas.lyyra@legenda.fi>, 2024
 # Pekko Tuomisto <pekko.tuomisto@web-veistamo.fi>, 2024
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
 # Jessica Jakara, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
@@ -30,7 +30,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Jessica Jakara, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,13 +41,15 @@ msgstr ""
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_kanban
 msgid "<i class=\"fa fa-clock-o me-1\" role=\"img\" aria-label=\"Period\" title=\"Period\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-clock-o me-1\" role=\"img\" aria-label=\"Jakso\" title=\"Jakso\"/>"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_split_wizard_form_view
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"to\" title=\"to\"/>"
 msgstr ""
+"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"päättyen\" "
+"title=\"päättyen\"/>"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_search
@@ -62,12 +64,12 @@ msgstr "Tili"
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_line_pivot
 msgid "Achieved"
-msgstr ""
+msgstr "Saavutettu"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__achieved_percentage
 msgid "Achieved (%)"
-msgstr ""
+msgstr "Saavutettu (%)"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__message_needaction
@@ -97,12 +99,12 @@ msgstr "Toimenpiteen ikoni"
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_budget_line__committed_amount
 msgid "Already Billed amount + Confirmed purchase orders."
-msgstr ""
+msgstr "Jo laskutettu määrä + vahvistetut ostotilaukset."
 
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_budget_line__achieved_amount
 msgid "Amount Billed/Invoiced."
-msgstr ""
+msgstr "Laskutettu määrä."
 
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_budget_line__theoritical_amount
@@ -110,6 +112,8 @@ msgid ""
 "Amount supposed to be Billed/Invoiced, formula = (Budget Amount / Budget "
 "Days) x Budget Days Completed"
 msgstr ""
+"Laskutettava määrä, kaava = (budjettimäärä / budjettipäivät) x toteutuneet "
+"budjettipäivät"
 
 #. module: account_budget
 #: model:ir.model,name:account_budget.model_account_analytic_account
@@ -121,12 +125,12 @@ msgstr "Analyyttinen tili"
 #. module: account_budget
 #: model:ir.ui.menu,name:account_budget.menu_act_budget_analytic_view
 msgid "Analytic Budget"
-msgstr ""
+msgstr "Analyyttinen talousarvio"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_purchase_order_line__analytic_json
 msgid "Analytic JSON"
-msgstr ""
+msgstr "Analyyttinen JSON"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_split_wizard__analytical_plan_ids
@@ -161,13 +165,13 @@ msgstr "Budjetti"
 #. odoo-python
 #: code:addons/account_budget/wizards/budget_split_wizard.py:0
 msgid "Budget %s"
-msgstr ""
+msgstr "Budjetti %s"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__budget_analytic_id
 #: model:ir.model.fields,field_description:account_budget.field_budget_report__budget_analytic_id
 msgid "Budget Analytic"
-msgstr ""
+msgstr "Talousarvion analyysi"
 
 #. module: account_budget
 #: model:ir.model,name:account_budget.model_budget_line
@@ -211,7 +215,7 @@ msgstr "Talousarvioraportti"
 #. module: account_budget
 #: model:ir.model,name:account_budget.model_budget_split_wizard
 msgid "Budget Split Wizard"
-msgstr ""
+msgstr "Budjetin jakamisen ohjattu toiminto"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__budget_analytic_state
@@ -221,12 +225,12 @@ msgstr "Budjetin tila"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__budget_type
 msgid "Budget Type"
-msgstr ""
+msgstr "Budjettityyppi"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__budget_amount
 msgid "Budgeted"
-msgstr ""
+msgstr "Budjetoitu"
 
 #. module: account_budget
 #. odoo-python
@@ -269,12 +273,12 @@ msgstr "Klikkaa luodaksesi uusi budjetti."
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_search
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "Committed"
-msgstr ""
+msgstr "Sitoutunut"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__committed_percentage
 msgid "Committed (%)"
-msgstr ""
+msgstr "Sitoumukset (%)"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__company_id
@@ -313,7 +317,7 @@ msgstr "Päivämäärä"
 #. odoo-python
 #: code:addons/account_budget/models/budget_analytic.py:0
 msgid "Deletion is only allowed in the Draft and Canceled stages."
-msgstr ""
+msgstr "Poistaminen on sallittua vain luonnos- ja peruutusvaiheissa."
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_report__description
@@ -323,7 +327,7 @@ msgstr "Kuvaus"
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "Details..."
-msgstr ""
+msgstr "Tiedot..."
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__display_name
@@ -401,7 +405,7 @@ msgstr "Generoi"
 #: model:ir.actions.act_window,name:account_budget.budget_split_wizard_action
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_split_wizard_form_view
 msgid "Generate Budget"
-msgstr ""
+msgstr "Luo budjetti"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_search
@@ -446,7 +450,7 @@ msgstr "Jos valittu, joitakin viestejä ei ole toimitettu."
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_search
 msgid "In a Budget"
-msgstr ""
+msgstr "Talousarviossa"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__is_above_budget
@@ -458,7 +462,7 @@ msgstr "On yli budjetin"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_purchase_order__is_analytic
 msgid "Is Analytic"
-msgstr ""
+msgstr "Onko analyyttinen"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__message_is_follower
@@ -513,7 +517,7 @@ msgstr "Toimenpiteeni määräaika"
 #. odoo-python
 #: code:addons/account_budget/models/budget_analytic.py:0
 msgid "New revision"
-msgstr ""
+msgstr "Uusi tarkistus"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__activity_calendar_event_id
@@ -569,7 +573,7 @@ msgstr "Avoin"
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_search
 msgid "Open Budget"
-msgstr ""
+msgstr "Avaa talousarvio"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_split_wizard__period
@@ -607,7 +611,7 @@ msgstr "Kvartaali"
 #. odoo-python
 #: code:addons/account_budget/models/budget_analytic.py:0
 msgid "REV %s"
-msgstr ""
+msgstr "REV %s"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__rating_ids
@@ -637,17 +641,17 @@ msgstr "Tulot"
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "Revise"
-msgstr ""
+msgstr "Tarkista"
 
 #. module: account_budget
 #: model:ir.model.fields.selection,name:account_budget.selection__budget_analytic__state__revised
 msgid "Revised"
-msgstr ""
+msgstr "Muokattu"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__parent_id
 msgid "Revision Of"
-msgstr ""
+msgstr "Versio kohteesta"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__children_ids
@@ -704,17 +708,18 @@ msgstr ""
 #: code:addons/account_budget/models/budget_line.py:0
 msgid "The 'End Date' must be greater than or equal to 'Start Date'."
 msgstr ""
+"Loppupäivämäärän on oltava suurempi tai yhtä suuri kuin alkupäivämäärän."
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__theoritical_amount
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "Theoretical"
-msgstr ""
+msgstr "Teoreettinen"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__theoritical_percentage
 msgid "Theoretical (%)"
-msgstr ""
+msgstr "Teoreettinen (%)"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_search
@@ -724,17 +729,17 @@ msgstr "Tämän päivän toimenpiteet"
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_tree
 msgid "Total Achieved"
-msgstr ""
+msgstr "Saavutettu yhteensä"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_tree
 msgid "Total Budget"
-msgstr ""
+msgstr "Kokonaisbudjetti"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_tree
 msgid "Total Committed"
-msgstr ""
+msgstr "Sitoumukset yhteensä"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_report__line_type
@@ -777,9 +782,9 @@ msgstr "Vuosi"
 #. odoo-python
 #: code:addons/account_budget/models/budget_analytic.py:0
 msgid "You cannot create recursive revision of budget."
-msgstr ""
+msgstr "Et voi luoda talousarvion rekursiivista versiota."
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "e.g. Budget 2023"
-msgstr ""
+msgstr "esim. talousarvio 2023"

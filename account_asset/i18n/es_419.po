@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Fernanda Alvarez, 2024
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
+# Fernanda Alvarez, 2025
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
+"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2025\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -107,9 +107,9 @@ msgid ""
 "<br/> %(extra_text)s Future entries will be recomputed to depreciate the "
 "asset following the changes."
 msgstr ""
-"Un asiento de depreciación se publicará e incluirá la fecha %(date)s.<br/> "
-"%(extra_text)s Los asientos futuros se volverán a calcular para depreciar el"
-" activo después de los cambios."
+"Se registrará un asiento de depreciación e incluirá la fecha %(date)s. <br/>"
+" %(extra_text)s Los futuros asientos se volverán a calcular para depreciar "
+"el activo después de los cambios."
 
 #. module: account_asset
 #. odoo-python
@@ -119,8 +119,8 @@ msgid ""
 " A disposal entry will be posted on the %(account_type)s account "
 "<b>%(account)s</b>."
 msgstr ""
-"Se publicará un asiento de depreciación e incluirá la fecha %(date)s.<br/> "
-"Se publicará un asiento de eliminación en la cuenta %(account_type)s "
+"Se registrará un asiento de depreciación e incluirá la fecha %(date)s.<br/> "
+"Se registrará un asiento de eliminación en la cuenta %(account_type)s "
 "<b>%(account)s</b>."
 
 #. module: account_asset
@@ -131,21 +131,21 @@ msgid ""
 " A second entry will neutralize the original income and post the  outcome of"
 " this sale on account <b>%(account)s</b>."
 msgstr ""
-"Se publicará un asiento de depreciación e incluirá la fecha %(date)s.<br/> "
-"Una segunda entrada neutralizará el ingreso original y publicará el "
+"Se registrará un asiento de depreciación e incluirá la fecha %(date)s.<br/> "
+"Un segundo asiento neutralizará el ingreso original y registrará el "
 "resultado de esta venta en la cuenta <b>%(account)s</b>."
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "A depreciation entry will be posted on and including the date %s."
-msgstr "Se publicará un asiento de depreciación en e incluida la fecha %s."
+msgstr "Se registrará un asiento de depreciación en e incluida la fecha %s."
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "A document linked to %(move_line_name)s has been deleted: %(link)s"
-msgstr "Se borró un documento vinculado a %(move_line_name)s: %(link)s"
+msgstr "Se eliminó un documento vinculado a %(move_line_name)s: %(link)s"
 
 #. module: account_asset
 #. odoo-python
@@ -1670,7 +1670,7 @@ msgid ""
 "account %(dep_acc)s has been debited by %(dep_delta)s. This corresponds to "
 "%(move_count)s cancelled %(word)s:"
 msgstr ""
-"Se abonó %(exp_delta)s a la cuenta %(exp_acc)s, mientras que se cobraron "
+"Se abonaron %(exp_delta)s a la cuenta %(exp_acc)s y se cobraron "
 "%(dep_delta)s a la cuenta %(dep_acc)s. Esto corresponde a %(move_count)s "
 "%(word)s cancelados:"
 
@@ -1849,6 +1849,15 @@ msgstr ""
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "You can't re-evaluate the asset before the lock date."
 msgstr "No puede volver a evaluar el activo antes de la fecha de bloqueo."
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/models/account_asset.py:0
+msgid ""
+"You cannot add or remove bills when the asset is already running or closed."
+msgstr ""
+"No puede agregar ni quitar facturas cuando el activo ya está en proceso o ya"
+" se cerró."
 
 #. module: account_asset
 #. odoo-python
