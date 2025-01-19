@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:42+0000\n"
+"POT-Creation-Date: 2025-01-09 14:26+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
@@ -819,6 +819,14 @@ msgid "No action needed"
 msgstr "Не потрібно ніякої дії"
 
 #. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__followup_next_action_date
+#: model:ir.model.fields,help:account_followup.field_res_users__followup_next_action_date
+msgid ""
+"No follow-up action will be taken before this date.\n"
+"Sending a reminder will set this date depending on the levels configuration, and you can change it manually."
+msgstr ""
+
+#. module: account_followup
 #: model_terms:ir.actions.act_window,help:account_followup.action_view_list_customer_statements
 msgid "No follow-up to send!"
 msgstr "Немає нагадувань для надсилання!"
@@ -1034,26 +1042,6 @@ msgstr "Заголовок таблиці"
 #: model_terms:ir.ui.view,arch_db:account_followup.line_template
 msgid "Table Value"
 msgstr "Значення таблиці"
-
-#. module: account_followup
-#: model:ir.model.fields,help:account_followup.field_res_partner__followup_next_action_date
-#: model:ir.model.fields,help:account_followup.field_res_users__followup_next_action_date
-msgid ""
-"The date before which no follow-up action should be taken.\n"
-"                You can set it manually if desired but it is automatically set when follow-ups are processed.\n"
-"                The date is computed according to the following rules (depending on the follow-up levels):\n"
-"                - default -> next date set in {next level delay - current level delay} days\n"
-"                - if no next level -> next date set in {current level delay - previous level delay} days\n"
-"                - if no next level AND no previous level -> next date set in {current level delay} days\n"
-"                - if no level defined at all -> next date never automatically set"
-msgstr ""
-"Дата, до якої не слід вживати подальших дій.\n"
-"Ви можете встановити його вручну, якщо хочете, але він автоматично встановлюється під час обробки подальших дій.\n"
-"Дата розраховується за наступними правилами (залежно від рівнів спостереження):\n"
-"- за замовчуванням -> наступна дата встановлена в {затримка наступного рівня - затримка поточного рівня} днів\n"
-"- якщо немає наступного рівня -> наступна дата встановлена в {затримка поточного рівня - затримка попереднього рівня} днів\n"
-"- якщо немає наступного рівня ТА попереднього рівня -> наступна дата встановлена через {затримку поточного рівня} днів\n"
-"- якщо рівень не визначено взагалі -> наступна дата ніколи не встановлюється автоматично"
 
 #. module: account_followup
 #: model:ir.model.fields,help:account_followup.field_account_move_line__invoice_origin

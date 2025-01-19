@@ -16,8 +16,8 @@
 # Nadia Martynova, 2024
 # Olga Gutorova, 2024
 # Сергей Шебанин <sergey@shebanin.ru>, 2024
-# Ilya Rozhkov, 2024
 # Wil Odoo, 2025
+# Ilya Rozhkov, 2025
 # 
 msgid ""
 msgstr ""
@@ -25,7 +25,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Ilya Rozhkov, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3008,7 +3008,7 @@ msgstr "Прошлый период"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 #, python-format
 msgid "Previous Periods"
-msgstr ""
+msgstr "Предыдущие периоды"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3022,7 +3022,7 @@ msgstr "Предыдущий год"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 #, python-format
 msgid "Previous Years"
-msgstr ""
+msgstr "Предыдущие годы"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_previous_year_earnings0
@@ -3521,6 +3521,13 @@ msgstr ""
 "Приложения к налоговому отчету можно найти в <a href='#' data-oe-"
 "model='account.move' data-oe-id='%s'>закрывающей записи</a> компании-"
 "представителя."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_partner_ledger.py:0
+#, python-format
+msgid "The column '%s' is not available for this report."
+msgstr ""
 
 #. module: account_reports
 #. odoo-python

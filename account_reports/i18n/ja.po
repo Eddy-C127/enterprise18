@@ -6,8 +6,8 @@
 # Martin Trigaux, 2024
 # Andy Yiu, 2024
 # Ryoko Tsuda <ryoko@quartile.co>, 2024
-# Junko Augias, 2024
 # Wil Odoo, 2025
+# Junko Augias, 2025
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Junko Augias, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3300,7 +3300,7 @@ msgstr "税グリッド"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__vat
 msgid "Tax ID"
-msgstr "納税者番号"
+msgstr "登録番号"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.company_information
@@ -3454,6 +3454,13 @@ msgid ""
 msgstr ""
 "税務報告書の添付書類は、代表会社の<a href='#' data-oe-model='account.move' data-oe-"
 "id='%s'>決算仕訳</a>に記載されています。"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_partner_ledger.py:0
+#, python-format
+msgid "The column '%s' is not available for this report."
+msgstr "列 '%s' はこのレポートに使用できません。"
 
 #. module: account_reports
 #. odoo-python

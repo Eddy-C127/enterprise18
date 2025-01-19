@@ -8,8 +8,8 @@
 # cecilieflyt, 2024
 # Henning Fyllingsnes, 2024
 # Marius Stedjan <marius@stedjan.com>, 2024
-# Rune Restad, 2024
 # Jorunn D. Newth, 2025
+# Rune Restad, 2025
 # 
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jorunn D. Newth, 2025\n"
+"Last-Translator: Rune Restad, 2025\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/odoo/teams/41243/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1301,7 +1301,7 @@ msgstr "Definisjon"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_tax_periodicity
 msgid "Delay units"
-msgstr ""
+msgstr "Forsinkelse enhet"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3446,6 +3446,13 @@ msgid ""
 "The attachments of the tax report can be found on the <a href='#' data-oe-"
 "model='account.move' data-oe-id='%s'>closing entry</a> of the representative"
 " company."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_partner_ledger.py:0
+#, python-format
+msgid "The column '%s' is not available for this report."
 msgstr ""
 
 #. module: account_reports

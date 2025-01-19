@@ -5,7 +5,7 @@
 # Translators:
 # Wil Odoo, 2023
 # Martin Trigaux, 2023
-# Larissa Manderfeld, 2024
+# Larissa Manderfeld, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2025\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -609,12 +609,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__message_attachment_count
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__message_attachment_count
 msgid "Attachment Count"
-msgstr "Anzahl Pfändungen"
+msgstr "Anzahl Abtretungen/Zulagen"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__attachment_name
 msgid "Attachment Name"
-msgstr "Pfändungsbezeichnung"
+msgstr "Bezeichnung der Abtretung/Zulage"
 
 #. module: hr_payroll
 #: model:hr.salary.attachment.type,name:hr_payroll.hr_salary_attachment_type_attachment
@@ -1157,7 +1157,7 @@ msgstr "Entwurfseintrag anlegen"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_form
 msgid "Create Individual Attachments"
-msgstr "Individuelle Gehaltspfändungen erstellen"
+msgstr "Individuelle Gehaltsabtretungen/-zulagen erstellen"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
@@ -1167,7 +1167,7 @@ msgstr "SEPA-Zahlung erstellen"
 #. module: hr_payroll
 #: model:ir.actions.server,name:hr_payroll.action_new_salary_attachment
 msgid "Create Salary Attachment"
-msgstr "Gehaltspfändung erstellen"
+msgstr "Gehaltsabtretung/-zulage erstellen"
 
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.action_hr_contract_repository
@@ -1977,12 +1977,12 @@ msgstr "Hat Erstattungsbeleg"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__has_similar_attachment
 msgid "Has Similar Attachment"
-msgstr "Hat ähnliche Pfändung"
+msgstr "Hat ähnliche Abtretungen/Zulagen"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__has_similar_attachment_warning
 msgid "Has Similar Attachment Warning"
-msgstr "Hat Warnung vor ähnlicher Pfändung"
+msgstr "Hat Warnung vor ähnlicher Abtretung/Zulage"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__has_total_amount
@@ -2536,7 +2536,7 @@ msgid ""
 "No Other Input Type was found for the following Salary Attachment Types codes:\n"
 "%s"
 msgstr ""
-"Es wurde kein anderer Eingabetyp für die folgenden Codes der Arten der Gehaltspfändungen gefunden:\n"
+"Es wurde kein anderer Eingabetyp für die folgenden Codes der Arten der Gehaltsabtretungen/-zulagen gefunden:\n"
 "%s"
 
 #. module: hr_payroll
@@ -3466,49 +3466,49 @@ msgstr "Gehalt"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_form
 #, python-format
 msgid "Salary Attachment"
-msgstr "Gehaltspfändung"
+msgstr "Gehaltsabtretung/-zulage"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_salary_attachment_report
 msgid "Salary Attachment / Report"
-msgstr "Gehaltspfändung/Bericht"
+msgstr "Gehaltsabtretung/-zulage / Bericht"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__salary_attachments_count
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract_history__salary_attachment_count
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__salary_attachment_count
 msgid "Salary Attachment Count"
-msgstr "Anzahl Gehaltspfändungen"
+msgstr "Anzahl Gehaltsabtretungen/-zulagen"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.hr_salary_attachment_report_action
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_attachment_salary_report
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_report_view_pivot
 msgid "Salary Attachment Report"
-msgstr "Gehaltspfändungsbericht"
+msgstr "Bericht zu Gehaltsabtretungen/-zulagen"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_salary_attachment_type
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_type_view_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_type_view_tree
 msgid "Salary Attachment Type"
-msgstr "Art der Gehaltspfändung"
+msgstr "Art der Gehaltsabtretung/-zulage"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_type_view_tree
 msgid "Salary Attachment Type Name"
-msgstr "Artname der Gehaltspfändung"
+msgstr "Artname der Gehaltsabtretung/-zulage"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_hr_salary_attachment_type
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_salary_attachment_type
 msgid "Salary Attachment Types"
-msgstr "Art der Gehaltspfändung"
+msgstr "Art der Gehaltsabtretung/-zulage"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__salary_attachment_count
 msgid "Salary Attachment count"
-msgstr "Anzahl Gehaltspfändungen"
+msgstr "Anzahl Gehaltsabtretungen/-zulagen"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3523,7 +3523,7 @@ msgstr "Anzahl Gehaltspfändungen"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 #, python-format
 msgid "Salary Attachments"
-msgstr "Gehaltspfändungen"
+msgstr "Gehaltsabtretungen/-zulagen"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_category_form
@@ -3640,7 +3640,7 @@ msgstr "Gehaltsabrechnungen suchen"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_search
 msgid "Search Salary Attachment"
-msgstr "Gehaltspfändung suchen"
+msgstr "Gehaltsabtretung/-zulage suchen"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_rule_filter
@@ -4744,7 +4744,7 @@ msgstr ""
 #: code:addons/hr_payroll/models/hr_salary_attachment.py:0
 #, python-format
 msgid "You cannot delete a running salary attachment!"
-msgstr "Sie können eine laufende Gehaltspfändung nicht löschen!"
+msgstr "Sie können eine laufende Gehaltsabtretung/-zulage nicht löschen!"
 
 #. module: hr_payroll
 #. odoo-python
@@ -4752,8 +4752,8 @@ msgstr "Sie können eine laufende Gehaltspfändung nicht löschen!"
 #, python-format
 msgid "You cannot record a payment on multi employees attachments."
 msgstr ""
-"Sie können eine Zahlung nicht auf Gehaltspfändungen für mehrere Mitarbeiter "
-"erfassen."
+"Sie können eine Zahlung nicht auf Gehaltsabtretungen/-zulagen für mehrere "
+"Mitarbeiter erfassen."
 
 #. module: hr_payroll
 #. odoo-python

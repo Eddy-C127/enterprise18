@@ -11,7 +11,7 @@
 # ExcaliberX <excaliberx@gmail.com>, 2023
 # Ofir Blum <ofir.blum@gmail.com>, 2023
 # david danilov, 2023
-# hed shefer <hed@laylinetech.com>, 2023
+# Hed Shefer <hed@laylinetech.com>, 2023
 # Sagi Ahiel, 2023
 # NoaFarkash, 2023
 # Moshe Flam <pashute@gmail.com>, 2023
@@ -1731,6 +1731,14 @@ msgstr ""
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "You can't re-evaluate the asset before the lock date."
+msgstr ""
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid ""
+"You cannot add or remove bills when the asset is already running or closed."
 msgstr ""
 
 #. module: account_asset

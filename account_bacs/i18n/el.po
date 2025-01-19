@@ -7,6 +7,8 @@
 # George Tarasidis <george_tarasidis@yahoo.com>, 2024
 # Martin Trigaux, 2024
 # Kostas Goutoudis <goutoudis@gmail.com>, 2024
+# Maria Chalepiadou, 2025
+# Gerasimos Kanelatos, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Kostas Goutoudis <goutoudis@gmail.com>, 2024\n"
+"Last-Translator: Gerasimos Kanelatos, 2025\n"
 "Language-Team: Greek (https://app.transifex.com/odoo/teams/41243/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,12 +27,12 @@ msgstr ""
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "<span class=\"bacs-garantee-text\">The Direct Debit Guarantee</span>"
-msgstr ""
+msgstr "<span class=\"bacs-garantee-text\">Η Εγγύηση Άμεσης Χρέωσης</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "<span class=\"float-end font-small postcode\">Postcode</span>"
-msgstr ""
+msgstr "<span class=\"float-end font-small postcode\">Ταχυδρομικός Κωδικός</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -42,23 +44,24 @@ msgstr ""
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "<span class=\"font-small\">Address</span>"
-msgstr ""
+msgstr "<span class=\"font-small\">Διεύθυνση</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "<span class=\"font-small\">Date</span>"
-msgstr ""
+msgstr "<span class=\"font-small\">Ημερομηνία</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "<span class=\"font-small\">signature(s)</span>"
-msgstr ""
+msgstr "<span class=\"font-small\">Υπογραφή(-ές)</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid ""
 "<span>If an error is made in the payment of your Direct Debit, by</span>"
 msgstr ""
+"<span>Εάν γίνει κάποιο λάθος στην πληρωμή της Άμεσης Χρέωσης σας, από</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -66,6 +69,8 @@ msgid ""
 "<span>If there are any changes to the amount, date or frequency of your "
 "Direct Debit</span>"
 msgstr ""
+"<span>Εάν υπάρξουν οποιεσδήποτε αλλαγές στο ποσό, την ημερομηνία ή τη "
+"συχνότητα της Άμεσης Χρέωσης σας</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -73,6 +78,8 @@ msgid ""
 "<span>If you receive a refund you are not entitled to, you must pay it back "
 "when</span>"
 msgstr ""
+"<span>Εάν λάβετε επιστροφή χρημάτων την οποία δεν δικαιούστε, πρέπει να την "
+"επιστρέψετε όταν</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -92,7 +99,7 @@ msgstr ""
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "<span>asks you to</span>"
-msgstr ""
+msgstr "<span>σας ζητάει να</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -107,6 +114,8 @@ msgid ""
 "<span>to collect a payment, confirmation of the amount and date will be "
 "given to you at the time of the request</span>"
 msgstr ""
+"<span>για να εισπράξετε μια πληρωμή, η επιβεβαίωση του ποσού και της "
+"ημερομηνίας θα σας δοθεί τη στιγμή της αίτησης.</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -114,6 +123,9 @@ msgid ""
 "<span>will notify you (insert number of) working days in advance of your "
 "account being debited or as otherwise agreed. If you request</span>"
 msgstr ""
+"<span>θα σας ειδοποιήσει (συμπληρώστε τον αριθμό των) εργάσιμων ημερών πριν "
+"από τη χρέωση του λογαριασμού σας ή διαφορετικά όπως έχει συμφωνηθεί. Εάν "
+"ζητήσετε</span>"
 
 #. module: account_bacs
 #: model_terms:ir.actions.act_window,help:account_bacs.account_bacs_direct_debit_instruction_tree_act
@@ -122,13 +134,16 @@ msgid ""
 "                    the authorization you receive from a customer\n"
 "                    to automatically collect money on their account."
 msgstr ""
+"Η Εντολή Άμεσης Χρέωσης αντιπροσωπεύει\n"
+"                    την εξουσιοδότηση που λαμβάνετε από τον πελάτη\n"
+"                    για να συλλέγετε αυτόματα χρήματα από τον λογαριασμό του."
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "A bank account is not defined."
-msgstr ""
+msgstr "Ο τραπεζικός λογαριασμός δεν έχει οριστεί."
 
 #. module: account_bacs
 #. odoo-python
@@ -137,11 +152,13 @@ msgstr ""
 msgid ""
 "A debtor account is required to validate a BACS Direct Debit Instruction."
 msgstr ""
+"Απαιτείται λογαριασμός οφειλέτη για την επικύρωση μίας BACS Εντολής Άμεσης "
+"Χρέωσης."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__partner_bank_id
 msgid "Account of the customer to collect payments from."
-msgstr ""
+msgstr "Λογαριασμός του πελάτη από τον οποίο θα εισπράττονται οι πληρωμές."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__message_needaction
@@ -172,12 +189,12 @@ msgstr "Κατάσταση Δραστηριότητας"
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__activity_type_icon
 msgid "Activity Type Icon"
-msgstr ""
+msgstr "Εικονίδιο Τύπου Δραστηριότητας"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "Αριθμός Συνημμένων"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.res_config_settings_view_form
@@ -302,7 +319,7 @@ msgstr ""
 #. module: account_bacs
 #: model:ir.model,name:account_bacs.model_account_batch_payment
 msgid "Batch Payment"
-msgstr ""
+msgstr "Μαζική Πληρωμή"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -328,12 +345,12 @@ msgstr "Κλειστό"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.res_config_settings_view_form
 msgid "Collect and send payments using UK BACS Service"
-msgstr ""
+msgstr "Σύλλεξε και στείλε πληρωμές χρησιμοποιώντας την υπηρεσία UK BACS"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
 msgid "Collections"
-msgstr ""
+msgstr "Συλλογές"
 
 #. module: account_bacs
 #: model:ir.model,name:account_bacs.model_res_company
@@ -505,7 +522,7 @@ msgstr ""
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__has_message
 msgid "Has Message"
-msgstr ""
+msgstr "Έχει Μήνυμα"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__partner_bank_id
@@ -541,7 +558,7 @@ msgstr "Εάν επιλεγεί τα νέα μηνύματα χρειάζοντ�
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__message_has_error
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "Αν επιλεγεί, κάποια μηνύματα έχουν σφάλμα παράδοσης."
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -615,7 +632,7 @@ msgstr ""
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "Σφάλμα παράδοσης μηνύματος"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__message_ids
@@ -665,17 +682,17 @@ msgstr "Πλήθος ενεργειών"
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "Αριθμός σφαλμάτων"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr ""
+msgstr "Αριθμός μηνυμάτων που απαιτούν ενέργεια"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Αριθμός μηνυμάτων με σφάλμα παράδοσης"
 
 #. module: account_bacs
 #: model_terms:ir.actions.act_window,help:account_bacs.account_bacs_direct_debit_instruction_tree_act

@@ -3,8 +3,8 @@
 # 	* delivery_fedex_rest
 # 
 # Translators:
-# Rasareeyar Lappiam, 2024
 # Wil Odoo, 2024
+# Rasareeyar Lappiam, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-22 08:43+0000\n"
 "PO-Revision-Date: 2024-11-23 23:20+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Rasareeyar Lappiam, 2025\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,6 +26,8 @@ msgid ""
 "<b>After finishing creation of the project, you will see your test API key, secret key and account number:</b>\n"
 "                                <br/>"
 msgstr ""
+"<b>หลังจากเสร็จสิ้นการสร้างโปรเจ็กต์ คุณจะเห็นรหัสทดสอบ API รหัสลับ และหมายเลขบัญชี:</b>\n"
+"                                <br/>"
 
 #. module: delivery_fedex_rest
 #: model_terms:ir.ui.view,arch_db:delivery_fedex_rest.view_delivery_carrier_form_with_provider_fedex
@@ -33,6 +35,8 @@ msgid ""
 "<b>Once your account is created, go to the My Projects tab and create a new API project. Make sure to select the options indicated below:</b>\n"
 "                                <br/>"
 msgstr ""
+"<b>เมื่อสร้างบัญชีแล้ว ให้ไปที่แท็บโปรเจ็กต์ของฉัน และสร้างโปรเจ็กต์ API ใหม่ อย่าลืมเลือกตัวเลือกที่ระบุไว้ด้านล่าง:</b>\n"
+"                                <br/>"
 
 #. module: delivery_fedex_rest
 #: model_terms:ir.ui.view,arch_db:delivery_fedex_rest.view_delivery_carrier_form_with_provider_fedex
@@ -40,6 +44,8 @@ msgid ""
 "<b>To enable the creation of FedEx shipping labels, the last step is the Certification Process, click on 'Go to API certification' and follow the required steps to get your account certified for label creation.</b>\n"
 "                                <br/>These certifications usually require that you contact the FedEx support team by email."
 msgstr ""
+"<b>หากต้องการเปิดใช้งานการสร้างฉลากการจัดส่ง FedEx ขั้นตอนสุดท้ายคือกระบวนการรับรอง คลิกที่ \"ไปที่การรับรอง API\" และทำตามขั้นตอนที่จำเป็นเพื่อให้บัญชีของคุณได้รับการรับรองสำหรับการสร้างฉลาก</b>\n"
+"                                <br/>โดยปกติแล้วการรับรองเหล่านี้จะต้องให้คุณติดต่อทีมสนับสนุนของ FedEx ทางอีเมล"
 
 #. module: delivery_fedex_rest
 #: model_terms:ir.ui.view,arch_db:delivery_fedex_rest.view_delivery_carrier_form_with_provider_fedex
@@ -47,6 +53,8 @@ msgid ""
 "<b>To move to production, generate a production key and link it to a FedEx account number (you can add/create one if necessary), you will receive production API and secret keys:</b>\n"
 "                                <br/>"
 msgstr ""
+"<b>หากต้องการย้ายไปยังการผลิต ให้สร้างคีย์การผลิตและเชื่อมโยงกับหมายเลขบัญชี FedEx (คุณสามารถเพิ่ม/สร้างได้หากจำเป็น) คุณจะได้รับ API การผลิตและคีย์ความลับ:</b>\n"
+"                                <br/>"
 
 #. module: delivery_fedex_rest
 #: model_terms:ir.ui.view,arch_db:delivery_fedex_rest.view_delivery_carrier_form_with_provider_fedex
@@ -54,6 +62,8 @@ msgid ""
 "<b>When asked to select APIs for the project, make sure to enable at least the following APIs:</b>\n"
 "                                <br/>"
 msgstr ""
+"<b>เมื่อได้รับคำขอให้เลือก API สำหรับโปรเจ็กต์ โปรดตรวจสอบให้แน่ใจว่าได้เปิดใช้งาน API อย่างน้อยดังต่อไปนี้:</b>\n"
+"                                <br/>"
 
 #. module: delivery_fedex_rest
 #: model_terms:ir.ui.view,arch_db:delivery_fedex_rest.view_delivery_carrier_form_with_provider_fedex
@@ -118,6 +128,10 @@ msgid ""
 "this information using the FedEx Address API, we assume that the address is "
 "residential unless it is marked explicitly as a BUSINESS address."
 msgstr ""
+"กำหนดว่าจะระบุที่อยู่ผู้รับเป็นที่อยู่ที่อยู่อาศัยหรือไม่ "
+"(เพื่อคำนวณค่าธรรมเนียมเพิ่มเติมที่อาจเกิดขึ้นได้อย่างถูกต้อง) โปรดทราบว่า: "
+"เมื่อดึงข้อมูลนี้โดยใช้ FedEx Address API เราจะถือว่าที่อยู่เป็นที่อยู่อาศัย"
+" เว้นแต่จะระบุอย่างชัดเจนว่าเป็นที่อยู่ธุรกิจ"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_droppoff_type__dropoff_at_fedex_location
@@ -441,6 +455,12 @@ msgid ""
 "FedEx. It can also be submitted directly as ETD information to FedEx upon "
 "shipment validation."
 msgstr ""
+"สำหรับการจัดส่งระหว่างประเทศ (หรือการจัดส่งภายในประเทศบางรายการ) "
+"อาจต้องใช้ใบแจ้งหนี้เชิงพาณิชย์เพื่อผ่านพิธีการศุลกากร FedEx "
+"สามารถสร้างใบแจ้งหนี้เชิงพาณิชย์นี้โดยอิงตามข้อมูลการจัดส่งและส่งกลับเป็น "
+"PDF เพื่อพิมพ์และแนบไปกับการจัดส่งหรือส่งด้วยตนเองทางอิเล็กทรอนิกส์ไปยัง "
+"FedEx นอกจากนี้ ยังสามารถส่งโดยตรงเป็นข้อมูล ETD ไปยัง FedEx "
+"เมื่อมีการตรวจสอบการจัดส่ง"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_documentation_type
@@ -707,6 +727,9 @@ msgid ""
 "This functionality is advanced/technical and should only be used if you know what you are doing.\n"
 "More info on https://www.developer.fedex.com"
 msgstr ""
+"ข้อมูลเพิ่มเติมใน FedEx จะถูกจัดระเบียบเหมือนกับข้อมูลภายในไฟล์ json\n"
+"ฟังก์ชันนี้เป็นฟังก์ชันขั้นสูง/ทางเทคนิค และควรใช้เฉพาะในกรณีที่คุณรู้ว่ากำลังทำอะไรอยู่เท่านั้น\n"
+"ข้อมูลเพิ่มเติมที่ https://www.developer.fedex.com"
 
 #. module: delivery_fedex_rest
 #. odoo-python
@@ -746,6 +769,8 @@ msgid ""
 "When enabled, the customer will receive email notifications from FedEx about"
 " this shipment (when an email address is configured on the customer)"
 msgstr ""
+"เมื่อเปิดใช้งานแล้ว ลูกค้าจะได้รับการแจ้งเตือนทางอีเมลจาก FedEx "
+"เกี่ยวกับการจัดส่งนี้ (เมื่อกำหนดค่าที่อยู่อีเมลบนตัวลูกค้าแล้ว)"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,help:delivery_fedex_rest.field_delivery_carrier__fedex_rest_override_shipper_vat
@@ -756,6 +781,12 @@ msgid ""
 "provided the regular tax id on the company will be used with type "
 "BUSINESS_NATIONAL."
 msgstr ""
+"จะมีการจัดทำหมายเลขประจำตัวผู้เสียภาษีของบริษัทหลักให้กับ FedEx ตามประเภท "
+"BUSINESS_UNION เพื่อใส่ในใบแจ้งหนี้ที่สร้างขึ้น "
+"ใช้หมายเลขนี้เมื่อคุณต้องการใช้หมายเลข IOSS หรือ EORI "
+"ร่วมกับหมายเลขประจำตัวผู้เสียภาษีของประเทศ หากไม่ได้จัดทำ "
+"หมายเลขประจำตัวผู้เสียภาษีปกติของบริษัทจะถูกใช้ร่วมกับประเภท "
+"BUSINESS_NATIONAL"
 
 #. module: delivery_fedex_rest
 #. odoo-python
