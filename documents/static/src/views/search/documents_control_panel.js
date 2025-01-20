@@ -1,7 +1,7 @@
 import { ControlPanel } from "@web/search/control_panel/control_panel";
 import { DocumentsBreadcrumbs } from "@documents/components/documents_breadcrumbs";
 import { DocumentsCogMenu } from "../cog_menu/documents_cog_menu";
-import { onWillPatch, useState } from "@odoo/owl";
+import { onWillPatch, onWillStart, useState } from "@odoo/owl";
 import { useService, useBus } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 import { download } from "@web/core/network/download";
@@ -30,11 +30,16 @@ export class DocumentsControlPanel extends ControlPanel {
         this.documentsState = useState({
             isChatterVisible: this.documentService.isChatterVisible(),
             previewedDocument: null,
+            viewType: false,
         });
 
         this.firstLoad = true;
         onWillPatch(() => {
             this.firstLoad = false;
+        });
+
+        onWillStart(async () => {
+            this.canExport = await user.hasGroup("base.group_allow_export");
         });
 
         // Document service functions
@@ -144,6 +149,22 @@ export class DocumentsControlPanel extends ControlPanel {
         await model.root.deleteRecords(records);
         await model.load(this.env.model.config);
         await this.notifyChange();
+    }
+
+    /**
+     * The control panel is loaded before the view, and so it's needed in order to
+     * show / hide the button when we switch the view.
+     */
+    async onDropdownOpen() {
+        const currentController = this.action.currentController;
+        this.documentsState.viewType = currentController.state.view_type;
+    }
+
+    /**
+     * Export the selection, only available in list view (like for all models in Odoo).
+     */
+    onExport() {
+        this.env.documentsView.bus.trigger("documents-export-selection");
     }
 
     /**

@@ -2,6 +2,7 @@
 
 import { ListController } from "@web/views/list/list_controller";
 import { _t } from "@web/core/l10n/translation";
+import { useBus } from "@web/core/utils/hooks";
 import { DocumentsControllerMixin } from "@documents/views/documents_controller_mixin";
 import { openDeleteConfirmationDialog, preSuperSetup, useDocumentView } from "@documents/views/hooks";
 import { useRef, useState } from "@odoo/owl";
@@ -14,6 +15,10 @@ export class DocumentsListController extends DocumentsControllerMixin(ListContro
         this.uploadFileInputRef = useRef("uploadFileInput");
         const properties = useDocumentView(this.documentsViewHelpers());
         Object.assign(this, properties);
+
+        useBus(this.model.env.documentsView.bus, "documents-export-selection", (ev) => {
+            this.onExportData();
+        });
 
         this.documentStates = useState({
             previewStore: {},
