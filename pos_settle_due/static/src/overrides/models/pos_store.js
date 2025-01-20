@@ -63,7 +63,7 @@ patch(PosStore.prototype, {
             getPayload: (selectedPaymentMethod) => {
                 // Reuse an empty order that has no partner or has partner equal to the selected partner.
                 let newOrder;
-                const emptyOrder = this.models["pos.order"].find(
+                const emptyOrder = this.get_open_orders().find(
                     (order) =>
                         order.lines.length === 0 &&
                         order.payment_ids.length === 0 &&
