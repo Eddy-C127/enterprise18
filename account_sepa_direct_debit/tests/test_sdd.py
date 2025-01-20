@@ -162,3 +162,9 @@ class SDDTest(AccountTestInvoicingCommon):
             xml_file = etree.fromstring(payment.generate_xml(company, fields.Date.today(), True))
             xml_schema = etree.XMLSchema(etree.parse(file_open(schema_file_path)))
             self.assertTrue(xml_schema.validate(xml_file), xml_schema.error_log.last_error)
+
+        # Test when cancelling a payment
+        payment_agrolait = invoice_agrolait._get_reconciled_payments()
+        payment_agrolait.action_draft()
+        self.assertEqual(invoice_agrolait.payment_state, 'not_paid')
+        self.assertFalse(invoice_agrolait.sdd_mandate_id)
