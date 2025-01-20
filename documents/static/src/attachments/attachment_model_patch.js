@@ -19,7 +19,9 @@ patch(Attachment.prototype, {
     get defaultSource() {
         if (this.isPdf && this.documentId) {
             const encodedRoute = encodeURIComponent(
-                `/documents/content/${this.documentData.access_token}?download=0`
+                `/documents/content/${encodeURIComponent(
+                    this.documentData.access_token
+                )}?download=0`
             );
             return `/web/static/lib/pdfjs/web/viewer.html?file=${encodedRoute}#pagemode=none`;
         }

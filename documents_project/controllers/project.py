@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import logging
+from urllib.parse import quote
 
 from odoo import http
 from odoo.exceptions import AccessError, MissingError
@@ -56,6 +57,7 @@ class DocumentsProjectShareRoute(http.Controller):
             'folder': project_sudo.documents_folder_id,
             'documents': documents_sudo,
             'subfolders': {},
+            'quote': lambda v: quote(v, safe=''),
         })
 
     @http.route('/my/projects/<int:project_id>/documents/download', type='http', auth='user')
@@ -127,6 +129,7 @@ class DocumentsProjectShareRoute(http.Controller):
             'folder': task_sudo.project_id.documents_folder_id,
             'documents': documents_sudo,
             'subfolders': {},
+            'quote': lambda v: quote(v, safe=''),
         })
 
     @http.route([

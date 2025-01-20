@@ -8,10 +8,10 @@
         </xpath>
 
         <xpath expr="//t[@t-set='folder_downloadzip_url']" position="attributes">
-            <attribute name="t-valuef">/my/projects/#{project_id}/documents/download?access_token=#{access_token}</attribute>
+            <attribute name="t-valuef">/my/projects/#{project_id}/documents/download?access_token=#{quote(access_token)}</attribute>
         </xpath>
         <xpath expr="//t[@t-set='folder_upload_url']" position="attributes">
-            <attribute name="t-valuef">/my/projects/#{project_id}/documents/upload?access_token=#{access_token}</attribute>
+            <attribute name="t-valuef">/my/projects/#{project_id}/documents/upload?access_token=#{quote(access_token)}</attribute>
         </xpath>
         <xpath expr="//t[@t-set='subfolder_open_url']" position="attributes">
             <attribute name="t-valuef">#</attribute>
@@ -29,10 +29,10 @@
         </xpath>
 
         <xpath expr="//t[@t-set='folder_downloadzip_url']" position="attributes">
-            <attribute name="t-valuef">/my/projects/#{project_id}/task/#{task_id}/documents/download?access_token=#{access_token}</attribute>
+            <attribute name="t-valuef">/my/projects/#{project_id}/task/#{task_id}/documents/download?access_token=#{quote(access_token)}</attribute>
         </xpath>
         <xpath expr="//t[@t-set='folder_upload_url']" position="attributes">
-            <attribute name="t-valuef">/my/projects/#{project_id}/task/#{task_id}/documents/upload?access_token=#{access_token}</attribute>
+            <attribute name="t-valuef">/my/projects/#{project_id}/task/#{task_id}/documents/upload?access_token=#{quote(access_token)}</attribute>
         </xpath>
         <xpath expr="//t[@t-set='subfolder_open_url']" position="attributes">
             <attribute name="t-valuef">#</attribute>
