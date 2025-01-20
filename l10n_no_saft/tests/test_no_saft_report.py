@@ -127,6 +127,8 @@ class TestNoSaftReport(TestAccountReportsCommon):
                                 <AccountID>___ignore___</AccountID>
                                 <AccountDescription>Accounts receivable</AccountDescription>
                                 <StandardAccountID>1500</StandardAccountID>
+                                <GroupingCategory>RF-1167</GroupingCategory>
+                                <GroupingCode>1500</GroupingCode>
                                 <AccountType>GL</AccountType>
                                 <OpeningDebitBalance>0.00</OpeningDebitBalance>
                                 <ClosingDebitBalance>2500.00</ClosingDebitBalance>
@@ -135,6 +137,8 @@ class TestNoSaftReport(TestAccountReportsCommon):
                                 <AccountID>___ignore___</AccountID>
                                 <AccountDescription>Accounts payable (copy)</AccountDescription>
                                 <StandardAccountID>2410</StandardAccountID>
+                                <GroupingCategory>RF-1167</GroupingCategory>
+                                <GroupingCode>2410</GroupingCode>
                                 <AccountType>GL</AccountType>
                                 <OpeningCreditBalance>10000.00</OpeningCreditBalance>
                                 <ClosingCreditBalance>10000.00</ClosingCreditBalance>
@@ -143,6 +147,8 @@ class TestNoSaftReport(TestAccountReportsCommon):
                                 <AccountID>___ignore___</AccountID>
                                 <AccountDescription>Outbound VAT high rate</AccountDescription>
                                 <StandardAccountID>2701</StandardAccountID>
+                                <GroupingCategory>RF-1167</GroupingCategory>
+                                <GroupingCode>2701</GroupingCode>
                                 <AccountType>GL</AccountType>
                                 <OpeningDebitBalance>0.00</OpeningDebitBalance>
                                 <ClosingCreditBalance>500.00</ClosingCreditBalance>
@@ -151,6 +157,8 @@ class TestNoSaftReport(TestAccountReportsCommon):
                                 <AccountID>___ignore___</AccountID>
                                 <AccountDescription>Input VAT high rate</AccountDescription>
                                 <StandardAccountID>2711</StandardAccountID>
+                                <GroupingCategory>RF-1167</GroupingCategory>
+                                <GroupingCode>2711</GroupingCode>
                                 <AccountType>GL</AccountType>
                                 <OpeningDebitBalance>2000.00</OpeningDebitBalance>
                                 <ClosingDebitBalance>2000.00</ClosingDebitBalance>
@@ -159,6 +167,8 @@ class TestNoSaftReport(TestAccountReportsCommon):
                                 <AccountID>___ignore___</AccountID>
                                 <AccountDescription>Revenue from sales of merchandise tax pl. high rate</AccountDescription>
                                 <StandardAccountID>3000</StandardAccountID>
+                                <GroupingCategory>RF-1167</GroupingCategory>
+                                <GroupingCode>3000</GroupingCode>
                                 <AccountType>GL</AccountType>
                                 <OpeningDebitBalance>0.00</OpeningDebitBalance>
                                 <ClosingCreditBalance>2000.00</ClosingCreditBalance>
@@ -167,6 +177,8 @@ class TestNoSaftReport(TestAccountReportsCommon):
                                 <AccountID>___ignore___</AccountID>
                                 <AccountDescription>Undistributed Profits/Losses</AccountDescription>
                                 <StandardAccountID>999999</StandardAccountID>
+                                <GroupingCategory>RF-1167</GroupingCategory>
+                                <GroupingCode>9999</GroupingCode>
                                 <AccountType>GL</AccountType>
                                 <OpeningDebitBalance>8000.00</OpeningDebitBalance>
                                 <ClosingDebitBalance>0.00</ClosingDebitBalance>
