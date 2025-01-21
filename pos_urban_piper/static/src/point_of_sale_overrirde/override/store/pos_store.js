@@ -9,7 +9,7 @@ patch(PosStore.prototype, {
     async setup() {
         await super.setup(...arguments);
         this.delivery_order_count = {};
-        this.onNotified("DELIVERY_ORDER_COUNT", async (order_id) => {
+        this.data.connectWebSocket("DELIVERY_ORDER_COUNT", async (order_id) => {
             await this._fetchUrbanpiperOrderCount(order_id);
         });
         if (this.config.module_pos_urban_piper && this.config.urbanpiper_store_identifier) {
