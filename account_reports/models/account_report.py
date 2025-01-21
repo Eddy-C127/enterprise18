@@ -5059,22 +5059,60 @@ class AccountReport(models.Model):
             else:
                 sheet.merge_range(y, x, y, x + colspan - 1, value, style)
 
-        date_default_col1_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666', 'indent': 2, 'num_format': 'yyyy-mm-dd'})
-        date_default_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666', 'num_format': 'yyyy-mm-dd'})
-        default_col1_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666', 'indent': 2})
-        default_col2_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666'})
-        default_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666', 'num_format': '#,##0.00'})
-        title_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'bottom': 2})
-        level_0_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 13, 'bottom': 6, 'font_color': '#666666', 'num_format': '#,##0.00'})
-        level_1_col1_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 13, 'bottom': 1, 'font_color': '#666666', 'indent': 1})
-        level_1_col1_total_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 13, 'bottom': 1, 'font_color': '#666666', 'num_format': '#,##0.00'})
-        level_1_col2_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 13, 'bottom': 1, 'font_color': '#666666'})
-        level_1_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 13, 'bottom': 1, 'font_color': '#666666'})
-        level_2_col1_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 12, 'font_color': '#666666', 'indent': 2})
-        level_2_col1_total_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 12, 'font_color': '#666666', 'indent': 1, 'num_format': '#,##0.00'})
-        level_2_col2_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 12, 'font_color': '#666666'})
-        level_2_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 12, 'font_color': '#666666'})
-        col1_styles = {}
+        title_format = workbook.add_format({'font_name': 'Arial', 'bold': True, 'bottom': 2})
+        default_format_props = {'font_name': 'Arial', 'font_color': '#666666', 'font_size': 12, 'num_format': '#,##0.00'}
+        text_format_props = {'font_name': 'Arial', 'font_color': '#666666', 'font_size': 12}
+        date_format_props = {'font_name': 'Arial', 'font_color': '#666666', 'font_size': 12, 'num_format': 'yyyy-mm-dd'}
+        workbook_formats = {
+            0: {
+                'default': workbook.add_format({**default_format_props, 'bold': True, 'font_size': 13, 'bottom': 6}),
+                'text': workbook.add_format({**text_format_props, 'bold': True, 'font_size': 13, 'bottom': 6}),
+                'date': workbook.add_format({**date_format_props, 'bold': True, 'font_size': 13, 'bottom': 6}),
+                'total': workbook.add_format({**default_format_props, 'bold': True, 'font_size': 13, 'bottom': 6}),
+            },
+            1: {
+                'default': workbook.add_format({**default_format_props, 'bold': True, 'font_size': 13, 'bottom': 1}),
+                'text': workbook.add_format({**text_format_props, 'bold': True, 'font_size': 13, 'bottom': 1}),
+                'date': workbook.add_format({**date_format_props, 'bold': True, 'font_size': 13, 'bottom': 1}),
+                'total': workbook.add_format({**default_format_props, 'bold': True, 'font_size': 13, 'bottom': 1}),
+                'default_indent': workbook.add_format({**default_format_props, 'bold': True, 'font_size': 13, 'bottom': 1, 'indent': 1}),
+                'date_indent': workbook.add_format({**date_format_props, 'bold': True, 'font_size': 13, 'bottom': 1, 'indent': 1}),
+            },
+            2: {
+                'default': workbook.add_format({**default_format_props, 'bold': True}),
+                'text': workbook.add_format({**text_format_props, 'bold': True}),
+                'date': workbook.add_format({**date_format_props, 'bold': True}),
+                'initial': workbook.add_format(default_format_props),
+                'total': workbook.add_format({**default_format_props, 'bold': True}),
+                'default_indent': workbook.add_format({**default_format_props, 'bold': True, 'indent': 2}),
+                'date_indent': workbook.add_format({**date_format_props, 'bold': True, 'indent': 2}),
+                'initial_indent': workbook.add_format({**default_format_props, 'indent': 2}),
+                'total_indent': workbook.add_format({**default_format_props, 'bold': True, 'indent': 1}),
+            },
+            'default': {
+                'default': workbook.add_format(default_format_props),
+                'text': workbook.add_format(text_format_props),
+                'date': workbook.add_format(date_format_props),
+                'total': workbook.add_format(default_format_props),
+                'default_indent': workbook.add_format({**default_format_props, 'indent': 2}),
+                'date_indent': workbook.add_format({**date_format_props, 'indent': 2}),
+                'total_indent': workbook.add_format({**default_format_props, 'indent': 2}),
+            },
+        }
+
+        def get_format(content_type='default', level='default'):
+            if isinstance(level, int) and level not in workbook_formats:
+                workbook_formats[level] = {
+                    **workbook_formats['default'],
+                    'default_indent': workbook.add_format({**default_format_props, 'indent': level}),
+                    'date_indent': workbook.add_format({**date_format_props, 'indent': level}),
+                    'total_indent': workbook.add_format({**default_format_props, 'bold': True, 'indent': level - 1}),
+                }
+
+            level_formats = workbook_formats[level]
+            if '_indent' in content_type and not level_formats.get(content_type):
+                return level_formats.get('default_indent', level_formats.get(content_type.removesuffix('_indent'), level_formats['default']))
+            return level_formats.get(content_type, level_formats['default'])
 
         print_mode_self = self.with_context(no_format=True)
         lines = self._filter_out_folded_children(print_mode_self._get_lines(options))
@@ -5108,96 +5146,101 @@ class AccountReport(models.Model):
         for header_level_index, header_level in enumerate(options['column_headers']):
             for header_to_render in header_level * column_headers_render_data['level_repetitions'][header_level_index]:
                 colspan = header_to_render.get('colspan', column_headers_render_data['level_colspan'][header_level_index])
-                write_with_colspan(sheet, x_offset, y_offset, header_to_render.get('name', ''), colspan, title_style)
+                write_with_colspan(sheet, x_offset, y_offset, header_to_render.get('name', ''), colspan, title_format)
                 x_offset += colspan
             if options['show_growth_comparison']:
-                write_with_colspan(sheet, x_offset, y_offset, '%', 1, title_style)
+                write_with_colspan(sheet, x_offset, y_offset, '%', 1, title_format)
             y_offset += 1
             x_offset = original_x_offset + 1
 
         for subheader in column_headers_render_data['custom_subheaders']:
             colspan = subheader.get('colspan', 1)
-            write_with_colspan(sheet, x_offset, y_offset, subheader.get('name', ''), colspan, title_style)
+            write_with_colspan(sheet, x_offset, y_offset, subheader.get('name', ''), colspan, title_format)
             x_offset += colspan
         y_offset += 1
         x_offset = original_x_offset + 1
 
         if account_lines_split_names:
             # If we have a separate account code column, add a title for it
-            sheet.write(y_offset, x_offset - 2, _("Code"), title_style)
-            sheet.write(y_offset, x_offset - 1, _("Account Name"), title_style)
+            sheet.write(y_offset, x_offset - 2, _("Code"), title_format)
+            sheet.write(y_offset, x_offset - 1, _("Account Name"), title_format)
         sheet.set_column(x_offset, x_offset + len(options['columns']), 10)
 
         for column in options['columns']:
             colspan = column.get('colspan', 1)
-            write_with_colspan(sheet, x_offset, y_offset, column.get('name', ''), colspan, title_style)
+            write_with_colspan(sheet, x_offset, y_offset, column.get('name', ''), colspan, title_format)
             x_offset += colspan
         y_offset += 1
 
         if options.get('order_column'):
             lines = self.sort_lines(lines, options)
 
+        # Disable bold styling for the max level.
+        max_level = max(line.get('level', -1) for line in lines) if lines else -1
+        if max_level in {0, 1, 2}:
+            # Total lines are supposed to be a level above, so we don't touch them.
+            for wb_format in (s for s in workbook_formats[max_level] if 'total' not in s):
+                workbook_formats[max_level][wb_format].set_bold(False)
+
         # Add lines.
-        for y in range(0, len(lines)):
-            level = lines[y].get('level')
-            is_total_line = 'total' in lines[y].get('class', '').split(' ')
+        for y, line in enumerate(lines):
+            level = line.get('level')
             if level == 0:
                 y_offset += 1
-                style = level_0_style
-                col1_style = style
-                col2_style = style
-            elif level == 1:
-                style = level_1_style
-                col1_style = level_1_col1_total_style if is_total_line else level_1_col1_style
-                col2_style = level_1_col2_style
-            elif level == 2:
-                style = level_2_style
-                col1_style = level_2_col1_total_style if is_total_line else level_2_col1_style
-                col2_style = level_2_col2_style
-            elif level and level >= 3:
-                style = default_style
-                col2_style = style
-                level_col1_styles = col1_styles.get(level)
-                if not level_col1_styles:
-                    level_col1_base_format = {'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666', 'num_format': '#,##0.00'}
-                    level_col1_styles = col1_styles[level] = {
-                        'default': workbook.add_format({**level_col1_base_format, 'indent': level}),
-                        'total': workbook.add_format({**level_col1_base_format, 'bold': True, 'indent': level - 1}),
-                    }
-                col1_style = level_col1_styles['total'] if is_total_line else level_col1_styles['default']
-            else:
-                style = default_style
-                col1_style = default_col1_style
-                col2_style = default_col2_style
+            elif not level:
+                level = 'default'
 
-            # write the (Account) Name column, with a specific style to manage the indentation
+            line_id = self._parse_line_id(line.get('id'))
+            is_initial_line = line_id[-1][0] == 'initial' if line_id else False
+            is_total_line = line_id[-1][0] == 'total' if line_id else False
+
+            # Write the first column(s), with a specific style to manage the indentation.
+            cell_type, cell_value = self._get_cell_type_value(line)
+            account_code_cell_format = get_format('text', level)
+
+            if cell_type == 'date':
+                cell_format = get_format('date_indent', level)
+            elif is_initial_line:
+                cell_format = get_format('initial_indent', level)
+            elif is_total_line:
+                cell_format = get_format('total_indent', level)
+            else:
+                cell_format = get_format('default_indent', level)
+
             x_offset = original_x_offset + 1
             if lines[y]['id'] in account_lines_split_names:
+                # Write the Account Code and Name columns.
                 code, name = account_lines_split_names[lines[y]['id']]
-                sheet.write(y + y_offset, 0, code, col2_style)
-                sheet.write(y + y_offset, 1, name, col1_style)
+                # Don't indent the account code and don't format is as a monetary value either.
+                sheet.write(y + y_offset, 0, code, account_code_cell_format)
+                sheet.write(y + y_offset, 1, name, cell_format)
             else:
-                cell_type, cell_value = self._get_cell_type_value(lines[y])
-                if cell_type == 'date':
-                    sheet.write_datetime(y + y_offset, original_x_offset, cell_value, date_default_col1_style)
-                else:
-                    sheet.write(y + y_offset, original_x_offset, cell_value, col1_style)
+                write_method = sheet.write_datetime if cell_type == 'date' else sheet.write
+                write_method(y + y_offset, original_x_offset, cell_value, cell_format)
 
-                if lines[y].get('parent_id') and lines[y]['parent_id'] in account_lines_split_names:
-                    sheet.write(y + y_offset, 1 + original_x_offset, account_lines_split_names[lines[y]['parent_id']][0], col2_style)
+                if 'parent_id' in line and line['parent_id'] in account_lines_split_names:
+                    sheet.write(y + y_offset, 1 + original_x_offset, account_lines_split_names[line['parent_id']][0], account_code_cell_format)
                 elif account_lines_split_names:
-                    sheet.write(y + y_offset, 1 + original_x_offset, "", col2_style)
+                    sheet.write(y + y_offset, 1 + original_x_offset, "", account_code_cell_format)
 
-            #write all the remaining cells
-            columns = lines[y]['columns']
-            if options['show_growth_comparison'] and 'growth_comparison_data' in lines[y]:
-                columns += [lines[y].get('growth_comparison_data')]
+            # Write all the remaining cells.
+            columns = line['columns']
+            if options['show_growth_comparison'] and 'growth_comparison_data' in line:
+                columns += [line['growth_comparison_data']]
             for x, column in enumerate(columns, start=x_offset):
                 cell_type, cell_value = self._get_cell_type_value(column)
+
                 if cell_type == 'date':
-                    sheet.write_datetime(y + y_offset, x + lines[y].get('colspan', 1) - 1, cell_value, date_default_style)
+                    cell_format = get_format('date', level)
+                elif is_initial_line:
+                    cell_format = get_format('initial', level)
+                elif is_total_line:
+                    cell_format = get_format('total', level)
                 else:
-                    sheet.write(y + y_offset, x + lines[y].get('colspan', 1) - 1, cell_value, style)
+                    cell_format = get_format('default', level)
+
+                write_method = sheet.write_datetime if cell_type == 'date' else sheet.write
+                write_method(y + y_offset, x + line.get('colspan', 1) - 1, cell_value, cell_format)
 
     def _add_options_xlsx_sheet(self, workbook, options_list):
         """Adds a new sheet for xlsx report exports with a summary of all filters and options activated at the moment of the export."""
