@@ -1,5 +1,4 @@
 import { _t } from "@web/core/l10n/translation";
-import { RPCError } from "@web/core/network/rpc";
 import { PaymentInterface } from "@point_of_sale/app/payment/payment_interface";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 
@@ -65,9 +64,6 @@ export class PaymentIngenico extends PaymentInterface {
             .then(self._onActionResult.bind(self))
             .catch((e) => {
                 self._onActionFail();
-                if (!(e instanceof RPCError)) {
-                    return Promise.reject(e);
-                }
             });
     }
     _onActionResult(data) {
