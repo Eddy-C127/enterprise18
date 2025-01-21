@@ -2153,6 +2153,15 @@ resource_name          = spreadsheet_dashboard_sale_renting
 replace_edited_strings = false
 keep_translations      = false
 
+[o:odoo:p:odoo-17:r:spreadsheet_dashboard_sale_subscription]
+file_filter            = spreadsheet_dashboard_sale_subscription/i18n/<lang>.po
+source_file            = spreadsheet_dashboard_sale_subscription/i18n/spreadsheet_dashboard_sale_subscription.pot
+type                   = PO
+minimum_perc           = 0
+resource_name          = spreadsheet_dashboard_sale_subscription
+replace_edited_strings = false
+keep_translations      = false
+
 [o:odoo:p:odoo-17:r:spreadsheet_dashboard_stock]
 file_filter            = spreadsheet_dashboard_stock/i18n/<lang>.po
 source_file            = spreadsheet_dashboard_stock/i18n/spreadsheet_dashboard_stock.pot
