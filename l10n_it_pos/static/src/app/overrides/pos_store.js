@@ -1,6 +1,6 @@
 import { patch } from "@web/core/utils/patch";
 import { PosStore, posService } from "@point_of_sale/app/store/pos_store";
-import { isFiscalPrinterActive } from "./helpers/utils";
+import { isFiscalPrinterActive, isFiscalPrinterConfigured } from "./helpers/utils";
 
 patch(posService, {
     dependencies: [...posService.dependencies, "epson_fiscal_printer"],
@@ -36,5 +36,12 @@ patch(PosStore.prototype, {
         }
 
         this.fiscalPrinter.printDuplicateReceipt();
+    },
+
+    // EXTENDS 'point_of_sale'
+    prepareProductBaseLineForTaxesComputationExtraValues(product, p = false) {
+        const extraValues = super.prepareProductBaseLineForTaxesComputationExtraValues(product, p);
+        extraValues.l10n_it_epson_printer = isFiscalPrinterConfigured(this.config);
+        return extraValues;
     },
 });
