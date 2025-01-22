@@ -27,11 +27,9 @@ export class DocumentsControlPanel extends ControlPanel {
         this.orm = useService("orm");
         this.documentService = useService("document.document");
 
-        this.documentsState = useState({
-            isChatterVisible: this.documentService.isChatterVisible(),
-            previewedDocument: null,
-            viewType: false,
-        });
+        this.documentService.chatterState.previewedDocument = null;
+        this.documentService.chatterState.viewType = false;
+        this.documentsState = useState(this.documentService.chatterState);
 
         this.firstLoad = true;
         onWillPatch(() => {
@@ -263,8 +261,7 @@ export class DocumentsControlPanel extends ControlPanel {
      * Open the chatter (the info will be stored in the local storage of the current user).
      */
     async onToggleChatter() {
-        await this.env.documentsView.bus.trigger("documents-toggle-chatter");
-        this.documentsState.isChatterVisible = !this.documentsState.isChatterVisible;
+        this.documentService.toggleChatterState();
     }
 
     /**

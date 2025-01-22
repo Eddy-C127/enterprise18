@@ -3,7 +3,7 @@
 import { _t } from "@web/core/l10n/translation";
 import { KanbanRenderer } from "@web/views/kanban/kanban_renderer";
 
-import { useBus, useService } from "@web/core/utils/hooks";
+import { useService } from "@web/core/utils/hooks";
 import { DocumentsDropZone } from "../helper/documents_drop_zone";
 import { FileUploadProgressContainer } from "@web/core/file_upload/file_upload_progress_container";
 import { FileUploadProgressKanbanRecord } from "@web/core/file_upload/file_upload_progress_record";
@@ -13,7 +13,7 @@ import { DocumentsActionHelper } from "../helper/documents_action_helper";
 import { DocumentsFileViewer } from "../helper/documents_file_viewer";
 import { DocumentsDetailsPanel } from "@documents/components/documents_details_panel/documents_details_panel";
 import { useCommand } from "@web/core/commands/command_hook";
-import { useRef, useState } from "@odoo/owl";
+import { useRef } from "@odoo/owl";
 import { Chatter } from "@mail/chatter/web_portal/chatter";
 
 export class DocumentsKanbanRenderer extends DocumentsRendererMixin(KanbanRenderer) {
@@ -35,7 +35,6 @@ export class DocumentsKanbanRenderer extends DocumentsRendererMixin(KanbanRender
         this.root = useRef("root");
         const { uploads } = useService("file_upload");
         this.documentUploads = uploads;
-        this.documentService = useService("document.document");
 
         useCommand(
             _t("Select all"),
@@ -65,19 +64,6 @@ export class DocumentsKanbanRenderer extends DocumentsRendererMixin(KanbanRender
                 hotkey: "alt+t",
             }
         );
-
-        // TODO: clean that crap
-        this.chatterState = useState({
-            visible: this.documentService.isChatterVisible(),
-            previewedDocument: null,
-        });
-        useBus(this.env.documentsView.bus, "documents-toggle-chatter", (event) => {
-            this.chatterState.visible = !this.chatterState.visible;
-            this.documentService.setChatterVisible(this.chatterState.visible);
-        });
-        useBus(this.documentService.bus, "DOCUMENT_PREVIEWED", async (ev) => {
-            this.chatterState.previewedDocument = this.documentService.previewedDocument;
-        });
     }
 
     /**
