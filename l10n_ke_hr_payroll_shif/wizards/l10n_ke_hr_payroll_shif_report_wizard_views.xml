@@ -25,7 +25,7 @@
                         </p>
                         <field name="is_nhif" invisible="1"/>
                         <field name="line_ids" invisible="is_nhif">
-                            <tree editable="bottom">
+                            <tree editable="bottom" create="0">
                                 <field name="payslip_number"/>
                                 <field name="employee_id" widget="many2one_avatar_user"/>
                                 <field name="employee_identification_id"/>
@@ -34,7 +34,7 @@
                             </tree>
                         </field>
                         <field name="line_ids" invisible="not is_nhif">
-                            <tree editable="bottom">
+                            <tree editable="bottom" create="0">
                                 <field name="payslip_number"/>
                                 <field name="employee_id" widget="many2one_avatar_user"/>
                                 <field name="employee_identification_id"/>
