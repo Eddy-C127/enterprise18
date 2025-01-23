@@ -24,10 +24,10 @@
   }
 }
 
-.o-version-history-menu {
-  margin-left: auto;
-  display: flex;
-  align-self: center;
+.o-version-history-wrapper {
+  width: 350px;
+  height: 100%;
+  overflow: clip;
 }
 
 .o-version-history .o_spreadsheet_user img {
@@ -39,20 +39,8 @@
   background-color: #00FF0026;
 }
 
-.o-version-history-item .o-version-history-menu {
-  display: none;
-}
-
-.o-version-history-item:hover .o-version-history-menu {
-  display: flex;
-}
-
 .o-version-history-item.active .o-version-history-input {
   color: green;
-}
-
-.o-version-history-menu.active {
-  display: flex;
 }
 
 .o-version-history-info {
@@ -67,7 +55,7 @@
   padding: 10px 12px 10px 12px;
   &:hover {
     &:not(.active) {
-      background-color: #EBEBEB;
+      background-color: $gray-200;
     }
   }
 }
@@ -91,11 +79,4 @@ button.o-button.o-version-history-load-more {
     color: #0f172a;
     background-color: #cbd5e1;
   }
-}
-
-
-.o-version-history {
-  width:100%;
-  height: 100%;
-  overflow: auto;
 }

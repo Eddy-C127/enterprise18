@@ -1,5 +1,5 @@
 /** @odoo-module **/
-import { onMounted, onWillStart, useState, Component, useSubEnv } from "@odoo/owl";
+import { onMounted, onPatched, onWillStart, Component, useState } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 import { _t } from "@web/core/l10n/translation";
@@ -16,6 +16,7 @@ import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_d
 import { SpreadsheetComponent } from "../spreadsheet_component";
 import { SpreadsheetControlPanel } from "../control_panel/spreadsheet_control_panel";
 import { SpreadsheetName } from "../control_panel/spreadsheet_name";
+import { VersionHistorySidePanel } from "./side_panel/version_history_side_panel";
 import { migrate } from "@spreadsheet/o_spreadsheet/migration";
 import {
     useSpreadsheetCurrencies,
@@ -25,7 +26,6 @@ import {
 import { formatToLocaleString } from "../../helpers";
 
 const { Model } = spreadsheet;
-
 export class VersionHistoryAction extends Component {
     setup() {
         this.params = this.props.action.params;
@@ -41,23 +41,17 @@ export class VersionHistoryAction extends Component {
         this.loadCurrencies = useSpreadsheetCurrencies();
         this.getThumbnail = useSpreadsheetThumbnail();
 
-        useSubEnv({
-            historyManager: {
-                getRevisions: this.getRevisions.bind(this),
-                forkHistory: this.forkHistory.bind(this),
-                renameRevision: this.renameRevision.bind(this),
-            },
-        });
-
+        this.spreadsheetName = UNTITLED_SPREADSHEET_NAME;
+        this.revisions = [];
+        this.restorableRevisions = [];
         this.state = useState({
-            spreadsheetName: UNTITLED_SPREADSHEET_NAME,
-            revisions: [],
-            restorableRevisions: [],
+            currentRevisionId: null,
         });
+        this.model = null;
 
         onWillStart(async () => {
             await this.fetchData();
-            this.createModel();
+            this.loadModel();
         });
 
         onMounted(() => {
@@ -66,49 +60,86 @@ export class VersionHistoryAction extends Component {
                 res_model: this.resModel,
                 from_snapshot: this.fromSnapshot,
             });
-            this.env.config.setDisplayName(this.state.spreadsheetName);
+            this.env.config.setDisplayName(this.spreadsheetName);
+        });
+        onPatched(() => {
+            if (this.state.shouldReloadPosition) {
+                // we need a frame for the spreadsheet component to compute its own size and adjust its dimensions
 
-            /**
-             * Do not copy this. We currently lack the ability to control the spreadsheet
-             * sidepanel from outside `Spreadsheet` component. This is a temporary hack
-             * */
-            this.spreadsheetChildEnv = Object.values(
-                Object.values(this.__owl__.children).find(
-                    (el) => el.component.constructor.name === "SpreadsheetComponent"
-                ).children
-            ).find((el) => el.component.constructor.name === "Spreadsheet").childEnv;
-
-            this.spreadsheetChildEnv.openSidePanel("VersionHistory", {
-                onCloseSidePanel: async () => {
-                    const action = await this.env.services.orm.call(this.resModel, "action_edit", [
-                        this.resId,
-                    ]);
-                    this.env.services.action.doAction(action, {
-                        clearBreadcrumbs: true,
+                setTimeout(() => {
+                    const { col, row } = this.state.oldPosition;
+                    const zone = { top: row, bottom: row, left: col, right: col };
+                    const res = this.model.dispatch("ACTIVATE_SHEET", {
+                        sheetIdFrom: this.model.getters.getActiveSheetId(),
+                        sheetIdTo: this.state.oldPosition.sheetId,
                     });
-                },
-            });
+                    if (res.isSuccessful) {
+                        this.model.selection.selectZone(
+                            { cell: { col, row }, zone },
+                            { scrollIntoView: true }
+                        );
+                        this.model.dispatch("SET_VIEWPORT_OFFSET", {
+                            offsetX: this.state.scroll.scrollX,
+                            offsetY: this.state.scroll.scrollY,
+                        });
+                    }
+                    this.state.shouldReloadPosition = false;
+                }, 0);
+            }
         });
     }
 
+    restoreView() {
+        if (!this.state.shouldReloadPosition) {
+            return;
+        }
+        const { col, row } = this.state.oldPosition;
+        const zone = { top: row, bottom: row, left: col, right: col };
+        const res = this.model.dispatch("ACTIVATE_SHEET", {
+            sheetIdFrom: this.model.getters.getActiveSheetId(),
+            sheetIdTo: this.state.oldPosition.sheetId,
+        });
+        if (res.isSuccessful) {
+            this.model.selection.selectZone({ cell: { col, row }, zone }, { scrollIntoView: true });
+            this.model.dispatch("SET_VIEWPORT_OFFSET", {
+                offsetX: this.state.scroll.scrollX,
+                offsetY: this.state.scroll.scrollY,
+            });
+        }
+        this.state.shouldReloadPosition = false;
+    }
+
     getRevisions() {
-        return this.state.restorableRevisions;
+        return this.restorableRevisions;
     }
 
     async renameRevision(revisionId, name) {
-        this.state.revisions.find((el) => el.id === revisionId).name = name;
+        this.revisions.find((el) => el.id === revisionId).name = name;
         this.generateRestorableRevisions();
         await this.orm.call(this.resModel, "rename_revision", [this.resId, revisionId, name]);
     }
 
+    loadToRevision(revisionId) {
+        if (revisionId === this.state.currentRevisionId) {
+            return;
+        }
+        const scroll = this.model.getters.getActiveSheetDOMScrollInfo();
+        const oldPosition = this.model.getters.getActivePosition();
+        this.state.currentRevisionId = revisionId;
+        this.loadModel();
+        this.state.scroll = scroll;
+        this.state.oldPosition = oldPosition;
+        this.state.shouldReloadPosition = true;
+    }
+
     async forkHistory(revisionId) {
         const data = this.model.exportData();
-        const revision = this.state.revisions.find((rev) => rev.id === revisionId);
+        const revision = this.revisions.find((rev) => rev.id === revisionId);
         data.revisionId = revision.nextRevisionId;
         const code = pyToJsLocale(this.model.getters.getLocale().code);
         const timestamp = formatToLocaleString(revision.timestamp, code);
         const name = _t("%(name)s (restored from %(timestamp)s)", {
-            name: this.state.spreadsheetName,
+            name: this.spreadsheetName,
             timestamp,
         });
         const defaultValues = {
@@ -130,18 +161,18 @@ export class VersionHistoryAction extends Component {
             loadSpreadsheetDependencies(),
         ]);
         this.spreadsheetData = spreadsheetHistoryData.data;
-        this.state.revisions = spreadsheetHistoryData.revisions;
+        this.revisions = spreadsheetHistoryData.revisions;
         this.generateRestorableRevisions();
-        this.state.spreadsheetName = spreadsheetHistoryData.name;
-        this.currentRevisionId =
-            spreadsheetHistoryData.revisions.at(-1)?.nextRevisionId ||
+        this.spreadsheetName = spreadsheetHistoryData.name;
+        this.state.currentRevisionId =
+            this.restorableRevisions[0]?.nextRevisionId ||
             spreadsheetHistoryData.data.revisionId ||
             "START_REVISION";
-        this.dataSources = new DataSources(this.env);
+        this.setDatasources();
     }
 
     generateRestorableRevisions() {
-        this.state.restorableRevisions = this.state.revisions
+        this.restorableRevisions = this.revisions
             .slice()
             .filter((el) => el.type !== "SNAPSHOT_CREATED")
             .reverse();
@@ -161,11 +192,14 @@ export class VersionHistoryAction extends Component {
     /**
      * @private
      */
-    _resetDataSourcesBinds() {
-        this.dataSources.removeEventListener(
-            "data-source-updated",
-            this._dataSourceBind.bind(this)
-        );
+    setDatasources() {
+        if (this.dataSources) {
+            this.dataSources.removeEventListener(
+                "data-source-updated",
+                this._dataSourceBind.bind(this)
+            );
+        }
+        this.dataSources = new DataSources(this.env);
         this.dataSources.addEventListener("data-source-updated", this._dataSourceBind.bind(this));
     }
 
@@ -199,8 +233,31 @@ export class VersionHistoryAction extends Component {
         });
     }
 
-    createModel() {
-        this._resetDataSourcesBinds();
+    get historyPanelProps() {
+        return {
+            getRevisions: this.getRevisions.bind(this),
+            forkHistory: this.forkHistory.bind(this),
+            renameRevision: this.renameRevision.bind(this),
+            loadToRevision: this.loadToRevision.bind(this),
+            getCurrentRevisionId: () => this.state.currentRevisionId,
+            getLocale: () => this.model.getters.getLocale(),
+            onCloseSidePanel: async () => {
+                const action = await this.env.services.orm.call(this.resModel, "action_edit", [
+                    this.resId,
+                ]);
+                this.env.services.action.doAction(action, {
+                    clearBreadcrumbs: true,
+                });
+            },
+        };
+    }
+
+    loadModel() {
+        const revisionIndex = this.revisions.findIndex(
+            (revision) => revision.nextRevisionId === this.state.currentRevisionId
+        );
+        const revisions = this.revisions.slice(0, revisionIndex + 1);
+        this.setDatasources();
         const data = this.spreadsheetData;
         this.model = new Model(
             migrate(data),
@@ -216,11 +273,9 @@ export class VersionHistoryAction extends Component {
                 },
                 mode: "readonly",
             },
-            this.state.revisions
+            revisions
         );
-
-        if (this.model.session.serverRevisionId !== this.currentRevisionId) {
-            this.model = new Model({});
+        if (this.model.session.serverRevisionId !== this.state.currentRevisionId) {
             if (!this.fromSnapshot) {
                 this.dialog.add(ConfirmationDialog, {
                     title: _t("Odoo Spreadsheet"),
@@ -260,6 +315,7 @@ VersionHistoryAction.components = {
     SpreadsheetComponent,
     SpreadsheetControlPanel,
     SpreadsheetName,
+    VersionHistorySidePanel,
 };
 VersionHistoryAction.props = { ...standardActionServiceProps };
 registry.category("actions").add("action_open_spreadsheet_history", VersionHistoryAction, {

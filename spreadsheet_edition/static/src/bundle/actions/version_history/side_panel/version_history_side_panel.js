@@ -1,6 +1,6 @@
 /** @odoo-module */
 
-import { Component, onMounted, useRef, useState } from "@odoo/owl";
+import { Component, useEffect, useRef, useState } from "@odoo/owl";
 import { VersionHistoryItem } from "./version_history_item";
 
 export class VersionHistorySidePanel extends Component {
@@ -9,18 +9,18 @@ export class VersionHistorySidePanel extends Component {
     setup() {
         this.containerRef = useRef("container");
         this.state = useState({
-            currentRevisionId: this.revisions[0]?.nextRevisionId,
+            currentRevisionId: this.props.getCurrentRevisionId(),
             isEditingName: false,
             loaded: this.revNbr,
         });
 
-        onMounted(() => {
+        useEffect(() => {
             this.focus();
         });
     }
 
     get revisions() {
-        return this.env.historyManager.getRevisions();
+        return this.props.getRevisions();
     }
 
     get loadedRevisions() {
@@ -32,8 +32,8 @@ export class VersionHistorySidePanel extends Component {
     }
 
     onRevisionClick(revisionId) {
-        this.env.model.dispatch("GO_TO_REVISION", { revisionId });
         this.state.currentRevisionId = revisionId;
+        this.props.loadToRevision(revisionId);
     }
 
     onLoadMoreClicked() {
@@ -59,15 +59,23 @@ export class VersionHistorySidePanel extends Component {
             );
             const nextIndex = Math.max(0, Math.min(revisions.length - 1, currentIndex + increment));
             this.state.currentRevisionId = revisions[nextIndex].nextRevisionId;
-            this.env.model.dispatch("GO_TO_REVISION", {
-                revisionId: this.state.currentRevisionId,
-            });
+            this.props.loadToRevision(this.state.currentRevisionId);
         }
     }
 }
 
 VersionHistorySidePanel.template = "spreadsheet_edition.VersionHistory";
-VersionHistorySidePanel.props = { onCloseSidePanel: Function };
+
+VersionHistorySidePanel.props = {
+    onCloseSidePanel: Function,
+    getRevisions: Function,
+    forkHistory: Function,
+    renameRevision: Function,
+    loadToRevision: Function,
+    getCurrentRevisionId: Function,
+    getLocale: Function,
+};
+
 VersionHistorySidePanel.components = {
     VersionHistoryItem,
 };

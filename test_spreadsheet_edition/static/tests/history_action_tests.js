@@ -2,6 +2,9 @@
 
 import { registries, helpers } from "@odoo/o-spreadsheet";
 import { createSpreadsheetTestAction } from "./utils/helpers";
+import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
+import { getSpreadsheetActionModel } from "@spreadsheet_edition/../tests/utils/webclient_helpers";
+
 import {
     editInput,
     click,
@@ -38,6 +41,15 @@ function createRevision(revisions, type, payload) {
         commands,
         ...payload,
     };
+}
+
+/**
+ * 
+ * @param {SpreadsheetAction} action 
+ * @returns {Model}
+ */
+function actionModel(action) {
+     return getSpreadsheetActionModel(action);
 }
 
 QUnit.module("Spreadsheet Test History Action", {}, function () {
@@ -165,7 +177,7 @@ QUnit.module("Spreadsheet Test History Action", {}, function () {
             },
         });
         const revisions = document.querySelectorAll(
-            ".o-sidePanel .o-version-history-item"
+            ".o-version-history-wrapper .o-version-history-item"
         );
         assert.strictEqual(revisions.length, 3, "3 revisions provided");
 
@@ -228,7 +240,7 @@ QUnit.module("Spreadsheet Test History Action", {}, function () {
     QUnit.test(
         "Side panel click loads the old version",
         async function (assert) {
-            const { model } = await createSpreadsheetTestAction(
+            const { action } = await createSpreadsheetTestAction(
                 "action_open_spreadsheet_history",
                 {
                     mockRPC: async function (route, args) {
@@ -249,20 +261,21 @@ QUnit.module("Spreadsheet Test History Action", {}, function () {
                     },
                 }
             );
-            assert.strictEqual(model.getters.getSheetIds().length, 3);
+            assert.strictEqual(actionModel(action).getters.getSheetIds().length, 3);
             const revisions = document.querySelectorAll(
-                ".o-sidePanel .o-version-history-item"
+                ".o-version-history-wrapper .o-version-history-item"
             );
             // rollback to the before last revision. i.e. undo a CREATE_SHEET
             await click([...revisions].at(-1));
-            assert.strictEqual(model.getters.getSheetIds().length, 2);
+            await nextTick();
+            assert.strictEqual(actionModel(action).getters.getSheetIds().length, 2);
         }
     );
 
     QUnit.test(
         "Side panel arrow keys navigates in the history",
         async function (assert) {
-            const { model } = await createSpreadsheetTestAction(
+            const { action } = await createSpreadsheetTestAction(
                 "action_open_spreadsheet_history",
                 {
                     mockRPC: async function (route, args) {
@@ -286,16 +299,21 @@ QUnit.module("Spreadsheet Test History Action", {}, function () {
                     },
                 }
             );
-            assert.strictEqual(model.getters.getSheetIds().length, 4);
-            const target = document.querySelector(".o-version-history");
-            await triggerEvent(target, null, "keydown", { key: "ArrowDown" });
-            assert.strictEqual(model.getters.getSheetIds().length, 3);
-            await triggerEvent(target, null, "keydown", { key: "ArrowDown" });
-            assert.strictEqual(model.getters.getSheetIds().length, 2);
-            await triggerEvent(target, null, "keydown", { key: "ArrowUp" });
-            assert.strictEqual(model.getters.getSheetIds().length, 3);
-            await triggerEvent(target, null, "keydown", { key: "ArrowUp" });
-            assert.strictEqual(model.getters.getSheetIds().length, 4);
+
+            assert.strictEqual(actionModel(action).getters.getSheetIds().length, 4);
+            const target = () => document.querySelector(".o-version-history");
+            await triggerEvent(target(), null, "keydown", { key: "ArrowDown" });
+            await nextTick();
+            assert.strictEqual(actionModel(action).getters.getSheetIds().length, 3);
+            await triggerEvent(target(), null, "keydown", { key: "ArrowDown" });
+            await nextTick();
+            assert.strictEqual(actionModel(action).getters.getSheetIds().length, 2);
+            await triggerEvent(target(), null, "keydown", { key: "ArrowUp" });
+            await nextTick();
+            assert.strictEqual(actionModel(action).getters.getSheetIds().length, 3);
+            await triggerEvent(target(), null, "keydown", { key: "ArrowUp" });
+            await nextTick();
+            assert.strictEqual(actionModel(action).getters.getSheetIds().length, 4);
         }
     );
 
@@ -318,7 +336,7 @@ QUnit.module("Spreadsheet Test History Action", {}, function () {
             },
         });
         const revisions = document.querySelectorAll(
-            ".o-sidePanel .o-version-history-item"
+            ".o-version-history-wrapper .o-version-history-item"
         );
         assert.strictEqual(
             revisions.length,
@@ -326,12 +344,12 @@ QUnit.module("Spreadsheet Test History Action", {}, function () {
             "the first 50 revisions are loaded"
         );
         const loadMore = document.querySelector(
-            ".o-sidePanel .o-version-history-load-more"
+            ".o-version-history-wrapper .o-version-history-load-more"
         );
         assert.ok(loadMore !== null, "Load more button is visible");
         await click(loadMore);
         const newRevisions = document.querySelectorAll(
-            ".o-sidePanel .o-version-history-item"
+            ".o-version-history-wrapper .o-version-history-item"
         );
         assert.strictEqual(
             newRevisions.length,
@@ -379,13 +397,13 @@ QUnit.module("Spreadsheet Test History Action", {}, function () {
         });
 
         const revisions = document.querySelectorAll(
-            ".o-sidePanel .o-version-history-item"
+            ".o-version-history-wrapper .o-version-history-item"
         );
         await click(revisions[1], null);
-        await click(revisions[1], ".o-version-history-menu");
-
-        const menuItems = document.querySelectorAll(".o-menu .o-menu-item");
-        await click(menuItems[1], null);
+        await nextTick();
+        await click(document.querySelector(".o-version-history-wrapper .o-version-history-item .o-dropdown .dropdown-toggle"));
+        const dropdownItems = document.querySelectorAll(".o-version-history-wrapper .o-version-history-item .o-dropdown .dropdown-item");
+        await click(dropdownItems[1], null);
         assert.verifySteps(["forking"]);
     });
 
@@ -443,8 +461,175 @@ QUnit.module("Spreadsheet Test History Action", {}, function () {
                     },
                 }
             );
-            await click(document, ".o-sidePanelClose");
+            await click(document, ".o-version-history-wrapper div.header>div:nth-child(2)");
             assert.verifySteps(["editAction-spreadsheet.test"]);
         }
     );
+
+    QUnit.test("Undo/redo revisions are rolled back", async function (assert) {
+        const { action } = await createSpreadsheetTestAction(
+            "action_open_spreadsheet_history",
+            {
+                mockRPC: async function (route, args) {
+                    if (args.method === "get_spreadsheet_history") {
+                        const revisions = [];
+                        revisions.push(
+                            createRevision(revisions, "REMOTE_REVISION", { name: "Create sheet" })
+                        );
+                        const originalRevId = revisions.at(-1).nextRevisionId;
+                        revisions.push(
+                            createRevision(
+                                revisions,
+                                "REVISION_UNDONE",
+                                {
+                                    name: "Undo sheet creation",
+                                    commands: undefined,
+                                    undoneRevisionId: originalRevId
+                                }
+                            )
+                        );
+                        revisions.push(
+                            createRevision(
+                                revisions,
+                                "REVISION_REDONE",
+                                {
+                                    name: "Redo sheet creation",
+                                    commands: undefined,
+                                    redoneRevisionId: originalRevId
+                                }
+                            )
+                        );
+                        return { data: {}, name: "test", revisions };
+                    }
+                },
+            }
+        );
+        assert.strictEqual(actionModel(action).getters.getSheetIds().length, 2);
+        const target = () => document.querySelector(".o-version-history");
+        await triggerEvent(target(), null, "keydown", { key: "ArrowDown" });
+        await nextTick();
+        assert.strictEqual(actionModel(action).getters.getSheetIds().length, 1);
+        await triggerEvent(target(), null, "keydown", { key: "ArrowDown" });
+        await nextTick();
+        assert.strictEqual(actionModel(action).getters.getSheetIds().length, 2);
+        await triggerEvent(target(), null, "keydown", { key: "ArrowUp" });
+        await nextTick();
+        assert.strictEqual(actionModel(action).getters.getSheetIds().length, 1);
+        await triggerEvent(target(), null, "keydown", { key: "ArrowUp" });
+        await nextTick();
+        assert.strictEqual(actionModel(action).getters.getSheetIds().length, 2);
+    });
+
+    QUnit.test("Datasources are re-evaluated if their domain is altered", async function (assert) {
+        const { action } = await createSpreadsheetTestAction(
+            "action_open_spreadsheet_history",
+            {
+                mockRPC: async function (route, args) {
+                    if (args.method === "get_spreadsheet_history") {
+                        const revisions = [];
+                        revisions.push(
+                            createRevision(revisions, "REMOTE_REVISION", { name: "Create sheet" })
+                        );
+                        revisions.push(
+                            createRevision(
+                                revisions,
+                                "REMOTE_REVISION",
+                                {
+                                    name: "edit list definition",
+                                    commands: [{
+                                        "listId": "1",
+                                        "domain": [["name", "=", "test"]],
+                                        "type": "UPDATE_ODOO_LIST_DOMAIN"
+                                    }],
+                                }
+                            )
+                        );
+                        return {
+                            data: {
+                                version: 14,
+                                sheets: [
+                                    {
+                                        id: "sh1",
+                                        name: "Sheet 1",
+                                        cells: {
+                                            A1: { content: '=ODOO.LIST(1,1,"name")' },
+                                        },
+                                    },
+                                ],
+                                lists: {
+                                    1: {
+                                        columns: ["name"],
+                                        domain: [["name", "=", "tabouret"]],
+                                        model: "partner",
+                                        context: {},
+                                        orderBy: [],
+                                        id: "1",
+                                        name: "Pipeline",
+                                        fieldMatching: {}
+                                    }
+                                },
+                            },
+                            name: "test",
+                            revisions,
+                        };
+                    }
+                    if (args.method === "web_search_read") {
+                        assert.step(JSON.stringify(args.kwargs.domain));
+                    }
+                },
+            }
+        );
+        assert.deepEqual(actionModel(action).getters.getListDefinition("1").domain, [["name", "=", "test"]]);
+        const target = () => document.querySelector(".o-version-history");
+        await triggerEvent(target(), null, "keydown", { key: "ArrowDown" });
+        await nextTick();
+        await waitForDataSourcesLoaded(actionModel(action));
+        assert.deepEqual(actionModel(action).getters.getListDefinition("1").domain, [["name", "=", "tabouret"]]);
+        await triggerEvent(target(), null, "keydown", { key: "ArrowUp" });
+        await nextTick();
+        await waitForDataSourcesLoaded(actionModel(action));
+        assert.deepEqual(actionModel(action).getters.getListDefinition("1").domain, [["name", "=", "test"]]);
+        assert.verifySteps([`[["name","=","test"]]`, `[["name","=","tabouret"]]`, `[["name","=","test"]]`]);
+    });
+
+    QUnit.test("Selection and scroll are preserved when switching revision", async function (assert) {
+        const { action } = await createSpreadsheetTestAction(
+            "action_open_spreadsheet_history",
+            {
+                mockRPC: async function (route, args) {
+                    if (args.method === "get_spreadsheet_history") {
+                        const revisions = [];
+                        revisions.push(
+                            createRevision(revisions, "REMOTE_REVISION")
+                        );
+                        revisions.push(
+                            createRevision(revisions, "REMOTE_REVISION")
+                        );
+                        revisions.push(
+                            createRevision(revisions, "REMOTE_REVISION")
+                        );
+                        return { data: {}, name: "test", revisions };
+                    }
+                },
+            }
+        );
+        let model = actionModel(action);
+        const sheetIds = model.getters.getSheetIds();
+        model.dispatch("ACTIVATE_SHEET", { sheetIdFrom: model.getters.getActiveSheetId(), sheetIdTo: sheetIds[2] });
+        model.selection.selectCell(5, 5);
+        model.dispatch("SET_VIEWPORT_OFFSET", { offsetX: 30, offsetY: 30 });
+        await nextTick();
+        const revisions = document.querySelectorAll(
+            ".o-version-history-wrapper .o-version-history-item"
+        );
+        // rollback to the before last revision. i.e. undo a CREATE_SHEET in the first spot
+        // -> the first sheet is deleted
+        await click(revisions[1], null);
+        await nextTick();
+        await nextTick();
+        model = actionModel(action);
+
+        assert.deepEqual(model.getters.getActivePosition(), { sheetId: sheetIds[2], row: 5, col: 5 });
+        assert.deepEqual(model.getters.getActiveSheetDOMScrollInfo(), { scrollX: 30, scrollY: 30 });
+    });
 });
