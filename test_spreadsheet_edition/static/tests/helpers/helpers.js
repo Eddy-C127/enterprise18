@@ -74,6 +74,7 @@ export async function createSpreadsheetTestAction(actionTag, params = {}) {
     return {
         model: getSpreadsheetActionModel(spreadsheetAction),
         env: getSpreadsheetActionEnv(spreadsheetAction),
+        action: spreadsheetAction,
     };
 }
 
