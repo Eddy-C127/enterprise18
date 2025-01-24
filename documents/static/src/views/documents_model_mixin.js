@@ -113,8 +113,17 @@ export const DocumentsRecordMixin = (component) => class extends component {
     async update() {
         const originalFolderId = this.data.folder_id[0];
         await super.update(...arguments);
-        if (this.data.folder_id && this.data.folder_id[0] !== originalFolderId) {
-            this.model.root._removeRecords(this.model.root.selection.map((rec) => rec.id));
+        if (
+            this.model.env.searchModel.getSelectedFolderId() &&
+            this.data.folder_id &&
+            this.data.folder_id[0] !== originalFolderId
+        ) {
+            this.model.root._removeRecords(
+                this.model.root.selection.find((rec) => rec.resId == this.resId)
+                    ? this.model.root.selection.map((rec) => rec.id)
+                    : [this.id],
+            );
+            await this.model.env.documentsView.bus.trigger("documents-close-preview");
         }
     }
 
