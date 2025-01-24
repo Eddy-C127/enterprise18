@@ -89,8 +89,8 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         else:
             generated_lines = self._get_lines(options)
             load_more_limit = self._get_load_more_limit(options)
-            lines = [(0, line) for line in (generated_lines[:load_more_limit] if load_more_limit else generated_lines)]
-    
+            lines = [(0, line) for line in (generated_lines[:load_more_limit] if load_more_limit and not options.get('export_mode') else generated_lines)]
+
             report = self.env['account.report'].browse(options['report_id'])
             if load_more_limit and len(generated_lines) > load_more_limit:
                 lines.append((0, report._get_load_more_line(len(lines), None, '_report_expand_unfoldable_line_intrastat_line', None, None, options)))
@@ -246,7 +246,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                         )
                         warning_params['ids'].extend(aml_id for aml_id in line_vals[column_group][warning_code] if aml_id is not None)
 
-        unfold_all = self._context.get('print_mode') or options.get('unfold_all')
+        unfold_all = options.get('export_mode') or options.get('unfold_all')
         return {
             'id': line_id,
             'name': line_vals['name'],
@@ -271,7 +271,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
 
     def _get_load_more_limit(self, options):
         report = self.env['account.report'].browse(options['report_id'])
-        return report.load_more_limit or None if not self._context.get('print_mode') else None
+        return report.load_more_limit or None if not options.get('export_mode') else None
 
     def _get_lines(self, options, parent_line=None, offset=0):
         """ This functions gets every line (account.move.line) that matches the selected options. """
@@ -283,7 +283,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         queries = []
         full_query_params = []
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            query, params, = self._prepare_query(column_group_options, column_group_key, expanded_line_options, offset, report.load_more_limit + 1 if not self._context.get('print_mode') else None)
+            query, params, = self._prepare_query(column_group_options, column_group_key, expanded_line_options, offset, report.load_more_limit + 1 if not options.get('export_mode') else None)
             queries.append(query)
             full_query_params += params
 
