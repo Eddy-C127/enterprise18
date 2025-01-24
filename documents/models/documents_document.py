@@ -648,19 +648,24 @@ class Document(models.Model):
         """Set documents as company_root, give editor role to current owner without propagation to children"""
         odoobot = self.env.ref('base.user_root')
         docs_per_owner = self.filtered(lambda d: d.owner_id != odoobot).grouped('owner_id')
+        self._ensure_user_role_without_propagation('edit', docs_per_owner)
+        self.write({'owner_id': odoobot.id, 'folder_id': False})
+
+    @api.model
+    def _ensure_user_role_without_propagation(self, role, documents_per_user):
+        """Set role membership without propagating to children."""
         existing_access = self.env['documents.access'].sudo().search(expression.OR([
             [('partner_id', '=', owner.partner_id.id), ('document_id', 'in', documents.ids)]
-            for owner, documents in docs_per_owner.items()
+            for owner, documents in documents_per_user.items()
         ]))
-        existing_access.role = 'edit'
+        existing_access.role = role
         existing_access_values = {(a.partner_id, a.document_id) for a in existing_access}
         self.env['documents.access'].sudo().create([
-            {'partner_id': owner.partner_id.id, 'document_id': documents.id, 'role': 'edit'}
-            for owner, documents in docs_per_owner.items()
+            {'partner_id': owner.partner_id.id, 'document_id': document.id, 'role': role}
+            for owner, documents in documents_per_user.items()
             for document in documents
             if (owner.partner_id, document) not in existing_access_values
         ])
-        self.write({'owner_id': odoobot.id, 'folder_id': False})
 
     def action_create_shortcut(self, location_folder_id=None):
         """Create a shortcut to self in a specific folder or as sibling
@@ -1741,6 +1746,7 @@ class Document(models.Model):
         pinned_folders_start = self.filtered('is_pinned_folder')
 
         shortcuts_to_check_owner_target_access = self.browse()
+        previous_owner_access_to_keep = {}
 
         if (owner_id := vals.get('owner_id')) is not None:
             if not isinstance(owner_id, int):  # recordset
@@ -1748,9 +1754,12 @@ class Document(models.Model):
             if not is_manager and any(d.owner_id != self.env.user for d in self):
                 raise AccessError(_("You cannot change the owner of documents you do not own."))
 
-            targets_changing_owner = self.filtered(lambda d: d.owner_id.id != owner_id)
-            shortcuts_to_check_owner_target_access |= targets_changing_owner.shortcut_ids.filtered(
+            documents_changing_owner = self.filtered(lambda d: d.owner_id.id != owner_id)
+            shortcuts_to_check_owner_target_access |= documents_changing_owner.shortcut_ids.filtered(
                 lambda d: d.owner_id == d.shortcut_document_id.owner_id)
+            previous_owner_access_to_keep.update({
+                owner_id: documents for owner_id, documents in documents_changing_owner.grouped('owner_id').items()
+            })
 
         new_parent_folder, documents_to_move = self.browse(), self.browse()
 
@@ -1870,6 +1879,9 @@ class Document(models.Model):
 
         if shortcuts_to_check_owner_target_access:
             shortcuts_to_check_owner_target_access._unlink_shortcut_if_target_inaccessible()
+
+        # Ensure edit role for previous owners
+        self._ensure_user_role_without_propagation('edit', previous_owner_access_to_keep)
 
         if new_parent_folder and (documents_to_sync := documents_to_move.filtered(lambda d: not d.shortcut_document_id)):
             documents_to_sync.sudo().action_update_access_rights(
