@@ -1560,11 +1560,8 @@ class Document(models.Model):
             active_documents.check_access('unlink')
         except UserError as e:
             raise AccessError(message) from e
-        # As edit on parent is required to restore (and as removing a file is also somehow modifying the folder)
-        if folder_ids := self.folder_id:
-            if any(permission != 'edit' for permission in folder_ids.mapped('user_permission')):
-                raise UserError(message)
 
+        active_documents._raise_if_unauthorized_archive()
         active_documents._raise_if_used_folder()
         deletion_date = fields.Date.to_string(fields.Date.today() + relativedelta(days=self.get_deletion_delay()))
         log_message = _("This file has been sent to the trash and will be deleted forever on the %s", deletion_date)
@@ -2066,6 +2063,7 @@ class Document(models.Model):
             self.check_access('unlink')
         except UserError as e:  # Hide potentially unknown inaccessible content's name.
             raise UserError(_("You are not allowed to delete all these items.")) from e
+        self._raise_if_unauthorized_archive()
 
     @api.ondelete(at_uninstall=False)
     def _unlink_except_company_folders(self):
@@ -2082,6 +2080,12 @@ class Document(models.Model):
                 [(field_name, 'in', folder_ids)] for field_name in company_field_names
             ]), limit=1):
                 raise ValidationError(_("Impossible to delete folders used by other applications."))
+
+    def _raise_if_unauthorized_archive(self):
+        """Check that the user is owner of documents or has edit permission on the containing folder."""
+        if unowned_documents_folders := self.filtered(lambda d: d.active and d.owner_id != self.env.user).folder_id:
+            if any(folder.user_permission != 'edit' for folder in unowned_documents_folders):
+                raise UserError(_("You do not have sufficient access rights to delete these documents."))
 
     def _unlink_shortcut_if_target_inaccessible(self):
         """As a fix in stable version, delete shortcuts when target is no longer accessible to the owner."""
