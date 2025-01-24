@@ -26,6 +26,13 @@ class SaleOrderLine(models.Model):
 
     def _get_max_available_qty(self):
         if self.is_rental:
-            cart_qty, free_qty = self.order_id._get_cart_and_free_qty(self.product_id, line=self)
-            return free_qty - cart_qty
+            cart_and_free_quantities = [
+                line.order_id._get_cart_and_free_qty(line.product_id, line=line)
+                for line in self._get_lines_with_price()
+                if line.product_id.is_storable and not line.product_id.allow_out_of_stock_order
+            ]
+            max_quantities = [
+                free_qty - cart_qty for cart_qty, free_qty in cart_and_free_quantities
+            ]
+            return min(max_quantities, default=None)
         return super()._get_max_available_qty()
