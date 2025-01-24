@@ -78,11 +78,11 @@ registry.category("web_tour.tours").add("PreparationDisplayTourInternalNotes", {
             Dialog.confirm("Open Register"),
             FloorScreen.clickTable("5"),
             ProductScreen.clickDisplayedProduct("Coca-Cola"),
+            ProductScreen.addInternalNote("Test Internal Notes"),
             ProductScreen.orderlineIsToOrder("Coca-Cola"),
             ProductScreen.clickOrderButton(),
             ProductScreen.orderlinesHaveNoChange(),
             ProductScreen.clickDisplayedProduct("Coca-Cola"),
-            ProductScreen.addInternalNote("Test Internal Notes"),
             ProductScreen.clickOrderButton(),
             ProductScreen.orderlinesHaveNoChange(),
             Order.hasLine({
@@ -93,6 +93,7 @@ registry.category("web_tour.tours").add("PreparationDisplayTourInternalNotes", {
                 productName: "Coca-Cola",
                 internalNote: "",
             }),
+            Chrome.clickPlanButton(),
         ].flat(),
 });
 
@@ -113,6 +114,7 @@ registry.category("web_tour.tours").add("PreparationDisplayTourResto2", {
             ProductScreen.orderlineIsToOrder("Coca-Cola"),
             ProductScreen.clickOrderButton(),
             ProductScreen.orderlinesHaveNoChange(),
+            Chrome.clickPlanButton(),
         ].flat(),
 });
 

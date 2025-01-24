@@ -47,7 +47,7 @@ patch(PosStore.prototype, {
             this.config.currency_id.id,
         ]);
         partner.total_due = total_due;
-        this.data.dispatchData({ "res.partner": [partner] });
+        this.deviceSync.dispatch({ "res.partner": [partner] });
         return [partner];
     },
     async setAllTotalDueOfPartners(partners) {

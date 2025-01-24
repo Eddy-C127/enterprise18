@@ -32,8 +32,8 @@ patch(PosStore.prototype, {
             )
         );
     },
-
     async sendOrderInPreparation(o, cancelled = false) {
+        const result = await super.sendOrderInPreparation(o, cancelled);
         if (this.models["pos_preparation_display.display"].length > 0) {
             for (const note of Object.values(o.uiState.noteHistory)) {
                 for (const n of note) {
@@ -43,12 +43,15 @@ patch(PosStore.prototype, {
             }
 
             try {
-                await this.data.call("pos_preparation_display.order", "process_order", [
-                    o.id,
-                    cancelled,
-                    o.general_note || "",
-                    o.uiState.noteHistory,
-                ]);
+                await this.syncAllOrders({
+                    orders: [o],
+                    context: {
+                        preparation: {
+                            process_order: [cancelled, o.general_note || "", o.uiState.noteHistory],
+                        },
+                    },
+                });
+                o.updateSavedQuantity();
             } catch (error) {
                 console.warn(error);
 
@@ -64,6 +67,6 @@ patch(PosStore.prototype, {
             o.uiState.noteHistory = {};
         }
 
-        return super.sendOrderInPreparation(o, cancelled);
+        return result;
     },
 });
