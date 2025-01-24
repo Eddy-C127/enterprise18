@@ -93,7 +93,7 @@ export class GlobalFiltersSidePanel extends Component {
             draggedItemId: filter.id,
             initialMousePosition: event.clientY,
             items: filtersItems,
-            containerEl: this.filtersListRef.el,
+            scrollableContainerEl: this.filtersListRef.el,
             onDragEnd: (filterId, finalIndex) => this.onDragEnd(filterId, finalIndex),
         });
     }
