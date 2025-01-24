@@ -300,7 +300,7 @@
         <field name="res_model">hr.payslip</field>
         <field name="view_mode">tree,kanban,form,pivot,activity</field>
         <field name="search_view_id" ref="view_hr_payslip_filter"/>
-        <field name="domain">[('state', 'in', ['draft', 'verify'])]</field>
+        <field name="domain">[('state', '=', 'done')]</field>
     </record>
     <record id="action_view_hr_payslip_form" model="ir.actions.act_window">
         <field name="name">Employee Payslips</field>
