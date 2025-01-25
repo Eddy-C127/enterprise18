@@ -57,7 +57,7 @@ websiteSaleAddress.include({
         }
     },
     _onChangeIdentificationType(ev) {
-        if (!this.vat || (this.addressType !== "billing" && !this.useDeliveryAsBilling)) {
+        if (!this.isColombianCompany || !this.vat || (this.addressType !== "billing" && !this.useDeliveryAsBilling)) {
             return;
         }
 
