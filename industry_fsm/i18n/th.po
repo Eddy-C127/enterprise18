@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Rasareeyar Lappiam, 2024
+# Rasareeyar Lappiam, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Rasareeyar Lappiam, 2024\n"
+"Last-Translator: Rasareeyar Lappiam, 2025\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -82,6 +82,27 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"    <t t-set=\"date_begin\" t-value=\"format_datetime(object.planned_date_begin, tz=object.partner_id.tz, lang_code=object.partner_id.lang)\"/>\n"
+"\n"
+"    <t t-set=\"date_end\" t-value=\"format_datetime(object.date_deadline, tz=object.partner_id.tz, lang_code=object.partner_id.lang)\"/>\n"
+"\n"
+"    เรียน<t t-out=\"object.partner_id.name or 'customer'\">ลูกค้า</t><br/><br/>\n"
+"    <t t-if=\"date_begin and date_end\">\n"
+"        การดำเนิน<t t-out=\"object.name or ''\">การซ่อมบำรุงหม้อไอน้ำ</t>ของคุณได้ถูกกำหนดไว้ตั้งแต่<t t-out=\"date_begin or ''\">วันที่ 05/31/2021 เวลา 12:30:00</t> ถึง <t t-out=\"date_end or ''\">วันที่ 05/31/2021 เวลา 14:30:00</t>\n"
+"\n"
+"    </t>\n"
+"    <t t-else=\"\">\n"
+"        การดำเนิน<t t-out=\"object.name or ''\">การซ่อมบำรุงหม้อไอน้ำ</t>ของคุณถูกกำหนดไว้แล้ว\n"
+"    </t>\n"
+"    <br/><br/>\n"
+"    ขอแสดงความเคารพอย่างสูง\n"
+"    <t t-if=\"user.signature\" data-o-mail-quote-container=\"1\">\n"
+"        <br/>\n"
+"        <t t-out=\"user.signature or ''\" data-o-mail-quote=\"1\">--<br data-o-mail-quote=\"1\"/>แอดมิน Mitchell</t>\n"
+"    </t>\n"
+"</div>\n"
+"        "
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.portal_task_sign_button
@@ -99,6 +120,13 @@ msgid ""
 "            </p>\n"
 "        "
 msgstr ""
+"<p>\n"
+"                เรียน <t t-out=\"object.partner_id.name or 'Customer'\">คุณลูกค้า</t><br/><br/>\n"
+"                โปรดดูเอกสารแนบรายงานการบริการภาคสนามสำหรับการดำเนินงานนอกสถานที่ของเรา <br/><br/>\n"
+"                โปรดติดต่อเราหากคุณมีคำถาม<br/><br/>\n"
+"                ขอแสดงความนับถือ<br/><br/>\n"
+"            </p>\n"
+"        "
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.view_task_form2_inherit
@@ -293,7 +321,7 @@ msgstr "ติดต่อ"
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_task_map_view_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_task_view_mobile_form
 msgid "Contact Number"
-msgstr ""
+msgstr "เบอร์ติดต่อ"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_project_task__partner_country_id

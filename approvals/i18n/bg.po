@@ -16,7 +16,7 @@
 # Martin Trigaux, 2024
 # Petko Karamotchev, 2024
 # Milena Georgieva, 2024
-# Veselina Slavkova, 2024
+# Veselina Slavkova, 2025
 # 
 msgid ""
 msgstr ""
@@ -24,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Veselina Slavkova, 2024\n"
+"Last-Translator: Veselina Slavkova, 2025\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -106,7 +106,7 @@ msgstr "Икона за вид дейност"
 #: model:ir.model.fields,help:approvals.field_approval_category__has_product
 #: model:ir.model.fields,help:approvals.field_approval_request__has_product
 msgid "Additional products that should be specified on the request."
-msgstr ""
+msgstr "Допълнителни продукти, които трябва да бъдат посочени в заявката."
 
 #. module: approvals
 #: model:res.groups,name:approvals.group_approval_manager
@@ -151,6 +151,7 @@ msgstr "Допълнителни елементи, които трябва да 
 #: code:addons/approvals/models/approval_category.py:0
 msgid "An user may not be in the approver list multiple times."
 msgstr ""
+"Един потребител не може да бъде в списъка на одобряващите няколко пъти."
 
 #. module: approvals
 #: model:mail.activity.type,name:approvals.mail_activity_data_approval
@@ -244,6 +245,8 @@ msgstr "Одобрявам"
 msgid ""
 "Approver Sequence can only be activated with at least 1 minimum approver."
 msgstr ""
+"Последователността от одобряващи може да се активира само при поне 1 "
+"одобряващ."
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__user_ids
@@ -292,7 +295,7 @@ msgstr "Архивиран"
 #. odoo-javascript
 #: code:addons/approvals/static/src/views/kanban/approvals_category_kanban_controller.js:0
 msgid "Are you sure that you want to archive this record?"
-msgstr ""
+msgstr "Сигурни ли сте, че искате да архивирате този запис?"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
@@ -343,7 +346,7 @@ msgstr "Няма бизнес политики"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__change_request_owner
 msgid "Can Change Request Owner"
-msgstr ""
+msgstr "Може да промени собственика на заявката"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__can_edit
@@ -383,7 +386,7 @@ msgstr "Категория"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__category_approver
 msgid "Category Approver"
-msgstr ""
+msgstr "Одобряващ категория"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__sequence_code
@@ -562,7 +565,7 @@ msgstr "Мениджър на служителя"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__existing_request_user_ids
 msgid "Existing Request User"
-msgstr ""
+msgstr "Съществуващ потребител на заявката"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category_approver__existing_user_ids
@@ -678,6 +681,12 @@ msgid ""
 "        Is Required Approver: the employee's manager will be required to approve the request.\n"
 "    "
 msgstr ""
+"Как мениджърът на служителя взаимодейства с този вид одобрение. \n"
+"\n"
+"Празно: не прави нищо \n"
+"Е одобряващ: мениджърът на служителя ще бъде в списъка на одобряващите \n"
+"Изисква се одобрение: мениджърът на служителя ще трябва да одобри заявката. \n"
+"    "
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__id
@@ -716,6 +725,8 @@ msgid ""
 "If checked, the Approval Requests will have an automated generated name "
 "based on the given code."
 msgstr ""
+"Ако е маркирано, заявките за одобрение ще имат автоматично генерирано име "
+"въз основа на зададения код."
 
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_category__approver_sequence
@@ -725,6 +736,9 @@ msgid ""
 " If Employee's Manager is selected as approver, they will be the first in "
 "line."
 msgstr ""
+"Ако е маркирано, одобряващите трябва да одобряват последователно (един след "
+"друг). Ако мениджърът на служителя е избран като одобряващ, той ще бъде "
+"първият по ред."
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__image
@@ -755,7 +769,7 @@ msgstr "е последовател"
 #. module: approvals
 #: model:ir.model.fields.selection,name:approvals.selection__approval_category__manager_approval__required
 msgid "Is Required Approver"
-msgstr ""
+msgstr "Изисква се одобряващ"
 
 #. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_job_referral_award
@@ -804,6 +818,8 @@ msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
 "tempor incididunt ut labore et dolore magna aliqua."
 msgstr ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+"tempor incididunt ut labore et dolore magna aliqua."
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_main_attachment_id
@@ -818,7 +834,7 @@ msgstr "Ръководител"
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
 msgid "Marc Demo"
-msgstr ""
+msgstr "Марк Демо"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_has_error
@@ -842,6 +858,8 @@ msgstr "Минимално одобрение"
 msgid ""
 "Minimum Approval must be equal or superior to the sum of required Approvers."
 msgstr ""
+"Минималното одобрение трябва да е равно или по-голямо от сбора на "
+"изискваните одобряващи."
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
@@ -1192,7 +1210,7 @@ msgstr "Последователност"
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
 msgid "Sequence %(code)s"
-msgstr ""
+msgstr "Последователност %(code)s"
 
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_approver__can_edit_user_id
@@ -1200,12 +1218,14 @@ msgid ""
 "Simple users should not be able to remove themselves as approvers because "
 "they will lose access to the record if they misclick."
 msgstr ""
+"Обикновените потребители не трябва да могат сами да се премахват като "
+"одобряващи, тъй като ще загубят достъп до записа, ако кликнат погрешно."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 msgid "Start date should precede the end date."
-msgstr ""
+msgstr "Началната дата трябва да предхожда крайната дата."
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__status
@@ -1243,34 +1263,34 @@ msgstr "Внесено"
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
 msgid "Test Category"
-msgstr ""
+msgstr "Тестова категория"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
 msgid "Test Document"
-msgstr ""
+msgstr "Тестови документ"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
 msgid "Test Product"
-msgstr ""
+msgstr "Тестов продукт"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
 msgid "Test Reference"
-msgstr ""
+msgstr "Тестова Референция"
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 msgid "The request %(request_name)s for %(request_owner)s has been accepted"
-msgstr ""
+msgstr "Заявката %(request_name)s за %(request_owner)s е приета"
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 msgid "The request %(request_name)s for %(request_owner)s has been refused"
-msgstr ""
+msgstr "Заявката %(request_name)s за %(request_owner)s е отхвърлена"
 
 #. module: approvals
 #. odoo-python
@@ -1279,6 +1299,7 @@ msgid ""
 "The request created on %(create_date)s by %(request_owner)s has been "
 "accepted."
 msgstr ""
+"Заявката, създадена на %(create_date)s от  %(request_owner)s е приета."
 
 #. module: approvals
 #. odoo-python
@@ -1287,11 +1308,12 @@ msgid ""
 "The request created on %(create_date)s by %(request_owner)s has been "
 "refused."
 msgstr ""
+"Заявката, създадена на %(create_date)s от %(request_owner)s е отказана."
 
 #. module: approvals
 #: model:res.groups,comment:approvals.group_approval_user
 msgid "The user will be able to access all requests and approve/refuse them."
-msgstr ""
+msgstr "Потребителят ще може да достъпва всички заявки и да ги одобри/откаже."
 
 #. module: approvals
 #: model:res.groups,comment:approvals.group_approval_manager
@@ -1305,6 +1327,8 @@ msgid ""
 "This request needs to be approved by your manager. There is no manager "
 "linked to your employee profile."
 msgstr ""
+"Тази заявка трябва да бъде одобрена от вашия мениджър. В профила ви на "
+"служител не е посочен мениджър."
 
 #. module: approvals
 #. odoo-python
@@ -1313,6 +1337,8 @@ msgid ""
 "This request needs to be approved by your manager. There is no user linked "
 "to your manager."
 msgstr ""
+"Тази заявка трябва да се одобри от вашия мениджър. Няма потребител, свързан "
+"с вашия мениджър."
 
 #. module: approvals
 #. odoo-python
@@ -1321,6 +1347,8 @@ msgid ""
 "This request needs to be approved by your manager. Your manager is not in "
 "the approvers list."
 msgstr ""
+"Тази заявка трябва да се одобри от вашия мениджър. Вашият мениджър не е "
+"включен в списъка на одобряващите."
 
 #. module: approvals
 #. odoo-javascript
@@ -1407,7 +1435,7 @@ msgstr "Оттегляне"
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 msgid "You cannot approve before the previous approver."
-msgstr ""
+msgstr "Не можете да одобрите преди предишния одобряващ."
 
 #. module: approvals
 #. odoo-python
@@ -1415,6 +1443,8 @@ msgstr ""
 msgid ""
 "You cannot assign the same approver multiple times on the same request."
 msgstr ""
+"Не можете да зададете един и същ одобряващ няколко пъти за една и съща "
+"заявка."
 
 #. module: approvals
 #. odoo-python
@@ -1423,6 +1453,8 @@ msgid ""
 "You cannot unlink an attachment which is linked to a validated, refused or "
 "cancelled approval request."
 msgstr ""
+"Не можете да премахнете приложен файл, който е свързан с валидирана, "
+"отхвърлена или анулирана заявка за одобрение."
 
 #. module: approvals
 #. odoo-python
@@ -1434,7 +1466,7 @@ msgstr "Трябва да добавите поне %sодобрители, за
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 msgid "You have to attach at least one document."
-msgstr ""
+msgstr "Трябва да приложите поне един документ."
 
 #. module: approvals
 #: model_terms:ir.actions.act_window,help:approvals.product_product_action
@@ -1442,12 +1474,15 @@ msgid ""
 "You must define a product for everything you sell or purchase,\n"
 "            whether it's a storable product, a consumable or a service."
 msgstr ""
+"Трябва да определите продукт за всичко, което продавате или купувате,\n"
+"            независимо дали става въпрос за продукт, който може да се съхранява, консуматив или услуга."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
 msgid "Your minimum approval exceeds the total of default approvers."
 msgstr ""
+"Минималният брой одобрения надвишава общия брой одобряващи по подразбиране."
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
@@ -1457,7 +1492,7 @@ msgstr "напр. Брюксел"
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "e.g. Procurement"
-msgstr ""
+msgstr "напр. снабдяване"
 
 #. module: approvals
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action

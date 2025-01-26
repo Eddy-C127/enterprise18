@@ -713,6 +713,46 @@ msgid ""
 "                </div>\n"
 "            </body>"
 msgstr ""
+"<style>\n"
+"                .planning_mail_template_button {\n"
+"                    padding: 5px 10px;\n"
+"                    text-decoration: none;\n"
+"                    border: 1px;\n"
+"                    border-radius: 3px;\n"
+"                    display: inline-block; \n"
+"                    width: 190px;\n"
+"                    text-align: center;\n"
+"                }\n"
+"                </style>\n"
+"                <body><div>\n"
+"                    <p t-if=\"ctx.get('employee')\">Kepada <t t-out=\"ctx['employee'].name or ''\">Anita Oliver</t>,</p>\n"
+"                    <p t-else=\"\">Halo,</p>\n"
+"                    <br/>\n"
+"                    <p t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\">\n"
+"                        Shift mendatang Anda dari <t t-out=\"format_date(ctx['start_datetime'])\">05-05-2021</t>\n"
+"                        sampai <t t-out=\"format_date(ctx['end_datetime'])\">05-11-2021</t> telah dipublikasikan.\n"
+"                    </p>\n"
+"                    <div style=\"display: flex; margin: 15px;\">\n"
+"                        <div t-if=\"ctx.get('planning_url')\" style=\"margin-right: 15px;\">\n"
+"                            <a t-att-href=\"ctx['planning_url']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #FFFFFF; background-color: #875A7B; border: solid #875A7B;\">Lihat Planning Anda</a>\n"
+"                        </div>\n"
+"                        <div t-if=\"ctx.get('planning_url_ics')\">\n"
+"                            <a t-att-href=\"ctx['planning_url_ics']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #374151; background-color: #E7E9ED; border: solid #E7E9ED;\">Tambahkan ke Kalender</a>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    <br/>\n"
+"                    <p t-if=\"ctx.get('slot_unassigned') or (object.allow_self_unassign and object.self_unassign_days_before)\">\n"
+"                        <t t-if=\"ctx.get('slot_unassigned')\">\n"
+"                            Kami juga ingin mengingatkan Anda bahwa masih terdapat beberapa shift kosong yang tersedia, dan bila Anda tertarik dan tersedia, silakan tugaskan diri Anda ke shift-shift tersebut.\n"
+"                        </t>\n"
+"                        <t t-if=\"object.allow_self_unassign and object.self_unassign_days_before\">\n"
+"                            Bila Anda tidak dapat bekerja di tanggal shift yang ditugaskan ke Anda, silakan batalkan penugasan diri Anda dalam <t t-out=\"object.self_unassign_days_before or ''\">5</t> hari sebelum tanggal mulai.\n"
+"                        </t>\n"
+"                    </p>\n"
+"                    <p t-if=\"ctx.get('message')\" t-out=\"ctx['message']\"/>\n"
+"                    <p t-if=\"object.allow_self_unassign\">Apabila jadwal Anda saat ini tidak cocok untuk Anda, kami menyarankan Anda untuk menghubungi rekan kerja Anda dan meminta pergantian shift. Mereka mungkin tertarik untuk menukar shift dengan Anda.</p>\n"
+"                </div>\n"
+"            </body>"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_until_limit
@@ -2810,6 +2850,12 @@ msgstr ""
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
+msgid "You cannot assign yourself to a shift in the past."
+msgstr ""
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
 msgid "You cannot cancel a request to switch made by another user."
 msgstr ""
 "Anda tidak dapat membatalkan permintaan penggantian yang dibuat user lain"
@@ -2850,6 +2896,12 @@ msgid ""
 msgstr ""
 "Anda belum memiliki shift apa pun. Anda dapat memberikan Anda beberapa shift"
 " kosong yang tersedia."
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid "You cannot unassign yourself from a shift in the past."
+msgstr ""
 
 #. module: planning
 #. odoo-python

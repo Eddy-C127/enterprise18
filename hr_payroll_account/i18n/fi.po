@@ -13,7 +13,7 @@
 # Konsta Aavaranta, 2024
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # Joakim Weckman, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
@@ -21,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:27+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +33,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_payroll_account.field_account_bank_statement_line__payslip_count
 #: model:ir.model.fields,field_description:hr_payroll_account.field_account_move__payslip_count
 msgid "# of Payslips"
-msgstr ""
+msgstr "# palkkalaskelmista"
 
 #. module: hr_payroll_account
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.hr_payslip_run_view_form
@@ -43,6 +43,9 @@ msgid ""
 "                        <span class=\"o_stat_text\" invisible=\"move_state != 'posted'\">Journal Entry <br/>(Posted)</span>\n"
 "                        <span class=\"o_stat_text\" invisible=\"move_state != 'cancel'\">Journal Entry <br/>(Canceled)</span>"
 msgstr ""
+"<span class=\"o_stat_text\" invisible=\"move_state != 'draft'\">Päiväkirjamerkintä <br/>(luonnos)</span>\n"
+"                        <span class=\"o_stat_text\" invisible=\"move_state != 'posted'\">Päiväkirjamerkintä <br/>(Lähetetty)</span>\n"
+"                        <span class=\"o_stat_text\" invisible=\"move_state != 'cancel'\">Päiväkirjamerkintä <br/>(Peruutettu)</span>"
 
 #. module: hr_payroll_account
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.view_move_form_inherit
@@ -144,7 +147,7 @@ msgstr "Kredit-tili"
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip_line__credit_tag_ids
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__credit_tag_ids
 msgid "Credit Tax Grids"
-msgstr ""
+msgstr "Veroruudukot credit"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip__date
@@ -160,7 +163,7 @@ msgstr "Debet-tili"
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip_line__debit_tag_ids
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__debit_tag_ids
 msgid "Debit Tax Grids"
-msgstr ""
+msgstr "Veroruudukot debit"
 
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_hr_contract
@@ -191,6 +194,9 @@ msgid ""
 " the payslip line name. It could be useful for deduction/reimbursement or "
 "salary attachments for instance."
 msgstr ""
+"Ota käyttöön, jos haluat jakaa tämän säännön tiliöintimerkinnät "
+"palkkatodistusrivin nimen mukaan. Tästä voi olla hyötyä esimerkiksi "
+"vähennysten/korvausten tai palkkaliitteiden yhteydessä."
 
 #. module: hr_payroll_account
 #: model_terms:ir.actions.act_window,help:hr_payroll_account.action_res_partner_bank_account_form
@@ -201,13 +207,13 @@ msgstr "Täältä voit hallita kaikkia yhteystietoihisi liittyviä pankkitilejä
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_hr_payroll_payment_report_wizard
 msgid "HR Payroll Payment Report Wizard"
-msgstr ""
+msgstr "Ohjattu HR-palkanmaksuraportti"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_account_setup_bank_manual_config__has_alt_bank_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_res_partner_bank__has_alt_bank_account
 msgid "Has Alt Bank Account"
-msgstr ""
+msgstr "On vaihtoehtoinen pankkitili"
 
 #. module: hr_payroll_account
 #. odoo-python
@@ -225,6 +231,8 @@ msgid ""
 "Invalid IBAN for the following employees:\n"
 "%s"
 msgstr ""
+"Seuraavien työntekijöiden IBAN-tilinumero on virheellinen:\n"
+"%s"
 
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_account_journal
@@ -253,7 +261,7 @@ msgstr "Siirto"
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip_run__move_state
 msgid "Move State"
-msgstr ""
+msgstr "Siirron tila"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__not_computed_in_net
@@ -341,7 +349,7 @@ msgstr "Palkkarakenne"
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__split_move_lines
 msgid "Split account line based on name"
-msgstr ""
+msgstr "Jaa tilirivi nimen perusteella"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,help:hr_payroll_account.field_hr_payslip_line__credit_tag_ids
@@ -351,6 +359,9 @@ msgid ""
 "into an accounting journal entry.They will be applied on the credit account "
 "line in the journal entry."
 msgstr ""
+"Tälle riville määritetyt tunnisteet vaikuttavat tilinpäätösraportteihin, kun"
+" ne muunnetaan kirjanpidon päiväkirjamerkinnäksi. Niitä sovelletaan "
+"päiväkirjamerkinnän hyvitystilin riviin."
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,help:hr_payroll_account.field_hr_payslip_line__debit_tag_ids
@@ -360,6 +371,9 @@ msgid ""
 "into an accounting journal entry.They will be applied on the debit account "
 "line in the journal entry."
 msgstr ""
+"Tälle riville määritetyt tunnisteet vaikuttavat tilinpäätösraportteihin, kun"
+" ne muunnetaan kirjanpidon päiväkirjamerkinnäksi. Niitä käytetään "
+"päiväkirjamerkinnän veloitustilirivillä."
 
 #. module: hr_payroll_account
 #. odoo-python
@@ -396,7 +410,7 @@ msgstr ""
 #. module: hr_payroll_account
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.view_partner_bank_form_inherit_hr_payroll_account
 msgid "This will replace the employee existing bank account."
-msgstr ""
+msgstr "Tämä korvaa työntekijän nykyisen pankkitilin."
 
 #. module: hr_payroll_account
 #. odoo-python
@@ -408,7 +422,7 @@ msgstr "Voit kirjata maksuja vain kirjatuille tapahtumille."
 #. odoo-python
 #: code:addons/hr_payroll_account/models/hr_payslip.py:0
 msgid "You can only register payments for unpaid documents."
-msgstr ""
+msgstr "Voit rekisteröidä maksuja vain maksamattomista asiakirjoista."
 
 #. module: hr_payroll_account
 #. odoo-python

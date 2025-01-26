@@ -6,7 +6,7 @@
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # Erno Iipponen <erno.iipponen@web-veistamo.fi>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,6 +45,25 @@ msgid ""
 "</table>\n"
 "        "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"    <tr>\n"
+"        <td valign=\"top\">\n"
+"           <h2>Hei,</h2>\n"
+"           <div style=\"font-size: 13px;\">\n"
+"                Kiitos hakemuksestasi ja kiinnostuksestasi <t t-out=\"object.company_id.name or ''\">YourCompanyta</t> kohtaan.<br/>\n"
+"                <br/>\n"
+"                Haluaisin järjestää kanssasi puhelinhaastattelun, jonka pitäisi kestää noin 30 minuuttia.\n"
+"                Käymme läpi ansioluettelosi ja motivaatiosi liittyä <t t-out=\"object.company_id.name or ''\">YourCompany-tiimiin</t>.\n"
+"                Voit varata ajan asialistaltamme klikkaamalla alla olevaa painiketta.<br/>\n"
+"           </div>\n"
+"           <br/>\n"
+"           <a t-att-href=\"env['ir.config_parameter'].sudo().get_param('web.base.url') + '/book/interview'\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">Varaa aika haastatteluun</a><br/>\n"
+"            <br/>\n"
+"            Ystävällisin terveisin,\n"
+"        </td>\n"
+"    </tr>\n"
+"</table>\n"
+"        "
 
 #. module: appointment_hr_recruitment
 #: model:ir.model.fields,field_description:appointment_hr_recruitment.field_appointment_invite__applicant_id
@@ -73,6 +92,8 @@ msgid ""
 "Can we plan an interview together for your {{ (object.job_id.name + ' ') if "
 "object.job_id else '' }}application?"
 msgstr ""
+"Voimmeko suunnitella haastattelun yhdessä {{ (object.job_id.name + ' ') if "
+"object.job_id else '' }}hakemustasi varten?"
 
 #. module: appointment_hr_recruitment
 #: model:appointment.type,name:appointment_hr_recruitment.appointment_type_interviews

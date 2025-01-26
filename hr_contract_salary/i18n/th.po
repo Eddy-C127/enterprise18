@@ -69,6 +69,15 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <h2>ขอแสดงความยินดี!</h2>\n"
+"    คุณสามารถกำหนดค่าแพ็คเกจเงินเดือนของคุณได้โดยคลิกที่ลิงค์ด้านล่าง<br>\n"
+"    ลิงค์จะหมดอายุเมื่อ <t t-out=\"ctx.get('validity_end')\"/>\n"
+"    <div style=\"padding: 16px 0px 16px 0px;\">\n"
+"        <a t-attf-href=\"/salary_package/simulation/offer/{{ctx.get('offer_id')}}\" target=\"_blank\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">กำหนดค่าแพ็คเกจของคุณ</a>\n"
+"    </div>\n"
+"</div>\n"
+"        "
 
 #. module: hr_contract_salary
 #: model:mail.template,body_html:hr_contract_salary.mail_template_send_offer_applicant
@@ -83,6 +92,15 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <h2>ขอแสดงความยินดี!</h2>\n"
+"    คุณสามารถกำหนดค่าแพ็คเกจเงินเดือนของคุณได้โดยคลิกที่ลิงค์ด้านล่าง<br>\n"
+"    ลิงค์จะหมดอายุเมื่อ <t t-out=\"ctx.get('validity_end')\"/>\n"
+"    <div style=\"padding: 16px 0px 16px 0px;\">\n"
+"        <a t-attf-href=\"/salary_package/simulation/offer/{{ctx.get('offer_id')}}?token={{ctx.get('access_token')}}\" target=\"_blank\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">กำหนดค่าแพ็คเกจของคุณ</a>\n"
+"    </div>\n"
+"</div>\n"
+"        "
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_sidebar
@@ -2012,7 +2030,7 @@ msgstr "เลือกสิทธิประโยชน์อื่นๆ �
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__cost_res_field_id
 msgid "Select the contract's field to consider in salary computation"
-msgstr ""
+msgstr "เลือกสาขาสัญญาที่จะนำมาพิจารณาในการคำนวณเงินเดือน"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__res_field_id
@@ -2537,6 +2555,8 @@ msgid ""
 "{{ object.company_id.name }}: Job Offer - {{ "
 "object.applicant_id.partner_name }}"
 msgstr ""
+"{{ object.company_id.name }}: ข้อเสนองาน - {{ "
+"object.applicant_id.partner_name }}"
 
 #. module: hr_contract_salary
 #: model:mail.template,subject:hr_contract_salary.mail_template_send_offer

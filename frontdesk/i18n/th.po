@@ -63,6 +63,11 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"                    <p>เรียน <t t-if=\"ctx.get('host_name')\"><t t-out=\"ctx.get('host_name')\"/>, </t><b><t t-out=\"object.name\"/></b> <t t-if=\"object.phone\">(<t t-out=\"object.phone\"/>)</t><t t-if=\"object.company\"> กำลังมาจาก <t t-out=\"object.company\"/></t> ได้ขอพบคุณที่ <t t-out=\"object.station_id.name\"/> โปรดแจ้งให้พวกเขาทราบว่าคุณจะไปถึงที่นั่นในไม่ช้า\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: frontdesk
 #: model_terms:web_tour.tour,rainbow_man_message:frontdesk.frontdesk_tour
@@ -70,6 +75,8 @@ msgid ""
 "<span><b>Congratulations!!!</b> You have created your first visitor.\n"
 "        </span>"
 msgstr ""
+"<span><b>ขอแสดงความยินดี!</b> คุณได้สร้างผู้เยี่ยมชมรายแรกของคุณแล้ว\n"
+"        </span>"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.print_visitor_badge

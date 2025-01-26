@@ -659,7 +659,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "A destination is required when creating multiple shortcuts at once."
-msgstr ""
+msgstr "จำเป็นต้องมีจุดหมายปลายทางเมื่อสร้างทางลัดหลายรายการในครั้งเดียว"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_folder_id_not_id
@@ -1000,7 +1000,7 @@ msgstr "เกิดข้อผิดพลาดขณะอัปโหลด
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Anyone on the internet with the link can %(action)s"
-msgstr ""
+msgstr "ใครก็ตามบนอินเทอร์เน็ตที่มีลิงก์สามารถ %(action)s"
 
 #. module: documents
 #. odoo-javascript
@@ -1995,7 +1995,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Impossible to invite partners on multiple documents at once."
-msgstr ""
+msgstr "ไม่สามารถเชิญพาร์ทเนอร์ไปยังเอกสารหลายฉบับพร้อมกันได้"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__thumbnail_status__restricted
@@ -2587,7 +2587,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Only people with access can open with the link"
-msgstr ""
+msgstr "เฉพาะผู้ที่มีสิทธิ์เข้าถึงเท่านั้นจึงสามารถเปิดด้วยลิงค์ได้"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
@@ -2625,7 +2625,7 @@ msgstr "การดำเนินการไม่รองรับ โป�
 msgid ""
 "Operation not supported. Please use \"Restore\" / `action_unarchive` "
 "instead."
-msgstr ""
+msgstr "การดำเนินการไม่รองรับ โปรดใช้ \"การเรียกคืน\" / `action_unarchive` แทน"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_force_thread_id
@@ -3156,7 +3156,7 @@ msgstr ""
 #: code:addons/documents/static/src/core/document_service.js:0
 #: code:addons/documents/static/src/views/search/documents_control_panel.js:0
 msgid "Shortcuts can only be created one at a time."
-msgstr ""
+msgstr "สามารถสร้างทางลัดได้ครั้งละหนึ่งรายการเท่านั้น"
 
 #. module: documents
 #. odoo-python
@@ -3296,7 +3296,7 @@ msgstr "ความล่าช้าในการลบควรเป็น
 #: code:addons/documents/static/src/web/error_dialog/error_dialog_patch.js:0
 #: code:addons/documents/static/src/web/error_dialog/error_dialog_patch.xml:0
 msgid "The document URL has been copied to your clipboard."
-msgstr ""
+msgstr "URL เอกสารได้รับการคัดลอกไปยังคลิปบอร์ดของคุณแล้ว"
 
 #. module: documents
 #. odoo-javascript
@@ -3338,7 +3338,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "The following shortcuts cannot be set as documents parents: \n"
-msgstr ""
+msgstr "ไม่สามารถตั้งค่าทางลัดต่อไปนี้เป็นเอกสารหลักได้: \n"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_model_id
@@ -3384,7 +3384,7 @@ msgstr "เอกสารแนบนี้เป็นเอกสารอย
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.not_available
 msgid "This document does not exist or is not publicly available."
-msgstr ""
+msgstr "เอกสารนี้ไม่มีอยู่หรือไม่เผยแพร่ต่อสาธารณะ"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_request_page
@@ -3429,7 +3429,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 msgid "This is a shortcut - Click to access source document"
-msgstr ""
+msgstr "นี่คือทางลัด - คลิกเพื่อเข้าถึงเอกสารต้นฉบับ"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_access_unique_document_access_partner
@@ -3687,7 +3687,7 @@ msgstr "คุณไม่มีสิทธิเปลี่ยนแปลง
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to delete all these items."
-msgstr ""
+msgstr "คุณไม่มีสิทธิ์ลบรายการทั้งหมดเหล่านี้"
 
 #. module: documents
 #. odoo-python
@@ -3699,7 +3699,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to move (some of) these documents."
-msgstr ""
+msgstr "คุณไม่ได้รับอนุญาตให้ย้ายเอกสาร (บางส่วน) เหล่านี้"
 
 #. module: documents
 #. odoo-python
@@ -3711,7 +3711,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to write in this folder."
-msgstr ""
+msgstr "คุณไม่มีสิทธิ์เขียนในโฟลเดอร์นี้"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__attachment_type
@@ -3732,7 +3732,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You can not ping an action on that document."
-msgstr ""
+msgstr "คุณไม่สามารถ ping การดำเนินการบนเอกสารนั้นได้"
 
 #. module: documents
 #. odoo-python
@@ -3764,13 +3764,13 @@ msgstr "คุณไม่สามารถสร้างทางลัดห
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You can't move documents out of folders you cannot edit."
-msgstr ""
+msgstr "คุณไม่สามารถย้ายเอกสารออกจากโฟลเดอร์ที่คุณไม่สามารถแก้ไขได้"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot change the owner of documents you do not own."
-msgstr ""
+msgstr "คุณไม่สามารถเปลี่ยนเจ้าของเอกสารที่คุณไม่ได้เป็นเจ้าของได้"
 
 #. module: documents
 #. odoo-python
@@ -3794,7 +3794,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "You cannot move folders or files when in the trash."
-msgstr ""
+msgstr "คุณไม่สามารถย้ายโฟลเดอร์หรือไฟล์เมื่ออยู่ในถังขยะได้"
 
 #. module: documents
 #. odoo-javascript
@@ -3812,7 +3812,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "You cannot share multiple documents at the same time"
-msgstr ""
+msgstr "คุณไม่สามารถแชร์เอกสารหลายฉบับในเวลาเดียวกันได้"
 
 #. module: documents
 #. odoo-python

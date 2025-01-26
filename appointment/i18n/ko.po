@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Sarah Park, 2024
-# Daye Jeong, 2025
 # Wil Odoo, 2025
+# Daye Jeong, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Daye Jeong, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1712,7 +1712,7 @@ msgstr "예약 세부 사항"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__booked_mail_template_id
 msgid "Booking Email"
-msgstr ""
+msgstr "예약 이메일"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__event_stop
@@ -2069,6 +2069,10 @@ msgid ""
 "        The one shot type is only used when an user create a custom appointment type for a client by\n"
 "        defining non-recurring time slot (e.g. 10th of April 2021 from 10 to 11 am) from its calendar."
 msgstr ""
+"슬롯 유형을 정의합니다. 일반 슬롯은 진료 예약과 같이 반복해서 발생하는\n"
+"        반복 약속 유형에 사용되는 기본 값입니다.\n"
+"        일회성 슬롯은 사용자가 달력에 반복되지 않는 시간 슬롯 (예: 2021년 4월 10일 오전 10시부터 11시까지)을\n"
+"        정의하여 고객을 위한 사용자 지정 약속을 만들 때 사용됩니다."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__event_videocall_source
@@ -2420,7 +2424,7 @@ msgstr "비워두면 해당 직원에게 설정된 회사의 근무 일정이 �
 #: model:ir.model.fields,help:appointment.field_appointment_type__booked_mail_template_id
 msgid ""
 "If set an email will be sent to the customer when the appointment is booked."
-msgstr ""
+msgstr "설정된 경우, 예약이 완료되면 고객에게 이메일이 발송됩니다."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
@@ -2806,7 +2810,7 @@ msgstr "노쇼"
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
 msgid "No Specific Slots Availabilities Shared!"
-msgstr ""
+msgstr "공유 가능한 특정 슬롯이 없습니다!"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__appointment_type_info_msg
@@ -3004,7 +3008,7 @@ msgstr "미리보기"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Propose Slots"
-msgstr ""
+msgstr "슬롯 제안"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__punctual
@@ -3287,7 +3291,7 @@ msgstr "담당자 검색"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
 msgid "Select Appointments to share..."
-msgstr ""
+msgstr "공유할 일정 선택..."
 
 #. module: appointment
 #. odoo-javascript
@@ -3382,7 +3386,7 @@ msgstr "공유"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/kanban/kanban_controller.js:0
 msgid "Share Appointment"
-msgstr ""
+msgstr "일정 공유"
 
 #. module: appointment
 #. odoo-javascript
@@ -3402,7 +3406,7 @@ msgstr "가능 여부 공유"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Share Calendar"
-msgstr ""
+msgstr "캘린더 공유"
 
 #. module: appointment
 #. odoo-javascript
@@ -3430,7 +3434,7 @@ msgstr "공유 가능"
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__anytime
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Shared Calendar"
-msgstr ""
+msgstr "공유된 캘린더"
 
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_appointment_invite
@@ -3516,7 +3520,7 @@ msgstr "소스 조합"
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__custom
 msgid "Specific Slots"
-msgstr ""
+msgstr "특정 슬롯"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__specific_resources
@@ -3955,6 +3959,17 @@ msgid ""
 "\n"
 "            - Shared Calendar: the user will create and share to another user an appointment type covering all their time slots"
 msgstr ""
+"일정 유형의 카테고리를 지정하는데 사용합니다.\n"
+"\n"
+"        다음 중 하나에 해당합니다:\n"
+"\n"
+"            - 일반: 기본 카테고리로, 주간 반복 구간입니다. 웹사이트에서 확인할 수 있습니다.\n"
+"\n"
+"            - 시간 지정: 2개의 날짜와 시간 사이로 제한되는 일반 구간입니다. 웹사이트에서 확인할 수 있습니다.\n"
+"\n"
+"            - 특정 시간대: 사용자가 직접 선택한 시간대가 포함된 일정 유형을 만들어 다른 사용자에게 공유합니다.\n"
+"\n"
+"            - 공유 캘린더: 모든 시간대에 적용할 수 있는 일정 유형을 만들어 다른 사용자와 공유합니다."
 
 #. module: appointment
 #: model:res.groups,name:appointment.group_appointment_user

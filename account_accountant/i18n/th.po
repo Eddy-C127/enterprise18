@@ -161,6 +161,9 @@ msgid ""
 "                                    <i>but allow exceptions</i>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted\" invisible=\"min_fiscalyear_lock_date_exception_for_me_id or min_fiscalyear_lock_date_exception_for_everyone_id\">\n"
+"                                    <i>แต่ให้มีข้อยกเว้นได้</i>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -169,6 +172,9 @@ msgid ""
 "                                    <i>after a tax closing</i>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted\" invisible=\"min_tax_lock_date_exception_for_me_id or min_tax_lock_date_exception_for_everyone_id\">\n"
+"                                    <i>ภายหลังการปิดภาษี</i>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_1
@@ -2476,7 +2482,7 @@ msgstr "เพื่อตรวจสอบ"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "To enhance authenticity, add a signature to your invoices"
-msgstr ""
+msgstr "เพื่อเพิ่มความถูกต้อง ให้เพิ่มลายเซ็นลงในใบแจ้งหนี้ของคุณ"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__todo_command
@@ -2687,7 +2693,7 @@ msgstr "คุณไม่สามารถสร้างรายการท
 #. odoo-python
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 msgid "You cannot have a fiscal year on a child company."
-msgstr ""
+msgstr "คุณไม่สามารถมีปีงบประมาณในบริษัทลูกได้"
 
 #. module: account_accountant
 #. odoo-python
@@ -2703,7 +2709,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You cannot set a Lock Date in the future."
-msgstr ""
+msgstr "คุณไม่สามารถตั้งวันที่ล็อคในอนาคตได้"
 
 #. module: account_accountant
 #. odoo-python
@@ -2739,13 +2745,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You need to select a duration for the exception."
-msgstr ""
+msgstr "คุณจะต้องเลือกระยะเวลาสำหรับข้อยกเว้น"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You need to select who the exception applies to."
-msgstr ""
+msgstr "คุณต้องเลือกผู้ที่จะรับข้อยกเว้น"
 
 #. module: account_accountant
 #. odoo-javascript

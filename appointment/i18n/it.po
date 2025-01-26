@@ -3,8 +3,8 @@
 # 	* appointment
 # 
 # Translators:
-# Marianna Ciofani, 2025
 # Wil Odoo, 2025
+# Marianna Ciofani, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Marianna Ciofani, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/odoo/teams/41243/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1737,7 +1737,7 @@ msgstr "Dettagli prenotazione"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__booked_mail_template_id
 msgid "Booking Email"
-msgstr ""
+msgstr "E-mail prenotazione"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__event_stop
@@ -2101,6 +2101,10 @@ msgid ""
 "        The one shot type is only used when an user create a custom appointment type for a client by\n"
 "        defining non-recurring time slot (e.g. 10th of April 2021 from 10 to 11 am) from its calendar."
 msgstr ""
+"Definisce il tipo di slot. Lo slot regolare è il tipo predefinito che viene utilizzato per\n"
+"i tipi di appuntamento ricorrenti, come l'appuntamento medico.\n"
+"Il tipo one shot è usato solo quando un utente crea un tipo di appuntamento personalizzato per un cliente\n"
+"definendo una fascia oraria non ricorrente (es. 10 aprile 2021 dalle 10 alle 11) dal suo calendario."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__event_videocall_source
@@ -2465,6 +2469,8 @@ msgstr ""
 msgid ""
 "If set an email will be sent to the customer when the appointment is booked."
 msgstr ""
+"Se impostato, verrà inviata un'e-mail al cliente quando l'appuntamento viene"
+" prenotato."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
@@ -2864,7 +2870,7 @@ msgstr "No show"
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
 msgid "No Specific Slots Availabilities Shared!"
-msgstr ""
+msgstr "Nessuna disponibilità specifica condivisa!"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__appointment_type_info_msg
@@ -3067,7 +3073,7 @@ msgstr "Anteprima"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Propose Slots"
-msgstr ""
+msgstr "Proponi slot"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__punctual
@@ -3350,7 +3356,7 @@ msgstr "Cerca Responsabile"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
 msgid "Select Appointments to share..."
-msgstr ""
+msgstr "Seleziona appuntamenti da condividere..."
 
 #. module: appointment
 #. odoo-javascript
@@ -3448,7 +3454,7 @@ msgstr "Condividi"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/kanban/kanban_controller.js:0
 msgid "Share Appointment"
-msgstr ""
+msgstr "Condividi appuntamento"
 
 #. module: appointment
 #. odoo-javascript
@@ -3468,7 +3474,7 @@ msgstr "Condividi disponibilità"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Share Calendar"
-msgstr ""
+msgstr "Condividi calendario"
 
 #. module: appointment
 #. odoo-javascript
@@ -3498,7 +3504,7 @@ msgstr "Condivisibile"
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__anytime
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Shared Calendar"
-msgstr ""
+msgstr "Calendario condiviso"
 
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_appointment_invite
@@ -3584,7 +3590,7 @@ msgstr "Combinazione fonti"
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__custom
 msgid "Specific Slots"
-msgstr ""
+msgstr "Slot specifici"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__specific_resources
@@ -4050,6 +4056,17 @@ msgid ""
 "\n"
 "            - Shared Calendar: the user will create and share to another user an appointment type covering all their time slots"
 msgstr ""
+"Utilizzato per definire la categoria del tipo di appuntamento.\n"
+"\n"
+"        Può essere:\n"
+"\n"
+"            - Regolare: categoria predefinita, slot settimanali ricorrenti. Accessibile dal sito web\n"
+"\n"
+"            - Puntuale: slot regolari limitati tra 2 date. Accessibile dal sito web\n"
+"\n"
+"            - Slot specifici: l'utente creerà e condividerà con un altro utente un tipo di appuntamento personalizzato con fasce orarie scelte a mano.\n"
+"\n"
+"            - Calendario condiviso: l'utente crea e condivide con un altro utente un tipo di appuntamento che copre tutte le sue fasce orarie."
 
 #. module: appointment
 #: model:res.groups,name:appointment.group_appointment_user

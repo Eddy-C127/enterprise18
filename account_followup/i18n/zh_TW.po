@@ -3,16 +3,16 @@
 # 	* account_followup
 # 
 # Translators:
-# Wil Odoo, 2024
-# Tony Ng, 2024
+# Tony Ng, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-01-09 14:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -132,6 +132,31 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p>\n"
+"                        <t t-if=\"object.id != object.commercial_partner_id.id\"><t t-out=\"object.name or ''\"/> （<t t-out=\"object.commercial_partner_id.name or ''\"/>）你好！</t>\n"
+"                        <t t-else=\"\"><t t-out=\"object.name or ''\"/> 你好！</t>\n"
+"                        <br/>\n"
+"                        雖然我們已幾次提醒和催繳，但你的帳戶仍有欠款未繳清。\n"
+"                        除非欠款能在未來 8 天內全數繳清，否則，我們會展開法律行動追討欠債，不會另行通知。\n"
+"                        我相信並希望，此事並不需要動用到法律行動這一步。下文已詳列到期付款的賬項詳情。\n"
+"                        若就欠款事宜有疑問，請即聯絡 Odoo 會計部門。\n"
+"                        <br/>\n"
+"                        順祝  安康\n"
+"                        <br/>\n"
+"                        <t t-if=\"not is_html_empty(object._get_followup_responsible().signature)\">\n"
+"                            <br/>\n"
+"                            <t t-out=\"object._get_followup_responsible().signature\"/>\n"
+"                        </t>\n"
+"                        <t t-else=\"\">\n"
+"                            <br/>\n"
+"                            --\n"
+"                            <br/>\n"
+"                            <t t-out=\"object._get_followup_responsible().name\"/>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_followup
 #: model:mail.template,body_html:account_followup.demo_followup_email_template_2
@@ -649,6 +674,19 @@ msgid "No action needed"
 msgstr "無需動作"
 
 #. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__followup_next_action_date
+#: model:ir.model.fields,help:account_followup.field_res_users__followup_next_action_date
+msgid ""
+"No follow-up action will be taken before this date.\n"
+"Sending a reminder will set this date depending on the levels configuration, and you can change it manually."
+msgstr ""
+
+#. module: account_followup
+#: model_terms:ir.actions.act_window,help:account_followup.action_view_list_customer_statements
+msgid "No follow-up to send!"
+msgstr "沒有要發送的催款!"
+
+#. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__activity_note
 msgid "Note"
 msgstr "備註"
@@ -845,26 +883,6 @@ msgstr "表頭"
 #: model_terms:ir.ui.view,arch_db:account_followup.line_template
 msgid "Table Value"
 msgstr "表格值"
-
-#. module: account_followup
-#: model:ir.model.fields,help:account_followup.field_res_partner__followup_next_action_date
-#: model:ir.model.fields,help:account_followup.field_res_users__followup_next_action_date
-msgid ""
-"The date before which no follow-up action should be taken.\n"
-"                You can set it manually if desired but it is automatically set when follow-ups are processed.\n"
-"                The date is computed according to the following rules (depending on the follow-up levels):\n"
-"                - default -> next date set in {next level delay - current level delay} days\n"
-"                - if no next level -> next date set in {current level delay - previous level delay} days\n"
-"                - if no next level AND no previous level -> next date set in {current level delay} days\n"
-"                - if no level defined at all -> next date never automatically set"
-msgstr ""
-"在該日期之前不應採取後續行動。\n"
-"                如果需要，可手動設置，但在處理後續行動時會自動設置。\n"
-"                日期根據以下規則計算（取決於後續級別）：\n"
-"                - 預設 -> 下一個日期設置為 {下一級延遲 減 當前級別延遲} 天\n"
-"                - 如果沒有下一個級別 -> 下一個日期設置為 {當前級別延遲 減 上一個級別延遲} 天\n"
-"                - 如果沒有下一個級別亦沒有上一個級別 -> 下一個日期設置為 {當前級別延遲} 天\n"
-"                - 如果根本沒有定義級別 -> 下一個日期永遠不會自動設置"
 
 #. module: account_followup
 #: model:ir.model.fields,help:account_followup.field_account_move_line__invoice_origin

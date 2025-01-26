@@ -61,7 +61,7 @@ msgstr "Abbrechen"
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_stock_package_type__package_carrier_type
 msgid "Carrier"
-msgstr "Transportunternehmen"
+msgstr "Zusteller"
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -183,7 +183,7 @@ msgid ""
 "Order %(order)s was already sent to the carrier during label creation.\n"
 "Manifest number: %(manifest_number)s"
 msgstr ""
-"Der Auftrag %(order)s wurde während der Etiketterstellung an das Transportunternehmen gesendet.\n"
+"Der Auftrag %(order)s wurde während der Etiketterstellung an den Zusteller gesendet.\n"
 "Ladelistennummer: %(manifest_number)s"
 
 #. module: delivery_starshipit
@@ -193,7 +193,7 @@ msgid ""
 "Order %(order)s was sent to the carrier during label creation.As you are in a test environment, please make sure to cancel the order with your carrier directly.\n"
 "Manifest number: %(manifest_number)s"
 msgstr ""
-"Der Auftrag %(order)s wurde während der Etiketterstellung an das Transportunternehmen gesendet. Da Sie sich in einer Testumgebung befinden, stellen Sie bitte sicher, dass Sie den Auftrag direkt bei Ihrem Transportunternehmen stornieren.\n"
+"Der Auftrag %(order)s wurde während der Etiketterstellung an den Zusteller gesendet. Da Sie sich in einer Testumgebung befinden, stellen Sie bitte sicher, dass Sie den Auftrag direkt bei Ihrem Zusteller stornieren.\n"
 "Ladelistennummer: %(manifest_number)s"
 
 #. module: delivery_starshipit
@@ -206,7 +206,7 @@ msgstr "Der Auftrag %s wurde archiviert."
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 msgid "Order %s was sent to the carrier."
-msgstr "Der Auftrag %s wurde an das Transportunternehmen gesendet."
+msgstr "Der Auftrag %s wurde an den Zusteller gesendet."
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_origin_address
@@ -259,7 +259,7 @@ msgid ""
 "Return order %(order)s was already sent to the carrier during label creation.\n"
 "Manifest number: %(manifest_number)s"
 msgstr ""
-"Der Retourenauftrag %(order)s wurde während der Etiketterstellung an das Transportunternehmen gesendet.\n"
+"Der Retourenauftrag %(order)s wurde während der Etiketterstellung an den Zusteller gesendet.\n"
 "Ladelistennummer: %(manifest_number)s"
 
 #. module: delivery_starshipit
@@ -269,7 +269,7 @@ msgid ""
 "Return order %(order)s was sent to the carrier during label creation.As you are in a test environment, please make sure to cancel the order with your carrier directly.\n"
 "Manifest number: %(manifest_number)s"
 msgstr ""
-"Der Retourenauftrag %(order)s wurde während der Etiketterstellung an das Transportunternehmen gesendet. Da Sie sich in einer Testumgebung befinden, stellen Sie bitte sicher, dass Sie den Auftrag direkt bei Ihrem Transportunternehmen stornieren.\n"
+"Der Retourenauftrag %(order)s wurde während der Etiketterstellung an den Zusteller gesendet. Da Sie sich in einer Testumgebung befinden, stellen Sie bitte sicher, dass Sie den Auftrag direkt bei Ihrem Zusteller stornieren.\n"
 "Ladelistennummer: %(manifest_number)s"
 
 #. module: delivery_starshipit
@@ -282,7 +282,7 @@ msgstr "Der Retourenauftrag %s wurde archiviert."
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 msgid "Return order %s was sent to the carrier."
-msgstr "Der Retourenauftrag %s wurde an das Transportunternehmen gesendet."
+msgstr "Der Retourenauftrag %s wurde an den Zusteller gesendet."
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_delivery_carrier_form
@@ -382,8 +382,8 @@ msgid ""
 "Starshipit cannot generate returns for the carrier %s. Please handle this "
 "return with the carrier directly."
 msgstr ""
-"Starshipit kann keine Retouren für das Transportunternehmen %s erstellen. "
-"Bitte wickeln Sie diese Retoure direkt mit dem Transportunternehmen ab."
+"Starshipit kann keine Retouren für den Zusteller %s erstellen. Bitte wickeln"
+" Sie diese Retoure direkt mit dem Zusteller ab."
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -402,8 +402,8 @@ msgid ""
 "The carrier on starshipit used by this carrier. The service code belongs to "
 "it."
 msgstr ""
-"Das Transportunternehmen auf Starshipit wird von diesem  "
-"Transportunternehmen verwendet. Der Servicecode gehört zu ihm."
+"Der Zusteller auf Starshipit wird von diesem Zusteller verwendet. Der "
+"Servicecode gehört zu ihm."
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -477,7 +477,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 msgid "This action requires a Starshipit carrier."
-msgstr "Diese Aktion erfordert ein Starshipit-Transportunternehmen."
+msgstr "Diese Aktion erfordert ein Starshipit-Zusteller."
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,help:delivery_starshipit.field_delivery_carrier__starshipit_origin_address

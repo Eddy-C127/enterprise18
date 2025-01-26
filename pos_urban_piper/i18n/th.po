@@ -27,6 +27,8 @@ msgid ""
 "(%(provider_name)s) delivery is only available in the following countries: \n"
 "%(country_names)s"
 msgstr ""
+"(%(provider_name)s) การจัดส่งมีให้บริการเฉพาะในประเทศต่อไปนี้เท่านั้น: \n"
+"%(country_names)s"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -82,7 +84,7 @@ msgstr "ช่อง"
 #: model:ir.model.fields,help:pos_urban_piper.field_product_product__urbanpiper_pos_config_ids
 #: model:ir.model.fields,help:pos_urban_piper.field_product_template__urbanpiper_pos_config_ids
 msgid "Check this if the product is available for food delivery."
-msgstr ""
+msgstr "ตรวจสอบว่าผลิตภัณฑ์มีบริการจัดส่งอาหารหรือไม่"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_payment_method__is_delivery_payment
@@ -284,7 +286,7 @@ msgstr ""
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "Fill this form to get Username &amp; Api key"
-msgstr ""
+msgstr "กรอกแบบฟอร์มนี้เพื่อรับชื่อผู้ใช้และรหัส API"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
@@ -452,7 +454,7 @@ msgstr "ชื่อ"
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__name
 msgid "Name of the delivery provider i.e. Zomato, UberEats, etc."
-msgstr ""
+msgstr "ชื่อผู้ให้บริการจัดส่ง เช่น Zomato, UberEats เป็นต้น"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -621,7 +623,7 @@ msgstr "คำสั่งเตรียมการ"
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__prep_time
 msgid "Preparation time for the food as provided by UrbanPiper."
-msgstr ""
+msgstr "ระยะเวลาในการเตรียมอาหารตามที่ UrbanPiper จัดทำไว้"
 
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_product_pricelist
@@ -717,6 +719,7 @@ msgstr ""
 msgid ""
 "Responsible delivery provider for online order, e.g., UberEats, Zomato."
 msgstr ""
+"ผู้ให้บริการจัดส่งที่รับผิดชอบสำหรับการสั่งซื้อออนไลน์ เช่น UberEats, Zomato"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -733,7 +736,7 @@ msgstr ""
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "Set the POS ID in Urban Piper in Locations."
-msgstr ""
+msgstr "ตั้งค่า POS ID ใน Urban Piper ในตำแหน่ง"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__journal_code
@@ -754,7 +757,7 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.constraint,message:pos_urban_piper.constraint_pos_config_urbanpiper_store_identifier_uniq
 msgid "Store ID must be unique for every pos configuration."
-msgstr ""
+msgstr "ID ร้านค้าจะต้องไม่ซ้ำกันสำหรับการกำหนดค่า POS แต่ละรายการ"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -819,13 +822,13 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__pos_urbanpiper_last_sync_date
 msgid "The date and time of the last synchronization with UrbanPiper."
-msgstr ""
+msgstr "วันที่และเวลาที่ซิงโครไนซ์กับ UrbanPiper ครั้งล่าสุด"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_delivery_provider_ids
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__pos_urbanpiper_delivery_provider_ids
 msgid "The delivery providers used for online delivery through UrbanPiper."
-msgstr ""
+msgstr "ผู้ให้บริการจัดส่งที่ใช้สำหรับการจัดส่งออนไลน์ผ่านทาง UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__pos_urbanpiper_fiscal_position_id
@@ -835,7 +838,7 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__pos_urbanpiper_payment_methods_ids
 msgid "The payment methods used for online delivery through UrbanPiper."
-msgstr ""
+msgstr "วิธีการชำระเงินที่ใช้สำหรับการจัดส่งออนไลน์ผ่าน UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__pos_urbanpiper_pricelist_id

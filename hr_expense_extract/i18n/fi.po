@@ -18,7 +18,7 @@
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
 # Pekko Tuomisto <pekko.tuomisto@web-veistamo.fi>, 2024
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
@@ -26,7 +26,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:14+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,6 +47,8 @@ msgid ""
 "<span><b>Congratulations</b>, you are now an expert of Expenses.\n"
 "        </span>"
 msgstr ""
+"<span><b>Onneksi olkoon</b>, olet nyt Kulujen asiantuntija.\n"
+"        </span>"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_needaction
@@ -293,6 +295,12 @@ msgid ""
 "SEPA Credit Transfer: Pay in the SEPA zone by submitting a SEPA Credit Transfer file to your bank. Module account_iso20022 is necessary.\n"
 "SEPA Direct Debit: Get paid in the SEPA zone thanks to a mandate your partner will have granted to you. Module account_iso20022 is necessary.\n"
 msgstr ""
+"Manuaalinen: Maksa tai saat maksun millä tahansa Odoon ulkopuolisella menetelmällä.\n"
+"Maksupalveluntarjoajat: Jokaisella maksupalveluntarjoajalla on oma maksutapansa. Pyydä maksutapahtuma kortilla/ kortille yhteistyökumppanin tallentaman maksutunnisteen ansiosta, kun ostat tai tilaat verkossa.\n"
+"Tarkista: Maksa laskut sekillä ja tulosta se Odoosta.\n"
+"Erätalletus: Kerää useita asiakasšekkejä kerralla generoimalla ja lähettämällä erätalletus pankkiin. Moduuli account_batch_payment tarvitaan.\n"
+"SEPA-tilisiirto: Maksa SEPA-alueella lähettämällä SEPA-tilisiirtotiedosto pankkiin. Moduuli account_iso20022 tarvitaan.\n"
+"SEPA-suoraveloitus: Saat maksun SEPA-alueella yhteistyökumppanisi sinulle antaman valtuutuksen avulla. Moduuli account_iso20022 tarvitaan.\n"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields.selection,name:hr_expense_extract.selection__expense_sample_register__partial_mode__paid
@@ -405,7 +413,7 @@ msgstr "Kulujen liitetiedostojen lähetystila"
 #. module: hr_expense_extract
 #: model_terms:ir.ui.view,arch_db:hr_expense_extract.expense_sample_receipt_view_form
 msgid "Try Expense Digitization"
-msgstr ""
+msgstr "Kokeile kulujen digitalisointia"
 
 #. module: hr_expense_extract
 #: model:ir.actions.act_window,name:hr_expense_extract.action_expense_sample_receipt
@@ -461,4 +469,4 @@ msgstr "Esimiehesi on hyväksyttävä (tai hylättävä) kuluraporttisi."
 #. odoo-python
 #: code:addons/hr_expense_extract/models/hr_expense.py:0
 msgid "try a sample receipt"
-msgstr ""
+msgstr "kokeile esimerkkikuittia"

@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Larissa Manderfeld, 2024
+# Larissa Manderfeld, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2025\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +33,7 @@ msgstr ""
 "\n"
 "Außerdem haben einige Produkte ein Übergewicht bei der schwersten verfügbaren Versandmethode.\n"
 "                             \n"
-"Teilen Sie die Menge des/der folgenden Produkts/Produkte nach Möglichkeit auf mehrere Pakete auf oder wählen Sie ein anderes Transportunternehmen:\n"
+"Teilen Sie die Menge des/der folgenden Produkts/Produkte nach Möglichkeit auf mehrere Pakete auf oder wählen Sie einen anderen Zusteller:\n"
 "\t%s"
 
 #. module: delivery_sendcloud
@@ -44,7 +44,7 @@ msgid ""
 "Try to distribute your products across your packages so that they weigh less than %(max_weight)s %(unit)s or choose another carrier."
 msgstr ""
 "\n"
-"Versuchen Sie, Ihre Produkte so auf Ihre Pakete zu verteilen, dass sie weniger als %(max_weight)s %(unit)s wiegen oder wählen Sie ein anderes Transportunternehmen."
+"Versuchen Sie, Ihre Produkte so auf Ihre Pakete zu verteilen, dass sie weniger als %(max_weight)s %(unit)s wiegen oder wählen Sie einen anderen Zusteller."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -122,7 +122,7 @@ msgstr "Abbrechen"
 #: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_stock_package_type__package_carrier_type
 msgid "Carrier"
-msgstr "Transportunternehmen"
+msgstr "Zusteller"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -372,7 +372,7 @@ msgstr "Optionen"
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 msgid "Order below minimum weight of carrier"
-msgstr "Auftrag unter Mindestgewicht des Transportunternehmens"
+msgstr "Auftrag unter Mindestgewicht des Zustellers"
 
 #. module: delivery_sendcloud
 #. odoo-javascript
@@ -635,8 +635,8 @@ msgid ""
 "There is no shipping method available for this order with the selected "
 "carrier"
 msgstr ""
-"Für diesen Auftrag mit dem ausgewählten Transportunternehmen ist keine "
-"Versandmethode verfügbar"
+"Für diesen Auftrag mit dem ausgewählten Zusteller ist keine Versandmethode "
+"verfügbar"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -645,8 +645,8 @@ msgid ""
 "There is no shipping method available for this picking with the selected "
 "carrier"
 msgstr ""
-"Für diese Kommissionierung mit dem ausgewählten Transportunternehmen ist "
-"keine Versandmethode verfügbar"
+"Für diese Kommissionierung mit dem ausgewählten Zusteller ist keine "
+"Versandmethode verfügbar"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -658,7 +658,7 @@ msgid ""
 msgstr ""
 "Es gibt keine Methode mit einem passenden Gewichtsbereich für Pakete:\n"
 "%s\n"
-"Sie können entweder ein anderes Transportunternehmen wählen, Ihre Filter ändern oder den Inhalt Ihrer Pakete neu definieren."
+"Sie können entweder einen anderen Zusteller wählen, Ihre Filter ändern oder den Inhalt Ihrer Pakete neu definieren."
 
 #. module: delivery_sendcloud
 #. odoo-python

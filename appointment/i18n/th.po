@@ -3,8 +3,8 @@
 # 	* appointment
 # 
 # Translators:
-# Rasareeyar Lappiam, 2025
 # Wil Odoo, 2025
+# Rasareeyar Lappiam, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Rasareeyar Lappiam, 2025\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -831,6 +831,8 @@ msgid ""
 "<i class=\"fa fa-lg fa-calendar-plus-o me-3 text-primary\"/>Schedule another"
 " meeting"
 msgstr ""
+"<i class=\"fa fa-lg fa-calendar-plus-o me-3 text-"
+"primary\"/>กำหนดการประชุมอีกครั้ง"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -2070,6 +2072,10 @@ msgid ""
 "        The one shot type is only used when an user create a custom appointment type for a client by\n"
 "        defining non-recurring time slot (e.g. 10th of April 2021 from 10 to 11 am) from its calendar."
 msgstr ""
+"คุณกำหนดประเภทของช่วง ช่วงที่เกิดขึ้นประจำเป็นประเภทเริ่มต้นที่ใช้สำหรับ\n"
+"        ประเภทการนัดหมายที่ใช้ประจำในประเภทเช่นการนัดหมายแพทย์\n"
+"       ประเภทอย่างสั้นจะใช้เฉพาะเมื่อผู้ใช้สร้างประเภทการนัดหมายแบบกำหนดเองสำหรับลูกค้าโดย\n"
+"        กำหนดช่วงเวลาที่ไม่เกิดซ้ำ (เช่น วันที่ 10 เมษายน 2021 เวลา 10.00 น. ถึง 11.00 น.) จากปฏิทิน"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__event_videocall_source
@@ -2427,7 +2433,7 @@ msgstr "หากเว้นว่างไว้ ระบบจะใช้�
 #: model:ir.model.fields,help:appointment.field_appointment_type__booked_mail_template_id
 msgid ""
 "If set an email will be sent to the customer when the appointment is booked."
-msgstr ""
+msgstr "หากตั้งค่าไว้ระบบจะส่งอีเมลถึงลูกค้าเมื่อจองนัดหมาย"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
@@ -2913,7 +2919,7 @@ msgstr "อนุญาตประเภทการนัดหมายเพ
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Oops! Your appointment is scheduled in less than"
-msgstr ""
+msgstr "อุ๊ย! นัดหมายของคุณมีกำหนดในอีกไม่ถึง"
 
 #. module: appointment
 #. odoo-javascript
@@ -3980,6 +3986,17 @@ msgid ""
 "\n"
 "            - Shared Calendar: the user will create and share to another user an appointment type covering all their time slots"
 msgstr ""
+"ใช้เพื่อกำหนดประเภทของการนัดหมายนี้\n"
+"\n"
+"        สามารถเป็นหนึ่งใน:\n"
+"\n"
+"            - การเกิดขึ้นประจำ: หมวดหมู่เริ่มต้น, ช่วงเวลาที่เกิดซ้ำรายสัปดาห์ เข้าถึงได้จากเว็บไซต์\n"
+"\n"
+"            - การตรงต่อเวลา: ช่องที่เกิดขึ้นประจำจะถูกจำกัดระหว่าง 2 วันที่และเวลา เข้าถึงได้จากเว็บไซต์\n"
+"\n"
+"            - ช่องเฉพาะ: ผู้ใช้จะสร้างและแชร์ประเภทการนัดหมายแบบกำหนดเองกับผู้ใช้รายอื่นพร้อมช่วงเวลาที่เลือกเอง\n"
+"\n"
+"            - ปฏิทินที่ใช้ร่วมกัน: ผู้ใช้จะสร้างและแชร์ประเภทการนัดหมายที่ครอบคลุมช่วงเวลาทั้งหมดให้กับผู้ใช้รายอื่น"
 
 #. module: appointment
 #: model:res.groups,name:appointment.group_appointment_user
@@ -4066,7 +4083,7 @@ msgstr "การนัดหมายของคุณ"
 #. odoo-javascript
 #: code:addons/appointment/static/src/components/appointment_sync_button/appointment_sync_button.js:0
 msgid "Your calendar is already configured and was successfully synchronized."
-msgstr ""
+msgstr "ปฏิทินของคุณได้รับการกำหนดค่าแล้วและซิงโครไนซ์สำเร็จแล้ว"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
@@ -4184,7 +4201,7 @@ msgstr "ไม่มีตารางที่ว่างเพิ่มเต
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "hour(s) and cannot be cancelled at this time.<br/>"
-msgstr ""
+msgstr "ชั่วโมงและไม่สามารถยกเลิกได้ในขณะนี้<br/>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form

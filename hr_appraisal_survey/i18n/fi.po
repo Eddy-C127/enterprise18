@@ -11,8 +11,8 @@
 # Konsta Aavaranta, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Martin Trigaux, 2024
-# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2025
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +31,7 @@ msgstr ""
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_survey_page_statistics_header
 msgid "- Feedback requested by -"
-msgstr "- Palautetta pyytänyt -"
+msgstr "- Palautteen pyytäjä -"
 
 #. module: hr_appraisal_survey
 #: model:ir.actions.act_window,name:hr_appraisal_survey.survey_survey_action_appraisal
@@ -45,7 +45,7 @@ msgstr "360 palaute"
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_survey_button_form_view
 msgid "<i class=\"oi oi-fw oi-arrow-right\"/>Go to Appraisal"
-msgstr ""
+msgstr "<i class=\"oi oi-fw oi-arrow-right\"/>Siirry arviointiin"
 
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_view_form
@@ -82,6 +82,27 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<t t-set=\"logged_user\" t-value=\"ctx.get('logged_user')\"/>\n"
+"                <t t-set=\"employee\" t-value=\"ctx.get('employee')\"/>\n"
+"                <t t-set=\"deadline\" t-value=\"ctx.get('deadline')\"/>\n"
+"                <div style=\"margin: 0px; padding: 0px;\">\n"
+"                   <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        </p><p style=\"margin-left:5px\">Hyvä <t t-out=\"object.partner_id.name or 'participant'\">[osallistuja]</t></p>\n"
+"                       <span>\n"
+"                           <t t-out=\"logged_user\">[Nykyinen käyttäjä]</t> kutsuu sinut osallistumaan kyselyyn ja antamaan palautetta <t t-out=\"employee\">[työntekijästä</t>].\n"
+"                            Pyydämme teitä täyttämään kyselyn ennen <t t-out=\"deadline\">[ilmoitettu määräaika]</t>.\n"
+"                       </span>\n"
+"                       <br/>\n"
+"                        Kiitos!\n"
+"                       <br/><br/>\n"
+"                        <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
+"                            <a t-att-href=\"object.get_start_url()\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                Anna palautetta\n"
+"                            </a>\n"
+"                        </div>\n"
+"                    \n"
+"                </div>\n"
+"            "
 
 #. module: hr_appraisal_survey
 #. odoo-python
@@ -90,6 +111,8 @@ msgid ""
 "A new 360 Feedback report has been completed for the appraisal of "
 "%(employee_name)s."
 msgstr ""
+"Uusi 360 palautetta koskeva raportti on valmistunut %(employee_name)s "
+"arviointia varten."
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.arow_3_1_1
@@ -144,7 +167,7 @@ msgstr "Lisäkommentit"
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.y_360_5_6
 msgid "Admit his/her mistakes"
-msgstr ""
+msgstr "Myöntää virheensä"
 
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_survey_user_input_view_tree
@@ -223,7 +246,7 @@ msgstr "Arviointi: Pyydä palautetta uusi malli"
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,field_description:hr_appraisal_survey.field_survey_survey__appraisal_manager_user_ids
 msgid "Appraisals Managers Users"
-msgstr ""
+msgstr "Arviointipäälliköiden käyttäjät"
 
 #. module: hr_appraisal_survey
 #: model:survey.question,title:hr_appraisal_survey.appraisal_1_5
@@ -357,7 +380,7 @@ msgid ""
 "Critical or key elements of performance and professional development needs "
 "(if any), should also be noted at this time"
 msgstr ""
-"Tässä yhteydessä olisi myös huomattava suorituksen kriittiset tai keskeiset "
+"Tässä yhteydessä on myös huomattava suorituksen kriittiset tai keskeiset "
 "osatekijät ja ammatillisen kehittymisen tarpeet (jos sellaisia on)"
 
 #. module: hr_appraisal_survey
@@ -404,6 +427,8 @@ msgstr "Näyttönimi"
 #: model:survey.question,title:hr_appraisal_survey.appraisal_360_10
 msgid "Do you have any comment to tell him/her in order to improve?"
 msgstr ""
+"Onko sinulla jotain huomautettavaa, jonka voisit kertoa hänelle, jotta hän "
+"voisi parantaa toimintaansa?"
 
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_survey_user_input_view_tree
@@ -460,12 +485,12 @@ msgstr "Täytä palautelomake kyselyssä"
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_survey_button_form_view
 msgid "Go to the appraisal from"
-msgstr ""
+msgstr "Siirry arviointilomakkeeseen"
 
 #. module: hr_appraisal_survey
 #: model:survey.question,title:hr_appraisal_survey.appraisal_360_5
 msgid "How does it feel to work with the employee? Is he/she ... "
-msgstr ""
+msgstr "Miltä tuntuu työskennellä työntekijän kanssa? Onko hän … "
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.appraisal_360_3_sug5
@@ -562,7 +587,7 @@ msgstr "Johtaminen: tukee alaistensa ammatillista kasvua"
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.y_360_5_1
 msgid "Listening well to others"
-msgstr ""
+msgstr "Kuuntelee hyvin muita"
 
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.appraisal_ask_feedback_view_form
@@ -701,7 +726,7 @@ msgstr "Lähetä uudelleen"
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_survey_user_input_view_tree
 msgid "Resend all"
-msgstr ""
+msgstr "Lähetä kaikki uudelleen"
 
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_survey_page_statistics_header
@@ -851,7 +876,7 @@ msgstr "Työtehtäviin liittyvät tekniset taidot"
 #. module: hr_appraisal_survey
 #: model_terms:survey.survey,description_done:hr_appraisal_survey.appraisal_360_feedback_template
 msgid "Thanks a lot for your time and participation !"
-msgstr ""
+msgstr "Kiitos paljon ajastanne ja osallistumisestanne !"
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_3
@@ -892,6 +917,8 @@ msgid ""
 "The following employees do not have any email: \n"
 "%s"
 msgstr ""
+"Seuraavilla työntekijöillä ei ole sähköpostia:\n"
+"%s"
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
@@ -960,6 +987,7 @@ msgstr ""
 #: model:ir.model.fields,help:hr_appraisal_survey.field_survey_survey__appraisal_manager_user_ids
 msgid "Users allowed to view the survey used in an appraisal"
 msgstr ""
+"Käyttäjät, joilla on oikeus tarkastella arvioinnissa käytettyä kyselyä"
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.appraisal_360_3_sug1
@@ -979,26 +1007,30 @@ msgid ""
 "                By working with him/her, you're the best to share your thoughts and explain how your collaboration was.<br><br>\n"
 "                Your answers will be viewed only by the managers. This is not an anonymous survey."
 msgstr ""
+"Tervetuloa tähän kyselyyn, <br><br>\n"
+"                Sinua on pyydetty osallistumaan 360 palautteen antamiseen. Se on pieni kysely, jonka avulla esimiehet saavat lisää palautetta työntekijöistään. \n"
+"                Työskentelemällä hänen kanssaan voit parhaiten jakaa ajatuksiasi ja selittää, miten yhteistyö on sujunut.<br><br>\n"
+"                Vastauksesi näkevät vain esimiehet. Tämä ei ole anonyymi kysely."
 
 #. module: hr_appraisal_survey
 #: model:survey.question,title:hr_appraisal_survey.appraisal_360_6
 msgid "What should he/she does in order to improve on his/her day-to-day job?"
-msgstr ""
+msgstr "Mitä hänen pitäisi tehdä parantaakseen päivittäistä työtään?"
 
 #. module: hr_appraisal_survey
 #: model:survey.question,title:hr_appraisal_survey.appraisal_360_7
 msgid "What's his/her greatest strength?"
-msgstr ""
+msgstr "Mikä on hänen suurin vahvuutensa?"
 
 #. module: hr_appraisal_survey
 #: model:survey.question,title:hr_appraisal_survey.appraisal_360_8
 msgid "What's his/her greatest weakness?"
-msgstr ""
+msgstr "Mikä on hänen suurin heikkoutensa?"
 
 #. module: hr_appraisal_survey
 #: model:survey.question,title:hr_appraisal_survey.appraisal_360_3
 msgid "What's the relation between the employee and you?"
-msgstr ""
+msgstr "Mikä on työntekijän ja sinun välinen suhde?"
 
 #. module: hr_appraisal_survey
 #: model:survey.question,title:hr_appraisal_survey.appraisal_360_2

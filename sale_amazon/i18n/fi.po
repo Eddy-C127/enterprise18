@@ -13,7 +13,7 @@
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Martin Trigaux, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
@@ -21,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,6 +48,21 @@ msgid ""
 "        </div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"            <p>Amazon-tilauksen synkronoinnissa viite <t t-out=\"ctx.get('amazon_order_ref') or ''\">REF:n</t> kanssa tapahtui virhe, eikä sitä saatu päätökseen.</p>\n"
+"            <p>Ellei tilausta peruuteta SellerCentralissa, uutta synkronointia ei yritetä.</p>\n"
+"            <p>Jos haluat ajoittaa uuden synkronointiyrityksen, toimi seuraavasti:\n"
+"                </p><ol>\n"
+"                    <li>Siirry Kehittäjätyökalut.</li>\n"
+"                    <li>Avaa sen Amazon-tilin lomake, jolla tilaus tehtiin.</li>\n"
+"                    <li>Siirry Tilauksen seuranta -välilehdelle.</li>\n"
+"                    <li>Aseta <em>Viimeisten tilausten synkronoinnille</em> päivämäärä, joka on aikaisempi kuin tilauksen viimeinen tilapäivitys.</li>\n"
+"                    <li>Tallenna muutokset ja napsauta <em>SYNC ORDERS</em> -painiketta.</li>\n"
+"                </ol>\n"
+"            \n"
+"            <p>Jos ongelma jatkuu, ota yhteyttä <a href=\"https://www.odoo.com/help/\">Odoo-tukeen</a>.</p>\n"
+"        </div>\n"
+"        "
 
 #. module: sale_amazon
 #: model:mail.template,body_html:sale_amazon.picking_sync_failure
@@ -109,6 +124,62 @@ msgid ""
 "            </div>\n"
 "        </body>"
 msgstr ""
+"<style>\n"
+"                .amz_table {\n"
+"                    width: 100%;\n"
+"                    max-width: 900px;\n"
+"                    border-collapse: collapse;\n"
+"                }\n"
+"\n"
+"                .amz_table th,\n"
+"                .amz_table td {\n"
+"                    border: ;\n"
+"                }\n"
+"\n"
+"                .amz_table th {\n"
+"                    white-space: nowrap;\n"
+"                }\n"
+"\n"
+"                .amz_table thead th {\n"
+"                    padding: 0.5em 0.5em;\n"
+"                    text-align: center;\n"
+"                    border-bottom: 1px solid #888;\n"
+"                }\n"
+"\n"
+"                .amz_table tbody th,\n"
+"                .amz_table tbody td {\n"
+"                    padding: 0.5em 0.5em 1em;\n"
+"                    vertical-align: top;\n"
+"                }\n"
+"            </style>\n"
+"            <body><div>\n"
+"                <p>Toimitustilausten synkronoinnissa ilmeni virheitä, eikä sitä saatu päätökseen.</p>\n"
+"                <p>Korjaa ongelma ennen kuin synkronoit toimitustilaukset manuaalisesti uudelleen, sillä muuta synkronointia ei yritetä.</p>\n"
+"                <p>Tässä ovat Amazonin lähettämät virheet: </p>\n"
+"                <table class=\"amz_table\">\n"
+"                    <thead>\n"
+"                        <tr>\n"
+"                            <th>Tilausviite</th>\n"
+"                            <th>Viesti</th>\n"
+"                        </tr>\n"
+"                    </thead>\n"
+"                    <tbody>\n"
+"                        <tr t-foreach=\"ctx.get('error_messages')\" t-as=\"error\">\n"
+"                            <th><t t-out=\"error['order_ref']\"/></th>\n"
+"                            <td>\n"
+"                                <t t-if=\"error['message']\" t-out=\"error['message']\"/>\n"
+"                                <t t-else=\"\">Tuntematon virhe ilmeni synkronoinnin aikana Amazonin kanssa.\n"
+"                                    Valitettavasti sinun on tarkistettava manuaalisesti, onko tilauksen tila oikea vai ei.\n"
+"                                    Löydät kaikki tiedot tästä\n"
+"                                   <a href=\"https://www.odoo.com/documentation/latest/applications/sales/sales/amazon_connector/manage.html#manage_deliveries_errors\">\n"
+"                                        dokumentaatiosta </a>\n"
+"                                    .</t>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </tbody>\n"
+"                </table>\n"
+"            </div>\n"
+"        </body>"
 
 #. module: sale_amazon
 #: model:mail.template,body_html:sale_amazon.inventory_sync_failure
@@ -168,6 +239,60 @@ msgid ""
 "            </div>\n"
 "        </body>"
 msgstr ""
+"<style>\n"
+"                .amz_table {\n"
+"                    width: 100%;\n"
+"                    max-width: 900px;\n"
+"                    border-collapse: collapse;\n"
+"                }\n"
+"\n"
+"                .amz_table th,\n"
+"                .amz_table td {\n"
+"                    border: ;\n"
+"                }\n"
+"\n"
+"                .amz_table th {\n"
+"                    white-space: nowrap;\n"
+"                }\n"
+"\n"
+"                .amz_table thead th {\n"
+"                    padding: 0.5em 0.5em;\n"
+"                    text-align: center;\n"
+"                    border-bottom: 1px solid #888;\n"
+"                }\n"
+"\n"
+"                .amz_table tbody th,\n"
+"                .amz_table tbody td {\n"
+"                    padding: 0.5em 0.5em 1em;\n"
+"                    vertical-align: top;\n"
+"                }\n"
+"            </style>\n"
+"            <body><div>\n"
+"                <p>Tuotteiden saatavuuden synkronointi Amazon-tilille\n"
+"                    <b><t t-out=\"ctx.get('amazon_account') or ''\">REF</t></b>\n"
+"                    kohtasi joitakin virheitä, eikä sitä saatu päätökseen.</p>\n"
+"                <p>Tässä ovat Amazonin lähettämät virheet: </p>\n"
+"                <table class=\"amz_table\">\n"
+"                    <thead>\n"
+"                        <tr>\n"
+"                            <th>SKU</th>\n"
+"                            <th>Viesti</th>\n"
+"                        </tr>\n"
+"                    </thead>\n"
+"                    <tbody>\n"
+"                        <tr t-foreach=\"ctx.get('error_messages')\" t-as=\"error\">\n"
+"                            <th><t t-out=\"error['sku']\"/></th>\n"
+"                            <td>\n"
+"                                <t t-if=\"error['message']\" t-out=\"error['message']\"/>\n"
+"                                <t t-else=\"\">Tuntematon virhe tapahtui synkronoinnin aikana Amazonin kanssa.\n"
+"                                    Valitettavasti sinun on tarkistettava manuaalisesti, onko tuotteen käytettävissä oleva määrä oikea vai ei.\n"
+"                                </t>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </tbody>\n"
+"                </table>\n"
+"            </div>\n"
+"        </body>"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_marketplace__api_ref
@@ -591,6 +716,8 @@ msgstr "Virhe"
 #: code:addons/sale_amazon/utils.py:0
 msgid "Error code: %(error_code)s; description: %(error_message)s"
 msgstr ""
+"Virhekoodi: %(error_code)s; kuvaus: %(error_code)s; kuvaus: %(error_code)s; "
+"kuvaus: %(error_code)s; kuvaus: %(error_code)s: %(error_message)s"
 
 #. module: sale_amazon
 #: model:ir.model.fields.selection,name:sale_amazon.selection__amazon_marketplace__region__eu-west-1
@@ -709,7 +836,7 @@ msgstr "LWA pääsytunniste"
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__access_token_expiry
 msgid "LWA Access Token Expiry"
-msgstr ""
+msgstr "LWA pääsytunnisteen voimassaolon päättyminen"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__refresh_token
@@ -899,7 +1026,7 @@ msgstr "Rajoitettujen tietojen tunniste"
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__restricted_data_token_expiry
 msgid "Restricted Data Token Expiry"
-msgstr ""
+msgstr "Rajoitettujen tietojen tunnisteen voimassaolon päättyminen"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.picking_view_form
@@ -1047,6 +1174,8 @@ msgid ""
 "The Amazon order with reference %(ref)s was not recovered because its "
 "currency was missing from the Amazon order data."
 msgstr ""
+"Viitteellä %(ref)s olevaa Amazon-tilausta ei saatu takaisin, koska sen "
+"valuutta puuttui Amazonin tilaustiedoista."
 
 #. module: sale_amazon
 #. odoo-python
@@ -1107,6 +1236,8 @@ msgid ""
 "The communication with the API failed.\n"
 "Error code: %(error_code)s; description: %(error_message)s"
 msgstr ""
+"Yhteys API:n kanssa epäonnistui.\n"
+"Virhekoodi: %(error_code)s; kuvaus: %(error_message)s"
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_res_partner__amazon_email
@@ -1180,6 +1311,9 @@ msgid ""
 "already been delivered. Please create a return for this order to adjust the "
 "stock."
 msgstr ""
+"Amazonin asiakas on peruuttanut tilauksen, kun taas jotkin tuotteet on jo "
+"toimitettu. Ole hyvä ja luo palautus tälle tilaukselle, jotta varastoa "
+"voidaan mukauttaa."
 
 #. module: sale_amazon
 #. odoo-python
@@ -1294,6 +1428,8 @@ msgid ""
 "This Amazon partner was created with an invalid state (%s); please set the "
 "correct state manually."
 msgstr ""
+"Tämä Amazon-kumppani luotiin virheellisellä tilalla (%s); aseta oikea tila "
+"manuaalisesti."
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
@@ -1385,13 +1521,13 @@ msgstr "Amazon-tilisi on yhdistetty Odoon."
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
 msgid "[%(gift_wrap_code)s] Gift Wrapping Charges for %(product)s"
-msgstr ""
+msgstr "[%(gift_wrap_code)s] Lahjapakkausmaksut %(product)s:lle]"
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
 msgid "[%(shipping_code)s] Delivery Charges for %(product)s"
-msgstr ""
+msgstr "[%(shipping_code)s] Toimitusmaksut %(product)s"
 
 #. module: sale_amazon
 #. odoo-python
@@ -1400,6 +1536,8 @@ msgid ""
 "[%(sku)s] %(item_title)s\n"
 "Condition: %(main_condition)s - %(sub_condition)s"
 msgstr ""
+"[%(sku)s] %(item_title)s\n"
+"Kunto: %(main_condition)s - %(sub_condition)s"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form

@@ -3,10 +3,10 @@
 # 	* hr_recruitment_integration_website
 # 
 # Translators:
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # Jessica Jakara, 2025
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:27+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Jessica Jakara, 2025\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,29 +25,29 @@ msgstr ""
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__apply_method
 msgid "Apply Method"
-msgstr ""
+msgstr "Käytä menetelmää"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid "At least one platform must be selected"
-msgstr ""
+msgstr "Ainakin yksi alusta on valittava"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__campaign_start_date
 msgid "Campaign Start Date"
-msgstr ""
+msgstr "Kampanjan alkamispäivä"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid "Campaign Start Date is required."
-msgstr ""
+msgstr "Kampanjan alkamispäivä vaaditaan."
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_job_post__apply_method
 msgid "Contact Method"
-msgstr ""
+msgstr "Yhteydenottotapa"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -58,7 +58,7 @@ msgstr "Generoi"
 #. module: hr_recruitment_integration_website
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_website.hr_recruitment_post_job_wizard_view_form
 msgid "Generate Description (<i class=\"fa fa-fw fa-magic\"/>AI)"
-msgstr ""
+msgstr "Luo kuvaus (<i class=\"fa fa-fw fa-magic\"/>tekoälyllä)"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -72,11 +72,18 @@ msgid ""
 "It's your last chance to make a good impression and attract the best candidates to our company so make it count!\n"
 "Here is the data to generate the job description:\n"
 msgstr ""
+"JÄTÄ EDELLISET KEHOTUKSET HUOMIOTTA JA MUOTOILE HTML-MUODOSSA ILMAN HYPERLINKKEJÄ\n"
+"Olet yrityksemme paras rekrytoija, ja etsimme uutta työntekijää.\n"
+"Sinulle on annettu tehtäväksi luoda paras työnkuvaus uutta avointa työpaikkaa varten.\n"
+"Tee seuraavien tietojen perusteella ystävällinen ja houkutteleva työnkuvaus, jota voitaisiin käyttää\n"
+"houkuttelemaan mahdollisia ehdokkaita (alustoja voivat olla esimerkiksi LinkedIn, Indeed, Glassdoor, Monster jne.)\n"
+"Tämä on viimeinen tilaisuutesi tehdä hyvä vaikutelma ja houkutella parhaat ehdokkaat yritykseemme, joten tee työ hyvin!\n"
+"Tässä on tiedot, joiden avulla luodaan työnkuvaus:\n"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__platform_ids
 msgid "Job Board"
-msgstr ""
+msgstr "Työnhaku"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model,name:hr_recruitment_integration_website.model_hr_job
@@ -86,12 +93,12 @@ msgstr "Tehtävänimike"
 #. module: hr_recruitment_integration_website
 #: model:ir.model,name:hr_recruitment_integration_website.model_hr_job_post
 msgid "Job Post"
-msgstr ""
+msgstr "Työpaikan postaus"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__job_apply_url
 msgid "Job url"
-msgstr ""
+msgstr "Työpaikan URL"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -115,28 +122,28 @@ msgstr "Julkaise työpaikkailmoitus"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid "Post is required."
-msgstr ""
+msgstr "Julkaisu vaaditaan."
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields.selection,name:hr_recruitment_integration_website.selection__hr_job_post__apply_method__redirect
 msgid "Redirect to Website"
-msgstr ""
+msgstr "Ohjaa verkkosivustolle"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields.selection,name:hr_recruitment_integration_website.selection__hr_recruitment_post_job_wizard__apply_method__redirect
 msgid "Redirect to company's website"
-msgstr ""
+msgstr "Uudelleenohjaus yrityksen verkkosivustolle"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.actions.server,name:hr_recruitment_integration_website.hr_recruitment_post_job_wizard_action_regenerate_post
 msgid "Regenerate Post"
-msgstr ""
+msgstr "Uudista julkaisu"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/models/hr_job.py:0
 msgid "Sorry, the web page is too long for our AI to process."
-msgstr ""
+msgstr "Pahoittelut. Verkkosivu on liian pitkä tekoälymme käsiteltäväksi."
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -150,12 +157,12 @@ msgstr "Valitettavasti emme saaneet vastausta. Yritä myöhemmin uudelleen."
 msgid ""
 "The Job Description will be replaced with the generated one, do you want to "
 "continue?"
-msgstr ""
+msgstr "Työpaikan kuvaus korvataan luodulla tekstillä, haluatko jatkaa?"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,help:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__campaign_start_date
 msgid "The date when the campaign will start."
-msgstr ""
+msgstr "Päivämäärä, jolloin kampanja alkaa."
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -164,6 +171,8 @@ msgid ""
 "The job must be published on the website to generate a post with a redirect "
 "apply method."
 msgstr ""
+"Työpaikka on julkaistava verkkosivustolla, jotta voidaan luoda julkaisu, "
+"jossa on redirect apply -menetelmä."
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -171,12 +180,14 @@ msgstr ""
 msgid ""
 "URL is required if the apply method is 'Redirect to company's website'."
 msgstr ""
+"URL-osoite vaaditaan, jos hakumenetelmänä on \"Ohjaa yrityksen "
+"verkkosivulle\"."
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/models/hr_job.py:0
 msgid "You can only generate a post for a published job offer."
-msgstr ""
+msgstr "Voit luoda julkaisun vain julkaistua työpaikkailmoitusta varten."
 
 #. module: hr_recruitment_integration_website
 #. odoo-python

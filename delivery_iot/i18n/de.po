@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Larissa Manderfeld, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2025\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +29,7 @@ msgstr "'Leerer Bericht - Verwendet für Zuweisung eines IoT-Druckers'"
 #. module: delivery_iot
 #: model:ir.model.fields,field_description:delivery_iot.field_stock_picking_type__auto_print_carrier_labels
 msgid "Auto Print Carrier Labels"
-msgstr "Etiketten des Transportunternehmens automatisch drucken"
+msgstr "Etiketten des Zustellers automatisch drucken"
 
 #. module: delivery_iot
 #: model:ir.model.fields,field_description:delivery_iot.field_stock_picking_type__auto_print_export_documents
@@ -38,7 +39,7 @@ msgstr "Exportdokumente automatisch drucken"
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit
 msgid "Carrier Labels"
-msgstr "Etiketten des Transportunternehmens"
+msgstr "Etiketten des Zustellers"
 
 #. module: delivery_iot
 #: model:ir.model.fields,help:delivery_iot.field_choose_delivery_package__available_scale_ids
@@ -93,9 +94,8 @@ msgid ""
 "assigned to this report."
 msgstr ""
 "Wenn dieses Kontrollkästchen aktiviert ist, druckt Odoo automatisch die "
-"Etiketten des Transportunternehmens der Kommissionierung, wenn diese "
-"erstellt werden. Beachten Sie, dass diesem Bericht ein Drucker zugewiesen "
-"werden muss."
+"Etiketten des Zustellers der Kommissionierung, wenn diese erstellt werden. "
+"Beachten Sie, dass diesem Bericht ein Drucker zugewiesen werden muss."
 
 #. module: delivery_iot
 #: model:ir.model.fields,help:delivery_iot.field_stock_picking_type__auto_print_export_documents
@@ -107,9 +107,8 @@ msgid ""
 msgstr ""
 "Wenn dieses Kontrollkästchen aktiviert ist, druckt Odoo die Exportdokumente "
 "der Kommissionierung automatisch, wenn sie erstellt werden. Die "
-"Verfügbarkeit der Exportdokumente hängt vom Transportunternehmen und dem "
-"Zielort ab. Beachten Sie, dass diesem Bericht ein Drucker zugewiesen werden "
-"muss."
+"Verfügbarkeit der Exportdokumente hängt vom Zusteller und dem Zielort ab. "
+"Beachten Sie, dass diesem Bericht ein Drucker zugewiesen werden muss."
 
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit

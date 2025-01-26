@@ -4,9 +4,9 @@
 # 
 # Translators:
 # Tiffany Chang, 2024
-# Manon Rondou, 2024
 # Wil Odoo, 2024
 # Dylan Kiss, 2025
+# Manon Rondou, 2025
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2025
 # 
 msgid ""
@@ -77,13 +77,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.js:0
 msgid "%s has been copied in My Drive."
-msgstr ""
+msgstr "%s is gekopieerd naar Mijn Drive."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.js:0
 msgid "%s have been copied in My Drive."
-msgstr ""
+msgstr "%s zijn gekopieerd naar Mijn Drive."
 
 #. module: documents
 #. odoo-javascript
@@ -713,7 +713,7 @@ msgstr "Toegang tot al je documenten"
 #. odoo-python
 #: code:addons/documents/models/documents_access.py:0
 msgid "Access documents and partners cannot be changed."
-msgstr "Toegang tot documenten en contacten kan niet worden gewijzigd."
+msgstr "Toegang tot documenten en partners kan niet worden gewijzigd."
 
 #. module: documents
 #. odoo-python
@@ -826,7 +826,7 @@ msgstr "Map toevoegen"
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_add_bill
 msgid "Add Tag Bill"
-msgstr "Tag Bill toevoegen"
+msgstr "Label leveranciersfactuur toevoegen"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_add_validated
@@ -1442,7 +1442,7 @@ msgstr "Document"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_access
 msgid "Document / Partner"
-msgstr "Document / Contact"
+msgstr "Document / Partner"
 
 #. module: documents
 #. odoo-javascript
@@ -1882,7 +1882,7 @@ msgstr "Volgers"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Contacten)"
+msgstr "Volgers (Partners)"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__activity_type_icon
@@ -2021,7 +2021,7 @@ msgstr ""
 #: code:addons/documents/models/documents_document.py:0
 msgid "Impossible to invite partners on multiple documents at once."
 msgstr ""
-"Het is niet mogelijk om contacten tegelijk op meerdere documenten uit te "
+"Het is niet mogelijk om partners tegelijk op meerdere documenten uit te "
 "nodigen."
 
 #. module: documents
@@ -2754,7 +2754,7 @@ msgstr "Gedeeltelijke overdracht"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_access__partner_id
 msgid "Partner"
-msgstr "Contact"
+msgstr "Partner"
 
 #. module: documents
 #. odoo-javascript
@@ -2786,7 +2786,7 @@ msgid ""
 msgstr ""
 "Beleid om een bericht te versturen bij een document door gebruik te maken van de mail gateway.\n"
 "-iedereen: iedereen mag posten\n"
-"-contacten: alleen geautoriseerde contacten\n"
+"-partners: alleen geautoriseerde partners\n"
 "-volgers: alleen volgers van een bijbehorend document of leden van gevolgde kanalen\n"
 
 #. module: documents
@@ -2872,7 +2872,7 @@ msgstr "Lid verwijderen"
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_remove_inbox
 msgid "Remove Tag Inbox"
-msgstr "Tag inbox verwijderen"
+msgstr "Label inbox verwijderen"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_remove_to_validate
@@ -2949,7 +2949,7 @@ msgstr "Aangevraagde documenten"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__requestee_partner_id
 msgid "Requestee Partner"
-msgstr "Aanvragende contact"
+msgstr "Aanvragende partner"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__res_model_name
@@ -3109,7 +3109,7 @@ msgstr ""
 #. module: documents
 #: model:mail.template,description:documents.mail_template_document_request
 msgid "Sent to partner when requesting a document from them"
-msgstr "Verzonden naar contact bij het aanvragen van een document van hen"
+msgstr "Verzonden naar partner bij het aanvragen van een van hun documenten"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_tag__sequence
@@ -3324,7 +3324,7 @@ msgstr "Tekst"
 #: model:ir.model.fields,help:documents.field_documents_tag__tooltip
 msgid "Text shown when hovering on this tag"
 msgstr ""
-"Tekst die wordt weergegeven wanneer de muisaanwijzer op deze tag wordt "
+"Tekst die wordt weergegeven wanneer de muisaanwijzer op dit label wordt "
 "geplaatst"
 
 #. module: documents
@@ -3363,7 +3363,7 @@ msgid ""
 "- %(partners)s"
 msgstr ""
 "De volgende documenten/mappen kunnen geen eigendom zijn van een portaalgebruiker:\n"
-"- %(contacten)s"
+"- %(partners)s"
 
 #. module: documents
 #. odoo-python
@@ -3482,7 +3482,7 @@ msgstr "Dit is een snelkoppeling - Klik om naar het brondocument te gaan"
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_access_unique_document_access_partner
 msgid "This partner is already set on this document."
-msgstr "Deze contact is al ingesteld op dit document."
+msgstr "Deze partner is al ingesteld op dit document."
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_type_action_document
@@ -3867,7 +3867,7 @@ msgstr "Je kunt een verzoek niet verplaatsen in de bedrijfsmap"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_remove_partner_button.xml:0
 msgid "You cannot remove this partner"
-msgstr "Je kunt deze contact niet verwijderen"
+msgstr "Je kunt deze partner niet verwijderen"
 
 #. module: documents
 #. odoo-javascript

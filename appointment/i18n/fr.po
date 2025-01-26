@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Cécile Collart <cco@odoo.com>, 2024
-# Manon Rondou, 2025
 # Wil Odoo, 2025
+# Manon Rondou, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Manon Rondou, 2025\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1740,7 +1740,7 @@ msgstr "Détails de la réservation"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__booked_mail_template_id
 msgid "Booking Email"
-msgstr ""
+msgstr "E-mail de réservation"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__event_stop
@@ -2105,6 +2105,10 @@ msgid ""
 "        The one shot type is only used when an user create a custom appointment type for a client by\n"
 "        defining non-recurring time slot (e.g. 10th of April 2021 from 10 to 11 am) from its calendar."
 msgstr ""
+"Définit le type de créneau. Le créneau régulier est le type par défaut qui est utilisé pour\n"
+"        les types de rendez-vous récurrents, comme les rendez-vous médicaux.\n"
+"        Le type créneau unique est uniquement utilisé lorsqu'un utilisateur crée un type de rendez-vous personnalisé pour un client en\n"
+"        définissant un créneau non récurrent (par exemple, le 10 avril 2021 de 10 à 11 heures) dans son calendrier."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__event_videocall_source
@@ -2470,6 +2474,8 @@ msgstr ""
 msgid ""
 "If set an email will be sent to the customer when the appointment is booked."
 msgstr ""
+"Si activé, un e-mail sera envoyé au client lorsque le rendez-vous est "
+"réservé."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
@@ -2872,7 +2878,7 @@ msgstr "No Show"
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
 msgid "No Specific Slots Availabilities Shared!"
-msgstr ""
+msgstr "Aucune disponibilité de créneaux spécifiques partagée !"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__appointment_type_info_msg
@@ -3077,7 +3083,7 @@ msgstr "Aperçu"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Propose Slots"
-msgstr ""
+msgstr "Proposer des créneaux"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__punctual
@@ -3360,7 +3366,7 @@ msgstr "Recherche dans Responsable"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
 msgid "Select Appointments to share..."
-msgstr ""
+msgstr "Sélectionner les rendez-vous à partager…"
 
 #. module: appointment
 #. odoo-javascript
@@ -3456,7 +3462,7 @@ msgstr "Partager"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/kanban/kanban_controller.js:0
 msgid "Share Appointment"
-msgstr ""
+msgstr "Partager le rendez-vous"
 
 #. module: appointment
 #. odoo-javascript
@@ -3476,7 +3482,7 @@ msgstr "Partager les disponibilités"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Share Calendar"
-msgstr ""
+msgstr "Partager le calendrier"
 
 #. module: appointment
 #. odoo-javascript
@@ -3506,7 +3512,7 @@ msgstr "Partageable"
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__anytime
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Shared Calendar"
-msgstr ""
+msgstr "Calendrier partagé"
 
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_appointment_invite
@@ -3592,7 +3598,7 @@ msgstr "Combinaison de sources"
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__custom
 msgid "Specific Slots"
-msgstr ""
+msgstr "Créneaux spécifiques"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__specific_resources
@@ -4063,6 +4069,17 @@ msgid ""
 "\n"
 "            - Shared Calendar: the user will create and share to another user an appointment type covering all their time slots"
 msgstr ""
+"Utilisé pour définir la catégorie de ce type de rendez-vous.\n"
+"\n"
+"        Peut être l'une des possibilités suivantes :\n"
+"\n"
+"            - Régulier : la catégorie par défaut, créneaux récurrents hebdomadaires. Accessible depuis le site web\n"
+"\n"
+"            - Ponctuel : créneaux réguliers limités entre 2 dates/horaires. Accessible depuis le site web\n"
+"\n"
+"            - Créneaux spécifiques : l’utilisateur créera et partagera avec un autre utilisateur un type de rendez-vous personnalisé avec des créneaux horaires spécifiques\n"
+"\n"
+"            - Calendrier partagé : l’utilisateur créera et partagera avec un autre utilisateur un type de rendez-vous couvrant tous ses créneaux horaires"
 
 #. module: appointment
 #: model:res.groups,name:appointment.group_appointment_user
