@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:42+0000\n"
+"POT-Creation-Date: 2025-01-17 14:28+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
@@ -266,13 +266,6 @@ msgstr "Modèle de plan comptable"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
-msgid "Account Code"
-msgstr "Code du compte"
-
-#. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid "Account Code / Tag"
 msgstr "Code de compte / Étiquette"
 
@@ -280,6 +273,13 @@ msgstr "Code de compte / Étiquette"
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_display_representative_field
 msgid "Account Display Representative Field"
 msgstr "Champ représentatif de l'affichage du compte"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Account Name"
+msgstr "Nom du compte"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_custom_handler
@@ -977,6 +977,13 @@ msgstr "Écriture de clôture"
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_closing_bank_balance0
 msgid "Closing bank balance"
 msgstr "Solde de clôture bancaire "
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Code"
+msgstr "Code"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2410,6 +2417,15 @@ msgid "Line"
 msgstr "Ligne"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid ""
+"Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
+"This is not allowed."
+msgstr ""
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
 #, python-format
@@ -2956,7 +2972,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_fixed_assets_view0
 msgid "Plus Fixed Assets"
-msgstr "Plus immobilisations"
+msgstr "Plus actifs immobilisés"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_non_current_assets_view0
@@ -3013,27 +3029,6 @@ msgstr "Prévisualiser les données"
 #, python-format
 msgid "Previous Period"
 msgstr "Période précédente"
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
-#, python-format
-msgid "Previous Periods"
-msgstr "Périodes précédentes"
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
-#, python-format
-msgid "Previous Year"
-msgstr "Année précédente"
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
-#, python-format
-msgid "Previous Years"
-msgstr "Années précédentes"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_previous_year_earnings0
@@ -3541,7 +3536,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 #, python-format
 msgid "The column '%s' is not available for this report."
-msgstr ""
+msgstr "La colonne '%s' n’est pas disponible pour ce rapport."
 
 #. module: account_reports
 #. odoo-python
@@ -3720,6 +3715,22 @@ msgid ""
 msgstr ""
 "Cette ligne et tous ses enfants seront supprimés. Êtes-vous sûr de vouloir "
 "continuer ?"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
+#, python-format
+msgid "This line is out of sequence."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
+#, python-format
+msgid ""
+"This line is placed before its parent, which is not allowed. You can fix it "
+"by dragging it to the proper position."
+msgstr ""
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form

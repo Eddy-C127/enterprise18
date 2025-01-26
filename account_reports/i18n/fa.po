@@ -11,18 +11,18 @@
 # Yousef Shadmanesh <y.shadmanesh@gmail.com>, 2023
 # Hamid Darabi, 2023
 # M.Hossein S.Farvashani <Farvashani@gmail.com>, 2023
-# Martin Trigaux, 2024
 # Mohsen Mohammadi <iammohsen.123@gmail.com>, 2024
 # Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024
 # fardin mardani <fmardani0@gmail.com>, 2024
 # Hanna Kheradroosta, 2024
+# Martin Trigaux, 2025
 # Hamed Mohammadi <hamed@dehongi.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:42+0000\n"
+"POT-Creation-Date: 2025-01-17 14:28+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Hamed Mohammadi <hamed@dehongi.com>, 2025\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
@@ -270,13 +270,6 @@ msgstr "قالب جدول حساب"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
-msgid "Account Code"
-msgstr "کد حساب"
-
-#. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid "Account Code / Tag"
 msgstr "کد/برچسب حساب"
 
@@ -284,6 +277,13 @@ msgstr "کد/برچسب حساب"
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_display_representative_field
 msgid "Account Display Representative Field"
 msgstr "فیلد نمایش حساب"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Account Name"
+msgstr "نام حساب"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_custom_handler
@@ -971,6 +971,13 @@ msgstr "ورودی های بستن"
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_closing_bank_balance0
 msgid "Closing bank balance"
 msgstr "تراز بسته شدن بانک"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Code"
+msgstr "کد"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2394,6 +2401,15 @@ msgid "Line"
 msgstr "سطر"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid ""
+"Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
+"This is not allowed."
+msgstr ""
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
 #, python-format
@@ -2988,27 +3004,6 @@ msgstr "پیش‌نمایش داده"
 #, python-format
 msgid "Previous Period"
 msgstr "دوره قبلی"
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
-#, python-format
-msgid "Previous Periods"
-msgstr ""
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
-#, python-format
-msgid "Previous Year"
-msgstr "سال پیشین"
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
-#, python-format
-msgid "Previous Years"
-msgstr ""
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_previous_year_earnings0
@@ -3686,6 +3681,22 @@ msgid ""
 "proceed?"
 msgstr ""
 "این سطر و تمام زیر سطرهای آن حذف خواهند شد. آیا از ادامه‌ی کار مطمئن هستید؟"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
+#, python-format
+msgid "This line is out of sequence."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
+#, python-format
+msgid ""
+"This line is placed before its parent, which is not allowed. You can fix it "
+"by dragging it to the proper position."
+msgstr ""
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form

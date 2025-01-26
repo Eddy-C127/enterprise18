@@ -784,7 +784,7 @@ msgstr ""
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #, python-format
 msgid "Edit Statement"
-msgstr ""
+msgstr "Επεξεργασία Δήλωσης"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__date_to
@@ -795,7 +795,7 @@ msgstr "Ημερ. Λήξης"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_fiscal_year__date_to
 msgid "Ending Date, included in the fiscal year."
-msgstr ""
+msgstr "Ημερομηνία Κλεισίματος, περιλαμβάνεται στο φορολογικό έτος."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_company__invoicing_switch_threshold
@@ -806,19 +806,25 @@ msgid ""
 "after installing Accounting if you were using only Invoicing before, before "
 "importing all your actual accounting data in to Odoo."
 msgstr ""
+"Κάθε πληρωμή και τιμολόγιο θα λάβει πριν από αυτή την ημερομηνία την "
+"κατάσταση \"Από Τιμολόγηση\",  αποκρύπτοντας όλες τις λογιστικές εγγραφές "
+"που σχετίζονται με αυτό. Χρησιμοποιήστε την επιλογή αυτή μετά την "
+"εγκατάσταση της Λογιστικής, αν πριν χρησιμοποιούσατε μόνο την Τιμολόγηση, "
+"πριν από την εισαγωγή όλων των πραγματικών λογιστικών δεδομένων σας στο "
+"Odoo. "
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 #, python-format
-msgid "Exchange Difference: %s"
+msgid "Exchange Difference%s"
 msgstr ""
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_open_auto_reconcile_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_auto_reconcile_wizard
 msgid "Find Entries to Reconcile Automatically"
-msgstr ""
+msgstr "Εύρεση Εγγραφώ για Αυτόματη Συμφιλίωση"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_fiscal_year
@@ -829,7 +835,7 @@ msgstr "Λογιστική Χρήση"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.action_account_fiscal_year_form
 msgid "Fiscal Year 2018"
-msgstr ""
+msgstr "Φορολογικό Έτος 2018"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.actions_account_fiscal_year
@@ -837,7 +843,7 @@ msgstr ""
 #: model:ir.ui.menu,name:account_accountant.menu_account_fiscal_year
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Fiscal Years"
-msgstr ""
+msgstr "Φορολογικά Έτη"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__fiscalyear_last_day
@@ -852,7 +858,7 @@ msgstr "Τελευταίος Μήνας Οικονομικού Έτους"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__flag
 msgid "Flag"
-msgstr ""
+msgstr "Σημαία"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__force_partials
@@ -867,12 +873,12 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
 msgid "Foreign Currency"
-msgstr ""
+msgstr "Ξένο Συνάλλαγμα"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__form_index
 msgid "Form Index"
-msgstr ""
+msgstr "Δείκτης Φόρμας"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__from_date
@@ -882,12 +888,12 @@ msgstr "Από"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "From Trade Payable accounts"
-msgstr ""
+msgstr "Από Πληρωτέοι Εμπορικοί λογαριασμοί"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "From Trade Receivable accounts"
-msgstr ""
+msgstr "Από Εισπρακτέοι Εμπορικοί λογαριασμοί"
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_0
@@ -901,29 +907,29 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__full_months
 msgid "Full Months"
-msgstr ""
+msgstr "Ολόκληροι Μήνες"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Generate Deferred Expense Entries Method"
-msgstr ""
+msgstr "Δημιουργία Μεθόδου Εγγραφών Αναβαλλόμενων Εξόδων"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_revenue_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Generate Deferred Revenue Entries Method"
-msgstr ""
+msgstr "Δημιουργία Μεθόδου Εγγραφών Αναβαλλόμενων Εσόδων"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Generate Expense Entries"
-msgstr ""
+msgstr "Δημιουργία Εγγραφών Εξόδων"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Generate Revenue Entries"
-msgstr ""
+msgstr "Δημιουργία Εγγραφών Εσόδων"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -932,7 +938,7 @@ msgstr ""
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 #, python-format
 msgid "Go to invoicing"
-msgstr ""
+msgstr "Μετάβαση στην τιμολόγηση"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -942,6 +948,8 @@ msgid ""
 "Great! Let’s continue.<br/><br/><i>Tip: If you choose to upload your bill, "
 "don’t forget to attach it.</i>"
 msgstr ""
+"Υπέροχα! Ας συνεχίσουμε. <br/><br/><i>Συμβουλή: Αν επιλέξετε να ανεβάσετε το"
+" λογαριασμό σας, μην ξεχάσετε να τον επισυνάψετε.</i>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -956,7 +964,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_move_line__has_deferred_moves
 msgid "Has Deferred Moves"
-msgstr ""
+msgstr "Έχει Αναβαλλόμενες Κινήσεις"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__id
@@ -975,6 +983,9 @@ msgid ""
 "related information at the time of the creation of the move and that the "
 "move needs to be checked again."
 msgstr ""
+"Εάν αυτό το πλαίσιο είναι ενεργοποιημένο, σημαίνει ότι ο χρήστης δεν ήταν "
+"σίγουρος για όλες τις σχετικές πληροφορίες κατά τη στιγμή της δημιουργίας "
+"της κίνησης και ότι η κίνηση πρέπει να ελεγχθεί ξανά."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_search_bank_rec_widget
@@ -989,21 +1000,23 @@ msgid ""
 "Incorrect fiscal year date: day is out of range for month. Month: %s; Day: "
 "%s"
 msgstr ""
+"Λανθασμένη ημερομηνία φορολογικού έτους: η ημέρα είναι εκτός εύρους για τον "
+"μήνα. Μήνας: %s; Ημέρα: %s"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__index
 msgid "Index"
-msgstr ""
+msgstr "Δείκτης"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__invalid
 msgid "Invalid"
-msgstr ""
+msgstr "Μη έγκυρο"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 msgid "Invalid statements"
-msgstr ""
+msgstr "Μη έγκυρες αναφορές"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_bank_rec_widget__state
@@ -1031,7 +1044,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__is_multi_currency
 msgid "Is Multi Currency"
-msgstr ""
+msgstr "Έχει Πολλαπλά Συναλλάγματα"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_is_reconciled

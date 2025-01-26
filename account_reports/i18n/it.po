@@ -5,16 +5,16 @@
 # Translators:
 # Martin Trigaux, 2024
 # Sergio Zanchetta <primes2h@gmail.com>, 2024
-# Wil Odoo, 2025
 # Marianna Ciofani, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:42+0000\n"
+"POT-Creation-Date: 2025-01-17 14:28+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Marianna Ciofani, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/odoo/teams/41243/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -262,13 +262,6 @@ msgstr "Modello piano dei conti"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
-msgid "Account Code"
-msgstr "Codice conto"
-
-#. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid "Account Code / Tag"
 msgstr "Codice conto/tag"
 
@@ -276,6 +269,13 @@ msgstr "Codice conto/tag"
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_display_representative_field
 msgid "Account Display Representative Field"
 msgstr "Campo rappresentativo visualizzazione conto"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Account Name"
+msgstr "Nome conto"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_custom_handler
@@ -969,6 +969,13 @@ msgstr "Voce di chiusura"
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_closing_bank_balance0
 msgid "Closing bank balance"
 msgstr "Bilancio finale di liquidità"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Code"
+msgstr "Codice"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2401,6 +2408,15 @@ msgid "Line"
 msgstr "Riga"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid ""
+"Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
+"This is not allowed."
+msgstr ""
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
 #, python-format
@@ -3005,27 +3021,6 @@ msgstr "Anteprima dati"
 #, python-format
 msgid "Previous Period"
 msgstr "Periodo precedente"
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
-#, python-format
-msgid "Previous Periods"
-msgstr "Periodi precedenti"
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
-#, python-format
-msgid "Previous Year"
-msgstr "Anno precedente"
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
-#, python-format
-msgid "Previous Years"
-msgstr "Anni precedenti"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_previous_year_earnings0
@@ -3713,6 +3708,22 @@ msgid ""
 msgstr ""
 "Questa riga e le righe figlie verranno eliminate. Sei sicuro di voler "
 "continuare?"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
+#, python-format
+msgid "This line is out of sequence."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
+#, python-format
+msgid ""
+"This line is placed before its parent, which is not allowed. You can fix it "
+"by dragging it to the proper position."
+msgstr ""
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form

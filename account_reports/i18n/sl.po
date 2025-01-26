@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:42+0000\n"
+"POT-Creation-Date: 2025-01-17 14:28+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Slovenian (https://app.transifex.com/odoo/teams/41243/sl/)\n"
@@ -262,13 +262,6 @@ msgstr "Predloga kontnega načrta"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
-msgid "Account Code"
-msgstr ""
-
-#. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid "Account Code / Tag"
 msgstr ""
 
@@ -276,6 +269,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_display_representative_field
 msgid "Account Display Representative Field"
 msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Account Name"
+msgstr "Naziv računa"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_custom_handler
@@ -961,6 +961,13 @@ msgstr ""
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_closing_bank_balance0
 msgid "Closing bank balance"
 msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Code"
+msgstr "Oznaka"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2363,6 +2370,15 @@ msgid "Line"
 msgstr "Postavka"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid ""
+"Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
+"This is not allowed."
+msgstr ""
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
 #, python-format
@@ -2950,27 +2966,6 @@ msgstr ""
 #, python-format
 msgid "Previous Period"
 msgstr "Prejšnje obdobje"
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
-#, python-format
-msgid "Previous Periods"
-msgstr ""
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
-#, python-format
-msgid "Previous Year"
-msgstr "Prejšnje leto"
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
-#, python-format
-msgid "Previous Years"
-msgstr ""
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_previous_year_earnings0
@@ -3624,6 +3619,22 @@ msgstr ""
 msgid ""
 "This line and all its children will be deleted. Are you sure you want to "
 "proceed?"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
+#, python-format
+msgid "This line is out of sequence."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
+#, python-format
+msgid ""
+"This line is placed before its parent, which is not allowed. You can fix it "
+"by dragging it to the proper position."
 msgstr ""
 
 #. module: account_reports

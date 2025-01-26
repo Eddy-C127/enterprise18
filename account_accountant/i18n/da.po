@@ -12,6 +12,7 @@
 # Sanne Kristensen <sanne@vkdata.dk>, 2024
 # Martin Trigaux, 2024
 # Mads Søndergaard, 2024
+# Sammi Iversen <sammi@vkdata.dk>, 2025
 # 
 msgid ""
 msgstr ""
@@ -19,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Mads Søndergaard, 2024\n"
+"Last-Translator: Sammi Iversen <sammi@vkdata.dk>, 2025\n"
 "Language-Team: Danish (https://app.transifex.com/odoo/teams/41243/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -101,12 +102,12 @@ msgstr "<i>Lås specifikke journalbilag</i>"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "<span class=\"o_stat_text\">1 Bank Transaction</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">1 Banktransaktion</span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "<span class=\"o_stat_text\">Bank Statement</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Bankudtog</span>"
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_1
@@ -228,7 +229,7 @@ msgstr ""
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/finish_buttons.xml:0
 #, python-format
 msgid "All Transactions"
-msgstr ""
+msgstr "Alle transaktioner"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
@@ -238,7 +239,7 @@ msgstr "All Brugere Låsedato"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_model_autocomplete_ids
 msgid "All reconciliation models"
-msgstr ""
+msgstr "Alle afstemningsmodeller"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__allow_partials
@@ -264,14 +265,14 @@ msgstr "Beløb"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Amount (Company Currency)"
-msgstr ""
+msgstr "Beløb (virksomheds valuta)"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Amount (Foreign Currency)"
-msgstr ""
+msgstr "Beløb (fremmed valuta)"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -294,7 +295,7 @@ msgstr "Beløb i valuta"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__amount
 msgid "Amount in company currency"
-msgstr ""
+msgstr "Beløb i virksomhedens valuta"
 
 #. module: account_accountant
 #. odoo-python
@@ -799,7 +800,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 #, python-format
-msgid "Exchange Difference: %s"
+msgid "Exchange Difference%s"
 msgstr ""
 
 #. module: account_accountant
