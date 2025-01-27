@@ -34,8 +34,18 @@ class AccountPayment(models.Model):
         sepa_payment_method = self.env.ref('account_sepa.account_payment_method_sepa_ct')
         for rec in self:
             if rec.payment_method_id == sepa_payment_method:
-                if not rec.journal_id.bank_account_id or not rec.journal_id.bank_account_id.acc_type == 'iban':
-                    raise ValidationError(_("The journal '%s' requires a proper IBAN account to pay via SEPA. Please configure it first.", rec.journal_id.name))
+                if rec.journal_id.sepa_pain_version == 'iso_20022' and not rec.journal_id.bank_account_id:
+                    raise ValidationError(_(
+                        "The journal '%s' requires a bank account to pay via ISO 20022. Please configure it first.",
+                        rec.journal_id.name
+                    ))
+                if rec.journal_id.sepa_pain_version != 'iso_20022' and (
+                    not rec.journal_id.bank_account_id or not rec.journal_id.bank_account_id.acc_type == 'iban'
+                ):
+                    raise ValidationError(_(
+                        "The journal '%s' requires a proper IBAN account to pay via SEPA. Please configure it first.",
+                        rec.journal_id.name
+                    ))
 
     def _get_payment_method_codes_to_exclude(self):
         res = super()._get_payment_method_codes_to_exclude()
