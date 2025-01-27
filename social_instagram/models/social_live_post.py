@@ -108,7 +108,7 @@ class SocialLivePostInstagram(models.Model):
                 'access_token': account.instagram_access_token,
                 'creation_id': media_result.json()['id'],
             },
-            timeout=5
+            timeout=10
         )
 
         if (publish_result.status_code == 200):
