@@ -107,7 +107,7 @@ class Frontdesk(models.Model):
         return {
             'type': 'ir.actions.act_url',
             'url': self.kiosk_url,
-            'target': 'new',
+            'target': 'self',
         }
 
     def install_kiosk(self):
