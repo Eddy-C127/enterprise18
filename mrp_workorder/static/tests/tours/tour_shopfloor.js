@@ -838,3 +838,35 @@ registry.category("web_tour.tours").add("test_under_consume_materials_in_shopflo
         },
     ],
 });
+
+registry.category("web_tour.tours").add('test_mrp_manual_consumption_in_shopfloor', {
+    steps: () => [
+        {
+            trigger: ".form-check:has(input[name='Nuclear Workcenter'])",
+            run: "click"
+        },
+        {
+            trigger: '.form-check:has(input[name="Nuclear Workcenter"]:checked)',
+        },
+        {
+            trigger: "button:contains('Confirm')",
+            run: "click"
+        },
+        {
+            trigger: "button.btn-light:contains('Nuclear Workcenter')",
+            run: "click"
+        },
+        {
+            trigger: ".o_control_panel_actions button.active:contains('Nuclear Workcenter')",
+        },
+        {
+            trigger: ".o_finished_product span:contains('Finish')",
+            run: "click"
+        },
+        {
+            trigger: ".o_mrp_display_record.o_active",
+        },
+        {
+            trigger: ".o_mrp_record_line:not(.text-muted) span:contains('Component')",
+        },
+]});
