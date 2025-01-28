@@ -111,18 +111,7 @@ class AccountReconcileModel(models.Model):
             if currency.is_zero(balance):
                 continue
 
-            writeoff_line = {
-                'name': line.label,
-                'balance': balance,
-                'debit': balance > 0 and balance or 0,
-                'credit': balance < 0 and -balance or 0,
-                'account_id': line.account_id.id,
-                'currency_id': currency.id,
-                'analytic_distribution': line.analytic_distribution,
-                'reconcile_model_id': self.id,
-                'journal_id': line.journal_id.id,
-                'tax_ids': [],
-            }
+            writeoff_line = line._get_write_off_move_line_dict(balance, currency)
             lines_vals_list.append(writeoff_line)
 
             residual_balance -= balance
