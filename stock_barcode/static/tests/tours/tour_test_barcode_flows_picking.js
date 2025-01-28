@@ -4778,16 +4778,32 @@ registry.category("web_tour.tours").add("test_select_with_same_product_and_lot",
             run: 'scan lot_xyz',
         },
         {
+            trigger: '.o_barcode_scanner_qty .qty-done:contains("1")',
+            run() {},
+        },
+        {
             trigger: '.o_barcode_client_action',
             run: 'scan lot_xyz',
+        },
+        {
+            trigger: '.o_barcode_scanner_qty .qty-done:contains("2")',
+            run() {},
         },
         {
             trigger: '.o_barcode_lines',
             run: function() {
                 const line1 = document.querySelector('.o_barcode_line:first-child');
                 const line2 = document.querySelector('.o_barcode_line:last-child');
-                helper.assert(line1.querySelector('.o_barcode_scanner_qty .qty-done').innerText, '0');
-                helper.assert(line2.querySelector('.o_barcode_scanner_qty .qty-done').innerText, '2');
+                helper.assert(
+                    line1.querySelector('.o_barcode_scanner_qty .qty-done').innerText,
+                    '0',
+                    'No product should be scanned for the first line'
+                );
+                helper.assert(
+                    line2.querySelector('.o_barcode_scanner_qty .qty-done').innerText,
+                    '2',
+                    '2 products should be scanned for the second line'
+                );
             },
         },
         // Select the first line
@@ -4798,8 +4814,16 @@ registry.category("web_tour.tours").add("test_select_with_same_product_and_lot",
             run: 'scan lot_xyz',
         },
         {
+            trigger: '.o_barcode_scanner_qty .qty-done:contains("1")',
+            run() {},
+        },
+        {
             trigger: '.o_barcode_client_action',
             run: 'scan lot_xyz',
+        },
+        {
+            trigger: '.o_barcode_scanner_qty .qty-done:contains("2")',
+            run() {},
         },
         {
             trigger: '.o_barcode_line.o_line_completed',
