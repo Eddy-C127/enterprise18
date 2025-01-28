@@ -4,11 +4,12 @@
 # 
 # Translators:
 # Giota Dandidou <giotadandidou@gmail.com>, 2024
-# Alexandros Kapetanios <alexandros@gnugr.org>, 2024
 # George Tarasidis <george_tarasidis@yahoo.com>, 2024
 # Stefanos Nikou <stefanos.nikou@gmail.com>, 2024
 # Kostas Goutoudis <goutoudis@gmail.com>, 2024
 # Martin Trigaux, 2024
+# Georgios Geitonas, 2025
+# Iasonas Polydoros, 2025
 # 
 msgid ""
 msgstr ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Iasonas Polydoros, 2025\n"
 "Language-Team: Greek (https://app.transifex.com/odoo/teams/41243/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,12 +34,12 @@ msgstr ""
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 msgid "<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Serial/Lot Number\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Serial/Lot Number\"/>"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 msgid "<i class=\"fa fa-fw fa-lg fa-cube me-3\" title=\"Quantity\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-fw fa-lg fa-cube me-3\" title=\"Quantity\"/>"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
@@ -46,47 +47,49 @@ msgid ""
 "<i class=\"fa fa-fw fa-lg fa-long-arrow-right me-3\" title=\"Scrap "
 "Location\"/>"
 msgstr ""
+"<i class=\"fa fa-fw fa-lg fa-long-arrow-right me-3\" title=\"Scrap "
+"Location\"/>"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 msgid "<i class=\"fa fa-fw fa-lg fa-tags me-3\" title=\"Product\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-fw fa-lg fa-tags me-3\" title=\"Product\"/>"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode_kanban_2
 msgid "<i class=\"fa fa-lg fa-archive\" title=\"Package\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-lg fa-archive\" title=\"Package\"/>"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode_kanban_2
 msgid "<i class=\"fa fa-lg fa-user-o\" title=\"Owner\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-lg fa-user-o\" title=\"Owner\"/>"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
 msgid "<i class=\"fa fa-print\"/> Print barcode commands and operation types"
-msgstr ""
+msgstr "<i class=\"fa fa-print\"/> Εκτύπωση εντολών barcode και τύπων ενεργειών"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
 msgid "<i class=\"fa fa-print\"/> Print barcode demo sheet"
-msgstr ""
+msgstr "<i class=\"fa fa-print\"/> Εκτύπωση σελίδας barcode demo"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
 msgid "<i class=\"fa fa-print\"/> Print storage locations"
-msgstr ""
+msgstr "Εκτύπωση τοποθεσιών αποθήκευσης"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
 msgid "<i class=\"fa fs-4 fa-tags me-1\" title=\"Product\"/>"
-msgstr ""
+msgstr "<i class=\"fa fs-4 fa-tags me-1\" title=\"Product\"/>"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 msgid "<span>Replenish Quantities</span>"
-msgstr ""
+msgstr "<span>Ανατροφοδοσία Ποσοτήτων</span>"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -95,51 +98,53 @@ msgid ""
 "A product tracked by serial numbers can't have multiple quantities for the "
 "same serial number."
 msgstr ""
+"Ένα είδος που παρακολουθείται με σειριακούς αριθμούς δεν μπορεί να έχει "
+"πολλαπλές ποσότητες για τον ίδιο σειριακό αριθμό"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/main.js:0
 msgid "Add Product"
-msgstr ""
+msgstr "Προσθήκη Είδους"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Add extra product?"
-msgstr ""
+msgstr "Προσθήκη επιπλέον είδους;"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_put_in_pack__mandatory
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_dest_location__mandatory
 msgid "After each product"
-msgstr ""
+msgstr "Έπειτα από κάθε είδος"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_put_in_pack__optional
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_dest_location__optional
 msgid "After group of Products"
-msgstr ""
+msgstr "Έπειτα από μία ομάδα ειδών"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "All products need to be packed"
-msgstr ""
+msgstr "Όλα τα είδη πρέπει να μπουν σε περιέκτη"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_barcode
 msgid "Allocation"
-msgstr "Επιμερισμός"
+msgstr "Κατανομή"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_allow_extra_product
 msgid "Allow extra products"
-msgstr ""
+msgstr "Να επιτρέπονται επιπλέον είδη"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_validation_full
 msgid "Allow full picking validation"
-msgstr ""
+msgstr "Να επιτρέπεται η πλήρης επικύρωση συλλογής"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__barcode_validation_full
@@ -179,18 +184,18 @@ msgstr "Εφαρμογή"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_cancel_operation_view
 msgid "Are you sure you want to cancel this operation?"
-msgstr ""
+msgstr "Είστε σίγουρος ότι θέλετε να ακυρώσετε αυτήν την ενέργεια;"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
 msgid "Backorder"
-msgstr ""
+msgstr "Εκκρεμής Παραγγελία"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_backorder_confirmation
 msgid "Backorder Confirmation"
-msgstr ""
+msgstr "Επιβεβαίωση Εκκρεμούς Παραγγελίας"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -205,7 +210,7 @@ msgstr "Barcode"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
 msgid "Barcode App"
-msgstr ""
+msgstr "Εφαρμοφή Barcode"
 
 #. module: stock_barcode
 #: model:ir.actions.client,name:stock_barcode.stock_barcode_inventory_client_action
@@ -231,7 +236,7 @@ msgstr "Barcode Σαρώθηκε"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "Barcode Scanner"
-msgstr "Scanner Barcode"
+msgstr "Σαρωτής Barcode"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -243,7 +248,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/stock_barcode/controllers/stock_barcode.py:0
 msgid "Barcodes are not available."
-msgstr ""
+msgstr "Τα Barcodes δεν είναι διαθέσιμα"
 
 #. module: stock_barcode
 #: model:product.template,name:stock_barcode.product_cable_management_box_2_product_template
@@ -260,24 +265,24 @@ msgstr "Ακύρωση"
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_barcode_cancel_operation
 msgid "Cancel Operation"
-msgstr ""
+msgstr "Ακύρωση Ενέργειας"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Cancel Transfer"
-msgstr ""
+msgstr "Ακύρωση Κίνησης"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_cancel_operation_view
 msgid "Cancel operation"
-msgstr ""
+msgstr "Ακύρωση ενέργειας"
 
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_picking.py:0
 msgid "Cancel this operation?"
-msgstr ""
+msgstr "Ακύρωση αυτής της ενέργειας;"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -291,7 +296,7 @@ msgstr "Κλείσιμο"
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_res_config_settings
 msgid "Config Settings"
-msgstr "Ρυθμίσεις διαμόρφωσης"
+msgstr "Ρυθμίσεις Διαμόρφωσης"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
@@ -314,17 +319,17 @@ msgstr "Επαφή"
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__group_barcode_count_entire_location
 #: model:res.groups,name:stock_barcode.group_barcode_count_entire_location
 msgid "Count Entire Locations"
-msgstr ""
+msgstr "Καταμέτρηση Ολόκληρων Τοποθεσιών"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
 msgid "Counted Quantity"
-msgstr ""
+msgstr "Καταμετρημένη Ποσότητα"
 
 #. module: stock_barcode
 #: model_terms:ir.actions.act_window,help:stock_barcode.stock_picking_action_kanban
 msgid "Create a new transfer"
-msgstr ""
+msgstr "Δημιουργία νέας κίνησης"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__create_uid
@@ -368,18 +373,18 @@ msgstr "Τοποθεσία Προορισμού"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 msgid "Destination Package"
-msgstr "Πακέτο Προορισμού"
+msgstr "Περιέκτης Προορισμού"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Destination location must be scanned"
-msgstr ""
+msgstr "Η τοποθεσία προορισμού πρέπει να σαρωθεί"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
 msgid "Disable sound effect while scanning a barcode."
-msgstr ""
+msgstr "Απενεργοποίηση ήχου κατά την σάρωση barcode."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -394,7 +399,7 @@ msgstr "Απόρριψη"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__display_name
 msgid "Display Name"
-msgstr "Εμφάνιση Ονόματος"
+msgstr "Εμφανιζόμενο Όνομα"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -431,7 +436,7 @@ msgstr "Να μην εμφανιστεί ξανά αυτό το μήνυμα"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
 msgid "Done /"
-msgstr ""
+msgstr "Ολοκλήρωση"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -460,24 +465,24 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
 msgid "Enter a barcode..."
-msgstr ""
+msgstr "Πληκτρολογήστε ένα barcode..."
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
 msgid "Final Validation"
-msgstr ""
+msgstr "Τελική Επικύρωση"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Following backorder was created:"
-msgstr ""
+msgstr "Η ακόλουθη εκκρεμότητα δημιουργήθηκε:"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Following backorders were created:"
-msgstr ""
+msgstr "Οι ακόλουθες εκκρεμότητες δημιουργήθηκαν:"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__barcode_allow_extra_product
@@ -487,22 +492,22 @@ msgstr ""
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_dest_location
 msgid "Force Destination Location scan?"
-msgstr ""
+msgstr "Υποχρεωτική σάρωση τοποθεσίας προορισμού;"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_tracking_number
 msgid "Force Lot/Serial scan?"
-msgstr ""
+msgstr "Υποχρεωτική σάρωση παρτίδας / σειριακού;"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_product
 msgid "Force Product scan?"
-msgstr ""
+msgstr "Υποχρεωτική σάρωση είδους;"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_source_location
 msgid "Force Source Location scan?"
-msgstr ""
+msgstr "Υποχρεωτική σάρωση τοποθεσίας προέλευσης;"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_validation_after_dest_location
@@ -517,7 +522,7 @@ msgstr ""
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_put_in_pack
 msgid "Force put in pack?"
-msgstr ""
+msgstr "Υποχρεωτική τοποθέτηση σε περιέκτη;"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__formatted_product_barcode
@@ -532,12 +537,12 @@ msgstr ""
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__hide_lot
 msgid "Hide Lot"
-msgstr ""
+msgstr "Απόκρυψη Παρτίδας"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__hide_lot_name
 msgid "Hide Lot Name"
-msgstr ""
+msgstr "Απόκρυψη Ονόματος Παρτίδας"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__id
@@ -551,6 +556,8 @@ msgid ""
 "If the source location must be scanned, then the destination location must "
 "either be scanned after each product or not scanned at all."
 msgstr ""
+"Εάν η τοποθεσία προέλευσης πρέπει να σαρωθεί, τότε η τοποθεσία προορισμού "
+"πρέπει είτε να σαρωθεί μετά από κάθε προϊόν είτε να μην σαρωθεί καθόλου."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -569,7 +576,7 @@ msgstr "Εικόνα"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
 msgid "Incomplete Transfer"
-msgstr ""
+msgstr "Ανολοκλήρωτη Κίνηση"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -599,12 +606,12 @@ msgstr "Τοποθεσίες Αποθέματος"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "Inventory count"
-msgstr ""
+msgstr "Απογραφή"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__is_barcode_picking_type
 msgid "Is Barcode Picking Type"
-msgstr ""
+msgstr "Είναι Τύπος Συλλογής με Barcode"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__write_uid
@@ -625,7 +632,7 @@ msgstr "Αφήστε το"
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__restrict_scan_product
 msgid "Line's product must be scanned before the line can be edited"
-msgstr ""
+msgstr "Το είδος της γραμμής πρέπει να σαρωθεί πριν επεξεργαστεί η γραμμή"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
@@ -660,13 +667,13 @@ msgstr ""
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_tracking_number__mandatory
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
 msgid "Mandatory Scan"
-msgstr ""
+msgstr "Υποχρεωτική Σάρωση"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Mandatory Source Location"
-msgstr ""
+msgstr "Υποχρεωτική Τοποθεσία Προέλευσης"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__barcode_max_time_between_keys_in_ms
@@ -686,7 +693,7 @@ msgstr ""
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__stock_barcode_mute_sound_notifications
 msgid "Mute Barcode application sounds"
-msgstr ""
+msgstr "Σίγαση ήχων εφαρμογής Barcode"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_put_in_pack__no
@@ -717,24 +724,27 @@ msgstr ""
 msgid ""
 "No internal operation type. Please configure one in warehouse settings."
 msgstr ""
+"Δεν υπάρχει τύπος εσωτερικής ενέργειας. Παρακαλώ διαμορφώστε ένα στις "
+"ρυθμίσεις της αποθήκης."
 
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/controllers/stock_barcode.py:0
 msgid "No picking or location or product corresponding to barcode %(barcode)s"
 msgstr ""
+"Καμία συλλογή ή τοποθεσία ή είδος δεν αντιστοιχεί στο barcode %(barcode)s"
 
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/controllers/stock_barcode.py:0
 msgid "No picking or product corresponding to barcode %(barcode)s"
-msgstr ""
+msgstr "Καμία συλλογή ή είδος δεν αντιστοιχεί στο barcode %(barcode)s"
 
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_picking.py:0
 msgid "No product, lot or package found for barcode %s"
-msgstr ""
+msgstr "Κανένα είδος, παρτίδα ή περιέκτης για το barcode %s"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -745,13 +755,13 @@ msgstr ""
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__barcode_nomenclature_id
 msgid "Nomenclature"
-msgstr ""
+msgstr "Ονοματολογία"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Not the expected scan"
-msgstr ""
+msgstr "Μη αναμενόμενη σάρωση"
 
 #. module: stock_barcode
 #. odoo-python
@@ -767,12 +777,12 @@ msgstr ""
 #: model:ir.actions.act_window,name:stock_barcode.stock_picking_action_kanban
 #: model:ir.actions.act_window,name:stock_barcode.stock_picking_type_action_kanban
 msgid "Operations"
-msgstr "Λειτουργίες"
+msgstr "Ενέργειες"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_tracking_number__optional
 msgid "Optional Scan"
-msgstr ""
+msgstr "Προαιρετική Σάρωση"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
@@ -788,19 +798,19 @@ msgstr "Ιδιοκτήτης"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
 msgid "Package"
-msgstr "Πακέτο"
+msgstr "Περιέκτης"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 msgid "Package type %(type)s applied to the package %(package)s"
-msgstr ""
+msgstr "Ο τύπος περιέκτη %(type)s εφρμόστηκε στον περιέκτη %(package)s"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_quant_package
 msgid "Packages"
-msgstr "Συσκευασίες"
+msgstr "Περιέκτες"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_packaging_id
@@ -810,7 +820,7 @@ msgstr "Συσκευασίες"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_packaging_uom_qty
 msgid "Packaging Quantity"
-msgstr ""
+msgstr "Ποσότητα Συσκευασίας"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__parent_location_id
@@ -830,30 +840,31 @@ msgstr ""
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_barcode
 msgid "Picking Details"
-msgstr ""
+msgstr "Λεπτομέρειες Συλλογής"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_picking_type
 msgid "Picking Type"
-msgstr "Τύπος Διαλογής"
+msgstr "Τύπος Συλλογής"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Please scan destination location for %s before scanning other product"
 msgstr ""
+"Παρακαλώ σαρώστε τοποθεσία προορισμού για το %s πριν τη σάρωση άλλου είδους"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/main.js:0
 msgid "Please, Scan again!"
-msgstr ""
+msgstr "Παρακαλώ σαρώστε ξανά!"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Press Validate or scan another product"
-msgstr ""
+msgstr "Πατήστε επικύρωση ή σαρώστε άλλο προϊόν"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -865,13 +876,13 @@ msgstr "Εκτύπωση"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Print Barcodes"
-msgstr ""
+msgstr "Εκτύπωση Barcodes"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Print Delivery Slip"
-msgstr ""
+msgstr "Εκτύπωση Δελτίου Αποστολής"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -883,7 +894,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Print Packages"
-msgstr ""
+msgstr "Εκτύπωση Περιεκτών "
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -922,12 +933,12 @@ msgstr "Barcodes Είδους"
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr ""
+msgstr "Κινήσεις Ειδών (Γραμμή Κίνησης Αποθέματος)"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_product_packaging
 msgid "Product Packaging"
-msgstr ""
+msgstr "Συσκευασίες Ειδών"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_reference_code
@@ -948,18 +959,18 @@ msgstr "Μονάδα Μέτρησης Είδους"
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_product_product
 msgid "Product Variant"
-msgstr "Μεταβλητή Είδους"
+msgstr "Παραλλαγή Είδους"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/main.xml:0
 msgid "Put In Pack"
-msgstr ""
+msgstr "Προσθήκη σε Περιέκτη "
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
 msgid "Put in Pack"
-msgstr ""
+msgstr "Προσθήκη σε Περιέκτη "
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__qty_done
@@ -980,7 +991,7 @@ msgstr "Ολοκληρωμένη Ποσότητα"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 msgid "Quantity in stock"
-msgstr ""
+msgstr "Ποσότητα σε απόθεμα"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_move_line__product_packaging_uom_qty
@@ -1019,7 +1030,7 @@ msgstr "Αφαιρέστε το"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/main.xml:0
 msgid "Return Products"
-msgstr "Επιστροφές Ειδών"
+msgstr "Επιστροφή Ειδών"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1032,31 +1043,32 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 msgid "Scan a location"
-msgstr ""
+msgstr "Σαρώστε μία τοποθεσία"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a lot number"
-msgstr ""
+msgstr "Σαρώστε μία παρτίδα"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a lot number or a packages then the destination location"
-msgstr ""
+msgstr "Σαρώστε μία παρτίδα ή ένα περιέκτη και μετά την τοποθεσία προορισμού"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a lot number then the destination location"
 msgstr ""
+"Σαρώστε έναν αριθμό παρτίδας και στη συνέχεια την τοποθεσία προορισμού"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a package"
-msgstr ""
+msgstr "Σαρώστε ένα περιέκτη"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1074,26 +1086,26 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a package, the destination location or another product"
-msgstr ""
+msgstr "Σαρώστε ένα περιέκτη, την τοποθεσία προορισμού ή άλλο είδος"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 msgid "Scan a product"
-msgstr ""
+msgstr "Σαρώστε ένα είδος"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product before scanning a tracking number"
-msgstr ""
+msgstr "Σαρώστε ένα είδος πριν τη σάρωση αριθμού παρακολούθησης"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product from %s"
-msgstr ""
+msgstr "Σαρώστε ένα προϊόν από %s"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1105,25 +1117,25 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product or a package"
-msgstr ""
+msgstr "Σαρώστε ένα είδος ή ένα περιέκτη"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product or another package"
-msgstr ""
+msgstr "Σαρώστε ένα είδος ή άλλο περιέκτη"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product or the destination location."
-msgstr ""
+msgstr "Σαρώστε ένα είδος ή την τοποθεσία προορισμού."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product then the destination location"
-msgstr ""
+msgstr "Σαρώστε ένα είδος και μετά την τοποθεσία προορισμού"
 
 #. module: stock_barcode
 #. odoo-python
@@ -1131,30 +1143,32 @@ msgstr ""
 msgid ""
 "Scan a product, a lot/serial number or a package to filter the transfers."
 msgstr ""
+"Σαρώστε ένα είδος, μία παρτίδα / έναν σειριακό αριθμό ή έναν περιέκτη για να"
+" φιλτράρετε τις κινήσεις."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product, a package or the destination location"
-msgstr ""
+msgstr "Σαρώστε ένα είδος, έναν περιέκτη ή την τοποθεσία προορισμού"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product, a package or the destination location."
-msgstr ""
+msgstr "Σαρώστε ένα είδος, έναν περιέκτη ή την τοποθεσία προορισμού."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a serial number"
-msgstr ""
+msgstr "Σαρώστε έναν σειριακό αριθμό"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a serial number or a package"
-msgstr ""
+msgstr "Σαρώστε ένα σειριακό αριθμό ή έναν περιέκτη"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1172,13 +1186,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "Scan an"
-msgstr ""
+msgstr "Σαρώστε ένα"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan another serial number"
-msgstr ""
+msgstr "Σαρώστε άλλο σειριακό αριθμό"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1190,67 +1204,69 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan more lot numbers"
-msgstr ""
+msgstr "Σαρώστε επιπλέον παρτίδες"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan more lot numbers or a package"
-msgstr ""
+msgstr "Σαρώστε επιπλέον παρτίδες ή έναν περιέκτη"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 msgid "Scan more products in %s or scan another location"
-msgstr ""
+msgstr "Σαρώστε επιπλέον είδη σε %s ή σαρώστε άλλη τοποθεσία"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan more products or a package"
-msgstr ""
+msgstr "Σαρώστε επιπλέον είδη ή έναν περιέκτη"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan more products, or scan a new source location"
-msgstr ""
+msgstr "Σαρώστε επιπλέον είδη, ή μία νέα τοποθεσία προέλευσης"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "Scan or tap"
-msgstr ""
+msgstr "Σαρώστε ή πατήστε"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 msgid "Scan serial numbers for product %s to change their quantity"
 msgstr ""
+"Σαρώστε σειριακούς αριθμούς για το είδος %s για να τροποποιήσετε την "
+"ποσότητά τους"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan the destination location"
-msgstr ""
+msgstr "Σαρώστε την τοποθεσία προορισμού"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan the package %s"
-msgstr ""
+msgstr "Σαρώστε τον περιέκτη %s"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan the source location"
-msgstr ""
+msgstr "Σαρώστε την τοποθεσία προέλευσης"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan the source location or a package"
-msgstr ""
+msgstr "Σαρώστε την τοποθεσία προέλευσης ή έναν περιέκτη"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1281,7 +1297,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scanning package"
-msgstr ""
+msgstr "Σάρωση περιέκτη"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1299,7 +1315,7 @@ msgstr "Τοποθεσία Αχρήστων"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 msgid "Select a Product"
-msgstr ""
+msgstr "Επιλέξτε ένα είδος"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
@@ -1327,7 +1343,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__group_barcode_show_quantity_count
 #: model:res.groups,name:stock_barcode.group_barcode_show_quantity_count
 msgid "Show Quantity to Count"
-msgstr ""
+msgstr "Εμφάνιση Ποσότητας προς Καταμέτρηση"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__show_reserved_sns
@@ -1338,7 +1354,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/main.xml:0
 msgid "Sign"
-msgstr ""
+msgstr "Υπογραφή"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1355,13 +1371,13 @@ msgstr "Τοποθεσία Προέλευσης"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 msgid "Source Package"
-msgstr "Πηγαίο Πακέτο"
+msgstr "Περιέκτης Προέλευσης"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
 msgid "Stay on transfer"
-msgstr ""
+msgstr "Παραμονή"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_move
@@ -1426,13 +1442,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "The transfer has been cancelled"
-msgstr ""
+msgstr "Η κίνηση έχει ακυρωθεί"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "The transfer has been validated"
-msgstr ""
+msgstr "Η κίνηση έχει επικυρωθεί"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1451,25 +1467,25 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 msgid "This package is already scanned."
-msgstr ""
+msgstr "Αυτός ο περιέκτης έχει ήδη σαρωθεί"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "This picking is already done"
-msgstr ""
+msgstr "Αυτή η συλλογή έχει ήδη ολοκληρωθεί"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "This picking is cancelled"
-msgstr ""
+msgstr "Αυτή η συλλογή ακυρώθηκε"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
 msgid "This product doesn't exist."
-msgstr ""
+msgstr "Αυτό το είδος δεν υπάρχει."
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_res_config_settings__barcode_separator_regex
@@ -1515,7 +1531,7 @@ msgstr ""
 #: model:ir.model,name:stock_barcode.model_stock_picking
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__picking_id
 msgid "Transfer"
-msgstr "Μεταφορά"
+msgstr "Κίνηση"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__picking_name
@@ -1645,13 +1661,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "You must scan a product"
-msgstr ""
+msgstr "Πρέπει να σαρώσετε ένα είδος"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "barcodes"
-msgstr ""
+msgstr "barcodes"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1669,19 +1685,19 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "location"
-msgstr ""
+msgstr "τοποθεσία"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 msgid "lot"
-msgstr ""
+msgstr "παρτίδα"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "operation type"
-msgstr ""
+msgstr "τύπος ενέργειας"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1695,20 +1711,20 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "package"
-msgstr ""
+msgstr "περιέκτης"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "picking"
-msgstr ""
+msgstr "συλλογή"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "product"
-msgstr ""
+msgstr "είδος"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.view_backorder_confirmation
@@ -1724,25 +1740,25 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 msgid "to filter your records"
-msgstr ""
+msgstr "για να φιλτράρετε τις εγγραφές"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "to initiate a transfer"
-msgstr ""
+msgstr "για να ξεκινήσετε μία κίνηση"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "to locate it"
-msgstr ""
+msgstr "για να το εντοπίσετε"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "to open it"
-msgstr ""
+msgstr "για να το ανοίξετε"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1760,10 +1776,10 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "tracking number"
-msgstr ""
+msgstr "αριθμός παρακολούθησης"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 msgid "transfer"
-msgstr ""
+msgstr "κίνηση"

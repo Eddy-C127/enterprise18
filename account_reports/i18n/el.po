@@ -10,9 +10,10 @@
 # Vasilis Dimopoulos <iap3tos@outlook.com>, 2024
 # Alexandros Kapetanios <alexandros@gnugr.org>, 2024
 # Martin Trigaux, 2024
-# Anastasia Mimou, 2025
 # Gerasimos Kanelatos, 2025
 # Kostas Goutoudis <goutoudis@gmail.com>, 2025
+# Maria Chalepiadou, 2025
+# Anastasia Mimou, 2025
 # 
 msgid ""
 msgstr ""
@@ -20,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-25 17:23+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Kostas Goutoudis <goutoudis@gmail.com>, 2025\n"
+"Last-Translator: Anastasia Mimou, 2025\n"
 "Language-Team: Greek (https://app.transifex.com/odoo/teams/41243/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -191,17 +192,19 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
 msgid "<span>One or more error(s) occurred during file generation:</span>"
 msgstr ""
+"<span>Ένα ή περισσότερα σφάλματα παρουσιάστηκαν κατά τη δημιουργία του "
+"αρχείου:</span>"
 
 #. module: account_reports
 #: model:ir.model.constraint,message:account_reports.constraint_account_report_horizontal_group_name_uniq
 msgid "A horizontal group with the same name already exists."
-msgstr ""
+msgstr "Υπάρχει ήδη μια οριζόντια ομάδα με το ίδιο όνομα."
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.js:0
 msgid "A line with a 'Group By' value cannot have children."
-msgstr ""
+msgstr "Μια γραμμή με 'Ομαδοποίηση Κατά' δεν μπορεί να έχει παιδιά."
 
 #. module: account_reports
 #. odoo-python
@@ -255,7 +258,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Account Code / Tag"
-msgstr ""
+msgstr "Κωδικός Λογαριασμού / Ετικέτα"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_display_representative_field
@@ -272,7 +275,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Account Name"
-msgstr ""
+msgstr "Όνομα Λογαριασμού"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_annotation
@@ -324,7 +327,7 @@ msgstr "Λογιστική εταιρεία"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report
 msgid "Accounting Report"
-msgstr ""
+msgstr "Λογιστική αναφορά"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_budget
@@ -344,7 +347,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_line
 msgid "Accounting Report Line"
-msgstr ""
+msgstr "Γραμμή Λογιστικής Αναφοράς"
 
 #. module: account_reports
 #: model:ir.actions.act_window,name:account_reports.action_account_report_tree
@@ -361,6 +364,8 @@ msgid "Accounts"
 msgstr "Λογαριασμοί"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Accounts Coverage Report"
 msgstr ""
@@ -392,6 +397,9 @@ msgid ""
 "Actions may trigger specific behavior like opening calendar view or "
 "automatically mark as done when a document is uploaded"
 msgstr ""
+"Οι ενέργειες μπορεί να προκαλέσουν συγκεκριμένη συμπεριφορά, όπως άνοιγμα "
+"της προβολής ημερολογίου ή αυτόματη ένδειξη ως ολοκληρωμένο όταν ανεβαίνει "
+"ένα έγγραφο."
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_mail_activity
@@ -419,7 +427,7 @@ msgstr "Προσθήκη επαφών για ενημέρωση..."
 #: model:ir.model.fields,field_description:account_reports.field_res_company__totals_below_sections
 #: model:ir.model.fields,field_description:account_reports.field_res_config_settings__totals_below_sections
 msgid "Add totals below sections"
-msgstr ""
+msgstr "Πρόσθεσε σύνολα κάτω από τις ενότητες"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_adjustment
@@ -436,13 +444,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Advance Payments received from customers"
-msgstr ""
+msgstr "Προκαταβολές που ελήφθησαν από πελάτες"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Advance payments made to suppliers"
-msgstr ""
+msgstr "Προκαταβολές που έγιναν στους προμηθευτές"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -504,19 +512,19 @@ msgstr "Όλα"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "All Journals"
-msgstr ""
+msgstr "Όλα τα Ημερολόγια"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "All Payable"
-msgstr ""
+msgstr "Όλα τα πληρωτέα"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "All Receivable"
-msgstr ""
+msgstr "Όλα τα Εισπρακτέα"
 
 #. module: account_reports
 #. odoo-python
@@ -614,7 +622,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "As of %s"
-msgstr ""
+msgstr "Από τις %s"
 
 #. module: account_reports
 #. odoo-javascript
@@ -640,22 +648,22 @@ msgstr "Επισύναψη αρχείου"
 #: code:addons/account_reports/static/src/components/journal_report/line/line.xml:0
 #: code:addons/account_reports/static/src/components/journal_report/line_name.xml:0
 msgid "Audit"
-msgstr ""
+msgstr "Έλεγχος"
 
 #. module: account_reports
 #: model:ir.ui.menu,name:account_reports.account_reports_audit_reports_menu
 msgid "Audit Reports"
-msgstr ""
+msgstr "Αναφορές Ελέγχου"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_avgcre0
 msgid "Average creditors days"
-msgstr ""
+msgstr "Μέσος όρος ημερών πιστωτών"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_avdebt0
 msgid "Average debtors days"
-msgstr ""
+msgstr "Μέσος όρος ημερών χρεωστών"
 
 #. module: account_reports
 #. odoo-python
@@ -775,7 +783,7 @@ msgstr "Βασισμένο στο"
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 msgid "Before"
-msgstr ""
+msgstr "Πριν"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1265,6 +1273,9 @@ msgid ""
 "Custom engine _report_custom_engine_last_statement_balance_amount does not "
 "support groupby"
 msgstr ""
+"Ο προσαρμοσμένος μηχανισμός "
+"_report_custom_engine_last_statement_balance_amount δεν υποστηρίζει την "
+"ομαδοποίηση"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.customer_statement_report
@@ -1293,7 +1304,7 @@ msgstr "Ημερομηνία"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Date cannot be empty"
-msgstr ""
+msgstr "Η ημερομηνία δεν μπορεί να είναι κενή"
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_report_annotation__date
@@ -1324,13 +1335,13 @@ msgstr "Χρέωση"
 #: code:addons/account_reports/static/src/components/journal_report/line/line.xml:0
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_journal_report_taxes_summary
 msgid "Deductible"
-msgstr ""
+msgstr "Εκπιπτόμενο"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 msgid "Deferrals have already been generated."
-msgstr ""
+msgstr "Οι αναβολές έχουν ήδη δημιουργηθεί."
 
 #. module: account_reports
 #. odoo-python
@@ -1348,12 +1359,12 @@ msgstr "Αναβαλλόμενο Έξοδο"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_deferred_expense_report_handler
 msgid "Deferred Expense Custom Handler"
-msgstr ""
+msgstr "Προσαρμοσμένος Διαχειριστής Αναβαλλόμενης Δαπάνης"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.deferred_expense_report
 msgid "Deferred Expense Report"
-msgstr ""
+msgstr "Αναφορά Αναβαλλόμενης Δαπάνης"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_deferred_report_handler
@@ -1438,7 +1449,7 @@ msgstr "Έγγραφο"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard__doc_name
 msgid "Documents Name"
-msgstr ""
+msgstr "Όνομα Εγγράφων"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__domain
@@ -1606,7 +1617,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Error message"
-msgstr ""
+msgstr "Μήνυμα σφάλματος"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1675,7 +1686,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard__export_format_ids
 msgid "Export to"
-msgstr ""
+msgstr "Εξαγωγή σε"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_reports_export_wizard
@@ -1685,7 +1696,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_expression_form
 msgid "Expression"
-msgstr ""
+msgstr "Έκφραση"
 
 #. module: account_reports
 #. odoo-python
@@ -1842,7 +1853,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 msgid "Generate entry"
-msgstr ""
+msgstr "Δημιουργία καταχώρησης"
 
 #. module: account_reports
 #. odoo-python
@@ -2678,6 +2689,8 @@ msgstr ""
 #: code:addons/account_reports/models/account_move.py:0
 msgid "Only Billing Administrators are allowed to change lock dates!"
 msgstr ""
+"Μόνο οι Διαχειριστές Τιμολόγησης επιτρέπεται να αλλάζουν τις ημερομηνίες "
+"κλειδώματος!"
 
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.action_account_reports_customer_statements
@@ -2919,12 +2932,13 @@ msgstr ""
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 msgid "Please set the deferred accounts in the accounting settings."
 msgstr ""
+"Παρακαλώ ορίστε τους αναβαλλόμενους λογαριασμούς στις λογιστικές ρυθμίσεις."
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 msgid "Please set the deferred journal in the accounting settings."
-msgstr ""
+msgstr "Παρακαλώ ορίστε τα αναβαλλόμενα ημερολόγια στις λογιστικές ρυθμίσεις."
 
 #. module: account_reports
 #. odoo-python
@@ -3597,9 +3611,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_move.py:0
 msgid ""
-"The attachments of the tax report can be found on the <a href='#' data-oe-"
-"model='account.move' data-oe-id='%s'>closing entry</a> of the representative"
-" company."
+"The attachments of the tax report can be found on the %(link_start)sclosing "
+"entry%(link_end)s of the representative company."
 msgstr ""
 
 #. module: account_reports
