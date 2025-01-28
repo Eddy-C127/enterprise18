@@ -1,10 +1,15 @@
-from odoo import models, fields, _
-from odoo.addons.l10n_nl_reports_sbr.wizard.l10n_nl_reports_sbr_tax_report_wizard import _create_soap_client
+import base64
 from datetime import timedelta
-from markupsafe import Markup
 from tempfile import NamedTemporaryFile
-from zeep.exceptions import Fault
+
+from markupsafe import Markup
 from requests.exceptions import ConnectionError
+from zeep.exceptions import Fault
+
+from odoo import _, fields, models
+from odoo.addons.l10n_nl_reports_sbr.wizard.l10n_nl_reports_sbr_tax_report_wizard import (
+    _create_soap_client,
+)
 
 
 class L10nNlSBRStatusService(models.Model):
@@ -28,13 +33,14 @@ class L10nNlSBRStatusService(models.Model):
             f.flush()
 
             for process in ongoing_processes:
-                password = bytes(process.company_id.l10n_nl_reports_sbr_password or '', 'utf-8')
-                certificate, private_key = process.company_id._l10n_nl_get_certificate_and_key_bytes(password or None)
+                cert_sudo = process.company_id.l10n_nl_reports_sbr_cert_id.sudo()
+                cer_pem = base64.b64decode(cert_sudo.pem_certificate)
+                key_pem = base64.b64decode(cert_sudo.private_key_id.pem_key)
                 ongoing_processes_responses = {}
                 wsdl = 'https://' + ('preprod-' if process.is_test else '') + 'dgp2.procesinfrastructuur.nl/wus/2.0/statusinformatieservice/1.2?wsdl'
 
                 try:
-                    delivery_client = _create_soap_client(wsdl, f, certificate, private_key)
+                    delivery_client = _create_soap_client(wsdl, f, cer_pem, key_pem)
                     ongoing_processes_responses[process] = delivery_client.service.getStatussenProces(
                         kenmerk=process.kenmerk,
                         autorisatieAdres='http://geenausp.nl',
