@@ -79,3 +79,4 @@ class PosOrder(models.Model):
             l10n_latam_document_type_fields = self.env['l10n_latam.document.type']._load_pos_data_fields(config_id)
             result['account_move'] = self.account_move.read(account_move_fields, load=False)
             result['l10n_latam.document.type'] = self.account_move.l10n_latam_document_type_id.read(l10n_latam_document_type_fields, load=False)
+        return result
