@@ -477,7 +477,7 @@ class Planning(models.Model):
                 slot.allow_template_creation = False
                 continue
 
-            values = self._prepare_template_values()
+            values = slot._prepare_template_values()
             domain = [(x, '=', values[x]) for x in values.keys()]
             existing_templates = self.env['planning.slot.template'].search(domain, limit=1)
             slot.allow_template_creation = not existing_templates and slot._different_than_template(check_empty=False)
