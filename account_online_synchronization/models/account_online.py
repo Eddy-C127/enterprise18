@@ -666,7 +666,7 @@ class AccountOnlineLink(models.Model):
                         "type": "ir.actions.act_url",
                         "url": url,
                     }
-                    raise RedirectWarning(message, action_id, button_label)
+                    raise RedirectWarning(message, action_id, button_label) #pylint: disable=E0601
                 # either a userError if there's no need to bother the support, or link to the doc.
                 raise UserError(message)
         except (CacheMiss, MissingError):
