@@ -410,7 +410,10 @@ class SignRequest(models.Model):
         self._message_send_mail(
             body, notification_template,
             {'record_name': self.reference},
-            {'model_description': 'signature', 'company': self.communication_company_id or self.create_uid.company_id},
+            {
+                'model_description': _('Signature'),
+                'company': self.communication_company_id or self.create_uid.company_id
+            },
             {'email_from': self.create_uid.email_formatted,
              'author_id': self.create_uid.partner_id.id,
              'email_to': partner.email_formatted,
@@ -560,7 +563,10 @@ class SignRequest(models.Model):
         self.env['sign.request']._message_send_mail(
             body, notification_template,
             {'record_name': self.reference},
-            {'model_description': 'signature', 'company': self.communication_company_id or self.create_uid.company_id},
+            {
+                'model_description': _('Signature'),
+                'company': self.communication_company_id or self.create_uid.company_id
+            },
             {'email_from': self.create_uid.email_formatted,
              'author_id': self.create_uid.partner_id.id,
              'email_to': partner.email_formatted,
@@ -1119,7 +1125,10 @@ class SignRequestItem(models.Model):
         self.env['sign.request']._message_send_mail(
             body, notification_template,
             {'record_name': self.reference},
-            {'model_description': 'signature', 'company': self.communication_company_id or self.create_uid.company_id},
+            {
+                'model_description': _('Signature'),
+                'company': self.communication_company_id or self.create_uid.company_id
+            },
             {
                 'email_from': self.create_uid.email_formatted,
                 'author_id': self.create_uid.partner_id.id,
