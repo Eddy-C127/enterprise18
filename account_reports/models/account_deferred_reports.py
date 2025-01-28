@@ -263,7 +263,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
             'name': _('Deferred Entries'),
             'res_model': 'account.move.line',
             'domain': [('id', 'in', line_ids)],
-            'views': [(False, 'list'), (False, 'form'), (False, 'pivot'), (False, 'graph'), (False, 'kanban')],
+            'views': [(False, 'list'), (False, 'pivot'), (False, 'graph'), (False, 'kanban')],
             # Most filters are set here to allow auditing flexibility to the user
             'context': {
                 'search_default_pl_accounts': True,
