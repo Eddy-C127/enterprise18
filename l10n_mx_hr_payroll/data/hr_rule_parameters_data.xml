@@ -560,6 +560,37 @@
         <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
     </record>
 
+    <record id="rule_parameter_uma_percentage_for_subsidy" model="hr.rule.parameter">
+        <field name="name">Mexico: UMA Percentage for Subsidy</field>
+        <field name="code">l10n_mx_uma_percentage_for_subsidy</field>
+        <field name="country_id" ref="base.mx"/>
+        <field name="description" type="html">
+<p></p>
+
+<h3 class="mt-5">Source</h3>
+<a href="#" target="_blank">#</a>
+
+<h3 class="mt-5">Data Format</h3>
+<pre><em>Value</em> -> <strong>Percentage</strong> [0: 1]</pre>
+        </field>
+    </record>
+    <record id="rule_parameter_uma_percentage_for_subsidy_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">0.1182</field>
+        <field name="rule_parameter_id" ref="rule_parameter_uma_percentage_for_subsidy"/>
+        <field name="date_from" eval="datetime(2024, 5, 1).date()"/>
+    </record>
+    <record id="rule_parameter_uma_percentage_for_subsidy_2025_january" model="hr.rule.parameter.value">
+        <field name="parameter_value">0.1439</field>
+        <field name="rule_parameter_id" ref="rule_parameter_uma_percentage_for_subsidy"/>
+        <field name="date_from" eval="datetime(2025, 1, 1).date()"/>
+    </record>
+    <record id="rule_parameter_uma_percentage_for_subsidy_2025_february" model="hr.rule.parameter.value">
+        <field name="parameter_value">0.1380</field>
+        <field name="rule_parameter_id" ref="rule_parameter_uma_percentage_for_subsidy"/>
+        <field name="date_from" eval="datetime(2025, 2, 1).date()"/>
+    </record>
+
+    <!-- TODO: remove in master -->
     <record id="rule_parameter_subsidy_table" model="hr.rule.parameter">
         <field name="name">Mexico: Subsidy Table</field>
         <field name="code">l10n_mx_subsidy_tables</field>
