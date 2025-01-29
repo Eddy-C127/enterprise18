@@ -3,6 +3,7 @@ import { PaymentScreen } from "@point_of_sale/app/screens/payment_screen/payment
 import { patch } from "@web/core/utils/patch";
 import { floatIsZero } from "@web/core/utils/numbers";
 import { ask } from "@point_of_sale/app/store/make_awaitable_dialog";
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 
 patch(PaymentScreen.prototype, {
     get partnerInfos() {
@@ -28,10 +29,16 @@ patch(PaymentScreen.prototype, {
         );
         if (
             order.get_orderlines().length === 0 &&
-            !floatIsZero(change, this.pos.currency.decimal_places) &&
             paylaterPaymentMethod &&
             !existingPayLaterPayment
         ) {
+            if (floatIsZero(change, this.pos.currency.decimal_places)) {
+                this.dialog.add(AlertDialog, {
+                    title: _t("The order is empty"),
+                    body: _t("You can not deposit zero amount."),
+                });
+                return;
+            }
             const partner = order.get_partner();
             if (partner) {
                 const confirmed = await ask(this.dialog, {
