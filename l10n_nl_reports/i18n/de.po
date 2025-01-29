@@ -10,41 +10,49 @@ msgstr ""
 "PO-Revision-Date: 2024-09-23 13:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_nl_reports
 #. odoo-python
 #: code:addons/l10n_nl_reports/models/account_general_ledger.py:0
-#, python-format
 msgid "- Country"
 msgstr "- Land"
 
 #. module: l10n_nl_reports
 #. odoo-python
 #: code:addons/l10n_nl_reports/models/account_general_ledger.py:0
-#, python-format
 msgid "- VAT number"
-msgstr "- Umsatzsteueridentifikationsnummer"
+msgstr "- USt-IdNr."
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_assets
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_tags_assets
 msgid "ACTIVE"
-msgstr "AKTIV"
+msgstr "AKTIVA"
+
+#. module: l10n_nl_reports
+#: model:ir.model.fields,help:l10n_nl_reports.field_res_config_settings__l10n_nl_rounding_difference_loss_account_id
+msgid "Account used for losses from rounding the lines of Dutch tax reports"
+msgstr ""
+"Konto, das für Verluste durch Rundung der Zeilen von niederländischen "
+"Steuerberichten verwendet wird."
+
+#. module: l10n_nl_reports
+#: model:ir.model.fields,help:l10n_nl_reports.field_res_config_settings__l10n_nl_rounding_difference_profit_account_id
+msgid "Account used for profits from rounding the lines of Dutch tax reports"
+msgstr ""
+"Konto, das für Gewinne durch Rundung der Zeilen von niederländischen "
+"Steuerberichten verwendet wird."
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_idep
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_tags_idep
 msgid "Amortisation of intangible assets"
 msgstr "Abschreibung von immateriellen Vermögenswerten"
-
-#. module: l10n_nl_reports
-#: model:ir.model,name:l10n_nl_reports.model_ir_attachment
-msgid "Attachment"
-msgstr "Dateianhang"
 
 #. module: l10n_nl_reports
 #: model:account.report.column,name:l10n_nl_reports.account_financial_report_bs_column
@@ -57,12 +65,12 @@ msgstr "Bilanz"
 #. module: l10n_nl_reports
 #: model:account.report,name:l10n_nl_reports.account_financial_report_bs
 msgid "Balance sheet"
-msgstr "Bilanz"
+msgstr "Bilanzbogen"
 
 #. module: l10n_nl_reports
 #: model:account.report,name:l10n_nl_reports.account_financial_report_bs_tags
 msgid "Balance sheet (tags)"
-msgstr "Bilanz (Schlagworte)"
+msgstr "Bilanzbogen (Stichwörter)"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_l
@@ -74,13 +82,13 @@ msgstr "ANSPRÜCHE"
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_current
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_tags_current
 msgid "CURRENT ASSETS"
-msgstr "KURZFRISTIGE VERMÖGENSWERTE"
+msgstr "UMLAUFVERMÖGEN"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_cash
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_tags_cash
 msgid "Cash at bank and in hand"
-msgstr "Kassenbestand und Bankguthaben"
+msgstr "Bankguthaben und Kassenbestand"
 
 #. module: l10n_nl_reports
 #: model:ir.model,name:l10n_nl_reports.model_res_company
@@ -88,9 +96,13 @@ msgid "Companies"
 msgstr "Unternehmen"
 
 #. module: l10n_nl_reports
+#: model:ir.model,name:l10n_nl_reports.model_res_config_settings
+msgid "Config Settings"
+msgstr "Konfigurationseinstellungen"
+
+#. module: l10n_nl_reports
 #. odoo-python
 #: code:addons/l10n_nl_reports/models/account_general_ledger.py:0
-#, python-format
 msgid "Continue and skip country fields"
 msgstr "Fortfahren und Länderfelder überspringen"
 
@@ -104,19 +116,19 @@ msgstr "Kosten"
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_sale
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_tags_sale
 msgid "Cost of goods sold"
-msgstr "Kosten des Umsatzes"
+msgstr "Herstellkosten des Umsatzes"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_cogs
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_tags_cogs
 msgid "Cost of sales"
-msgstr "Umsatzkosten"
+msgstr "Selbstkosten"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_cred
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_tags_cred
 msgid "Creditors"
-msgstr "Gläubiger"
+msgstr "Kreditoren"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_sh_debt
@@ -154,6 +166,16 @@ msgid "Dutch Report Custom Handler"
 msgstr "Benutzerdefinierter Handler für niederländische Berichte"
 
 #. module: l10n_nl_reports
+#: model:ir.model.fields,field_description:l10n_nl_reports.field_res_config_settings__l10n_nl_rounding_difference_loss_account_id
+msgid "Dutch VAT Rounding Loss Account"
+msgstr "Verlustkonto für niederländische MwSt.-Rundung"
+
+#. module: l10n_nl_reports
+#: model:ir.model.fields,field_description:l10n_nl_reports.field_res_config_settings__l10n_nl_rounding_difference_profit_account_id
+msgid "Dutch VAT Rounding Profit Account"
+msgstr "Ertragskonto für niederländische MwSt.-Rundung"
+
+#. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_eq
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_tags_eq
 msgid "EQUITY"
@@ -163,42 +185,42 @@ msgstr "EIGENKAPITAL"
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_err
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_tags_err
 msgid "Error account"
-msgstr "Fehler Konto"
+msgstr "Fehler: Konto"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_fixed
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_tags_fixed
 msgid "FIXED ASSETS"
-msgstr "ANLAGEVERMÖGEN"
+msgstr "SACHANLAGEN"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_fin
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_tags_fin
 msgid "Financial Fixed Active"
-msgstr "Finanziell fixiert Aktiv"
+msgstr "Finanzanlage"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_fres
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_tags_fres
 msgid "Financial result"
-msgstr "Finanzielles Ergebnis"
+msgstr "Finanzergebnis"
 
 #. module: l10n_nl_reports
 #: model:ir.model,name:l10n_nl_reports.model_account_general_ledger_report_handler
 msgid "General Ledger Custom Handler"
-msgstr "Hauptbuch Benutzerdefinierter Handler"
+msgstr "Benutzerdefinierter Handler für Hauptbuch"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_gen
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_tags_gen
 msgid "General expenses"
-msgstr "Allgemeine Kosten"
+msgstr "Gemeinkosten"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_profit
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_tags_profit
 msgid "Gross sales result"
-msgstr "Bruttoverkaufsergebnis"
+msgstr "Ergebnis des Bruttoumsatzes"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_hous
@@ -210,7 +232,7 @@ msgstr "Wohnkosten"
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_immat
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_tags_immat
 msgid "Intangible Fixed Asset"
-msgstr "Immaterielles Anlagevermögen"
+msgstr "Immaterielle Sachanlagen"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_intl
@@ -227,12 +249,12 @@ msgstr "Zinserträge"
 #. module: l10n_nl_reports
 #: model:ir.model.fields,field_description:l10n_nl_reports.field_res_users__l10n_nl_report_xaf_userid
 msgid "L10N Nl Report Xaf Userid"
-msgstr "L10N Nl Report Xaf Userid"
+msgstr "L10N Nl - Benutzer-ID des Xaf-Berichts"
 
 #. module: l10n_nl_reports
 #: model_terms:ir.ui.view,arch_db:l10n_nl_reports.xaf_audit_file
 msgid "Last write"
-msgstr "Letztes Schreiben"
+msgstr "Letzte Aktualisierung"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_legal_res
@@ -262,12 +284,12 @@ msgstr "Nettoumsatz"
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_ebitda
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_tags_ebitda
 msgid "Net sales result"
-msgstr "Nettoverkaufsergebnis"
+msgstr "Ergebnis des Nettoumsatzes"
 
 #. module: l10n_nl_reports
 #: model_terms:ir.ui.view,arch_db:l10n_nl_reports.xaf_audit_file
 msgid "Odoo"
-msgstr ""
+msgstr "Odoo"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_off
@@ -285,7 +307,7 @@ msgstr "Sonstige Aufwendungen und Erträge"
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_other_res
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_tags_other_res
 msgid "Other Reserves"
-msgstr "Sonstige Reserven"
+msgstr "Sonstige Rücklagen"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_oth
@@ -303,7 +325,7 @@ msgstr "Sonstige Personalkosten"
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_leq
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_tags_leq
 msgid "PASSIVE"
-msgstr "PASSIV"
+msgstr "PASSIVA"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_cap
@@ -315,7 +337,12 @@ msgstr "Eingezahltes und eingefordertes Kapital"
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_pens
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_tags_pens
 msgid "Pension charges"
-msgstr "Pensionskosten"
+msgstr "Pensionsbeiträge"
+
+#. module: l10n_nl_reports
+#: model_terms:ir.ui.view,arch_db:l10n_nl_reports.res_config_settings_view_form
+msgid "Post difference from rounding tax closing entries in:"
+msgstr "Rundungsdifferenz aus Steuerabschlussbuchungen buchen in:"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_premium
@@ -332,24 +359,24 @@ msgstr "Gewinn des Vorjahres"
 #. module: l10n_nl_reports
 #: model:account.report,name:l10n_nl_reports.account_financial_report_pnl
 msgid "Profit and loss report"
-msgstr "Gewinn- und Verlustbericht"
+msgstr "Gewinn- und Verlustrechnung"
 
 #. module: l10n_nl_reports
 #: model:account.report,name:l10n_nl_reports.account_financial_report_pnl_tags
 msgid "Profit and loss report (tags)"
-msgstr "Gewinn- und Verlustbericht (Schlagworte)"
+msgstr "Gewinn- und Verlustrechnung (Stichwörter)"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_mat
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_tags_mat
 msgid "Property, plant and equipment"
-msgstr "Sachanlagen und Ausrüstung"
+msgstr "Sachanlagen"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_provisions
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_tags_provisions
 msgid "Provisions"
-msgstr "Bestimmungen"
+msgstr "Rückstellungen"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_claims
@@ -373,7 +400,7 @@ msgstr "Ergebnis vor Steuern"
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_reso
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_tags_reso
 msgid "Result other assets"
-msgstr "Ergebnis sonstige Vermögenswerte"
+msgstr "Ergebnis sonstiger Vermögenswerte"
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_revaluation_res
@@ -396,14 +423,12 @@ msgstr "Sozialabgaben"
 #. module: l10n_nl_reports
 #. odoo-python
 #: code:addons/l10n_nl_reports/models/account_general_ledger.py:0
-#, python-format
 msgid "Some fields must be specified on the company:"
-msgstr "Einige Felder müssen bei der Firma angegeben werden:"
+msgstr "Einige Felder müssen beim Unternehmen angegeben werden:"
 
 #. module: l10n_nl_reports
 #. odoo-python
 #: code:addons/l10n_nl_reports/models/account_general_ledger.py:0
-#, python-format
 msgid ""
 "Some partners are located in countries forbidden in dutch audit reports.\n"
 "Those countries are:\n"
@@ -417,7 +442,7 @@ msgstr ""
 "Diese Länder sind:\n"
 "\n"
 "%s\n"
-"Wenn Sie fortfahren, beachten Sie bitte, dass die Felder <Land> und <Steuerregistrierungsland> im Bericht für diese Partner übersprungen werden.\n"
+"Wenn Sie fortfahren, beachten Sie bitte, dass die Felder <country> und <taxRegistrationCountry> im Bericht für diese Partner übersprungen werden.\n"
 "\n"
 "Andernfalls ändern Sie bitte die Adresse der in diesen Ländern ansässigen Partner.\n"
 
@@ -432,13 +457,6 @@ msgstr "Bestände"
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_taxes
 msgid "Taxes"
 msgstr "Steuern"
-
-#. module: l10n_nl_reports
-#. odoo-python
-#: code:addons/l10n_nl_reports/models/account_general_ledger.py:0
-#, python-format
-msgid "There is no data to export."
-msgstr "Es sind keine Daten zu exportieren."
 
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_tags_trans
@@ -466,7 +484,5 @@ msgstr "Löhne und Gehälter"
 #. module: l10n_nl_reports
 #. odoo-python
 #: code:addons/l10n_nl_reports/models/account_general_ledger.py:0
-#: code:addons/l10n_nl_reports/models/account_general_ledger.py:0
-#, python-format
 msgid "XAF"
-msgstr ""
+msgstr "XAF"

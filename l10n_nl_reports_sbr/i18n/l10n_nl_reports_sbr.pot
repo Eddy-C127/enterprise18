@@ -16,55 +16,19 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_nl_reports_sbr
-#: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.res_config_settings_view_form
-msgid ""
-"<span class=\"o_form_label\">SBR services</span>\n"
-"                        <span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" groups=\"base.group_multi_company\"/>"
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
-#, python-format
 msgid ""
-"A new module (l10n_nl_reports_sbr_statusinformatieservice) needs to be "
-"installed for the service to track your submission status correctly."
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#: model:ir.model.fields,help:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_key
-#: model:ir.model.fields,help:l10n_nl_reports_sbr.field_res_config_settings__l10n_nl_reports_sbr_key
-msgid ""
-"A private key is required in order for the Digipoort services to identify "
-"you. No need to upload a key if it is already included in the certificate "
-"file."
+"A new module (l10n_nl_reports_sbr_status_info) needs to be installed for the"
+" service to track your submission status correctly."
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
-#, python-format
 msgid ""
 "An error occured while using your certificate. Please verify the certificate"
 " you uploaded and try again."
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#. odoo-python
-#: code:addons/l10n_nl_reports_sbr/models/res_company.py:0
-#, python-format
-msgid ""
-"An error occurred while decrypting your certificate or private key. Please "
-"verify your password."
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#. odoo-python
-#: code:addons/l10n_nl_reports_sbr/models/res_config_settings.py:0
-#, python-format
-msgid ""
-"An error occurred while loading the certificate. Please check the uploaded "
-"file and the related password."
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
@@ -77,22 +41,6 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard__can_report_be_sent
 msgid "Can Report Be Sent"
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_cert_filename
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_config_settings__l10n_nl_reports_sbr_cert_filename
-msgid "Certificate File Name"
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard__password
-msgid "Certificate or private key password"
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_config_settings__l10n_nl_reports_sbr_password
-msgid "Certificate/key password"
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
@@ -110,7 +58,6 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
-#, python-format
 msgid "Closing Entry"
 msgstr ""
 
@@ -122,8 +69,6 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
-#: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
-#, python-format
 msgid "Company settings"
 msgstr ""
 
@@ -161,7 +106,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
 #: model:ir.actions.server,name:l10n_nl_reports_sbr.action_open_closing_entry
-#, python-format
 msgid "Create Closing Entry"
 msgstr ""
 
@@ -178,6 +122,12 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard__create_date
 msgid "Created on"
+msgstr ""
+
+#. module: l10n_nl_reports_sbr
+#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_cert_id
+#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_config_settings__l10n_nl_reports_sbr_cert_id
+msgid "Digipoort Certificate"
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
@@ -199,14 +149,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
-#, python-format
 msgid "Go to Apps"
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
-#: code:addons/l10n_nl_reports_sbr/models/res_company.py:0
-#, python-format
+#: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
 msgid "Go to the Accounting Settings"
 msgstr ""
 
@@ -237,11 +185,6 @@ msgid "Last Date Sent"
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard__write_uid
 msgid "Last Updated by"
 msgstr ""
@@ -259,22 +202,9 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
-#, python-format
 msgid ""
 "No Closing Entry was found for the selected period. Please create one and "
 "post it before sending your report."
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_cert
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_config_settings__l10n_nl_reports_sbr_cert
-msgid "PKI Certificate"
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_key
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_config_settings__l10n_nl_reports_sbr_key
-msgid "PKI Private Key"
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
@@ -290,21 +220,28 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
-#, python-format
 msgid ""
 "Please select only one company to send the report. If you wish to aggregate "
 "multiple companies, please create a tax unit."
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_key_filename
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_config_settings__l10n_nl_reports_sbr_key_filename
-msgid "Private Key File Name"
+#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_server_root_cert_id
+msgid "SBR Root Certificate"
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_server_root_cert
-msgid "SBR Root Certificate"
+#: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.res_config_settings_view_form
+msgid "SBR Services"
+msgstr ""
+
+#. module: l10n_nl_reports_sbr
+#: model:ir.model.fields,help:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_cert_id
+#: model:ir.model.fields,help:l10n_nl_reports_sbr.field_res_config_settings__l10n_nl_reports_sbr_cert_id
+msgid ""
+"Select the certificate that will be used to connect to the Digipoort "
+"infrastructure. The private key from this certificate will be used if one is"
+" included."
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
@@ -315,7 +252,6 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
-#, python-format
 msgid "Sending your report"
 msgstr ""
 
@@ -333,14 +269,12 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
-#, python-format
 msgid "Tax Report SBR"
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
-#, python-format
 msgid "Tax report sent"
 msgstr ""
 
@@ -353,14 +287,13 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
-#, python-format
 msgid ""
 "The Closing Entry for the selected period is still in draft. Please post it "
 "before sending your report."
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
-#: model:ir.model.fields,help:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_server_root_cert
+#: model:ir.model.fields,help:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_server_root_cert_id
 msgid ""
 "The SBR Tax Service Server Root Certificate is used to verifiy the "
 "connection with the Tax services server of the SBR.It is used in order to "
@@ -370,7 +303,6 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
-#, python-format
 msgid ""
 "The Tax Services returned the error hereunder. Please upgrade your module "
 "and try again before submitting a ticket."
@@ -378,53 +310,15 @@ msgstr ""
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
-#: code:addons/l10n_nl_reports_sbr/models/res_config_settings.py:0
-#, python-format
-msgid "The certificate or private key for SBR services is missing."
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#. odoo-python
-#: code:addons/l10n_nl_reports_sbr/models/res_company.py:0
-#, python-format
-msgid ""
-"The certificate or private key you uploaded is encrypted. Please specify "
-"your password."
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#. odoo-python
-#: code:addons/l10n_nl_reports_sbr/models/res_company.py:0
-#, python-format
+#: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
 msgid ""
 "The certificate or the private key is missing. Please upload it in the "
 "Accounting Settings first."
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
-#: model:ir.model.fields,help:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard__password
-msgid "The password is not needed for just printing the XBRL file."
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#. odoo-python
-#: code:addons/l10n_nl_reports_sbr/models/res_config_settings.py:0
-#, python-format
-msgid "The provided key could not be successfully loaded."
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#. odoo-python
-#: code:addons/l10n_nl_reports_sbr/models/res_config_settings.py:0
-#: code:addons/l10n_nl_reports_sbr/models/res_config_settings.py:0
-#, python-format
-msgid "The provided password for the key is not correct."
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/models/res_company.py:0
-#, python-format
 msgid ""
 "The server root certificate is not accessible at the moment. Please try "
 "again later."
@@ -439,47 +333,21 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
-#, python-format
 msgid ""
-"The tax report from %s to %s was sent to Digipoort.<br/>We will post its "
-"processing status in this chatter once received.<br/>Discussion id: %s"
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.res_config_settings_view_form
-msgid ""
-"Upload here the PKI-certificate that identifies you to the Digipoort "
-"services. You can buy one from KPN or Quovadis."
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#: model:ir.model.fields,help:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_cert
-#: model:ir.model.fields,help:l10n_nl_reports_sbr.field_res_config_settings__l10n_nl_reports_sbr_cert
-msgid ""
-"Upload here the certificate file that will be used to connect to the "
-"Digipoort infrastructure. The private key from this file will be used, if "
-"there is one included."
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.res_config_settings_view_form
-msgid ""
-"Upload here your Private Key. If your certificate file ends with .p12 or "
-".pfx, the Private Key is already included."
+"The tax report from %(date_from)s to %(date_to)s was sent to "
+"Digipoort.<br/>We will post its processing status in this chatter once "
+"received.<br/>Discussion id: %(id)s"
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
-#: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
-#, python-format
 msgid "XBRL"
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
-#, python-format
 msgid ""
 "Your Accounting Firm does not have a VAT set. Please set it up before trying"
 " to send the report."
@@ -488,7 +356,6 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
-#, python-format
 msgid ""
 "Your company does not have a VAT set. Please set it up before trying to send"
 " the report."
@@ -497,7 +364,6 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
-#, python-format
 msgid ""
 "Your tax report is being sent to Digipoort. Check its status in the closing "
 "entry's chatter."

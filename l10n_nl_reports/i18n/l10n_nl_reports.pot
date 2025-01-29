@@ -34,14 +34,19 @@ msgid "ACTIVE"
 msgstr ""
 
 #. module: l10n_nl_reports
-#: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_idep
-#: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_tags_idep
-msgid "Amortisation of intangible assets"
+#: model:ir.model.fields,help:l10n_nl_reports.field_res_config_settings__l10n_nl_rounding_difference_loss_account_id
+msgid "Account used for losses from rounding the lines of Dutch tax reports"
 msgstr ""
 
 #. module: l10n_nl_reports
-#: model:ir.model,name:l10n_nl_reports.model_ir_attachment
-msgid "Attachment"
+#: model:ir.model.fields,help:l10n_nl_reports.field_res_config_settings__l10n_nl_rounding_difference_profit_account_id
+msgid "Account used for profits from rounding the lines of Dutch tax reports"
+msgstr ""
+
+#. module: l10n_nl_reports
+#: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_idep
+#: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_tags_idep
+msgid "Amortisation of intangible assets"
 msgstr ""
 
 #. module: l10n_nl_reports
@@ -83,6 +88,11 @@ msgstr ""
 #. module: l10n_nl_reports
 #: model:ir.model,name:l10n_nl_reports.model_res_company
 msgid "Companies"
+msgstr ""
+
+#. module: l10n_nl_reports
+#: model:ir.model,name:l10n_nl_reports.model_res_config_settings
+msgid "Config Settings"
 msgstr ""
 
 #. module: l10n_nl_reports
@@ -143,6 +153,21 @@ msgstr ""
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_distr
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_tags_distr
 msgid "Distribution costs"
+msgstr ""
+
+#. module: l10n_nl_reports
+#: model:ir.model,name:l10n_nl_reports.model_l10n_nl_tax_report_handler
+msgid "Dutch Report Custom Handler"
+msgstr ""
+
+#. module: l10n_nl_reports
+#: model:ir.model.fields,field_description:l10n_nl_reports.field_res_config_settings__l10n_nl_rounding_difference_loss_account_id
+msgid "Dutch VAT Rounding Loss Account"
+msgstr ""
+
+#. module: l10n_nl_reports
+#: model:ir.model.fields,field_description:l10n_nl_reports.field_res_config_settings__l10n_nl_rounding_difference_profit_account_id
+msgid "Dutch VAT Rounding Profit Account"
 msgstr ""
 
 #. module: l10n_nl_reports
@@ -310,6 +335,11 @@ msgid "Pension charges"
 msgstr ""
 
 #. module: l10n_nl_reports
+#: model_terms:ir.ui.view,arch_db:l10n_nl_reports.res_config_settings_view_form
+msgid "Post difference from rounding tax closing entries in:"
+msgstr ""
+
+#. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_premium
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_bs_tags_premium
 msgid "Premium"
@@ -417,12 +447,6 @@ msgid "Taxes"
 msgstr ""
 
 #. module: l10n_nl_reports
-#. odoo-python
-#: code:addons/l10n_nl_reports/models/account_general_ledger.py:0
-msgid "There is no data to export."
-msgstr ""
-
-#. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_tags_trans
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_trans
 msgid "Transport costs"
@@ -447,7 +471,6 @@ msgstr ""
 
 #. module: l10n_nl_reports
 #. odoo-python
-#: code:addons/l10n_nl_reports/models/account_general_ledger.py:0
 #: code:addons/l10n_nl_reports/models/account_general_ledger.py:0
 msgid "XAF"
 msgstr ""
