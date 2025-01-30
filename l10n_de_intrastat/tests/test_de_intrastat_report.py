@@ -146,6 +146,7 @@ class TestDEIntrastatReport(TestAccountReportsCommon):
                             <itemNumber>2</itemNumber>
                             <CN8>
                                 <CN8Code>88023000</CN8Code>
+                                <SUCode>p/st</SUCode>
                             </CN8>
                             <goodsDescription></goodsDescription>
                             <MSConsDestCode>IT</MSConsDestCode>
