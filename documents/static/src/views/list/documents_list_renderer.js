@@ -70,15 +70,12 @@ export class DocumentsListRenderer extends DocumentsRendererMixin(ListRenderer) 
         if (!record) {
             return;
         }
-        const options = {};
         if (ev.key === "Enter" && record.data.type !== "folder") {
             record.onClickPreview(ev);
-        } else if (ev.key === " ") {
-            options.isKeepSelection = true;
         }
         ev.stopPropagation();
         ev.preventDefault();
-        record.onRecordClick(ev, options);
+        this.toggleRecordSelection(record);
     }
 
     /**
@@ -90,13 +87,17 @@ export class DocumentsListRenderer extends DocumentsRendererMixin(ListRenderer) 
     onCellClicked(record, column, ev) {
         ev.stopPropagation();
         const isSelectionKeyPressed = ev.ctrlKey || ev.metaKey || ev.shiftKey;
-        if (record.selected && !isSelectionKeyPressed && this.editableColumns.includes(column.name)) {
+        if (isSelectionKeyPressed) {
+            this.toggleRecordSelection(record);
+        } else if (record.selected && this.editableColumns.includes(column.name)) {
             return super.onCellClicked(...arguments);
-        } else if (record.data.type !== "folder" && !isSelectionKeyPressed) {
+        } else if (record.data.type !== "folder") {
             return record.onClickPreview(ev);
+        } else {
+            record.openFolder();
         }
-        record.onRecordClick(ev);
     }
+
     get editableColumns() {
         return ["name", "tag_ids", "partner_id", "owner_id", "company_id"];
     }

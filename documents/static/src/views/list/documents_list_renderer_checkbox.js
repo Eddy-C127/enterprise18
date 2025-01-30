@@ -12,11 +12,5 @@ export class DocumentsListRendererCheckBox extends CheckBox {
     /**
      * @override
      */
-    onClick(ev) {
-        if (ev.target.tagName !== "INPUT") {
-            return;
-        }
-        ev.stopPropagation();
-        this.props.onChange(ev);
-    }
+    onClick(ev) {}
 }
