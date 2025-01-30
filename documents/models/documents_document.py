@@ -2133,6 +2133,8 @@ class Document(models.Model):
     @api.readonly
     def permission_panel_data(self):
         """Provide access related data for a given document/folder"""
+        if self.env.user.share:
+            raise AccessError(_("You are not allowed to read the permission panel data."))
         specification = self._permission_specification()
         self.check_access('read')
         result = self.sudo().with_context(active_test=False).web_search_read([('id', '=', self.id)], specification)
@@ -2140,19 +2142,16 @@ class Document(models.Model):
         selections = {
             'access_via_link': self._fields.get('access_via_link')._description_selection(self.env),
             'access_via_link_options': [('1', _("Must have the link to access")), ('0', _("Discoverable"))],
-        }
-        if self.env.user.has_group('base.group_user'):
-            record['access_ids'] = [a for a in record['access_ids'] if a['role']]
-            if record['owner_id']['id'] == self.env.ref('base.user_root').id:
-                record['owner_id'] = False  # Only a real user should be shown in the panel
-            selections.update({
-                'access_internal': self._fields.get('access_internal')._description_selection(self.env),
-                'doc_access_roles': self.env['documents.access']._fields.get('role')._description_selection(self.env),
-            })
+            'access_internal': self._fields.get('access_internal')._description_selection(self.env),
+            'doc_access_roles': self.env['documents.access']._fields.get('role')._description_selection(self.env)}
+        record['access_ids'] = [a for a in record['access_ids'] if a['role']]
+        if record['owner_id']['id'] == self.env.ref('base.user_root').id:
+            record['owner_id'] = False  # Only a real user should be shown in the panel
         return {'record': record, 'selections': selections}
 
     def _permission_specification(self):
-        specification = {
+        partner_id_spec = {'fields': {'email': {}, 'name': {}, 'user_id': {}}}
+        return {
             'access_internal': {},
             'access_via_link': {},
             'access_url': {},
@@ -2162,12 +2161,7 @@ class Document(models.Model):
             'is_access_via_link_hidden': {},
             'type': {},
             'user_permission': {},
-        }
-
-        if self.env.user.has_group('base.group_user'):
-            partner_id_spec = {'fields': {'email': {}, 'name': {}, 'user_id': {}}}
-            specification.update({
-                'access_ids': {
+            'access_ids': {
                     'fields': {
                         'document_id': {},
                         'partner_id': partner_id_spec,
@@ -2175,11 +2169,9 @@ class Document(models.Model):
                         'expiration_date': {},
                     },
                 },
-                'owner_id': {
-                    'fields': {
-                        'partner_id': partner_id_spec,
-                    },
-                }
-            })
-
-        return specification
+            'owner_id': {
+                'fields': {
+                    'partner_id': partner_id_spec,
+                },
+            }
+        }

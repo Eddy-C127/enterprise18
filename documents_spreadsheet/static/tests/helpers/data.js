@@ -1,5 +1,11 @@
 import { SpreadsheetModels, defineSpreadsheetModels } from "@spreadsheet/../tests/helpers/data";
-import { defineActions, fields, models, webModels } from "@web/../tests/web_test_helpers";
+import {
+    defineActions,
+    fields,
+    models,
+    webModels,
+    serverState,
+} from "@web/../tests/web_test_helpers";
 import { mockJoinSpreadsheetSession } from "@spreadsheet_edition/../tests/helpers/mock_server";
 import { Domain } from "@web/core/domain";
 
@@ -328,6 +334,16 @@ export function getBasicPermissionPanelData(recordExtra) {
         access_url: "http://localhost:8069/share/url/132465",
         access_ids: [],
         active: true,
+        owner_id: {
+            id: serverState.userId,
+            partner_id: {
+                id: serverState.partner_id,
+                mail: "user@mock.example.com",
+                name: "User Mock",
+                user_id: serverState.userId,
+                partner_share: false,
+            },
+        },
         ...recordExtra,
     };
     const selections = {
