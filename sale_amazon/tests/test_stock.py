@@ -101,12 +101,12 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
             # (some moves related to a given sales order line are confirmed, but not all)
             self.picking._check_sales_order_line_completion()
 
-    @mute_logger('odoo.addons.sale_amazon.models.stock_picking')
     @mute_logger('odoo.addons.sale_amazon.models.amazon_account')
-    def test_check_carrier_details_compliance_no_carrier(self):
-        """ Test the validation of a picking when the delivery carrier is not set. """
+    def test_check_carrier_details_compliance_delivered_for_amazon(self):
+        """ Test the validation of a picking when Amazon already flagged it as being delivered. """
+
         def find_matching_product_mock(
-                _self, product_code_, _default_xmlid, default_name_, default_type_
+            _self, product_code_, _default_xmlid, default_name_, default_type_
         ):
             """ Return a product created on-the-fly with the product code as internal reference. """
             product_ = self.env['product.product'].create({
@@ -117,7 +117,45 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
                 'purchase_ok': False,
                 'default_code': product_code_,
             })
-            product_.product_tmpl_id.taxes_id = False
+            product_.product_tmpl_id.taxes_id = [Command.clear()]
+            return product_
+
+        with patch(
+            'odoo.addons.sale_amazon.utils.make_sp_api_request',
+            new=lambda _account, operation, **kwargs: common.OPERATIONS_RESPONSES_MAP[operation],
+        ), patch(
+            'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount._recompute_subtotal',
+            new=lambda self_, subtotal_, *args_, **kwargs_: subtotal_,
+        ), patch(
+            'odoo.addons.sale_amazon.models.amazon_account.AmazonAccount._find_matching_product',
+            new=find_matching_product_mock,
+        ):
+            self.account._sync_orders(auto_commit=False)
+            order = self.env['sale.order'].search([('amazon_order_ref', '=', '123456789')])
+            picking = self.env['stock.picking'].search([('sale_id', '=', order.id)])
+            picking.write({
+                'amazon_sync_status': 'done', 'carrier_id': None, 'carrier_tracking_ref': None
+            })
+            picking.location_dest_id.usage = 'customer'
+            picking._check_carrier_details_compliance()  # Don't raise when Amazon has the info
+
+    @mute_logger('odoo.addons.sale_amazon.models.stock_picking')
+    @mute_logger('odoo.addons.sale_amazon.models.amazon_account')
+    def test_check_carrier_details_compliance_no_carrier(self):
+        """ Test the validation of a picking when the delivery carrier is not set. """
+        def find_matching_product_mock(
+            _self, product_code_, _default_xmlid, default_name_, default_type_
+        ):
+            """ Return a product created on-the-fly with the product code as internal reference. """
+            product_ = self.env['product.product'].create({
+                'name': default_name_,
+                'type': default_type_,
+                'list_price': 0.0,
+                'sale_ok': False,
+                'purchase_ok': False,
+                'default_code': product_code_,
+            })
+            product_.product_tmpl_id.taxes_id = [Command.clear()]
             return product_
 
         with patch(
@@ -144,7 +182,7 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
     def test_check_carrier_details_compliance_intermediate_delivery_step(self):
         """ Test the validation of a picking when the delivery is in an intermediate step."""
         def find_matching_product_mock(
-                _self, product_code_, _default_xmlid, default_name_, default_type_
+            _self, product_code_, _default_xmlid, default_name_, default_type_
         ):
             """ Return a product created on-the-fly with the product code as internal reference. """
             product_ = self.env['product.product'].create({
@@ -155,7 +193,7 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
                 'purchase_ok': False,
                 'default_code': product_code_,
             })
-            product_.product_tmpl_id.taxes_id = False
+            product_.product_tmpl_id.taxes_id = [Command.clear()]
             return product_
 
         with patch(
@@ -182,7 +220,7 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
     def test_check_carrier_details_compliance_no_tracking_number(self):
         """ Test the validation of a picking when the tracking reference is not set. """
         def find_matching_product_mock(
-                _self, product_code_, _default_xmlid, default_name_, default_type_
+            _self, product_code_, _default_xmlid, default_name_, default_type_
         ):
             """ Return a product created on-the-fly with the product code as internal reference. """
             product_ = self.env['product.product'].create({
@@ -193,7 +231,7 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
                 'purchase_ok': False,
                 'default_code': product_code_,
             })
-            product_.product_tmpl_id.taxes_id = False
+            product_.product_tmpl_id.taxes_id = [Command.clear()]
             return product_
 
         with patch(
@@ -219,7 +257,7 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
     def test_check_carrier_details_compliance_requirements_met_in_last_step_delivery(self):
         """ Test the validation of a picking when the delivery carrier and tracking ref are set. """
         def find_matching_product_mock(
-                _self, product_code_, _default_xmlid, default_name_, default_type_
+            _self, product_code_, _default_xmlid, default_name_, default_type_
         ):
             """ Return a product created on-the-fly with the product code as internal reference. """
             product_ = self.env['product.product'].create({
@@ -230,7 +268,7 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
                 'purchase_ok': False,
                 'default_code': product_code_,
             })
-            product_.product_tmpl_id.taxes_id = False
+            product_.product_tmpl_id.taxes_id = [Command.clear()]
             return product_
 
         with patch(
