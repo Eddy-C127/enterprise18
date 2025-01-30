@@ -1775,3 +1775,40 @@ test("The date and task should appear even if the pill is planned on 2 days but 
         "Task 11",
     ]);
 });
+
+test("Only the task display name should be displayed if the task span more than two day even if the pill ends before 3am", async () => {
+    mockDate("2024-01-01T08:00:00", +0);
+
+    Tasks._records.push(
+        {
+            id: 9,
+            name: "Task 9",
+            allocated_hours: 4,
+            start: "2024-01-01 16:00:00",
+            stop: "2024-01-02 01:00:00",
+        },
+        {
+            id: 10,
+            name: "Task 10",
+            allocated_hours: 4,
+            start: "2024-01-01 16:00:00",
+            stop: "2024-01-03 01:00:00",
+        },
+    );
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `<gantt date_start="start"
+                          date_stop="stop"
+                          pill_label="True"
+                          default_scale="week"
+                          scales="week"
+                          precision="{'week': 'day:full'}"
+                    >
+                    <field name="allocated_hours"/>
+                </gantt>`,
+    });
+    expect(queryAllTexts(".o_gantt_pill_title")).toEqual([
+        "4:00 PM - 1:00 AM (4h) - Task 9",
+        "Task 10",
+    ]);
+});
