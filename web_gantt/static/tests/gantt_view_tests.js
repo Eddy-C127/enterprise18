@@ -7125,3 +7125,44 @@ QUnit.test("markup html server values", async function (assert) {
     await click(target, ".o_popover .popover-header i.fa.fa-close");
     assert.containsNone(target, ".o_popover");
 });
+
+QUnit.test("Only the task display name should be displayed if the task span more than two day even if the pill ends before 3am", async function (assert) {
+    patchDate(2024, 0, 1, 8, 0, 0);
+    patchWithCleanup(luxon.Settings, {
+        defaultZone: new luxon.IANAZone("UTC"),
+    });
+    serverData.models.tasks.records.push(
+        {
+            id: 9,
+            name: "Task 9",
+            allocated_hours: 4,
+            start: "2024-01-01 16:00:00",
+            stop: "2024-01-02 01:00:00",
+        },
+        {
+            id: 10,
+            name: "Task 10",
+            allocated_hours: 4,
+            start: "2024-01-01 16:00:00",
+            stop: "2024-01-03 01:00:00",
+        },
+    );
+    await makeView({
+        type: "gantt",
+        resModel: "tasks",
+        serverData,
+        arch: `<gantt date_start="start"
+                      date_stop="stop"
+                      pill_label="True"
+                      default_scale="week"
+                      scales="week"
+                      precision="{'week': 'day:full'}"
+                >
+                <field name="allocated_hours"/>
+            </gantt>`,
+    });
+    assert.deepEqual(getNodesTextContent(target.querySelectorAll(".o_gantt_pill_title")), [
+        "4:00 PM - 1:00 AM (4h) - Task 9",
+        "Task 10",
+    ]);
+});
