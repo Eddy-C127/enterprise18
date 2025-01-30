@@ -701,6 +701,7 @@ class AccountOnlineLink(models.Model):
                 to_unlink += link
                 continue
             except (UserError, RedirectWarning):
+                to_unlink += link
                 continue
         result = super(AccountOnlineLink, to_unlink).unlink()
         self.env['account.journal']._toggle_asynchronous_fetching_cron()
