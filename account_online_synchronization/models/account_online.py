@@ -101,18 +101,14 @@ class AccountOnlineAccount(models.Model):
             or False (we fetch transactions as far as possible)
         """
         self.ensure_one()
-        ctx = self.env.context
-        active_id = ctx.get('active_id')
-        if not (ctx.get('active_model') == 'account.journal' and active_id):
-            new_journal_code = self.env['account.journal'].get_next_bank_cash_default_code('bank', self.env.company)
-            journal = self.env['account.journal'].create({
-                'name': self.account_number or self.display_name,
-                'code': new_journal_code,
-                'type': 'bank',
-                'company_id': self.env.company.id,
-                'currency_id': self.currency_id.id != self.env.company.currency_id.id and self.currency_id.id or False,
-            })
-        else:
+        currency_id = self.currency_id.id if not self.currency_id.is_current_company_currency else False
+        existing_journal = self.env['account.journal'].search([
+            ('bank_acc_number', '=', self.account_number),
+            ('currency_id', '=', currency_id),
+            ('type', '=', 'bank'),
+            ('account_online_account_id', '=', False),
+        ], limit=1)
+        if (active_id := self.env.context.get('active_id')) and self.env.context.get('active_model') == 'account.journal':
             journal = self.env['account.journal'].browse(active_id)
             # If we already have a linked account on that journal, it means we are in the process of relinking
             # it is due to an error that occured which require to redo the connection (can't fix it).
@@ -125,6 +121,16 @@ class AccountOnlineAccount(models.Model):
                 existing_entries = self.env['account.bank.statement.line'].search([('journal_id', '=', journal.id)])
                 if not existing_entries:
                     journal.currency_id = self.currency_id.id
+        elif existing_journal:
+            journal = existing_journal
+        else:
+            journal = self.env['account.journal'].create({
+                'name': self.account_number or self.display_name,
+                'code': self.env['account.journal'].get_next_bank_cash_default_code('bank', self.env.company),
+                'type': 'bank',
+                'company_id': self.env.company.id,
+                'currency_id': currency_id,
+            })
 
         self.journal_ids = journal
 
