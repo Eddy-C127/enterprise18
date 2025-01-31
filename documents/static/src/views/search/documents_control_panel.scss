@@ -20,4 +20,27 @@
             min-height: 5.6vh;
         }
     }
+
+    @include media-breakpoint-down(md) {
+        .o_control_panel_actions {
+            overflow: auto;
+            max-height: 3rem;
+            .o_list_selection_box {
+                position: fixed;
+                top: 0;
+                left: 0;
+            }
+            .btn-group {
+                position: unset;
+                max-height: 2.5rem;
+                .btn {
+                    width: fit-content;
+                    margin-top: 0.25rem;
+                }
+                .dropdown:first-of-type {
+                    position: unset;
+                }
+            }
+        }
+    }
 }
