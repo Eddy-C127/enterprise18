@@ -80,7 +80,7 @@
                 },
                 "B34": {
                     "style": 1,
-                    "content": "=_t(\"Net Credit Purchases / Average accounts payable balance for period\")"
+                    "content": "=_t(\"Sales on account / Average accounts receivable balance for period\")"
                 },
                 "B35": {
                     "content": "=_t(\"< 45: company gets paid for sales quickly\")"
@@ -154,7 +154,7 @@
                 },
                 "D34": {
                     "style": 1,
-                    "content": "=_t(\"Sales on account / Average accounts receivable balance for period\")"
+                    "content": "=_t(\"Net Credit Purchases / Average accounts payable balance for period\")"
                 },
                 "D35": {
                     "content": "=_t(\"< 45: company liquidates debts to suppliers quickly\")"
@@ -748,7 +748,7 @@
                 "B11": {
                     "style": 2,
                     "format": 3,
-                    "content": "=IFERROR(B27/ABS(B18)*30)"
+                    "content": "=IFERROR(B27/ABS(B15)*30)"
                 },
                 "B12": {
                     "style": 2,
