@@ -4755,6 +4755,23 @@ registry.category("web_tour.tours").add("test_satisfy_existing_lot_line_before_e
     ]
 });
 
+registry.category("web_tour.tours").add("test_fetch_archived_records_in_lazy_barcode_cache", {
+    test: true, steps: () => [
+        {
+            trigger: "button.o_add_quantity",
+            run: "click",
+        },
+        {
+            trigger: ".o_validate_page.btn-success",
+            run: "click",
+        },
+        {
+            trigger: ".o_notification.border-success",
+            run() {},
+        },
+    ]
+});
+
 registry.category("web_tour.tours").add("test_select_with_same_product_and_lot", {
     test: true, steps: () => [
         {
