@@ -6,7 +6,7 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import models, fields, _, api, Command
 from odoo.exceptions import UserError
-from odoo.tools import groupby
+from odoo.tools import groupby, SQL
 from odoo.addons.account_accountant.models.account_move import DEFERRED_DATE_MIN, DEFERRED_DATE_MAX
 
 
@@ -74,24 +74,57 @@ class DeferredReportCustomHandler(models.AbstractModel):
             "account_move_line.analytic_distribution AS analytic_distribution",
             "account_move_line__move_id.id as move_id",
             "account_move_line__move_id.name AS move_name",
-            "account_move_line__account_id.name AS account_name",
+            """
+            NOT (
+                account_move_line.deferred_end_date >= %s
+                AND
+                NOT EXISTS (
+                     SELECT 1 
+                       FROM account_move_deferred_rel AS amdr
+                  LEFT JOIN account_move AS am ON amdr.deferred_move_id = am.id
+                      WHERE amdr.original_move_id = account_move_line.move_id
+                        AND am.date = %s
+                        AND (
+                             am.state = 'posted' 
+                             OR (am.auto_post = 'at_date' AND am.date >= %s)
+                            )
+                )
+            ) AS is_already_generated
+            """,
         ]
 
     def _get_lines(self, report, options, filter_already_generated=False):
+        if 'report_deferred_lines' not in self.env.cr.cache:
+            self._fetch_lines(report, options, filter_already_generated)
+
+        if not filter_already_generated:
+            # No more filtering needed, we can reuse the cached result
+            return self.env.cr.cache['report_deferred_lines'].values()
+        else:
+            # Filter the cached result to only keep the lines that are not already generated
+            cached_lines = self.env.cr.cache['report_deferred_lines'].values()
+            return [cached_line for cached_line in cached_lines if not cached_line['is_already_generated']]
+
+    def _fetch_lines(self, report, options, filter_already_generated):
+        """Fetch the lines that need to be deferred from the DB and store them in the cache for later reuse"""
         domain = self._get_domain(report, options, filter_already_generated)
         tables, where_clause, where_params = report._query_get(options, domain=domain, date_scope='from_beginning')
         select_clause = ', '.join(self._get_select())
+        select_params = (options['date']['date_from'], options['date']['date_to'], fields.Date.context_today(self))
 
-        query = f"""
-        SELECT {select_clause}
-        FROM {tables}
-        WHERE {where_clause}
-        ORDER BY "account_move_line"."deferred_start_date", "account_move_line"."id"
-        """
+        query = SQL(f"""
+            SELECT {select_clause}
+            FROM {tables}
+            WHERE {where_clause}
+            ORDER BY "account_move_line"."deferred_start_date", "account_move_line"."id"
+        """, *select_params, *where_params)
 
-        self.env.cr.execute(query, where_params)
-        res = self.env.cr.dictfetchall()
-        return res
+        self.env.cr.execute(query)
+        # Cache the result so that it can be reused to check whether a warning banner should be shown
+        # only if it's the generic query (so without filtering already generated deferrals)
+        self.env.cr.cache['report_deferred_lines'] = {
+            r['line_id']: r for r in self.env.cr.dictfetchall()
+        }
 
     @api.model
     def _get_grouping_keys_deferred_lines(self, filter_already_generated=False):
@@ -314,19 +347,6 @@ class DeferredReportCustomHandler(models.AbstractModel):
                 for column in options['columns']
             ]
 
-        if warnings is not None:
-            already_generated = (
-                (
-                    self._get_deferred_report_type() == 'expense' and self.env.company.generate_deferred_expense_entries_method == 'manual'
-                    or self._get_deferred_report_type() == 'revenue' and self.env.company.generate_deferred_revenue_entries_method == 'manual'
-                )
-                and self.env['account.move'].search_count(
-                    report._get_generated_deferral_entries_domain(options)
-                )
-            )
-            if already_generated:
-                warnings['account_reports.deferred_report_warning_already_posted'] = {'alert_type': 'warning'}
-
         lines = self._get_lines(report, options)
         periods = [
             (
@@ -358,6 +378,26 @@ class DeferredReportCustomHandler(models.AbstractModel):
                 'columns': get_columns(totals_all_accounts),
             }))
 
+        if (
+            warnings is not None
+            and
+            (
+                self._get_deferred_report_type() == 'expense' and self.env.company.generate_deferred_expense_entries_method == 'manual'
+                or self._get_deferred_report_type() == 'revenue' and self.env.company.generate_deferred_revenue_entries_method == 'manual'
+            )
+        ):
+            already_generated = self.env['account.move'].search_count(
+                report._get_generated_deferral_entries_domain(options)
+            )
+            # This will trigger a second _get_lines call, however the first one was cached, so we just need to filter again on the cache (see _get_lines)
+            moves_lines_to_generate, __, __, __, __ = self._get_moves_to_defer(options)
+            if moves_lines_to_generate and already_generated:
+                warnings['account_reports.deferred_report_warning_partially_generated'] = {'alert_type': 'warning'}
+            elif moves_lines_to_generate:
+                warnings['account_reports.deferred_report_warning_never_generated'] = {'alert_type': 'warning'}
+            elif already_generated:
+                warnings['account_reports.deferred_report_info_fully_generated'] = {'alert_type': 'info'}
+
         return report_lines
 
     #######################
@@ -379,10 +419,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
             'target': 'current',
         }
 
-    def _generate_deferral_entry(self, options):
-        journal = self.env.company.deferred_journal_id
-        if not journal:
-            raise UserError(_("Please set the deferred journal in the accounting settings."))
+    def _get_moves_to_defer(self, options):
         date_from = fields.Date.to_date(DEFERRED_DATE_MIN)
         date_to = fields.Date.from_string(options['date']['date_to'])
         if date_to.day != calendar.monthrange(date_to.year, date_to.month)[1]:
@@ -398,6 +435,13 @@ class DeferredReportCustomHandler(models.AbstractModel):
         ref_rev = _("Reversal of Grouped Deferral Entry of %s", deferral_entry_period['string'])
         deferred_account = self.env.company.deferred_expense_account_id if self._get_deferred_report_type() == 'expense' else self.env.company.deferred_revenue_account_id
         move_lines, original_move_ids = self._get_deferred_lines(lines, deferred_account, (date_from, date_to, 'current'), self._get_deferred_report_type() == 'expense', ref)
+        return move_lines, original_move_ids, ref, ref_rev, date_to
+
+    def _generate_deferral_entry(self, options):
+        journal = self.env.company.deferred_journal_id
+        if not journal:
+            raise UserError(_("Please set the deferred journal in the accounting settings."))
+        move_lines, original_move_ids, ref, ref_rev, date_to = self._get_moves_to_defer(options)
         if not move_lines:
             raise UserError(_("No entry to generate."))
 
