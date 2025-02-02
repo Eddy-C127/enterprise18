@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Larissa Manderfeld, 2024
+# Larissa Manderfeld, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2025\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -572,12 +572,6 @@ msgstr "Alle"
 #: model:ir.ui.menu,name:sign.sign_request_documents
 msgid "All Documents"
 msgstr "Alle Dokumente"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "All done!"
-msgstr "Fertig!"
 
 #. module: sign
 #. odoo-python
@@ -1242,6 +1236,8 @@ msgid "Documents"
 msgstr "Dokumente"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 msgid "Download"
 msgstr "Herunterladen"
@@ -1258,12 +1254,6 @@ msgstr "Protokoll herunterladen"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "Download Document"
 msgstr "Dokument herunterladen"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "Download it"
-msgstr "Herunterladen"
 
 #. module: sign
 #. odoo-javascript
@@ -1820,6 +1810,12 @@ msgid "Is User Signer"
 msgstr "Ist Benutzer-Unterzeichner"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "It's signed!"
+msgstr "Alles unterschrieben!"
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "John Doe"
 msgstr "Max Mustermann"
@@ -2133,6 +2129,12 @@ msgid "Need a valid PDF to add signature fields!"
 msgstr "Benötigt ein gültiges PDF, um Signaturfelder hinzuzufügen."
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Need to sign documents?"
+msgstr "Sie müssen Dokumente unterschreiben?"
+
+#. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_send_request
 msgid "New Signature Request"
 msgstr "Neue Signaturanfrage"
@@ -2261,6 +2263,12 @@ msgstr "Anzahl der Nachrichten mit Zustellungsfehler."
 #: model:ir.model.fields,field_description:sign.field_sign_template__num_pages
 msgid "Number of pages"
 msgstr "Seitenanzahl"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Odoo Sign"
+msgstr "Odoo E-Signatur"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -2902,12 +2910,6 @@ msgstr "Format zum Unterzeichen von Allgemeingen Geschäftsbedingungen"
 
 #. module: sign
 #. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "Sign Up for free"
-msgstr "Gratis anmelden"
-
-#. module: sign
-#. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.xml:0
 msgid "Sign all"
 msgstr "Alles unterzeichnen"
@@ -2952,15 +2954,6 @@ msgid ""
 msgstr ""
 "Melden Sie sich für Odoo E-Signatur an, um Ihre eigenen Dokumente und "
 "Signaturanfragen zu verwalten!"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid ""
-"Sign up for Odoo Sign to manage your own documents and signature requests."
-msgstr ""
-"Melden Sie sich für Odoo E-Signatur an, um Ihre eigenen Dokumente und "
-"Signaturanfragen zu verwalten."
 
 #. module: sign
 #: model:ir.actions.server,name:sign.sign_reminder_cron_ir_actions_server
@@ -4215,8 +4208,8 @@ msgstr "Sie sollten mindestens ein Dokument zum Herunterladen auswählen."
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "You will receive the final signed document by email."
-msgstr "Sie erhalten das unterzeichnete endgültige Dokument per E-Mail."
+msgid "You will get the signed document by email."
+msgstr "Sie erhalten das unterzeichnete Dokument per E-Mail."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
@@ -4413,6 +4406,14 @@ msgstr "https://c.environmentalpaper.org/"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "ip"
 msgstr "IP"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "is free, forever, with unlimited users - and it's fun to use!"
+msgstr ""
+"ist kostenlos, für immer und eine unbegrenzte Anzahl Benutzer – und es macht"
+" Spaß, es zu nutzen!"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user

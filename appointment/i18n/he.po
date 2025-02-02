@@ -27,14 +27,15 @@
 # tomerlayline, 2024
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2025
 # Lilach Gilliam <lilach.gilliam@gmail.com>, 2025
+# or balmas, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Lilach Gilliam <lilach.gilliam@gmail.com>, 2025\n"
+"Last-Translator: or balmas, 2025\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,7 +47,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/appointment/models/appointment_booking_line.py:0
 msgid "\"%(resource_name_list)s\" cannot be used for \"%(appointment_type_name)s\""
-msgstr ""
+msgstr "לא ניתן להשתמש ב\"%(resource_name_list)s\" ל\"%(appointment_type_name)s\""
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_count
@@ -211,7 +212,6 @@ msgid ""
 "            <t t-if=\"customer\">\n"
 "                <t t-out=\"customer.name or ''\"/> scheduled the following appointment <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Schedule a Demo</strong> with you.\n"
 "                <t t-if=\"object.event_id.appointment_type_id and object.event_id.appointment_status == 'request'\">\n"
-"                    <br/>\n"
 "                    It is awaiting confirmation.\n"
 "                </t>\n"
 "            </t>\n"
@@ -512,12 +512,12 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<i class=\"fa fa-check-circle text-success me-3\"/>Appointment Scheduled!"
-msgstr ""
+msgstr "<i class=\"fa fa-check-circle text-success me-3\"/> הפגישה נקבעה!"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
 msgid "<i class=\"fa fa-info-circle\" title=\"Info\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-info-circle\" title=\"Info\"/>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -525,6 +525,7 @@ msgid ""
 "<i class=\"fa fa-lg fa-calendar-plus-o me-3 text-primary\"/>Schedule another"
 " meeting"
 msgstr ""
+"<i class=\"fa fa-lg fa-calendar-plus-o me-3 text-primary\"/> קבע פגישה נוספת"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -532,6 +533,8 @@ msgid ""
 "<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Until Icon\" "
 "title=\"Arrow\"/>"
 msgstr ""
+"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Until Icon\" "
+"title=\"Arrow\"/>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -563,6 +566,8 @@ msgid ""
 "<i class=\"fa fa-times text-danger me-2\"/><strong>Appointment cancelled!</strong>\n"
 "                                        You can now choose a different schedule that suits you better."
 msgstr ""
+"<i class=\"fa fa-times text-danger me-2\"/><strong> הפגישה בוטלה!</strong>\n"
+" ניתן לתאם בזמן אחר שמתאים יותר."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -607,7 +612,7 @@ msgstr "<small class=\"text-uppercase text-muted\">פרטי פגישה</small>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<small>Add to Google Agenda</small>"
-msgstr ""
+msgstr "<small> הוסף לGoogle Agenda</small>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -627,29 +632,29 @@ msgstr "<span class=\"fa fa-pencil\"/>עריכה"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-share-alt\"/> Share"
-msgstr ""
+msgstr "<span class=\"fa fa-share-alt\"/>שתף"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-trash\"/> Delete"
-msgstr ""
+msgstr "<span class=\"fa fa-trash\"/>מחק"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "<span class=\"me-1\">Attendees marked as busy at the selected time</span>"
-msgstr ""
+msgstr "<span class=\"me-1\">המשתתפים סומנו כעסוקים בזמן שנבחר</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid ""
 "<span class=\"me-1\">You are scheduling a booking outside the available "
 "hours of</span>"
-msgstr ""
+msgstr "<span class=\"me-1\">שים לב כי אתה מנסה לתאם מחוץ לשעות הזמינות של</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "<span class=\"mx-1\">or</span>"
-msgstr ""
+msgstr "<span class=\"mx-1\">או</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -659,12 +664,12 @@ msgstr "<span class=\"text-muted\">משתתפים</span>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span class=\"text-muted\">Details</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">פרטים</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span class=\"text-muted\">Duration</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">משך זמן</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -674,7 +679,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span class=\"text-muted\">How to join</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">איך להצטרף</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -684,17 +689,17 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span class=\"text-muted\">When</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">מתי</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span class=\"text-muted\">Where</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">היכן</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "<span> hours before the meeting</span>"
-msgstr ""
+msgstr "<span>שעות לפני הפגישה</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -705,12 +710,12 @@ msgstr "<span> שעות</span>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "<span>Add more details about you</span>"
-msgstr ""
+msgstr "<span> הוסף עוד פרטים על עצמך</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span>Not available anymore?</span>"
-msgstr ""
+msgstr "<span>לא זמין עוד?</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -730,6 +735,10 @@ msgid ""
 "                                            Someone has booked the same time slot a few\n"
 "                                            seconds before you."
 msgstr ""
+"<strong>תיאום הפגישה נכשל</strong>\n"
+"משבצת הזמן שנבחרה לא זמינה יותר.\n"
+"מישהו אחר בחר את משבצת הזמן הזו\n"
+" כמה שניות לפנייך ."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -738,21 +747,24 @@ msgid ""
 "                                            The selected timeslot is not available.\n"
 "                                            It appears you already have another meeting with us at that date."
 msgstr ""
+"<strong>תיאום הפגישה נכשל!</strong>\n"
+"משבצת הזמן שנבחרה לא זמינה יותר.\n"
+"נראה כי יש לך פגישה נוספת איתנו באותו התאריך."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Booked for: </strong>"
-msgstr ""
+msgstr "<strong>מוזמן עבור:</strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Contact Information</strong>"
-msgstr ""
+msgstr "<strong>מידע ליצירת קשר</strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Email: </strong>"
-msgstr ""
+msgstr "<strong>דוא\"ל: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -772,7 +784,7 @@ msgstr "<strong>תאריך התחלה: </strong>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Status: </strong>"
-msgstr ""
+msgstr "<strong>סטטוס: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -880,7 +892,7 @@ msgstr "סגירת יום (ימים)"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Add Guests"
-msgstr ""
+msgstr "הוסף אורחים"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
@@ -997,13 +1009,6 @@ msgstr "סוג תשובה"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Answers"
 msgstr "תשובות"
-
-#. module: appointment
-#. odoo-javascript
-#: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
-msgid "Any Time"
-msgstr "כל זמן"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__all_assigned_resources
@@ -1146,7 +1151,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_status
 msgid "Appointment Status"
-msgstr ""
+msgstr "סטטוס פגישה"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__name
@@ -1294,17 +1299,17 @@ msgstr "תשובות זמינות"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_search
 msgid "Available In"
-msgstr ""
+msgstr "זמין ב"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__appointment_type_ids
 msgid "Available in"
-msgstr ""
+msgstr "זמין ב"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category_time_display__recurring_fields
 msgid "Available now"
-msgstr ""
+msgstr "זמין כעת "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__avatar_1920
@@ -1603,7 +1608,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "Continue <span class=\"oi oi-arrow-right\"/>"
-msgstr ""
+msgstr "המשך <span class=\"oi oi-arrow-right\"/>"
 
 #. module: appointment
 #. odoo-javascript
@@ -1825,7 +1830,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Do you have any dietary preferences or restrictions ?"
-msgstr ""
+msgstr "האם יש לך העדפות או הגבלות תזונתיות?"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__select
@@ -1878,7 +1883,7 @@ msgstr "התראת אירוע"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "Event Details"
-msgstr ""
+msgstr "פרטי אירוע"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -2007,7 +2012,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__hide_timezone
 msgid "Hide Time Zone"
-msgstr ""
+msgstr "הסתר אזור זמן "
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__assign_method
@@ -2053,7 +2058,7 @@ msgstr "אם מסומן, בחלק מההודעות קיימת שגיאת משל�
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "If empty, Odoo will not send emails"
-msgstr ""
+msgstr "אם ריק, Odoo לא תשלח מיילים"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__restrict_to_resource_ids
@@ -2160,7 +2165,7 @@ msgstr "הודעת פתיחה"
 #: code:addons/appointment/static/src/js/appointment_form.js:0
 #: code:addons/appointment/static/src/js/appointment_validation.js:0
 msgid "Invalid Email"
-msgstr ""
+msgstr "מייל שגוי "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_invite_ids
@@ -2248,7 +2253,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/appointment/static/src/js/appointment_validation.js:0
 msgid "Link Copied!"
-msgstr ""
+msgstr "קישור הועתק!"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
@@ -2265,13 +2270,13 @@ msgstr "קישור URL"
 #. odoo-javascript
 #: code:addons/appointment/static/src/components/appointment_invite/appointment_invite_copy_close.js:0
 msgid "Link copied to clipboard!"
-msgstr ""
+msgstr "הקישור הועתק ללוח !"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Link copied to your clipboard!"
-msgstr ""
+msgstr "הקישור הועתק ללוח שלך!"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__linked_resource_ids
@@ -2366,12 +2371,6 @@ msgid "Monday"
 msgstr "יום שני"
 
 #. module: appointment
-#. odoo-javascript
-#: code:addons/appointment/static/src/views/custom_appointment_form_dialog/custom_appointment_form_dialog.xml:0
-msgid "More Options"
-msgstr ""
-
-#. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__text
 msgid "Multi-line text"
 msgstr "טקסט מרובה שורות"
@@ -2389,7 +2388,7 @@ msgstr "הפגישות שלי"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_search
 msgid "My Links"
-msgstr ""
+msgstr "הקישורים שלי"
 
 #. module: appointment
 #. odoo-python
@@ -2444,11 +2443,6 @@ msgstr "עדיין אין תשובות!"
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_resources
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_users
 msgid "No Appointment or Resource were found."
-msgstr ""
-
-#. module: appointment
-#: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
-msgid "No Custom Availabilities Shared!"
 msgstr ""
 
 #. module: appointment
@@ -2574,7 +2568,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
 msgid "Opening Hours"
-msgstr ""
+msgstr "שעות פעילות "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
@@ -2595,7 +2589,7 @@ msgstr "מארגן"
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 msgid "Our first availability is"
-msgstr ""
+msgstr "הזמינות הראשונה שלנו היא"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -2712,11 +2706,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__reason
 msgid "Reason"
 msgstr "סיבה"
-
-#. module: appointment
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
-msgid "Recurring"
-msgstr "הזמנות חוזרות"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__redirect_url
@@ -2878,7 +2867,7 @@ msgstr "שמור וסגור"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/custom_appointment_form_dialog/custom_appointment_form_dialog.xml:0
 msgid "Save & Copy Link"
-msgstr ""
+msgstr "שמור והעתק לינק"
 
 #. module: appointment
 #. odoo-javascript
@@ -2955,12 +2944,6 @@ msgid "Select Appointments to share..."
 msgstr ""
 
 #. module: appointment
-#. odoo-javascript
-#: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
-msgid "Select Dates"
-msgstr "בחר תאריכים"
-
-#. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Select Resources"
 msgstr ""
@@ -3004,7 +2987,7 @@ msgstr "בחר משתתפים..."
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer_input__value_answer_id
 msgid "Selected Answer"
-msgstr ""
+msgstr "שאלה שנבחרה "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__appointment_type_count
@@ -3019,7 +3002,7 @@ msgstr "בחירת שאלות"
 #. module: appointment
 #: model:mail.template,description:appointment.appointment_canceled_mail_template
 msgid "Sent to all attendees when an appointment is cancelled"
-msgstr ""
+msgstr "שלח לכל המשתתפים אם הפגישה תבוטל "
 
 #. module: appointment
 #: model:mail.template,description:appointment.appointment_booked_mail_template
@@ -3067,7 +3050,7 @@ msgstr "שתף זמינות"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Share Calendar"
-msgstr ""
+msgstr "שתף לוח שנה"
 
 #. module: appointment
 #. odoo-javascript
@@ -3153,7 +3136,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 msgid "Sorry, it is no longer possible to schedule an appointment."
-msgstr ""
+msgstr "מצטערים, לא ניתן יותר לקבוע פגישה."
 
 #. module: appointment
 #. odoo-javascript
@@ -3165,7 +3148,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 msgid "Sorry, we have no availability for an appointment."
-msgstr ""
+msgstr "מצטערים, אין לנו זמינות לפגישה."
 
 #. module: appointment
 #. odoo-javascript
@@ -3287,7 +3270,7 @@ msgstr "טבלה"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Table %s"
-msgstr ""
+msgstr "שולחן %s"
 
 #. module: appointment
 #. odoo-python
@@ -3342,7 +3325,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_slot_check_start_and_end_hour
 msgid "The end time must be later than the start time."
-msgstr ""
+msgstr "שעת הסיום חייבת להיות מאוחרת משעת ההתחלה."
 
 #. module: appointment
 #. odoo-python
@@ -3380,7 +3363,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/appointment/models/appointment_question.py:0
 msgid "The following question(s) do not have any selectable answers : %s"
-msgstr ""
+msgstr "לשאלות הבאות אין תשובות לבחירה:%s"
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_resource_check_capacity
@@ -3495,12 +3478,12 @@ msgstr "ל"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "To make any changes, please contact"
-msgstr ""
+msgstr "על מנת לבצע שינויים, נא ליצור קשר עם"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "To make any changes, please contact us."
-msgstr ""
+msgstr "על מנת לבצע שינויים, נא ליצור קשר איתנו."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__access_token
@@ -3589,12 +3572,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_invite/appointment_share_link_list_controller.js:0
 msgid "Update a Share Link"
-msgstr ""
+msgstr "עדכן קישור משותף "
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_calendar_alarm__default_for_new_appointment_type
 msgid "Use as default for new Appointment Types"
-msgstr ""
+msgstr "השתמש כברירת מחדל עבור סוגי פגישות חדשים"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_appointment_reporting
@@ -3635,7 +3618,7 @@ msgstr "משתמשים"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Video Call"
-msgstr ""
+msgstr "שיחת וידאו"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__event_videocall_source
@@ -3651,7 +3634,7 @@ msgstr "תצוגה"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "We will come back to you to confirm it."
-msgstr ""
+msgstr "נחזור אלייך על מנת לאשר זאת."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__website_message_ids
@@ -3693,7 +3676,7 @@ msgstr "שעות עבודה "
 #: code:addons/appointment/static/src/js/appointment_form.js:0
 #: code:addons/appointment/static/src/js/appointment_validation.js:0
 msgid "You cannot invite more than 10 people"
-msgstr ""
+msgstr "לא ניתן לזמן יותר מ-10 אנשים "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_details_column
@@ -3799,7 +3782,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "e.g. john.smith@example.com"
-msgstr ""
+msgstr "למשל john.smith@example.com"
 
 #. module: appointment
 #. odoo-javascript
@@ -3821,7 +3804,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "hours before the meeting"
-msgstr ""
+msgstr "שעות לפני הפגישה"
 
 #. module: appointment
 #. odoo-javascript
@@ -3838,7 +3821,7 @@ msgstr "או"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "people"
-msgstr ""
+msgstr "אנשים"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -3854,7 +3837,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "this link"
-msgstr ""
+msgstr "קישור זה"
 
 #. module: appointment
 #. odoo-javascript

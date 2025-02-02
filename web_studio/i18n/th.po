@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Wichanon Jamwutthipreecha, 2024
-# Rasareeyar Lappiam, 2024
 # Wil Odoo, 2024
+# Rasareeyar Lappiam, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:51+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Rasareeyar Lappiam, 2025\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,6 +116,8 @@ msgid ""
 "%(user_name)s has set approval rights from %(previous_approvers)s to "
 "%(next_approvers)s"
 msgstr ""
+"%(user_name)sได้กำหนดสิทธิ์การอนุมัติจาก %(previous_approvers)s ถึง "
+"%(next_approvers)s"
 
 #. module: web_studio
 #. odoo-python
@@ -1374,7 +1376,7 @@ msgstr "กำหนดว่าจะมีการอัปเดตบัน
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__notification_order
 msgid "Defines the sequential order in which the approvals are requested."
-msgstr ""
+msgstr "กำหนดลำดับการร้องขอการอนุมัติ"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1520,7 +1522,7 @@ msgstr "เสร็จสิ้น"
 #: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
 msgid ""
 "Drag & drop <b>another field</b>. Let's try with a <i>selection field</i>."
-msgstr ""
+msgstr "ลากและวาง <b>อีกฟิลด์นึง</b> ลองใช้กับ<i>ฟิลด์การเลือก</i>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2541,7 +2543,7 @@ msgstr "โมเดล"
 #. odoo-python
 #: code:addons/web_studio/wizard/studio_export_wizard.py:0
 msgid "Model '%s' should not contain records with the same ID."
-msgstr ""
+msgstr "โมเดล '%s' ไม่ควรมีบันทึกที่มี ID เดียวกัน"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_model_access
@@ -2815,7 +2817,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
 msgid "Now you're on your own. Enjoy your <b>super power</b>."
-msgstr ""
+msgstr "ตอนนี้คุณอยู่คนเดียวแล้ว สนุกไปกับ<b>พลังพิเศษ</b>ของคุณ"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4466,6 +4468,12 @@ msgstr "เช่น ทรัพย์สิน"
 #: code:addons/web_studio/static/src/client_action/app_creator/app_creator.xml:0
 msgid "e.g. Real Estate"
 msgstr "เช่น อสังหาริมทรัพย์"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/field_properties/field_properties.xml:0
+msgid "for company"
+msgstr ""
 
 #. module: web_studio
 #. odoo-python

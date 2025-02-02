@@ -134,7 +134,7 @@ msgstr "Asiakaspalvelun tukipyyntö"
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_sla_report_analysis__total_hours_spent
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket_report_analysis__total_hours_spent
 msgid "Hours Spent (Timesheets)"
-msgstr ""
+msgstr "Käytetyt tunnit (työaikakirjaukset)"
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket_create_timesheet__id
@@ -175,6 +175,10 @@ msgid ""
 "timesheet drafts in the original helpdesk team. Although they won't be "
 "visible here, you can still edit them using the Timesheets app."
 msgstr ""
+"Jos tämä tehtävä siirretään helpdesk-ryhmään, jossa ei ole työaikakirjausten"
+" tukea, työaikataulujen luonnokset säilyvät alkuperäisessä helpdesk-"
+"ryhmässä. Vaikka ne eivät näy täällä, voit silti muokata niitä Timesheets-"
+"sovelluksella."
 
 #. module: helpdesk_timesheet
 #. odoo-python
@@ -271,7 +275,7 @@ msgstr "Tehtävät"
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.timesheet_table
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.timesheet_view_form_inherit
 msgid "Ticket"
-msgstr "Lippu"
+msgstr "Tukipyyntö"
 
 #. module: helpdesk_timesheet
 #: model:ir.model,name:helpdesk_timesheet.model_helpdesk_ticket_report_analysis
@@ -312,7 +316,7 @@ msgstr "Kulutettu aika"
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.helpdesk_ticket_view_graph_main_inherit_helpdesk_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.helpdesk_ticket_view_pivot_main_inherit_helpdesk_timesheet
 msgid "Time Spent (Timesheets)"
-msgstr ""
+msgstr "Käytetty aika (työaikakirjaukset)"
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,help:helpdesk_timesheet.field_helpdesk_ticket__timesheet_ids

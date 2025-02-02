@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Sarah Park, 2024
-# Wil Odoo, 2024
 # Daye Jeong, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:53+0000\n"
+"POT-Creation-Date: 2025-01-27 13:56+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Daye Jeong, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,6 +41,12 @@ msgstr "수락"
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__acknowledged
 msgid "Acknowledged"
 msgstr "인정됨"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Aggregator (Handled by Platform)"
+msgstr ""
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__name
@@ -77,7 +83,19 @@ msgstr "취소됨"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Card on Delivery"
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Cash"
+msgstr "현금"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Channel"
 msgstr "채널"
 
@@ -97,6 +115,12 @@ msgstr "온라인 배송 주문에 이 결제 방법을 사용하는 경우 이 
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Close"
 msgstr "닫기"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.xml:0
+msgid "Complete Order"
+msgstr ""
 
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__completed
@@ -138,31 +162,32 @@ msgstr "작성일자"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Customer Email"
 msgstr "고객 이메일"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Customer Info"
 msgstr "고객 정보"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Customer Name"
 msgstr "고객명"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Customer Phone"
 msgstr "고객 전화번호"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/receipt_screen/receipt/order_receipt.xml:0
 msgid "Delivery Address"
 msgstr "배송 주소"
 
@@ -206,7 +231,7 @@ msgstr "배송 결제"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Delivery Person"
 msgstr "배달 담당자"
 
@@ -233,7 +258,7 @@ msgstr "배송 상황"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Delivery Time/Time-Slot"
 msgstr "배송 시간/시간 슬롯"
 
@@ -242,6 +267,12 @@ msgstr "배송 시간/시간 슬롯"
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Details"
 msgstr "세부 정보"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.xml:0
+msgid "Dispatch Order"
+msgstr ""
 
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__dispatched
@@ -280,6 +311,11 @@ msgstr "오류"
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
+msgid "Error to send delivery order in preparation display."
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/store/pos_store.js:0
 msgid "Error to send in preparation display."
 msgstr "준비 표시 중 전송 오류가 발생했습니다."
@@ -316,7 +352,7 @@ msgstr "음식 준비"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Fulfilment Mode"
 msgstr "주문 처리 모드"
 
@@ -336,7 +372,7 @@ msgstr "Urban Piper 및 POS 구성으로 제품 처리 - 제품이 해당 스토
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "HungerStation Code"
 msgstr "헝거스테이션 코드"
 
@@ -445,7 +481,7 @@ msgstr "해당 없음"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__name
 msgid "Name"
 msgstr "이름"
@@ -473,6 +509,12 @@ msgid "Non-Vegetarian"
 msgstr "비채식주의자"
 
 #. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Not Specified"
+msgstr ""
+
+#. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.product_template_only_form_view_inherit_pos_urban_piper
 msgid "Not available for online orders."
 msgstr "온라인 주문에는 사용할 수 없습니다."
@@ -496,19 +538,19 @@ msgstr "온라인 배송 제공업체"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Order ID"
 msgstr "주문 아이디"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Order Info"
 msgstr "주문 정보"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Order OTP"
 msgstr "OTP 주문"
 
@@ -520,7 +562,7 @@ msgstr "주문 상태"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Order Time"
 msgstr "주문 시간"
 
@@ -549,7 +591,7 @@ msgstr "배송 반경을 벗어남"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Outlet"
 msgstr "아울렛"
 
@@ -564,13 +606,31 @@ msgid "Packaging Charges"
 msgstr "포장 요금"
 
 #. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Payment Gateway"
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Payment Mode"
+msgstr "결제 방법"
+
+#. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_payment_methods_ids
 msgid "Payment methods for Urban Piper sync menu."
 msgstr "Urban Piper 동기화 메뉴 결제 방법."
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Paytm"
+msgstr "Paytm"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Phone"
 msgstr "전화번호"
 
@@ -613,6 +673,12 @@ msgstr "점포판매시스템 기간"
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_store_identifier
 msgid "Pos ID from Urban Piper (Atlas)"
 msgstr "Urban Piper (Atlas)의 위치 ID"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Prepaid"
+msgstr "선불"
 
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_pos_preparation_display_order
@@ -743,7 +809,13 @@ msgstr "전표 생성에 사용할 전표의 짧은 코드"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Simpl (Deferred Payment)"
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Status"
 msgstr "상태"
 
@@ -792,13 +864,13 @@ msgstr "시스템 매개 변수"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Talabat Code"
 msgstr "탈라바트 코드"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Talabat Short Code"
 msgstr "탈라바트 단축 코드"
 
@@ -977,6 +1049,12 @@ msgstr "세부사항 품목/추가 상품 품절"
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__product_template__urbanpiper_meal_type__1
 msgid "Vegetarian"
 msgstr "채식"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Wallet Credit"
+msgstr ""
 
 #. module: pos_urban_piper
 #. odoo-python

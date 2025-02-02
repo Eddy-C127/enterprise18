@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 12:16+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
@@ -2893,7 +2893,7 @@ msgstr "Et voi vapauttaa toista työntekijää kuin itseäsi."
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You cannot assign yourself to a shift in the past."
-msgstr ""
+msgstr "Et voi määrätä itseäsi menneisyyteen."
 
 #. module: planning
 #. odoo-python
@@ -2921,6 +2921,12 @@ msgid "You cannot switch a shift that is in the past."
 msgstr "Et voi vaihtaa mennyttä vuoroa."
 
 #. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid "You cannot unassign yourself from a shift in the past."
+msgstr "Et voi irrottaa itseäsi menneisyydessä tapahtuneesta vuorosta."
+
+#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/planning_calendar_front.js:0
 msgid "You don't have any shifts planned yet."
@@ -2935,12 +2941,6 @@ msgid ""
 msgstr ""
 "Sinulla ei ole vielä suunniteltuja työvuoroja. Voit määrätä itsellesi "
 "joitakin vapaana olevista vuoroista."
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning.py:0
-msgid "You cannot unassign yourself from a shift in the past."
-msgstr ""
 
 #. module: planning
 #. odoo-python

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Larissa Manderfeld, 2025\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
@@ -201,7 +201,6 @@ msgid ""
 "            <t t-if=\"customer\">\n"
 "                <t t-out=\"customer.name or ''\"/> scheduled the following appointment <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Schedule a Demo</strong> with you.\n"
 "                <t t-if=\"object.event_id.appointment_type_id and object.event_id.appointment_status == 'request'\">\n"
-"                    <br/>\n"
 "                    It is awaiting confirmation.\n"
 "                </t>\n"
 "            </t>\n"
@@ -356,7 +355,6 @@ msgstr ""
 "            <t t-if=\"customer\">\n"
 "                <t t-out=\"customer.name or ''\"/> hat den folgenden Termin <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Eine Demo planen</strong> mit Ihnen gebucht.\n"
 "                <t t-if=\"object.event_id.appointment_type_id and object.event_id.appointment_status == 'request'\">\n"
-"                    <br/>\n"
 "                    Er muss noch bestätigt werden.\n"
 "                </t>\n"
 "            </t>\n"
@@ -1341,13 +1339,6 @@ msgstr "Antworttyp"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Answers"
 msgstr "Antworten"
-
-#. module: appointment
-#. odoo-javascript
-#: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
-msgid "Any Time"
-msgstr "Jederzeit"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__all_assigned_resources
@@ -2770,12 +2761,6 @@ msgid "Monday"
 msgstr "Montag"
 
 #. module: appointment
-#. odoo-javascript
-#: code:addons/appointment/static/src/views/custom_appointment_form_dialog/custom_appointment_form_dialog.xml:0
-msgid "More Options"
-msgstr "Weitere Optionen"
-
-#. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__text
 msgid "Multi-line text"
 msgstr "Mehrzeiliger Text"
@@ -2849,11 +2834,6 @@ msgstr "Noch keine Antworten!"
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_users
 msgid "No Appointment or Resource were found."
 msgstr "Kein Termin oder keine Ressource wurden gefunden."
-
-#. module: appointment
-#: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
-msgid "No Custom Availabilities Shared!"
-msgstr "Keine benutzerdefinierten Verfügbarkeiten geteilt!"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__hide
@@ -3126,11 +3106,6 @@ msgid "Reason"
 msgstr "Begründung"
 
 #. module: appointment
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
-msgid "Recurring"
-msgstr "Wiederkehrend"
-
-#. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__redirect_url
 msgid "Redirect URL"
 msgstr "URL umleiten"
@@ -3365,12 +3340,6 @@ msgstr "In Verantwortlich suchen"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
 msgid "Select Appointments to share..."
 msgstr "Zu teilende Termine auswählen ..."
-
-#. module: appointment
-#. odoo-javascript
-#: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
-msgid "Select Dates"
-msgstr "Daten auswählen"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form

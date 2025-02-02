@@ -3,16 +3,16 @@
 # 	* appointment
 # 
 # Translators:
-# Maitê Dietze, 2025
 # Wil Odoo, 2025
+# Maitê Dietze, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Maitê Dietze, 2025\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -201,7 +201,6 @@ msgid ""
 "            <t t-if=\"customer\">\n"
 "                <t t-out=\"customer.name or ''\"/> scheduled the following appointment <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Schedule a Demo</strong> with you.\n"
 "                <t t-if=\"object.event_id.appointment_type_id and object.event_id.appointment_status == 'request'\">\n"
-"                    <br/>\n"
 "                    It is awaiting confirmation.\n"
 "                </t>\n"
 "            </t>\n"
@@ -332,70 +331,69 @@ msgstr ""
 "    <t t-set=\"extra_message\" t-value=\"object.event_id.appointment_type_id.message_confirmation\"/>\n"
 "\n"
 "    <p>\n"
-"        Olá <t t-out=\"object.common_name or ''\">Wood Corner</t>,<br/><br/>\n"
+"        Hello <t t-out=\"object.common_name or ''\">Wood Corner</t>,<br/><br/>\n"
 "\n"
 "        <t t-if=\"target_customer\">\n"
 "            <t t-if=\"object.event_id.appointment_type_id.appointment_manual_confirmation\">\n"
 "                <t t-if=\"object.event_id.appointment_status == 'booked'\">\n"
-"                    Temos prazer em informá-lo que seu compromisso <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Agendar uma demonstração</strong><t t-if=\"object.event_id.appointment_type_id.category != 'custom' and object.event_id.appointment_type_id.schedule_based_on == 'users'\"> com <t t-out=\"object.event_id.user_id.name or ''\">Ready Mat</t></t> foi confirmado.<br/>\n"
+"                    We're happy to let you know your booking <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Schedule a Demo</strong><t t-if=\"object.event_id.appointment_type_id.category != 'custom' and object.event_id.appointment_type_id.schedule_based_on == 'users'\"> with <t t-out=\"object.event_id.user_id.name or ''\">Ready Mat</t></t> has been confirmed.<br/>\n"
 "                </t>\n"
 "                <t t-elif=\"object.event_id.appointment_status == 'request'\">\n"
-"                    Recebemos sua reserva para <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Agendar uma demonstração</strong><t t-if=\"object.event_id.appointment_type_id.category != 'custom' and object.event_id.appointment_type_id.schedule_based_on == 'users'\"> com <t t-out=\"object.event_id.user_id.name or ''\">Ready Mat</t></t>.<br/>\n"
-"                    Enviaremos uma notificação assim que for confirmada.\n"
+"                    We've got your booking <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Schedule a Demo</strong><t t-if=\"object.event_id.appointment_type_id.category != 'custom' and object.event_id.appointment_type_id.schedule_based_on == 'users'\"> with <t t-out=\"object.event_id.user_id.name or ''\">Ready Mat</t></t>.<br/>\n"
+"                    We'll notify you once it's confirmed.\n"
 "                </t>\n"
 "            </t>\n"
 "            <t t-else=\"\">\n"
-"                Seu compromisso <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Agendar uma demonstração</strong> <t t-if=\"object.event_id.appointment_type_id.category != 'custom' and object.event_id.appointment_type_id.schedule_based_on == 'users'\"> com <t t-out=\"object.event_id.user_id.name or ''\">Ready Mat</t></t> foi registrado.\n"
+"                Your appointment <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Schedule a Demo</strong> <t t-if=\"object.event_id.appointment_type_id.category != 'custom' and object.event_id.appointment_type_id.schedule_based_on == 'users'\"> with <t t-out=\"object.event_id.user_id.name or ''\">Ready Mat</t></t> has been booked.\n"
 "            </t>\n"
 "            <div>\n"
-"                Precisa reagendar? Use este\n"
+"                Need to reschedule? Use this\n"
 "                <a t-attf-href=\"/calendar/meeting/view?token={{object.access_token}}&amp;id={{object.event_id.id}}\">link</a>\n"
 "            </div>\n"
 "        </t>\n"
 "        <t t-elif=\"target_responsible\">\n"
 "            <t t-if=\"customer\">\n"
-"                <t t-out=\"customer.name or ''\"/> marcou o seguinte compromisso <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Agendar uma demonstração</strong> com você.\n"
+"                <t t-out=\"customer.name or ''\"/> scheduled the following appointment <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Schedule a Demo</strong> with you.\n"
 "                <t t-if=\"object.event_id.appointment_type_id and object.event_id.appointment_status == 'request'\">\n"
-"                    <br/>\n"
-"                    Está aguardando confirmação.\n"
+"                    It is awaiting confirmation.\n"
 "                </t>\n"
 "            </t>\n"
 "            <t t-else=\"\">\n"
-"                Seu compromisso <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Agendar uma demonstração</strong> foi marcado.\n"
+"                Your appointment <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Schedule a Demo</strong> has been booked.\n"
 "            </t>\n"
 "        </t>\n"
 "        <t t-else=\"\">\n"
-"            Você foi convidado para o seguinte compromisso <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Agendar uma demonstração</strong>.\n"
+"            You have been invited to the following appointment <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Schedule a Demo</strong>.\n"
 "        </t>\n"
 "    </p>\n"
 "    <div style=\"text-align: center; padding: 16px 0px 16px 0px;\">\n"
 "        <t t-if=\"object.state != 'accepted'\">\n"
 "            <a t-attf-href=\"/calendar/meeting/accept?token={{object.access_token}}&amp;id={{object.event_id.id}}\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">\n"
-"                Aceitar</a>\n"
+"                Accept</a>\n"
 "            <a t-attf-href=\"/calendar/meeting/decline?token={{object.access_token}}&amp;id={{object.event_id.id}}\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">\n"
-"                Recusar</a>\n"
+"                Decline</a>\n"
 "        </t>\n"
-"        <a t-if=\"not target_customer\" t-attf-href=\"/calendar/meeting/view?token={{object.access_token}}&amp;id={{object.event_id.id}}\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">Visualizar</a>\n"
+"        <a t-if=\"not target_customer\" t-attf-href=\"/calendar/meeting/view?token={{object.access_token}}&amp;id={{object.event_id.id}}\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">View</a>\n"
 "    </div>\n"
 "    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n"
 "        <td width=\"130px;\" style=\"min-width: 130px;\">\n"
 "            <div style=\"border-top-start-radius: 3px; border-top-end-radius: 3px; font-size: 12px; border-collapse: separate; text-align: center; font-weight: bold; color: #ffffff; min-height: 18px; background-color: #875A7B; border: 1px solid #875A7B;\">\n"
-"                <t t-out=\"format_datetime(dt=object.event_id.start, tz=object.mail_tz if not object.event_id.allday else None, dt_format='EEEE', lang_code=object.env.lang) or ''\">Terça-feira</t>\n"
+"                <t t-out=\"format_datetime(dt=object.event_id.start, tz=object.mail_tz if not object.event_id.allday else None, dt_format='EEEE', lang_code=object.env.lang) or ''\">Tuesday</t>\n"
 "            </div>\n"
 "            <div style=\"font-size: 48px; min-height: auto; font-weight: bold; text-align: center; color: #5F5F5F; background-color: #F8F8F8; border: 1px solid #875A7B;\">\n"
 "                <t t-out=\"format_datetime(dt=object.event_id.start, tz=object.mail_tz if not object.event_id.allday else None, dt_format='d', lang_code=object.env.lang) or ''\">4</t>\n"
 "            </div>\n"
 "            <div style=\"font-size: 12px; text-align: center; font-weight: bold; color: #ffffff; background-color: #875A7B;\">\n"
-"                <t t-out=\"format_datetime(dt=object.event_id.start, tz=object.mail_tz if not object.event_id.allday else None, dt_format='MMMM y', lang_code=object.env.lang) or ''\">de maio de 2021</t>\n"
+"                <t t-out=\"format_datetime(dt=object.event_id.start, tz=object.mail_tz if not object.event_id.allday else None, dt_format='MMMM y', lang_code=object.env.lang) or ''\">May 2021</t>\n"
 "            </div>\n"
 "            <div style=\"border-collapse: separate; color: #5F5F5F; text-align: center; font-size: 12px; border-bottom-end-radius: 3px; font-weight: bold ; border: 1px solid #875A7B; border-bottom-start-radius: 3px;\">\n"
 "                <t t-if=\"not object.event_id.allday\">\n"
 "                    <div>\n"
-"                        <t t-out=\"format_time(time=object.event_id.start, tz=object.mail_tz, time_format='short', lang_code=object.env.lang) or ''\">11h00</t>\n"
+"                        <t t-out=\"format_time(time=object.event_id.start, tz=object.mail_tz, time_format='short', lang_code=object.env.lang) or ''\">11:00 AM</t>\n"
 "                    </div>\n"
 "                    <t t-if=\"not object.event_id.appointment_type_id.hide_timezone and object.mail_tz\">\n"
 "                        <div style=\"font-size: 10px; font-weight: normal\">\n"
-"                            (<t t-out=\"object.mail_tz or ''\">Europa/Bruxelas</t>)\n"
+"                            (<t t-out=\"object.mail_tz or ''\">Europe/Brussels</t>)\n"
 "                        </div>\n"
 "                    </t>\n"
 "                </t>\n"
@@ -403,21 +401,21 @@ msgstr ""
 "        </td>\n"
 "        <td width=\"20px;\"/>\n"
 "        <td style=\"padding-top: 5px;\">\n"
-"            <p><strong>Detalhes do evento</strong></p>\n"
+"            <p><strong>Details of the event</strong></p>\n"
 "            <ul>\n"
-"                <li>Tipo de compromisso: <t t-out=\"object.event_id.appointment_type_id.name or ''\">Agendar uma demonstração</t></li>\n"
+"                <li>Appointment Type: <t t-out=\"object.event_id.appointment_type_id.name or ''\">Schedule a Demo</t></li>\n"
 "                <t t-if=\"object.event_id.location\">\n"
-"                    <li>Local: <t t-out=\"object.event_id.location or ''\">Bruxelas</t>\n"
-"                        <a target=\"_blank\" t-if=\"object.event_id.location != object.event_id.appointment_type_id.location_id.name\" t-attf-href=\"http://maps.google.com/maps?oi=map&amp;q={{object.event_id.location}}\">(Ver mapa)</a>\n"
+"                    <li>Location: <t t-out=\"object.event_id.location or ''\">Bruxelles</t>\n"
+"                        <a target=\"_blank\" t-if=\"object.event_id.location != object.event_id.appointment_type_id.location_id.name\" t-attf-href=\"http://maps.google.com/maps?oi=map&amp;q={{object.event_id.location}}\">(View Map)</a>\n"
 "                    </li>\n"
 "                </t>\n"
 "                <t t-if=\"recurrent\">\n"
-"                    <li>Quando: <t t-out=\"object.recurrence_id.name or ''\">A cada semana, em três eventos</t></li>\n"
+"                    <li>When: <t t-out=\"object.recurrence_id.name or ''\">Every 1 Weeks, for 3 events</t></li>\n"
 "                </t>\n"
 "                <t t-if=\"not object.event_id.appointment_type_id.hide_duration and not object.event_id.allday and object.event_id.duration\">\n"
-"                    <li>Duração: <t t-out=\"('%dH%02d' % (object.event_id.duration,round(object.event_id.duration*60)%60)) or ''\">30min</t></li>\n"
+"                    <li>Duration: <t t-out=\"('%dH%02d' % (object.event_id.duration,round(object.event_id.duration*60)%60)) or ''\">0H30</t></li>\n"
 "                </t>\n"
-"                <li>Participantes\n"
+"                <li>Attendees\n"
 "                <ul>\n"
 "                    <li t-foreach=\"object.event_id.attendee_ids\" t-as=\"attendee\">\n"
 "                        <div t-attf-style=\"display: inline-block; border-radius: 50%; width: 10px; height: 10px; background:{{ colors.get(attendee.state) or 'white' }};\"> </div>\n"
@@ -425,51 +423,51 @@ msgstr ""
 "                            <span style=\"margin-left:5px\" t-out=\"attendee.common_name or ''\">Mitchell Admin</span>\n"
 "                        </t>\n"
 "                        <t t-else=\"\">\n"
-"                            <span style=\"margin-left:5px\">Você</span>\n"
+"                            <span style=\"margin-left:5px\">You</span>\n"
 "                        </t>\n"
 "                    </li>\n"
 "                </ul></li>\n"
 "                <li t-if=\"object.event_id.appointment_type_id.resource_manage_capacity\">\n"
-"                    Para: <t t-out=\"object.event_id.resource_total_capacity_reserved\"/> pessoas\n"
+"                    For: <t t-out=\"object.event_id.resource_total_capacity_reserved\"/> people\n"
 "                </li>\n"
 "                <li t-if=\"object.event_id.appointment_type_id.assign_method != 'time_auto_assign' and object.event_id.appointment_resource_ids\">\n"
-"                    Recursos\n"
+"                    Resources\n"
 "                    <ul>\n"
 "                        <li t-foreach=\"object.event_id.appointment_resource_ids\" t-as=\"resource\">\n"
-"                            <span style=\"margin-left:5px\" t-out=\"resource.name or ''\">Mesa 1</span>\n"
+"                            <span style=\"margin-left:5px\" t-out=\"resource.name or ''\">Table 1</span>\n"
 "                        </li>\n"
 "                    </ul>\n"
 "                </li>\n"
 "                <li t-if=\"object.event_id.videocall_redirection\">\n"
-"                    Como participar:\n"
-"                    <t t-if=\"object.event_id.videocall_source == 'discuss'\"> Entrar pelo Odoo Mensagens</t>\n"
-"                    <t t-else=\"\"> Entrar por</t><br/>\n"
+"                    How to Join:\n"
+"                    <t t-if=\"object.event_id.videocall_source == 'discuss'\"> Join with Odoo Discuss</t>\n"
+"                    <t t-else=\"\"> Join at</t><br/>\n"
 "                    <a t-attf-href=\"{{ object.event_id.videocall_redirection }}\" target=\"_blank\" t-out=\"object.event_id.videocall_redirection or ''\">www.mycompany.com/calendar/videocall/xyz</a>\n"
 "                </li>\n"
 "            </ul>\n"
 "        </td>\n"
 "    </tr></table>\n"
 "    <div t-if=\"attendee_description\" style=\"color:#000000;\">\n"
-"        Descrição do evento:\n"
-"        <div t-out=\"attendee_description\">Reunião interna para debater novos preços para produtos e serviços.</div>\n"
+"        Description of the event:\n"
+"        <div t-out=\"attendee_description\">Internal meeting for discussion for new pricing for product and services.</div>\n"
 "    </div>\n"
 "    <t t-set=\"upcoming_appointments\" t-value=\"(object.event_id.appointment_booker_id.upcoming_appointment_ids - object.event_id).sorted('start')\"/>\n"
 "    <div t-if=\"target_customer and upcoming_appointments\">\n"
 "        <t t-set=\"appointment_booker_id\" t-value=\"object.event_id.appointment_booker_id.id\"/>\n"
-"        <p><strong>Seus outros compromissos futuros</strong></p>\n"
+"        <p><strong>Your Other Upcoming Appointment(s)</strong></p>\n"
 "        <ul>\n"
 "            <li t-foreach=\"upcoming_appointments\" t-as=\"upcoming_appointment\">\n"
 "                <span style=\"display: flex; font-size: small;\">\n"
-"                    <span style=\"margin-right: 4px\" t-out=\"upcoming_appointment.appointment_type_id.name or ''\">Demo técnica</span>\n"
+"                    <span style=\"margin-right: 4px\" t-out=\"upcoming_appointment.appointment_type_id.name or ''\">Technical Demo</span>\n"
 "                    (<span t-out=\"upcoming_appointment.start\" t-options=\"{&quot;widget&quot;: &quot;datetime&quot;, &quot;format&quot;: &quot;medium&quot;, &quot;tz_name&quot;: object.mail_tz}\"/>)\n"
-"                    <a t-attf-href=\"/calendar/view/#{upcoming_appointment.access_token}?partner_id=#{appointment_booker_id}\" target=\"_blank\" style=\"margin-left: auto; margin-right: 8px;\">Ver detalhes</a>\n"
+"                    <a t-attf-href=\"/calendar/view/#{upcoming_appointment.access_token}?partner_id=#{appointment_booker_id}\" target=\"_blank\" style=\"margin-left: auto; margin-right: 8px;\">See Details</a>\n"
 "                </span>\n"
 "            </li>\n"
 "        </ul>\n"
 "    </div>\n"
 "    <br/>\n"
 "    <t t-if=\"extra_message\" t-out=\"extra_message\"/>\n"
-"    Obrigado,\n"
+"    Thank you,\n"
 "    <t t-if=\"object.event_id.user_id.signature\" data-o-mail-quote-container=\"1\">\n"
 "        <br/>\n"
 "        <t t-out=\"object.event_id.user_id.signature or ''\" data-o-mail-quote=\"1\">--<br data-o-mail-quote=\"1\"/>Mitchell Admin</t>\n"
@@ -1344,13 +1342,6 @@ msgid "Answers"
 msgstr "Respostas"
 
 #. module: appointment
-#. odoo-javascript
-#: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
-msgid "Any Time"
-msgstr "Em qualquer momento"
-
-#. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__all_assigned_resources
 msgid "Any User/Resource"
 msgstr "Qualquer usuário/recurso"
@@ -1737,7 +1728,7 @@ msgstr "Detalhes da reserva"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__booked_mail_template_id
 msgid "Booking Email"
-msgstr ""
+msgstr "Booking Email"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__event_stop
@@ -2101,6 +2092,10 @@ msgid ""
 "        The one shot type is only used when an user create a custom appointment type for a client by\n"
 "        defining non-recurring time slot (e.g. 10th of April 2021 from 10 to 11 am) from its calendar."
 msgstr ""
+"Defines the type of slot. The regular slot is the default type which is used for\n"
+"        appointment type that are used recurringly in type like medical appointment.\n"
+"        The one shot type is only used when an user create a custom appointment type for a client by\n"
+"        defining non-recurring time slot (e.g. 10th of April 2021 from 10 to 11 am) from its calendar."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__event_videocall_source
@@ -2465,6 +2460,7 @@ msgstr ""
 msgid ""
 "If set an email will be sent to the customer when the appointment is booked."
 msgstr ""
+"If set an email will be sent to the customer when the appointment is booked."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
@@ -2758,12 +2754,6 @@ msgid "Monday"
 msgstr "Segunda"
 
 #. module: appointment
-#. odoo-javascript
-#: code:addons/appointment/static/src/views/custom_appointment_form_dialog/custom_appointment_form_dialog.xml:0
-msgid "More Options"
-msgstr "Mais opções"
-
-#. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__text
 msgid "Multi-line text"
 msgstr "Texto multilinha"
@@ -2839,11 +2829,6 @@ msgid "No Appointment or Resource were found."
 msgstr "Nenhum compromisso ou recurso foi encontrado."
 
 #. module: appointment
-#: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
-msgid "No Custom Availabilities Shared!"
-msgstr "Nenhuma disponibilidade personalizada compartilhada."
-
-#. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__hide
 msgid "No Picture"
 msgstr "Sem imagem"
@@ -2863,7 +2848,7 @@ msgstr "Não compareceu"
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
 msgid "No Specific Slots Availabilities Shared!"
-msgstr ""
+msgstr "No Specific Slots Availabilities Shared!"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__appointment_type_info_msg
@@ -3067,7 +3052,7 @@ msgstr "Pré-visualização"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Propose Slots"
-msgstr ""
+msgstr "Propose Slots"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__punctual
@@ -3110,11 +3095,6 @@ msgstr "Vamos facilitar os agendamentos?"
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__reason
 msgid "Reason"
 msgstr "Motivo"
-
-#. module: appointment
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
-msgid "Recurring"
-msgstr "Recorrente"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__redirect_url
@@ -3350,13 +3330,7 @@ msgstr "Buscar em Responsável"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
 msgid "Select Appointments to share..."
-msgstr ""
-
-#. module: appointment
-#. odoo-javascript
-#: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
-msgid "Select Dates"
-msgstr "Selecionar datas"
+msgstr "Select Appointments to share..."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
@@ -3447,7 +3421,7 @@ msgstr "Compartilhar"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/kanban/kanban_controller.js:0
 msgid "Share Appointment"
-msgstr ""
+msgstr "Share Appointment"
 
 #. module: appointment
 #. odoo-javascript
@@ -3467,7 +3441,7 @@ msgstr "Compartilhar disponibilidades"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Share Calendar"
-msgstr ""
+msgstr "Share Calendar"
 
 #. module: appointment
 #. odoo-javascript
@@ -3497,7 +3471,7 @@ msgstr "Compartilhável"
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__anytime
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Shared Calendar"
-msgstr ""
+msgstr "Shared Calendar"
 
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_appointment_invite
@@ -3583,7 +3557,7 @@ msgstr "Combinação de origens"
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__custom
 msgid "Specific Slots"
-msgstr ""
+msgstr "Specific Slots"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__specific_resources
@@ -4045,6 +4019,17 @@ msgid ""
 "\n"
 "            - Shared Calendar: the user will create and share to another user an appointment type covering all their time slots"
 msgstr ""
+"Used to define this appointment type's category.\n"
+"\n"
+"        Can be one of:\n"
+"\n"
+"            - Regular: the default category, weekly recurring slots. Accessible from the website\n"
+"\n"
+"            - Punctual: regular slots limited between 2 datetimes. Accessible from the website\n"
+"\n"
+"            - Specific Slots: the user will create and share to another user a custom appointment type with hand-picked time slots\n"
+"\n"
+"            - Shared Calendar: the user will create and share to another user an appointment type covering all their time slots"
 
 #. module: appointment
 #: model:res.groups,name:appointment.group_appointment_user

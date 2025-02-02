@@ -4,17 +4,16 @@
 # 
 # Translators:
 # Tiffany Chang, 2024
-# Jeanphy <hzh0292@qq.com>, 2024
-# Wil Odoo, 2024
 # Tony Ng, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:51+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Tony Ng, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -140,13 +139,13 @@ msgstr "1 個文件"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_year_previous
-msgid "2023"
-msgstr "2023"
+msgid "2024"
+msgstr "2024"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_year_current
-msgid "2024"
-msgstr "2024"
+msgid "2025"
+msgstr ""
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -505,6 +504,18 @@ msgid "Access documents and partners cannot be changed."
 msgstr "文件存取權限及合作夥伴不可更改。"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/hooks.js:0
+msgid "Access to Automations"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/core/document_service.js:0
+msgid "Access to Server Actions"
+msgstr ""
+
+#. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Access to a folder or a document"
@@ -531,6 +542,12 @@ msgstr "動作"
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_needaction
 msgid "Action Needed"
 msgstr "需要採取行動"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.xml:0
+msgid "Actions on Select"
+msgstr ""
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__active
@@ -600,6 +617,12 @@ msgstr "活動類型"
 #: model_terms:ir.ui.view,arch_db:documents.documents_upload_url_view
 msgid "Add"
 msgstr "加入"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.xml:0
+msgid "Add Custom Action"
+msgstr ""
 
 #. module: documents
 #. odoo-javascript
@@ -739,12 +762,6 @@ msgstr "別名的模型"
 
 #. module: documents
 #. odoo-javascript
-#: code:addons/documents/static/src/views/search/documents_search_model.js:0
-msgid "All"
-msgstr "所有"
-
-#. module: documents
-#. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.js:0
 msgid ""
 "All users with access to this %(documentType)s or its parent will have edit "
@@ -826,6 +843,12 @@ msgstr "確定要刪除此頁面？"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.js:0
+msgid "Are you sure you want to delete this attachment?"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
 msgid "Are you sure you want to permanently erase the document?"
 msgstr "確定永久清除文件？"
@@ -876,6 +899,12 @@ msgstr "附件名稱"
 #: model:ir.model.fields,field_description:documents.field_documents_document__attachment_type
 msgid "Attachment Type"
 msgstr "附件類型"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_automations.js:0
+msgid "Automations"
+msgstr "自動化"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__available_embedded_actions_ids
@@ -991,6 +1020,7 @@ msgstr "所有公司使用者的共同根位置。"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.js:0
+#: code:addons/documents/static/src/views/kanban/documents_kanban_record.js:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__company_id
 msgid "Company"
 msgstr "公司"
@@ -1007,12 +1037,6 @@ msgstr "配置"
 
 #. module: documents
 #. odoo-javascript
-#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_configure.js:0
-msgid "Configure"
-msgstr "設定"
-
-#. module: documents
-#. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.model,name:documents.model_res_partner
 #: model:ir.model.fields,field_description:documents.field_documents_document__partner_id
@@ -1020,6 +1044,13 @@ msgstr "設定"
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "Contact"
 msgstr "聯絡人"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/core/document_service.js:0
+#: code:addons/documents/static/src/views/hooks.js:0
+msgid "Contact your Administrator to get access if needed."
+msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_contracts
@@ -1100,6 +1131,12 @@ msgid "Creation Date"
 msgstr "建立日期"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
+msgid "Current Version"
+msgstr "目前版本"
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_bounced_content
 msgid "Custom Bounced Message"
 msgstr "自訂彈回訊息"
@@ -1165,13 +1202,7 @@ msgstr "已棄用"
 
 #. module: documents
 #. odoo-javascript
-#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_details.js:0
-#: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
-msgid "Details"
-msgstr "詳細資訊"
-
-#. module: documents
-#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 #: code:addons/documents/static/src/views/hooks.js:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -1331,6 +1362,18 @@ msgid "Documents in the Trash cannot be shared"
 msgstr "垃圾桶內的文件無法分享"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
+msgid "Documents moved to trash will show up here"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
+msgid "Documents shared with you will appear here"
+msgstr ""
+
+#. module: documents
 #: model:ir.model,name:documents.model_documents_unlink_mixin
 msgid "Documents unlink mixin"
 msgstr "文件取消連結混入程式"
@@ -1412,7 +1455,6 @@ msgstr "複製"
 
 #. module: documents
 #. odoo-javascript
-#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_configure.js:0
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 #: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
 msgid "Edit"
@@ -1459,18 +1501,6 @@ msgstr "電子郵件網域，例如 odoo@example.com 之內的「example.com」"
 #: model:ir.actions.act_window,name:documents.mail_alias_action
 msgid "Email links"
 msgstr "電郵連結"
-
-#. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/documents_model_mixin.js:0
-msgid "Enter folder"
-msgstr "進入資料夾"
-
-#. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/documents_model_mixin.js:0
-msgid "Entering this folder will deselect all items. Do you want to proceed?"
-msgstr "進入此資料夾會取消選擇所有項目。繼續操作？"
 
 #. module: documents
 #. odoo-javascript
@@ -1624,6 +1654,7 @@ msgstr "移至上一頁"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 #: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
+#: model:ir.model.fields,field_description:documents.field_documents_document__folder_id
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__folder_id
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__folder_id
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__folder
@@ -1701,13 +1732,6 @@ msgid "History"
 msgstr "歷史"
 
 #. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/search/documents_search_model.js:0
-#: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
-msgid "Home"
-msgstr "主頁"
-
-#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_access__id
 #: model:ir.model.fields,field_description:documents.field_documents_document__id
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__id
@@ -1776,6 +1800,11 @@ msgstr "無法刪除其他應用程式使用的資料夾。"
 #: code:addons/documents/models/documents_document.py:0
 msgid "Impossible to invite partners on multiple documents at once."
 msgstr "不可同時在多個文件上邀請合作夥伴。"
+
+#. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
+msgid "In"
+msgstr "在"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__thumbnail_status__restricted
@@ -2047,6 +2076,18 @@ msgid "Mail: %s"
 msgstr "郵件：%s"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
+msgid "Manage Versions"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.js:0
+msgid "Manage Versions of \"%s\""
+msgstr ""
+
+#. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_remove_activities
 msgid "Mark activities as completed"
 msgstr "將活動標記為已完成"
@@ -2107,6 +2148,12 @@ msgstr "月"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
+msgid "More"
+msgstr "更多"
+
+#. module: documents
+#. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 msgid "Move this page to trash"
 msgstr "將此頁移至垃圾桶"
@@ -2163,6 +2210,7 @@ msgstr "我的文件"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.js:0
+#: code:addons/documents/static/src/views/kanban/documents_kanban_record.js:0
 msgid "My Drive"
 msgstr "我的雲端硬碟"
 
@@ -2258,6 +2306,12 @@ msgid "No one on the internet can access"
 msgstr "互聯網上任何人都不可存取"
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/ir_actions_server.py:0
+msgid "No server actions found for Documents!"
+msgstr ""
+
+#. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_alias_action
 msgid "No shared links"
 msgstr "沒有共享連結"
@@ -2330,6 +2384,12 @@ msgid "Odoo Logo"
 msgstr "Odoo 標誌"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/hooks.js:0
+msgid "Odoo Studio - Customize workflows in minutes"
+msgstr "Odoo Studio － 幾分鐘即可自訂工作流程"
+
+#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
 msgid "Odoo Website"
 msgstr "Odoo 網站"
@@ -2367,12 +2427,6 @@ msgstr "只限擁有存取權限的人，才可使用該連結開啟"
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Open #{document_url.name}"
 msgstr "開啟 #{document_url.name}"
-
-#. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/documents_model_mixin.js:0
-msgid "Open folder"
-msgstr "開啟資料夾"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
@@ -2450,11 +2504,6 @@ msgstr "擁有人：#{document_url.owner_id.name}"
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Owner: #{subfolder.owner_id.name}"
 msgstr "擁有人：#{subfolder.owner_id.name}"
-
-#. module: documents
-#: model:ir.model.fields,field_description:documents.field_documents_document__folder_id
-msgid "Parent Folder"
-msgstr "上級檔案夾"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_parent_model_id
@@ -2543,6 +2592,12 @@ msgid "Project"
 msgstr "專案"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/hooks.js:0
+msgid "Put in %s"
+msgstr ""
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__rating_ids
 msgid "Ratings"
 msgstr "評分"
@@ -2552,6 +2607,12 @@ msgstr "評分"
 #: code:addons/documents/models/documents_document.py:0
 msgid "Recent"
 msgstr "最近"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
+msgid "Recently accessed Documents will show up here"
+msgstr ""
 
 #. module: documents
 #. odoo-python
@@ -2777,6 +2838,12 @@ msgstr "儲存中⋯"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
+msgid "Select a folder to upload a document"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
 #: code:addons/documents/static/src/views/kanban/documents_kanban_renderer.js:0
 #: code:addons/documents/static/src/views/list/documents_list_renderer.js:0
 msgid "Select all"
@@ -2846,10 +2913,15 @@ msgid "Sequence"
 msgstr "序列"
 
 #. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.xml:0
-msgid "Set actions"
-msgstr "設定動作"
+#: model:ir.model,name:documents.model_ir_actions_server
+msgid "Server Action"
+msgstr "伺服器動作"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/ir_actions_server.py:0
+msgid "Server Actions"
+msgstr "伺服器動作"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
@@ -2897,6 +2969,7 @@ msgstr "分享：%(documentName)s"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.js:0
+#: code:addons/documents/static/src/views/kanban/documents_kanban_record.js:0
 msgid "Shared with me"
 msgstr "向我分享"
 
@@ -2938,6 +3011,7 @@ msgstr "尺寸："
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
+#: code:addons/documents/static/src/core/document_service.js:0
 msgid "Some files could not be uploaded (max size: %s)."
 msgstr "部份檔案未能上載（大小上限：%s）。"
 
@@ -3338,6 +3412,12 @@ msgstr ""
 "normal\">將其拖放此處。</span>"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
+msgid "Upload New Version"
+msgstr ""
+
+#. module: documents
 #. odoo-python
 #: code:addons/documents/models/mail_activity.py:0
 msgid "Upload file request"
@@ -3370,6 +3450,14 @@ msgstr "增值稅"
 #: model:documents.tag,name:documents.documents_tag_validated
 msgid "Validated"
 msgstr "已驗證"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
+msgid ""
+"Versions are displayed in the order they were uploaded to Documents.\n"
+"                    If you delete the most recent version, the previous one is automatically restored as the current one."
+msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_videos
@@ -3478,6 +3566,12 @@ msgid ""
 msgstr "您可以從您的電腦上傳一個檔案或者'複製/貼上'一個網路連結到您的檔案。"
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot delete this attachment."
+msgstr ""
+
+#. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
@@ -3526,12 +3620,6 @@ msgstr "你不可將文件從你無權編輯的資料夾移出。"
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot change the owner of documents you do not own."
 msgstr "你不可更改不屬於你的文件的擁有人。"
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You cannot copy in that folder"
-msgstr "你不可複製該資料夾中的項目"
 
 #. module: documents
 #. odoo-python
@@ -3601,6 +3689,12 @@ msgstr "你的角色：%s"
 #: code:addons/documents/models/documents_document.py:0
 msgid "Your individual space."
 msgstr "你的個人空間。"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
+msgid "Your personal space"
+msgstr ""
 
 #. module: documents
 #. odoo-javascript

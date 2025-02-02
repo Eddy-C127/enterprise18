@@ -8,7 +8,7 @@
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Martin Trigaux, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -388,6 +388,9 @@ msgid ""
 "product. For some products, you can be charged for return labels printed but"
 " not used."
 msgstr ""
+"Tarkista SendCloudin palautustuotedokumentaatio ennen palautustuotteen "
+"valintaa. Joidenkin tuotteiden osalta sinua voidaan veloittaa tulostetuista,"
+" mutta käyttämättömistä palautustarroista."
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__delivery_type
@@ -486,6 +489,7 @@ msgstr "Sendcloud toimituksen tuote"
 msgid ""
 "Sendcloud is not responding. Check your credentials and/or retry later."
 msgstr ""
+"Sendcloud ei vastaa. Tarkista tunnuksesi ja/tai yritä myöhemmin uudelleen."
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__country_id
@@ -568,6 +572,9 @@ msgid ""
 "delivery partner via the delivery order and make sure the parent of the "
 "delivery partner is the partner you want to ship to."
 msgstr ""
+"Asiakkaan toimitusosoite on poistettu noutopaikasta. Sendcloud vaatii tämän "
+"tiedon. Siirry toimituskumppaniin toimitustilauksen kautta ja varmista, että"
+" toimituskumppanin vanhempi on se kumppani, jolle haluat lähettää."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -612,6 +619,7 @@ msgid ""
 "There is no rate available for this order with the selected shipping "
 "product."
 msgstr ""
+"Tälle tilaukselle ei ole saatavana hintaa valitun toimitustuotteen kanssa."
 
 #. module: delivery_sendcloud
 #. odoo-python

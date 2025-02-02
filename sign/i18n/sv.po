@@ -6,7 +6,6 @@
 # Daniel Osser <danielosser@gmail.com>, 2024
 # Patrik Lermon <patrik.lermon@gmail.com>, 2024
 # Claes-Johan Dahlin, 2024
-# 3eec91a23d05c632ffac786ac42b81b8_b6fff7b <8985b7bc57db860af29969457dbb51b3_1018915>, 2024
 # Haojun Zou <apollo_zhj@msn.com>, 2024
 # Lisa <lisa.oskoma@vertel.se>, 2024
 # Robin Chatfield <robin.chatfield@gmail.com>, 2024
@@ -17,12 +16,12 @@
 # Simon S, 2024
 # Lasse L, 2024
 # Kristoffer Grundström <lovaren@gmail.com>, 2024
-# Chrille Hedberg <hedberg.chrille@gmail.com>, 2024
 # Martin Trigaux, 2024
 # Robin Calvin, 2024
 # Mikael Åkerberg <mikael.akerberg@mariaakerberg.com>, 2024
 # Anders Wallenquist <anders.wallenquist@vertel.se>, 2024
 # Jakob Krabbe <jakob.krabbe@vertel.se>, 2024
+# Chrille Hedberg <hedberg.chrille@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
@@ -30,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Jakob Krabbe <jakob.krabbe@vertel.se>, 2024\n"
+"Last-Translator: Chrille Hedberg <hedberg.chrille@gmail.com>, 2025\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,12 +41,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sign.field_res_partner__signature_count
 #: model:ir.model.fields,field_description:sign.field_res_users__signature_count
 msgid "# Signatures"
-msgstr ""
+msgstr "# signaturer"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "#7898678"
-msgstr ""
+msgstr "#7898678"
 
 #. module: sign
 #. odoo-python
@@ -56,24 +55,26 @@ msgid ""
 "%(partner)s validated the signature by SMS with the phone number "
 "%(phone_number)s."
 msgstr ""
+"%(partner)s validerade signaturen via SMS med telefonnummer "
+"%(phone_number)s."
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
 msgid "%s couldn't sign the document due to an insufficient credit error."
-msgstr ""
+msgstr "%s kunde inte signera dokumentet på grund av otillräckliga krediter"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "%s has been edited and signed"
-msgstr ""
+msgstr "%s har ändats och signerats"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
 msgid "%s has been linked to this sign request."
-msgstr ""
+msgstr "%s har länkats till signaturbegäran"
 
 #. module: sign
 #. odoo-python
@@ -545,12 +546,6 @@ msgstr "Alla"
 #: model:ir.ui.menu,name:sign.sign_request_documents
 msgid "All Documents"
 msgstr ""
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "All done!"
-msgstr "Allt klart!"
 
 #. module: sign
 #. odoo-python
@@ -1202,6 +1197,8 @@ msgid "Documents"
 msgstr "Dokument"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 msgid "Download"
 msgstr "Nedladdningar"
@@ -1217,12 +1214,6 @@ msgstr ""
 #: code:addons/sign/static/src/backend_components/sign_request/sign_request_control_panel.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "Download Document"
-msgstr ""
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "Download it"
 msgstr ""
 
 #. module: sign
@@ -1760,6 +1751,12 @@ msgid "Is User Signer"
 msgstr ""
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "It's signed!"
+msgstr ""
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "John Doe"
 msgstr "John Doe"
@@ -2068,6 +2065,12 @@ msgid "Need a valid PDF to add signature fields!"
 msgstr ""
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Need to sign documents?"
+msgstr ""
+
+#. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_send_request
 msgid "New Signature Request"
 msgstr ""
@@ -2195,6 +2198,12 @@ msgstr "Antal meddelanden med leveransfel"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__num_pages
 msgid "Number of pages"
+msgstr ""
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Odoo Sign"
 msgstr ""
 
 #. module: sign
@@ -2831,12 +2840,6 @@ msgstr ""
 
 #. module: sign
 #. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "Sign Up for free"
-msgstr ""
-
-#. module: sign
-#. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.xml:0
 msgid "Sign all"
 msgstr ""
@@ -2878,13 +2881,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.deleted_sign_request
 msgid ""
 "Sign up for Odoo Sign to manage your own documents and signature requests!"
-msgstr ""
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid ""
-"Sign up for Odoo Sign to manage your own documents and signature requests."
 msgstr ""
 
 #. module: sign
@@ -4060,7 +4056,7 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "You will receive the final signed document by email."
+msgid "You will get the signed document by email."
 msgstr ""
 
 #. module: sign
@@ -4249,6 +4245,12 @@ msgid "ip"
 msgstr ""
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "is free, forever, with unlimited users - and it's fun to use!"
+msgstr ""
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "john@example.com"
 msgstr ""
@@ -4338,17 +4340,17 @@ msgstr "tecken"
 #. module: sign
 #: model:sign.item.type,tip:sign.sign_item_type_signature
 msgid "sign it"
-msgstr ""
+msgstr "skriv under"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message
 msgid "sign.message"
-msgstr ""
+msgstr "sign.message"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message_cc
 msgid "sign.message_cc"
-msgstr ""
+msgstr "sign.message_cc"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -4364,7 +4366,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
 msgid "to sign the document."
-msgstr ""
+msgstr "att signera dokumentet"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user

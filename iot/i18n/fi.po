@@ -16,15 +16,15 @@
 # Marko Happonen <marko.happonen@sprintit.fi>, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -195,8 +195,8 @@ msgstr "Yhdistä"
 #. module: iot
 #: model:ir.actions.act_window,name:iot.action_add_iot_box
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
-msgid "Connect an IoT Box"
-msgstr "Yhdistä IoT-Box"
+msgid "Connect my IoT Box"
+msgstr "Yhdistä IoT-box"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__connection
@@ -317,7 +317,7 @@ msgstr "Lataa lokit"
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_report_action.js:0
 msgid "Failed to send to printer."
-msgstr ""
+msgstr "Tulostimeen lähettäminen epäonnistui."
 
 #. module: iot
 #. odoo-javascript
@@ -338,7 +338,7 @@ msgstr "Ryhmittely"
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__hdmi
 msgid "HDMI"
-msgstr ""
+msgstr "HDMI"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__id
@@ -424,7 +424,7 @@ msgstr "Onko skanneri"
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__is_websocket_active
 msgid "Is Websocket active?"
-msgstr ""
+msgstr "Onko Websocket aktiivinen?"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__keyboard
@@ -440,7 +440,7 @@ msgstr "Näppäimistön asettelu"
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__subtype__label_printer
 msgid "Label Printer"
-msgstr ""
+msgstr "Tarratulostin"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_form
@@ -512,7 +512,7 @@ msgstr "Verkko"
 #. odoo-javascript
 #: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
 msgid "New IoT Box connected!"
-msgstr ""
+msgstr "Uusi IoT Box kytketty!"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
@@ -523,7 +523,7 @@ msgstr "IoT Boxia ei löytynyt!"
 #. odoo-javascript
 #: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
 msgid "No new IoT Box found."
-msgstr ""
+msgstr "Uutta IoT-laatikkoa ei löytynyt."
 
 #. module: iot
 #. odoo-javascript
@@ -546,7 +546,7 @@ msgstr "Odoo ei pysty luomaan yhteyttä IoT-boxiin."
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__subtype__office_printer
 msgid "Office Printer"
-msgstr ""
+msgstr "Toimiston tulostin"
 
 #. module: iot
 #. odoo-python
@@ -596,7 +596,7 @@ msgstr "Tarkista, onko IoT Box edelleen kytketty."
 #. odoo-python
 #: code:addons/iot/wizard/add_iot_box.py:0
 msgid "Please enter a pairing code."
-msgstr ""
+msgstr "Syötä yhdistämiskoodi."
 
 #. module: iot
 #. odoo-javascript
@@ -660,14 +660,14 @@ msgstr "Raportit"
 #. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 msgid "Reports with linked printers"
-msgstr ""
+msgstr "Raportit linkitetyillä tulostimilla"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 #: model:ir.ui.menu,name:iot.iot_clear_selected_devices
 msgid "Reset Linked Printers"
-msgstr ""
+msgstr "Nollaa linkitetyt tulostimet"
 
 #. module: iot
 #. odoo-javascript
@@ -733,7 +733,7 @@ msgstr "Alityyppi"
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_device__subtype
 msgid "Subtype of device."
-msgstr ""
+msgstr "Laitteen alatyyppi."
 
 #. module: iot
 #. odoo-javascript
@@ -815,7 +815,7 @@ msgstr "USB"
 #. odoo-python
 #: code:addons/iot/wizard/add_iot_box.py:0
 msgid "Using Pairing Code to connect..."
-msgstr ""
+msgstr "Pairing-koodin käyttäminen yhteyden muodostamiseen..."
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__variant
@@ -823,17 +823,17 @@ msgid "Variant"
 msgstr "Muunnelma"
 
 #. module: iot
-#. odoo-javascript
-#: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
-msgid "Waiting for a new IoT Box..."
-msgstr ""
-
-#. module: iot
 #. odoo-python
 #: code:addons/iot/wizard/add_iot_box.py:0
 msgid "We had troubles pairing your IoT Box. Please try again later."
 msgstr ""
 "Meillä oli ongelmia IoT Boxin yhdistämisessä. Yritä myöhemmin uudelleen."
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
+msgid "We're looking for your IoT Box"
+msgstr "Etsimme IoT-boxiasi"
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_ir_actions_report__device_ids
@@ -857,7 +857,7 @@ msgstr "tai wifi"
 #. module: iot
 #: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
 msgid "reset.linked.printers"
-msgstr ""
+msgstr "reset.linked.printers"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action

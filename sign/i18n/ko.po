@@ -5,7 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Sarah Park, 2024
-# Daye Jeong, 2024
+# Daye Jeong, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Daye Jeong, 2024\n"
+"Last-Translator: Daye Jeong, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -538,12 +538,6 @@ msgstr "전체"
 #: model:ir.ui.menu,name:sign.sign_request_documents
 msgid "All Documents"
 msgstr "모든 문서"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "All done!"
-msgstr "모두 완료!"
 
 #. module: sign
 #. odoo-python
@@ -1193,6 +1187,8 @@ msgid "Documents"
 msgstr "문서"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 msgid "Download"
 msgstr "다운로드"
@@ -1209,12 +1205,6 @@ msgstr "인증서 다운로드"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "Download Document"
 msgstr "문서 내려받기"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "Download it"
-msgstr "다운로드"
 
 #. module: sign
 #. odoo-javascript
@@ -1756,6 +1746,12 @@ msgid "Is User Signer"
 msgstr "사용자 서명자 여부"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "It's signed!"
+msgstr "서명되었습니다!"
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "John Doe"
 msgstr "홍길동"
@@ -2064,6 +2060,12 @@ msgid "Need a valid PDF to add signature fields!"
 msgstr "서명 필드를 추가하려면 유효한 PDF 파일이 있어야 합니다"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Need to sign documents?"
+msgstr ""
+
+#. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_send_request
 msgid "New Signature Request"
 msgstr "새 서명 요청"
@@ -2192,6 +2194,12 @@ msgstr "전송 오류가 발생한 메시지 수입니다."
 #: model:ir.model.fields,field_description:sign.field_sign_template__num_pages
 msgid "Number of pages"
 msgstr "페이지 수"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Odoo Sign"
+msgstr "Odoo 서명"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -2828,12 +2836,6 @@ msgstr "이용 약관 서식에 서명하기"
 
 #. module: sign
 #. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "Sign Up for free"
-msgstr "무료로 가입하기"
-
-#. module: sign
-#. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.xml:0
 msgid "Sign all"
 msgstr "모두 서명"
@@ -2876,13 +2878,6 @@ msgstr "서명 요청 서명자 보내기"
 msgid ""
 "Sign up for Odoo Sign to manage your own documents and signature requests!"
 msgstr "Odoo 전자서명에 가입하여 문서 및 서명 요청을 직접 관리하세요!"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid ""
-"Sign up for Odoo Sign to manage your own documents and signature requests."
-msgstr "Odoo 전자서명에 가입하여 문서 및 서명 요청을 직접 관리하세요."
 
 #. module: sign
 #: model:ir.actions.server,name:sign.sign_reminder_cron_ir_actions_server
@@ -4073,8 +4068,8 @@ msgstr "하나 이상의 다운로드할 문서를 선택해야 합니다."
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "You will receive the final signed document by email."
-msgstr "최종 서명된 문서를 이메일로 받아보실 수 있습니다."
+msgid "You will get the signed document by email."
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
@@ -4262,6 +4257,12 @@ msgstr "https://c.environmentalpaper.org/"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "ip"
 msgstr "ip"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "is free, forever, with unlimited users - and it's fun to use!"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user

@@ -574,12 +574,6 @@ msgid "All Documents"
 msgstr "Kõik dokumendid"
 
 #. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "All done!"
-msgstr "Kõik tehtud!"
-
-#. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "All signers must have valid email addresses"
@@ -1240,6 +1234,8 @@ msgid "Documents"
 msgstr "Dokumendid"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 msgid "Download"
 msgstr "Laadi alla"
@@ -1256,12 +1252,6 @@ msgstr "Laadi Sertifikaat"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "Download Document"
 msgstr "Laadi dokument alla"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "Download it"
-msgstr ""
 
 #. module: sign
 #. odoo-javascript
@@ -1812,6 +1802,12 @@ msgid "Is User Signer"
 msgstr "Kasutaja on allkirjastaja"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "It's signed!"
+msgstr ""
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "John Doe"
 msgstr "Jaan Tamm"
@@ -2120,6 +2116,12 @@ msgid "Need a valid PDF to add signature fields!"
 msgstr "Allkirjaväljade lisamiseks on vaja kehtivat PDF-faili!"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Need to sign documents?"
+msgstr ""
+
+#. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_send_request
 msgid "New Signature Request"
 msgstr "Uus allkirjataotlus"
@@ -2248,6 +2250,12 @@ msgstr "Veateatega sõnumite arv"
 #: model:ir.model.fields,field_description:sign.field_sign_template__num_pages
 msgid "Number of pages"
 msgstr "Lehtede arv"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Odoo Sign"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -2887,12 +2895,6 @@ msgstr "Allkirja tingimuste formaat"
 
 #. module: sign
 #. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "Sign Up for free"
-msgstr "Registreeru tasuta"
-
-#. module: sign
-#. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.xml:0
 msgid "Sign all"
 msgstr "Allkirjasta kõik"
@@ -2937,13 +2939,6 @@ msgid ""
 msgstr ""
 "Laadi alla Odoo Allkirjastamise moodul, et hallata oma dokumente ja "
 "allkirjastamise taotlusi!"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid ""
-"Sign up for Odoo Sign to manage your own documents and signature requests."
-msgstr "Liituga Odoo Sign et hallata oma dokumente ja allkirja taotlusi."
 
 #. module: sign
 #: model:ir.actions.server,name:sign.sign_reminder_cron_ir_actions_server
@@ -4172,8 +4167,8 @@ msgstr "Te peaksite valima vähemalt ühe dokumendi allalaadimiseks."
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "You will receive the final signed document by email."
-msgstr "Saate lõpliku allkirjastatud dokumendi koopia e-maili teel."
+msgid "You will get the signed document by email."
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
@@ -4363,6 +4358,12 @@ msgstr "https://c.environmentalpaper.org/"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "ip"
 msgstr "ip"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "is free, forever, with unlimited users - and it's fun to use!"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user

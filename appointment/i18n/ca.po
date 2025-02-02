@@ -33,14 +33,15 @@
 # Martin Trigaux, 2024
 # Josep Anton Belchi, 2024
 # Wil Odoo, 2025
+# Juande Gutierrez <juni55mcyt@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Juande Gutierrez <juni55mcyt@gmail.com>, 2025\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -223,7 +224,6 @@ msgid ""
 "            <t t-if=\"customer\">\n"
 "                <t t-out=\"customer.name or ''\"/> scheduled the following appointment <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Schedule a Demo</strong> with you.\n"
 "                <t t-if=\"object.event_id.appointment_type_id and object.event_id.appointment_status == 'request'\">\n"
-"                    <br/>\n"
 "                    It is awaiting confirmation.\n"
 "                </t>\n"
 "            </t>\n"
@@ -610,7 +610,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_date
 msgid "<small class=\"text-uppercase text-muted\">Date &amp; time</small>"
-msgstr ""
+msgstr "<small class=\"text-uppercase text-muted\">Dia i hora</small>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
@@ -672,7 +672,7 @@ msgstr "<span class=\"text-muted\">Assistents</span>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span class=\"text-muted\">Details</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">Detalls</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -1015,13 +1015,6 @@ msgstr "Tipus de resposta"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Answers"
 msgstr "Respostes"
-
-#. module: appointment
-#. odoo-javascript
-#: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
-msgid "Any Time"
-msgstr "Qualsevol hora"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__all_assigned_resources
@@ -2397,12 +2390,6 @@ msgid "Monday"
 msgstr "Dilluns"
 
 #. module: appointment
-#. odoo-javascript
-#: code:addons/appointment/static/src/views/custom_appointment_form_dialog/custom_appointment_form_dialog.xml:0
-msgid "More Options"
-msgstr ""
-
-#. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__text
 msgid "Multi-line text"
 msgstr "Text multilínia"
@@ -2475,11 +2462,6 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_resources
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_users
 msgid "No Appointment or Resource were found."
-msgstr ""
-
-#. module: appointment
-#: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
-msgid "No Custom Availabilities Shared!"
 msgstr ""
 
 #. module: appointment
@@ -2750,11 +2732,6 @@ msgid "Reason"
 msgstr "Raó"
 
 #. module: appointment
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
-msgid "Recurring"
-msgstr "Recurrent"
-
-#. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__redirect_url
 msgid "Redirect URL"
 msgstr "URL de redirecció"
@@ -2991,12 +2968,6 @@ msgid "Select Appointments to share..."
 msgstr ""
 
 #. module: appointment
-#. odoo-javascript
-#: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
-msgid "Select Dates"
-msgstr "Selecciona les dates"
-
-#. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Select Resources"
 msgstr ""
@@ -3024,13 +2995,13 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Select a date &amp; time"
-msgstr ""
+msgstr "Selecciona un dia i hora"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_slots.xml:0
 msgid "Select a time"
-msgstr ""
+msgstr "Selecciona una hora"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking

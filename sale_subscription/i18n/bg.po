@@ -23,14 +23,15 @@
 # Petko Karamotchev, 2024
 # Milena Georgieva, 2024
 # Emil Krastev, 2024
+# Veselina Slavkova, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:51+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Emil Krastev, 2024\n"
+"Last-Translator: Veselina Slavkova, 2025\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3034,7 +3035,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:sale_subscription.sale_subscription_plan_action
 #: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_plans
 msgid "Recurring Plans"
-msgstr ""
+msgstr "Периодични планове"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_pricing__price
@@ -3056,7 +3057,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__recurring_total
 msgid "Recurring Revenue"
-msgstr ""
+msgstr "Периодичен приход"
 
 #. module: sale_subscription
 #. odoo-python
@@ -3996,6 +3997,8 @@ msgstr ""
 msgid ""
 "This bar allows to filter the opportunities based on scheduled activities."
 msgstr ""
+"Тази лента позволява филтриране на възможностите въз основа на планирани "
+"дейности."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__record_getter
@@ -4310,6 +4313,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__volume
 msgid "Volume"
 msgstr "Обем"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
+msgid "Waiting customer payment"
+msgstr ""
 
 #. module: sale_subscription
 #. odoo-javascript

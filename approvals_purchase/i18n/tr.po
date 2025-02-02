@@ -13,14 +13,15 @@
 # Levent Karakaş <levent@mektup.at>, 2024
 # Enes Dayanç, 2024
 # Halil, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:26+0000\n"
+"POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Halil, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,6 +52,11 @@ msgstr "Onay Talebi"
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_category__approval_type
 msgid "Approval Type"
 msgstr "Onay Türü"
+
+#. module: approvals_purchase
+#: model:ir.model,name:approvals_purchase.model_res_partner
+msgid "Contact"
+msgstr "Kontak"
 
 #. module: approvals_purchase
 #: model:approval.category,name:approvals_purchase.approval_category_data_rfq
@@ -111,6 +117,12 @@ msgstr "Satınalma Siparişleri"
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_product_line__po_uom_qty
 msgid "Purchase UoM Quantity"
 msgstr "Satınalma Ölçü birimi Miktarı"
+
+#. module: approvals_purchase
+#: model:ir.model.fields,field_description:approvals_purchase.field_res_partner__category_id
+#: model:ir.model.fields,field_description:approvals_purchase.field_res_users__category_id
+msgid "Tags"
+msgstr "Etiketler"
 
 #. module: approvals_purchase
 #: model:ir.model.fields,help:approvals_purchase.field_approval_product_line__po_uom_qty

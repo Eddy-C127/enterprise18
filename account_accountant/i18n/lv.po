@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
 "Last-Translator: Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2025\n"
 "Language-Team: Latvian (https://app.transifex.com/odoo/teams/41243/lv/)\n"
@@ -2143,7 +2143,7 @@ msgstr "Rādīt paraksta apgabalu"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__module_sign
 msgid "Sign"
-msgstr "Parakstīt"
+msgstr "Parakstīšana"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__signature
@@ -2206,6 +2206,11 @@ msgstr "Avota kredīts"
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_debit
 msgid "Source Debit"
 msgstr "Avota debits"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_rate
+msgid "Source Rate"
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_id
@@ -2612,7 +2617,7 @@ msgstr "Mājas lapas ziņojumi"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement__website_message_ids
 msgid "Website communication history"
-msgstr "Mājas lapas komunikācijas vēsture"
+msgstr "Tīmekļa lapas komunikācijas vēsture"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -2825,7 +2830,7 @@ msgstr "uz visiem laikiem"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 msgid "in"
-msgstr "iekš"
+msgstr " "
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__liquidity

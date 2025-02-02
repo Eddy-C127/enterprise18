@@ -11,7 +11,7 @@
 # Topi Aura <topi@aurat.fi>, 2024
 # Martin Trigaux, 2024
 # Jussi Lehto <jussi@gulfeo.com>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -84,7 +84,7 @@ msgstr "Näyttönimi"
 #. odoo-python
 #: code:addons/pos_pricer/models/pricer_store.py:0
 msgid "Error: %(status_code)s - %(message)s"
-msgstr ""
+msgstr "Virhe: %(status_code)s - %(message)s"
 
 #. module: pos_pricer
 #. odoo-python
@@ -97,6 +97,8 @@ msgstr "Virhe: tarkista Pricer-tunnukset"
 #: code:addons/pos_pricer/models/pricer_store.py:0
 msgid "Failed to unlink Pricer tag %(pricer_tag)s at API url %(api_url)s"
 msgstr ""
+"Hinnoittelutunnisteen %(pricer_tag)s linkityksen poistaminen epäonnistui "
+"API-urlissa %(api_url)s"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__id
@@ -116,6 +118,8 @@ msgid ""
 "Invalid tag name. Should be 1 letter followed by 16 digits. Example: "
 "'N4081315789813275'"
 msgstr ""
+"Virheellinen tunnisteen nimi. Siinä täytyy olla yksi kirjain, jota seuraa 16"
+" numeroa. Esimerkki: \"N4081315789813275\""
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_tag__name
@@ -158,17 +162,17 @@ msgstr "Kirjaudu sisään Pricer-tilillesi"
 #. odoo-javascript
 #: code:addons/pos_pricer/static/src/views/pricer_quick_pairing_form_view.js:0
 msgid "No product found for barcode '%s'"
-msgstr ""
+msgstr "Viivakoodille '%s' ei löytynyt tuotetta"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__on_sale_price
 msgid "On Sale Price"
-msgstr ""
+msgstr "Myyntihinnassa"
 
 #. module: pos_pricer
 #: model:ir.actions.server,name:pos_pricer.pricer_sync_cron_ir_actions_server
 msgid "POS Pricer: tags update synchronization "
-msgstr "POS Pricer: tunnisteiden päivityksen synkronointi"
+msgstr "POS Pricer: tunnisteiden päivityksen synkronointi "
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__pricer_password
@@ -183,7 +187,7 @@ msgstr "Kassan asetukset"
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_product_product__on_sale_price
 msgid "Price after setting a Pricer Sales Pricelist"
-msgstr ""
+msgstr "Hinta Pricer-myyntihinnaston asettamisen jälkeen"
 
 #. module: pos_pricer
 #: model:ir.ui.menu,name:pos_pricer.pos_menu_pricer_configuration
@@ -219,7 +223,7 @@ msgstr "Pricer-tuoteen linkki"
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__pricer_sale_pricelist_id
 msgid "Pricer Sales Pricelist"
-msgstr ""
+msgstr "Pricer-Myyntihinnasto"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__pricer_store_id
@@ -289,7 +293,7 @@ msgstr "Hintalappu"
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__dummy_tag_barcode
 msgid "Pricer tag barcode"
-msgstr ""
+msgstr "Pricer-hinnoittelutunnisteen viivakoodi"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__pricer_tag_ids
@@ -305,7 +309,7 @@ msgstr "Tuote"
 #. odoo-javascript
 #: code:addons/pos_pricer/static/src/views/pricer_quick_pairing_form_view.js:0
 msgid "Product '%s' found"
-msgstr ""
+msgstr "Tuote '%s' löytyi"
 
 #. module: pos_pricer
 #: model:ir.model,name:pos_pricer.model_product_product
@@ -325,17 +329,17 @@ msgstr "Tuotteet"
 #. module: pos_pricer
 #: model_terms:ir.ui.view,arch_db:pos_pricer.pricer_pricer_store_form_view
 msgid "Quick pairing"
-msgstr ""
+msgstr "Nopea paritus"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__dummy_tag_barcode
 msgid "Scan the Pricer tag barcode here"
-msgstr ""
+msgstr "Skannaa Pricer-tunnisteen viivakoodi tästä"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__dummy_prod_barcode
 msgid "Scan the product barcode here"
-msgstr ""
+msgstr "Skannaa tuotteen viivakoodi tästä"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__last_update_status_message
@@ -356,19 +360,19 @@ msgstr "Kaupan nimi"
 #. odoo-javascript
 #: code:addons/pos_pricer/static/src/views/pricer_quick_pairing_form_view.js:0
 msgid "Tag '%s' found"
-msgstr ""
+msgstr "Tunniste '%s' löytyi"
 
 #. module: pos_pricer
 #. odoo-javascript
 #: code:addons/pos_pricer/static/src/views/pricer_quick_pairing_form_view.js:0
 msgid "Tag '%s' not found, creating it"
-msgstr ""
+msgstr "Tunnistetta '%s' ei löydy, luodaan se"
 
 #. module: pos_pricer
 #. odoo-javascript
 #: code:addons/pos_pricer/static/src/views/pricer_quick_pairing_form_view.js:0
 msgid "Tag '%s' successfully linked with product '%s'"
-msgstr ""
+msgstr "Tunniste '%s' on onnistuneesti linkitetty tuotteeseen '%s'"
 
 #. module: pos_pricer
 #. odoo-python
@@ -385,6 +389,8 @@ msgstr ""
 msgid ""
 "This pricelist will be used to set sales on Pricer tags for this product"
 msgstr ""
+"Tätä hinnastoa käytetään tämän tuotteen Pricer-tunnisteiden myynnin "
+"määrittämiseen"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_tag__pricer_store_id

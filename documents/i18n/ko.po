@@ -5,16 +5,16 @@
 # Translators:
 # Tiffany Chang, 2024
 # Sarah Park, 2024
-# Wil Odoo, 2024
 # Daye Jeong, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:51+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Daye Jeong, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -141,13 +141,13 @@ msgstr "문서 1건"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_year_previous
-msgid "2023"
-msgstr "2023"
+msgid "2024"
+msgstr "2024"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_year_current
-msgid "2024"
-msgstr "2024"
+msgid "2025"
+msgstr "2025"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -702,6 +702,18 @@ msgid "Access documents and partners cannot be changed."
 msgstr "문서 및 파트너에 대한 액세스는 수정할 수 없습니다."
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/hooks.js:0
+msgid "Access to Automations"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/core/document_service.js:0
+msgid "Access to Server Actions"
+msgstr ""
+
+#. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Access to a folder or a document"
@@ -728,6 +740,12 @@ msgstr "추가 작업"
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_needaction
 msgid "Action Needed"
 msgstr "조치 필요"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.xml:0
+msgid "Actions on Select"
+msgstr ""
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__active
@@ -797,6 +815,12 @@ msgstr "업무 유형"
 #: model_terms:ir.ui.view,arch_db:documents.documents_upload_url_view
 msgid "Add"
 msgstr "추가"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.xml:0
+msgid "Add Custom Action"
+msgstr ""
 
 #. module: documents
 #. odoo-javascript
@@ -936,12 +960,6 @@ msgstr "별칭 모델"
 
 #. module: documents
 #. odoo-javascript
-#: code:addons/documents/static/src/views/search/documents_search_model.js:0
-msgid "All"
-msgstr "전체"
-
-#. module: documents
-#. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.js:0
 msgid ""
 "All users with access to this %(documentType)s or its parent will have edit "
@@ -1023,6 +1041,12 @@ msgstr "이 페이지를 정말로 삭제하시겠습니까?"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.js:0
+msgid "Are you sure you want to delete this attachment?"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
 msgid "Are you sure you want to permanently erase the document?"
 msgstr "이 문서를 완전히 삭제할까요?"
@@ -1073,6 +1097,12 @@ msgstr "첨부 파일명"
 #: model:ir.model.fields,field_description:documents.field_documents_document__attachment_type
 msgid "Attachment Type"
 msgstr "첨부 파일 유형"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_automations.js:0
+msgid "Automations"
+msgstr "자동"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__available_embedded_actions_ids
@@ -1188,6 +1218,7 @@ msgstr "모든 회사 사용자를 위한 공통 루트."
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.js:0
+#: code:addons/documents/static/src/views/kanban/documents_kanban_record.js:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__company_id
 msgid "Company"
 msgstr "회사"
@@ -1204,12 +1235,6 @@ msgstr "설정"
 
 #. module: documents
 #. odoo-javascript
-#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_configure.js:0
-msgid "Configure"
-msgstr "설정"
-
-#. module: documents
-#. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.model,name:documents.model_res_partner
 #: model:ir.model.fields,field_description:documents.field_documents_document__partner_id
@@ -1217,6 +1242,13 @@ msgstr "설정"
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "Contact"
 msgstr "연락처"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/core/document_service.js:0
+#: code:addons/documents/static/src/views/hooks.js:0
+msgid "Contact your Administrator to get access if needed."
+msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_contracts
@@ -1297,6 +1329,12 @@ msgid "Creation Date"
 msgstr "작성일자"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
+msgid "Current Version"
+msgstr "현재 버전"
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_bounced_content
 msgid "Custom Bounced Message"
 msgstr "고객 반송 메시지"
@@ -1362,13 +1400,7 @@ msgstr "감가상각됨"
 
 #. module: documents
 #. odoo-javascript
-#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_details.js:0
-#: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
-msgid "Details"
-msgstr "세부 정보"
-
-#. module: documents
-#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 #: code:addons/documents/static/src/views/hooks.js:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -1528,6 +1560,18 @@ msgid "Documents in the Trash cannot be shared"
 msgstr "휴지통에 있는 문서는 공유할 수 없습니다."
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
+msgid "Documents moved to trash will show up here"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
+msgid "Documents shared with you will appear here"
+msgstr ""
+
+#. module: documents
 #: model:ir.model,name:documents.model_documents_unlink_mixin
 msgid "Documents unlink mixin"
 msgstr "문서 연결 해제 믹스인"
@@ -1609,7 +1653,6 @@ msgstr "복사"
 
 #. module: documents
 #. odoo-javascript
-#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_configure.js:0
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 #: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
 msgid "Edit"
@@ -1656,18 +1699,6 @@ msgstr "이메일 도메인 예: 'odoo@example.com'의 'example.com'"
 #: model:ir.actions.act_window,name:documents.mail_alias_action
 msgid "Email links"
 msgstr "이메일 링크"
-
-#. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/documents_model_mixin.js:0
-msgid "Enter folder"
-msgstr "폴더 입력"
-
-#. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/documents_model_mixin.js:0
-msgid "Entering this folder will deselect all items. Do you want to proceed?"
-msgstr "이 폴더에 들어가면 모든 항목이 선택 해제됩니다. 계속 하시겠습니까?"
 
 #. module: documents
 #. odoo-javascript
@@ -1821,6 +1852,7 @@ msgstr "이전 페이지에 포커스"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 #: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
+#: model:ir.model.fields,field_description:documents.field_documents_document__folder_id
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__folder_id
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__folder_id
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__folder
@@ -1898,13 +1930,6 @@ msgid "History"
 msgstr "기록"
 
 #. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/search/documents_search_model.js:0
-#: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
-msgid "Home"
-msgstr "홈"
-
-#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_access__id
 #: model:ir.model.fields,field_description:documents.field_documents_document__id
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__id
@@ -1975,6 +2000,11 @@ msgstr "다른 앱에서 사용하고 있는 폴더는 삭제할 수 없습니�
 #: code:addons/documents/models/documents_document.py:0
 msgid "Impossible to invite partners on multiple documents at once."
 msgstr "여러 문서에 동시에 파트너를 초대할 수 없습니다."
+
+#. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
+msgid "In"
+msgstr "In"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__thumbnail_status__restricted
@@ -2247,6 +2277,18 @@ msgid "Mail: %s"
 msgstr "메일: %s"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
+msgid "Manage Versions"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.js:0
+msgid "Manage Versions of \"%s\""
+msgstr ""
+
+#. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_remove_activities
 msgid "Mark activities as completed"
 msgstr "활동을 완료로 표시"
@@ -2307,6 +2349,12 @@ msgstr "월"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
+msgid "More"
+msgstr "더 보기"
+
+#. module: documents
+#. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 msgid "Move this page to trash"
 msgstr "이 페이지를 휴지통으로 이동"
@@ -2363,6 +2411,7 @@ msgstr "내 문서"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.js:0
+#: code:addons/documents/static/src/views/kanban/documents_kanban_record.js:0
 msgid "My Drive"
 msgstr "내 드라이브"
 
@@ -2458,6 +2507,12 @@ msgid "No one on the internet can access"
 msgstr "인터넷에서 아무도 액세스할 수 없음"
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/ir_actions_server.py:0
+msgid "No server actions found for Documents!"
+msgstr ""
+
+#. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_alias_action
 msgid "No shared links"
 msgstr "공유된 링크가 없습니다."
@@ -2530,6 +2585,12 @@ msgid "Odoo Logo"
 msgstr "Odoo 로고"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/hooks.js:0
+msgid "Odoo Studio - Customize workflows in minutes"
+msgstr "Odoo 스튜디오 - 몇 분 만에 워크플로우 사용자 지정"
+
+#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
 msgid "Odoo Website"
 msgstr "Odoo 웹사이트"
@@ -2567,12 +2628,6 @@ msgstr "액세스 권한이 있는 사용자만 링크를 통해 문서를 열 �
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Open #{document_url.name}"
 msgstr "Open #{document_url.name}"
-
-#. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/documents_model_mixin.js:0
-msgid "Open folder"
-msgstr "폴더 열기"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
@@ -2651,11 +2706,6 @@ msgstr "Owner: #{document_url.owner_id.name}"
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Owner: #{subfolder.owner_id.name}"
 msgstr "Owner: #{subfolder.owner_id.name}"
-
-#. module: documents
-#: model:ir.model.fields,field_description:documents.field_documents_document__folder_id
-msgid "Parent Folder"
-msgstr "상위 폴더"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_parent_model_id
@@ -2745,6 +2795,12 @@ msgid "Project"
 msgstr "프로젝트"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/hooks.js:0
+msgid "Put in %s"
+msgstr ""
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__rating_ids
 msgid "Ratings"
 msgstr "평가"
@@ -2754,6 +2810,12 @@ msgstr "평가"
 #: code:addons/documents/models/documents_document.py:0
 msgid "Recent"
 msgstr "최근"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
+msgid "Recently accessed Documents will show up here"
+msgstr ""
 
 #. module: documents
 #. odoo-python
@@ -2979,6 +3041,12 @@ msgstr "저장 중..."
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
+msgid "Select a folder to upload a document"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
 #: code:addons/documents/static/src/views/kanban/documents_kanban_renderer.js:0
 #: code:addons/documents/static/src/views/list/documents_list_renderer.js:0
 msgid "Select all"
@@ -3048,10 +3116,15 @@ msgid "Sequence"
 msgstr "순서"
 
 #. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.xml:0
-msgid "Set actions"
-msgstr "작업 설정"
+#: model:ir.model,name:documents.model_ir_actions_server
+msgid "Server Action"
+msgstr "서버 작업"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/ir_actions_server.py:0
+msgid "Server Actions"
+msgstr "서버 작업"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
@@ -3099,6 +3172,7 @@ msgstr "공유: %(documentName)s"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.js:0
+#: code:addons/documents/static/src/views/kanban/documents_kanban_record.js:0
 msgid "Shared with me"
 msgstr "나와 공유"
 
@@ -3140,6 +3214,7 @@ msgstr "크기 :"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
+#: code:addons/documents/static/src/core/document_service.js:0
 msgid "Some files could not be uploaded (max size: %s)."
 msgstr "일부 파일을 업로드할 수 없습니다 (최대 크기: %s)"
 
@@ -3542,6 +3617,12 @@ msgstr ""
 "normal\">하세요.</span>"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
+msgid "Upload New Version"
+msgstr ""
+
+#. module: documents
 #. odoo-python
 #: code:addons/documents/models/mail_activity.py:0
 msgid "Upload file request"
@@ -3574,6 +3655,14 @@ msgstr "부가가치세"
 #: model:documents.tag,name:documents.documents_tag_validated
 msgid "Validated"
 msgstr "승인됨"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
+msgid ""
+"Versions are displayed in the order they were uploaded to Documents.\n"
+"                    If you delete the most recent version, the previous one is automatically restored as the current one."
+msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_videos
@@ -3683,6 +3772,12 @@ msgid ""
 msgstr "컴퓨터에서 파일을 업로드하거나 인터넷 링크를 복사하여 파일에 붙여넣기 할 수 있습니다."
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot delete this attachment."
+msgstr ""
+
+#. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
@@ -3731,12 +3826,6 @@ msgstr "편집할 수 없는 폴더에서는 문서를 이동할 수 없습니�
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot change the owner of documents you do not own."
 msgstr "소유하지 않은 문서의 소유권은 이전할 수 없습니다."
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You cannot copy in that folder"
-msgstr "해당 폴더에 복사할 수 없습니다."
 
 #. module: documents
 #. odoo-python
@@ -3806,6 +3895,12 @@ msgstr "귀하의 권한: %s"
 #: code:addons/documents/models/documents_document.py:0
 msgid "Your individual space."
 msgstr "나만의 공간."
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
+msgid "Your personal space"
+msgstr ""
 
 #. module: documents
 #. odoo-javascript

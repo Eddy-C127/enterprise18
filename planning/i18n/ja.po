@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 12:16+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Junko Augias, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -2806,7 +2806,7 @@ msgstr "自分以外の従業員の割り当てを解除することはできま
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You cannot assign yourself to a shift in the past."
-msgstr ""
+msgstr "過去のシフトに自分で割当てを行うことはできません。"
 
 #. module: planning
 #. odoo-python
@@ -2833,6 +2833,12 @@ msgid "You cannot switch a shift that is in the past."
 msgstr "過去のシフトを交代することはできません。"
 
 #. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid "You cannot unassign yourself from a shift in the past."
+msgstr "過去のシフトから自分自身を外すことはできません。"
+
+#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/planning_calendar_front.js:0
 msgid "You don't have any shifts planned yet."
@@ -2845,12 +2851,6 @@ msgid ""
 "You don't have any shifts planned yet. You can assign yourself some of the "
 "available open shifts."
 msgstr "まだ予定されたシフトがありません。空きシフトに自分を割当てることができます。"
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning.py:0
-msgid "You cannot unassign yourself from a shift in the past."
-msgstr ""
 
 #. module: planning
 #. odoo-python

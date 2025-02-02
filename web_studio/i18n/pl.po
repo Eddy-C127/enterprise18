@@ -7,15 +7,15 @@
 # Tadeusz Karpiński <tadeuszkarpinski@gmail.com>, 2024
 # Radosław Biegalski <radoslaw.biegalski@openglobe.pl>, 2024
 # Paweł Wodyński <pw@myodoo.pl>, 2024
-# Marta Wacławek, 2024
+# Marta Wacławek, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:51+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Marta Wacławek, 2024\n"
+"Last-Translator: Marta Wacławek, 2025\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,19 +94,20 @@ msgstr ""
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid " until %s"
-msgstr ""
+msgstr " do %s"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 msgid "\" failed."
-msgstr ""
+msgstr "\" nie udało się."
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "%(user_name)s delegated approval rights to %(delegate_to)s"
 msgstr ""
+"%(user_name)s oddelegował uprawnienia zatwierdzenia do %(delegate_to)s"
 
 #. module: web_studio
 #. odoo-python
@@ -115,12 +116,14 @@ msgid ""
 "%(user_name)s has set approval rights from %(previous_approvers)s to "
 "%(next_approvers)s"
 msgstr ""
+"%(user_name)s skonfigurował uprawnienia zatwierdzenia od "
+"%(previous_approvers)s dla %(next_approvers)s"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "%(user_name)s revoked their delegation to %(revoked_users)s"
-msgstr ""
+msgstr "%(user_name)s cofnął swoją delegację dla %(revoked_users)s"
 
 #. module: web_studio
 #. odoo-python
@@ -132,12 +135,12 @@ msgstr "%s Raport"
 #. odoo-python
 #: code:addons/web_studio/models/studio_export_model.py:0
 msgid "%s record(s)"
-msgstr ""
+msgstr "%s zapis(ów)"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_kanban_view
 msgid "<i role=\"img\" class=\"fa fa-user-times\" title=\"Exclusive approval\"/>"
-msgstr ""
+msgstr "<i role=\"img\" class=\"fa fa-user-times\" title=\"Wyłączne zatwierdzenie\"/>"
 
 #. module: web_studio
 #. odoo-python
@@ -248,7 +251,7 @@ msgstr "Działanie w celu zatwierdzenia:"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 msgid "Action to run"
-msgstr ""
+msgstr "Akcja do wykonania"
 
 #. module: web_studio
 #. odoo-javascript
@@ -260,7 +263,7 @@ msgstr "Tytuł działania"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Action: %s"
-msgstr ""
+msgstr "Akcja: %s"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_actions_actions
@@ -359,7 +362,7 @@ msgstr "Dodaj priorytet"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Add an approval step"
-msgstr ""
+msgstr "Dodaj krok zatwierdzenia"
 
 #. module: web_studio
 #. odoo-javascript
@@ -400,7 +403,7 @@ msgstr "Dodaj tagi"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__additional_export_data
 msgid "Additional Export Data"
-msgstr ""
+msgstr "Dodatkowe dane eksportu"
 
 #. module: web_studio
 #. odoo-javascript
@@ -411,12 +414,12 @@ msgstr "Dodatkowe pola"
 #. module: web_studio
 #: model_terms:ir.actions.act_window,help:web_studio.action_models_to_export
 msgid "Additional Studio Exports"
-msgstr ""
+msgstr "Dodatkowy eksport studio"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__additional_models
 msgid "Additional models to export"
-msgstr ""
+msgstr "Dodatkowe modele do eksportu"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_export_wizard__additional_models
@@ -424,6 +427,7 @@ msgid ""
 "Additional models you may choose to export in addition to the Studio "
 "customizations"
 msgstr ""
+"Dodatkowe modele, które możesz wybrać do eksportu oprócz dostosowań Studio."
 
 #. module: web_studio
 #. odoo-javascript
@@ -443,7 +447,7 @@ msgstr "Cały dzień"
 msgid ""
 "All changes done to the report's structure will be discarded and the report "
 "will be reset to its factory settings."
-msgstr ""
+msgstr "Wszystkie zmiany "
 
 #. module: web_studio
 #. odoo-javascript
@@ -458,13 +462,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/map/map_editor_sidebar.xml:0
 msgid "Allow Resequencing"
-msgstr ""
+msgstr "Pozwalaj na resekwencjonowanie"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility.xml:0
 msgid "Allow visibility to groups"
-msgstr ""
+msgstr "Pozwól na widoczność dla grup"
 
 #. module: web_studio
 #. odoo-javascript
@@ -472,7 +476,7 @@ msgstr ""
 #: code:addons/web_studio/models/studio_approval.py:0
 #: code:addons/web_studio/static/src/approval/approval_hook.js:0
 msgid "An approval is missing"
-msgstr ""
+msgstr "Brakuje zatwierdzenia"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_delegate_approvers
@@ -499,7 +503,7 @@ msgstr "Grupa zatwierdzająca"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Approval Order"
-msgstr ""
+msgstr "Kolejność zatwierdzania"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__rule_id
@@ -511,12 +515,12 @@ msgstr "Zasada zatwierdzania"
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_rule_approver
 msgid "Approval Rule Approvers Enriched"
-msgstr ""
+msgstr "Ubogacono zatwierdzających reguły zatwierdzania "
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_rule_delegate
 msgid "Approval Rule Delegate"
-msgstr ""
+msgstr "Delegat zasady zatwierdzania"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_button_configuration_search_view
@@ -533,7 +537,7 @@ msgstr "Akceptacje"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Approvals %(model_name)s"
-msgstr ""
+msgstr "Zatwierdzenia %(model_name)s"
 
 #. module: web_studio
 #. odoo-python
@@ -545,7 +549,7 @@ msgstr "Zatwierdzenia można dokonać tylko na metodzie lub akcji, nie na obu."
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Approvals missing"
-msgstr ""
+msgstr "Brakujące zatwierdzenia"
 
 #. module: web_studio
 #. odoo-javascript
@@ -562,7 +566,7 @@ msgstr "Zaaprobowane"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.notify_approval
 msgid "Approved <i class=\"fa fa-thumbs-up text-success\"/>"
-msgstr ""
+msgstr "Zatwierdzono <i class=\"fa fa-thumbs-up text-success\"/>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -579,12 +583,12 @@ msgstr "Zatwierdzony/odrzucony przez"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Approver Group"
-msgstr ""
+msgstr "Grupa zatwiedzających"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__approver_log_ids
 msgid "Approver Log"
-msgstr ""
+msgstr "Dziennika zatwierdzającego"
 
 #. module: web_studio
 #. odoo-javascript
@@ -646,7 +650,7 @@ msgstr ""
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard_data__is_demo_data
 msgid "As Demo"
-msgstr ""
+msgstr "Jako demo"
 
 #. module: web_studio
 #. odoo-javascript
@@ -772,7 +776,7 @@ msgstr "Przycisk"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 msgid "Buttons Properties"
-msgstr ""
+msgstr "Właściwości przycisków"
 
 #. module: web_studio
 #. odoo-javascript
@@ -780,7 +784,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/properties/div_properties/div_properties.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/properties/footer_properties/footer_properties.xml:0
 msgid "CSS style"
-msgstr ""
+msgstr "Styl CSS"
 
 #. module: web_studio
 #. odoo-javascript
@@ -793,7 +797,7 @@ msgstr "Kalendarz"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 msgid "Call a method"
-msgstr ""
+msgstr "Wywołaj metodę"
 
 #. module: web_studio
 #. odoo-javascript
@@ -829,13 +833,13 @@ msgstr "Może zostać zatwierdzony"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Can't patch 'create', 'write' and 'unlink'."
-msgstr ""
+msgstr "Nie można naprawić 'create', 'write' i 'unlink'."
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Can't patch private methods."
-msgstr ""
+msgstr "Nie można poprawić prywatnych metod."
 
 #. module: web_studio
 #. odoo-javascript
@@ -899,7 +903,7 @@ msgstr "Wybierz nazwę aplikacji"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/menu_creator/menu_creator.xml:0
 msgid "Choose the name of the menu"
-msgstr ""
+msgstr "Wybierz nazwę dla menu"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1017,17 +1021,19 @@ msgid ""
 "Configure additional models to export with Studio, such as records that hold"
 " configuration information or demo data."
 msgstr ""
+"Skonfiguruj dodatkowe modele do wyeksportowania z aplikacją Studio, takie "
+"jak zapisy, które zawierają informacje o konfiguracji lub dane demo."
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_studio_export_wizard
 msgid "Configure data and demo data to export"
-msgstr ""
+msgstr "Skonfiguruj dane i dane demo do eksportu."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/menu_creator/menu_creator.xml:0
 msgid "Configure model"
-msgstr ""
+msgstr "Skonfiguruj model"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1182,7 +1188,7 @@ msgstr "Waluta"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 msgid "Current model:"
-msgstr ""
+msgstr "Aktualny model:"
 
 #. module: web_studio
 #. odoo-python
@@ -1251,7 +1257,7 @@ msgstr "Dostosowania dokonane w Studio zostaną trwale utracone"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_xml/report_editor_xml.xml:0
 msgid "DIFF"
-msgstr ""
+msgstr "DIFF"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1313,7 +1319,7 @@ msgstr "Domyślny tryb wyświetlania"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__default_export_data
 msgid "Default Export Data"
-msgstr ""
+msgstr "Domyślne dane eksportowe"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1366,14 +1372,14 @@ msgstr ""
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_export_model__updatable
 msgid "Defines if the records would be updated during a module update."
-msgstr ""
+msgstr "Określa czy zapisy będą zaktualizowane podczas aktualizacji modułu."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__notification_order
 msgid "Defines the sequential order in which the approvals are requested."
-msgstr ""
+msgstr "Określa kolejność w sekwencji, w której zatwierdzenia są wywoływane."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1385,13 +1391,13 @@ msgstr "Pole opóźnienia"
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_kanban_view
 msgid "Delegate"
-msgstr ""
+msgstr "Deleguj"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Delegate to"
-msgstr ""
+msgstr "Oddeleguj do"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1411,7 +1417,7 @@ msgstr "Demo"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 msgid "Dense"
-msgstr ""
+msgstr "Gęsty"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1492,6 +1498,8 @@ msgstr "Niedostępność wyświetlania"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/type_widget_properties/type_specific_and_computed_properties.js:0
 msgid "Displays a textual hint that helps the user when the field is empty."
 msgstr ""
+"Wyświetla kontekstową wskazówkę, która pomaga użytkownikowi, kiedy pole jest"
+" puste."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1520,6 +1528,7 @@ msgstr "Wykonano"
 msgid ""
 "Drag & drop <b>another field</b>. Let's try with a <i>selection field</i>."
 msgstr ""
+"Przeciągnij i upuść <b>kolejne pole</b>. Spróbujmy z <i>polem wyboru</i>."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1566,7 +1575,7 @@ msgstr "Ikona edycji aplikacji"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/properties/menu_properties/menu_properties.xml:0
 msgid "Edit Color Picker"
-msgstr ""
+msgstr "Edytuj selektor koloru"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1590,7 +1599,7 @@ msgstr "Edytuj wybór"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 msgid "Edit sources"
-msgstr ""
+msgstr "Edytuj źródła"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1674,20 +1683,20 @@ msgstr "Błąd"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 msgid "Error message:"
-msgstr ""
+msgstr "Komunikat o błędzie:"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 msgid "Error name:"
-msgstr ""
+msgstr "Nazwa błędu:"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__exclusive_user
 msgid "Exclusive Approval"
-msgstr ""
+msgstr "Wyłączne zatwierdzenie"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1768,7 +1777,7 @@ msgstr "Pola"
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_model__excluded_fields
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_form_view
 msgid "Fields to exclude"
-msgstr ""
+msgstr "Pola do wyłączenia"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1845,12 +1854,14 @@ msgid ""
 "For compatibility purpose with base_automation,approvals on 'create', "
 "'write' and 'unlink' methods are forbidden."
 msgstr ""
+"Na potrzeby kompatybilności z base_automation, zatwierdzenia na metodach "
+"'create', 'write' i 'unlink' są zabronione."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility.xml:0
 msgid "Forbid visibility to groups"
-msgstr ""
+msgstr "Zabroń widoczności grupom"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_delegate_approvers
@@ -2001,6 +2012,8 @@ msgid ""
 "Header and footer are shared with other reports which may be impacted by the"
 " reset."
 msgstr ""
+"Nagłówek i stopka są współdzielone z innymi raportami, na które resetowanie "
+"może mieć wpływ."
 
 #. module: web_studio
 #. odoo-javascript
@@ -2045,7 +2058,7 @@ msgstr "Wysoki priorytet"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.xml:0
 msgid "Highlight Color Field"
-msgstr ""
+msgstr "Pole koloru podświetlenia"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_res_company__background_image
@@ -2095,7 +2108,7 @@ msgstr "ID"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 msgid "IDs"
-msgstr ""
+msgstr "ID"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2121,6 +2134,8 @@ msgid ""
 "If set, the attachments related to the exported records will be included in "
 "the export."
 msgstr ""
+"Jeśli skonfigurowane, załączniki powiązane z eksportowanymi zapisami będą "
+"uwzględnione w eksporcie."
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_export_model__is_demo_data
@@ -2128,6 +2143,8 @@ msgid ""
 "If set, the exported records will be considered as demo data during the "
 "import."
 msgstr ""
+"Jeśli ustawione, wyeksportowane zapisy będą brane pod uwagę jako dane demo "
+"podczas importu."
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__domain
@@ -2186,18 +2203,18 @@ msgstr "W toku"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__include_additional_data
 msgid "Include Data"
-msgstr ""
+msgstr "Uwzględnij dane"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__include_demo_data
 msgid "Include Demo Data"
-msgstr ""
+msgstr "Uwzględnij dane demo"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 msgid "Include header and footer"
-msgstr ""
+msgstr "Uwzględnij nagłówek i stopkę"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_ir_ui_menu__is_studio_configuration
@@ -2212,19 +2229,19 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 msgid "Insert a field"
-msgstr ""
+msgstr "Wstaw pole"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 msgid "Insert a field..."
-msgstr ""
+msgstr "Wstaw pole..."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 msgid "Insert a table based on a relational field."
-msgstr ""
+msgstr "Wstaw tabelę opartą na polu relacyjnym"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2271,7 +2288,7 @@ msgstr "Niewidoczny"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_approver__is_delegation
 msgid "Is Delegation"
-msgstr ""
+msgstr "Jest delegacją"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__message_is_follower
@@ -2293,7 +2310,7 @@ msgstr "Jest widokiem domyślnym"
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 msgid "It lacks a method to check."
-msgstr ""
+msgstr "Brakuje metody sprawdzania."
 
 #. module: web_studio
 #. odoo-javascript
@@ -2305,7 +2322,7 @@ msgstr "Kanban"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__kanban_color
 msgid "Kanban Color"
-msgstr ""
+msgstr "Kolor Kanban"
 
 #. module: web_studio
 #. odoo-python
@@ -2331,7 +2348,7 @@ msgstr "Etykieta"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 msgid "Label of the button"
-msgstr ""
+msgstr "Etykieta przycisku"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__write_uid
@@ -2361,12 +2378,12 @@ msgstr "Data ostatniej aktualizacji"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_xml/report_editor_xml.xml:0
 msgid "Leave DIFF"
-msgstr ""
+msgstr "Opuść DIFF"
 
 #. module: web_studio
 #: model:ir.actions.client,name:web_studio.action_web_studio_leave_with
 msgid "Leave Studio with another action"
-msgstr ""
+msgstr "Opuść studio z innym działaniem"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2375,6 +2392,8 @@ msgid ""
 "Let's check the result. Close Odoo Studio to get an <b>overview of your "
 "app</b>."
 msgstr ""
+"Sprawdźmy wynik. Zamknij Odoo Studio, aby uzyskać <b>przegląd swojej "
+"aplikacji</b>."
 
 #. module: web_studio
 #. odoo-javascript
@@ -2441,6 +2460,8 @@ msgid ""
 "Many2one field linked to the res.partner model in order to create a map "
 "view."
 msgstr ""
+"Widoki mapy bazują na adresie połączonego Kontaktu. Musisz posiadać pole "
+"Many2one powiązane z modelem res.partner, aby tworzyć widok mapy."
 
 #. module: web_studio
 #. odoo-javascript
@@ -2503,13 +2524,13 @@ msgstr "Metoda"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 msgid "Method to run"
-msgstr ""
+msgstr "Metoda do uruchomienia"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Method: %s"
-msgstr ""
+msgstr "Metoda: %s"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2539,7 +2560,7 @@ msgstr "Model"
 #. odoo-python
 #: code:addons/web_studio/wizard/studio_export_wizard.py:0
 msgid "Model '%s' should not contain records with the same ID."
-msgstr ""
+msgstr "Model '%s' nie powinien zawierać zapisów z tym samym ID."
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_model_access
@@ -2578,7 +2599,7 @@ msgstr "Models"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/xml_resource_editor/xml_resource_editor.xml:0
 msgid "Modified by:"
-msgstr ""
+msgstr "Zmodyfikowano przez:"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_module_module
@@ -2613,7 +2634,7 @@ msgstr "Miesiąc"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 msgid "Month (expanded)"
-msgstr ""
+msgstr "Miesiąc (rozszerzone)"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2692,7 +2713,7 @@ msgstr "Nowy %s"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/studio_home_menu/studio_home_menu.js:0
 msgid "New App"
-msgstr ""
+msgstr "Nowa aplikacja"
 
 #. module: web_studio
 #. odoo-python
@@ -2763,6 +2784,8 @@ msgid ""
 "Nicely done! Let's build your screen now; <b>drag</b> a <i>text field</i> "
 "and <b>drop</b> it in your view, on the right."
 msgstr ""
+"Dobra robota! Zbudujmy teraz ekran; <b>przeciągnij</b><i>pole tekstowe</i> i"
+" <b>upuść</b> je w widoku po prawej stronie."
 
 #. module: web_studio
 #. odoo-javascript
@@ -2807,13 +2830,13 @@ msgstr "Notatki"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_delegate__users_to_notify
 msgid "Notify to"
-msgstr ""
+msgstr "Powiadom"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
 msgid "Now you're on your own. Enjoy your <b>super power</b>."
-msgstr ""
+msgstr "Teraz jesteś sam. Ciesz się swoją <b>super mocą</b>."
 
 #. module: web_studio
 #. odoo-javascript
@@ -2856,7 +2879,7 @@ msgstr "Studio Odoo"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 msgid "On view (ir.ui.view):"
-msgstr ""
+msgstr "W widoku (ir.ui.view):"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2878,7 +2901,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.xml:0
 msgid "Open Record On Click"
-msgstr ""
+msgstr "Otwórz zapis kliknięciem"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2891,7 +2914,7 @@ msgstr "Otwórz widok formularza"
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Open kanban view of approvals"
-msgstr ""
+msgstr "Otwórz widok kanban zatwierdzeń"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2933,7 +2956,7 @@ msgstr "Menu nadrzędne"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 msgid "Parent View (inherit_id)"
-msgstr ""
+msgstr "Widok nadrzędny (inherit_id)"
 
 #. module: web_studio
 #. odoo-python
@@ -2957,7 +2980,7 @@ msgstr "Obraz"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/graph/graph_editor.js:0
 msgid "Pie"
-msgstr "Tort"
+msgstr "Koło"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2998,7 +3021,7 @@ msgstr "Zaksięguj"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard_data__pre
 msgid "Pre"
-msgstr ""
+msgstr "Pre"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_list
@@ -3023,7 +3046,7 @@ msgstr "Poprzedni"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 msgid "Print preview"
-msgstr ""
+msgstr "Podgląd wydruku"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3148,7 +3171,7 @@ msgstr "Odrzucone"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.notify_approval
 msgid "Rejected <i class=\"fa fa-thumbs-down text-danger\"/>"
-msgstr ""
+msgstr "Odrzucono <i class=\"fa fa-thumbs-down text-danger\"/>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3195,25 +3218,25 @@ msgstr "Zgłoś akcję"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 msgid "Report Tools"
-msgstr ""
+msgstr "Narzędzia raportowe"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_model.js:0
 msgid "Report edition failed"
-msgstr ""
+msgstr "Niepowodzenie edycji raportu"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 msgid "Report name"
-msgstr ""
+msgstr "Nazwa raportu"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 msgid "Report preview not available"
-msgstr ""
+msgstr "Podgląd raportu nie jest dostępny"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3267,7 +3290,7 @@ msgstr "Kreator resetowania widoku architektury"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 msgid "Reset report"
-msgstr ""
+msgstr "Resetuj raport"
 
 #. module: web_studio
 #. odoo-python
@@ -3351,7 +3374,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 msgid "Run a Server Action"
-msgstr ""
+msgstr "Uruchom akcję serwera"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__message_has_sms_error
@@ -3388,12 +3411,13 @@ msgstr "Zapisywanie"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_model.js:0
 msgid "Saving both some report's parts and full xml is not permitted."
 msgstr ""
+"Zapisywanie niektórych części raportu i pełnego pliku xml jest niedozwolone."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 msgid "Saving the report \""
-msgstr ""
+msgstr "Zapisywanie raportu \""
 
 #. module: web_studio
 #. odoo-javascript
@@ -3424,7 +3448,7 @@ msgstr "Drugi wymiar"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_xml/report_editor_xml.xml:0
 msgid "See what changes have been made to this view"
-msgstr ""
+msgstr "Zobacz, jakie zmiany zostały wprowadzone do tego widoku"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3435,7 +3459,7 @@ msgstr "Wybierz Pole"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view_quick_create
 msgid "Select a group..."
-msgstr ""
+msgstr "Wybierz grupę..."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3452,7 +3476,7 @@ msgstr "Wybierz powiązane pole."
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 msgid "Select group"
-msgstr ""
+msgstr "Wybierz grupę"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3479,7 +3503,7 @@ msgstr "Wybierz wzajemne pole ManyToOne"
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view_quick_create
 msgid "Select users..."
-msgstr ""
+msgstr "Wybierz użytkowników..."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3555,7 +3579,7 @@ msgstr "Pokaż niewidoczne elementy"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 msgid "Show Traceback"
-msgstr ""
+msgstr "Pokaż śledzenie"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3567,19 +3591,19 @@ msgstr "Pokaż domyślnie"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 msgid "Show in print menu"
-msgstr ""
+msgstr "Pokaż w menu wydruku"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 msgid "Show link to record"
-msgstr ""
+msgstr "Pokaż link do zapisu"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.js:0
 msgid "Side panel"
-msgstr ""
+msgstr "Panel boczny"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3599,7 +3623,7 @@ msgstr "Powolne"
 #: code:addons/web_studio/models/studio_approval.py:0
 #: code:addons/web_studio/static/src/approval/approval_hook.js:0
 msgid "Some approvals are missing"
-msgstr ""
+msgstr "Brakuje niektórych zatwierdzeń"
 
 #. module: web_studio
 #. odoo-python
@@ -3608,6 +3632,8 @@ msgid ""
 "Some records were skipped because approvals were missing to"
 "                                    proceed with your request: "
 msgstr ""
+"Niektóre zapisy zostały pominięte, ponieważ brakowało zatwierdzeń, aby"
+"                                    przetworzyć Twoje żądanie:"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3633,7 +3659,7 @@ msgstr "Sortowanie"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 msgid "Sparse"
-msgstr ""
+msgstr "Rzadki"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3692,47 +3718,47 @@ msgstr "Krok"
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__1
 msgid "Step 1"
-msgstr ""
+msgstr "Krok 1"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__2
 msgid "Step 2"
-msgstr ""
+msgstr "Krok 2"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__3
 msgid "Step 3"
-msgstr ""
+msgstr "Krok 3"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__4
 msgid "Step 4"
-msgstr ""
+msgstr "Krok 4"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__5
 msgid "Step 5"
-msgstr ""
+msgstr "Krok 5"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__6
 msgid "Step 6"
-msgstr ""
+msgstr "Krok 6"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__7
 msgid "Step 7"
-msgstr ""
+msgstr "Krok 7"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__8
 msgid "Step 8"
-msgstr ""
+msgstr "Krok 8"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__9
 msgid "Step 9"
-msgstr ""
+msgstr "Krok 9"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3781,7 +3807,7 @@ msgstr "Studio Reguła zatwierdzania"
 #: model:ir.actions.act_window,name:web_studio.studio_approval_rule_action
 #: model:ir.ui.menu,name:web_studio.menu_studio_approval_rule
 msgid "Studio Approval Rules"
-msgstr ""
+msgstr "Reguły zatwierdzeń Studio"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_ir_ui_menu__is_studio_configuration
@@ -3796,7 +3822,7 @@ msgstr "Dostosowania w Studio"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_studio_export_wizard
 msgid "Studio Customizations will be exported"
-msgstr ""
+msgstr "Dostosowania w Studio zostaną wyeksportowane"
 
 #. module: web_studio
 #: model:ir.actions.act_window,name:web_studio.action_models_to_export
@@ -3805,27 +3831,27 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_list
 msgid "Studio Export"
-msgstr ""
+msgstr "Eksport Studio"
 
 #. module: web_studio
 #: model:ir.actions.client,name:web_studio.studio_export_action
 msgid "Studio Export Action"
-msgstr ""
+msgstr "Działanie eksportu Studio"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_wizard_data
 msgid "Studio Export Data"
-msgstr ""
+msgstr "Dane eksportu Studio"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_model
 msgid "Studio Export Models"
-msgstr ""
+msgstr "Modele eksportu Studio"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_wizard
 msgid "Studio Export Wizard"
-msgstr ""
+msgstr "Kreator eksportu Studio"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_mixin
@@ -3918,13 +3944,13 @@ msgstr "Ikona nie jest powiązana z załącznikiem"
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 msgid "The method %(method)s does not exist on the model %(model)s."
-msgstr ""
+msgstr "Metoda %(method)s nie istnieje w modelu %(model)s."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.js:0
 msgid "The method %s is private."
-msgstr ""
+msgstr "Metoda %s jest prywatna."
 
 #. module: web_studio
 #. odoo-python
@@ -3936,7 +3962,7 @@ msgstr "Model %s nie istnieje."
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 msgid "The model %s doesn't exist."
-msgstr ""
+msgstr "Model %s nie istnieje."
 
 #. module: web_studio
 #. odoo-python
@@ -3964,12 +3990,16 @@ msgid ""
 "some view inherits from another but targets a node that doesn't exist. It "
 "might be due to the mutations of the base views during the upgrade process."
 msgstr ""
+"Nie można załadować raportu, ponieważ wystąpił błąd. Zwykle oznacza to, że "
+"jakiś widok dziedziczy po innym, ale jest skierowany na węzeł, który nie "
+"istnieje. Może to być spowodowane mutacjami widoków bazowych podczas procesu"
+" aktualizacji."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_model.js:0
 msgid "The report is in error. Only editing the XML sources is permitted"
-msgstr ""
+msgstr "Raport ma błąd. Można jedynie edytować źródła XML."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3989,6 +4019,8 @@ msgid ""
 "The step description will be displayed on the button on which an approval is"
 " requested."
 msgstr ""
+"Opis kroku zostanie wyświetlony na przycisku, na którym wymagane jest "
+"zatwierdzenie."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3997,13 +4029,15 @@ msgid ""
 "The user who approves this step will not be able to approve other steps for "
 "the same record."
 msgstr ""
+"Użytkownik, który zatwierdzi ten krok, nie będzie mógł zatwierdzić innych "
+"kroków dla tego samego zapisu."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__approval_group_id
 msgid "The users in this group are able to approve or reject the step."
-msgstr ""
+msgstr "Użytkownicy w tej grupie mogą zatwierdzić lub odrzucić krok."
 
 #. module: web_studio
 #. odoo-python
@@ -4020,7 +4054,7 @@ msgstr ""
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid ""
 "There is no method %(method)s on the model %(model_name)s (%(model_id)s)"
-msgstr ""
+msgstr "Nie ma metody %(method)s w modelu %(model_name)s (%(model_id)s)"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4029,12 +4063,14 @@ msgid ""
 "There is no record on which this report can be previewed. Create at least "
 "one record to preview the report."
 msgstr ""
+"Nie ma zapisu na którym można wyświetlić podgląd tego raportu. Stwórz "
+"przynajmniej jeden zapis do podglądu tego raportu."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 msgid "There is no record to preview"
-msgstr ""
+msgstr "Nie ma żadnego zapisu do podglądu"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4044,6 +4080,8 @@ msgid ""
 "These users are able to approve or reject the step and will be assigned to "
 "an activity when their approval is requested."
 msgstr ""
+"Ci użytkownicy mają możliwość zatwierdzenia lub odrzucenia kroku i zostaną "
+"im przypisane aktywności po zażądaniu zatwierdzenia."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4053,6 +4091,8 @@ msgid ""
 "These users will receive a notification via internal note when the step is "
 "approved or rejected"
 msgstr ""
+"Ci użytkownicy otrzymają powiadomienie przez wewnętrzną notatkę, kiedy krok "
+"zostanie zatwierdzony lub odrzucony."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4085,17 +4125,19 @@ msgid ""
 "This could also be due to the absence of a real record to render the report "
 "with."
 msgstr ""
+"Może to być również spowodowane brakiem rzeczywistego zapisu do "
+"wyrenderowania raportu."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 msgid "This may be due to an incorrect syntax in the edited parts."
-msgstr ""
+msgstr "Może to być spowodowane niepoprawną składnię w edytowanych częściach."
 
 #. module: web_studio
 #: model:ir.model.constraint,message:web_studio.constraint_studio_export_model_unique_model
 msgid "This model is already being exported."
-msgstr ""
+msgstr "Ten model jest już eksportowany."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4172,7 +4214,7 @@ msgstr "Cofnij"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Unsupported operator '%s' to search action_xmlid"
-msgstr ""
+msgstr "Nieobsługiwany operator '%s' do wyszukania action_xmlid"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_delegate__date_to
@@ -4183,7 +4225,7 @@ msgstr "Do"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Until %s"
-msgstr ""
+msgstr "Do %s"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_model__updatable
@@ -4197,6 +4239,8 @@ msgid ""
 "Use Bootstrap or any other custom classes to customize the style and the "
 "display of the element."
 msgstr ""
+"Użyj Bootstrapa lub innych niestandardowych klas, aby dostosować styl i "
+"wygląd elementu."
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_approver__user_id
@@ -4220,13 +4264,13 @@ msgstr "Symbol zastępczy awatara użytkownika"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__users_to_notify
 msgid "Users to Notify"
-msgstr ""
+msgstr "Użytkownicy do powiadomienia"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/xml_resource_editor/xml_resource_editor.xml:0
 msgid "Uses:"
-msgstr ""
+msgstr "Użycia:"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4253,13 +4297,13 @@ msgstr "Widok"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/view_editor.js:0
 msgid "View Editor"
-msgstr ""
+msgstr "Zobacz edytor"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 msgid "View in Error:"
-msgstr ""
+msgstr "Wyświetl w błędzie>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4277,19 +4321,19 @@ msgstr "Oczekiwanie na zatwierdzenie"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
 msgid "Want more fun? Let's create more <b>views</b>."
-msgstr ""
+msgstr "Chcesz więcej zabawy? Utwórzmy więcej <b>widoków</b>."
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 msgid "Webhook Automations"
-msgstr ""
+msgstr "Automatyzacje webhooków"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/editor/editor_menu/editor_menu.js:0
 msgid "Webhooks"
-msgstr ""
+msgstr "Webhooki"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__website_message_ids
@@ -4312,7 +4356,7 @@ msgstr "Tydzień"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 msgid "Week (expanded)"
-msgstr ""
+msgstr "Tydzień (rozszerzone)"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4336,7 +4380,7 @@ msgstr "A co z <b>widokiem Kanban</b>?"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 msgid "What should the button do"
-msgstr ""
+msgstr "Co powinien robić przycisk"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4373,6 +4417,8 @@ msgid ""
 "Wow, nice! And I'm sure you can make it even better! Use this icon to open "
 "<b>Odoo Studio</b> and customize any screen."
 msgstr ""
+"Wow, nieźle! Ale z pewnością możesz zrobić to jeszcze lepiej! Użyj tej "
+"ikony, aby otworzyć <b>Studio Odoo</b> i dostosować dowolny ekran."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4397,7 +4443,7 @@ msgstr "Rok"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "You can not approve this rule."
-msgstr ""
+msgstr "Nie możesz zatwierdzić tej reguły."
 
 #. module: web_studio
 #. odoo-python
@@ -4406,6 +4452,8 @@ msgid ""
 "You cannot cancel an approval you didn't set yourself or you don't belong to"
 " an higher level rule's approvers."
 msgstr ""
+"Nie możesz anulować zatwierdzenia, którego nie nastawiłeś sam, lub nie "
+"należysz do osób zatwierdzających regułę wyższego poziomu. "
 
 #. module: web_studio
 #. odoo-javascript
@@ -4430,13 +4478,13 @@ msgstr "Po prostu lubisz wszystko niszczyć, prawda?"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 msgid "action"
-msgstr ""
+msgstr "akcja"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "delegates to %s."
-msgstr ""
+msgstr "deleguje do %s."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4457,16 +4505,22 @@ msgid "e.g. Real Estate"
 msgstr "np. Nieruchomość"
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/field_properties/field_properties.xml:0
+msgid "for company"
+msgstr "dla firmy"
+
+#. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "no one"
-msgstr ""
+msgstr "nikt"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 msgid "object"
-msgstr ""
+msgstr "obiekt"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4490,7 +4544,7 @@ msgstr "test email"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "to %s."
-msgstr ""
+msgstr "do %s."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4514,4 +4568,4 @@ msgstr "x_studio_"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/field_configuration/selection_content_dialog.xml:0
 msgid "{{ item.isInEdition ? 'Add selection' : 'Edit selection' }}"
-msgstr ""
+msgstr "{{ item.isInEdition ? 'Dodaj wybór' : 'Edytuj wybór' }}"

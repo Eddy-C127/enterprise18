@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 12:16+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Tony Ng, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -2667,6 +2667,12 @@ msgid "You cannot switch a shift that is in the past."
 msgstr "調班不可調換成過去的班次。"
 
 #. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid "You cannot unassign yourself from a shift in the past."
+msgstr ""
+
+#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/planning_calendar_front.js:0
 msgid "You don't have any shifts planned yet."
@@ -2679,12 +2685,6 @@ msgid ""
 "You don't have any shifts planned yet. You can assign yourself some of the "
 "available open shifts."
 msgstr "你尚未有任何輪班計劃。你可以為自己分配一些可用的空缺班次。"
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning.py:0
-msgid "You cannot unassign yourself from a shift in the past."
-msgstr ""
 
 #. module: planning
 #. odoo-python

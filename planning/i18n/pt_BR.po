@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 12:16+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Maitê Dietze, 2025\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
@@ -2921,6 +2921,12 @@ msgid "You cannot switch a shift that is in the past."
 msgstr "Você não pode trocar um turno que já passou."
 
 #. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid "You cannot unassign yourself from a shift in the past."
+msgstr ""
+
+#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/planning_calendar_front.js:0
 msgid "You don't have any shifts planned yet."
@@ -2935,12 +2941,6 @@ msgid ""
 msgstr ""
 "Você ainda não tem nenhum turno planejado. Você pode atribuir a si mesmo "
 "alguns dos turnos abertos disponíveis."
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning.py:0
-msgid "You cannot unassign yourself from a shift in the past."
-msgstr ""
 
 #. module: planning
 #. odoo-python

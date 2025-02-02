@@ -573,12 +573,6 @@ msgid "All Documents"
 msgstr "Tous les documents"
 
 #. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "All done!"
-msgstr "C'est fini !"
-
-#. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "All signers must have valid email addresses"
@@ -1240,6 +1234,8 @@ msgid "Documents"
 msgstr "Documents"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 msgid "Download"
 msgstr "Télécharger"
@@ -1256,12 +1252,6 @@ msgstr "Télécharger le certificat"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "Download Document"
 msgstr "Télécharger le document"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "Download it"
-msgstr "Télécharger"
 
 #. module: sign
 #. odoo-javascript
@@ -1815,6 +1805,12 @@ msgid "Is User Signer"
 msgstr "Est utilisateur signataire"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "It's signed!"
+msgstr "C'est signé !"
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "John Doe"
 msgstr "John Doe"
@@ -2125,6 +2121,12 @@ msgid "Need a valid PDF to add signature fields!"
 msgstr "Un PDF valide est nécessaire pour ajouter des champs de signature !"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Need to sign documents?"
+msgstr "Besoin de signer des documents ?"
+
+#. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_send_request
 msgid "New Signature Request"
 msgstr "Nouvelle demande de signature"
@@ -2253,6 +2255,12 @@ msgstr "Nombre de messages avec des erreurs d'envoi"
 #: model:ir.model.fields,field_description:sign.field_sign_template__num_pages
 msgid "Number of pages"
 msgstr "Nombre de pages"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Odoo Sign"
+msgstr "Odoo Signature"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -2895,12 +2903,6 @@ msgstr "Format des conditions générales"
 
 #. module: sign
 #. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "Sign Up for free"
-msgstr "Inscrivez-vous gratuitement"
-
-#. module: sign
-#. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.xml:0
 msgid "Sign all"
 msgstr "Tout signer"
@@ -2945,15 +2947,6 @@ msgid ""
 msgstr ""
 "Inscrivez-vous à Odoo Signature pour gérer vos propres documents et vos "
 "demandes de signature !"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid ""
-"Sign up for Odoo Sign to manage your own documents and signature requests."
-msgstr ""
-"Inscrivez-vous à Odoo Signature pour gérer vos propres documents et vos "
-"demandes de signature."
 
 #. module: sign
 #: model:ir.actions.server,name:sign.sign_reminder_cron_ir_actions_server
@@ -4204,8 +4197,8 @@ msgstr "Vous devez sélectionner au moins un document à télécharger."
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "You will receive the final signed document by email."
-msgstr "Vous recevrez le document final signé par e-mail."
+msgid "You will get the signed document by email."
+msgstr "Vous recevrez le document signé par e-mail."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
@@ -4399,6 +4392,14 @@ msgstr "https://c.environmentalpaper.org/."
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "ip"
 msgstr "ip"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "is free, forever, with unlimited users - and it's fun to use!"
+msgstr ""
+"est gratuit, pour toujours, avec un nombre illimité d'utilisateurs - et "
+"c'est amusant à utiliser !"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user

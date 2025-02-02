@@ -5,17 +5,17 @@
 # Translators:
 # liAnGjiA <liangjia@qq.com>, 2024
 # Raymond Yu <cl_yu@hotmail.com>, 2024
-# Wil Odoo, 2024
 # Odoo哥 <vnsoft.he@gmail.com>, 2024
 # Chloe Wang, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:53+0000\n"
+"POT-Creation-Date: 2025-01-27 13:56+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Chloe Wang, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,6 +43,12 @@ msgstr "接受"
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__acknowledged
 msgid "Acknowledged"
 msgstr "已确认收到"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Aggregator (Handled by Platform)"
+msgstr ""
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__name
@@ -79,7 +85,19 @@ msgstr "已取消"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Card on Delivery"
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Cash"
+msgstr "现金"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Channel"
 msgstr "频道"
 
@@ -99,6 +117,12 @@ msgstr "如果此付款方式用于在线送货订单，请选中此项。"
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Close"
 msgstr "关闭"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.xml:0
+msgid "Complete Order"
+msgstr ""
 
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__completed
@@ -140,31 +164,32 @@ msgstr "创建日期"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Customer Email"
 msgstr "客户邮件"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Customer Info"
 msgstr "客户信息"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Customer Name"
 msgstr "客户名称"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Customer Phone"
 msgstr "客户电话"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/receipt_screen/receipt/order_receipt.xml:0
 msgid "Delivery Address"
 msgstr "送货地址"
 
@@ -208,7 +233,7 @@ msgstr "送货付款"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Delivery Person"
 msgstr "送货人"
 
@@ -235,7 +260,7 @@ msgstr "交货状态"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Delivery Time/Time-Slot"
 msgstr "送货时间/时段"
 
@@ -244,6 +269,12 @@ msgstr "送货时间/时段"
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Details"
 msgstr "详情"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.xml:0
+msgid "Dispatch Order"
+msgstr ""
 
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__dispatched
@@ -282,6 +313,11 @@ msgstr "错误"
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
+msgid "Error to send delivery order in preparation display."
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/store/pos_store.js:0
 msgid "Error to send in preparation display."
 msgstr "发送到准备显示屏时出错。"
@@ -318,7 +354,7 @@ msgstr "食物已准备好"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Fulfilment Mode"
 msgstr "履行方式"
 
@@ -338,7 +374,7 @@ msgstr "使用 urban piper 和 POS 配置处理产品 - 产品是否与适当的
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "HungerStation Code"
 msgstr "HungerStation 代码"
 
@@ -447,7 +483,7 @@ msgstr "无"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__name
 msgid "Name"
 msgstr "名称"
@@ -475,6 +511,12 @@ msgid "Non-Vegetarian"
 msgstr "非素食"
 
 #. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Not Specified"
+msgstr ""
+
+#. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.product_template_only_form_view_inherit_pos_urban_piper
 msgid "Not available for online orders."
 msgstr "不适用于在线订单。"
@@ -498,19 +540,19 @@ msgstr "网上订单外送服务商"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Order ID"
 msgstr "订单ID"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Order Info"
 msgstr "其他信息"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Order OTP"
 msgstr "订单一次密码"
 
@@ -522,7 +564,7 @@ msgstr "订单状态"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Order Time"
 msgstr "订单时间"
 
@@ -551,7 +593,7 @@ msgstr "超出送货范围"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Outlet"
 msgstr "分店"
 
@@ -566,13 +608,31 @@ msgid "Packaging Charges"
 msgstr "包装费"
 
 #. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Payment Gateway"
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Payment Mode"
+msgstr "付款方式"
+
+#. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_payment_methods_ids
 msgid "Payment methods for Urban Piper sync menu."
 msgstr "Urban Piper 同步菜单的付款方式。"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Paytm"
+msgstr "Paytm"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Phone"
 msgstr "电话"
 
@@ -615,6 +675,12 @@ msgstr "POS会话"
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_store_identifier
 msgid "Pos ID from Urban Piper (Atlas)"
 msgstr "UrbanPiper（Atlas）销售点识别码"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Prepaid"
+msgstr "预付"
 
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_pos_preparation_display_order
@@ -745,7 +811,13 @@ msgstr "日记账简短代码，用于建立日记账"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Simpl (Deferred Payment)"
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Status"
 msgstr "状态"
 
@@ -794,13 +866,13 @@ msgstr "系统参数"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Talabat Code"
 msgstr "Talabat 代码"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Talabat Short Code"
 msgstr "Talabat 简短代码"
 
@@ -979,6 +1051,12 @@ msgstr "款式变体/加购产品缺货"
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__product_template__urbanpiper_meal_type__1
 msgid "Vegetarian"
 msgstr "素食"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Wallet Credit"
+msgstr ""
 
 #. module: pos_urban_piper
 #. odoo-python

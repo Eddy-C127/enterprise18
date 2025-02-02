@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 12:16+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Manon Rondou, 2025\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
@@ -2897,7 +2897,7 @@ msgstr "Vous ne pouvez pas désassigner un autre employé que vous-même."
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You cannot assign yourself to a shift in the past."
-msgstr ""
+msgstr "Vous ne pouvez pas vous assigner un poste situé dans le passé."
 
 #. module: planning
 #. odoo-python
@@ -2929,6 +2929,12 @@ msgid "You cannot switch a shift that is in the past."
 msgstr "Vous ne pouvez pas changer un poste qui est dans le passé."
 
 #. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid "You cannot unassign yourself from a shift in the past."
+msgstr "Vous ne pouvez pas vous désassigner d'un poste situé dans le passé."
+
+#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/planning_calendar_front.js:0
 msgid "You don't have any shifts planned yet."
@@ -2943,12 +2949,6 @@ msgid ""
 msgstr ""
 "Vous n'avez pas encore planifié de créneaux. Vous pouvez vous attribuer des "
 "créneaux disponibles."
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning.py:0
-msgid "You cannot unassign yourself from a shift in the past."
-msgstr ""
 
 #. module: planning
 #. odoo-python

@@ -25,14 +25,15 @@
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
 # yael terner, 2024
 # MichaelHadar, 2024
+# or balmas, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: MichaelHadar, 2024\n"
+"Last-Translator: or balmas, 2025\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -393,6 +394,8 @@ msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
 "in accordance with its journal's sequence."
 msgstr ""
+"כל פקודת רכישה לפני תאריך זה וכולל תאריך זה, תדחה לתאריך מאוחר יותר, בהתאם "
+"לסדר הפקודות ביומן."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
@@ -905,7 +908,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__distribution_analytic_account_ids
 msgid "Distribution Analytic Account"
-msgstr ""
+msgstr "חשבון ניתוח הפצה"
 
 #. module: account_accountant
 #. odoo-python
@@ -1182,6 +1185,8 @@ msgid ""
 "the related information at the time of the creation of the move and that the"
 " move needs to be checked again."
 msgstr ""
+"אם תיבה זו לא מסומנת, המשמעות היא שהמשתמש לא היה בטוח בכל המידע הרלוונטי "
+"בזמן יצירת התנועה וצריך לבדוק אותו שוב."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
@@ -1408,7 +1413,7 @@ msgstr "שורה"
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_bank_rec_widget_line
 msgid "Line of the bank reconciliation widget"
-msgstr ""
+msgstr "שורת ווידג'ט להתאמת הבנק"
 
 #. module: account_accountant
 #: model:ir.ui.menu,name:account_accountant.menu_action_change_lock_date
@@ -2163,6 +2168,11 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_debit
 msgid "Source Debit"
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_rate
+msgid "Source Rate"
 msgstr ""
 
 #. module: account_accountant

@@ -12,16 +12,16 @@
 # שהאב חוסיין <shhab89@gmail.com>, 2024
 # Ofir Blum <ofir.blum@gmail.com>, 2024
 # Yihya Hugirat <hugirat@gmail.com>, 2024
-# Martin Trigaux, 2024
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
+# Martin Trigaux, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:53+0000\n"
+"POT-Creation-Date: 2025-01-27 13:56+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024\n"
+"Last-Translator: Martin Trigaux, 2025\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,6 +46,12 @@ msgstr "אשר"
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__acknowledged
 msgid "Acknowledged"
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Aggregator (Handled by Platform)"
 msgstr ""
 
 #. module: pos_urban_piper
@@ -83,7 +89,19 @@ msgstr "בוטל"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Card on Delivery"
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Cash"
+msgstr "מזומן"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Channel"
 msgstr "ערוץ"
 
@@ -103,6 +121,12 @@ msgstr ""
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Close"
 msgstr "סגור"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.xml:0
+msgid "Complete Order"
+msgstr ""
 
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__completed
@@ -144,31 +168,32 @@ msgstr "נוצר ב-"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Customer Email"
 msgstr "דוא\"ל לקוח"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Customer Info"
 msgstr ""
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Customer Name"
 msgstr "שם לקוח"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Customer Phone"
 msgstr "טלפון לקוח"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/receipt_screen/receipt/order_receipt.xml:0
 msgid "Delivery Address"
 msgstr "כתובת לאספקה"
 
@@ -212,7 +237,7 @@ msgstr ""
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Delivery Person"
 msgstr ""
 
@@ -239,7 +264,7 @@ msgstr "סטטוס משלוח"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Delivery Time/Time-Slot"
 msgstr ""
 
@@ -248,6 +273,12 @@ msgstr ""
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Details"
 msgstr "פרטים"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.xml:0
+msgid "Dispatch Order"
+msgstr ""
 
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__dispatched
@@ -286,6 +317,11 @@ msgstr "שגיאה"
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
+msgid "Error to send delivery order in preparation display."
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/store/pos_store.js:0
 msgid "Error to send in preparation display."
 msgstr ""
@@ -322,7 +358,7 @@ msgstr ""
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Fulfilment Mode"
 msgstr ""
 
@@ -342,7 +378,7 @@ msgstr ""
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "HungerStation Code"
 msgstr ""
 
@@ -451,7 +487,7 @@ msgstr "לא ישים"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__name
 msgid "Name"
 msgstr "שם"
@@ -479,6 +515,12 @@ msgid "Non-Vegetarian"
 msgstr ""
 
 #. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Not Specified"
+msgstr ""
+
+#. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.product_template_only_form_view_inherit_pos_urban_piper
 msgid "Not available for online orders."
 msgstr ""
@@ -502,19 +544,19 @@ msgstr ""
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Order ID"
 msgstr ""
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Order Info"
 msgstr ""
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Order OTP"
 msgstr ""
 
@@ -526,7 +568,7 @@ msgstr "סטטוס הזמנה"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Order Time"
 msgstr "זמן הזמנה"
 
@@ -555,7 +597,7 @@ msgstr ""
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Outlet"
 msgstr ""
 
@@ -570,13 +612,31 @@ msgid "Packaging Charges"
 msgstr ""
 
 #. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Payment Gateway"
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Payment Mode"
+msgstr ""
+
+#. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_payment_methods_ids
 msgid "Payment methods for Urban Piper sync menu."
 msgstr ""
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Paytm"
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Phone"
 msgstr "טלפון"
 
@@ -618,6 +678,12 @@ msgstr "משמרת קופה "
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_store_identifier
 msgid "Pos ID from Urban Piper (Atlas)"
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Prepaid"
 msgstr ""
 
 #. module: pos_urban_piper
@@ -749,7 +815,13 @@ msgstr ""
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Simpl (Deferred Payment)"
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Status"
 msgstr "סטטוס"
 
@@ -798,13 +870,13 @@ msgstr "פרמטר מערכת"
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Talabat Code"
 msgstr ""
 
 #. module: pos_urban_piper
 #. odoo-javascript
-#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
 msgid "Talabat Short Code"
 msgstr ""
 
@@ -983,6 +1055,12 @@ msgstr ""
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__product_template__urbanpiper_meal_type__1
 msgid "Vegetarian"
 msgstr "צמחוני"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.js:0
+msgid "Wallet Credit"
+msgstr ""
 
 #. module: pos_urban_piper
 #. odoo-python

@@ -21,16 +21,17 @@
 # Antti Oksman <antti.oksman@web-veistamo.fi>, 2024
 # Camille Dantinne <cmd@odoo.com>, 2024
 # Martin Trigaux, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2025
+# Wil Odoo, 2025
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:55+0000\n"
+"POT-Creation-Date: 2025-01-27 13:57+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2025\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -566,6 +567,11 @@ msgid "Is Follower"
 msgstr "On seuraaja"
 
 #. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
+msgid "Last Quarter"
+msgstr "Edellinen kvartaali"
+
+#. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__write_uid
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__write_uid
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_achievement__write_uid
@@ -588,6 +594,11 @@ msgstr "Viimeksi päivittänyt"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_user_wizard__write_date
 msgid "Last Updated on"
 msgstr "Viimeksi päivitetty"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
+msgid "Last Year"
+msgstr "Edellinen vuosi"
 
 #. module: sale_commission
 #: model:ir.model.fields,help:sale_commission.field_sale_commission_achievement__team_id
@@ -640,6 +651,11 @@ msgstr "Omat palkkiot"
 #: model:ir.actions.act_window,name:sale_commission.sale_commission_action_my_forecast
 msgid "My Forecast"
 msgstr "Oma ennusteeni"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
+msgid "My Team"
+msgstr "Oma tiimi"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__name
@@ -715,6 +731,7 @@ msgstr "Maksun päivämäärä"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__target_id
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_achievement_report_view_search
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_target_forecast_view_search
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
 msgid "Period"
 msgstr "Jakso"
@@ -949,6 +966,21 @@ msgstr "Kuluva vuosi"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__date_to
 msgid "To"
 msgstr "Päättyy"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
+msgid "Total Target"
+msgstr "Tavoite yhteensä"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
+msgid "Total achieved"
+msgstr "Saavutettu yhteensä"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
+msgid "Total commission"
+msgstr "Palkkio yhteensä"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__type

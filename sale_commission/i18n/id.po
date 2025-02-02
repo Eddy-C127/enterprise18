@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Abe Manyo, 2024
-# Wil Odoo, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:55+0000\n"
+"POT-Creation-Date: 2025-01-27 13:57+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -547,6 +547,11 @@ msgid "Is Follower"
 msgstr "Apakah Pengikut"
 
 #. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
+msgid "Last Quarter"
+msgstr "Triwulan Lalu"
+
+#. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__write_uid
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__write_uid
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_achievement__write_uid
@@ -569,6 +574,11 @@ msgstr "Terakhir Diperbarui oleh"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_user_wizard__write_date
 msgid "Last Updated on"
 msgstr "Terakhir Diperbarui pada"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
+msgid "Last Year"
+msgstr "Tahun Lalu"
 
 #. module: sale_commission
 #: model:ir.model.fields,help:sale_commission.field_sale_commission_achievement__team_id
@@ -621,6 +631,11 @@ msgstr "Komisi-Komisi Saya"
 #: model:ir.actions.act_window,name:sale_commission.sale_commission_action_my_forecast
 msgid "My Forecast"
 msgstr "Forecast Saya"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
+msgid "My Team"
+msgstr "Kelompok ku"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__name
@@ -696,6 +711,7 @@ msgstr "Tanggal Pembayaran"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__target_id
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_achievement_report_view_search
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_target_forecast_view_search
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
 msgid "Period"
 msgstr "Periode"
@@ -928,6 +944,21 @@ msgstr "Tahun Ini"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__date_to
 msgid "To"
 msgstr "Kepada"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
+msgid "Total Target"
+msgstr ""
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
+msgid "Total achieved"
+msgstr ""
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
+msgid "Total commission"
+msgstr ""
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__type

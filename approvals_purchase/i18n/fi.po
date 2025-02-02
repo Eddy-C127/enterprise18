@@ -8,16 +8,17 @@
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Martin Trigaux, 2024
 # Timo Koukkari <ti.ko@netikka.fi>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # Tuomas Lyyra <tuomas.lyyra@legenda.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:26+0000\n"
+"POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Tuomas Lyyra <tuomas.lyyra@legenda.fi>, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,6 +50,11 @@ msgid "Approval Type"
 msgstr "Hyväksynnän tyyppi"
 
 #. module: approvals_purchase
+#: model:ir.model,name:approvals_purchase.model_res_partner
+msgid "Contact"
+msgstr "Kontakti"
+
+#. module: approvals_purchase
 #: model:approval.category,name:approvals_purchase.approval_category_data_rfq
 #: model:ir.model.fields.selection,name:approvals_purchase.selection__approval_category__approval_type__purchase
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.approval_purchase_request_view_form_inherit
@@ -69,7 +75,7 @@ msgstr "Poikkeukset:"
 #. odoo-python
 #: code:addons/approvals_purchase/models/approval_product_line.py:0
 msgid "Please select a vendor on product line or set it on product(s) %s."
-msgstr ""
+msgstr "Valitse myyjä tuoteryhmästä tai aseta se tuotteelle (tuotteille) %s."
 
 #. module: approvals_purchase
 #: model:ir.model,name:approvals_purchase.model_approval_product_line
@@ -107,6 +113,12 @@ msgstr "Ostotilaukset"
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_product_line__po_uom_qty
 msgid "Purchase UoM Quantity"
 msgstr "Osto mittayksikön mukainen Määrä"
+
+#. module: approvals_purchase
+#: model:ir.model.fields,field_description:approvals_purchase.field_res_partner__category_id
+#: model:ir.model.fields,field_description:approvals_purchase.field_res_users__category_id
+msgid "Tags"
+msgstr "Tunnisteet"
 
 #. module: approvals_purchase
 #: model:ir.model.fields,help:approvals_purchase.field_approval_product_line__po_uom_qty

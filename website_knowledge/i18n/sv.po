@@ -3,11 +3,11 @@
 # 	* website_knowledge
 # 
 # Translators:
-# Chrille Hedberg <hedberg.chrille@gmail.com>, 2024
 # Anders Wallenquist <anders.wallenquist@vertel.se>, 2024
 # Jakob Krabbe <jakob.krabbe@vertel.se>, 2024
 # Kim Asplund <kim.asplund@gmail.com>, 2024
 # Martin Trigaux, 2024
+# Chrille Hedberg <hedberg.chrille@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Chrille Hedberg <hedberg.chrille@gmail.com>, 2025\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,19 +27,19 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Article not Published"
-msgstr ""
+msgstr "Artikel inte publicerad"
 
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid "Article not found"
-msgstr ""
+msgstr "Artikel inte funnen"
 
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Article shared to web"
-msgstr ""
+msgstr "Artikel delad på webben"
 
 #. module: website_knowledge
 #: model:ir.model.fields,field_description:website_knowledge.field_knowledge_article__can_publish
@@ -57,12 +57,12 @@ msgstr "Är publicerad"
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "It and its published children can be read by anyone"
-msgstr ""
+msgstr "Den, och dess publicerade underartiklar, kan läsas av alla"
 
 #. module: website_knowledge
 #: model:ir.model,name:website_knowledge.model_knowledge_article
 msgid "Knowledge Article"
-msgstr ""
+msgstr "Kunskapsartikel"
 
 #. module: website_knowledge
 #: model_terms:ir.ui.view,arch_db:website_knowledge.articles_template
@@ -78,30 +78,30 @@ msgstr "Logga in"
 #. module: website_knowledge
 #: model_terms:ir.ui.view,arch_db:website_knowledge.public_sidebar
 msgid "No article found"
-msgstr ""
+msgstr "Inga artiklar funna"
 
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Only specific people can access"
-msgstr ""
+msgstr "Endast specifika användare har åtkomst"
 
 #. module: website_knowledge
 #: model:ir.actions.server,name:website_knowledge.knowledge_action_publish_articles
 msgid "Publish Articles"
-msgstr ""
+msgstr "Publicera artiklar"
 
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Publish this Article and its children on the web"
-msgstr ""
+msgstr "Publicera artikel, och dess underartiklar, på webben"
 
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid "Search an article..."
-msgstr ""
+msgstr "Sök en artikel..."
 
 #. module: website_knowledge
 #. odoo-javascript
@@ -127,6 +127,8 @@ msgid ""
 "The article you are trying the read has either been removed or you do not "
 "have access to it."
 msgstr ""
+"Artikeln du försöker nå har antingen raderats eller så saknar du åtkomst "
+"till den."
 
 #. module: website_knowledge
 #: model:ir.model.fields,help:website_knowledge.field_knowledge_article__website_url
@@ -140,23 +142,25 @@ msgid ""
 "This Article cannot be unfolded. Either you lost access to it or it has been"
 " deleted."
 msgstr ""
+"Denna artikel kan inte fällas ut. Antingen har den raderats eller så saknar "
+"du åtkomst till den."
 
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/editor/embedded_components/view/view_placeholder.xml:0
 msgid "This view is only available for internal users"
-msgstr ""
+msgstr "Denna vy är bara tillgänglig för inloggade användare"
 
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid "Toggle aside menu"
-msgstr ""
+msgstr "Växla sidomeny"
 
 #. module: website_knowledge
 #: model:ir.actions.server,name:website_knowledge.knowledge_action_unpublish_articles
 msgid "Unpublish Articles"
-msgstr ""
+msgstr "Avpublicera artikel"
 
 #. module: website_knowledge
 #. odoo-javascript
@@ -183,4 +187,4 @@ msgstr "Webbplatsens URL"
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid "loader"
-msgstr ""
+msgstr "laddare"

@@ -29,16 +29,16 @@
 # Konsta Aavaranta, 2024
 # Martin Trigaux, 2024
 # Joakim Weckman, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2025
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2025\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1492,12 +1492,12 @@ msgstr "Lukitse kaikki"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_everyone
 msgid "Lock Everything For Everyone"
-msgstr ""
+msgstr "Lukitse kaikki kaikille"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_me
 msgid "Lock Everything For Me"
-msgstr ""
+msgstr "Lukitse kaikki minulle"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date
@@ -2243,6 +2243,11 @@ msgstr "Lähde credit"
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_debit
 msgid "Source Debit"
 msgstr "Lähde debit"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_rate
+msgid "Source Rate"
+msgstr "Lähdekurssi"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_id

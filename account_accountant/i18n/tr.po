@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
 "Last-Translator: Ediz Duman <neps1192@gmail.com>, 2025\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
@@ -47,8 +47,8 @@ msgid ""
 "%(display_name_html)s with an open amount of %(open_amount)s will be fully "
 "reconciled by the transaction."
 msgstr ""
-"%(display_name_html)s Belirtilen tutar, işlemle tamamen mutabakat "
-"sağlanicakdir."
+"%(display_name_html)s açık bir miktarla %(open_amount)s işlemle tam olarak "
+"mutabakat sağlanacaktır."
 
 #. module: account_accountant
 #. odoo-python
@@ -57,7 +57,8 @@ msgid ""
 "%(display_name_html)s with an open amount of %(open_amount)s will be reduced"
 " by %(amount)s."
 msgstr ""
-"Açık tutarı %(display_name_html)s olan %(open_amount)s ile çıkarılacaktır."
+"%(display_name_html)s Açık tutarı %(open_amount)s tarafından "
+"çıkarılacaktır.%(amount)s."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_form
@@ -83,7 +84,9 @@ msgstr ""
 msgid ""
 "<i title=\"Run manually\" role=\"img\" aria-label=\"Run manually\" class=\"fa fa-refresh\"/>\n"
 "                            Run manually"
-msgstr "Manuel olarak çalıştır."
+msgstr ""
+"<i title=\"Run manually\" role=\"img\" aria-label=\"Run manually\" class=\"fa fa-refresh\"/>\n"
+"                            Manuel olarak çalıştır."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -459,13 +462,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/move_line_list_reconcile/move_line_list_reconcile.xml:0
 msgid "Auto-reconcile"
-msgstr ""
+msgstr "Otomatik-denkleştir"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_auto_reconcile_wizard.py:0
 msgid "Automatically Reconciled Entries"
-msgstr ""
+msgstr "Otomatik Olarak Denkleştirilen Girişler"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__available_reco_model_ids
@@ -1993,7 +1996,7 @@ msgstr "Denkleştirilmiş"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_model_id
 msgid "Reconciliation model"
-msgstr ""
+msgstr "Denkleştirme Modeli"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -2193,6 +2196,11 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_debit
 msgid "Source Debit"
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_rate
+msgid "Source Rate"
 msgstr ""
 
 #. module: account_accountant
@@ -2536,7 +2544,7 @@ msgstr "Transfer %s"
 #. module: account_accountant
 #: model:ir.actions.server,name:account_accountant.auto_reconcile_bank_statement_line_ir_actions_server
 msgid "Try to reconcile automatically your statement lines"
-msgstr ""
+msgstr "Ekstrelerinizin satırlarını otomatik olarak denkleştirme çalışın"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -2547,7 +2555,7 @@ msgstr "Denkleştirilmemiş"
 #. odoo-python
 #: code:addons/account_accountant/models/res_company.py:0
 msgid "Unreconciled statements lines"
-msgstr ""
+msgstr "Denkleştirilmiş ekstre satırları"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__valid
@@ -2572,7 +2580,7 @@ msgstr "Görüntüle"
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 msgid "View Reconciled Entries"
-msgstr ""
+msgstr "Denkleştirilen Girişleri Görüntüle"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2835,7 +2843,7 @@ msgstr "kontrol edilecek"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.account_journal_dashboard_kanban_view
 msgid "to reconcile"
-msgstr ""
+msgstr "denkleştirilecek"
 
 #. module: account_accountant
 #. odoo-javascript

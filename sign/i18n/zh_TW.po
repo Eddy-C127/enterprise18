@@ -538,12 +538,6 @@ msgid "All Documents"
 msgstr "全部文件"
 
 #. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "All done!"
-msgstr "全部完成！"
-
-#. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "All signers must have valid email addresses"
@@ -1189,6 +1183,8 @@ msgid "Documents"
 msgstr "文件"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 msgid "Download"
 msgstr "下載"
@@ -1204,12 +1200,6 @@ msgstr "下載認證"
 #: code:addons/sign/static/src/backend_components/sign_request/sign_request_control_panel.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "Download Document"
-msgstr "下載文件"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "Download it"
 msgstr "下載文件"
 
 #. module: sign
@@ -1752,6 +1742,12 @@ msgid "Is User Signer"
 msgstr "是使用者簽署人"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "It's signed!"
+msgstr ""
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "John Doe"
 msgstr "陳大文"
@@ -2060,6 +2056,12 @@ msgid "Need a valid PDF to add signature fields!"
 msgstr "需要有效的 PDF 才可新增簽名欄位！"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Need to sign documents?"
+msgstr ""
+
+#. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_send_request
 msgid "New Signature Request"
 msgstr "新簽名請求"
@@ -2188,6 +2190,12 @@ msgstr "有發送錯誤的郵件數量"
 #: model:ir.model.fields,field_description:sign.field_sign_template__num_pages
 msgid "Number of pages"
 msgstr "頁面數目"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Odoo Sign"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -2823,12 +2831,6 @@ msgstr "簽署條款及條件的格式"
 
 #. module: sign
 #. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "Sign Up for free"
-msgstr "免費註冊"
-
-#. module: sign
-#. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.xml:0
 msgid "Sign all"
 msgstr "簽署全部"
@@ -2871,13 +2873,6 @@ msgstr "簽署傳送請求簽署人"
 msgid ""
 "Sign up for Odoo Sign to manage your own documents and signature requests!"
 msgstr "註冊使用 Odoo 電子簽名，管理你自己的文件及簽名請求！"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid ""
-"Sign up for Odoo Sign to manage your own documents and signature requests."
-msgstr "註冊使用 Odoo 電子簽名，管理你自己的文件及簽名請求。"
 
 #. module: sign
 #: model:ir.actions.server,name:sign.sign_reminder_cron_ir_actions_server
@@ -4064,8 +4059,8 @@ msgstr "你應最少選擇一份文件進行下載。"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "You will receive the final signed document by email."
-msgstr "你將會透過電郵收到最終完成簽署的文件。"
+msgid "You will get the signed document by email."
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
@@ -4253,6 +4248,12 @@ msgstr "https://c.environmentalpaper.org/"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "ip"
 msgstr "ip"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "is free, forever, with unlimited users - and it's fun to use!"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user

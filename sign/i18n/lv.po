@@ -385,7 +385,7 @@ msgstr "Duša izmanto apmēram 65 L ūdens"
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
 msgid "A signature request has been linked to this document: %s"
-msgstr ""
+msgstr "Paraksta pieprasījums tika saistīts ar šo dokumentu: %s"
 
 #. module: sign
 #. odoo-python
@@ -545,12 +545,6 @@ msgstr "Visi"
 #: model:ir.ui.menu,name:sign.sign_request_documents
 msgid "All Documents"
 msgstr "Visi dokumenti"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "All done!"
-msgstr "Viss pabeigts!"
 
 #. module: sign
 #. odoo-python
@@ -1204,6 +1198,8 @@ msgid "Documents"
 msgstr "Dokumenti"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 msgid "Download"
 msgstr "Lejupielādēt"
@@ -1220,12 +1216,6 @@ msgstr "Lejupielādēt sertifikātu"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "Download Document"
 msgstr "Lejupielādēt dokumentu"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "Download it"
-msgstr ""
 
 #. module: sign
 #. odoo-javascript
@@ -1766,6 +1756,12 @@ msgid "Is User Signer"
 msgstr ""
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "It's signed!"
+msgstr ""
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "John Doe"
 msgstr "John Doe"
@@ -2074,6 +2070,12 @@ msgid "Need a valid PDF to add signature fields!"
 msgstr "Nepieciešams derīgs PDF fails, lai pievienot parakstu laukus!"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Need to sign documents?"
+msgstr ""
+
+#. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_send_request
 msgid "New Signature Request"
 msgstr "Jauns paraksta pieprasījums"
@@ -2202,6 +2204,12 @@ msgstr "Ziņojumu, kas satur piegādes kļūdu, skaits"
 #: model:ir.model.fields,field_description:sign.field_sign_template__num_pages
 msgid "Number of pages"
 msgstr "Lappušu skaits"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Odoo Sign"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -2839,12 +2847,6 @@ msgstr ""
 
 #. module: sign
 #. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "Sign Up for free"
-msgstr ""
-
-#. module: sign
-#. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.xml:0
 msgid "Sign all"
 msgstr "Parakstīt visu"
@@ -2886,13 +2888,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.deleted_sign_request
 msgid ""
 "Sign up for Odoo Sign to manage your own documents and signature requests!"
-msgstr ""
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid ""
-"Sign up for Odoo Sign to manage your own documents and signature requests."
 msgstr ""
 
 #. module: sign
@@ -3219,7 +3214,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "Stop Sharing"
-msgstr ""
+msgstr "Pārtraukt koplietošanu"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__subject
@@ -4072,7 +4067,7 @@ msgstr ""
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "You will receive the final signed document by email."
+msgid "You will get the signed document by email."
 msgstr ""
 
 #. module: sign
@@ -4261,6 +4256,12 @@ msgid "ip"
 msgstr ""
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "is free, forever, with unlimited users - and it's fun to use!"
+msgstr ""
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "john@example.com"
 msgstr ""
@@ -4345,7 +4346,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 msgid "sign"
-msgstr ""
+msgstr "parakstīt"
 
 #. module: sign
 #: model:sign.item.type,tip:sign.sign_item_type_signature

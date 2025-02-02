@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:51+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Malaz Abuidris <msea@odoo.com>, 2025\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
@@ -490,6 +490,8 @@ msgid ""
 "<span><b>Congratulations</b>, your first subscription quotation is ready to be sent!\n"
 "        </span>"
 msgstr ""
+"<span><b>تهانينا</b>، لقد أصبح عرض سعر اشتراكك الأول جاهزاً لإرساله!\n"
+"        </span>"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
@@ -931,7 +933,7 @@ msgstr "لقد تم إنشاء عرض سعر للتجديد %s "
 #. odoo-python
 #: code:addons/sale_subscription/models/product.py:0
 msgid "A subscription combo product can only contain subscription products."
-msgstr ""
+msgstr "يمكن أن يحتوي منتج كومبو الاشتراك على منتجات الاشتراك فقط. "
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_analysis_graph
@@ -3551,7 +3553,7 @@ msgstr "اشتراك البيع: إنشاء فواتير ومدفوعات متك
 #. module: sale_subscription
 #: model:ir.actions.server,name:sale_subscription.send_payment_reminder_ir_actions_server
 msgid "Sale Subscription: send reminder for subscriptions with no token"
-msgstr ""
+msgstr "اشتراك البيع: إرسال تذكير للاشتراكات التي لا تحتوي على رمز "
 
 #. module: sale_subscription
 #: model:ir.actions.server,name:sale_subscription.account_analytic_cron_ir_actions_server
@@ -4665,6 +4667,11 @@ msgstr "مرئي في البوابة "
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__volume
 msgid "Volume"
 msgstr "الحجم "
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
+msgid "Waiting customer payment"
+msgstr ""
 
 #. module: sale_subscription
 #. odoo-javascript

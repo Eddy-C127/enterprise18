@@ -5,15 +5,15 @@
 # Translators:
 # Fernanda Alvarez, 2024
 # Wil Odoo, 2024
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
+"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2025\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -184,8 +184,8 @@ msgstr "Conectar"
 #. module: iot
 #: model:ir.actions.act_window,name:iot.action_add_iot_box
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
-msgid "Connect an IoT Box"
-msgstr "Conecte una caja IoT"
+msgid "Connect my IoT Box"
+msgstr "Conectar mi caja IoT"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__connection
@@ -814,16 +814,16 @@ msgid "Variant"
 msgstr "Variante"
 
 #. module: iot
-#. odoo-javascript
-#: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
-msgid "Waiting for a new IoT Box..."
-msgstr "Esperando una nueva caja IoT..."
-
-#. module: iot
 #. odoo-python
 #: code:addons/iot/wizard/add_iot_box.py:0
 msgid "We had troubles pairing your IoT Box. Please try again later."
 msgstr "Tuvimos problemas emparejando su caja IoT. Inténtelo más tarde."
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
+msgid "We're looking for your IoT Box"
+msgstr "Estamos buscando su caja IoT"
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_ir_actions_report__device_ids

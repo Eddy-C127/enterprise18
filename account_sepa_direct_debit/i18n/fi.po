@@ -24,15 +24,16 @@
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Konsta Aavaranta, 2024
 # Jesse Järvi <me@jessejarvi.net>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -98,11 +99,30 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Hyvä <t t-out=\"object.partner_id.display_name or ''\">Azure Interior</t>\n"
+"                       <br/>\n"
+"                        <br/>\n"
+"                        Tässä on SEPA-suoraveloitusvaltuutus allekirjoitettavaksi valtuutuksen antamista varten\n"
+"                       <t t-out=\"object.company_id.display_name or ''\">YourCompany</t>\n"
+"                        lähettämään pankkiinne ohjeet tilinne veloittamiseksi seuraavasta osoitteesta saatujen ohjeiden mukaisesti\n"
+"                       <t t-out=\"object.company_id.display_name or ''\">YourCompany</t>\n"
+"                        Älä epäröi ottaa meihin yhteyttä, jos sinulla on kysyttävää.\n"
+"                       <br/>\n"
+"                        Ystävällisin terveisin,\n"
+"                        <t t-if=\"not is_html_empty(user.signature)\" data-o-mail-quote-container=\"1\">\n"
+"                            <br/><br/>\n"
+"                            <t t-out=\"user.signature\" data-o-mail-quote=\"1\">--<br data-o-mail-quote=\"1\"/>Mitchell Admin</t>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sepa_direct_debit_mandate_form
 msgid "<span> day(s)</span>"
-msgstr ""
+msgstr "<span> päivää</span>"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -275,6 +295,96 @@ msgid ""
 "</table>\n"
 "            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"<tbody>\n"
+"    <!-- HEADER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\">\n"
+"                    <t t-set=\"company\" t-value=\"object.company_id\"/>\n"
+"                    <span style=\"font-size: 10px;\">Suoraveloitusilmoitus</span><br/>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"right\" t-if=\"not company.uses_default_logo\">\n"
+"                    <img t-attf-src=\"/logo.png?company={{ company.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"company.name\"/>\n"
+"                </td></tr>\n"
+"                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"\n"
+"    <!-- CONTENT -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                    Hyvä <t t-out=\"object.partner_id.name or ''\">Azure Interior</t><br/>\n"
+"                    <br/>\n"
+"                    Suoraveloituspyyntö, jonka määrä on\n"
+"                   <span style=\"font-weight:bold;\" t-out=\"format_amount(object.amount, object.currency_id) or ''\">$ 0.00</span>\n"
+"                    lähetetään pankkiisi.<br/>\n"
+"                    Tilisi, jonka päätepiste on <t t-out=\"ctx.get('iban_last_4') or ''\">1234</t>, veloitetaan automaattisesti seuraavana päivänä\n"
+"                   <span style=\"font-weight:bold;\" t-out=\"format_date(ctx.get('collection_date'))\">2020-04-18</span>,\n"
+"                    tai pian sen jälkeen.<br/>\n"
+"                    varmista, että sinulla on pyydetyt varat.<br/>\n"
+"                    <br/>\n"
+"                   <t t-if=\"ctx.get('creditor_iban') or ctx.get('mandate_ref')\">\n"
+"                        Kauppiaan tiedot:<br/>\n"
+"                       <ul>\n"
+"                           <t t-if=\"ctx.get('creditor_iban')\">\n"
+"                               <li>IBAN: <t t-out=\"ctx['creditor_iban'] or ''\">NRO 93 8601 1117947</t>: IBAN: <t t-out=\"ctx['creditor_iban'] or ''\">NRO 93 8601 1117947</t></li>\n"
+"                           </t>\n"
+"                           <t t-if=\"ctx.get('mandate_ref')\">\n"
+"                               <li>SEPA-SUORAVELOITUSVALTUUTUKSEN VIITE:</li> </t> </ul> </t> <t t-out=\"ctx['mandate_ref'] or ''\"/> \n"
+" <t t-if=\"ctx.get('creditor_iban') or ctx.get('mandate_ref')\"> <ul> <t t-if=\"ctx.get('mandate_ref')\">                          </t>\n"
+"                       </ul>\n"
+"                   </t>\n"
+"                   <br/>\n"
+"                    Älä epäröi ottaa yhteyttä, jos sinulla on kysyttävää.\n"
+"                </td></tr>\n"
+"                <tr><td style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- FOOTER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    <t t-out=\"company.name or ''\">Yrityksesi</t>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                    <t t-if=\"company.phone\">\n"
+"                       <t t-out=\"company.phone or ''\">+1 650-123-4567</t> |\n"
+"                    </t>\n"
+"                    <t t-if=\"company.email\">\n"
+"                       <a t-attf-href=\"'mailto:%s' % {{ company.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.email or ''\">info@yourcompany.com</a> |\n"
+"                    </t>\n"
+"                    <t t-if=\"company.website\">\n"
+"                        <a t-attf-href=\"'%s' % {{ company.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.website or ''\">http://www.example.com</a>\n"
+"                    </t>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"<!-- POWERED BY -->\n"
+"<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"        Voimana <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=mail\" style=\"color: #875A7B;\">Odoo</a>\n"
+"      </td></tr>\n"
+"    </table>\n"
+"</td></tr>\n"
+"</table>\n"
+"            "
 
 #. module: account_sepa_direct_debit
 #: model:mail.template,body_html:account_sepa_direct_debit.email_template_sdd_mandate_expiring
@@ -346,6 +456,72 @@ msgid ""
 "                </table>\n"
 "            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #FFFFFF; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                    <tr>\n"
+"                        <td align=\"center\">\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: #FFFFFF; color: #454748; border-collapse:separate;\">\n"
+"                                <tbody>\n"
+"                                    <!-- CONTENT -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                        <div>\n"
+"                                                            Hyvä, <br/><br/>\n"
+"                                                            SEPA-suoraveloitusvaltuutuksen automaattinen päättymispäivä on <span t-out=\"format_date(object._get_expiry_date_per_mandate()[object])\">2020-04-18</span><br/>\n"
+"                                                            Tämä voi johtua jostain seuraavista syistä:\n"
+"                                                            <ul>\n"
+"                                                                <li>\n"
+"                                                                    Kyseinen päivämäärä on allekirjoituksessa sovittu valtuutuksen päättymispäivä.\n"
+"                                                                </li>\n"
+"                                                                <li>\n"
+"                                                                    Tällöin olisi kulunut yli 36 kuukautta siitä, kun tätä valtuutusta viimeksi käytettiin.\n"
+"                                                                </li>\n"
+"                                                            </ul>\n"
+"                                                            <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                                                                <a t-attf-href=\"{{ website_url }}/odoo/sdd-mandates/{{ object.id }}\" style=\"background-color: #4caf50; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                                                    Siirry valtuutukseen\n"
+"                                                                </a>\n"
+"                                                            </div>\n"
+"                                                            Turvallisuusvinkki: Tarkista, että verkkotunnus, johon sinut ohjataan, on: <b><a t-att-href=\"object.get_base_url()\" t-out=\"object.get_base_url() or ''\">\n"
+"                                                            https://yourcompany.odoo.com</a></b>\n"
+"                                                        </div>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td style=\"text-align:center;\">\n"
+"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                </tbody>\n"
+"                            </table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                    <!-- POWERED BY -->\n"
+"                    <tr>\n"
+"                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"                                <tr>\n"
+"                                    <td style=\"text-align: center; font-size: 13px;\">\n"
+"                                        Järjestelmänä <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=auth\" style=\"color: #875A7B;\">Odoo</a>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </table>\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"                                <tr>\n"
+"                                    <td style=\"text-align: center; font-size: 11px;\">\n"
+"                                        PS: Tämä on Odoo Accountingin lähettämä automaattinen sähköpostiviesti, jolla ilmoitetaan, että SEPA-suoraveloitusmandaatti suljetaan automaattisesti.\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </table>\n"
+"            "
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -370,7 +546,7 @@ msgstr ""
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid ""
 "A customer account is required to validate a SEPA Direct Debit mandate."
-msgstr ""
+msgstr "SEPA-suoraveloitusvaltuutuksen vahvistaminen edellyttää asiakastiliä."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.actions.act_window,help:account_sepa_direct_debit.account_sepa_direct_debit_mandate_tree_act
@@ -659,6 +835,9 @@ msgid ""
 "can't be inferior to the sending day + the longest pre-notification period "
 "defined in the mandates linked to this batch."
 msgstr ""
+"Päivämäärä, jolloin yritys odottaa saavansa tämän erän maksut. Se ei voi "
+"olla pienempi kuin lähetyspäivä + pisin ennakkoilmoitusjakso, joka on "
+"määritelty tähän erään liittyvissä toimeksiannoissa."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -730,6 +909,11 @@ msgid ""
 "Closed: Expired or manually closed mandates. Previous transactions remain valid.\n"
 "Revoked: Fraudulent mandates. Previous invoices might need reimbursement.\n"
 msgstr ""
+"Luonnos: Vahvista ennen käyttöä.\n"
+"Aktiivinen: Voimassa olevat valtuutukset maksujen keräämistä varten.\n"
+"Peruutettu: Valtuuksia ei ole koskaan validoitu.\n"
+"Suljettu: Vanhentuneet tai manuaalisesti suljetut valtuutukset. Aiemmat tapahtumat pysyvät voimassa.\n"
+"Peruutettu: Vilpilliset valtakirjat. Aiemmat laskut on ehkä korvattava.\n"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate_send__checkbox_send_mail
@@ -740,6 +924,7 @@ msgstr "Sähköposti"
 #: model:mail.template,description:account_sepa_direct_debit.email_template_sdd_new_mandate
 msgid "Email requesting the customer to sign the mandate attached"
 msgstr ""
+"Sähköposti, jossa asiakasta pyydetään allekirjoittamaan valtuutus liitteenä"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate_send__template_id
@@ -765,7 +950,7 @@ msgstr "Jokainen tälle kumppanille kuuluva toimeksianto."
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__expiration_warning_already_sent
 msgid "Expiration warning sent"
-msgstr ""
+msgstr "Lähetetty varoitus vanhentumisesta"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__message_follower_ids
@@ -791,19 +976,19 @@ msgstr "Vapaa viite velallisen tunnistamiseksi yrityksessäsi."
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to journal"
-msgstr ""
+msgstr "Siirry päiväkirjaan"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to mandates"
-msgstr ""
+msgstr "Siirry toimeksiantoihin"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to payments"
-msgstr ""
+msgstr "Siirry maksuihin"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -815,7 +1000,7 @@ msgstr "Siirry asetuksiin"
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_account_payment_form
 msgid "Good news! A valid SEPA Mandate is available."
-msgstr ""
+msgstr "Hyviä uutisia! Voimassa oleva SEPA-mandaatti on saatavilla."
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__has_message
@@ -954,7 +1139,7 @@ msgstr "Mandaatti"
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__mandate_pdf_file
 msgid "Mandate Form PDF"
-msgstr ""
+msgstr "Valtuutuslomake PDF"
 
 #. module: account_sepa_direct_debit
 #: model:ir.actions.report,name:account_sepa_direct_debit.sdd_mandate_form_report_main
@@ -1098,12 +1283,14 @@ msgid ""
 "select a journal associated to one or add an IBAN bank account to the "
 "current journal"
 msgstr ""
+"Vain IBAN-tilinumerot voivat vastaanottaa SEPA-suoraveloituksia. Valitse "
+"sellaisen päiväkirja tai lisää IBAN-pankkitili nykyiseen päiväkirjaan"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Only mandates in draft state can be deleted."
-msgstr ""
+msgstr "Vain luonnostilassa olevat toimeksiannot voidaan poistaa."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
@@ -1115,13 +1302,13 @@ msgstr "Hups! Tälle asiakkaalle ei ole voimassa olevaa SEPA-mandaattia."
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Open customer"
-msgstr ""
+msgstr "Avaa asiakas"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Open customers"
-msgstr ""
+msgstr "Avaa asiakkaat"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sdd_res_partner_view
@@ -1164,10 +1351,15 @@ msgid "Paid via direct debit"
 msgstr "Maksetaan suoraveloituksena"
 
 #. module: account_sepa_direct_debit
+#: model:ir.model,name:account_sepa_direct_debit.model_account_partial_reconcile
+msgid "Partial Reconcile"
+msgstr "Osittainen täsmäytys"
+
+#. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/wizard/sdd_mandate_send.py:0
 msgid "Partner should have an email address."
-msgstr ""
+msgstr "Kumppanilla pitää olla sähköpostiosoite."
 
 #. module: account_sepa_direct_debit
 #: model:ir.model,name:account_sepa_direct_debit.model_account_payment_register
@@ -1182,7 +1374,7 @@ msgstr "Maksutavat"
 #. module: account_sepa_direct_debit
 #: model:mail.template,subject:account_sepa_direct_debit.email_template_sdd_pre_notification
 msgid "Payment notification {{ object.memo }}"
-msgstr ""
+msgstr "Maksuilmoitus {{ object.memo }}"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model,name:account_sepa_direct_debit.model_account_payment
@@ -1216,7 +1408,7 @@ msgstr "Kerättävät maksut"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Payments without mandate"
-msgstr ""
+msgstr "Maksut ilman valtuutusta"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_report_invoice_document
@@ -1230,13 +1422,13 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__pre_notification_period
 msgid "Pre-notification"
-msgstr ""
+msgstr "Ennakkoilmoitus"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Problematic mandates"
-msgstr ""
+msgstr "Ongelmalliset mandaatit"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__rating_ids
@@ -1313,7 +1505,7 @@ msgstr "SDD-mandaatti"
 #. module: account_sepa_direct_debit
 #: model:ir.model,name:account_sepa_direct_debit.model_sdd_mandate_send
 msgid "SDD Mandate Send"
-msgstr ""
+msgstr "SDD-mandaatti Lähetä"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_account_batch_payment__sdd_scheme
@@ -1352,7 +1544,7 @@ msgstr "SEPA-suoraveloitus"
 #. module: account_sepa_direct_debit
 #: model:mail.template,name:account_sepa_direct_debit.email_template_sdd_pre_notification
 msgid "SEPA Direct Debit Customer Pre-Notification mail"
-msgstr ""
+msgstr "SEPA-suoraveloitus Asiakkaan ennakkoilmoitusposti"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1367,7 +1559,7 @@ msgstr "SEPA-suoraveloitus Pain-maksukäynnistyssanoman versio"
 #. module: account_sepa_direct_debit
 #: model:mail.template,name:account_sepa_direct_debit.email_template_sdd_new_mandate
 msgid "SEPA Direct Debit Sending"
-msgstr ""
+msgstr "SEPA-suoraveloituksen lähettäminen"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_res_company__sdd_creditor_identifier
@@ -1379,7 +1571,7 @@ msgstr "Pankin antama yrityksen SEPA-suoraveloituksen velkojan tunniste."
 #: model:mail.template,name:account_sepa_direct_debit.email_template_sdd_mandate_expiring
 #: model:mail.template,subject:account_sepa_direct_debit.email_template_sdd_mandate_expiring
 msgid "SEPA Direct Debit mandate expiration warning"
-msgstr ""
+msgstr "SEPA-suoraveloitusvaltuutuksen päättymisvaroitus"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1405,13 +1597,13 @@ msgstr "SEPA Pain-maksukäynnistyssanoman versio"
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_account_payment_form
 msgid "SEPA Scheme operates in Euro."
-msgstr ""
+msgstr "SEPA-järjestelmä toimii euroilla."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "SEPA direct debit stateless customer"
-msgstr ""
+msgstr "SEPA-suoraveloitus tilaton asiakas"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1421,6 +1613,9 @@ msgid ""
 "days to allow enough time for the customer to check that their account is "
 "adequately funded."
 msgstr ""
+"SEPA-säännöissä ennakkoilmoitusajan vähimmäispituudeksi on asetettu kaksi "
+"päivää, jotta asiakkaalla on riittävästi aikaa tarkistaa, että hänen "
+"tilillään on riittävästi varoja."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1473,7 +1668,7 @@ msgstr "Lähetä & Tulosta"
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__is_sent
 msgid "Sent to the customer"
-msgstr ""
+msgstr "Lähetetään asiakkaalle"
 
 #. module: account_sepa_direct_debit
 #: model:mail.template,description:account_sepa_direct_debit.email_template_sdd_pre_notification
@@ -1499,13 +1694,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Some payments are linked to an inactive mandate."
-msgstr ""
+msgstr "Jotkin maksut liittyvät toimimattomaan valtuutukseen."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Some payments are not linked to any mandate."
-msgstr ""
+msgstr "Jotkin maksut eivät liity mihinkään toimeksiantoon."
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__start_date
@@ -1568,6 +1763,10 @@ msgid ""
 "known by them. In this case, the minimum collection date must be the "
 "%(date)s"
 msgstr ""
+"Pankille on ilmoitettava vähintään viisi päivää etukäteen, jos kyseessä on "
+"uuteen valtuutukseen liittyvä perintä, ja kaksi päivää etukäteen, jos "
+"valtuutus on jo pankin tiedossa. Tässä tapauksessa perintäpäivän on oltava "
+"vähintään %(date)s"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1579,7 +1778,7 @@ msgstr "Luotonantajan tunnus ylittää 35 merkin enimmäispituuden."
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "The customer must have a country"
-msgstr ""
+msgstr "Asiakkaalla on oltava maa"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1626,6 +1825,9 @@ msgid ""
 "                    you will have to contact us to stop its use. The minimum notification period for creditors\n"
 "                    to inform debtors about an upcoming collection is"
 msgstr ""
+"Valtuutusta käytetään vain laskujen maksamiseen määritellyn aikavälien sisällä. Jos loppupäivää ei ole määritetty,\n"
+"                    sinun on otettava meihin yhteyttä lopettaaksesi valtuutuksen käytön. Vähimmäisilmoitusaika velkojille\n"
+"                    ilmoittaa velallisille tulevasta perinnästä on"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_sdd_mandate__pre_notification_period
@@ -1633,6 +1835,8 @@ msgid ""
 "The minimum notice period in days, used to inform the customer prior to "
 "collection."
 msgstr ""
+"Vähimmäisilmoitusaika päivinä, jota käytetään asiakkaalle ilmoittamiseen "
+"ennen perintää."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1729,7 +1933,7 @@ msgstr "Poikkeusaktiviteetin tyyppi tietueella."
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Under B2B SDD Scheme, the customer must be a company."
-msgstr ""
+msgstr "B2B SDD-järjestelmässä asiakkaan on oltava yritys."
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields.selection,name:account_sepa_direct_debit.selection__account_journal__debit_sepa_pain_version__pain_008_001_08
@@ -1774,6 +1978,8 @@ msgid ""
 "You can't pay any of the selected invoices using the SEPA Direct Debit "
 "method, as no valid mandate is available"
 msgstr ""
+"Et voi maksaa mitään valituista laskuista SEPA-suoraveloitusmenetelmällä, "
+"koska voimassa olevaa valtakirjaa ei ole saatavilla"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1792,6 +1998,8 @@ msgid ""
 "You cannot generate a SEPA Direct Debit file with a required collection date inferior to the sending day + the longest pre-notification period defined in the mandates linked to this batch.\n"
 "According to these payments mandates, the minimum required date should be the %(minimum_date)s"
 msgstr ""
+"Et voi luoda SEPA-suoraveloitustiedostoa, jonka vaadittu perintäpäivä on pienempi kuin lähetyspäivä + pisin ennakkoilmoitusjakso, joka on määritelty tähän erään liittyvissä valtuutuksissa.\n"
+"Näiden maksutoimeksiantojen mukaan vaaditun vähimmäispäivämäärän pitäisi olla %(minimum_date)s"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1809,6 +2017,8 @@ msgid ""
 "day(s).\n"
 "                    It will be sent to the debtor's email."
 msgstr ""
+"päivää.\n"
+"                    Se lähetetään velallisen sähköpostiin."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1822,4 +2032,4 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #: model:mail.template,subject:account_sepa_direct_debit.email_template_sdd_new_mandate
 msgid "{{ object.partner_id.display_name }} SEPA Direct Debit Mandate"
-msgstr ""
+msgstr "{{ object.partner_id.display_name }} SEPA-suoraveloitusvaltuutus"

@@ -5,7 +5,7 @@
 # Translators:
 # Lilach Gilliam <lilach@apprcase.com>, 2024
 # MichaelHadar, 2024
-# hed shefer <hed@laylinetech.com>, 2024
+# Hed Shefer <hed@laylinetech.com>, 2024
 # yael terner, 2024
 # Roy Sayag, 2024
 # Fishfur A Banter <fishfurbanter@gmail.com>, 2024
@@ -20,6 +20,7 @@
 # Ha Ketem <haketem@gmail.com>, 2024
 # Netta Waizer, 2024
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
+# or balmas, 2025
 # 
 msgid ""
 msgstr ""
@@ -27,7 +28,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024\n"
+"Last-Translator: or balmas, 2025\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,7 +64,7 @@ msgstr "<span class=\"fa fa-warning\" title=\"Invalid minimum approvals\"/>"
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
 msgid "<span class=\"fw-bold\">Description:</span>"
-msgstr ""
+msgstr "<span class=\"fw-bold\">תיאור:</span>"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
@@ -174,7 +175,7 @@ msgstr "בקשת אישור"
 #: model:mail.message.subtype,description:approvals.mt_approval_request_status
 #: model:mail.message.subtype,name:approvals.mt_approval_request_status
 msgid "Approval Status Change"
-msgstr ""
+msgstr "שינוי סטטוס אישור"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__name
@@ -244,7 +245,7 @@ msgstr "מאשר"
 #: code:addons/approvals/models/approval_category.py:0
 msgid ""
 "Approver Sequence can only be activated with at least 1 minimum approver."
-msgstr ""
+msgstr "ניתן להפעיל רצף מאשרים רק אם קיים מאשר אחד לפחות."
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__user_ids
@@ -273,7 +274,7 @@ msgstr ""
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
 msgid "Approvers:"
-msgstr ""
+msgstr "מאשרים:"
 
 #. module: approvals
 #. odoo-javascript
@@ -408,7 +409,7 @@ msgstr "תצורה"
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_tree
 msgid "Confirm Date"
-msgstr ""
+msgstr "אשר את התאריך "
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__partner_id
@@ -535,7 +536,7 @@ msgstr "מסמכים"
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
 msgid "Documents:"
-msgstr ""
+msgstr "מסמכים:"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
@@ -676,6 +677,11 @@ msgid ""
 "        Is Required Approver: the employee's manager will be required to approve the request.\n"
 "    "
 msgstr ""
+"כיצד מנהל העובד מטפל בסוג של אישור זה.\n"
+"\n"
+"ריק: המנהל לא נדרש לעשות דבר. \n"
+"האם מאשר: המנהל של העובד יהיה ברשימת המאשרים\n"
+"מאשר שחייב לאשר: המנהל של העובד יהיה חייב לאשר את הבקשה."
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__id
@@ -714,6 +720,7 @@ msgid ""
 "If checked, the Approval Requests will have an automated generated name "
 "based on the given code."
 msgstr ""
+"אם מסומן, לבקשות האישור יהיה שם שנוצר באופן אוטומטי המבוסס על הקוד הנתון."
 
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_category__approver_sequence
@@ -723,6 +730,8 @@ msgid ""
 " If Employee's Manager is selected as approver, they will be the first in "
 "line."
 msgstr ""
+"אם מסומן, המאשרים צריכים לאשר ברצף (אחד אחרי השני). אם נבחר מנהל העובד "
+"כמאשר, הוא יהיה הראשון בתור."
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__image
@@ -1024,7 +1033,7 @@ msgstr "תקופה"
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
 msgid "Period:"
-msgstr ""
+msgstr "תקופה:"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
@@ -1130,7 +1139,7 @@ msgstr "בקש אישור"
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
 msgid "Request By:"
-msgstr ""
+msgstr "בקשה מאת:"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__request_owner_id
@@ -1190,7 +1199,7 @@ msgstr "רצף"
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
 msgid "Sequence %(code)s"
-msgstr ""
+msgstr "רצף %(code)s"
 
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_approver__can_edit_user_id
@@ -1268,7 +1277,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 msgid "The request %(request_name)s for %(request_owner)s has been refused"
-msgstr ""
+msgstr "הבקשה %(request_name)s של %(request_owner)s נדחתה."
 
 #. module: approvals
 #. odoo-python
@@ -1276,7 +1285,7 @@ msgstr ""
 msgid ""
 "The request created on %(create_date)s by %(request_owner)s has been "
 "accepted."
-msgstr ""
+msgstr "הבקשה שנוצרה ב%(create_date)s ע\"י%(request_owner)s אושרה."
 
 #. module: approvals
 #. odoo-python
@@ -1284,12 +1293,12 @@ msgstr ""
 msgid ""
 "The request created on %(create_date)s by %(request_owner)s has been "
 "refused."
-msgstr ""
+msgstr "הבקשה שנוצרה ב%(create_date)sע\"י%(request_owner)s נדחתה."
 
 #. module: approvals
 #: model:res.groups,comment:approvals.group_approval_user
 msgid "The user will be able to access all requests and approve/refuse them."
-msgstr ""
+msgstr "המשתמש יוכל לגשת לכל הבקשות ולאשר/לסרב אותן."
 
 #. module: approvals
 #: model:res.groups,comment:approvals.group_approval_manager
@@ -1413,7 +1422,7 @@ msgstr ""
 #: code:addons/approvals/models/approval_request.py:0
 msgid ""
 "You cannot assign the same approver multiple times on the same request."
-msgstr ""
+msgstr "לא ניתן להקצות את אותו מאשר מספר פעמים באותה בקשה."
 
 #. module: approvals
 #. odoo-python
@@ -1433,7 +1442,7 @@ msgstr "אתה צריך להוסיף לפחות%s מאשרים לאשר את ב�
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 msgid "You have to attach at least one document."
-msgstr ""
+msgstr "יש לצרף לפחות מסמך אחד."
 
 #. module: approvals
 #: model_terms:ir.actions.act_window,help:approvals.product_product_action

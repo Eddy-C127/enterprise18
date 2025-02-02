@@ -42,7 +42,7 @@ msgstr ""
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_planning_analysis_report__allocated_hours_cost
 msgid "Allocated Time Cost"
-msgstr ""
+msgstr "Varatun ajan kustannukset"
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,help:project_timesheet_forecast.field_planning_analysis_report__remaining_hours
@@ -100,7 +100,7 @@ msgstr "Tehollinen aika"
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_planning_analysis_report__effective_hours_cost
 msgid "Effective Time Cost"
-msgstr ""
+msgstr "Tehokkaan ajan kustannukset"
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_project_timesheet_forecast_report_analysis__employee_id
@@ -165,6 +165,8 @@ msgid ""
 "Number of time recorded on the employee's Timesheets for this task (and its "
 "sub-tasks) during the timeframe of the shift."
 msgstr ""
+"Työntekijän työaikakirjauksiin kirjattu tämän tehtävän (ja sen osatehtävien)"
+" aika työvuoron aikana."
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_project_timesheet_forecast_report_analysis__planned_costs
@@ -174,7 +176,7 @@ msgstr "Suunnitellut kustannukset"
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_project_timesheet_forecast_report_analysis__planned_hours
 msgid "Planned Time"
-msgstr ""
+msgstr "Suunniteltu aika"
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields.selection,name:project_timesheet_forecast.selection__project_timesheet_forecast_report_analysis__line_type__forecast
@@ -247,7 +249,7 @@ msgstr "Tällä viikolla"
 #. odoo-python
 #: code:addons/project_timesheet_forecast/models/project_forecast.py:0
 msgid "This project isn't expected to have slot during this period."
-msgstr ""
+msgstr "Projektilla ei odoteta olevan aikaikkunaa tänä aikana."
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_planning_analysis_report__remaining_hours

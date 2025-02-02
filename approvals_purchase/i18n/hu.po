@@ -4,16 +4,17 @@
 # 
 # Translators:
 # Tamás Németh <ntomasz81@gmail.com>, 2024
-# krnkris, 2024
 # gezza <geza.nagy@oregional.hu>, 2024
+# Ákos Nagy <akos.nagy@oregional.hu>, 2025
+# krnkris, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:26+0000\n"
+"POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: gezza <geza.nagy@oregional.hu>, 2024\n"
+"Last-Translator: krnkris, 2025\n"
 "Language-Team: Hungarian (https://app.transifex.com/odoo/teams/41243/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,6 +43,11 @@ msgstr "Jóváhagyás kérelem"
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_category__approval_type
 msgid "Approval Type"
 msgstr "Jóváhagyás típusa"
+
+#. module: approvals_purchase
+#: model:ir.model,name:approvals_purchase.model_res_partner
+msgid "Contact"
+msgstr "Kapcsolat"
 
 #. module: approvals_purchase
 #: model:approval.category,name:approvals_purchase.approval_category_data_rfq
@@ -102,6 +108,12 @@ msgstr "Beszerzési rendelések"
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_product_line__po_uom_qty
 msgid "Purchase UoM Quantity"
 msgstr ""
+
+#. module: approvals_purchase
+#: model:ir.model.fields,field_description:approvals_purchase.field_res_partner__category_id
+#: model:ir.model.fields,field_description:approvals_purchase.field_res_users__category_id
+msgid "Tags"
+msgstr "Címkék"
 
 #. module: approvals_purchase
 #: model:ir.model.fields,help:approvals_purchase.field_approval_product_line__po_uom_qty

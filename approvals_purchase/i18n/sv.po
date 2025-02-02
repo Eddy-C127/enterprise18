@@ -10,14 +10,15 @@
 # Simon S, 2024
 # Lasse L, 2024
 # Mikael Åkerberg <mikael.akerberg@mariaakerberg.com>, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:26+0000\n"
+"POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Mikael Åkerberg <mikael.akerberg@mariaakerberg.com>, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,6 +49,11 @@ msgstr "Begäran om godkännande"
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_category__approval_type
 msgid "Approval Type"
 msgstr "Typ av godkännande"
+
+#. module: approvals_purchase
+#: model:ir.model,name:approvals_purchase.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
 
 #. module: approvals_purchase
 #: model:approval.category,name:approvals_purchase.approval_category_data_rfq
@@ -108,6 +114,12 @@ msgstr "Inköpsordrar"
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_product_line__po_uom_qty
 msgid "Purchase UoM Quantity"
 msgstr "Inköpskvantitet i måttenhet"
+
+#. module: approvals_purchase
+#: model:ir.model.fields,field_description:approvals_purchase.field_res_partner__category_id
+#: model:ir.model.fields,field_description:approvals_purchase.field_res_users__category_id
+msgid "Tags"
+msgstr "Etiketter"
 
 #. module: approvals_purchase
 #: model:ir.model.fields,help:approvals_purchase.field_approval_product_line__po_uom_qty

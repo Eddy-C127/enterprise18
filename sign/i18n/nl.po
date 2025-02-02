@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2025
+# Manon Rondou, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2025\n"
+"Last-Translator: Manon Rondou, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +39,7 @@ msgid ""
 "%(partner)s validated the signature by SMS with the phone number "
 "%(phone_number)s."
 msgstr ""
-"%(contact)s heeft de handtekening per sms bevestigd via het telefoonnummer "
+"%(partner)s heeft de handtekening per sms bevestigd via het telefoonnummer "
 "%(phone_number)s."
 
 #. module: sign
@@ -386,7 +387,7 @@ msgid ""
 "A non-shared sign request's should not have any signer with an empty partner"
 msgstr ""
 "Een niet-gedeeld ibdertekenverzoek mag geen ondertekenaar hebben met een "
-"lege contact"
+"lege partner"
 
 #. module: sign
 #. odoo-python
@@ -395,7 +396,7 @@ msgid ""
 "A shared sign request should only have one signer with an empty partner"
 msgstr ""
 "Een gedeeld ondertekenverzoek mag slechts één ondertekenaar hebben met een "
-"lege contact"
+"lege partner"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -569,12 +570,6 @@ msgid "All Documents"
 msgstr "Alle documenten"
 
 #. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "All done!"
-msgstr "Volledig klaar!"
-
-#. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "All signers must have valid email addresses"
@@ -681,7 +676,7 @@ msgstr "Bevoegde gebruikers:"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__auto_field
 msgid "Auto-fill Partner Field"
-msgstr "Contactveld automatisch invullen"
+msgstr "Partnerveld automatisch invullen"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_option__available
@@ -895,7 +890,7 @@ msgstr "Voltooiingsdatum"
 #. module: sign
 #: model:ir.model,name:sign.model_res_config_settings
 msgid "Config Settings"
-msgstr "Configuratie instellingen"
+msgstr "Configuratie-instellingen"
 
 #. module: sign
 #: model:ir.ui.menu,name:sign.menu_sign_configuration
@@ -1117,7 +1112,7 @@ msgstr "Demo lengtegraad"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Demo Partner"
-msgstr "Democontact"
+msgstr "Demopartner"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
@@ -1236,6 +1231,8 @@ msgid "Documents"
 msgstr "Documenten"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 msgid "Download"
 msgstr "Downloaden"
@@ -1252,12 +1249,6 @@ msgstr "Certificaat downloaden"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "Download Document"
 msgstr "Download document"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "Download it"
-msgstr "Downloaden"
 
 #. module: sign
 #. odoo-javascript
@@ -1480,7 +1471,7 @@ msgstr "Volgers"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Contacten)"
+msgstr "Volgers (Partners)"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__activity_type_icon
@@ -1814,6 +1805,12 @@ msgid "Is User Signer"
 msgstr "Is gebruiker ondertekenaar"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "It's signed!"
+msgstr "Het is ondertekend"
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "John Doe"
 msgstr "John Doe"
@@ -2126,6 +2123,12 @@ msgid "Need a valid PDF to add signature fields!"
 msgstr "Geldige PDF nodig om handtekeningsvelden toe te voegen!"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Need to sign documents?"
+msgstr "Moet je documenten ondertekenen?"
+
+#. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_send_request
 msgid "New Signature Request"
 msgstr "Nieuw handtekeningverzoek"
@@ -2256,6 +2259,12 @@ msgid "Number of pages"
 msgstr "Aantal pagina's"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Odoo Sign"
+msgstr "Odoo Ondertekenen"
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "One can weighs 15 g"
 msgstr "Een blik weegt 15 g"
@@ -2347,7 +2356,7 @@ msgstr "Deelnemers"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__partner_id
 msgid "Partner"
-msgstr "Contact"
+msgstr "Partner"
 
 #. module: sign
 #. odoo-javascript
@@ -2892,12 +2901,6 @@ msgstr "Indeling algemene voorwaarden ondertekenen"
 
 #. module: sign
 #. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "Sign Up for free"
-msgstr "Gratis aanmelden"
-
-#. module: sign
-#. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.xml:0
 msgid "Sign all"
 msgstr "Alles ondertekenen"
@@ -2942,15 +2945,6 @@ msgid ""
 msgstr ""
 "Meld je aan voor Odoo Ondertekenen om je eigen documenten en "
 "ondertekenverzoeken te beheren!"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid ""
-"Sign up for Odoo Sign to manage your own documents and signature requests."
-msgstr ""
-"Meld je aan voor Odoo Ondertekenen om je eigen documenten en "
-"ondertekenverzoeken te beheren."
 
 #. module: sign
 #: model:ir.actions.server,name:sign.sign_reminder_cron_ir_actions_server
@@ -3331,7 +3325,7 @@ msgid ""
 "Technical name of the field on the partner model to auto-complete this "
 "signature field at the time of signature."
 msgstr ""
-"Technische naam van het veld op het contactmodel om dit handtekeningenveld "
+"Technische naam van het veld op het partnermodel om dit handtekeningenveld "
 "automatisch in te vullen op het moment van ondertekening."
 
 #. module: sign
@@ -3525,7 +3519,7 @@ msgid ""
 "The mail address of %(partner)s has been updated. The request will be "
 "automatically resent."
 msgstr ""
-"Het e-mailadres van %(contact)s is bijgewerkt. Het verzoek wordt automatisch"
+"Het e-mailadres van %(partner)s is bijgewerkt. Het verzoek wordt automatisch"
 " opnieuw verzonden."
 
 #. module: sign
@@ -3557,13 +3551,13 @@ msgstr "Het ondertekenverzoek is niet volledig ondertekend"
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
 msgid "The signature has been canceled by %(partner)s(%(role)s)"
-msgstr "De handtekening is geannuleerd door %(contact)s(%(role)s)"
+msgstr "De handtekening is geannuleerd door %(partner)s(%(role)s)"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "The signature has been refused by %(partner)s(%(role)s)"
-msgstr "De handtekening is afgewezen door %(contact)s(%(role)s)"
+msgstr "De handtekening is afgewezen door %(partner)s(%(role)s)"
 
 #. module: sign
 #. odoo-python
@@ -4200,8 +4194,8 @@ msgstr "Je moet ten minsten een te downloaden document selecteren."
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "You will receive the final signed document by email."
-msgstr "Je ontvangt het definitieve ondertekende document per e-mail."
+msgid "You will get the signed document by email."
+msgstr "Je ontvangt het ondertekende document via e-mail."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
@@ -4396,6 +4390,14 @@ msgstr "https://c.environmentalpaper.org/"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "ip"
 msgstr "ip"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "is free, forever, with unlimited users - and it's fun to use!"
+msgstr ""
+"is gratis, voor altijd, met een onbeperkt aantal gebruikers – en het is ook "
+"nog eens leuk om te gebruiken!"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user

@@ -8,7 +8,6 @@
 # Adi Sharashov <Adi@laylinetech.com>, 2024
 # Amit Spilman <amit@laylinetech.com>, 2024
 # Leandro Noijovich <eliel.sorcerer@gmail.com>, 2024
-# MichaelHadar, 2024
 # Fishfur A Banter <fishfurbanter@gmail.com>, 2024
 # Orel Nahmany, 2024
 # שהאב חוסיין <shhab89@gmail.com>, 2024
@@ -25,14 +24,15 @@
 # Asaf Biniamini, 2024
 # Jonathan Spier, 2024
 # Lilach Gilliam <lilach.gilliam@gmail.com>, 2025
+# MichaelHadar, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:51+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Lilach Gilliam <lilach.gilliam@gmail.com>, 2025\n"
+"Last-Translator: MichaelHadar, 2025\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -68,7 +68,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order_line.py:0
 msgid "%(start)s to %(next)s"
-msgstr ""
+msgstr "%(start)s עד %(next)s"
 
 #. module: sale_subscription
 #. odoo-python
@@ -4277,7 +4277,7 @@ msgstr "השתמש בלוח הזמנים של העובד"
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
 msgid "Use the user's working schedule."
-msgstr "השתמש בלוח הזמנים של המשתמש."
+msgstr "השתמש בלוח זמני העבודה של המשתמש."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_line__product_template_variant_value_ids
@@ -4293,6 +4293,11 @@ msgstr "גלוי בפורטל"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__volume
 msgid "Volume"
 msgstr "נפח"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
+msgid "Waiting customer payment"
+msgstr ""
 
 #. module: sale_subscription
 #. odoo-javascript

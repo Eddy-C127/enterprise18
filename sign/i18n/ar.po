@@ -330,7 +330,7 @@ msgstr "<span>هذه معاينة للشروط والأحكام الخاصة ب�
 msgid ""
 "<span>You won't receive any notification for this signature request "
 "anymore.</span>"
-msgstr ""
+msgstr "<span>لن تصلك أي إشعارات لطلب التوقيع هذا بعد الآن.</span> "
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
@@ -367,7 +367,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.message_signature_link
 msgid "A document has been signed and a copy attached to"
-msgstr ""
+msgstr "تم التوقيع على مستند مع إرفاق نسخة بـ"
 
 #. module: sign
 #. odoo-python
@@ -555,12 +555,6 @@ msgid "All Documents"
 msgstr "كافة المستندات "
 
 #. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "All done!"
-msgstr "انتهيت!"
-
-#. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "All signers must have valid email addresses"
@@ -609,7 +603,7 @@ msgstr "مؤرشف"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
 msgid "Are you sure you want to cancel the sign request?"
-msgstr ""
+msgstr "هل أنت متأكد من أنك ترغب في إلغاء طلب التوقيع؟ "
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__start_sign
@@ -1220,6 +1214,8 @@ msgid "Documents"
 msgstr "المستندات"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 msgid "Download"
 msgstr "تنزيل "
@@ -1236,12 +1232,6 @@ msgstr "تنزيل الشهادة "
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "Download Document"
 msgstr "تنزيل المستند "
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "Download it"
-msgstr "قم بالتنزيل "
 
 #. module: sign
 #. odoo-javascript
@@ -1787,6 +1777,12 @@ msgid "Is User Signer"
 msgstr "المستخدم الموقِّع "
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "It's signed!"
+msgstr ""
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "John Doe"
 msgstr "جون دو "
@@ -2096,6 +2092,12 @@ msgid "Need a valid PDF to add signature fields!"
 msgstr "بحاجة لملف PDF صالح لإضافة حقول التوقيع!"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Need to sign documents?"
+msgstr ""
+
+#. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_send_request
 msgid "New Signature Request"
 msgstr "طلب توقيع جديد "
@@ -2224,6 +2226,12 @@ msgstr "عدد الرسائل الحادث بها خطأ في التسليم"
 #: model:ir.model.fields,field_description:sign.field_sign_template__num_pages
 msgid "Number of pages"
 msgstr "عدد الصفحات "
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Odoo Sign"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -2412,7 +2420,7 @@ msgstr "خيارات أزرار الاختيار "
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item_radio_set
 msgid "Radio button set for keeping radio button items together"
-msgstr ""
+msgstr "مجموعة أزرار الاختيار لحفظ عناصر زر الاختيار معاً "
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__rating_ids
@@ -2862,12 +2870,6 @@ msgstr "صيغة الشروط والأحكام للتوقيع "
 
 #. module: sign
 #. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "Sign Up for free"
-msgstr "سجّل مجاناً "
-
-#. module: sign
-#. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.xml:0
 msgid "Sign all"
 msgstr "التوقيع على الكل "
@@ -2911,14 +2913,6 @@ msgid ""
 "Sign up for Odoo Sign to manage your own documents and signature requests!"
 msgstr ""
 "قم بالتسجيل في تطبيق أودو للتوقيع لإدارة مستنداتك الخاصة وطلبات التوقيع! "
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid ""
-"Sign up for Odoo Sign to manage your own documents and signature requests."
-msgstr ""
-"قم بالتسجيل في تطبيق أودو للتوقيع لإدارة مستنداتك الخاصة وطلبات التوقيع. "
 
 #. module: sign
 #: model:ir.actions.server,name:sign.sign_reminder_cron_ir_actions_server
@@ -3490,6 +3484,7 @@ msgstr ""
 #: code:addons/sign/models/sign_request.py:0
 msgid "The mail has been sent to contacts in copy: %(contacts)s"
 msgstr ""
+"لقد تم إرسال البريد الإلكتروني إلى جهات الاتصال في النسخة: %(contacts)s"
 
 #. module: sign
 #. odoo-python
@@ -4142,8 +4137,8 @@ msgstr "عليك تحديد مستند واحد على الأقل لتنزيله
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "You will receive the final signed document by email."
-msgstr "سيصلك المستند النهائي الموقّع عن طريق البريد الإلكتروني. "
+msgid "You will get the signed document by email."
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
@@ -4332,6 +4327,12 @@ msgstr "https://c.environmentalpaper.org/"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "ip"
 msgstr "ip"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "is free, forever, with unlimited users - and it's fun to use!"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user

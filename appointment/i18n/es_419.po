@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2025\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
@@ -202,7 +202,6 @@ msgid ""
 "            <t t-if=\"customer\">\n"
 "                <t t-out=\"customer.name or ''\"/> scheduled the following appointment <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Schedule a Demo</strong> with you.\n"
 "                <t t-if=\"object.event_id.appointment_type_id and object.event_id.appointment_status == 'request'\">\n"
-"                    <br/>\n"
 "                    It is awaiting confirmation.\n"
 "                </t>\n"
 "            </t>\n"
@@ -338,7 +337,7 @@ msgstr ""
 "        <t t-if=\"target_customer\">\n"
 "            <t t-if=\"object.event_id.appointment_type_id.appointment_manual_confirmation\">\n"
 "                <t t-if=\"object.event_id.appointment_status == 'booked'\">\n"
-"                    Nos alegra informarle que su reserva <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Programar una demostración</strong><t t-if=\"object.event_id.appointment_type_id.category != 'custom' and object.event_id.appointment_type_id.schedule_based_on == 'users'\"> con <t t-out=\"object.event_id.user_id.name or ''\">Ready Mat</t></t> se confirmó.<br/>\n"
+"                     Nos alegra informarle que su reserva <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Programar una demostración</strong><t t-if=\"object.event_id.appointment_type_id.category != 'custom' and object.event_id.appointment_type_id.schedule_based_on == 'users'\"> con <t t-out=\"object.event_id.user_id.name or ''\">Ready Mat</t></t> se confirmó.<br/>\n"
 "                </t>\n"
 "                <t t-elif=\"object.event_id.appointment_status == 'request'\">\n"
 "                    Recibimos su reserva <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Programar una demostración</strong><t t-if=\"object.event_id.appointment_type_id.category != 'custom' and object.event_id.appointment_type_id.schedule_based_on == 'users'\"> con <t t-out=\"object.event_id.user_id.name or ''\">Ready Mat</t></t>.<br/>\n"
@@ -349,7 +348,7 @@ msgstr ""
 "                Su cita <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Schedule a Demo</strong> <t t-if=\"object.event_id.appointment_type_id.category != 'custom' and object.event_id.appointment_type_id.schedule_based_on == 'users'\"> con <t t-out=\"object.event_id.user_id.name or ''\">Ready Mat</t></t> se reservó.\n"
 "            </t>\n"
 "            <div>\n"
-"                ¿Necesita reprogramarla? Visite este\n"
+"                 ¿Necesita reprogramarla? Visite este\n"
 "                <a t-attf-href=\"/calendar/meeting/view?token={{object.access_token}}&amp;id={{object.event_id.id}}\">enlace</a>\n"
 "            </div>\n"
 "        </t>\n"
@@ -357,7 +356,6 @@ msgstr ""
 "            <t t-if=\"customer\">\n"
 "                <t t-out=\"customer.name or ''\"/> programó la cita <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Programar una demostración</strong> con usted.\n"
 "                <t t-if=\"object.event_id.appointment_type_id and object.event_id.appointment_status == 'request'\">\n"
-"                    <br/>\n"
 "                    Está pendiente la confirmación.\n"
 "                </t>\n"
 "            </t>\n"
@@ -406,7 +404,7 @@ msgstr ""
 "        <td style=\"padding-top: 5px;\">\n"
 "            <p><strong>Detalles del evento</strong></p>\n"
 "            <ul>\n"
-"                <li>Tipo de la cita: <t t-out=\"object.event_id.appointment_type_id.name or ''\">Programar una demostración</t></li>\n"
+"                <li>Tipo de cita: <t t-out=\"object.event_id.appointment_type_id.name or ''\">Programar una demostración</t></li>\n"
 "                <t t-if=\"object.event_id.location\">\n"
 "                    <li>Ubicación: <t t-out=\"object.event_id.location or ''\">Bruselas</t>\n"
 "                        <a target=\"_blank\" t-if=\"object.event_id.location != object.event_id.appointment_type_id.location_id.name\" t-attf-href=\"http://maps.google.com/maps?oi=map&amp;q={{object.event_id.location}}\">(Ver mapa)</a>\n"
@@ -426,7 +424,7 @@ msgstr ""
 "                            <span style=\"margin-left:5px\" t-out=\"attendee.common_name or ''\">Mitchell Admin</span>\n"
 "                        </t>\n"
 "                        <t t-else=\"\">\n"
-"                            <span style=\"margin-left:5px\">Usted</span>\n"
+"                            <span style=\"margin-left:5px\">Tú</span>\n"
 "                        </t>\n"
 "                    </li>\n"
 "                </ul></li>\n"
@@ -445,7 +443,7 @@ msgstr ""
 "                    Cómo unirse:\n"
 "                    <t t-if=\"object.event_id.videocall_source == 'discuss'\"> Unirse con Conversaciones de Odoo</t>\n"
 "                    <t t-else=\"\"> Unirse en</t><br/>\n"
-"                    <a t-attf-href=\"{{ object.event_id.videocall_redirection }}\" target=\"_blank\" t-out=\"object.event_id.videocall_redirection or ''\">www.miempresa.com/calendar/videocall/xyz</a>\n"
+"                    <a t-attf-href=\"{{ object.event_id.videocall_redirection }}\" target=\"_blank\" t-out=\"object.event_id.videocall_redirection or ''\">www.mycompany.com/calendar/videocall/xyz</a>\n"
 "                </li>\n"
 "            </ul>\n"
 "        </td>\n"
@@ -1342,13 +1340,6 @@ msgstr "Tipo de respuesta"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Answers"
 msgstr "Respuestas"
-
-#. module: appointment
-#. odoo-javascript
-#: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
-msgid "Any Time"
-msgstr "Cualquier horario"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__all_assigned_resources
@@ -2766,12 +2757,6 @@ msgid "Monday"
 msgstr "Lunes"
 
 #. module: appointment
-#. odoo-javascript
-#: code:addons/appointment/static/src/views/custom_appointment_form_dialog/custom_appointment_form_dialog.xml:0
-msgid "More Options"
-msgstr "Más opciones"
-
-#. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__text
 msgid "Multi-line text"
 msgstr "Texto multilínea"
@@ -2845,11 +2830,6 @@ msgstr "Todavía no hay respuestas"
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_users
 msgid "No Appointment or Resource were found."
 msgstr "No se encontró una cita o recurso "
-
-#. module: appointment
-#: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
-msgid "No Custom Availabilities Shared!"
-msgstr "No se han compartido disponibilidades personalizadas"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__hide
@@ -3121,11 +3101,6 @@ msgid "Reason"
 msgstr "Motivo"
 
 #. module: appointment
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
-msgid "Recurring"
-msgstr "Recurrente"
-
-#. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__redirect_url
 msgid "Redirect URL"
 msgstr "URL de redirección"
@@ -3360,12 +3335,6 @@ msgstr "Buscar por responsable"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
 msgid "Select Appointments to share..."
 msgstr "Seleccionar las citas que compartir..."
-
-#. module: appointment
-#. odoo-javascript
-#: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
-msgid "Select Dates"
-msgstr "Seleccionar fechas"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form

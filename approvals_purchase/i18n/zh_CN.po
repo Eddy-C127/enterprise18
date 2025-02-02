@@ -3,16 +3,16 @@
 # 	* approvals_purchase
 # 
 # Translators:
-# Wil Odoo, 2024
 # Odoo哥 <vnsoft.he@gmail.com>, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:26+0000\n"
+"POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Odoo哥 <vnsoft.he@gmail.com>, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,6 +41,11 @@ msgstr "审批申请"
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_category__approval_type
 msgid "Approval Type"
 msgstr "审批类型"
+
+#. module: approvals_purchase
+#: model:ir.model,name:approvals_purchase.model_res_partner
+msgid "Contact"
+msgstr "联系"
 
 #. module: approvals_purchase
 #: model:approval.category,name:approvals_purchase.approval_category_data_rfq
@@ -101,6 +106,12 @@ msgstr "采购订单"
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_product_line__po_uom_qty
 msgid "Purchase UoM Quantity"
 msgstr "采购 UoM 数量"
+
+#. module: approvals_purchase
+#: model:ir.model.fields,field_description:approvals_purchase.field_res_partner__category_id
+#: model:ir.model.fields,field_description:approvals_purchase.field_res_users__category_id
+msgid "Tags"
+msgstr "标签"
 
 #. module: approvals_purchase
 #: model:ir.model.fields,help:approvals_purchase.field_approval_product_line__po_uom_qty

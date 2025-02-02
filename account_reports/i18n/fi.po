@@ -28,8 +28,8 @@
 # Kari Lindgren <karisatu@gmail.com>, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Jessica Jakara, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2025
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # Wil Odoo, 2025
 # 
 msgid ""
@@ -401,6 +401,8 @@ msgid "Accounts"
 msgstr "Tilit"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Accounts Coverage Report"
 msgstr "Tilien kattavuusraportti"
@@ -1326,7 +1328,7 @@ msgstr "Asiakkaan tiliote"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_customer_statement_report_handler
 msgid "Customer Statement Custom Handler"
-msgstr ""
+msgstr "Asiakkaan tiliote Mukautettu käsittelijä"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2441,6 +2443,21 @@ msgid "Line"
 msgstr "Rivi"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid ""
+"Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
+"This is not allowed."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
+msgid "Line without formula"
+msgstr "Rivi ilman kaavaa"
+
+#. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Lines"
 msgstr "Rivit"
@@ -2621,7 +2638,7 @@ msgstr "Rahavarojen nettokasvu"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_npmargin0
 msgid "Net profit margin (net profit / revenue)"
-msgstr ""
+msgstr "Nettovoittomarginaali (nettovoitto / liikevaihto)"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
@@ -3074,7 +3091,7 @@ msgstr "Edellinen jakso"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "Previous Periods"
-msgstr ""
+msgstr "Edelliset kaudet"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3086,7 +3103,7 @@ msgstr "Edellinen vuosi"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "Previous Years"
-msgstr ""
+msgstr "Edelliset vuodet"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings_line_2
@@ -3324,7 +3341,7 @@ msgstr "Lähetä"
 #. odoo-python
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 msgid "Send %s Statement"
-msgstr ""
+msgstr "Lähetä %s tiliote"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report__send_and_print_values
@@ -3687,12 +3704,11 @@ msgstr "Huomautuksen sisältö."
 #. odoo-python
 #: code:addons/account_reports/models/account_move.py:0
 msgid ""
-"The attachments of the tax report can be found on the <a href='#' data-oe-"
-"model='account.move' data-oe-id='%s'>closing entry</a> of the representative"
-" company."
+"The attachments of the tax report can be found on the %(link_start)sclosing "
+"entry%(link_end)s of the representative company."
 msgstr ""
-"Veroraportin liitteet löytyvät edustavan yrityksen <a href='#' data-oe-"
-"model='account.move' data-oe-id='%s'>loppukirjauksesta</a>."
+"Veroilmoituksen liitteet löytyvät edustavan yrityksen "
+"%(link_start)ssulkemiskirjauksesta%(link_end)s."
 
 #. module: account_reports
 #. odoo-python
@@ -3859,6 +3875,22 @@ msgid ""
 "proceed?"
 msgstr ""
 "Tämä rivi ja kaikki sen alla olevat poistetaan. Haluatko varmasti jatkaa?"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
+#, python-format
+msgid "This line is out of sequence."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
+#, python-format
+msgid ""
+"This line is placed before its parent, which is not allowed. You can fix it "
+"by dragging it to the proper position."
+msgstr ""
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
@@ -4029,6 +4061,13 @@ msgstr ""
 #: model:account.report.line,name:account_reports.account_financial_unaffected_earnings0
 msgid "Unallocated Earnings"
 msgstr "Kohdistamattomat tulot"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Undefined"
+msgstr "Ei määritelty"
 
 #. module: account_reports
 #. odoo-javascript

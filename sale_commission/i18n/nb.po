@@ -9,16 +9,17 @@
 # Lars Aam <lars.aam@vikenfiber.no>, 2024
 # Jorunn D. Newth, 2024
 # Marius Stedjan <marius@stedjan.com>, 2024
-# Martin Trigaux, 2024
 # Rune Restad, 2025
+# Martin Trigaux, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:55+0000\n"
+"POT-Creation-Date: 2025-01-27 13:57+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Rune Restad, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/odoo/teams/41243/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -544,6 +545,11 @@ msgid "Is Follower"
 msgstr "Er følger"
 
 #. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
+msgid "Last Quarter"
+msgstr "Forrige kvartal"
+
+#. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__write_uid
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__write_uid
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_achievement__write_uid
@@ -566,6 +572,11 @@ msgstr "Sist oppdatert av"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_user_wizard__write_date
 msgid "Last Updated on"
 msgstr "Sist oppdatert"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
+msgid "Last Year"
+msgstr "Forrige år"
 
 #. module: sale_commission
 #: model:ir.model.fields,help:sale_commission.field_sale_commission_achievement__team_id
@@ -618,6 +629,11 @@ msgstr ""
 #: model:ir.actions.act_window,name:sale_commission.sale_commission_action_my_forecast
 msgid "My Forecast"
 msgstr ""
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
+msgid "My Team"
+msgstr "Mitt Lag"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__name
@@ -693,6 +709,7 @@ msgstr "Betalingsdato"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__target_id
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_achievement_report_view_search
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_target_forecast_view_search
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
 msgid "Period"
 msgstr "Periode"
@@ -925,6 +942,21 @@ msgstr "Dette året"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__date_to
 msgid "To"
 msgstr "Til"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
+msgid "Total Target"
+msgstr ""
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
+msgid "Total achieved"
+msgstr ""
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
+msgid "Total commission"
+msgstr ""
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__type

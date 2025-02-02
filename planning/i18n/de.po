@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Larissa Manderfeld, 2024
+# Larissa Manderfeld, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 12:16+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2025\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2906,6 +2906,7 @@ msgstr "Sie können keinen anderen Mitarbeiter als sich selbst entfernen."
 #: code:addons/planning/models/planning.py:0
 msgid "You cannot assign yourself to a shift in the past."
 msgstr ""
+"Sie können sich nicht selbst eine Schicht in der Vergangenheit zuteilen."
 
 #. module: planning
 #. odoo-python
@@ -2937,6 +2938,14 @@ msgid "You cannot switch a shift that is in the past."
 msgstr "Sie können keine Schicht tauschen, die in der Vergangenheit liegt."
 
 #. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid "You cannot unassign yourself from a shift in the past."
+msgstr ""
+"Sie können sich nicht selbst von einer Schicht in der Vergangenheit "
+"abmelden."
+
+#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/planning_calendar_front.js:0
 msgid "You don't have any shifts planned yet."
@@ -2951,12 +2960,6 @@ msgid ""
 msgstr ""
 "Sie haben noch keine Schichten geplant. Sie können sich selbst einige der "
 "verfügbaren offenen Schichten zuweisen."
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning.py:0
-msgid "You cannot unassign yourself from a shift in the past."
-msgstr ""
 
 #. module: planning
 #. odoo-python

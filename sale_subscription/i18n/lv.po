@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:51+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2025\n"
 "Language-Team: Latvian (https://app.transifex.com/odoo/teams/41243/lv/)\n"
@@ -1399,7 +1399,7 @@ msgstr "Klienta industrija"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__client_order_ref
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__client_order_ref
 msgid "Customer Reference"
-msgstr "Klienta Kods"
+msgstr "Klienta reference"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__state_id
@@ -2548,7 +2548,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__name
 msgid "Order Reference"
-msgstr "Pasūtījuma atsauce"
+msgstr "Pasūtījuma reference"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_tree
@@ -3233,7 +3233,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_advance_payment_inv
 msgid "Sales Advance Payment Invoice"
-msgstr "Priekšapmaksas Rēķins"
+msgstr "Priekšapmaksas maksājuma rēķins"
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_report
@@ -3430,7 +3430,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__source_id
 msgid "Source"
-msgstr "Atsauce"
+msgstr "Avots"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__product_ids
@@ -4148,7 +4148,7 @@ msgstr "Cena"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__product_uom
 msgid "Unit of Measure"
-msgstr "Vienības mērvienība"
+msgstr "Mērvienība"
 
 #. module: sale_subscription
 #: model:sale.order.close.reason,name:sale_subscription.close_reason_unknown
@@ -4276,6 +4276,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__volume
 msgid "Volume"
 msgstr "Tilpums"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
+msgid "Waiting customer payment"
+msgstr ""
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -4519,7 +4524,7 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 msgid "You must be logged in to manage your payment methods."
-msgstr ""
+msgstr "Jums ir jāpierakstās, lai pārvaldīt Jūsu maksājumu metodes."
 
 #. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.product_action_subscription

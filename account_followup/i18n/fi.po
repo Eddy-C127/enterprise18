@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-09 14:26+0000\n"
+"POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
@@ -31,13 +31,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_followup/models/account_followup_report.py:0
 msgid "%(company)s Payment Reminder - %(partner)s"
-msgstr ""
+msgstr "%(company)s Maksumuistutus - %(partner)s"
 
 #. module: account_followup
 #. odoo-python
 #: code:addons/account_followup/models/account_followup.py:0
 msgid "%(delay)s days (copy of %(name)s)"
-msgstr ""
+msgstr "%(delay)s päivää (kopio %(name)s)"
 
 #. module: account_followup
 #: model:ir.actions.report,print_report_name:account_followup.action_report_followup
@@ -109,6 +109,37 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                   <p style=\"margin: 0px; padding: 0px;\">\n"
+"                       <t t-if=\"object.id != object.commercial_partner_id.id\">Hyvä <t t-out=\"object.name or ''\"/> (<t t-out=\"object.commercial_partner_id.name or ''\"/>),</t>\n"
+"                       <t t-else=\"\">Hyvä <t t-out=\"object.name or ''\"/>,</t>\n"
+"                       <br/>\n"
+"                        Kirjanpitomme mukaan teillä on erääntymätön saldo, joka on <t t-out=\"format_amount(object.total_overdue, object.currency_id) or ''\"/>\n"
+"                        <br/>\n"
+"                        Pyydämme teitä ryhtymään tarvittaviin toimiin tämän summan maksamiseksi seuraavien 8 päivän kuluessa.\n"
+"                       <br/>\n"
+"                       </p><div t-if=\"object._show_pay_now_button()\" class=\"d-flex\">\n"
+"                            <a t-att-href=\"'/my/invoices/overdue'\" class=\"btn btn-primary\">Maksa nyt</a>\n"
+"                        </div>\n"
+"                        Jos olet jo suorittanut maksun tämän viestin saatuasi, jätä se huomiotta.\n"
+"                        Kirjanpito-osastomme on käytettävissäsi, jos tarvitset apua tai sinulla on kysyttävää.\n"
+"                       <br/>\n"
+"                        Kiitos yhteistyöstäsi.\n"
+"                       <br/>\n"
+"                        Ystävällisin terveisin,\n"
+"                       <t t-if=\"not is_html_empty(object._get_followup_responsible().signature)\">\n"
+"                            <br/>\n"
+"                           <t t-out=\"object._get_followup_responsible().signature\"/>\n"
+"                        </t>\n"
+"                       <t t-else=\"\">\n"
+"                            <br/>\n"
+"                            --\n"
+"                           <br/>\n"
+"                           <t t-out=\"object._get_followup_responsible().name\"/>\n"
+"                        </t>\n"
+"                    \n"
+"                </div>\n"
+"            "
 
 #. module: account_followup
 #: model:mail.template,body_html:account_followup.demo_followup_email_template_4
@@ -139,6 +170,31 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p>\n"
+"                       <t t-if=\"object.id != object.commercial_partner_id.id\">Hyvä <t t-out=\"object.name or ''\"/> (<t t-out=\"object.commercial_partner_id.name or ''\"/>),</t>\n"
+"                       <t t-else=\"\">Hyvä <t t-out=\"object.name or ''\"/>,</t>\n"
+"                       <br/>\n"
+"                        Useista muistutuksista huolimatta tilillänne on edelleen maksamatonta saldoa.\n"
+"                        Ellei täyttä maksua suoriteta seuraavien 8 päivän aikana, velan perimiseksi ryhdytään oikeudellisiin toimiin ilman erillistä ilmoitusta.\n"
+"                        Luotan siihen, että tämä toimenpide osoittautuu tarpeettomaksi, ja erääntyneitä maksuja koskevat tiedot on painettu alla.\n"
+"                        Jos teillä on kysyttävää tästä asiasta, voitte ottaa yhteyttä kirjanpito-osastoomme.\n"
+"                       <br/>\n"
+"                        Ystävällisin terveisin,\n"
+"                       <br/>\n"
+"                        <t t-if=\"not is_html_empty(object._get_followup_responsible().signature)\">\n"
+"                            <br/>\n"
+"                           <t t-out=\"object._get_followup_responsible().signature\"/>\n"
+"                        </t>\n"
+"                       <t t-else=\"\">\n"
+"                            <br/>\n"
+"                            --\n"
+"                           <br/>\n"
+"                           <t t-out=\"object._get_followup_responsible().name\"/>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_followup
 #: model:mail.template,body_html:account_followup.demo_followup_email_template_2
@@ -171,11 +227,38 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p>\n"
+"                       <t t-if=\"object.id != object.commercial_partner_id.id\">Hyvä <t t-out=\"object.name or ''\"/> (<t t-out=\"object.commercial_partner_id.name or ''\"/>),</t>\n"
+"                       <t t-else=\"\">Hyvä <t t-out=\"object.name or ''\"/>,</t>\n"
+"                       <br/>\n"
+"                        Ikävä kyllä kirjanpitomme mukaan, muistutuksen lähettämisestä huolimatta tilinne suoritukset ovat nyt pahasti myöhässä.\n"
+"                       <br/>\n"
+"                        On erittäin tärkeää, että maksu suoritetaan välittömästi, sillä muutoin meidän on harkittava tilinne sulkemista, mikä tarkoittaa, että emme voi enää toimittaa yrityksellesi (tavaroita/palveluja). Pyydämme teitä ryhtymään asianmukaisiin toimenpiteisiin, jotta maksu voidaan suorittaa seuraavien 8 päivän aikana.\n"
+"                       <br/>\n"
+"                        Jos laskun maksamisessa on ongelmia, joista emme ole tietoisia, ota rohkeasti yhteyttä kirjanpito-osastoomme, jotta voimme ratkaista asian nopeasti.\n"
+"                       <br/>\n"
+"                        Tiedot erääntyneistä maksuista ovat alla.\n"
+"                       <br/>\n"
+"                        Ystävällisin terveisin,\n"
+"                       <t t-if=\"not is_html_empty(object._get_followup_responsible().signature)\">\n"
+"                            <br/>\n"
+"                           <t t-out=\"object._get_followup_responsible().signature\"/>\n"
+"                        </t>\n"
+"                       <t t-else=\"\">\n"
+"                            <br/>\n"
+"                            --\n"
+"                           <br/>\n"
+"                           <t t-out=\"object._get_followup_responsible().name\"/>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.res_partner_view_form
 msgid "<span class=\"o_stat_text\">Customer Statement</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Asiakkaan tiliote</span>"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.res_partner_view_form
@@ -473,7 +556,7 @@ msgstr "Lisävastaanottajat"
 #. odoo-python
 #: code:addons/account_followup/models/account_followup_report.py:0
 msgid "Follow-up %(partner)s - %(date)s"
-msgstr ""
+msgstr "Seuranta %(partner)s - %(date)s"
 
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__type__followup
@@ -566,6 +649,9 @@ msgid ""
 "notifications about any email reply made by the partner on the reminder "
 "email."
 msgstr ""
+"Jos asetettu, käyttäjät lisätään kumppanin seuraajiksi ja he saavat "
+"ilmoitukset kaikista kumppanin muistutussähköpostiin antamista "
+"sähköpostivastauksista."
 
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__followup_status__in_need_of_action
@@ -575,7 +661,7 @@ msgstr "Edellyttää toimenpiteitä"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_partner_property_form_followup
 msgid "Invoice Follow-ups"
-msgstr ""
+msgstr "Laskujen seuranta"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.template_followup_report
@@ -667,13 +753,10 @@ msgstr "Toimenpiteitä ei tarvita"
 #: model:ir.model.fields,help:account_followup.field_res_users__followup_next_action_date
 msgid ""
 "No follow-up action will be taken before this date.\n"
-"Sending a reminder will set this date depending on the levels configuration, and you can change it manually."
+"                Sending a reminder will set this date depending on the levels configuration, and you can change it manually."
 msgstr ""
-
-#. module: account_followup
-#: model_terms:ir.actions.act_window,help:account_followup.action_view_list_customer_statements
-msgid "No follow-up to send!"
-msgstr "Ei seurantaa lähetettäväksi!"
+"Jatkotoimia ei tehdä ennen tätä päivämäärää.\n"
+"Muistutuksen lähettäminen asettaa tämän päivämäärän tasojen asetusten mukaan, ja voit muuttaa sitä manuaalisesti."
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__activity_note
@@ -742,7 +825,7 @@ msgstr "Tulosta maksuhuomautuskirje"
 #. module: account_followup
 #: model:ir.actions.server,name:account_followup.action_account_reports_customer_statements_do_followup
 msgid "Process Follow-ups"
-msgstr ""
+msgstr "Prosessin seuranta"
 
 #. module: account_followup
 #. odoo-python
@@ -774,7 +857,7 @@ msgstr "Raporttin"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.customer_statements_search_view
 msgid "Requires Follow-up"
-msgstr ""
+msgstr "Vaatii seurantaa"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__activity_default_responsible_type

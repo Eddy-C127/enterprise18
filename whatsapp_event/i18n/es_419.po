@@ -4,21 +4,26 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Fernanda Alvarez, 2024
+# Fernanda Alvarez, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"POT-Creation-Date: 2025-01-27 13:57+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Fernanda Alvarez, 2024\n"
+"Last-Translator: Fernanda Alvarez, 2025\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: es_419\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#. module: whatsapp_event
+#: model:ir.model.fields,field_description:whatsapp_event.field_event_registration__date_tz
+msgid "Display Timezone"
+msgstr "Mostrar zona horaria"
 
 #. module: whatsapp_event
 #: model:ir.model,name:whatsapp_event.model_event_mail
@@ -29,6 +34,15 @@ msgstr "Envío automatizado de correos para eventos"
 #: model:ir.model,name:whatsapp_event.model_event_registration
 msgid "Event Registration"
 msgstr "Registro al evento"
+
+#. module: whatsapp_event
+#: model:ir.model.fields,help:whatsapp_event.field_event_registration__date_tz
+msgid ""
+"Indicates the timezone in which the event dates/times will be displayed on "
+"the website."
+msgstr ""
+"Indica la zona horaria en la que aparecerán las fechas y horas del evento en"
+" el sitio web."
 
 #. module: whatsapp_event
 #: model:ir.model,name:whatsapp_event.model_event_type_mail
@@ -51,11 +65,6 @@ msgstr "Enviar"
 #: model:ir.model.fields,field_description:whatsapp_event.field_event_type_mail__template_ref
 msgid "Template"
 msgstr "Plantilla"
-
-#. module: whatsapp_event
-#: model:ir.model.fields,field_description:whatsapp_event.field_event_registration__date_tz
-msgid "Timezone"
-msgstr "Zona horaria"
 
 #. module: whatsapp_event
 #: model:ir.model.fields.selection,name:whatsapp_event.selection__event_mail__notification_type__whatsapp

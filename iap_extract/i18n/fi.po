@@ -13,7 +13,7 @@
 # Jussi Lehto <jussi@gulfeo.com>, 2024
 # Sari Mäyrä <sari.mayra@sv-oy.fi>, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
@@ -21,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,6 +40,13 @@ msgid ""
 "    <p>Odoo S.A.</p>\n"
 "</div>"
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p>Hyvä,<br></p>\n"
+"    <p>Sovelluksen sisäisten hahmontunnistukseen käytettävien krediittien (IAP OCR) tililläsi ei ole enää krediittejä.<br>\n"
+"    Voit ladata lisää IAP OCR -krediittejä tiliisi asetussivulla.</p>\n"
+"    <p>Ystävällisin terveisin,<br></p>\n"
+"    <p>Odoo S.A.</p>\n"
+"</div>"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_needaction
@@ -53,6 +60,7 @@ msgid ""
 "All fields will be automatically populated by Artificial Intelligence, it "
 "might take 5 seconds."
 msgstr ""
+"Tekoäly täyttää kaikki kentät automaattisesti, se saattaa kestää 5 sekuntia."
 
 #. module: iap_extract
 #. odoo-python
@@ -107,6 +115,8 @@ msgid ""
 "Digitize your scanned or PDF vendor bills, expenses and resumes with OCR and"
 " Artificial Intelligence."
 msgstr ""
+"Digitoi skannatut tai PDF-myyjien laskut, kulut ja ansioluettelot OCR:n ja "
+"tekoälyn avulla."
 
 #. module: iap_extract
 #. odoo-python
@@ -124,7 +134,7 @@ msgstr "Asiakirja lähetetään digitoitavaksi"
 #. odoo-javascript
 #: code:addons/iap_extract/static/src/components/status_header/status.xml:0
 msgid "Document successfully parsed. Please refresh."
-msgstr ""
+msgstr "Asiakirja analysoitu onnistuneesti. Ole hyvä ja päivitä sivu."
 
 #. module: iap_extract
 #: model:iap.service,unit_name:iap_extract.iap_service_ocr
@@ -375,6 +385,7 @@ msgstr "Odotetaan tarkistusta"
 #: code:addons/iap_extract/static/src/components/status_header/status.xml:0
 msgid "You don't have enough credit to extract data from your document."
 msgstr ""
+"Sinulla ei ole tarpeeksi krediittejä tietojen poimimiseen asiakirjastasi."
 
 #. module: iap_extract
 #. odoo-python

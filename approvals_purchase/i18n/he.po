@@ -8,14 +8,16 @@
 # Lilach Gilliam <lilach.gilliam@gmail.com>, 2024
 # Ha Ketem <haketem@gmail.com>, 2024
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
+# NoaFarkash, 2025
+# Martin Trigaux, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:26+0000\n"
+"POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024\n"
+"Last-Translator: Martin Trigaux, 2025\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,6 +46,11 @@ msgstr "בקשת אישור"
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_category__approval_type
 msgid "Approval Type"
 msgstr "סוג האישור"
+
+#. module: approvals_purchase
+#: model:ir.model,name:approvals_purchase.model_res_partner
+msgid "Contact"
+msgstr "איש קשר"
 
 #. module: approvals_purchase
 #: model:approval.category,name:approvals_purchase.approval_category_data_rfq
@@ -104,6 +111,12 @@ msgstr "הזמנות רכש"
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_product_line__po_uom_qty
 msgid "Purchase UoM Quantity"
 msgstr "כמות יחידות מידה לרכישה"
+
+#. module: approvals_purchase
+#: model:ir.model.fields,field_description:approvals_purchase.field_res_partner__category_id
+#: model:ir.model.fields,field_description:approvals_purchase.field_res_users__category_id
+msgid "Tags"
+msgstr "תגיות"
 
 #. module: approvals_purchase
 #: model:ir.model.fields,help:approvals_purchase.field_approval_product_line__po_uom_qty

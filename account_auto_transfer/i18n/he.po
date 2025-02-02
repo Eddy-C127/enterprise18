@@ -15,6 +15,7 @@
 # david danilov, 2024
 # Yihya Hugirat <hugirat@gmail.com>, 2024
 # Ha Ketem <haketem@gmail.com>, 2024
+# or balmas, 2025
 # 
 msgid ""
 msgstr ""
@@ -22,7 +23,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Ha Ketem <haketem@gmail.com>, 2024\n"
+"Last-Translator: or balmas, 2025\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,7 +54,7 @@ msgstr "שורת מודל להעברת חשבון"
 #. module: account_auto_transfer
 #: model:ir.actions.server,name:account_auto_transfer.ir_cron_auto_transfer_ir_actions_server
 msgid "Account automatic transfers: Perform transfers"
-msgstr ""
+msgstr "העברות אוטומטיות בחשבון: בצע העברות"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
@@ -145,6 +146,8 @@ msgid ""
 "Automatic Transfer (from account %(origin_account)s with analytic "
 "account(s): %(analytic_accounts)s)"
 msgstr ""
+"העברה אוטומטית( מחשבון %(origin_account)sעם חשבון אנליטי "
+":%(analytic_accounts)s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -253,7 +256,7 @@ msgstr "מזהה"
 #. odoo-python
 #: code:addons/account_auto_transfer/demo/account_demo.py:0
 msgid "IFRS Automatic Transfers"
-msgstr ""
+msgstr "IFRS העברות אוטומטיות "
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -417,7 +420,7 @@ msgstr "פילטר השותף %s שוכפל"
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 msgid "The total percentage (%s) should be less or equal to 100!"
-msgstr ""
+msgstr "האחוז הכולל (%s ) צריך להיות פחות או שווה ל100!"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__total_percent
@@ -444,7 +447,7 @@ msgstr "שנתי"
 #. odoo-python
 #: code:addons/account_auto_transfer/demo/account_demo.py:0
 msgid "Yearly liabilites auto transfers"
-msgstr ""
+msgstr "העברות אוטומטיות של התחייבויות שנתיות"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -453,6 +456,8 @@ msgid ""
 "You cannot delete an automatic transfer that has draft moves attached "
 "('%s'). Please delete them before deleting this transfer."
 msgstr ""
+"לא ניתן למחוק העברה אוטומטית שמצורפת לה תנועות מסוג טיוטה. (%s) נא למחוק "
+"אותם לפני לפני מחיקת ההעברה."
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -466,7 +471,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_auto_transfer/models/account_move_line.py:0
 msgid "You cannot set Tax on Automatic Transfer's entries."
-msgstr ""
+msgstr "לא ניתן להגדיר מס על פקודות של העברה אוטומטית."
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form

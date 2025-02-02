@@ -10,8 +10,8 @@
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
 # Martin Trigaux, 2024
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # Jessica Jakara, 2025
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Jessica Jakara, 2025\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +31,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/social_twitter/models/social_post_template.py:0
 msgid "%(current_length)s / %(max_length)s characters to fit in a Post"
-msgstr ""
+msgstr "%(current_length)s / %(max_length)s merkkiä, jotka mahtuvat viestiin"
 
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.twitter_preview
@@ -41,7 +41,7 @@ msgstr "11m"
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.twitter_preview
 msgid "<b class=\"text-900\">X Account</b>"
-msgstr ""
+msgstr "<b class=\"text-900\">X Tili</b>"
 
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_stream_post_view_kanban
@@ -59,17 +59,19 @@ msgid ""
 "<i class=\"fa fa-pencil me-1\" title=\"Quote a post\"/>\n"
 "                                    <span>Quote</span>"
 msgstr ""
+"<i class=\"fa fa-pencil me-1\" title=\"Quote a post\"/>\n"
+"                                    <span>Lainaus</span>"
 
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_stream_post_view_kanban
 msgid "<i class=\"fa fa-retweet me-1\" title=\"Repost a post\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-retweet me-1\" title=\"Uudelleentweettaa\"/>"
 
 #. module: social_twitter
 #. odoo-python
 #: code:addons/social_twitter/models/social_stream_post.py:0
 msgid "A repost already exists"
-msgstr ""
+msgstr "Uudelleenlähetys on jo olemassa"
 
 #. module: social_twitter
 #. odoo-python
@@ -106,6 +108,8 @@ msgid ""
 "Check this if you want to use your personal X Developer Account instead of "
 "the provided one."
 msgstr ""
+"Merkitse tämä, jos haluat käyttää henkilökohtaista X Developer Account "
+"-tiliäsi toimitetun tilin sijaan."
 
 #. module: social_twitter
 #: model:ir.model,name:social_twitter.model_res_config_settings
@@ -146,7 +150,7 @@ msgstr "Näyttönimi"
 #: model:ir.model.fields,field_description:social_twitter.field_social_post__display_twitter_preview
 #: model:ir.model.fields,field_description:social_twitter.field_social_post_template__display_twitter_preview
 msgid "Display X Preview"
-msgstr ""
+msgstr "Näytä X esikatselu"
 
 #. module: social_twitter
 #. odoo-javascript
@@ -161,7 +165,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/social_twitter/static/src/xml/social_twitter_templates.xml:0
 msgid "Empty post"
-msgstr ""
+msgstr "Tyhjä viesti"
 
 #. module: social_twitter
 #. odoo-javascript
@@ -182,6 +186,8 @@ msgid ""
 "Failed to delete the post\n"
 "%s."
 msgstr ""
+"Viestin poistaminen epäonnistui\n"
+"%s."
 
 #. module: social_twitter
 #. odoo-python
@@ -190,12 +196,14 @@ msgid ""
 "Failed to fetch the posts in the same thread: '%(text)s' using the account "
 "%(account)s."
 msgstr ""
+"Epäonnistuimme hakemaan viestejä samassa viestiketjussa: '%(text)s' tilillä "
+"%(account)s."
 
 #. module: social_twitter
 #. odoo-python
 #: code:addons/social_twitter/models/social_stream_post.py:0
 msgid "Failed to post comment: %(error)s with the account %(account)s."
-msgstr ""
+msgstr "Kommentin lähettäminen epäonnistui: %(error)s tilillä %(account)s."
 
 #. module: social_twitter
 #: model:social.stream.type,name:social_twitter.stream_type_twitter_likes
@@ -206,7 +214,7 @@ msgstr "Suosikit"
 #: model:ir.model.fields,field_description:social_twitter.field_social_post__has_twitter_account
 #: model:ir.model.fields,field_description:social_twitter.field_social_post_template__has_twitter_account
 msgid "Has X Account"
-msgstr ""
+msgstr "On X-tili"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_twitter_account__id
@@ -278,13 +286,13 @@ msgstr "Nimi"
 #. odoo-python
 #: code:addons/social_twitter/models/social_stream.py:0
 msgid "Please select a X account for this stream type."
-msgstr ""
+msgstr "Valitse X-tili tälle lähetykselle."
 
 #. module: social_twitter
 #. odoo-python
 #: code:addons/social_twitter/models/social_post_template.py:0
 msgid "Please specify either an X Message or upload some X Images."
-msgstr ""
+msgstr "Määritä joko X-viesti tai lataa X-kuvia."
 
 #. module: social_twitter
 #. odoo-javascript
@@ -300,7 +308,7 @@ msgstr "Artikkelin kuva"
 #. module: social_twitter
 #: model:social.stream.type,name:social_twitter.stream_type_twitter_follow
 msgid "Posts of"
-msgstr ""
+msgstr "Julkaisut"
 
 #. module: social_twitter
 #. odoo-javascript
@@ -311,44 +319,46 @@ msgstr "Lainaa twiittiä"
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_quoted_tweet_author_link
 msgid "Quoted post author Link"
-msgstr ""
+msgstr "Lainatun viestin kirjoittajan linkki"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_quoted_tweet_author_name
 msgid "Quoted post author Name"
-msgstr ""
+msgstr "Lainatun viestin kirjoittajan nimi"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_quoted_tweet_message
 msgid "Quoted post message"
-msgstr ""
+msgstr "Lainattu viesti"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_quoted_tweet_profile_image_url
 msgid "Quoted post profile image URL"
-msgstr ""
+msgstr "Lainatun viestin profiilikuvan URL-osoite"
 
 #. module: social_twitter
 #. odoo-python
 #: code:addons/social_twitter/controllers/main.py:0
 msgid "Read More about X Accounts"
-msgstr ""
+msgstr "Lue lisää X-tileistä"
 
 #. module: social_twitter
 #. odoo-python
 #: code:addons/social_twitter/models/social_stream_post.py:0
 msgid "Replies from posts older than 7 days must be accessed on Twitter.com"
 msgstr ""
+"Vastaukset yli 7 päivää vanhoihin viesteihin on haettava Twitter.com-"
+"sivustolta"
 
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_stream_post_view_kanban
 msgid "Repost"
-msgstr ""
+msgstr "Lepo"
 
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_stream_post_view_kanban
 msgid "Repost or Quote"
-msgstr ""
+msgstr "Uudelleenjulkaisu tai lainaus"
 
 #. module: social_twitter
 #. odoo-javascript
@@ -356,7 +366,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_retweet_count
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_stream_post_view_kanban
 msgid "Reposts"
-msgstr ""
+msgstr "Uudelleenjulkaisut"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream__twitter_searched_keyword
@@ -411,7 +421,7 @@ msgstr "Sosiaalisen median suoratoiston julkaisu"
 #. module: social_twitter
 #: model:ir.model,name:social_twitter.model_social_twitter_account
 msgid "Social X Account"
-msgstr ""
+msgstr "Sosiaalinen X-tili"
 
 #. module: social_twitter
 #. odoo-python
@@ -437,19 +447,19 @@ msgstr ""
 #. odoo-python
 #: code:addons/social_twitter/controllers/main.py:0
 msgid "This Post has been deleted."
-msgstr ""
+msgstr "Tämä viesti on poistettu."
 
 #. module: social_twitter
 #. odoo-python
 #: code:addons/social_twitter/models/social_stream_post.py:0
 msgid "This post is outdated, please refresh the stream and try again."
-msgstr ""
+msgstr "Tämä viesti on vanhentunut, päivitä stream ja yritä uudelleen."
 
 #. module: social_twitter
 #. odoo-javascript
 #: code:addons/social_twitter/static/src/js/stream_post_comment.js:0
 msgid "Tweet"
-msgstr ""
+msgstr "Twiittaa"
 
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_post_template_view_form
@@ -476,7 +486,7 @@ msgstr "Luvaton. Ota yhteyttä ylläpitäjään."
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_stream_post_view_kanban
 msgid "Undo Repost"
-msgstr ""
+msgstr "Kumoa uudelleenjulkaisu"
 
 #. module: social_twitter
 #. odoo-javascript
@@ -495,7 +505,7 @@ msgstr "Tuntematon virhe"
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_res_config_settings__twitter_use_own_account
 msgid "Use your own X Account"
-msgstr ""
+msgstr "Käytä omaa X-tiliäsi"
 
 #. module: social_twitter
 #: model:ir.model.fields,help:social_twitter.field_social_media__media_type
@@ -520,133 +530,133 @@ msgstr ""
 #: model:ir.model.fields,help:social_twitter.field_social_post__twitter_image_ids
 #: model:ir.model.fields,help:social_twitter.field_social_post_template__twitter_image_ids
 msgid "Will attach images to your posts."
-msgstr ""
+msgstr "Liittää kuvia viesteihisi."
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_author_id
 msgid "X Author ID"
-msgstr ""
+msgstr "X Tekijän tunnus"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_res_config_settings__twitter_consumer_key
 msgid "X Consumer Key"
-msgstr ""
+msgstr "X Kuluttajan avain"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_res_config_settings__twitter_consumer_secret_key
 msgid "X Consumer Secret Key"
-msgstr ""
+msgstr "X Kuluttajan salainen avain"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_conversation_id
 msgid "X Conversation ID"
-msgstr ""
+msgstr "X Keskustelun tunnus"
 
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.res_config_settings_view_form
 msgid "X Developer Account"
-msgstr ""
+msgstr "X Kehittäjätili"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_twitter_account__twitter_id
 msgid "X ID"
-msgstr ""
+msgstr "X ID"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_post__twitter_image_ids
 #: model:ir.model.fields,field_description:social_twitter.field_social_post_template__twitter_image_ids
 msgid "X Images"
-msgstr ""
+msgstr "X Kuvat"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_likes_count
 msgid "X Likes"
-msgstr ""
+msgstr "X Tykkäyksiä"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_post__twitter_message
 #: model:ir.model.fields,field_description:social_twitter.field_social_post_template__twitter_message
 msgid "X Message"
-msgstr ""
+msgstr "X Viestit"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_account__twitter_oauth_token
 msgid "X OAuth Token"
-msgstr ""
+msgstr "X OAuth-tunniste"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_account__twitter_oauth_token_secret
 msgid "X OAuth Token Secret"
-msgstr ""
+msgstr "X OAuth-tunnisteen salaisuus"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_tweet_id
 msgid "X Post ID"
-msgstr ""
+msgstr "X Viestin ID"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_post__is_twitter_post_limit_exceed
 #: model:ir.model.fields,field_description:social_twitter.field_social_post_template__is_twitter_post_limit_exceed
 msgid "X Post Limit Exceeded"
-msgstr ""
+msgstr "X Julkaisuraja ylitetty"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_post__twitter_post_limit_message
 #: model:ir.model.fields,field_description:social_twitter.field_social_post_template__twitter_post_limit_message
 msgid "X Post Limit Message"
-msgstr ""
+msgstr "X julkaisun postitusrajan viesti"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_post__twitter_preview
 #: model:ir.model.fields,field_description:social_twitter.field_social_post_template__twitter_preview
 msgid "X Preview"
-msgstr ""
+msgstr "X Esikatselu"
 
 #. module: social_twitter
 #. odoo-javascript
 #: code:addons/social_twitter/static/src/xml/social_twitter_templates.xml:0
 msgid "X Profile Image"
-msgstr ""
+msgstr "X Profiilikuva"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_profile_image_url
 msgid "X Profile Image URL"
-msgstr ""
+msgstr "X Profiilikuvan URL-osoite"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_quoted_tweet_id_str
 msgid "X Quoted post ID"
-msgstr ""
+msgstr "X Lainattu viesti ID"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_comments_count
 msgid "X Replies"
-msgstr ""
+msgstr "X Vastaukset"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_retweeted_tweet_id_str
 msgid "X Repost ID"
-msgstr ""
+msgstr "X Repost ID"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_can_retweet
 msgid "X Repost Permission"
-msgstr ""
+msgstr "X Lupa uudelleenjulkaisuun"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_screen_name
 msgid "X Screen Name"
-msgstr ""
+msgstr "X Näyttönimi"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_account__twitter_user_id
 msgid "X User ID"
-msgstr ""
+msgstr "X Käyttäjätunnus"
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_stream_post__twitter_user_likes
 msgid "X User Likes"
-msgstr ""
+msgstr "X Käyttäjän tykkäykset"
 
 #. module: social_twitter
 #. odoo-python
@@ -660,12 +670,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/social_twitter/controllers/main.py:0
 msgid "X did not provide a valid access token."
-msgstr ""
+msgstr "X ei antanut voimassa olevaa käyttöoikeuskoodia."
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_live_post__twitter_tweet_id
 msgid "X post id"
-msgstr ""
+msgstr "X julkaisun id"
 
 #. module: social_twitter
 #. odoo-python
@@ -676,7 +686,7 @@ msgstr "Sinua ei ole todennettu"
 #. module: social_twitter
 #: model:ir.model.constraint,message:social_twitter.constraint_social_stream_post_tweet_uniq
 msgid "You can not store two times the same post on the same stream!"
-msgstr ""
+msgstr "Et voi tallentaa kahteen kertaan samaa viestiä samaan lähetykseen!"
 
 #. module: social_twitter
 #. odoo-python
@@ -685,6 +695,8 @@ msgid ""
 "You cannot create a Stream from this X account.\n"
 "It may be because it's protected. To solve this, please make sure you follow it before trying again."
 msgstr ""
+"Et voi luoda lähetystä X-tililtä.\n"
+"Se voi johtua siitä, että se on suojattu. Voit ratkaista tämän, varmista, että noudatat sitä ennen kuin yrität uudelleen."
 
 #. module: social_twitter
 #. odoo-python
@@ -699,6 +711,7 @@ msgid ""
 "You need to add the following callback URL to your X application settings: "
 "%s"
 msgstr ""
+"Sinun on lisättävä seuraava takaisinkutsu-URL X-sovelluksen asetuksiin: %s"
 
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_stream_view_form

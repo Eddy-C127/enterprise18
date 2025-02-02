@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:27+0000\n"
+"POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
@@ -39,6 +39,10 @@ msgid ""
 "the cancellation of the sales order.\" invisible=\"sale_order_state != "
 "'cancel'\"/>"
 msgstr ""
+"<span class=\"fa fa-exclamation-triangle text-warning\" title=\"Tähän "
+"tukipyyntöön liittyvä myyntitilaus on peruttu. Myyntitilaus on joko "
+"päivitettävä tai tämä tukipyyntö on peruttava.\" "
+"invisible=\"sale_order_state != 'cancel'\"/>"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_account_analytic_line
@@ -100,7 +104,7 @@ msgstr "Laskut"
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_my_timesheets_inherit
 msgid "No Ticket"
-msgstr ""
+msgstr "Ei tukipyyntöä"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
@@ -154,7 +158,6 @@ msgstr "SLA-tilan analyysi"
 
 #. module: helpdesk_sale_timesheet
 #. odoo-python
-#: code:addons/helpdesk_sale_timesheet/controllers/portal.py:0
 #: code:addons/helpdesk_sale_timesheet/models/helpdesk_ticket.py:0
 #: model:ir.model,name:helpdesk_sale_timesheet.model_sale_order
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
@@ -162,6 +165,8 @@ msgid "Sales Order"
 msgstr "Myyntitilaus"
 
 #. module: helpdesk_sale_timesheet
+#. odoo-python
+#: code:addons/helpdesk_sale_timesheet/controllers/portal.py:0
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla_report_analysis__sale_line_id
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__sale_line_id
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket_report_analysis__sale_line_id
@@ -197,7 +202,7 @@ msgstr "Hae myyntitilausta"
 #. odoo-python
 #: code:addons/helpdesk_sale_timesheet/controllers/portal.py:0
 msgid "Search in Ticket"
-msgstr ""
+msgstr "Etsi tukipyynnöstä"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla__product_ids
@@ -244,7 +249,7 @@ msgstr "Jäljellä oleva aika myyntitilauksella"
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Time Remaining on SO:"
-msgstr ""
+msgstr "Jäljellä oleva aika myyntitilauksella"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_helpdesk_ticket_timesheet
@@ -260,7 +265,7 @@ msgstr "Työaikakirjaukset"
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Total Time Spent:"
-msgstr ""
+msgstr "Käytetty aika yhteensä"
 
 #. module: helpdesk_sale_timesheet
 #. odoo-python
@@ -269,3 +274,5 @@ msgid ""
 "You cannot link order item %(order_id)s - %(product_id)s to this ticket "
 "because it is not a service product."
 msgstr ""
+"Et voi yhdistää tilauserää %(order_id)s - %(product_id)s tähän tukipyyntöön,"
+" koska se ei ole palvelutuote."

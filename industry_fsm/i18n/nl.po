@@ -3,17 +3,17 @@
 # 	* industry_fsm
 # 
 # Translators:
-# Wil Odoo, 2024
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
+# Wil Odoo, 2025
 # Manon Rondou, 2025
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:51+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Manon Rondou, 2025\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -292,7 +292,7 @@ msgstr "Bedrijf"
 #. module: industry_fsm
 #: model:ir.model,name:industry_fsm.model_res_config_settings
 msgid "Config Settings"
-msgstr "Configuratie instellingen"
+msgstr "Configuratie-instellingen"
 
 #. module: industry_fsm
 #: model:ir.ui.menu,name:industry_fsm.fsm_menu_settings
@@ -404,7 +404,7 @@ msgstr "Klantbeoordelingen"
 #: model:ir.model.fields,field_description:industry_fsm.field_project_task__partner_state_id
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__partner_state_id
 msgid "Customer State"
-msgstr "Staat klant"
+msgstr "Provincie / Staat klant"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.worksheet_custom_page
@@ -780,6 +780,11 @@ msgstr "Geen labels gevonden. Maak er één aan!"
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_tasks_action_fsm
 msgid "No tasks found. Let's create one!"
 msgstr "Geen taken gevonden. Maak er één aan!"
+
+#. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__overtime
+msgid "Overtime"
+msgstr "Tijd overschreden"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__parent_id

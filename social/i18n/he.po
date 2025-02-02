@@ -16,9 +16,10 @@
 # yael terner, 2024
 # Ha Ketem <haketem@gmail.com>, 2024
 # Martin Trigaux, 2024
-# Lilach Gilliam <lilach.gilliam@gmail.com>, 2024
 # Yihya Hugirat <hugirat@gmail.com>, 2024
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
+# Lilach Gilliam <lilach.gilliam@gmail.com>, 2025
+# or balmas, 2025
 # 
 msgid ""
 msgstr ""
@@ -26,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024\n"
+"Last-Translator: or balmas, 2025\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,33 +44,33 @@ msgstr "חשבונות"
 #. odoo-python
 #: code:addons/social/models/social_post.py:0
 msgid "%(media_name)s (max %(max_chars)s chars)"
-msgstr ""
+msgstr "%(media_name)s(מקסימום%(max_chars)sתווים)"
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid ", you must first link a social media."
-msgstr ""
+msgstr ", תחילה עליך לקשר מדיה חברתית."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_http_error_view
 msgid "<b>An error occurred while trying to link your account</b>"
-msgstr ""
+msgstr "<b>אירעה שגיאה בעת ניסיון לקשר את החשבון שלך</b>"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "<i class=\"fa fa-calendar me-1 small fw-bold\" title=\"Calendar\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-calendar me-1 small fw-bold\" title=\"Calendar\"/>"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "<i class=\"fa fa-calendar-check-o me-1 small fw-bold\" title=\"Calendar\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-calendar-check-o me-1 small fw-bold\" title=\"Calendar\"/>"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
 msgid "<i class=\"fa fa-globe ms-1\" title=\"See the post\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-globe ms-1\" title=\"See the post\"/>"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_http_error_view
@@ -153,7 +154,7 @@ msgstr "הוסף תמונה"
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "All Companies"
-msgstr ""
+msgstr "כל החברות"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_utm_campaign__social_post_ids
@@ -282,7 +283,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Click to refresh."
-msgstr ""
+msgstr "לחץ כדי לרענן."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
@@ -355,7 +356,7 @@ msgstr "שולט אם נוכל לקשר חשבונות או לא."
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_view_utm_campaigns
 msgid "Create a Campaign"
-msgstr ""
+msgstr "צור קמפיין"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_post
@@ -426,7 +427,7 @@ msgstr "מחק תגובה"
 #. odoo-javascript
 #: code:addons/social/static/src/js/stream_post_comments.js:0
 msgid "Delete Post"
-msgstr ""
+msgstr "מחק פוסט"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.res_config_settings_view_form
@@ -988,7 +989,7 @@ msgstr "פוסט חדש"
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "New content available"
-msgstr ""
+msgstr "תוכן חדש זמין"
 
 #. module: social
 #. odoo-javascript
@@ -1190,7 +1191,7 @@ msgstr ""
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
 msgid "Post Now"
-msgstr ""
+msgstr "פרסם עכשיו"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream_post__post_link
@@ -1374,7 +1375,7 @@ msgstr ""
 #: model:ir.model.fields,help:social.field_social_media__max_post_length
 msgid ""
 "Set a maximum number of characters can be posted in post. 0 for no limit."
-msgstr ""
+msgstr "הגדר מספר מקסימלי של תווים שניתן לפרסם בפוסט. 0 ללא הגבלה."
 
 #. module: social
 #: model:ir.actions.act_window,name:social.action_social_global_settings
@@ -1614,7 +1615,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Sync"
-msgstr ""
+msgstr "סנכרן "
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__account_ids
@@ -1786,7 +1787,7 @@ msgstr "רשום תגובה..."
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
 msgid "Write a message or upload an image"
-msgstr ""
+msgstr "כתוב הודעה או העלה תמונה"
 
 #. module: social
 #. odoo-javascript
@@ -1827,13 +1828,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/social/models/social_post.py:0
 msgid "You cannot reschedule a post that has already been posted."
-msgstr ""
+msgstr "לא ניתן לתזמן מחדש פוסט שכבר פורסם."
 
 #. module: social
 #. odoo-python
 #: code:addons/social/models/social_post.py:0
 msgid "You cannot schedule a post in the past."
-msgstr ""
+msgstr "לא ניתן לתזמן פוסט בעבר."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
@@ -1849,7 +1850,7 @@ msgstr ""
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
 msgid "before posting."
-msgstr ""
+msgstr "לפני פרסום."
 
 #. module: social
 #. odoo-javascript

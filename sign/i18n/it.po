@@ -570,12 +570,6 @@ msgid "All Documents"
 msgstr "Tutti i documenti"
 
 #. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "All done!"
-msgstr "Fatto!"
-
-#. module: sign
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "All signers must have valid email addresses"
@@ -1236,6 +1230,8 @@ msgid "Documents"
 msgstr "Documenti"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 msgid "Download"
 msgstr "Scarica"
@@ -1252,12 +1248,6 @@ msgstr "Scarica certificato"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "Download Document"
 msgstr "Scarica documento"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid "Download it"
-msgstr "Scaricalo"
 
 #. module: sign
 #. odoo-javascript
@@ -1810,6 +1800,12 @@ msgid "Is User Signer"
 msgstr "L'utente è un firmatario"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "It's signed!"
+msgstr "È firmato!"
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "John Doe"
 msgstr "John Doe"
@@ -2118,6 +2114,12 @@ msgid "Need a valid PDF to add signature fields!"
 msgstr "È necessario un PDF valido per aggiungere i campi firma!"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Need to sign documents?"
+msgstr "Devi firmare dei documenti?"
+
+#. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_send_request
 msgid "New Signature Request"
 msgstr "Nuova richiesta di firma"
@@ -2246,6 +2248,12 @@ msgstr "Numero di messaggi con errore di consegna"
 #: model:ir.model.fields,field_description:sign.field_sign_template__num_pages
 msgid "Number of pages"
 msgstr "Numero di pagine"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "Odoo Sign"
+msgstr "Odoo Firma"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -2886,12 +2894,6 @@ msgstr "Formato termini e condizioni"
 
 #. module: sign
 #. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "Sign Up for free"
-msgstr "Inscriviti gratuitamente"
-
-#. module: sign
-#. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.xml:0
 msgid "Sign all"
 msgstr "Firma tutto"
@@ -2934,14 +2936,6 @@ msgstr "Firmatario richiesta invio firma"
 msgid ""
 "Sign up for Odoo Sign to manage your own documents and signature requests!"
 msgstr "Accedi a Odoo Firma per gestire documenti e richieste!"
-
-#. module: sign
-#. odoo-javascript
-#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
-msgid ""
-"Sign up for Odoo Sign to manage your own documents and signature requests."
-msgstr ""
-"Accedi a Odoo Firma per gestire i tuoi documenti e le richieste di firma."
 
 #. module: sign
 #: model:ir.actions.server,name:sign.sign_reminder_cron_ir_actions_server
@@ -4179,7 +4173,7 @@ msgstr "È necessario selezionare almeno un documento da scaricare."
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
-msgid "You will receive the final signed document by email."
+msgid "You will get the signed document by email."
 msgstr "Riceverai il documento firmato via e-mail."
 
 #. module: sign
@@ -4373,6 +4367,13 @@ msgstr "https://c.environmentalpaper.org/"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "ip"
 msgstr "ip"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
+msgid "is free, forever, with unlimited users - and it's fun to use!"
+msgstr ""
+"È gratis, per sempre, con utenti illimitati e anche divertente da usare!"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user

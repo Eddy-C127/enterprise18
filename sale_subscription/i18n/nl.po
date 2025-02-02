@@ -5,14 +5,14 @@
 # Translators:
 # Yenthe Van Ginneken <yenthespam@gmail.com>, 2024
 # Wil Odoo, 2024
-# Manon Rondou, 2024
+# Manon Rondou, 2025
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:51+0000\n"
+"POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -1234,7 +1234,7 @@ msgid ""
 "Automatic payment failed. No country specified on payment_token's partner"
 msgstr ""
 "Automatische betaling mislukt. Geen land gespecificeerd op payment_token van"
-" contact"
+" partner"
 
 #. module: sale_subscription
 #. odoo-python
@@ -1537,7 +1537,7 @@ msgstr "Bedrijf"
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_res_config_settings
 msgid "Config Settings"
-msgstr "Configuratie instellingen"
+msgstr "Configuratie-instellingen"
 
 #. module: sale_subscription
 #: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_config
@@ -1747,7 +1747,7 @@ msgstr "Referentie klant"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__state_id
 msgid "Customer State"
-msgstr "Staat klant"
+msgstr "Provincie / Staat klant"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__partner_zip
@@ -2023,7 +2023,7 @@ msgstr "Volgers"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Contacten)"
+msgstr "Volgers (Partners)"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
@@ -2972,7 +2972,7 @@ msgstr "Bovenliggend abonnement"
 #. odoo-python
 #: code:addons/sale_subscription/models/res_partner.py:0
 msgid "Partner Subscription"
-msgstr "Abonnement"
+msgstr "Abonnement Partner"
 
 #. module: sale_subscription
 #: model:ir.actions.server,name:sale_subscription.model_sale_order_subscription_pause_record
@@ -3918,7 +3918,7 @@ msgid ""
 msgstr ""
 "Het abonnement %(link)s is geannuleerd. De bovenliggende order %(parent_link)s is heropend.\n"
 "                                                Je moet %(parent_link)s sluiten als de klant verloren is, of het verlengen als de klant van de dienst gebruik wilt blijven maken.\n"
-"                                                Opgelet: als je reeds een nieuw abonnement hebt aangemaakt in plaats van het te verlengen, gelieve het pas aangemaakte abonnement\n"
+"                                                Opgelet: als je reeds een nieuw abonnement hebt aangemaakt in plaats van het te verlengen, graag het pas aangemaakte abonnement\n"
 "                                                te annuleren en %(parent_link)s te verlengen"
 
 #. module: sale_subscription
@@ -4304,7 +4304,7 @@ msgid ""
 " or select another one."
 msgstr ""
 "De door jou gekozen betaalmethode kan bedragen van maximaal %s uitvoeren. "
-"Gelieve een andere aan te maken of te selecteren."
+"Graag een andere aan te maken of te selecteren."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4370,7 +4370,7 @@ msgid ""
 "have been affected by this cancellation."
 msgstr ""
 "De upsell %s is geannuleerd. De hoeveelheden kunnen door deze annulering "
-"zijn beïnvloed. Gelieve deze opnieuw te controleren."
+"zijn beïnvloed. Graag deze opnieuw te controleren."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4732,6 +4732,11 @@ msgid "Volume"
 msgstr "Volume"
 
 #. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
+msgid "Waiting customer payment"
+msgstr "Wachten op klantbetaling"
+
+#. module: sale_subscription
 #. odoo-javascript
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 msgid ""
@@ -4898,8 +4903,8 @@ msgid ""
 "You can't archive the partner as it is used in the following recurring "
 "orders: %s"
 msgstr ""
-"Je kunt het contact niet archiveren omdat deze wordt gebruikt in de volgende"
-" herhalende orders: %s"
+"Je kunt de partner niet archiveren omdat deze wordt gebruikt in de volgende "
+"herhalende orders: %s"
 
 #. module: sale_subscription
 #. odoo-python

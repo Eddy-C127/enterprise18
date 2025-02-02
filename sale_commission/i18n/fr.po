@@ -4,14 +4,14 @@
 # 
 # Translators:
 # 31c77b784710e4a287a92d851a40e039, 2024
-# Wil Odoo, 2024
+# Wil Odoo, 2025
 # Manon Rondou, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:55+0000\n"
+"POT-Creation-Date: 2025-01-27 13:57+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Manon Rondou, 2025\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
@@ -549,6 +549,11 @@ msgid "Is Follower"
 msgstr "Est un abonné"
 
 #. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
+msgid "Last Quarter"
+msgstr "Le dernier trimestre"
+
+#. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__write_uid
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__write_uid
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_achievement__write_uid
@@ -571,6 +576,11 @@ msgstr "Mis à jour par"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_user_wizard__write_date
 msgid "Last Updated on"
 msgstr "Mis à jour le"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
+msgid "Last Year"
+msgstr "L'année dernière "
 
 #. module: sale_commission
 #: model:ir.model.fields,help:sale_commission.field_sale_commission_achievement__team_id
@@ -624,6 +634,11 @@ msgstr "Mes commissions"
 #: model:ir.actions.act_window,name:sale_commission.sale_commission_action_my_forecast
 msgid "My Forecast"
 msgstr "Mes prévisions"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
+msgid "My Team"
+msgstr "Mon équipe"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__name
@@ -699,6 +714,7 @@ msgstr "Date de règlement"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__target_id
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_achievement_report_view_search
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_target_forecast_view_search
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
 msgid "Period"
 msgstr "Période"
@@ -932,6 +948,21 @@ msgstr "Cette année"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__date_to
 msgid "To"
 msgstr "Vers"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
+msgid "Total Target"
+msgstr "Objectif total"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
+msgid "Total achieved"
+msgstr "Total atteint"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
+msgid "Total commission"
+msgstr "Commission totale"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__type
