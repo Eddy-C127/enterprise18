@@ -5,9 +5,9 @@
 # Translators:
 # Jolien De Paepe, 2024
 # Gunther Clauwaert <gclauwae@hotmail.com>, 2024
-# Manon Rondou, 2024
 # Martin Trigaux, 2024
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2025
+# Manon Rondou, 2025
 # Wil Odoo, 2025
 # 
 msgid ""
@@ -2411,6 +2411,8 @@ msgid ""
 "Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
 "This is not allowed."
 msgstr ""
+"Regel '%(child)s' is geconfigureerd om vóór zijn bovenliggende regel "
+"'%(parent)s' te verschijnen. Dit is niet toegestaan"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3697,7 +3699,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
 #, python-format
 msgid "This line is out of sequence."
-msgstr ""
+msgstr "Deze regel staat niet in de juiste volgorde."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3707,6 +3709,8 @@ msgid ""
 "This line is placed before its parent, which is not allowed. You can fix it "
 "by dragging it to the proper position."
 msgstr ""
+"Deze regel is vóór zijn bovenliggende regel geplaatst, wat niet toegestaan "
+"is. Je kunt dit oplossen door de regel naar de juiste positie te slepen."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
@@ -3887,6 +3891,13 @@ msgstr ""
 #: model:account.report.line,name:account_reports.account_financial_unaffected_earnings0
 msgid "Unallocated Earnings"
 msgstr "Niet-toegewezen resultaat"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Undefined"
+msgstr "Niet gedefinieerd"
 
 #. module: account_reports
 #. odoo-javascript

@@ -10,6 +10,7 @@
 # MichaelHadar, 2023
 # Ha Ketem <haketem@gmail.com>, 2023
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2023
+# or balmas, 2025
 # 
 msgid ""
 msgstr ""
@@ -17,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:43+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: ZVI BLONDER <ZVIBLONDER@gmail.com>, 2023\n"
+"Last-Translator: or balmas, 2025\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,12 +43,12 @@ msgstr "123 צפיות •"
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_stream_post_view_kanban
 msgid "<i class=\"fa fa-thumbs-o-up me-1\" title=\"Likes\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-thumbs-o-up me-1\" title=\"Likes\"/>"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.youtube_preview
 msgid "<span class=\"fw-bold\">Your YouTube Channel</span>"
-msgstr ""
+msgstr "<span class=\"fw-bold\">ערוץ ה-YouTube שלך </span>"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
@@ -177,7 +178,7 @@ msgstr "נוצר ב-"
 #: code:addons/social_youtube/models/social_post.py:0
 #, python-format
 msgid "Description cannot exceed 5000 characters."
-msgstr ""
+msgstr "התיאור אינו יכול להכיל יותר מ- 5000 תווים."
 
 #. module: social_youtube
 #. odoo-python
@@ -447,28 +448,28 @@ msgstr ""
 #: code:addons/social_youtube/models/social_live_post.py:0
 #, python-format
 msgid "The video you are trying to publish has been deleted from YouTube."
-msgstr ""
+msgstr "הסרטון שאתה מנסה לפרסם נמחק מ-YouTube."
 
 #. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/controllers/main.py:0
 #, python-format
 msgid "There is no channel linked with this YouTube account."
-msgstr ""
+msgstr "אין ערוץ המקושר לחשבון YouTube זה."
 
 #. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/models/social_post.py:0
 #, python-format
 msgid "Title cannot exceed 100 characters."
-msgstr ""
+msgstr "הכותרת לא יכולה להיות יותר מ100 תווים."
 
 #. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/models/social_post.py:0
 #, python-format
 msgid "Title should not contain > or < symbol."
-msgstr ""
+msgstr "הכותרת לא צריכה להכיל את הסמל > או <."
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
@@ -558,7 +559,7 @@ msgstr "תיאור וידאו"
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_video_privacy
 msgid "Video Privacy"
-msgstr ""
+msgstr "פרטיות וידאו"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_post_view_form
@@ -599,7 +600,7 @@ msgstr "כן, למחוק את זה."
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "You cannot use '>' or '<' in both title and description."
-msgstr ""
+msgstr "לא ניתן להשתמש ב'>'  או ב'<' גם בכותרת וגם בתיאור."
 
 #. module: social_youtube
 #. odoo-python
@@ -620,14 +621,14 @@ msgstr "צריך להעלות וידאו כשמפרסמים ביוטיוב."
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "You need to give your video a description."
-msgstr ""
+msgstr "צריך לתת לסרטון וידאו תיאור ."
 
 #. module: social_youtube
 #. odoo-javascript
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "You need to give your video a title."
-msgstr ""
+msgstr "צריך לתת לסרטון וידאו כותרת ."
 
 #. module: social_youtube
 #: model:ir.model.fields.selection,name:social_youtube.selection__social_media__media_type__youtube

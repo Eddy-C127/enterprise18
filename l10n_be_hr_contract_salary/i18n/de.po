@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Chris Egal <sodaswed@web.de>, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-29 14:41+0000\n"
 "PO-Revision-Date: 2024-01-30 08:20+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Chris Egal <sodaswed@web.de>, 2025\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,7 +54,7 @@ msgstr "30,00 €"
 #: model:hr.contract.salary.personal.info,helper:l10n_be_hr_contract_salary.hr_contract_salary_personal_info_other_disabled_juniors_dependant
 #: model:hr.contract.salary.personal.info,helper:l10n_be_hr_contract_salary.hr_contract_salary_personal_info_other_juniors_dependent
 msgid "< 65 years old"
-msgstr ""
+msgstr "< 65 Jahre alt"
 
 #. module: l10n_be_hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_contract_salary.res_config_settings_view_form
@@ -64,7 +65,7 @@ msgstr "<span>Tage / Jahr</span>"
 #: model:hr.contract.salary.personal.info,helper:l10n_be_hr_contract_salary.hr_contract_salary_personal_info_other_disabled_senior_dependent
 #: model:hr.contract.salary.personal.info,helper:l10n_be_hr_contract_salary.hr_contract_salary_personal_info_other_senior_dependent
 msgid ">= 65 years old"
-msgstr ""
+msgstr ">= 65 Jahre alt"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_ambulatory_insured_spouse
@@ -110,12 +111,12 @@ msgstr "Canteen Cost"
 #. module: l10n_be_hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_contract_salary.hr_contract_salary_offer_view_form
 msgid "Car"
-msgstr ""
+msgstr "Auto"
 
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_job__l10n_be_custom_representation_fees_car_management
 msgid "Car Management"
-msgstr ""
+msgstr "Autoverwaltung"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.personal.info.value,name:l10n_be_hr_contract_salary.hr_contract_salary_personal_info_certificate_civil_engineer
@@ -142,7 +143,7 @@ msgstr ""
 #: model:hr.contract.salary.benefit,fold_label:l10n_be_hr_contract_salary.l10n_be_transport_company_car
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_transport_company_car
 msgid "Company Car"
-msgstr ""
+msgstr "Firmenwagen"
 
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model,name:l10n_be_hr_contract_salary.model_res_config_settings
@@ -160,7 +161,7 @@ msgstr "Vertragstyp"
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model,name:l10n_be_hr_contract_salary.model_generate_simulation_link
 msgid "Create an Offer"
-msgstr ""
+msgstr "Ein Angebot erstellen"
 
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_job__l10n_be_custom_representation_fees
@@ -275,6 +276,9 @@ msgid ""
 "only the internet part of your operator subscription will be paid by the "
 "employer."
 msgstr ""
+"Geben Sie den Rechnungsbetrag für Ihr Internetabonnement ein. Wenn Sie ein "
+"Paket haben, wird nur der Internetanteil Ihres Betreiberabonnements vom "
+"Arbeitgeber bezahlt."
 
 #. module: l10n_be_hr_contract_salary
 #: model_terms:hr.contract.salary.benefit,description:l10n_be_hr_contract_salary.l10n_be_transport_public
@@ -283,6 +287,9 @@ msgid ""
 "The approximative amount reimbursed by the employer is calculated "
 "accordingly."
 msgstr ""
+"Geben Sie den monatlichen Betrag ein, den Sie für öffentliche Verkehrsmittel"
+" auf dem Weg zur Arbeit ausgeben. Der ungefähre Betrag, der vom Arbeitgeber "
+"erstattet wird, wird entsprechend berechnet."
 
 #. module: l10n_be_hr_contract_salary
 #: model_terms:hr.contract.salary.benefit,description:l10n_be_hr_contract_salary.l10n_be_transport_train
@@ -291,6 +298,9 @@ msgid ""
 "The approximative amount reimbursed by the employer is calculated "
 "accordingly."
 msgstr ""
+"Geben Sie den monatlichen Betrag ein, den Sie für die Bahnfahrt zur Arbeit "
+"ausgeben. Der ungefähre Betrag, der vom Arbeitgeber erstattet wird, wird "
+"entsprechend berechnet."
 
 #. module: l10n_be_hr_contract_salary
 #: model_terms:hr.contract.salary.benefit,description:l10n_be_hr_contract_salary.l10n_be_transport_private_car
@@ -392,6 +402,8 @@ msgid ""
 "If you check this field, you can select various advantages to set the threshold in the representation fees.\n"
 " Amount above the representation fee threshold is called \"Representation fees without serious standard\" and can be prorated according to the employee working rate"
 msgstr ""
+"Wenn Sie dieses Feld ankreuzen, können Sie verschiedene Vorteile auswählen, um den Schwellenwert für die Vertretungsgebühren festzulegen.\n"
+"Der Betrag, der über dem Schwellenwert für die Vertretungsgebühren liegt, wird als „Vertretungsgebühren ohne seriösen Standard“ bezeichnet und kann anteilig nach dem Arbeitssatz des Arbeitnehmers berechnet werden."
 
 #. module: l10n_be_hr_contract_salary
 #: model_terms:hr.contract.salary.benefit,description:l10n_be_hr_contract_salary.l10n_be_thirteen_month
@@ -442,7 +454,7 @@ msgstr "Geistiges Eigentum"
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_job__l10n_be_custom_representation_fees_internet
 msgid "Internet"
-msgstr ""
+msgstr "Internet"
 
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_contract__internet_invoice_filename
@@ -598,7 +610,7 @@ msgstr "Menschen"
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_job__l10n_be_custom_representation_fees_phone
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_mobile
@@ -842,6 +854,8 @@ msgid ""
 "You'll receive this amount around June. This amount will depend on the "
 "number of worked days during the previous year."
 msgstr ""
+"Diesen Betrag erhalten Sie etwa im Juni. Der Betrag hängt von der Anzahl der"
+" Arbeitstage im vergangenen Jahr ab."
 
 #. module: l10n_be_hr_contract_salary
 #: model_terms:hr.contract.salary.benefit,description:l10n_be_hr_contract_salary.l10n_be_eco_voucher
@@ -850,11 +864,15 @@ msgid ""
 "exact amount is based on real worked day during the period between the first"
 " of June of last year and the 31th of May of this year."
 msgstr ""
+"Sie erhalten diesen Betrag in Form von Öko-Gutscheinen etwa im Juni. Der "
+"genaue Betrag basiert auf den tatsächlich geleisteten Arbeitstagen im "
+"Zeitraum zwischen dem ersten Juni des letzten Jahres und dem 31. Mai dieses "
+"Jahres."
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,fold_label:l10n_be_hr_contract_salary.l10n_be_transport_new_car
 msgid "add me to the waiting list for a new car"
-msgstr ""
+msgstr "Setzen Sie mich auf die Warteliste für ein neues Auto"
 
 #. module: l10n_be_hr_contract_salary
 #. odoo-python

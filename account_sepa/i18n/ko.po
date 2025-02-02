@@ -386,6 +386,15 @@ msgstr "계정 %s (%s 협력사에서 확인)에 설정되어 있는 은행에 B
 #: code:addons/account_sepa/models/account_payment.py:0
 #, python-format
 msgid ""
+"The journal '%s' requires a bank account to pay via ISO 20022. Please "
+"configure it first."
+msgstr ""
+
+#. module: account_sepa
+#. odoo-python
+#: code:addons/account_sepa/models/account_payment.py:0
+#, python-format
+msgid ""
 "The journal '%s' requires a proper IBAN account to pay via SEPA. Please "
 "configure it first."
 msgstr "'%s' 전표는 SEPA를 이용해 적절한 IBAN 계정으로 지불해야 합니다. 먼저 구성하십시오."

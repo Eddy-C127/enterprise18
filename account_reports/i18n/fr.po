@@ -2424,6 +2424,8 @@ msgid ""
 "Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
 "This is not allowed."
 msgstr ""
+"La ligne '%(child)s' est configurée pour apparaître avant son parent "
+"'%(parent)s'. Ceci n'est pas autorisé."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3721,7 +3723,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
 #, python-format
 msgid "This line is out of sequence."
-msgstr ""
+msgstr "Cette ligne est hors séquence."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3731,6 +3733,8 @@ msgid ""
 "This line is placed before its parent, which is not allowed. You can fix it "
 "by dragging it to the proper position."
 msgstr ""
+"Cette ligne est placée avant son parent, ce qui n'est pas autorisé. Vous "
+"pouvez corriger cela en la faisant glisser à la position appropriée."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
@@ -3911,6 +3915,13 @@ msgstr ""
 #: model:account.report.line,name:account_reports.account_financial_unaffected_earnings0
 msgid "Unallocated Earnings"
 msgstr "Bénéfices non répartis"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Undefined"
+msgstr "Indéfini"
 
 #. module: account_reports
 #. odoo-javascript

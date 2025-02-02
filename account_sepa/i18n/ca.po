@@ -6,7 +6,7 @@
 # jabiri7, 2023
 # Óscar Fonseca <tecnico@pyming.com>, 2023
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2023
-# Quim - eccit <quim@eccit.com>, 2023
+# Quim - coopdevs <quim.rebull@coopdevs.org>, 2023
 # Martin Trigaux, 2023
 # Josep Anton Belchi, 2023
 # Ivan Espinola, 2023
@@ -401,6 +401,15 @@ msgid ""
 msgstr ""
 "El banc s'ha definit al compte %s (de soci%s) No té BIC. Si us plau primer "
 "establiu-ne un."
+
+#. module: account_sepa
+#. odoo-python
+#: code:addons/account_sepa/models/account_payment.py:0
+#, python-format
+msgid ""
+"The journal '%s' requires a bank account to pay via ISO 20022. Please "
+"configure it first."
+msgstr ""
 
 #. module: account_sepa
 #. odoo-python
