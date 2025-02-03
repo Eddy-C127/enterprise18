@@ -8,7 +8,7 @@ from odoo.addons.l10n_cz_reports_2025.models import l10n_cz_reports_utils as cz_
 class CzechTaxReportCustomHandler(models.AbstractModel):
     _inherit = 'l10n_cz.tax.report.handler'
 
-    def _export_to_xml(self, options):
+    def export_to_xml(self, options):
         report = self.env['account.report'].browse(options['report_id'])
         sender_company = report._get_sender_company_for_export(options)
         cz_utils.validate_czech_company_fields(sender_company)

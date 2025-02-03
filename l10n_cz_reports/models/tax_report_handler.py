@@ -1,4 +1,5 @@
 from odoo import models, _
+from odoo.exceptions import RedirectWarning
 
 
 class CzechTaxReportCustomHandler(models.AbstractModel):
@@ -22,15 +23,12 @@ class CzechTaxReportCustomHandler(models.AbstractModel):
             'file_export_type': _('XML'),
         })
 
-    def _export_to_xml(self, options):
-        """
-        This method is overridden in l10n_cz_reports_2025
-        with the actual exporting logic
-        """
-        raise NotImplementedError()
-
     def export_to_xml(self, options):
-        if module := self.env['ir.module.module'].sudo().search([('name', '=', 'l10n_cz_reports_2025'), ('state', '=', 'uninstalled')]):
-            module.button_immediate_install()
-
-        return self._export_to_xml(options)
+        raise RedirectWarning(
+            message=_('Please install the module "Czech Republic - Accounting Reports 2025" to have this functionality.'),
+            action=self.env['ir.module.module'].search(
+                domain=[('name', '=', 'l10n_cz_reports_2025'), ('state', '=', 'uninstalled')],
+                limit=1,
+            )._get_records_action(),
+            button_text=_('Install "Czech Republic - Accounting Reports 2025"'),
+        )
