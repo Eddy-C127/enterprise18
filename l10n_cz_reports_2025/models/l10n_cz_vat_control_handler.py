@@ -254,19 +254,13 @@ class CzechVATControlReportCustomHandler(models.AbstractModel):
         if not current_groupby:
             return build_result_dict(query_res_lines)
         else:
-            if current_groupby == 'l10n_cz_supplies_code':
-                supplies_code_values = dict(self.env['account.move.line'].fields_get()['l10n_cz_supplies_code']['selection'])
             result = []
-
             all_res_per_grouping_key = {}
             for query_res in query_res_lines:
                 grouping_key = query_res['grouping_key']
                 all_res_per_grouping_key.setdefault(grouping_key, []).append(query_res)
 
             for grouping_key, query_res_lines in all_res_per_grouping_key.items():
-                # Adds more meaning to report UI by not repeating the code number already shown in column "Code of subject of supply"
-                if current_groupby == 'l10n_cz_supplies_code':
-                    grouping_key = supplies_code_values.get(grouping_key)
                 result.append((grouping_key, build_result_dict(query_res_lines)))
 
             return result
