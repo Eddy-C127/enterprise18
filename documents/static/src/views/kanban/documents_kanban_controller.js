@@ -58,4 +58,14 @@ export class DocumentsKanbanController extends DocumentsControllerMixin(KanbanCo
     isRecordPreviewable(record) {
         return record.isViewable();
     }
+
+    /**
+     * Borrowed from ListController for ListView.Selection.
+     */
+    onUnselectAll() {
+        this.model.root.selection.forEach((record) => {
+            record.toggleSelection(false);
+        });
+        this.model.root.selectDomain(false);
+    }
 }

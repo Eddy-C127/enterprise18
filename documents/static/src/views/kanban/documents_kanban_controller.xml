@@ -11,6 +11,14 @@
 
             <!-- Remove the search bar and let the control panel handle it -->
             <t t-set-slot="layout-actions"/>
+            <!-- Insert a simple Selection controller -->
+            <t t-set-slot="control-panel-selection-actions">
+                <t t-call="web.ListView.Selection" t-if="model.root.selection.length">
+                    <t t-set="isDomainSelected" t-value="false"/>
+                    <t t-set="isPageSelected" t-value="false"/>
+                    <t t-set="nbSelected" t-value="model.root.selection.length"/>
+                </t>
+            </t>
         </xpath>
         <xpath expr="//t[@t-component='searchBarToggler.component']" position="attributes">
             <attribute name="t-if">!model.root.selection.length</attribute>

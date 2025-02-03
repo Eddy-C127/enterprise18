@@ -17,12 +17,6 @@
 
             <SearchBar t-if="!selectionCount" toggler="env.searchBarToggler" autofocus="firstLoad"/>
 
-            <t t-call="web.ListView.Selection" t-if="this.env.model.root.selection.length">
-                <t t-set="isDomainSelected" t-value="false"/>
-                <t t-set="isPageSelected" t-value="false"/>
-                <t t-set="model" t-value="this.env.model"/>
-                <t t-set="nbSelected" t-value="this.env.model.root.selection.length"/>
-            </t>
             <div class="btn-group flex-wrap">
                 <div t-if="selectionCount" class="ms-1 o_documents_action_dropdown btn-group">
                     <div class="dropdown" t-att-class="{'btn-group': singleSelection || targetRecords.some((r) => r.data.attachment_id and r.data?.handler !== 'spreadsheet')}">

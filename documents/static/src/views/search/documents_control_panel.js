@@ -354,6 +354,7 @@ export class DocumentsControlPanel extends ControlPanel {
 
     /**
      * Unselect the records in the kanban / list view.
+     * todo: remove in master
      */
     onUnselectAll() {
         this.env.model.root.selection.forEach((record) => {
