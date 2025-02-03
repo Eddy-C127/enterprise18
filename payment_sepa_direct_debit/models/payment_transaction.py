@@ -1,7 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import logging
-
 from odoo import _, fields, models
 from odoo.exceptions import UserError, ValidationError
 
@@ -111,6 +109,15 @@ class PaymentTransaction(models.Model):
             tx.token_id = tx.provider_id._sdd_create_token_for_mandate(tx.partner_id, tx.mandate_id)
             tx.mandate_id._confirm()
         return confirmed_txs
+
+    def _get_communication(self):
+        """ Override of `payment_custom` to ensure the transaction reference is used as payment
+        communication when requesting a SDD mandate.
+        """
+        if self.provider_id.custom_mode != 'sepa_direct_debit':
+            return super()._get_communication()
+        else:
+            return self.reference
 
     def _create_payment(self, **extra_create_values):
         """ Override of `payment` to pass the correct payment method line id and the SDD mandate id
