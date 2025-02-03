@@ -135,6 +135,15 @@ class PaymentTransaction(models.Model):
         template = self.env.ref('payment_sepa_direct_debit.mail_template_sepa_notify_debit')
         template.with_context(ctx).send_mail(self.id)
 
+    def _get_communication(self):
+        """ Override of `payment_custom` to ensure the transaction reference is used as payment
+        communication when requesting a SDD mandate.
+        """
+        if self.provider_id.custom_mode != 'sepa_direct_debit':
+            return super()._get_communication()
+        else:
+            return self.reference
+
     def _create_payment(self, **extra_create_values):
         """ Override of `payment` to pass the correct payment method line id and the SDD mandate id
         to the extra create values.
