@@ -53,6 +53,16 @@ class ResCompany(models.Model):
 
     @api.model
     def get_timesheet_ranking_data(self, period_start, period_end, today, fetch_tip=False):
+        if not (
+            self.env.user.has_group("sale_timesheet_enterprise.group_timesheet_leaderboard_show_rates")
+            and self.env.user.has_group("hr_timesheet.group_hr_timesheet_user")
+        ):
+            return {
+                "leaderboard": [],
+                "employee_id": False,
+                "billing_rate_target": 0,
+                "total_time_target": 0,
+            }
         period_start, period_end, today = (fields.Date.from_string(d) for d in [period_start, period_end, today])
 
         data = {
