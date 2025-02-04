@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="account.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <setting id="taxcloud_settings" position="after">
-                <setting id="avatax_settings" string="AvaTax Brazil"
+                <setting id="l10n_br_avatax_settings_parent" string="AvaTax Brazil"
                          help="Automatically compute tax rates"
                          invisible="country_code != 'BR'"
                          documentation="/applications/finance/fiscal_localizations/brazil.html#configure-avatax-integration"
