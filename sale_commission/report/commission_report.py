@@ -16,7 +16,7 @@ class SaleCommissionReport(models.Model):
     user_id = fields.Many2one('res.users', "Sales Person", readonly=True)
     team_id = fields.Many2one('crm.team', "Sales Team", readonly=True)
     achieved = fields.Monetary("Achieved", readonly=True, currency_field='currency_id')
-    achieved_rate = fields.Float("Achieved Rate", readonly=True)
+    achieved_rate = fields.Float("Achieved Rate", readonly=True, aggregator=None)
     commission = fields.Monetary("Commission", readonly=True, currency_field='currency_id')
     currency_id = fields.Many2one('res.currency', "Currency", readonly=True)
     company_id = fields.Many2one('res.company', string='Company', readonly=True)

@@ -388,3 +388,34 @@ class TestSaleCommissionUser(TestSaleCommissionCommon):
             })],
         })
         self.assertEqual(commission_2023_normal.user_ids.other_plans, commission_2023_overflow)
+    
+    def test_achieved_rate_not_shown_in_group_by_header(self):
+        self.commission_plan_user.write({
+            'periodicity': 'month',
+            'type': 'achieve',
+            'user_type': 'person',
+        })
+        self.commission_plan_user.action_approve()
+        self.commission_plan_user.achievement_ids = self.env['sale.commission.plan.achievement'].create([{
+            'type': 'amount_sold',
+            'rate': 0.04,
+            'plan_id': self.commission_plan_user.id,
+        }])
+
+        SO = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'user_id': self.commission_user_1.id,
+            'order_line': [Command.create({
+                'product_id': self.commission_product_1.id,
+                'product_uom_qty': 5,
+                'price_unit': 100,
+            })],
+        })
+        SO.action_confirm()
+        achievements = self.env['sale.commission.report'].read_group(
+            [('plan_id', '=', self.commission_plan_user.id)],
+            ['achieved_rate'],
+            ['date_to:month']
+        )
+        for achievement in achievements:
+            self.assertNotIn('achieved_rate', achievement, "Achieved rate should not be displayed while using a group by clause")
