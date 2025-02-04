@@ -43,7 +43,8 @@ class TestMonsterIntegration(TransactionCase):
 
         cls.job2 = cls.env['hr.job'].create({
             'name': 'Test job 2',
-            'address_id': cls.partner.id
+            'address_id': cls.partner.id,
+            'schedule_id': cls.env.ref('resource.resource_calendar_std').id
         })
 
         cls.monster_platform = cls.env['hr.recruitment.platform'].search([
@@ -112,6 +113,14 @@ class TestMonsterIntegration(TransactionCase):
         self.assertEqual(job_post.campaign_start_date, self.today)
         self.assertEqual(job_post.post_html, Markup(f'<p>{self.post_content}</p>'))
         self.assertEqual(job_post.apply_vector, 'example@test.com')
+        self.assertEqual(job_post.status, 'success')
+
+    def test_create_post_with_job_having_schedule_id(self):
+        job_post = self.create_publish_job_post(self.job2.id, self.today)
+        if not job_post:
+            self.fail("Should have created a job post.")
+        self.assertEqual(job_post.job_id.id, self.job2.id)
+        self.assertTrue(job_post.job_id.schedule_id)
         self.assertEqual(job_post.status, 'success')
 
     def test_delete_post(self):
@@ -447,3 +456,7 @@ class TestMockupMonsterIntegration(TestMonsterIntegration):
     def test_stop_finished_campaign(self):
         with self.patch_monster_requests():
             super().test_stop_finished_campaign()
+
+    def test_create_post_with_job_having_schedule_id(self):
+        with self.patch_monster_requests():
+            super().test_create_post_with_job_having_schedule_id()
