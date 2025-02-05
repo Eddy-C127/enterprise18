@@ -359,9 +359,12 @@ class Document(models.Model):
 
     @api.returns('mail.message', lambda value: value.id)
     def message_post(self, *, message_type='notification', **kwargs):
-        if message_type == 'email' and self.create_share_id:
-            self = self.with_context(no_document=True)
-        return super(Document, self).message_post(message_type=message_type, **kwargs)
+        """ Prevent document creation when posting message with attachment on a document (_create_attachments_for_post).
+
+         If new document must be created (ex.: alias on document folder), it will be handled by the
+         _message_post_after_hook based on the environment variable "from_alias" (ignoring no_document).
+        """
+        return super(Document, self.with_context(no_document=True)).message_post(message_type=message_type, **kwargs)
 
     def _message_post_after_hook(self, message, msg_vals):
         """
@@ -371,7 +374,7 @@ class Document(models.Model):
         """
         m2m_commands = msg_vals['attachment_ids']
         share = self.create_share_id
-        if share and not self.env.context.get("no_document") or message.message_type == 'email':
+        if share and (not self.env.context.get("no_document") or self.env.context.get('from_alias')):
             attachments = self.env['ir.attachment'].browse([x[1] for x in m2m_commands])
             documents = self.env['documents.document'].create([{
                 'name': attachment.name,
