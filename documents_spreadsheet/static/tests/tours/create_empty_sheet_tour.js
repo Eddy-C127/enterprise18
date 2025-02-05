@@ -59,8 +59,13 @@ registry.category("web_tour.tours").add("spreadsheet_create_empty_sheet", {
         },
         {
             trigger: ".o-sp-breadcrumb",
+            content: "Go back to Document App",
+            run: 'click',
+        },
+        {
+            trigger: '.o_action_manager:not(:has(.o_spreadsheet_action))',
             content: "Wait for the spreadsheet to be properly unloaded",
-            run: "click",
+            run() {},
         },
     ],
 });
@@ -116,8 +121,13 @@ registry.category("web_tour.tours").add("spreadsheet_create_list_view", {
         },
         {
             trigger: ".o-sp-breadcrumb",
-            content: "Wait for the spreadsheet to be properly unloaded",
+            content: "Go back to Document App",
             run: "click",
+        },
+        {
+            trigger: '.o_action_manager:not(:has(.o_spreadsheet_action))',
+            content: "Wait for the spreadsheet to be properly unloaded",
+            run() {},
         },
     ],
 });
