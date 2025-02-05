@@ -667,22 +667,28 @@ class TestCaseDocuments(TransactionCase):
 
     def test_tags_move_document(self):
         """
-        Tests if tags are removed when moving a document to another folder
+        Tests if tags are removed when obsolete after moving a document to another folder
         1. Move a document to another folder (simple change of folder)
         2. Move a document to another folder with tags (like a workflow rule)
         """
-        document_txt = self.env['documents.document'].create({
+        document_txt_1, document_txt_2, document_txt_3 = self.env['documents.document'].create([{
             'datas': TEXT,
-            'name': 'file.txt',
+            'name': f'file{idx}.txt',
             'mimetype': 'text/plain',
             'folder_id': self.folder_a.id,
             'tag_ids': [Command.set(self.tag_a.ids)]
-        })
-        document_txt.write({'folder_id': self.folder_b.id})
-        self.assertFalse(document_txt.tag_ids)
+        } for idx in range(3)])
+        document_txt_1.write({'folder_id': self.folder_b.id})
+        self.assertFalse(document_txt_1.tag_ids)
 
-        document_txt.write({'folder_id': self.folder_a.id, 'tag_ids': [Command.link(self.tag_a.id)]})
-        self.assertEqual(document_txt.tag_ids, self.tag_a)
+        document_txt_1.write({'folder_id': self.folder_a.id, 'tag_ids': [Command.link(self.tag_a.id)]})
+        self.assertEqual(document_txt_1.tag_ids, self.tag_a)
 
-        document_txt.write({'folder_id': self.folder_b.id, 'tag_ids': [Command.link(self.tag_b.id)]})
-        self.assertEqual(document_txt.tag_ids, self.tag_b)
+        document_txt_1.write({'folder_id': self.folder_b.id, 'tag_ids': [Command.link(self.tag_b.id)]})
+        self.assertEqual(document_txt_1.tag_ids, self.tag_b)
+
+        document_txt_2.write({'folder_id': self.folder_a_a.id})
+        self.assertEqual(document_txt_2.tag_ids, self.tag_a)
+
+        document_txt_3.write({'folder_id': self.folder_a_a.id, 'tag_ids': [Command.link(self.tag_a_a.id)]})
+        self.assertEqual(document_txt_3.tag_ids, self.tag_a + self.tag_a_a)

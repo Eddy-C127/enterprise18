@@ -607,8 +607,9 @@ class Document(models.Model):
         write_result = super(Document, self).write(vals)
 
         if 'folder_id' in vals:
+            facets_sudo = self.env['documents.facet'].sudo().search([('folder_id', 'parent_of', self.folder_id.id)])
             for doc in self:
-                doc.tag_ids = doc.tag_ids.filtered(lambda t: t.facet_id in doc.folder_id.facet_ids)
+                doc.tag_ids = doc.tag_ids.filtered(lambda t: t.facet_id in facets_sudo)
 
         if attachment_dict:
             self.mapped('attachment_id').write(attachment_dict)
