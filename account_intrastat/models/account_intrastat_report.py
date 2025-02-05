@@ -209,6 +209,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         # Build query
         select_from_groupby = SQL() if not current_groupby or current_groupby == 'intrastat_grouping' else SQL.identifier('account_move_line', current_groupby)
         query = report._get_report_query(options, 'strict_range')
+        tail_query = report._get_engine_query_tail(offset, limit)
 
         import_merchandise_code = _merchandise_import_code.get(self.env.company.country_id.code, '29')
         export_merchandise_code = _merchandise_export_code.get(self.env.company.country_id.code, '19')
@@ -298,7 +299,8 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 AND ref_weight_uom.active
                 %(vat_condition)s
             GROUP BY %(groupby)s, grouping_key
-            ORDER BY grouping_key
+            ORDER BY %(order_by_clause)s
+            %(tail_query)s
         """,
                     import_merchandise_code=import_merchandise_code,
                     export_merchandise_code=export_merchandise_code,
@@ -326,7 +328,9 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                         ARRAY_AGG(prod.id) FILTER (WHERE COALESCE(prod.weight, 0) = 0 AND code.supplementary_unit IS NULL AND prod.id IS NOT NULL) AS warning_missing_weight,
                     """) if warnings is not None else SQL(''),
                     exporting_data=self._get_exporting_query_data() if options.get('export_mode') == 'file' else SQL(),
-                    groupby=SQL(', ').join(SQL(key) for key in grouping_keys) if options['export_mode'] != 'file' and current_groupby == 'intrastat_grouping' else self._get_export_groupby_clause()
+                    groupby=SQL(', ').join(SQL(key) for key in grouping_keys) if options['export_mode'] != 'file' and current_groupby == 'intrastat_grouping' else self._get_export_groupby_clause(),
+                    order_by_clause=SQL('grouping_key') if current_groupby != 'id' else SQL('account_move_line.date desc, account_move_line.move_name desc, account_move_line.id'),
+                    tail_query=tail_query,
                     )
 
         self._cr.execute(query)
@@ -445,7 +449,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
     def _get_export_groupby_clause(self):
         return SQL("""country.id, transaction.id, company_region.id, code.id, inv_incoterm.id, comp_incoterm.id,
              inv_transport.id, comp_transport.id, product_country.id, account_move_line.id, account_move.id,
-             inv_line_uom.factor, prod_uom.id, ref_weight_uom.rounding, partner.id, prod.id, prodt.id""")
+             inv_line_uom.factor, prod_uom.id, ref_weight_uom.rounding, partner.id, prod.id, prodt.id, account_move_line.date, account_move_line.move_name""")
 
     ####################################################
     # ACTIONS
