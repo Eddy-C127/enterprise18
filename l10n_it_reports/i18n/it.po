@@ -4,13 +4,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~16.3+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-25 08:07+0000\n"
-"PO-Revision-Date: 2024-04-25 08:07+0000\n"
+"POT-Creation-Date: 2025-03-26 17:30+0000\n"
+"PO-Revision-Date: 2025-03-26 17:30+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -24,7 +23,7 @@ msgstr "1. Depositi bancari e postali"
 #. module: l10n_it_reports
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_sp_PASS_D_1
 msgid "1. Bonds"
-msgstr "1. Bonds"
+msgstr "1. Obbligazioni"
 
 #. module: l10n_it_reports
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_sp_ATT_C_III_1
@@ -386,7 +385,8 @@ msgstr "6. Lavori in corso e acconti"
 #. module: l10n_it_reports
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_ce_B_6
 msgid "6. For raw materials, supplies, consumables and goods"
-msgstr "6. Per le materie prime, le forniture, i materiali di consumo e i beni"
+msgstr ""
+"6. Per le materie prime, le forniture, i materiali di consumo e i beni"
 
 #. module: l10n_it_reports
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_sp_ATT_C_III_6
@@ -429,6 +429,11 @@ msgid "9. For the staff"
 msgstr "9. Per il personale"
 
 #. module: l10n_it_reports
+#: model_terms:ir.ui.view,arch_db:l10n_it_reports.modify_libro_giornale_pdf
+msgid "<strong>Generated on:</strong>"
+msgstr "<strong>Generato su:</strong>"
+
+#. module: l10n_it_reports
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_sp_PASS_A
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_sp_reduce_PASS_A
 msgid "A. EQUITY"
@@ -451,6 +456,18 @@ msgid "ACTIVE"
 msgstr "ATTIVO"
 
 #. module: l10n_it_reports
+#. odoo-python
+#: code:addons/l10n_it_reports/models/italy_libro_giornale_report.py:0
+msgid "Account Code"
+msgstr "Codice conto"
+
+#. module: l10n_it_reports
+#. odoo-python
+#: code:addons/l10n_it_reports/models/italy_libro_giornale_report.py:0
+msgid "Account Name"
+msgstr "Nome del conto"
+
+#. module: l10n_it_reports
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_sp_ATT_B
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_sp_reduce_ATT_B
 msgid "B. FIXED ASSETS"
@@ -471,6 +488,7 @@ msgstr "B. FONDI PER RISCHI E ONERI"
 #: model:account.report.column,name:l10n_it_reports.account_financial_report_it_ce_column
 #: model:account.report.column,name:l10n_it_reports.account_financial_report_it_sp_column
 #: model:account.report.column,name:l10n_it_reports.account_financial_report_it_sp_reduce_column
+#: model:account.report.column,name:l10n_it_reports.libro_giornale_report_balance
 msgid "Balance"
 msgstr "Saldo"
 
@@ -502,10 +520,27 @@ msgid "C. SEVERANCE PAY"
 msgstr "C. PAGAMENTO DELLA SEVERANZA"
 
 #. module: l10n_it_reports
+#: model:account.report.column,name:l10n_it_reports.libro_giornale_report_code
+msgid "Code"
+msgstr "Codice"
+
+#. module: l10n_it_reports
+#: model_terms:ir.ui.view,arch_db:l10n_it_reports.modify_libro_giornale_pdf
+msgid "Tax Code"
+msgstr "Codice fiscale"
+
+#. module: l10n_it_reports
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_sp_CONTI_ORDINE_IMPEGNI
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_sp_reduce_CONTI_ORDINE_IMPEGNI
 msgid "Commitments"
 msgstr "Impegni"
+
+#. module: l10n_it_reports
+#. odoo-python
+#: code:addons/l10n_it_reports/models/italy_libro_giornale_report.py:0
+#: model:account.report.column,name:l10n_it_reports.libro_giornale_report_credit
+msgid "Credit"
+msgstr "Credito"
 
 #. module: l10n_it_reports
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_sp_ATT_D
@@ -527,6 +562,25 @@ msgstr "D. RETTIFICHE DI VALORE DI ATTIVITÀ E PASSIVITÀ FINANZIARIE"
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_ce_A_B_DIFFERENCE
 msgid "DIFFERENCE BETWEEN VALUE AND COST OF PRODUCTION (A - B)"
 msgstr "DIFFERENZA TRA VALORE E COSTO DI PRODUZIONE (A - B)"
+
+#. module: l10n_it_reports
+#. odoo-python
+#: code:addons/l10n_it_reports/models/italy_libro_giornale_report.py:0
+msgid "Date"
+msgstr "Data"
+
+#. module: l10n_it_reports
+#. odoo-python
+#: code:addons/l10n_it_reports/models/italy_libro_giornale_report.py:0
+#: model:account.report.column,name:l10n_it_reports.libro_giornale_report_debit
+msgid "Debit"
+msgstr "Debito"
+
+#. module: l10n_it_reports
+#. odoo-python
+#: code:addons/l10n_it_reports/models/italy_libro_giornale_report.py:0
+msgid "Document"
+msgstr "Documento"
 
 #. module: l10n_it_reports
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_sp_PASS_E
@@ -604,6 +658,41 @@ msgstr "IV. Riserva legale"
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_sp_reduce_PASS_A_IX
 msgid "IX. Profit (loss) for the year"
 msgstr "IX. Utile (perdita) dell'esercizio"
+
+#. module: l10n_it_reports
+#: model:account.report,name:l10n_it_reports.account_financial_report_libro_giornale
+msgid "Libro Giornale"
+msgstr ""
+
+#. module: l10n_it_reports
+#. odoo-python
+#: code:addons/l10n_it_reports/models/italy_libro_giornale_report.py:0
+msgid "Libro Giornale PDF"
+msgstr ""
+
+#. module: l10n_it_reports
+#: model:ir.model,name:l10n_it_reports.model_l10n_it_libro_giornale_report_handler
+msgid "Libro Giornale Report Handler"
+msgstr ""
+
+#. module: l10n_it_reports
+#. odoo-python
+#: code:addons/l10n_it_reports/models/italy_libro_giornale_report.py:0
+msgid "Libro Giornale XLSX"
+msgstr ""
+
+#. module: l10n_it_reports
+#. odoo-python
+#: code:addons/l10n_it_reports/models/italy_libro_giornale_report.py:0
+msgid "Line"
+msgstr "Linea"
+
+#. module: l10n_it_reports
+#. odoo-python
+#: code:addons/l10n_it_reports/models/italy_libro_giornale_report.py:0
+#: model:account.report.line,name:l10n_it_reports.libro_giornale_report_line
+msgid "Name"
+msgstr "Nome"
 
 #. module: l10n_it_reports
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_sp_CONTI_ORDINE
@@ -696,6 +785,12 @@ msgstr "Beni di terzi"
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_ce_C_17_3
 msgid "To enterprises under the control of parent companies"
 msgstr "Alle imprese sotto il controllo delle società madri"
+
+#. module: l10n_it_reports
+#. odoo-python
+#: code:addons/l10n_it_reports/models/italy_libro_giornale_report.py:0
+msgid "Total"
+msgstr "Totale"
 
 #. module: l10n_it_reports
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_sp_PASS_A_V
@@ -843,7 +938,8 @@ msgstr ""
 #. module: l10n_it_reports
 #: model:account.report.line,name:l10n_it_reports.account_financial_report_line_it_ce_C_16_c
 msgid ""
-"c. From securities included in current assets that are not equity investments"
+"c. From securities included in current assets that are not equity "
+"investments"
 msgstr ""
 "c. Da titoli inclusi nell'attivo circolante che non sono partecipazioni"
 
