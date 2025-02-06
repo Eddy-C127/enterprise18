@@ -1128,7 +1128,7 @@ class BankRecWidget(models.Model):
     def _line_value_changed_analytic_distribution(self, line):
         self.ensure_one()
         self._lines_turn_auto_balance_into_manual_line(line)
-
+        self.st_line_id.line_ids.analytic_distribution = line.analytic_distribution
         # Recompute taxes.
         if line.flag not in ('tax_line', 'early_payment') and any(x.analytic for x in line.tax_ids):
             self._lines_recompute_taxes()

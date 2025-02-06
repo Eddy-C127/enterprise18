@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo.addons.account_accountant.tests.test_bank_rec_widget_common import TestBankRecWidgetCommon
 from odoo.tests import tagged, HttpCase
-
+from odoo import Command
 
 @tagged('post_install', '-at_install')
 class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
@@ -76,3 +76,21 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
 
     def test_tour_bank_rec_journal_items_export(self):
         self.start_tour('/web?debug=assets', 'account_accountant_journal_items_export', login=self.env.user.login)
+
+    def test_analytic_distribution_saved(self):
+        """
+        Test that the analytic distribution is saved when it is changed on the account.move.line in the banc rec
+        """
+        analytic_plan = self.env['account.analytic.plan'].create({
+            'name': 'Default',
+            'sequence': 1, # Used to simplify analytic distribution selector during the tour
+        })
+        analytic_account = self.env['account.analytic.account'].create({
+            'name': 'analytic_account',
+            'plan_id': analytic_plan.id,
+            'company_id': False,
+        })
+        self.env.user.write({'groups_id': [Command.link(self.env.ref('analytic.group_analytic_accounting').id)]})
+        self.start_tour('/web', 'account_accountant_bank_rec_widget_save_analytic_distribution', login=self.env.user.login)
+        line1 = self.env['account.move.line'].search([('name', '=', 'line1')], limit=1)
+        self.assertEqual(line1.analytic_distribution, {str(analytic_account.id): 100})
