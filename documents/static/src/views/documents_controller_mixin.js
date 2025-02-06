@@ -20,6 +20,7 @@ export const DocumentsControllerMixin = (component) =>
                 alias_name: modelParams.config.activeFields.alias_name ||  { ...modelParams.config.activeFields.name }, // char
                 alias_tag_ids: modelParams.config.activeFields.alias_tag_ids ||  { ...modelParams.config.activeFields.tag_ids }, // m2m
                 file_size: modelParams.config.activeFields.file_size || { ...modelParams.config.activeFields.id }, // readonly int
+                is_pinned_folder: modelParams.config.activeFields.is_pinned_folder || { ...modelParams.config.activeFields.is_access_via_link_hidden }, // boolean
                 res_name: modelParams.config.activeFields.res_name || { ...modelParams.config.activeFields.name, readonly: true }, // char
             });
             modelParams.multiEdit = true;
