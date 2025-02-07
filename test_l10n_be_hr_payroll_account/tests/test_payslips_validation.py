@@ -10010,13 +10010,13 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         payslip = self._generate_payslip(datetime.date(2019, 1, 1), datetime.date(2019, 1, 31), struct_id=self.env.ref('l10n_be_hr_payroll.hr_payroll_structure_cp200_pfi').id)
         payslip_results = {
             'BASIC': 1653.11,
-            'ATN.CAR': 149.29,
+            'ATN.CAR': 158.24,
             'SALARY': 1653.11,
-            'GROSS': 1802.4,
-            'P.P': -360.48,  # 20% of BASIC + ATN.CAR
-            'ATN.CAR.2': -149.29,
+            'GROSS': 1811.35,
+            'P.P': -362.27,
+            'ATN.CAR.2': -158.24,
             'MEAL_V_EMP': -23.98,
-            'NET': 1268.65,
+            'NET': 1266.86,
         }
         self._validate_payslip(payslip, payslip_results)
 
