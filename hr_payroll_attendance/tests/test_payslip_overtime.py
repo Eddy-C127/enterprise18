@@ -33,6 +33,31 @@ class TestPayslipOvertime(HrWorkEntryAttendanceCommon):
         cls.company = cls.payslip.company_id
         cls.company.hr_attendance_overtime = True
         cls.company.overtime_start_date = date(2022, 1, 1)
+        
+    def test_overtime_outside_period(self):
+        # Right before the payslip period
+        self.env['hr.attendance.overtime'].create({
+            'employee_id': self.employee.id,
+            'date': date(2021, 12, 31),
+            'duration': 5,
+        })
+        # Right after the payslip period
+        self.env['hr.attendance.overtime'].create({
+            'employee_id': self.employee.id,
+            'date': date(2022, 2, 1),
+            'duration': 5,
+        })
+        # Since contract resource_calendar_id's default to the company's,
+        # we can just change the company's resource_calendar_id's timezone.
+        self.env.company.resource_calendar_id.tz = "Asia/Manila"
+        self.payslip._compute_worked_days_line_ids()
+        self.assertFalse(self.payslip.worked_days_line_ids.filtered(lambda w: w.code == 'OVERTIME'))
+        self.env.company.resource_calendar_id.tz = "Indian/Maldives"
+        self.payslip._compute_worked_days_line_ids()
+        self.assertFalse(self.payslip.worked_days_line_ids.filtered(lambda w: w.code == 'OVERTIME'))
+        self.env.company.resource_calendar_id.tz = "Europe/Brussels"
+        self.payslip._compute_worked_days_line_ids()
+        self.assertFalse(self.payslip.worked_days_line_ids.filtered(lambda w: w.code == 'OVERTIME'))
 
     def test_with_overtime(self):
         self.env['hr.attendance'].create({

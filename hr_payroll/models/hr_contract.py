@@ -312,18 +312,17 @@ class HrContract(models.Model):
 
         contracts_by_company_tz = defaultdict(lambda: self.env['hr.contract'])
         for contract in self:
+            # Need to use the tuple (company_id, tz) as the key to avoid issues with different
+            # contract timezones for the same company.
             contracts_by_company_tz[(
                 contract.company_id,
                 (contract.resource_calendar_id or contract.employee_id.resource_calendar_id).tz
             )] += contract
-        utc = pytz.timezone('UTC')
 
-        for (company, contract_tz), contracts in contracts_by_company_tz.items():
-            tz = pytz.timezone(contract_tz) if contract_tz else pytz.utc
-            date_from_tz = tz.localize(date_from).astimezone(utc).replace(tzinfo=None)
-            date_to_tz = tz.localize(date_to).astimezone(utc).replace(tzinfo=None)
-            work_data_tz = contracts.with_company(company).sudo()._get_work_hours(
-                date_from_tz, date_to_tz, domain=domain)
+        # We don't need the timezone immediately here, but we need the uniqueness 
+        # of the key so that we can guarantee one timezone per set of contracts.
+        for (company, _), contracts in contracts_by_company_tz.items():
+            work_data_tz = contracts.with_company(company).sudo()._get_work_hours(date_from, date_to, domain=domain)
             for work_entry_type_id, hours in work_data_tz.items():
                 work_data[work_entry_type_id] += hours
         return work_data
@@ -339,10 +338,16 @@ class HrContract(models.Model):
         """
         assert isinstance(date_from, datetime)
         assert isinstance(date_to, datetime)
+        
+        contract_tz_name = (self.resource_calendar_id or self.employee_id.resource_calendar_id).tz
+        tz = pytz.timezone(contract_tz_name) if contract_tz_name else pytz.utc
+        utc = pytz.timezone('UTC')
+        date_from_tz = tz.localize(date_from).astimezone(utc).replace(tzinfo=None)
+        date_to_tz = tz.localize(date_to).astimezone(utc).replace(tzinfo=None)
 
         # First, found work entry that didn't exceed interval.
         work_entries = self.env['hr.work.entry']._read_group(
-            self._get_work_hours_domain(date_from, date_to, domain=domain, inside=True),
+            self._get_work_hours_domain(date_from_tz, date_to_tz, domain=domain, inside=True),
             ['work_entry_type_id'],
             ['duration:sum']
         )
@@ -351,7 +356,7 @@ class HrContract(models.Model):
         self._preprocess_work_hours_data(work_data, date_from, date_to)
 
         # Second, find work entry that exceeds interval and compute right duration.
-        work_entries = self.env['hr.work.entry'].search(self._get_work_hours_domain(date_from, date_to, domain=domain, inside=False))
+        work_entries = self.env['hr.work.entry'].search(self._get_work_hours_domain(date_from_tz, date_to_tz, domain=domain, inside=False))
 
         for work_entry in work_entries:
             date_start = max(date_from, work_entry.date_start)
