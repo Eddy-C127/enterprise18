@@ -175,8 +175,10 @@ class TestConsumeTrackedComponent(TestConsumeComponentCommon):
         bom.product_id = self.produced_serial
         components = self.bom_serial.bom_line_ids.mapped('product_id')
         components.tracking = 'none'
-        components[0].type = 'consu'
-        self.env['stock.quant']._update_available_quantity(components[1], self.env.ref('stock.warehouse0').lot_stock_id, 10)
+        components[0].tracking = 'serial'
+        # put some comp in stock (even without SN)
+        self.env['stock.quant']._update_available_quantity(components[0], self.env.ref('stock.warehouse0').lot_stock_id, quantity=10)
+        self.env['stock.quant']._update_available_quantity(components[1], self.env.ref('stock.warehouse0').lot_stock_id, quantity=10)
         mo = self.env['mrp.production'].create({
             'product_id': bom.product_id.id,
             'product_qty': 3,
@@ -193,10 +195,12 @@ class TestConsumeTrackedComponent(TestConsumeComponentCommon):
         mo.action_generate_serial()
         self.assertTrue(mo.lot_producing_id)
         self.assertRecordValues(mo, [{'qty_producing': 1.0, 'product_uom_qty': 3.0}])
+        self.assertTrue(mo.picking_type_id.use_auto_consume_components_lots)
+        # component 1 should be reserved as: not consumed in an operation nor consumed component QC and use_auto_consume_component_lots is true
+        # component 3 should not be reserved as it is consumed in an operation and belongs to a consumed component QC
         self.assertRecordValues(mo.move_raw_ids, [
                 {'should_consume_qty': 3.0, 'quantity': 3.0, 'picked': True},
                 {'should_consume_qty': 2.0, 'quantity': 2.0, 'picked': True},
-                {'should_consume_qty': 1.0, 'quantity': 1.0, 'picked': False},
+                {'should_consume_qty': 1.0, 'quantity': 0.0, 'picked': False},
             ]
         )
-        self.assertRecordValues(components[2].stock_quant_ids, [{'quantity': 0.0, 'reserved_quantity': 1.0}])

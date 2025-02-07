@@ -174,10 +174,8 @@ registry.category("web_tour.tours").add("test_shop_floor_my_wo_filter_with_pin_u
             extra_trigger: ".o_admin_user:contains(John Snow)",
             trigger: ".o_mrp_display_record:last-child .card-title",
         },
-
         {
             content: 'Display "My WO" workorders',
-            extra_trigger: ".o_mrp_display_record:contains('TEST/00002').o_active",
             trigger: ".o_control_panel_actions button:contains(My WO)",
         },
         // Check the right WO is displayed.
