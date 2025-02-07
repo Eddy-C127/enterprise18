@@ -15,6 +15,11 @@ When sharing documents/folder, the domain of the shared URL can be chosen by sel
     'data': [
         'views/documents_document_views.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'website_documents/static/src/views/**/*',
+        ],
+    },
     'auto_install': True,
     'license': 'OEEL-1',
 }
