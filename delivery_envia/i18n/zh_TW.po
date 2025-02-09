@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2025
+# Tony Ng, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-23 16:38+0000\n"
 "PO-Revision-Date: 2025-02-02 01:20+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Tony Ng, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,19 +24,19 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "%(field_name)s must be set on Partner: %(partner_name)s."
-msgstr ""
+msgstr "%(field_name)s 必須在合作夥伴上設定：%(partner_name)s。"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ". This link will give you personalized attention plus lower prices."
-msgstr ""
+msgstr "。此連結將為你提供個人化的關注，還有更低價格。"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_shipping_method_envia
 msgid ""
 "<i class=\"fa fa-info-circle\"/> Available shipping services depend on "
 "enabled carriers in your Envia account."
-msgstr ""
+msgstr "<i class=\"fa fa-info-circle\"/> 可用運送服務取決於你 Envia 帳戶中已啟用的物流商。"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -46,22 +47,23 @@ msgid ""
 "doorstep. To enable this feature, enable Returned at Shippers Expense "
 "otherwise it will be abandoned at the customer's door."
 msgstr ""
+"備註：部份國家/地區支援使用貨板或儲物箱運輸的獨特附加服務。例如，在加拿大未能成功派遞的送貨，可選擇退回倉庫或遺留在送貨地址門口。若要啟用此功能，請啟用「退回並由託運人承擔費用」，否則貨物將遺留在客戶家門口。"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "A phone number must be set on Partner: %(partner_name)s"
-msgstr ""
+msgstr "必須為合作夥伴設定電話號碼：%(partner_name)s"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Add New Carriers in Envia"
-msgstr ""
+msgstr "在 Envia 新增承運商"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__stock_package_type__envia_mail_type__box
 msgid "Box"
-msgstr "盒子"
+msgstr "箱/盒"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_shipping_method_envia
@@ -82,7 +84,7 @@ msgstr "承運商代碼"
 #. odoo-javascript
 #: code:addons/delivery_envia/static/src/components/envia_service_selection_widget.xml:0
 msgid "Carrier:"
-msgstr ""
+msgstr "承運商："
 
 #. module: delivery_envia
 #. odoo-python
@@ -90,32 +92,32 @@ msgstr ""
 msgid ""
 "Carriers and Services must be selected from the list of available shipping "
 "methods."
-msgstr ""
+msgstr "承運商及運輸服務必須從可用運送方式清單中選擇。"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_residential_delivery
 msgid ""
 "Certain carriers like UPS will charge an extra fee to deliver to a "
 "residential zone (United States Only)"
-msgstr ""
+msgstr "部份承運商（例如 UPS）送貨至住宅區會收取額外費用（只限美國）"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_residential_pickup
 msgid ""
 "Certain carriers like UPS will charge an extra fee to pickup from "
 "residential zones (United States Only)"
-msgstr ""
+msgstr "部份承運商（例如 UPS）在住宅區收取貨件會收取額外費用（只限美國）"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "Choose an Envia.com Shipping Service"
-msgstr ""
+msgstr "選擇一項 Envia.com 配送服務"
 
 #. module: delivery_envia
 #: model:ir.model,name:delivery_envia.model_envia_shipping_wizard
 msgid "Choose from the available Envia.com shipping methods"
-msgstr ""
+msgstr "從可用的 Envia.com 運送方式中選擇"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_shipping_method_envia
@@ -127,19 +129,19 @@ msgstr "確認"
 msgid ""
 "Contains the list of available services for the Envia.com account to select "
 "from."
-msgstr ""
+msgstr "包含可供 Envia.com 帳戶選擇的可用服務清單。"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ""
 "Copy over the API Key from Envia into either the sandbox or production field"
 " in Delivery Methods."
-msgstr ""
+msgstr "在 Envia 複製 API 密鑰，然後在送貨方式中貼上至沙盒或正式運行欄位。"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Create an Account"
-msgstr ""
+msgstr "建立帳戶"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -149,6 +151,7 @@ msgid ""
 "<b>envelope</b>, or <b>pallet</b>, which determines the carriers that can be"
 " used."
 msgstr ""
+"為此送貨方式建立並編輯一項包裝，供報價單及標籤用作參考。包裝類型可以是<b>箱/盒</b>、<b>信封</b>或<b>貨板</b>，此項設定將決定有哪些承運商可用。"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__create_uid
@@ -163,7 +166,7 @@ msgstr "建立於"
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_currency_id
 msgid "Currency set in Envia"
-msgstr ""
+msgstr "在 Envia 設定的貨幣"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__carrier_id
@@ -173,7 +176,7 @@ msgstr "送貨"
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_residential_delivery
 msgid "Delivery Residential Zone"
-msgstr ""
+msgstr "送貨至住宅區"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_shipping_method_envia
@@ -190,7 +193,7 @@ msgstr "顯示名稱"
 msgid ""
 "Don’t worry about the printing options, just note which ones exist for your "
 "favorite carrier as we will select them in Odoo."
-msgstr ""
+msgstr "暫時不用理會列印選項，只需留意你的最愛承運商有哪些列印選項，因為我們將會在 Odoo 系統內選擇它們。"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_file_type__epl
@@ -200,40 +203,40 @@ msgstr "EPL"
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__stock_package_type__envia_mail_type__envelope
 msgid "Envelope"
-msgstr ""
+msgstr "信封"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__delivery_type__envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__stock_package_type__package_carrier_type__envia
 msgid "Envia"
-msgstr ""
+msgstr "Envia"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_currency_id
 msgid "Envia Account Main Currency"
-msgstr ""
+msgstr "Envia 帳戶主要貨幣"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Envia Configuration"
-msgstr ""
+msgstr "Envia 配置"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_default_package_type_id
 msgid "Envia Default Package"
-msgstr ""
+msgstr "Envia 預設包裝"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Envia Documents:"
-msgstr ""
+msgstr "Envia 文件："
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Envia Error: %(description)s - %(message)s"
-msgstr ""
+msgstr "Envia 錯誤：%(description)s - %(message)s"
 
 #. module: delivery_envia
 #. odoo-python
@@ -242,6 +245,7 @@ msgid ""
 "Envia Error: %(message)s - %(description)s %(location)s (Reference code: "
 "%(reference)s)"
 msgstr ""
+"Envia 錯誤：%(message)s - %(description)s %(location)s（參考代碼：%(reference)s）"
 
 #. module: delivery_envia
 #. odoo-python
@@ -249,7 +253,7 @@ msgstr ""
 msgid ""
 "Envia Error: The API key you entered for %(carrier_name)s seems to be "
 "invalid"
-msgstr ""
+msgstr "Envia 錯誤：你為 %(carrier_name)s 輸入的 API 密鑰似乎無效"
 
 #. module: delivery_envia
 #. odoo-python
@@ -259,6 +263,8 @@ msgid ""
 "does not match the type set on the carrier (%(carrier_package_type)s). Use a"
 " different package or different carrier that matches the mail type."
 msgstr ""
+"Envia 錯誤：為貨件設定的 Envia "
+"郵件類型（%(package_types)s）不符合為承運商設定的類型（%(carrier_package_type)s）。請使用其他與郵件類型相符的包裝或承運人。"
 
 #. module: delivery_envia
 #. odoo-python
@@ -266,51 +272,51 @@ msgstr ""
 msgid ""
 "Envia Error: The following products don't have weights set: "
 "%(product_names)s"
-msgstr ""
+msgstr "Envia 錯誤：以下產品未有設定重量：%(product_names)s"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_label_file_type
 msgid "Envia Label File Type"
-msgstr ""
+msgstr "Envia 標籤檔案類型"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_label_stock_type
 msgid "Envia Label Type"
-msgstr ""
+msgstr "Envia 標籤類型"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_mail_type
 #: model:ir.model.fields,field_description:delivery_envia.field_stock_package_type__envia_mail_type
 msgid "Envia Package Type"
-msgstr ""
+msgstr "Envia 包裝類型"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_production_api_key
 msgid "Envia Production Access Token"
-msgstr ""
+msgstr "Envia 正式運行存取權杖"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_sandbox_api_key
 msgid "Envia Sandbox Access Token"
-msgstr ""
+msgstr "Envia 沙盒存取權杖"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Envia Setup"
-msgstr ""
+msgstr "Envia 設置"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "Envia order(s) not found to cancel shipment!"
-msgstr ""
+msgstr "找不到 Envia 訂單以取消運送！"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_default_package_type_id
 msgid ""
 "Envia requires package dimensions for getting accurate rate, you can define "
 "these in a package type that you set as default"
-msgstr ""
+msgstr "Envia 需要貨件尺寸，才可獲取準確的收費率。你可透過設為預設選用的包裝類型，去定義這些資料"
 
 #. module: delivery_envia
 #. odoo-python
@@ -320,33 +326,34 @@ msgid ""
 "Make sure city/commune and state/region are set otherwise enter a postal "
 "code directly"
 msgstr ""
+"Envia 未能為合作夥伴找到適用郵遞區號：%(partner_name)s。請確保已設定城市/鎮/區，以及州/省/地區，否則請直接輸入郵遞區號"
 
 #. module: delivery_envia
 #: model:delivery.carrier,name:delivery_envia.delivery_carrier_envia
 #: model:product.template,name:delivery_envia.product_product_delivery_envia_product_template
 msgid "Envia.com"
-msgstr ""
+msgstr "Envia.com"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_carrier_code
 msgid "Envia.com Carrier Code"
-msgstr ""
+msgstr "Envia.com 承運商代碼"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_service_code
 msgid "Envia.com Service Code"
-msgstr ""
+msgstr "Envia.com 服務代碼"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_service_name
 msgid "Envia.com Service Name"
-msgstr ""
+msgstr "Envia.com 服務名稱"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "Failed to fetch Envia Carriers, Please try again later."
-msgstr ""
+msgstr "未能讀取 Envia 承運商，請稍後再試。"
 
 #. module: delivery_envia
 #. odoo-python
@@ -356,30 +363,32 @@ msgid ""
 " order to send the required information you need to set the UNSPSC code in "
 "the following product: %(product_name)s"
 msgstr ""
+"墨西哥的零擔運輸（LTL 運輸）需要有提單（Carta Porte），以傳送所需資訊，為以下產品設定 UNSPSC "
+"代碼：%(product_name)s"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ""
 "For any carriers you'd like to use that are not activated, be sure to "
 "activate it here."
-msgstr ""
+msgstr "若有想要使用但尚未啟動的承運商，請務必在此處啟用。"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ""
 "For your available carriers you’ll need to make sure that they are available"
 " through Envia (make sure to select all available countries):<br/>"
-msgstr ""
+msgstr "對於你可選用的承運商，你需要確保它們可透過 Envia 提供服務（請確保選取所有適用的國家/地區）：<br/>"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_production_api_key
 msgid "Generate an Access Token from within the Production Portal of Envia"
-msgstr ""
+msgstr "在 Envia 正式運行門戶網站內產生存取權杖"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_sandbox_api_key
 msgid "Generate an Access Token from within the Sandbox Portal of Envia"
-msgstr ""
+msgstr "在 Envia 沙盒門戶網站內產生存取權杖"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__id
@@ -391,17 +400,17 @@ msgstr "識別號"
 msgid ""
 "If the carrier is unable to deliver the package, the package can be returned"
 " to the shipper or abandoned at the door. (Canada only)"
-msgstr ""
+msgstr "若承運人未能送遞貨件，貨件可能退回託運人，或遺留在送貨地址門口。（只限加拿大）"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "If you don't have an account"
-msgstr ""
+msgstr "若未有帳戶"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "If you don’t have an account, we recommend heading to"
-msgstr ""
+msgstr "若你未有帳戶，我們建議前往"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__write_uid
@@ -420,22 +429,23 @@ msgid ""
 "Key. This will be used by Odoo to communicate with Envia so note it down for"
 " later."
 msgstr ""
+"最後，前往開發人員/API 密鑰部份，產生一個新的 API 密鑰。此密鑰將由 Odoo 用作與 Envia 通訊時使用，因此請記下來以備日後參考。"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/stock_package_type.py:0
 msgid "Length, Width, and Height is necessary for a Envia Package."
-msgstr ""
+msgstr "Envia 貨件必須設定長度、寬度、高度。"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_lift_delivery
 msgid "Lift Assistance on Delivery"
-msgstr ""
+msgstr "送貨時升降協助"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_lift_pickup
 msgid "Lift Assistance on Pickup"
-msgstr ""
+msgstr "提貨時升降協助"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -444,6 +454,7 @@ msgid ""
 "have multi country operations you can also create two separate accounts, "
 "keep in mind that your billing will be done in your main currency. <br/>"
 msgstr ""
+"請確保為主要賬單/收款安排，選擇合適的國家/地區。若在多個國家/地區營運業務，亦可建立兩個單獨的帳戶。請留意，你的賬單操作/收款安排，將以你的主要貨幣進行。<br/>"
 
 #. module: delivery_envia
 #. odoo-python
@@ -452,6 +463,8 @@ msgid ""
 "Missing Fields:\n"
 "%s"
 msgstr ""
+"缺漏欄位：\n"
+"%s"
 
 #. module: delivery_envia
 #. odoo-python
@@ -459,20 +472,20 @@ msgstr ""
 msgid ""
 "No carrier is set on \"%(delivery_method)s\". To use Envia.com, you'll need "
 "to sync your carriers with your account."
-msgstr ""
+msgstr "未有為「%(delivery_method)s」設定承運商。要使用 Envia.com，你需要與你的帳戶同步承運商資料。"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "No rate found"
-msgstr ""
+msgstr "找不到收費率"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ""
 "Once your delivery method is properly configured, you can sync the carriers "
 "Envia provides for your country of origin: <br/>"
-msgstr ""
+msgstr "配置好送貨方式後，你可將 Envia 為你的出貨國家/地區提供的承運商資料，同步至系統：<br/>"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -497,12 +510,12 @@ msgstr "PAPER_7X4.75"
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__paper_8_27x11_67
 msgid "PAPER_8.27X11.67"
-msgstr ""
+msgstr "PAPER_8.27X11.67"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__paper_8_5x11
 msgid "PAPER_8.5X11"
-msgstr ""
+msgstr "PAPER_8.5X11"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__paper_8_5x11_bottom_half_label
@@ -527,21 +540,21 @@ msgstr "貨板"
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_residential_pickup
 msgid "Pickup Residential Zone"
-msgstr ""
+msgstr "住宅區提貨"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_lift_delivery
 msgid ""
 "Provide liftgate assistance if the recipient doesn't have a dock or forklift"
 " to unload the shipment. (United States and Mexico Only)"
-msgstr ""
+msgstr "若收貨人沒有裝卸貨平台，或堆高機/叉車/鏟車協助卸載貨物，請提供升降尾板協助。（只限美國、墨西哥）"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_lift_pickup
 msgid ""
 "Provide liftgate assitance if the supplier doesn't have a dock or forklift "
 "to load the shipment. (United States and Mexico Only)"
-msgstr ""
+msgstr "若發貨人沒有裝卸貨平台，或堆高機/叉車/鏟車協助裝載貨物，請提供升降尾板協助。（只限美國、墨西哥）"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__delivery_type
@@ -551,32 +564,32 @@ msgstr "服務商"
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_return_at_senders_expense
 msgid "Returned at Shippers Expense"
-msgstr ""
+msgstr "退回並由託運人承擔費用"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_2_4x6
 msgid "STOCK_2.4X6"
-msgstr ""
+msgstr "STOCK_2.4X6"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_2_9x5
 msgid "STOCK_2.9X5"
-msgstr ""
+msgstr "STOCK_2.9X5"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_3_8x4_2
 msgid "STOCK_3.8X4.2"
-msgstr ""
+msgstr "STOCK_3.8X4.2"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_3_9x7
 msgid "STOCK_3.9X7"
-msgstr ""
+msgstr "STOCK_3.9X7"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x4
 msgid "STOCK_4X4"
-msgstr ""
+msgstr "STOCK_4X4"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x6
@@ -586,7 +599,7 @@ msgstr "STOCK_4X6"
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x6_5
 msgid "STOCK_4X6.5"
-msgstr ""
+msgstr "STOCK_4X6.5"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x6_75_leading_doc_tab
@@ -596,7 +609,7 @@ msgstr "STOCK_4X6.75_LEADING_DOC_TAB"
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x7_5
 msgid "STOCK_4X7.5"
-msgstr ""
+msgstr "STOCK_4X7.5"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x8
@@ -607,39 +620,39 @@ msgstr "STOCK_4X8"
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Sale Order is required to get rate."
-msgstr ""
+msgstr "要獲取收費率，需要有銷售單。"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Sale Order or Picking is required to convert currency."
-msgstr ""
+msgstr "要轉換貨幣，需要有銷售單或提貨單。"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__country_id
 msgid "Select the country to be used by this delivery method"
-msgstr ""
+msgstr "選擇此送貨方式適用的國家/地區"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_mail_type
 #: model:ir.model.fields,help:delivery_envia.field_stock_package_type__envia_mail_type
 msgid "Select the package type for the shipment"
-msgstr ""
+msgstr "選擇貨件的包裝類型"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_label_stock_type
 msgid "Select the size of the label"
-msgstr ""
+msgstr "選擇標籤尺寸"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_label_file_type
 msgid "Select the printing format of the label"
-msgstr ""
+msgstr "選擇標籤的列印格式"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__selected_carrier_code
 msgid "Selected Carrier"
-msgstr ""
+msgstr "已選取承運商"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__selected_service_code
@@ -650,12 +663,12 @@ msgstr "已選取服務"
 #. odoo-javascript
 #: code:addons/delivery_envia/static/src/components/envia_service_selection_widget.xml:0
 msgid "Service:"
-msgstr ""
+msgstr "服務："
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Setup In Odoo"
-msgstr ""
+msgstr "在 Odoo 設置"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__country_id
@@ -666,12 +679,12 @@ msgstr "發貨地"
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Shipment created into Envia"
-msgstr ""
+msgstr "已在 Envia 建立運送"
 
 #. module: delivery_envia
 #: model:ir.model,name:delivery_envia.model_delivery_carrier
 msgid "Shipping Methods"
-msgstr "寄送方式"
+msgstr "運送方式"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_shipping_method_envia
@@ -683,14 +696,14 @@ msgstr "運輸產品"
 msgid ""
 "Specify the Origin country that this connector will ship from. By default "
 "this is the company's country."
-msgstr ""
+msgstr "設定此連接器的發貨國家/地區。預設為公司的國家/地區。"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ""
 "Specify the currency your Envia account is configured in. By default this is"
 " the company's currency."
-msgstr ""
+msgstr "設定你的 Envia 帳戶使用的貨幣。預設為公司的貨幣。"
 
 #. module: delivery_envia
 #: model:ir.model,name:delivery_envia.model_stock_package_type
@@ -700,19 +713,19 @@ msgstr "庫存包裝類型"
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Sync Carriers/Services from Envia"
-msgstr ""
+msgstr "從 Envia 同步承運商/服務資料"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Sync Envia Carriers"
-msgstr ""
+msgstr "同步 Envia 承運商"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_carrier_code
 msgid ""
 "The carrier on Envia.com used by this carrier. The service code belongs to "
 "it."
-msgstr ""
+msgstr "此承運商所使用的 Envia.com 承運商。服務代碼屬於它。"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_service_code
@@ -726,7 +739,7 @@ msgstr "此物流商將會使用的服務。這是在精靈中選擇物流商時
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "This action requires an Envia.com carrier."
-msgstr ""
+msgstr "此操作需要有 Envia.com 承運商。"
 
 #. module: delivery_envia
 #. odoo-python
@@ -738,21 +751,21 @@ msgstr "追蹤編號："
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "Unable to cancel order: %(order_number)s"
-msgstr ""
+msgstr "未能取消訂單：%(order_number)s"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ""
 "You can also preselect which services will be used, our recommendation is to"
 " not limit this as we will pick them in Odoo anyway."
-msgstr ""
+msgstr "你也可預先選擇使用哪些服務，但我們建議暫時不要限制此項，因為無論如何，我們都會在 Odoo 內選擇它們。"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ""
 "You should also make sure that if you export to other countries, you have to"
 " select who will pay for customs duties."
-msgstr ""
+msgstr "若出口至其他國家/地區，亦要確保選擇由誰人繳付關稅。"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -760,13 +773,13 @@ msgid ""
 "You will be able to specify a specific Envia carrier and service that you "
 "intend to use in this region. Note that each service can have different "
 "pricing and availability."
-msgstr ""
+msgstr "你將能夠為此地區，指定你打算使用的個別 Envia 承運商及服務。請留意，各項服務的價錢及服務是否可用，可能會有不同。"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ""
 "You will be asked to confirm your email address and phone number via SMS."
-msgstr ""
+msgstr "你會被要求確認電郵地址，以及透過 SMS 短訊確認電話號碼。"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_file_type__zpl
@@ -781,4 +794,4 @@ msgstr "ZPLII"
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "our personalized link"
-msgstr ""
+msgstr "我們的個人化連結"

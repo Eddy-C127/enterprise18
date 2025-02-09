@@ -5,8 +5,8 @@
 # Translators:
 # Martin Trigaux, 2024
 # Sarah Park, 2024
-# Daye Jeong, 2025
 # Wil Odoo, 2025
+# Daye Jeong, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-25 17:23+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Daye Jeong, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1290,7 +1290,7 @@ msgstr "고객 성명서"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_customer_statement_report_handler
 msgid "Customer Statement Custom Handler"
-msgstr ""
+msgstr "고객 명세서 사용자 지정 처리기"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1343,8 +1343,14 @@ msgstr "공제 금액"
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
-msgid "Deferrals have already been generated."
-msgstr "이연 항목이 이미 생성되었습니다."
+msgid "Deferrals have not yet been completely generated for this period."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+msgid "Deferrals have not yet been generated for this period."
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -1734,10 +1740,16 @@ msgstr "account.move.line에 %s 필드가 없습니다."
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
+msgid "Field %s of account.move.line cannot be used in a groupby expression."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 msgid ""
-"Field %s of account.move.line is not stored, and hence cannot be used in a "
-"groupby expression"
-msgstr "account.move.line의 %s 필드가 저장되지 않아서 groupby 식에서 사용할 수 없습니다."
+"Field %s of account.move.line is not searchable and can therefore not be "
+"used in a groupby expression."
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -2390,7 +2402,7 @@ msgstr "선"
 msgid ""
 "Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
 "This is not allowed."
-msgstr ""
+msgstr "'%(child)s' 항목이 상위 항목 '%(parent)s'보다 먼저 표시되도록 설정되었습니다. 이는 허용되지 않습니다."
 
 #. module: account_reports
 #. odoo-javascript
@@ -2578,7 +2590,7 @@ msgstr "현금 및 현금등가물의 순증가"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_npmargin0
 msgid "Net profit margin (net profit / revenue)"
-msgstr ""
+msgstr "순이익률 (순이익 / 매출)."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
@@ -2721,7 +2733,7 @@ msgstr "청구 관리자만 잠금 날짜를 변경할 수 있습니다!"
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.action_account_reports_customer_statements
 msgid "Open Customer Statements"
-msgstr "고격 명세서 열기"
+msgstr "고객 명세서 열기"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_financial_year_op
@@ -3028,7 +3040,7 @@ msgstr "이전 기간"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "Previous Periods"
-msgstr ""
+msgstr "이전 기간"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3040,7 +3052,7 @@ msgstr "지난 해"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "Previous Years"
-msgstr ""
+msgstr "이전 연도"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings_line_2
@@ -3276,7 +3288,7 @@ msgstr "보내기"
 #. odoo-python
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 msgid "Send %s Statement"
-msgstr ""
+msgstr "%s 명세서 전송"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report__send_and_print_values
@@ -3359,6 +3371,12 @@ msgstr "경고 이동 표시"
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
 msgid "Single Recipient"
 msgstr "단일 수신자"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+msgid "Show already generated deferrals."
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
@@ -3638,7 +3656,7 @@ msgstr "주석의 내용."
 msgid ""
 "The attachments of the tax report can be found on the %(link_start)sclosing "
 "entry%(link_end)s of the representative company."
-msgstr ""
+msgstr "세금 보고서의 첨부 파일은 대표 회사 %(link_start)s의 마감 분개%(link_end)s에서 확인할 수 있습니다."
 
 #. module: account_reports
 #. odoo-python
@@ -3799,7 +3817,7 @@ msgstr "이 내역과 모든 하위 내역이 삭제됩니다. 계속 진행하�
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
 #, python-format
 msgid "This line is out of sequence."
-msgstr ""
+msgstr "이 항목은 순서에서 벗어났습니다."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3808,7 +3826,7 @@ msgstr ""
 msgid ""
 "This line is placed before its parent, which is not allowed. You can fix it "
 "by dragging it to the proper position."
-msgstr ""
+msgstr "해당 항목이 상위 항목보다 앞에 배치되었습니다. 올바른 위치로 드래그하여 수정하세요. "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form

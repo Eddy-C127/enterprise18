@@ -6,7 +6,6 @@
 # Minj P <pminj322@gmail.com>, 2024
 # Гэрэлтцог Цогтбаатар, 2024
 # nurbakhit nurka <nurbakhit@bumanit.mn>, 2024
-# Bayarkhuu Bataa, 2024
 # tserendavaa tsogtoo <tseegii011929@gmail.com>, 2024
 # Batmunkh Ganbat <batmunkh2522@gmail.com>, 2024
 # Munkhbilguun Altankhuyag <munkhbilguunaltankhuyag@gmail.com>, 2024
@@ -14,6 +13,7 @@
 # Батболд <batbold.ts@gmail.com>, 2024
 # Martin Trigaux, 2024
 # Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2025
+# Bayarkhuu Bataa, 2025
 # 
 msgid ""
 msgstr ""
@@ -21,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2025\n"
+"Last-Translator: Bayarkhuu Bataa, 2025\n"
 "Language-Team: Mongolian (https://app.transifex.com/odoo/teams/41243/mn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -99,6 +99,14 @@ msgstr ""
 msgid ""
 "<span class=\"oe_inline o_form_label mx-3\" "
 "invisible=\"single_currency_mode\"> in </span>"
+msgstr ""
+
+#. module: account_accountant
+#: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
+msgid ""
+"<span class=\"text-danger o_form_label\" invisible=\"hard_lock_date == current_hard_lock_date\">\n"
+"                                        <i>This change is irreversible</i>\n"
+"                                    </span>"
 msgstr ""
 
 #. module: account_accountant
@@ -1532,7 +1540,7 @@ msgstr "Тулгагдсан гүйлгээ"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Matching"
-msgstr "Харгалзаа"
+msgstr "Тулгалт"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__matching_rules_allow_auto_reconcile
@@ -1648,6 +1656,11 @@ msgstr "Нэр"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__narration
 msgid "Narration"
+msgstr ""
+
+#. module: account_accountant
+#: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
+msgid "Need an irreversible lock to ensure inalterability, for all users?"
 msgstr ""
 
 #. module: account_accountant

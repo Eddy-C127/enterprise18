@@ -23,7 +23,7 @@ msgstr ""
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "1st amortization schedule"
-msgstr ""
+msgstr "ตารางการผ่อนชำระงวดที่ 1"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__30a/360
@@ -102,22 +102,22 @@ msgstr "เปิดใช้งาน"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_close_wizard
 msgid "All draft entries after the"
-msgstr ""
+msgstr "ร่างรายการทั้งหมดหลังจาก"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Amortization schedule"
-msgstr ""
+msgstr "ตารางการผ่อนชำระ"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__amount_borrowed
 msgid "Amount Borrowed"
-msgstr ""
+msgstr "จำนวนเงินที่กู้ยืม"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__amount_borrowed_difference
 msgid "Amount Borrowed Difference"
-msgstr ""
+msgstr "ส่วนต่างจำนวนเงินที่กู้ยืม"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_close_wizard
@@ -181,7 +181,7 @@ msgstr "วันปิด"
 #: model:ir.actions.act_window,name:account_loans.action_view_account_loan_close_wizard
 #: model:ir.model,name:account_loans.model_account_loan_close_wizard
 msgid "Close Loan Wizard"
-msgstr ""
+msgstr "ปิดตัวช่วยกู้ยืม"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan__state__closed
@@ -194,13 +194,13 @@ msgstr "ปิดแล้ว"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Closed Loans"
-msgstr ""
+msgstr "ปิดการกู้ยืม"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_close_wizard.py:0
 msgid "Closed on the %(date)s"
-msgstr ""
+msgstr "ปิดในวันที่ %(date)s"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__company_id
@@ -211,7 +211,7 @@ msgstr "บริษัท"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__compounding_method
 msgid "Compounding Method"
-msgstr ""
+msgstr "วิธีการทบต้น"
 
 #. module: account_loans
 #. odoo-javascript
@@ -223,7 +223,7 @@ msgstr "คำนวน"
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Compute New Loan"
-msgstr ""
+msgstr "คำนวณสินเชื่อใหม่"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -239,7 +239,7 @@ msgstr "จำนวนสินทรัพย์ที่เชื่อมโ
 #: model:ir.model.fields,field_description:account_loans.field_account_asset__count_linked_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_asset_group__count_linked_loans
 msgid "Count Linked Loans"
-msgstr ""
+msgstr "จำนวนสินเชื่อที่เชื่อมโยง"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__create_uid
@@ -300,7 +300,7 @@ msgstr "ร่าง"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Draft & Running Loans"
-msgstr ""
+msgstr "ดราฟท์และเงินกู้ที่กำลังดำเนินการ"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__duration
@@ -311,7 +311,7 @@ msgstr "ระยะเวลา"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__duration_difference
 msgid "Duration Difference"
-msgstr ""
+msgstr "ความแตกต่างของระยะเวลา"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__end_date
@@ -336,7 +336,7 @@ msgstr "บัญชีค่าใช้จ่าย"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__first_payment_date
 msgid "First Payment"
-msgstr ""
+msgstr "การชำระเงินครั้งแรก"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_follower_ids
@@ -357,7 +357,7 @@ msgstr "รายการที่สร้างขึ้น"
 #: model:ir.model.fields,field_description:account_loans.field_account_bank_statement_line__generating_loan_line_id
 #: model:ir.model.fields,field_description:account_loans.field_account_move__generating_loan_line_id
 msgid "Generating Loan Line"
-msgstr ""
+msgstr "การสร้างสินเชื่อ"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
@@ -400,13 +400,13 @@ msgstr "ดอกเบี้ย"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__interest_difference
 msgid "Interest Difference"
-msgstr ""
+msgstr "ส่วนต่างดอกเบี้ย"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__interest_rate
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
 msgid "Interest Rate"
-msgstr ""
+msgstr "อัตราดอกเบี้ย"
 
 #. module: account_loans
 #. odoo-python
@@ -428,17 +428,17 @@ msgstr "เป็นผู้ติดตาม"
 #: model:ir.model.fields,field_description:account_loans.field_account_bank_statement_line__is_loan_payment_move
 #: model:ir.model.fields,field_description:account_loans.field_account_move__is_loan_payment_move
 msgid "Is Loan Payment Move"
-msgstr ""
+msgstr "เป็นการย้ายการชำระคืนเงินกู้"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__is_payment_move_posted
 msgid "Is Payment Move Posted"
-msgstr ""
+msgstr "การชำระเงินถูกโพสต์แล้ว"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__is_wrong_date
 msgid "Is Wrong Date"
-msgstr ""
+msgstr "เป็นวันที่ผิด"
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_journal
@@ -454,7 +454,7 @@ msgstr "รายการสมุดรายวัน"
 #. module: account_loans
 #: model:account.journal,name:account_loans.account_loans_journal_loan
 msgid "Journal Loan Demo"
-msgstr ""
+msgstr "การสาธิตสมุดรายวันสินเชื่อ"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__write_uid
@@ -489,7 +489,7 @@ msgstr "สินทรัพย์ที่เชื่อมโยง"
 #. odoo-python
 #: code:addons/account_loans/models/account_asset.py:0
 msgid "Linked loans"
-msgstr ""
+msgstr "สินเชื่อเชื่อมโยง"
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_loan
@@ -507,70 +507,70 @@ msgstr "สินเชื่อ"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__loan_amount
 msgid "Loan Amount"
-msgstr ""
+msgstr "จำนวนสินเชื่อ"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "Loan Amount must be positive"
-msgstr ""
+msgstr "จำนวนเงินกู้จะต้องเป็นบวก"
 
 #. module: account_loans
 #: model:ir.actions.act_window,name:account_loans.action_view_account_loan_compute_wizard
 #: model:ir.model,name:account_loans.model_account_loan_compute_wizard
 msgid "Loan Compute Wizard"
-msgstr ""
+msgstr "ตัวช่วยคำนวณสินเชื่อ"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__date
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__loan_date
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 msgid "Loan Date"
-msgstr ""
+msgstr "วันที่สินเชื่อ"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Loan Entries"
-msgstr ""
+msgstr "รายการสินเชื่อ"
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_loan_line
 msgid "Loan Line"
-msgstr ""
+msgstr "บรรทัดสินเชื่อ"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__line_ids
 msgid "Loan Lines"
-msgstr ""
+msgstr "บรรทัดสินเชื่อ"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Loan Settings"
-msgstr ""
+msgstr "การตั้งค่าสินเชื่อ"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__loan_term
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
 msgid "Loan Term"
-msgstr ""
+msgstr "เงื่อนไขสินเชื่อ"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "Loan Term must be positive"
-msgstr ""
+msgstr "เงื่อนไขการกู้ยืมต้องเป็นบวก"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Loan lines"
-msgstr ""
+msgstr "บรรทัดสินเชื่อ"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__display_name
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Loan name"
-msgstr ""
+msgstr "ชื่อสินเชื่อ"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.asset_group_form_view_inherit_loan
@@ -591,12 +591,12 @@ msgstr "สินเชื่อ"
 #: model:ir.ui.menu,name:account_loans.menu_action_loans_analysis
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_pivot_view
 msgid "Loans Analysis"
-msgstr ""
+msgstr "การวิเคราะห์สินเชื่อ"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__long_term_account_id
 msgid "Long Term Account"
-msgstr ""
+msgstr "บัญชีระยะยาว"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__long_term_theoretical_balance
@@ -606,7 +606,7 @@ msgstr "ระยะยาว"
 #. module: account_loans
 #: model_terms:ir.actions.act_window,help:account_loans.action_view_account_loans
 msgid "Manage Your Acquired Loans with Automated Adjustments."
-msgstr ""
+msgstr "จัดการสินเชื่อที่คุณได้รับด้วยระบบปรับอัตโนมัติ"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_has_error
@@ -632,7 +632,7 @@ msgstr "ชื่อ"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__nb_posted_entries
 msgid "Nb Posted Entries"
-msgstr ""
+msgstr "Nb โพสต์รายการ"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_needaction_counter
@@ -658,13 +658,13 @@ msgstr "จํานวนข้อความที่มีข้อผิด
 #. odoo-python
 #: code:addons/account_loans/models/account_move.py:0
 msgid "Original Loan"
-msgstr ""
+msgstr "สินเชื่อดั้งเดิม"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__outstanding_balance
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__outstanding_balance
 msgid "Outstanding Balance"
-msgstr ""
+msgstr "ยอดคงเหลือ"
 
 #. module: account_loans
 #. odoo-python
@@ -722,23 +722,23 @@ msgstr "การให้คะแนน"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Related Asset(s)"
-msgstr ""
+msgstr "สินทรัพย์ที่เกี่ยวข้อง"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_move_form_inherit_loan
 msgid "Related Loan"
-msgstr ""
+msgstr "สินเชื่อที่เกี่ยวข้อง"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_asset_form_inherit_loan
 msgid "Related Loan(s)"
-msgstr ""
+msgstr "สินเชื่อที่เกี่ยวข้อง"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_asset__linked_loans_ids
 #: model:ir.model.fields,field_description:account_loans.field_account_asset_group__linked_loan_ids
 msgid "Related Loans"
-msgstr ""
+msgstr "สินเชื่อที่เกี่ยวข้อง"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -759,7 +759,7 @@ msgstr "ข้อผิดพลาดในการส่ง SMS"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Search Loan"
-msgstr ""
+msgstr "ค้นหาสินเชื่อ"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -778,7 +778,7 @@ msgstr ""
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__short_term_account_id
 msgid "Short Term Account"
-msgstr ""
+msgstr "บัญชีระยะสั้น"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__short_term_theoretical_balance
@@ -788,7 +788,7 @@ msgstr "ระยะสั้น"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__skip_until_date
 msgid "Skip until"
-msgstr ""
+msgstr "ข้ามไปจนกว่า"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__start_date
@@ -813,25 +813,25 @@ msgstr "วันชำระเงินงวดแรกจะต้องเ
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The amount borrowed must be positive"
-msgstr ""
+msgstr "จำนวนเงินที่กู้ยืมต้องเป็นจำนวนบวก"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The duration must be positive"
-msgstr ""
+msgstr "ระยะเวลาต้องเป็นบวก"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The interest must be positive"
-msgstr ""
+msgstr "ดอกเบี้ยต้องเป็นบวก"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan accounts should be set."
-msgstr ""
+msgstr "ควรตั้งค่าบัญชีเงินกู้"
 
 #. module: account_loans
 #. odoo-python
@@ -866,13 +866,13 @@ msgstr "ดอกเบี้ยเงินกู้ควรจะเท่า
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan journal should be set."
-msgstr ""
+msgstr "ควรกำหนดสมุดรายวันการกู้ยืม"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan name should be set."
-msgstr ""
+msgstr "ควรตั้งชื่อการกู้ยืม"
 
 #. module: account_loans
 #. odoo-python
@@ -889,27 +889,27 @@ msgstr "รายการนี้ได้ถูกย้อนหลังจ
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Total Amounts Borrowed"
-msgstr ""
+msgstr "ยอดรวมการกู้ยืม"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Total Outstanding Balance"
-msgstr ""
+msgstr "ยอดคงค้างรวม"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total interests"
-msgstr ""
+msgstr "ดอกเบี้ยรวม"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total payments"
-msgstr ""
+msgstr "การชำระรวม"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total principals"
-msgstr ""
+msgstr "เงินต้นรวม"
 
 #. module: account_loans
 #. odoo-javascript
@@ -921,7 +921,7 @@ msgstr "อัปโหลด"
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Uploaded file"
-msgstr ""
+msgstr "ไฟล์ที่อัปโหลด"
 
 #. module: account_loans
 #: model:ir.model.fields,help:account_loans.field_account_loan__skip_until_date

@@ -90,6 +90,7 @@ msgstr "(เปลี่ยนแผน)"
 #: code:addons/sale_subscription/models/sale_order.py:0
 msgid "- You delivered %(delivered)s %(name)s and invoiced %(invoiced)s"
 msgstr ""
+"- คุณส่งสินค้า %(delivered)s%(name)s แล้ว และออกใบแจ้งหนี้ %(invoiced)s แล้ว"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__mrr_change_period__1month
@@ -2405,7 +2406,7 @@ msgstr "วันที่ออกใบแจ้งหนี้ครั้ง
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__last_reminder_date
 msgid "Last time when we sent a payment reminder"
-msgstr ""
+msgstr "ครั้งสุดท้ายที่เราส่งคำเตือนการชำระเงิน"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
@@ -4987,7 +4988,7 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "Your subscription is about to end on the"
-msgstr ""
+msgstr "การสมัครของคุณกำลังจะสิ้นสุดในวันที่"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content

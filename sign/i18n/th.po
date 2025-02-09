@@ -56,7 +56,7 @@ msgstr "%s ได้รับการแก้ไขและลงนามแ
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
 msgid "%s has been linked to this sign request."
-msgstr ""
+msgstr "%s ได้รับการเชื่อมโยงกับคำขอลงนามนี้"
 
 #. module: sign
 #. odoo-python
@@ -1190,6 +1190,12 @@ msgstr "เทมเพลตเอกสาร"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.js:0
 msgid "Document saved as Template."
 msgstr "บันทึกเอกสารเป็นเทมเพลตแล้ว"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/views/helper/sign_action_helper.xml:0
+msgid "Document to send for signature or to sign yourself."
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.portal_my_home_sign
@@ -3505,7 +3511,7 @@ msgstr "คำขอลงนามยังไม่ได้ลงนามโ
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
 msgid "The signature has been canceled by %(partner)s(%(role)s)"
-msgstr ""
+msgstr "ลายเซ็นถูกยกเลิกโดย %(partner)s(%(role)s)"
 
 #. module: sign
 #. odoo-python
@@ -3708,6 +3714,14 @@ msgid "Try Odoo Sign"
 msgstr "ลองใช้งาน Odoo Sign"
 
 #. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/views/helper/sign_action_helper.xml:0
+msgid "Try a sample contract"
+msgstr ""
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/views/helper/sign_action_helper.xml:0
 #: model_terms:ir.actions.act_window,help:sign.sign_template_action
 msgid "Try our sample document"
 msgstr "ลองใช้เอกสารตัวอย่างของเรา"
@@ -3800,6 +3814,12 @@ msgstr "อัปโหลด PDF และลงนาม"
 #: model_terms:ir.actions.act_window,help:sign.sign_request_action
 msgid "Upload a PDF file or use an existing template to begin."
 msgstr "อัปโหลดไฟล์ PDF หรือใช้เทมเพลตที่มีอยู่เพื่อเริ่มต้น"
+
+#. module: sign
+#. odoo-javascript
+#: code:addons/sign/static/src/views/helper/sign_action_helper.xml:0
+msgid "Upload a PDF file to create a reusable template."
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_template_action
@@ -4325,7 +4345,7 @@ msgstr "ip"
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 msgid "is free, forever, with unlimited users - and it's fun to use!"
-msgstr ""
+msgstr "ใช้งานได้ฟรีตลอดชีพ ไม่จำกัดจำนวนผู้ใช้ และใช้งานได้อย่างเต็มที่!"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user

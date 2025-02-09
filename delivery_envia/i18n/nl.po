@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2025
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-23 16:38+0000\n"
 "PO-Revision-Date: 2025-02-02 01:20+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,12 +24,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "%(field_name)s must be set on Partner: %(partner_name)s."
-msgstr ""
+msgstr "%(field_name)s moet worden ingesteld op Partner: %(partner_name)s."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ". This link will give you personalized attention plus lower prices."
-msgstr ""
+msgstr ". Via deze link krijg je persoonlijke aandacht plus lagere prijzen."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_shipping_method_envia
@@ -36,6 +37,8 @@ msgid ""
 "<i class=\"fa fa-info-circle\"/> Available shipping services depend on "
 "enabled carriers in your Envia account."
 msgstr ""
+"<i class=\"fa fa-info-circle\"/> Beschikbare verzendservices zijn "
+"afhankelijk van de ingeschakelde vervoerders in je Envia account."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -46,17 +49,23 @@ msgid ""
 "doorstep. To enable this feature, enable Returned at Shippers Expense "
 "otherwise it will be abandoned at the customer's door."
 msgstr ""
+"Sommige landen ondersteunen unieke aanvullende diensten voor palletzendingen"
+" of dozen. Canada heeft bijvoorbeeld de optie om gemiste leveringen af te "
+"handelen door ze terug te sturen naar je magazijn of ze voor de deur achter "
+"te laten. Om deze functie in te schakelen, schakel je Retour op kosten van "
+"de verzender in, anders wordt de zending bij de klant achtergelaten."
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "A phone number must be set on Partner: %(partner_name)s"
 msgstr ""
+"Er moet een telefoonnummer worden ingesteld op Partner: %(partner_name)s"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Add New Carriers in Envia"
-msgstr ""
+msgstr "Nieuwe dragers toevoegen in Envia"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__stock_package_type__envia_mail_type__box
@@ -82,7 +91,7 @@ msgstr "Vervoerdercode"
 #. odoo-javascript
 #: code:addons/delivery_envia/static/src/components/envia_service_selection_widget.xml:0
 msgid "Carrier:"
-msgstr ""
+msgstr "Vervoerder:"
 
 #. module: delivery_envia
 #. odoo-python
@@ -91,6 +100,8 @@ msgid ""
 "Carriers and Services must be selected from the list of available shipping "
 "methods."
 msgstr ""
+"Vervoerders en services moeten worden geselecteerd uit de lijst met "
+"beschikbare verzendmethoden."
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_residential_delivery
@@ -98,6 +109,8 @@ msgid ""
 "Certain carriers like UPS will charge an extra fee to deliver to a "
 "residential zone (United States Only)"
 msgstr ""
+"Bepaalde vervoerders zoals UPS brengen extra kosten in rekening voor "
+"bezorging in een woonwijk (alleen Verenigde Staten)"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_residential_pickup
@@ -105,17 +118,19 @@ msgid ""
 "Certain carriers like UPS will charge an extra fee to pickup from "
 "residential zones (United States Only)"
 msgstr ""
+"Bepaalde vervoerders zoals UPS brengen extra kosten in rekening voor afhalen"
+" in woonwijken (alleen Verenigde Staten)"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "Choose an Envia.com Shipping Service"
-msgstr ""
+msgstr "Kies een Envia.com verzendservice"
 
 #. module: delivery_envia
 #: model:ir.model,name:delivery_envia.model_envia_shipping_wizard
 msgid "Choose from the available Envia.com shipping methods"
-msgstr ""
+msgstr "Kies uit de beschikbare verzendmethoden van Envia.com"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_shipping_method_envia
@@ -128,6 +143,8 @@ msgid ""
 "Contains the list of available services for the Envia.com account to select "
 "from."
 msgstr ""
+"Bevat de lijst met beschikbare diensten waaruit het Envia.com account kan "
+"kiezen."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -135,11 +152,13 @@ msgid ""
 "Copy over the API Key from Envia into either the sandbox or production field"
 " in Delivery Methods."
 msgstr ""
+"Kopieer de API-sleutel van Envia naar het sandbox- of productieveld in "
+"Leveringsmethoden."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Create an Account"
-msgstr ""
+msgstr "Account aanmaken"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -149,6 +168,10 @@ msgid ""
 "<b>envelope</b>, or <b>pallet</b>, which determines the carriers that can be"
 " used."
 msgstr ""
+"Maak en bewerk een pakket voor deze leveringsmethode om te gebruiken als "
+"referentie voor offertes en etiketten. Dit pakket kan van het type "
+"<b>doos</b>, <b>envelop</b> of <b>pallet</b> zijn, wat bepaalt welke "
+"vervoerders kunnen worden gebruikt."
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__create_uid
@@ -163,7 +186,7 @@ msgstr "Aangemaakt op"
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_currency_id
 msgid "Currency set in Envia"
-msgstr ""
+msgstr "Valutaset in Envia"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__carrier_id
@@ -173,7 +196,7 @@ msgstr "Levering"
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_residential_delivery
 msgid "Delivery Residential Zone"
-msgstr ""
+msgstr "Levering Woongebied"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_shipping_method_envia
@@ -191,6 +214,8 @@ msgid ""
 "Don’t worry about the printing options, just note which ones exist for your "
 "favorite carrier as we will select them in Odoo."
 msgstr ""
+"Maak je geen zorgen over de afdrukopties, noteer gewoon welke er zijn voor "
+"je favoriete vervoerder, want wij selecteren ze in Odoo."
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_file_type__epl
@@ -200,40 +225,40 @@ msgstr "EPL"
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__stock_package_type__envia_mail_type__envelope
 msgid "Envelope"
-msgstr ""
+msgstr "Envelop"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__delivery_type__envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__stock_package_type__package_carrier_type__envia
 msgid "Envia"
-msgstr ""
+msgstr "Envia"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_currency_id
 msgid "Envia Account Main Currency"
-msgstr ""
+msgstr "Envia Account Hoofdvaluta"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Envia Configuration"
-msgstr ""
+msgstr "Envia Configuratie"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_default_package_type_id
 msgid "Envia Default Package"
-msgstr ""
+msgstr "Envia Standaardpakket"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Envia Documents:"
-msgstr ""
+msgstr "Envia Documenten:"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Envia Error: %(description)s - %(message)s"
-msgstr ""
+msgstr "Envia Fout: %(description)s - %(message)s"
 
 #. module: delivery_envia
 #. odoo-python
@@ -242,6 +267,8 @@ msgid ""
 "Envia Error: %(message)s - %(description)s %(location)s (Reference code: "
 "%(reference)s)"
 msgstr ""
+"Envia Fout: %(message)s - %(description)s %(location)s (Referentiecode: "
+"%(reference)s)"
 
 #. module: delivery_envia
 #. odoo-python
@@ -250,6 +277,8 @@ msgid ""
 "Envia Error: The API key you entered for %(carrier_name)s seems to be "
 "invalid"
 msgstr ""
+"Envia Fout: De API-sleutel die je hebt ingevoerd voor %(carrier_name)s lijkt"
+" ongeldig te zijn"
 
 #. module: delivery_envia
 #. odoo-python
@@ -259,6 +288,10 @@ msgid ""
 "does not match the type set on the carrier (%(carrier_package_type)s). Use a"
 " different package or different carrier that matches the mail type."
 msgstr ""
+"Envia Fout: Het Envia-posttype (%(package_types)s) dat is ingesteld op de "
+"verpakking(en) komt niet overeen met het type dat is ingesteld op de "
+"vervoerder (%(carrier_package_type)s). Gebruik een ander pakket of een "
+"andere vervoerder die overeenkomt met het posttype."
 
 #. module: delivery_envia
 #. odoo-python
@@ -267,43 +300,45 @@ msgid ""
 "Envia Error: The following products don't have weights set: "
 "%(product_names)s"
 msgstr ""
+"Envia Fout: De volgende producten hebben geen gewichten ingesteld: "
+"%(product_names)s"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_label_file_type
 msgid "Envia Label File Type"
-msgstr ""
+msgstr "Envia Label Bestandstype"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_label_stock_type
 msgid "Envia Label Type"
-msgstr ""
+msgstr "Envia Label Type"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_mail_type
 #: model:ir.model.fields,field_description:delivery_envia.field_stock_package_type__envia_mail_type
 msgid "Envia Package Type"
-msgstr ""
+msgstr "Envia Pakkettype"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_production_api_key
 msgid "Envia Production Access Token"
-msgstr ""
+msgstr "Envia productietoegangstoken"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_sandbox_api_key
 msgid "Envia Sandbox Access Token"
-msgstr ""
+msgstr "Envia Sandbox Toegangstoken"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Envia Setup"
-msgstr ""
+msgstr "Envia instellen"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "Envia order(s) not found to cancel shipment!"
-msgstr ""
+msgstr "Envia bestelling(en) niet gevonden om verzending te annuleren!"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_default_package_type_id
@@ -311,6 +346,8 @@ msgid ""
 "Envia requires package dimensions for getting accurate rate, you can define "
 "these in a package type that you set as default"
 msgstr ""
+"Envia heeft pakketafmetingen nodig om een nauwkeurige prijs te krijgen, je "
+"kunt deze definiëren in een verpakkingstype dat je als standaard instelt"
 
 #. module: delivery_envia
 #. odoo-python
@@ -320,33 +357,36 @@ msgid ""
 "Make sure city/commune and state/region are set otherwise enter a postal "
 "code directly"
 msgstr ""
+"Envia kon geen postcode vinden voor de partner: %(partner_name)s. Zorg "
+"ervoor dat stad/gemeente en staat/regio zijn ingesteld, anders voert u "
+"direct een postcode in"
 
 #. module: delivery_envia
 #: model:delivery.carrier,name:delivery_envia.delivery_carrier_envia
 #: model:product.template,name:delivery_envia.product_product_delivery_envia_product_template
 msgid "Envia.com"
-msgstr ""
+msgstr "Envia.nl"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_carrier_code
 msgid "Envia.com Carrier Code"
-msgstr ""
+msgstr "Envia.com Vervoersderscode"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_service_code
 msgid "Envia.com Service Code"
-msgstr ""
+msgstr "Envia.com Servicecode"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_service_name
 msgid "Envia.com Service Name"
-msgstr ""
+msgstr "Envia.com Servicenaam"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "Failed to fetch Envia Carriers, Please try again later."
-msgstr ""
+msgstr "Envia Carriers is niet opgehaald, probeer het later nog eens."
 
 #. module: delivery_envia
 #. odoo-python
@@ -356,6 +396,9 @@ msgid ""
 " order to send the required information you need to set the UNSPSC code in "
 "the following product: %(product_name)s"
 msgstr ""
+"Voor LTL-zendingen in Mexico is een Bill of Landing (Carta Porte) vereist. "
+"Om de vereiste informatie te verzenden, moet je de UNSPSC-code instellen in "
+"het volgende product: %(product_name)s"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -363,6 +406,8 @@ msgid ""
 "For any carriers you'd like to use that are not activated, be sure to "
 "activate it here."
 msgstr ""
+"Als je dragers wilt gebruiken die nog niet geactiveerd zijn, zorg er dan "
+"voor dat je ze hier activeert."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -370,16 +415,18 @@ msgid ""
 "For your available carriers you’ll need to make sure that they are available"
 " through Envia (make sure to select all available countries):<br/>"
 msgstr ""
+"Voor je beschikbare carriers moet je controleren of ze beschikbaar zijn via "
+"Envia (zorg ervoor dat je alle beschikbare landen selecteert):<br/>"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_production_api_key
 msgid "Generate an Access Token from within the Production Portal of Envia"
-msgstr ""
+msgstr "Genereer een toegangsmunt vanuit het productieportaal van Envia"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_sandbox_api_key
 msgid "Generate an Access Token from within the Sandbox Portal of Envia"
-msgstr ""
+msgstr "Genereer een toegangsmunt vanuit het Sandbox-portaal van Envia"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__id
@@ -392,16 +439,19 @@ msgid ""
 "If the carrier is unable to deliver the package, the package can be returned"
 " to the shipper or abandoned at the door. (Canada only)"
 msgstr ""
+"Als de vervoerder het pakket niet kan afleveren, kan het pakket worden "
+"teruggestuurd naar de verzender of voor de deur worden achtergelaten. "
+"(Alleen Canada)"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "If you don't have an account"
-msgstr ""
+msgstr "Als je geen account hebt"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "If you don’t have an account, we recommend heading to"
-msgstr ""
+msgstr "Als je nog geen account hebt, raden we je aan om naar"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__write_uid
@@ -420,22 +470,25 @@ msgid ""
 "Key. This will be used by Odoo to communicate with Envia so note it down for"
 " later."
 msgstr ""
+"Ga tot slot naar de sectie Ontwikkelaars / API-sleutels en genereer een "
+"nieuwe API-sleutel. Deze wordt door Odoo gebruikt om te communiceren met "
+"Envia, dus noteer hem voor later."
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/stock_package_type.py:0
 msgid "Length, Width, and Height is necessary for a Envia Package."
-msgstr ""
+msgstr "Lengte, breedte en hoogte zijn nodig voor een Envia-pakket."
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_lift_delivery
 msgid "Lift Assistance on Delivery"
-msgstr ""
+msgstr "Liftassistentie bij levering"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_lift_pickup
 msgid "Lift Assistance on Pickup"
-msgstr ""
+msgstr "Tilhulp bij ophalen"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -444,6 +497,10 @@ msgid ""
 "have multi country operations you can also create two separate accounts, "
 "keep in mind that your billing will be done in your main currency. <br/>"
 msgstr ""
+"Zorg ervoor dat je het juiste land selecteert voor je hoofdfacturering, als "
+"je in meerdere landen werkt kun je ook twee aparte accounts aanmaken, maar "
+"houd er dan wel rekening mee dat je facturering in je hoofdvaluta gebeurt. "
+"<br/>"
 
 #. module: delivery_envia
 #. odoo-python
@@ -452,6 +509,8 @@ msgid ""
 "Missing Fields:\n"
 "%s"
 msgstr ""
+"Ontbrekende velden:\n"
+"%s"
 
 #. module: delivery_envia
 #. odoo-python
@@ -460,12 +519,14 @@ msgid ""
 "No carrier is set on \"%(delivery_method)s\". To use Envia.com, you'll need "
 "to sync your carriers with your account."
 msgstr ""
+"Er is geen vervoerder ingesteld op \"%(delivery_method)s\". Als je Envia.com"
+" wilt gebruiken, moet je je providers synchroniseren met je account."
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "No rate found"
-msgstr ""
+msgstr "Geen tarief gevonden"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -473,6 +534,8 @@ msgid ""
 "Once your delivery method is properly configured, you can sync the carriers "
 "Envia provides for your country of origin: <br/>"
 msgstr ""
+"Zodra je bezorgmethode goed is geconfigureerd, kun je de vervoerders "
+"synchroniseren die Envia aanbiedt voor je land van herkomst: <br/>"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -497,12 +560,12 @@ msgstr "PAPER_7X4.75"
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__paper_8_27x11_67
 msgid "PAPER_8.27X11.67"
-msgstr ""
+msgstr "PAPIER_8.27X11.67"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__paper_8_5x11
 msgid "PAPER_8.5X11"
-msgstr ""
+msgstr "PAPIER_8.5X11"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__paper_8_5x11_bottom_half_label
@@ -527,7 +590,7 @@ msgstr "Pallet"
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_residential_pickup
 msgid "Pickup Residential Zone"
-msgstr ""
+msgstr "Pickup Woonzone"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_lift_delivery
@@ -535,6 +598,8 @@ msgid ""
 "Provide liftgate assistance if the recipient doesn't have a dock or forklift"
 " to unload the shipment. (United States and Mexico Only)"
 msgstr ""
+"Zorg voor hulp bij de laadklep als de ontvanger geen dok of vorkheftruck "
+"heeft om de zending te lossen. (Alleen Verenigde Staten en Mexico)"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_lift_pickup
@@ -542,6 +607,8 @@ msgid ""
 "Provide liftgate assitance if the supplier doesn't have a dock or forklift "
 "to load the shipment. (United States and Mexico Only)"
 msgstr ""
+"Zorg voor liftgate-assistentie als de leverancier geen dok of vorkheftruck "
+"heeft om de zending te laden. (Alleen Verenigde Staten en Mexico)"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__delivery_type
@@ -551,32 +618,32 @@ msgstr "Provider"
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_return_at_senders_expense
 msgid "Returned at Shippers Expense"
-msgstr ""
+msgstr "Teruggestuurd op kosten van verzender"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_2_4x6
 msgid "STOCK_2.4X6"
-msgstr ""
+msgstr "STOCK_2.4X6"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_2_9x5
 msgid "STOCK_2.9X5"
-msgstr ""
+msgstr "STOCK_2.9X5"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_3_8x4_2
 msgid "STOCK_3.8X4.2"
-msgstr ""
+msgstr "STOCK_3.8X4.2"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_3_9x7
 msgid "STOCK_3.9X7"
-msgstr ""
+msgstr "STOCK_3.9X7"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x4
 msgid "STOCK_4X4"
-msgstr ""
+msgstr "STOCK_4X4"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x6
@@ -586,7 +653,7 @@ msgstr "STOCK_4X6"
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x6_5
 msgid "STOCK_4X6.5"
-msgstr ""
+msgstr "STOCK_4X6.5"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x6_75_leading_doc_tab
@@ -596,7 +663,7 @@ msgstr "STOCK_4X6.75_LEADING_DOC_TAB"
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x7_5
 msgid "STOCK_4X7.5"
-msgstr ""
+msgstr "STOCK_4X7.5"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x8
@@ -607,39 +674,39 @@ msgstr "STOCK_4X8"
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Sale Order is required to get rate."
-msgstr ""
+msgstr "Verkooporder is vereist om tarief te krijgen."
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Sale Order or Picking is required to convert currency."
-msgstr ""
+msgstr "Verkooporder of Picking is nodig om valuta om te rekenen."
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__country_id
 msgid "Select the country to be used by this delivery method"
-msgstr ""
+msgstr "Selecteer het land voor deze bezorgmethode"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_mail_type
 #: model:ir.model.fields,help:delivery_envia.field_stock_package_type__envia_mail_type
 msgid "Select the package type for the shipment"
-msgstr ""
+msgstr "Selecteer het type pakket voor de zending"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_label_stock_type
 msgid "Select the size of the label"
-msgstr ""
+msgstr "Selecteer de grootte van het label"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_label_file_type
 msgid "Select the printing format of the label"
-msgstr ""
+msgstr "Selecteer het afdrukformaat van het label"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__selected_carrier_code
 msgid "Selected Carrier"
-msgstr ""
+msgstr "Geselecteerde vervoerder"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__selected_service_code
@@ -650,12 +717,12 @@ msgstr "Betreffende dienst"
 #. odoo-javascript
 #: code:addons/delivery_envia/static/src/components/envia_service_selection_widget.xml:0
 msgid "Service:"
-msgstr ""
+msgstr "Dienst:"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Setup In Odoo"
-msgstr ""
+msgstr "Instelling in Odoo"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__country_id
@@ -666,7 +733,7 @@ msgstr "Verzenden van"
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Shipment created into Envia"
-msgstr ""
+msgstr "Zending aangemaakt in Envia"
 
 #. module: delivery_envia
 #: model:ir.model,name:delivery_envia.model_delivery_carrier
@@ -684,6 +751,8 @@ msgid ""
 "Specify the Origin country that this connector will ship from. By default "
 "this is the company's country."
 msgstr ""
+"Geef het land van herkomst op van waaruit deze connector wordt verzonden. "
+"Standaard is dit het land van het bedrijf."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -691,6 +760,8 @@ msgid ""
 "Specify the currency your Envia account is configured in. By default this is"
 " the company's currency."
 msgstr ""
+"Geef de valuta op waarin je Envia account is geconfigureerd. Standaard is "
+"dit de valuta van het bedrijf."
 
 #. module: delivery_envia
 #: model:ir.model,name:delivery_envia.model_stock_package_type
@@ -700,12 +771,12 @@ msgstr "Verpakkingssoort"
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Sync Carriers/Services from Envia"
-msgstr ""
+msgstr "Sync-dragers/diensten van Envia"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Sync Envia Carriers"
-msgstr ""
+msgstr "Sync Envia Dragers"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_carrier_code
@@ -713,6 +784,8 @@ msgid ""
 "The carrier on Envia.com used by this carrier. The service code belongs to "
 "it."
 msgstr ""
+"De vervoerder op Envia.com die door deze vervoerder wordt gebruikt. De "
+"servicecode hoort erbij."
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_service_code
@@ -728,7 +801,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "This action requires an Envia.com carrier."
-msgstr ""
+msgstr "Voor deze actie is een Envia.com-drager nodig."
 
 #. module: delivery_envia
 #. odoo-python
@@ -740,7 +813,7 @@ msgstr "Traceernummers:"
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "Unable to cancel order: %(order_number)s"
-msgstr ""
+msgstr "Kan bestelling niet annuleren: %(order_number)s"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -748,6 +821,8 @@ msgid ""
 "You can also preselect which services will be used, our recommendation is to"
 " not limit this as we will pick them in Odoo anyway."
 msgstr ""
+"Je kunt ook vooraf selecteren welke services worden gebruikt. Ons advies is "
+"om dit niet te beperken, omdat we ze toch al in Odoo kiezen."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -755,6 +830,8 @@ msgid ""
 "You should also make sure that if you export to other countries, you have to"
 " select who will pay for customs duties."
 msgstr ""
+"Je moet er ook op letten dat als je naar andere landen exporteert, je moet "
+"kiezen wie de douanerechten betaalt."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -763,12 +840,16 @@ msgid ""
 "intend to use in this region. Note that each service can have different "
 "pricing and availability."
 msgstr ""
+"Je kunt een specifieke Envia carrier en service specificeren die je in deze "
+"regio wilt gebruiken. Merk op dat elke service andere prijzen en "
+"beschikbaarheid kan hebben."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ""
 "You will be asked to confirm your email address and phone number via SMS."
 msgstr ""
+"Je wordt gevraagd om je e-mailadres en telefoonnummer via sms te bevestigen."
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_file_type__zpl
@@ -783,4 +864,4 @@ msgstr "ZPLII"
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "our personalized link"
-msgstr ""
+msgstr "onze persoonlijke link"

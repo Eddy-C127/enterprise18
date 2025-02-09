@@ -12,7 +12,6 @@
 # Buket Şeker <buket_skr@hotmail.com>, 2024
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2024
 # Ahmet Altinisik <aaltinisik@altinkaya.com.tr>, 2024
-# Melih Melik Sonmez, 2024
 # Özlem Atalay <ozlema@eskayazilim.com.tr>, 2024
 # Halil, 2024
 # İlknur Gözütok, 2024
@@ -30,6 +29,7 @@
 # Levent Karakaş <levent@mektup.at>, 2024
 # Tugay Hatıl <tugayh@projetgrup.com>, 2024
 # Wil Odoo, 2025
+# Melih Melik Sonmez, 2025
 # 
 msgid ""
 msgstr ""
@@ -37,7 +37,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Melih Melik Sonmez, 2025\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -841,7 +841,13 @@ msgstr "Yükleme sırasında bir hata oluştu."
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
-msgid "Anyone on the internet with the link can %(action)s"
+msgid "Anyone on the internet with the link can edit"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
+msgid "Anyone on the internet with the link can view"
 msgstr ""
 
 #. module: documents
@@ -1029,6 +1035,7 @@ msgstr ""
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.xml:0
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 msgid "Close"
@@ -1197,6 +1204,7 @@ msgstr ""
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
 #: code:addons/documents/static/src/owl/components/pdf_exit_dialog/pdf_exit_dialog.xml:0
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #: code:addons/documents/static/src/views/form/folder_form_controller.js:0
@@ -1239,7 +1247,6 @@ msgstr "Süresi Dolmuş"
 
 #. module: documents
 #. odoo-javascript
-#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 #: code:addons/documents/static/src/views/hooks.js:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -1250,6 +1257,12 @@ msgstr "Süresi Dolmuş"
 #: model_terms:ir.ui.view,arch_db:documents.tag_view_form
 msgid "Discard"
 msgstr "Sil"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "Discoverable"
+msgstr ""
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_access__display_name
@@ -1430,6 +1443,7 @@ msgstr "Done!"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_download.js:0
 #: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -1586,6 +1600,7 @@ msgstr "Geçerlilik Tarihi"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/list/documents_list_controller.js:0
+#: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 msgid "Export"
 msgstr "Dışa Aktar"
 
@@ -1900,7 +1915,13 @@ msgstr ""
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
-msgid "Internal users can  %(action)s"
+msgid "Internal users can edit"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
+msgid "Internal users can view"
 msgstr ""
 
 #. module: documents
@@ -2232,6 +2253,8 @@ msgid "Moved to trash"
 msgstr "Çöp Kutusuna Taşındı"
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "Must have the link to access"
 msgstr ""
@@ -2836,7 +2859,7 @@ msgstr "Geriyükle"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Restricted"
-msgstr ""
+msgstr "Kısıtlanmış"
 
 #. module: documents
 #. odoo-python
@@ -2883,6 +2906,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.xml:0
 msgid "Saving..."
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
+msgid "Search people"
 msgstr ""
 
 #. module: documents
@@ -3059,7 +3088,6 @@ msgstr "Boy:"
 
 #. module: documents
 #. odoo-javascript
-#: code:addons/documents/static/src/views/hooks.js:0
 #: code:addons/documents/static/src/core/document_service.js:0
 msgid "Some files could not be uploaded (max size: %s)."
 msgstr ""
@@ -3617,12 +3645,6 @@ msgstr ""
 "bağlantınızı kopyalayıp yapıştırabilirsiniz."
 
 #. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You cannot delete this attachment."
-msgstr ""
-
-#. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
@@ -3676,6 +3698,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_tag.py:0
 msgid "You cannot delete tags used in server actions."
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot delete this attachment."
 msgstr ""
 
 #. module: documents

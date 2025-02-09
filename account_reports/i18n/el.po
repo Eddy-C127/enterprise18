@@ -11,10 +11,10 @@
 # Alexandros Kapetanios <alexandros@gnugr.org>, 2024
 # Gerasimos Kanelatos, 2025
 # Kostas Goutoudis <goutoudis@gmail.com>, 2025
-# Maria Chalepiadou, 2025
-# Anastasia Mimou, 2025
 # Charalampos Loukas, 2025
 # Martin Trigaux, 2025
+# Anastasia Mimou, 2025
+# Maria Chalepiadou, 2025
 # 
 msgid ""
 msgstr ""
@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-25 17:23+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Martin Trigaux, 2025\n"
+"Last-Translator: Maria Chalepiadou, 2025\n"
 "Language-Team: Greek (https://app.transifex.com/odoo/teams/41243/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1341,8 +1341,14 @@ msgstr "Εκπιπτόμενο"
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
-msgid "Deferrals have already been generated."
-msgstr "Οι αναβολές έχουν ήδη δημιουργηθεί."
+msgid "Deferrals have not yet been completely generated for this period."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+msgid "Deferrals have not yet been generated for this period."
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -1730,9 +1736,15 @@ msgstr ""
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
+msgid "Field %s of account.move.line cannot be used in a groupby expression."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 msgid ""
-"Field %s of account.move.line is not stored, and hence cannot be used in a "
-"groupby expression"
+"Field %s of account.move.line is not searchable and can therefore not be "
+"used in a groupby expression."
 msgstr ""
 
 #. module: account_reports
@@ -3316,7 +3328,7 @@ msgstr "Υπηρεσίες"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_tree
 msgid "Set as Checked"
-msgstr ""
+msgstr "Ορίστε ως Επιλεγμένο"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_st_cash_forecast0
@@ -3349,6 +3361,12 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
 msgid "Single Recipient"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+msgid "Show already generated deferrals."
 msgstr ""
 
 #. module: account_reports
@@ -3476,7 +3494,7 @@ msgstr "Φορολογική Δήλωση"
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 msgid "Tax Grids"
-msgstr ""
+msgstr "Φορολογικά Πλέγματα"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__vat
@@ -3776,6 +3794,8 @@ msgid ""
 "This company is part of a tax unit. You're currently not viewing the whole "
 "unit."
 msgstr ""
+"Αυτή η εταιρεία είναι μέρος μιας φορολογικής μονάδας. Αυτή τη στιγμή δεν "
+"βλέπετε όλη τη μονάδα."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3784,13 +3804,15 @@ msgid ""
 "This line and all its children will be deleted. Are you sure you want to "
 "proceed?"
 msgstr ""
+"Αυτή η γραμμή και όλα τα υποκείμενά της θα διαγραφούν. Είστε σίγουροι ότι "
+"θέλετε να συνεχίσετε;"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
 #, python-format
 msgid "This line is out of sequence."
-msgstr ""
+msgstr "Αυτή η γραμμή είναι εκτός ακολουθίας"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3800,6 +3822,8 @@ msgid ""
 "This line is placed before its parent, which is not allowed. You can fix it "
 "by dragging it to the proper position."
 msgstr ""
+"Αυτή η γραμμή είναι τοποθετημένη πριν από τον γονέα της, κάτι που δεν "
+"επιτρέπεται. Μπορείτε να το διορθώσετε μεταφέροντάς την στη σωστή θέση."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
@@ -3809,13 +3833,13 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "This option hides lines with a value of 0"
-msgstr ""
+msgstr "Αυτή η επιλογή κρύβει τις γραμμές με τιμή 0"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "This report already has a menuitem."
-msgstr ""
+msgstr "Αυτή η αναφορά έχει ήδη ένα στοιχείο μενού."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3829,7 +3853,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/multicurrency_revaluation_report/warnings.xml:0
 msgid "This report only displays the data of the active company."
-msgstr ""
+msgstr "Αυτή η αναφορά εμφανίζει μόνο τα δεδομένα της ενεργής εταιρείας."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -3891,7 +3915,7 @@ msgstr "Σύνολο"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Total %s"
-msgstr ""
+msgstr "Σύνολο %s"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3920,7 +3944,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_sales_report.py:0
 msgid "Triangular"
-msgstr ""
+msgstr "Τριγωνικός"
 
 #. module: account_reports
 #. odoo-python
@@ -3953,7 +3977,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_unaffected_earnings0
 msgid "Unallocated Earnings"
-msgstr ""
+msgstr "Μη κατανεμημένα Κέρδη"
 
 #. module: account_reports
 #. odoo-python
@@ -3966,7 +3990,7 @@ msgstr "Μη ορισμένο"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 msgid "Unfold All"
-msgstr ""
+msgstr "Άνοιγμα Όλων"
 
 #. module: account_reports
 #. odoo-python
@@ -3991,7 +4015,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Unknown date scope: %s"
-msgstr ""
+msgstr "Άγνωστο εύρος ημερομηνίας: %s"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.multicurrency_revaluation_report
@@ -4030,7 +4054,7 @@ msgstr "Τιμή"
 #. odoo-python
 #: code:addons/account_reports/models/account_move.py:0
 msgid "Vat closing from %(date_from)s to %(date_to)s"
-msgstr ""
+msgstr "Κλείσιμο ΦΠΑ από %(date_from)s έως %(date_to)s"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_tree
@@ -4061,7 +4085,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_sales_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_tree
 msgid "View Partner"
-msgstr ""
+msgstr "Προβολή Συνεργάτη"
 
 #. module: account_reports
 #. odoo-python
@@ -4085,6 +4109,8 @@ msgstr "Προειδοποιήσεις"
 msgid ""
 "When ticked, totals and subtotals appear below the sections of the report"
 msgstr ""
+"Όταν επιλεγχθεί, τα σύνολα και οι υποσύνολα εμφανίζονται κάτω από τα τμήματα"
+" της αναφοράς."
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_res_company__totals_below_sections
@@ -4092,6 +4118,8 @@ msgstr ""
 msgid ""
 "When ticked, totals and subtotals appear below the sections of the report."
 msgstr ""
+"Όταν επιλεγχθεί, τα σύνολα και οι υποσύνολα εμφανίζονται κάτω από τα τμήματα"
+" της αναφοράς."
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_account__exclude_provision_currency_ids
@@ -4099,6 +4127,7 @@ msgid ""
 "Whether or not we have to make provisions for the selected foreign "
 "currencies."
 msgstr ""
+"Είτε ναί είτε όχι πρέπει να προβλέψουμε για τα επιλεγμένα ξένα νομίσματα."
 
 #. module: account_reports
 #. odoo-javascript
@@ -4107,7 +4136,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "With Draft Entries"
-msgstr ""
+msgstr "Με Πρόχειρες Καταχωρήσεις"
 
 #. module: account_reports
 #. odoo-python
@@ -4125,7 +4154,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Wrong format for if_other_expr_above/if_other_expr_below formula: %s"
-msgstr ""
+msgstr "Λανθασμένη μορφή if_other_expr_above/if_other_expr_below τύπος: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -4158,12 +4187,15 @@ msgstr ""
 #: code:addons/account_reports/models/account_move.py:0
 msgid "You can't open a tax report from a move without a VAT closing date."
 msgstr ""
+"Δεν μπορείτε να ανοίξετε μια φορολογική αναφορά από μια κίνηση χωρίς "
+"ημερομηνία κλεισίματος ΦΠΑ."
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_move_line.py:0
 msgid "You cannot add taxes on a tax closing move line."
 msgstr ""
+"Δεν μπορείτε να προσθέσετε φόρους σε μια γραμμή κίνησης κλεισίματος φόρου."
 
 #. module: account_reports
 #. odoo-python
@@ -4172,12 +4204,16 @@ msgid ""
 "You cannot generate entries for a period that does not end at the end of the"
 " month."
 msgstr ""
+"Δεν μπορείτε να δημιουργήσετε καταχωρίσεις για μια περίοδο που δεν λήγει στο"
+" τέλος του μήνα."
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 msgid "You cannot generate entries for a period that is locked."
 msgstr ""
+"Δεν μπορείτε να δημιουργήσετε καταχωρήσεις για μια περίοδο που είναι "
+"κλειδωμένη."
 
 #. module: account_reports
 #. odoo-python
@@ -4186,6 +4222,9 @@ msgid ""
 "You cannot reset this closing entry to draft, as another closing entry has "
 "been posted at a later date."
 msgstr ""
+"Δεν μπορείτε να επαναφέρετε αυτήν την καταχώριση κλεισίματος σε πρόχειρο, "
+"καθώς μια άλλη καταχώριση κλεισίματος έχει δημοσιευτεί σε μεταγενέστερη "
+"ημερομηνία."
 
 #. module: account_reports
 #. odoo-python
@@ -4195,12 +4234,18 @@ msgid ""
 "values impacting the tax report of a locked period. To do this, you first "
 "need to modify you tax return lock date."
 msgstr ""
+"Δεν μπορείτε να επαναφέρετε αυτήν την καταχώριση κλεισίματος σε πρόχειρο, "
+"καθώς θα διαγράψει τις μεταφερόμενες τιμές που επηρεάζουν την φορολογική "
+"αναφορά μιας κλειδωμένης περιόδου. Για να το κάνετε αυτό, πρώτα πρέπει να "
+"τροποποιήσετε την ημερομηνία κλειδώματος της δήλωσης φόρου σας."
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 msgid "You need to activate more than one currency to access this report."
 msgstr ""
+"Πρέπει να ενεργοποιήσετε περισσότερα από ένα νόμισμα για να αποκτήσετε "
+"πρόσβαση σε αυτήν την αναφορά."
 
 #. module: account_reports
 #. odoo-python
@@ -4215,30 +4260,30 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_main
 msgid "[Draft]"
-msgstr ""
+msgstr "[Πρόχειρο]"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 msgid "addressed to"
-msgstr ""
+msgstr "που απευθύνεται σε"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
 msgid "and correct their tax tags if necessary."
-msgstr ""
+msgstr "και διορθώστε τις φορολογικές τους ετικέτες εάν είναι απαραίτητο."
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__year
 msgid "annually"
-msgstr ""
+msgstr "ετησίως"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:account_reports.setup_financial_year_opening_form
 msgid "days after period"
-msgstr ""
+msgstr "ημέρες μετά την περίοδο "
 
 #. module: account_reports
 #. odoo-javascript
@@ -4249,12 +4294,12 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__2_months
 msgid "every 2 months"
-msgstr ""
+msgstr "κάθε 2 μήνες"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__4_months
 msgid "every 4 months"
-msgstr ""
+msgstr "κάθε 4 μήνες"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4266,7 +4311,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/carryover_popover.xml:0
 msgid "in the next period."
-msgstr ""
+msgstr "στο επόμενο διάστημα."
 
 #. module: account_reports
 #. odoo-javascript
@@ -4289,7 +4334,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__monthly
 msgid "monthly"
-msgstr ""
+msgstr "μηνιαία"
 
 #. module: account_reports
 #. odoo-python
@@ -4301,7 +4346,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 msgid "partners"
-msgstr ""
+msgstr "συνεργάτες"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4334,7 +4379,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_tax.py:0
 msgid "tax unit [%s]"
-msgstr ""
+msgstr "φορολογική μονάδα [%s]"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4365,7 +4410,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 msgid "which don't originate from a bank statement nor payment."
-msgstr ""
+msgstr "που δεν προέρχονται από τραπεζικό αντίγραφο ή πληρωμή."
 
 #. module: account_reports
 #. odoo-javascript
@@ -4377,13 +4422,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/carryover_popover.xml:0
 msgid "will be carried over to"
-msgstr ""
+msgstr "θα μεταφερθεί σε"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/carryover_popover.xml:0
 msgid "will be carried over to this line in the next period."
-msgstr ""
+msgstr "θα μεταφερθεί σε αυτή τη γραμμή την επόμενη περίοδο."
 
 #. module: account_reports
 #. odoo-javascript

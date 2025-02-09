@@ -29,6 +29,7 @@
 # Martin Trigaux, 2024
 # Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2025
 # Wil Odoo, 2025
+# Jessica Jakara, 2025
 # 
 msgid ""
 msgstr ""
@@ -36,7 +37,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-25 17:23+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Jessica Jakara, 2025\n"
 "Language-Team: Lithuanian (https://app.transifex.com/odoo/teams/41243/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1344,7 +1345,13 @@ msgstr ""
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
-msgid "Deferrals have already been generated."
+msgid "Deferrals have not yet been completely generated for this period."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+msgid "Deferrals have not yet been generated for this period."
 msgstr ""
 
 #. module: account_reports
@@ -1733,9 +1740,15 @@ msgstr "Lauko  %s account.move.line nėra."
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
+msgid "Field %s of account.move.line cannot be used in a groupby expression."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 msgid ""
-"Field %s of account.move.line is not stored, and hence cannot be used in a "
-"groupby expression"
+"Field %s of account.move.line is not searchable and can therefore not be "
+"used in a groupby expression."
 msgstr ""
 
 #. module: account_reports
@@ -1896,7 +1909,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_sales_report.py:0
 msgid "Goods"
-msgstr ""
+msgstr "Prekės"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3349,6 +3362,12 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
 msgid "Single Recipient"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+msgid "Show already generated deferrals."
 msgstr ""
 
 #. module: account_reports

@@ -1019,8 +1019,14 @@ msgstr "Error terjadi saat mengunggah."
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
-msgid "Anyone on the internet with the link can %(action)s"
-msgstr "Siapa pun di internet dengan link dapat %(action)s"
+msgid "Anyone on the internet with the link can edit"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
+msgid "Anyone on the internet with the link can view"
+msgstr ""
 
 #. module: documents
 #. odoo-javascript
@@ -1211,6 +1217,7 @@ msgstr "Client Dibuat"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.xml:0
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 msgid "Close"
@@ -1378,6 +1385,7 @@ msgstr "Jeda setelah penghapusan permanen dokumen di tong sampah (hari)"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
 #: code:addons/documents/static/src/owl/components/pdf_exit_dialog/pdf_exit_dialog.xml:0
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #: code:addons/documents/static/src/views/form/folder_form_controller.js:0
@@ -1420,7 +1428,6 @@ msgstr "Usang"
 
 #. module: documents
 #. odoo-javascript
-#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 #: code:addons/documents/static/src/views/hooks.js:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -1431,6 +1438,12 @@ msgstr "Usang"
 #: model_terms:ir.ui.view,arch_db:documents.tag_view_form
 msgid "Discard"
 msgstr "Buang"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "Discoverable"
+msgstr ""
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_access__display_name
@@ -1613,6 +1626,7 @@ msgstr "Selesai!"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_download.js:0
 #: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -1768,6 +1782,7 @@ msgstr "Kadaluwarsa"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/list/documents_list_controller.js:0
+#: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 msgid "Export"
 msgstr "Ekspor"
 
@@ -2089,8 +2104,14 @@ msgstr "Hak User Internal"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
-msgid "Internal users can  %(action)s"
-msgstr "User-user internal dapat %(action)s"
+msgid "Internal users can edit"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
+msgid "Internal users can view"
+msgstr ""
 
 #. module: documents
 #. odoo-python
@@ -2427,6 +2448,8 @@ msgid "Moved to trash"
 msgstr "Dipindahkan ke tong sampah"
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "Must have the link to access"
 msgstr "Harus memiliki link untuk mengakses"
@@ -3091,6 +3114,12 @@ msgstr "Menyimpan..."
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
+msgid "Search people"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
 msgid "Select a folder to upload a document"
 msgstr ""
@@ -3266,7 +3295,6 @@ msgstr "Ukuran:"
 
 #. module: documents
 #. odoo-javascript
-#: code:addons/documents/static/src/views/hooks.js:0
 #: code:addons/documents/static/src/core/document_service.js:0
 msgid "Some files could not be uploaded (max size: %s)."
 msgstr "Beberapa file tidak dapat diunggah (ukuran maksimum: %s)."
@@ -3840,12 +3868,6 @@ msgstr ""
 "tautan internet ke file Anda."
 
 #. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You cannot delete this attachment."
-msgstr ""
-
-#. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
@@ -3904,6 +3926,12 @@ msgstr "Anda tidka dapat mengubah pemilik dokumen yang Anda tidak miliki."
 #: code:addons/documents/models/documents_tag.py:0
 msgid "You cannot delete tags used in server actions."
 msgstr "Anda tidak dapat menghapus tag yang digunakan di server action."
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot delete this attachment."
+msgstr ""
 
 #. module: documents
 #. odoo-python

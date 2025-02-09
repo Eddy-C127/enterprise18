@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Martin Trigaux, 2024
-# Maitê Dietze, 2025
 # Wil Odoo, 2025
+# Maitê Dietze, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-25 17:23+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Maitê Dietze, 2025\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1313,7 +1313,7 @@ msgstr "Demonstrativos de clientes"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_customer_statement_report_handler
 msgid "Customer Statement Custom Handler"
-msgstr ""
+msgstr "Gerenciador personalizado de declaração do cliente"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1366,8 +1366,14 @@ msgstr "Dedutível"
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
-msgid "Deferrals have already been generated."
-msgstr "Os diferimentos já foram gerados."
+msgid "Deferrals have not yet been completely generated for this period."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+msgid "Deferrals have not yet been generated for this period."
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -1765,12 +1771,16 @@ msgstr "O campo %s não existe em account.move.line."
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
-msgid ""
-"Field %s of account.move.line is not stored, and hence cannot be used in a "
-"groupby expression"
+msgid "Field %s of account.move.line cannot be used in a groupby expression."
 msgstr ""
-"O campo %s de  account.move.line não está armazenado, e por isso não pode "
-"ser usado em uma expressão groupby"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+msgid ""
+"Field %s of account.move.line is not searchable and can therefore not be "
+"used in a groupby expression."
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -2439,6 +2449,8 @@ msgid ""
 "Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
 "This is not allowed."
 msgstr ""
+"A linha '%(child)s' está configurada para aparecer antes da superior "
+"'%(parent)s'. Isso não é permitido."
 
 #. module: account_reports
 #. odoo-javascript
@@ -2629,7 +2641,7 @@ msgstr "Aumento líquido de caixa e equivalentes de caixa"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_npmargin0
 msgid "Net profit margin (net profit / revenue)"
-msgstr ""
+msgstr "Margem de lucro líquido (lucro líquido/receita)"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
@@ -3088,7 +3100,7 @@ msgstr "Período anterior"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "Previous Periods"
-msgstr ""
+msgstr "Períodos anteriores"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3100,7 +3112,7 @@ msgstr "Ano anterior"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "Previous Years"
-msgstr ""
+msgstr "Anos anteriores"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings_line_2
@@ -3338,7 +3350,7 @@ msgstr "Enviar"
 #. odoo-python
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 msgid "Send %s Statement"
-msgstr ""
+msgstr "Enviar declaração %s"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report__send_and_print_values
@@ -3421,6 +3433,12 @@ msgstr "Mostrar aviso movimentação"
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
 msgid "Single Recipient"
 msgstr "Um destinatário"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+msgid "Show already generated deferrals."
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
@@ -3707,12 +3725,14 @@ msgid ""
 "The attachments of the tax report can be found on the %(link_start)sclosing "
 "entry%(link_end)s of the representative company."
 msgstr ""
+"Os anexos do relatório fiscal podem ser encontrados no "
+"%(link_start)slançamento de fechamento%(link_end)s da empresa representante."
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 msgid "The column '%s' is not available for this report."
-msgstr ""
+msgstr "A coluna '%s' não está disponível para este relatório."
 
 #. module: account_reports
 #. odoo-python
@@ -3885,7 +3905,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
 #, python-format
 msgid "This line is out of sequence."
-msgstr ""
+msgstr "Essa linha está fora de sequência."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3895,6 +3915,8 @@ msgid ""
 "This line is placed before its parent, which is not allowed. You can fix it "
 "by dragging it to the proper position."
 msgstr ""
+"Essa linha foi colocada antes da sua superior, o que não é permitido. Você "
+"pode corrigi-la arrastando-a para a posição correta."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form

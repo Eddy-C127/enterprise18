@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2025
+# Tony Ng, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:56+0000\n"
 "PO-Revision-Date: 2025-01-28 08:25+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Tony Ng, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +23,7 @@ msgstr ""
 #. module: pos_urban_piper_enhancements
 #: model_terms:ir.actions.act_window,help:pos_urban_piper_enhancements.action_pos_store_timing
 msgid "Add a store timing"
-msgstr ""
+msgstr "加入店舖計時"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_product_template_attribute_value__urbanpiper_pos_config_ids
@@ -32,7 +33,7 @@ msgstr "可用於送餐"
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,help:pos_urban_piper_enhancements.field_product_template_attribute_value__urbanpiper_pos_config_ids
 msgid "Check this if the value is available for food delivery."
-msgstr ""
+msgstr "若該值可用於送餐，請勾選此項。"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model,name:pos_urban_piper_enhancements.model_res_config_settings
@@ -57,7 +58,7 @@ msgstr "建立於"
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_pos_order__delivery_datetime
 msgid "Delivery Datetime"
-msgstr ""
+msgstr "送餐日期時間"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_pos_store_timing__display_name
@@ -73,12 +74,12 @@ msgstr "結束時間"
 #. odoo-javascript
 #: code:addons/pos_urban_piper_enhancements/static/src/point_of_sale_override/store/pos_store.js:0
 msgid "Error to send delivery order in preparation display."
-msgstr ""
+msgstr "將送餐訂單傳送至準備工作顯示屏時，發生錯誤。"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,help:pos_urban_piper_enhancements.field_pos_order__is_notified
 msgid "Flag indicating if the delivery notification has been sent."
-msgstr ""
+msgstr "此標幟表示送餐通知是否已傳送。"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields.selection,name:pos_urban_piper_enhancements.selection__pos_store_timing__weekday__friday
@@ -93,7 +94,7 @@ msgstr "識別號"
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_pos_order__is_notified
 msgid "Is Notified"
-msgstr ""
+msgstr "是已通知"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_pos_store_timing__write_uid
@@ -108,13 +109,13 @@ msgstr "最後更新於"
 #. module: pos_urban_piper_enhancements
 #: model_terms:ir.actions.act_window,help:pos_urban_piper_enhancements.action_pos_store_timing
 msgid "Manage store timings for POS delivery order(s)."
-msgstr ""
+msgstr "管理 POS 銷售點送餐訂單的店舖計時。"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_pos_config__urbanpiper_minimum_preparation_time
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_res_config_settings__pos_urbanpiper_minimum_preparation_time
 msgid "Minimum Preparation Time (Seconds)"
-msgstr ""
+msgstr "最短準備時間（秒）"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields.selection,name:pos_urban_piper_enhancements.selection__pos_store_timing__weekday__monday
@@ -124,7 +125,7 @@ msgstr "星期一"
 #. module: pos_urban_piper_enhancements
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper_enhancements.view_pos_order_form_inherit_pos_urban_piper
 msgid "Online Order ID"
-msgstr ""
+msgstr "線上訂單識別碼"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model,name:pos_urban_piper_enhancements.model_pos_config
@@ -144,17 +145,17 @@ msgstr "POS 操作時段"
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_pos_store_timing__config_ids
 msgid "Point of Sale accociated to this timing"
-msgstr ""
+msgstr "與此計時相關的銷售點"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model,name:pos_urban_piper_enhancements.model_pos_store_timing
 msgid "Pos Store Timings"
-msgstr ""
+msgstr "Pos 銷售點店舖計時"
 
 #. module: pos_urban_piper_enhancements
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper_enhancements.res_config_settings_view_form_pos_urban_piper_enhancements
 msgid "Preparation Time(seconds)"
-msgstr ""
+msgstr "準備時間（秒）"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model,name:pos_urban_piper_enhancements.model_pos_preparation_display_order
@@ -164,12 +165,12 @@ msgstr "準備工作單"
 #. module: pos_urban_piper_enhancements
 #: model:ir.model,name:pos_urban_piper_enhancements.model_product_template
 msgid "Product"
-msgstr "商品"
+msgstr "產品"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model,name:pos_urban_piper_enhancements.model_product_template_attribute_value
 msgid "Product Template Attribute Value"
-msgstr "產品模板屬性值"
+msgstr "產品範本屬性值"
 
 #. module: pos_urban_piper_enhancements
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper_enhancements.report_invoice_document_pos_urban_piper_enhancements
@@ -185,18 +186,18 @@ msgstr "星期六"
 #. odoo-javascript
 #: code:addons/pos_urban_piper_enhancements/static/src/pos_preparation_display_override/components/order/order.xml:0
 msgid "Scheduled At:"
-msgstr ""
+msgstr "預定時間："
 
 #. module: pos_urban_piper_enhancements
 #. odoo-javascript
 #: code:addons/pos_urban_piper_enhancements/static/src/point_of_sale_override/store/pos_store.js:0
 msgid "Scheduled Order"
-msgstr ""
+msgstr "預定訂單"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,help:pos_urban_piper_enhancements.field_pos_order__delivery_datetime
 msgid "Scheduled delivery datetime for the delivery order."
-msgstr ""
+msgstr "送餐訂單預定送餐的日期時間。"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_pos_store_timing__start_hour
@@ -208,7 +209,7 @@ msgstr "開始時間"
 #: model:ir.ui.menu,name:pos_urban_piper_enhancements.menu_products_pos_store_timing
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper_enhancements.view_pos_store_timing_list
 msgid "Store Timings"
-msgstr ""
+msgstr "店舖計時"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields.selection,name:pos_urban_piper_enhancements.selection__pos_store_timing__weekday__sunday
@@ -226,13 +227,13 @@ msgstr "結束時間必須後於開始時間。"
 msgid ""
 "The minimum amount of time the customer must wait for the order to be "
 "prepared."
-msgstr ""
+msgstr "顧客必須等待訂單準備好的最短時間。"
 
 #. module: pos_urban_piper_enhancements
 #. odoo-javascript
 #: code:addons/pos_urban_piper_enhancements/static/src/point_of_sale_override/screens/ticket_screen/ticket_screen.xml:0
 msgid "This order is scheduled order."
-msgstr ""
+msgstr "此訂單為預定訂單。"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields.selection,name:pos_urban_piper_enhancements.selection__pos_store_timing__weekday__thursday
@@ -252,12 +253,12 @@ msgstr "UrbanPiper"
 #. module: pos_urban_piper_enhancements
 #: model:ir.ui.menu,name:pos_urban_piper_enhancements.pos_menu_urban_piper_configuration
 msgid "UrbanPiper"
-msgstr ""
+msgstr "UrbanPiper"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.actions.server,name:pos_urban_piper_enhancements.cron_check_future_delivery_orders_ir_actions_server
 msgid "UrbanPiper: Notify future delivery orders"
-msgstr ""
+msgstr "UrbanPiper：為未來的送餐訂單發送通知"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields.selection,name:pos_urban_piper_enhancements.selection__pos_store_timing__weekday__wednesday

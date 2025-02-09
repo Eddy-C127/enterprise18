@@ -23,7 +23,7 @@ msgstr ""
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_kanban
 msgid "<i class=\"fa fa-clock-o me-1\" role=\"img\" aria-label=\"Period\" title=\"Period\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-clock-o me-1\" role=\"img\" aria-label=\"ช่วง\" title=\"ช่วง\"/>"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_split_wizard_form_view
@@ -49,7 +49,7 @@ msgstr "เก็บถาวรแล้ว"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__achieved_percentage
 msgid "Achieved (%)"
-msgstr ""
+msgstr "สำเร็จ (%)"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__message_needaction
@@ -79,12 +79,12 @@ msgstr "ไอคอนประเภทกิจกรรม"
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_budget_line__committed_amount
 msgid "Already Billed amount + Confirmed purchase orders."
-msgstr ""
+msgstr "ยอดเงินที่เรียกเก็บแล้ว + ใบสั่งซื้อที่ได้รับการยืนยัน"
 
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_budget_line__achieved_amount
 msgid "Amount Billed/Invoiced."
-msgstr ""
+msgstr "จำนวนเงินที่เรียกเก็บ/ออกใบแจ้งหนี้"
 
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_budget_line__theoritical_amount
@@ -105,12 +105,12 @@ msgstr "บัญชีวิเคราะห์"
 #. module: account_budget
 #: model:ir.ui.menu,name:account_budget.menu_act_budget_analytic_view
 msgid "Analytic Budget"
-msgstr ""
+msgstr "งบประมาณวิเคราะห์"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_purchase_order_line__analytic_json
 msgid "Analytic JSON"
-msgstr ""
+msgstr "การวิเคราะห์ JSON"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_split_wizard__analytical_plan_ids
@@ -145,13 +145,13 @@ msgstr "งบประมาณ"
 #. odoo-python
 #: code:addons/account_budget/wizards/budget_split_wizard.py:0
 msgid "Budget %s"
-msgstr ""
+msgstr "งบประมาณ %s"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__budget_analytic_id
 #: model:ir.model.fields,field_description:account_budget.field_budget_report__budget_analytic_id
 msgid "Budget Analytic"
-msgstr ""
+msgstr "การวิเคราะห์งบประมาณ"
 
 #. module: account_budget
 #: model:ir.model,name:account_budget.model_budget_line
@@ -190,7 +190,7 @@ msgstr "ชื่องบประมาณ"
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_search
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_tree
 msgid "Budget Report"
-msgstr ""
+msgstr "รายงานงบประมาณ"
 
 #. module: account_budget
 #: model:ir.model,name:account_budget.model_budget_split_wizard
@@ -205,7 +205,7 @@ msgstr "สถานะงบประมาณ"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__budget_type
 msgid "Budget Type"
-msgstr ""
+msgstr "ประเภทงบประมาณ"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__budget_amount
@@ -258,7 +258,7 @@ msgstr "มอบหมายแล้ว"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__committed_percentage
 msgid "Committed (%)"
-msgstr ""
+msgstr "มอบหมายแล้ว (%)"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__company_id
@@ -385,7 +385,7 @@ msgstr "สร้าง"
 #: model:ir.actions.act_window,name:account_budget.budget_split_wizard_action
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_split_wizard_form_view
 msgid "Generate Budget"
-msgstr ""
+msgstr "สร้างงบประมาณ"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_search
@@ -442,7 +442,7 @@ msgstr "อยู่เหนือกว่างบประมาณ"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_purchase_order__is_analytic
 msgid "Is Analytic"
-msgstr ""
+msgstr "เป็นการวิเคราะห์"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__message_is_follower
@@ -497,7 +497,7 @@ msgstr "วันครบกำหนดกิจกรรมของฉัน
 #. odoo-python
 #: code:addons/account_budget/models/budget_analytic.py:0
 msgid "New revision"
-msgstr ""
+msgstr "การแก้ไขใหม่"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__activity_calendar_event_id
@@ -553,7 +553,7 @@ msgstr "เปิด"
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_search
 msgid "Open Budget"
-msgstr ""
+msgstr "งบประมาณเปิด"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_split_wizard__period
@@ -591,7 +591,7 @@ msgstr "ไตรมาส"
 #. odoo-python
 #: code:addons/account_budget/models/budget_analytic.py:0
 msgid "REV %s"
-msgstr ""
+msgstr "REV %s"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__rating_ids
@@ -631,7 +631,7 @@ msgstr "แก้ไขแล้ว"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__parent_id
 msgid "Revision Of"
-msgstr ""
+msgstr "การแก้ไขของ"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__children_ids
@@ -698,7 +698,7 @@ msgstr "เชิงทฤษฎี"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__theoritical_percentage
 msgid "Theoretical (%)"
-msgstr ""
+msgstr "เชิงทฤษฎี (%)"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_search
@@ -708,17 +708,17 @@ msgstr "กิจกรรมวันนี้"
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_tree
 msgid "Total Achieved"
-msgstr ""
+msgstr "บรรลุผลรวม"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_tree
 msgid "Total Budget"
-msgstr ""
+msgstr "งบประมาณรวม"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_tree
 msgid "Total Committed"
-msgstr ""
+msgstr "มอบหมายรวม"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_report__line_type

@@ -13,10 +13,10 @@
 # hish, 2024
 # Батболд <batbold.ts@gmail.com>, 2024
 # Cheemee Bumtsend <cheemeesun@gmail.com>, 2024
-# Bayarkhuu Bataa, 2025
 # Nomin Erdenchimeg <nomin.bmde@gmail.com>, 2025
-# Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2025
 # Martin Trigaux, 2025
+# Bayarkhuu Bataa, 2025
+# Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
@@ -24,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-25 17:23+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Martin Trigaux, 2025\n"
+"Last-Translator: Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2025\n"
 "Language-Team: Mongolian (https://app.transifex.com/odoo/teams/41243/mn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -72,13 +72,13 @@ msgstr "%s (хуулбар)"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "%s is not a numeric value"
-msgstr ""
+msgstr "%s нь тоон утга биш байна"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "%s selected"
-msgstr ""
+msgstr "%s сонгогдсон"
 
 #. module: account_reports
 #. odoo-python
@@ -122,7 +122,7 @@ msgstr "(-) Биелээгүй төлбөрийн зарлагууд"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "(1 line)"
-msgstr ""
+msgstr "(1 мөр)"
 
 #. module: account_reports
 #. odoo-python
@@ -191,11 +191,12 @@ msgstr "<span role=\"separator\">Тулгалт</span>"
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
 msgid "<span>One or more error(s) occurred during file generation:</span>"
 msgstr ""
+"<span> Файл үүсгэх явцад нэг эсвэл хэд хэдэн алдаа(ууд) илэрлээ:</span>"
 
 #. module: account_reports
 #: model:ir.model.constraint,message:account_reports.constraint_account_report_horizontal_group_name_uniq
 msgid "A horizontal group with the same name already exists."
-msgstr ""
+msgstr "Ижил нэртэй хэвтээ бүлэг аль хэдийнээ тодорхойлогдсон байна."
 
 #. module: account_reports
 #. odoo-javascript
@@ -253,18 +254,18 @@ msgstr "Дансны код"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Account Code / Tag"
-msgstr ""
+msgstr "Дансны код / Пайз"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_display_representative_field
 msgid "Account Display Representative Field"
-msgstr ""
+msgstr "Дансны дэлгэцэнд харуулах талбар"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 msgid "Account Label"
-msgstr ""
+msgstr "Дансны шошго"
 
 #. module: account_reports
 #. odoo-python
@@ -275,12 +276,12 @@ msgstr "Дансны нэр"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_annotation
 msgid "Account Report Annotation"
-msgstr ""
+msgstr "Санхүүгийн тайлангийн тайлбар тэмдэглэл"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_custom_handler
 msgid "Account Report Custom Handler"
-msgstr ""
+msgstr "Санхүүгийн тайлан боловсруулагч"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_tax_report_handler
@@ -312,7 +313,7 @@ msgstr "Дахин үнэлгээний журнал"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_account_type.xml:0
 msgid "Account:"
-msgstr ""
+msgstr "Данс:"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_representative_id
@@ -368,13 +369,13 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.multicurrency_revaluation_to_adjust
 msgid "Accounts To Adjust"
-msgstr ""
+msgstr "Тохируулах данс"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Accounts coverage"
-msgstr ""
+msgstr "Дансны хамрах хүрээ"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_mail_activity_type__category
@@ -504,25 +505,25 @@ msgstr "Бүх"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "All Journals"
-msgstr ""
+msgstr "Бүх журнал"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "All Payable"
-msgstr ""
+msgstr "Бүх өглөг"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "All Receivable"
-msgstr ""
+msgstr "Бүх авлага"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "All Report Variants"
-msgstr ""
+msgstr "Бүх тайлангийн хувилбар"
 
 #. module: account_reports
 #. odoo-javascript
@@ -531,6 +532,8 @@ msgid ""
 "All selected companies or branches do not share the same Tax ID. Please "
 "check the Tax ID of the selected companies."
 msgstr ""
+"Сонгогдсон салбар компаниудын татвар төлөгчийн дугаар ижил биш байна. "
+"Сонгогдсон компаниудын татварын ID -г шалгана уу."
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_amount
@@ -555,7 +558,7 @@ msgstr "Валютаарх дүн"
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 msgid "Amount in currency: %s"
-msgstr ""
+msgstr "Валютаарх дүн: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -567,13 +570,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Amounts in Millions"
-msgstr ""
+msgstr "Дүн саятаар"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Amounts in Thousands"
-msgstr ""
+msgstr "Дүн мянгатаар"
 
 #. module: account_reports
 #. odoo-javascript
@@ -585,7 +588,7 @@ msgstr "Шинжилгээ"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report__filter_analytic_groupby
 msgid "Analytic Group By"
-msgstr ""
+msgstr "Шинжилгээний бүлэглэлт"
 
 #. module: account_reports
 #. odoo-javascript
@@ -603,12 +606,12 @@ msgstr "Тэмдэглэгээ"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line_name/popover/annotations_popover.xml:0
 msgid "Annotation"
-msgstr ""
+msgstr "Тайлбар тэмдэглэл"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report__annotations_ids
 msgid "Annotations"
-msgstr ""
+msgstr "Тайлбар тэмдэглэл"
 
 #. module: account_reports
 #. odoo-python
@@ -620,7 +623,7 @@ msgstr "%s - н байдлаар"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Ascending"
-msgstr ""
+msgstr "Өсөх эрэмбэ"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_period0
@@ -689,33 +692,33 @@ msgstr "Баланс тайлан"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_balance_sheet_report_handler
 msgid "Balance Sheet Custom Handler"
-msgstr ""
+msgstr "Баланс тайлан боловсруулагч"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_current
 msgid "Balance at Current Rate"
-msgstr ""
+msgstr "Өнөөгийн ханшаарх үлдэгдэл"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_operation
 msgid "Balance at Operation Rate"
-msgstr ""
+msgstr "Гүйлгээний ханшаарх үлдэгдэл"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_currency
 msgid "Balance in Foreign Currency"
-msgstr ""
+msgstr "Гадаад валютаарх үлдэгдэл"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/bank_reconciliation_report.py:0
 msgid "Balance of '%s'"
-msgstr ""
+msgstr "'%s'ны үлдэгдэл"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.balance_bank
 msgid "Balance of Bank"
-msgstr ""
+msgstr "Банкны үлдэгдэл"
 
 #. module: account_reports
 #. odoo-python
@@ -748,7 +751,7 @@ msgstr "Банк тулгалтын тайлан"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_bank_reconciliation_report_handler
 msgid "Bank Reconciliation Report Custom Handler"
-msgstr ""
+msgstr "Банк тулгалтын тайлан боловсруулагч"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_bank_view0
@@ -866,7 +869,7 @@ msgstr "Бэлэн мөнгө"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_cash_flow_report_handler
 msgid "Cash Flow Report Custom Handler"
-msgstr ""
+msgstr "Мөнгөн гүйлгээний тайлан боловсруулагч"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.cash_flow_report
@@ -976,7 +979,7 @@ msgstr "Хаах"
 #. odoo-python
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 msgid "Closing Entry"
-msgstr ""
+msgstr "Хаалтын гүйлгээ"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_closing_bank_balance0
@@ -994,7 +997,7 @@ msgstr "Код"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/sales_report/filters/filter_code.xml:0
 msgid "Codes:"
-msgstr ""
+msgstr "Код:"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -1047,7 +1050,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Company Settings"
-msgstr ""
+msgstr "Компаны тохируулга"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1206,7 +1209,7 @@ msgstr "Валютын ханш (%s)"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Currency:"
-msgstr ""
+msgstr "Валют:"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.deferred_expense_current
@@ -1329,7 +1332,13 @@ msgstr ""
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
-msgid "Deferrals have already been generated."
+msgid "Deferrals have not yet been completely generated for this period."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+msgid "Deferrals have not yet been generated for this period."
 msgstr ""
 
 #. module: account_reports
@@ -1718,9 +1727,15 @@ msgstr ""
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
+msgid "Field %s of account.move.line cannot be used in a groupby expression."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 msgid ""
-"Field %s of account.move.line is not stored, and hence cannot be used in a "
-"groupby expression"
+"Field %s of account.move.line is not searchable and can therefore not be "
+"used in a groupby expression."
 msgstr ""
 
 #. module: account_reports
@@ -2432,7 +2447,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.column,name:account_reports.partner_ledger_report_matching_number
 msgid "Matching"
-msgstr "Харгалзаа"
+msgstr "Тулгалт"
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_tax_unit__company_ids
@@ -3335,6 +3350,12 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
 msgid "Single Recipient"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+msgid "Show already generated deferrals."
 msgstr ""
 
 #. module: account_reports

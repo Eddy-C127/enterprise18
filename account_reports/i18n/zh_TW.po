@@ -362,7 +362,7 @@ msgstr "會計報表"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_analytic.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_analytic_groupby.xml:0
 msgid "Accounts"
-msgstr "項目"
+msgstr "賬戶"
 
 #. module: account_reports
 #. odoo-python
@@ -1335,8 +1335,14 @@ msgstr "可扣除"
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
-msgid "Deferrals have already been generated."
-msgstr "已產生遞延項目。"
+msgid "Deferrals have not yet been completely generated for this period."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+msgid "Deferrals have not yet been generated for this period."
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -1725,10 +1731,16 @@ msgstr "account.move.line 上沒有 %s 欄位。"
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
+msgid "Field %s of account.move.line cannot be used in a groupby expression."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 msgid ""
-"Field %s of account.move.line is not stored, and hence cannot be used in a "
-"groupby expression"
-msgstr "account.move.line 的欄位 %s 未經儲存，因此不能在 groupby 表達式中使用"
+"Field %s of account.move.line is not searchable and can therefore not be "
+"used in a groupby expression."
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -3348,6 +3360,12 @@ msgstr "顯示警告分錄"
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
 msgid "Single Recipient"
 msgstr "單一收件人"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+msgid "Show already generated deferrals."
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript

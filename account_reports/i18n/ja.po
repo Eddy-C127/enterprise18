@@ -5,8 +5,8 @@
 # Translators:
 # Martin Trigaux, 2024
 # Ryoko Tsuda <ryoko@quartile.co>, 2024
-# Junko Augias, 2025
 # Wil Odoo, 2025
+# Junko Augias, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-25 17:23+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Junko Augias, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1289,7 +1289,7 @@ msgstr "顧客取引明細書"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_customer_statement_report_handler
 msgid "Customer Statement Custom Handler"
-msgstr ""
+msgstr "顧客取引明細書 カスタムハンドラ"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1342,8 +1342,14 @@ msgstr "控除可能"
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
-msgid "Deferrals have already been generated."
-msgstr "繰延がすでに作成済みです。"
+msgid "Deferrals have not yet been completely generated for this period."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+msgid "Deferrals have not yet been generated for this period."
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -1733,10 +1739,16 @@ msgstr "フィールド%sはaccount.move.line.上に存在しません。"
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
+msgid "Field %s of account.move.line cannot be used in a groupby expression."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 msgid ""
-"Field %s of account.move.line is not stored, and hence cannot be used in a "
-"groupby expression"
-msgstr "account.move.lineのフィールド%sは保存されないため、groupby式では使用できません。"
+"Field %s of account.move.line is not searchable and can therefore not be "
+"used in a groupby expression."
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -2388,7 +2400,7 @@ msgstr "ライン"
 msgid ""
 "Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
 "This is not allowed."
-msgstr ""
+msgstr "明細 '%(child)s' がその親 '%(parent)s' より前に表示されるよう設定されています。これは許可されていません。"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2576,7 +2588,7 @@ msgstr "現金及び現金同等物の純増"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_npmargin0
 msgid "Net profit margin (net profit / revenue)"
-msgstr ""
+msgstr "純利益率 (純利益 / 収益)"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
@@ -3274,7 +3286,7 @@ msgstr "送信"
 #. odoo-python
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 msgid "Send %s Statement"
-msgstr ""
+msgstr "明細 %s を送信"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report__send_and_print_values
@@ -3357,6 +3369,12 @@ msgstr "警告移動を表示"
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
 msgid "Single Recipient"
 msgstr "単一受信者"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+msgid "Show already generated deferrals."
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
@@ -3637,6 +3655,7 @@ msgid ""
 "The attachments of the tax report can be found on the %(link_start)sclosing "
 "entry%(link_end)s of the representative company."
 msgstr ""
+"税務申告書の添付書類は、代表会社の仕訳%(link_start)s (link_start) の決算仕訳 (link_end) に記載されています。"
 
 #. module: account_reports
 #. odoo-python
@@ -3797,7 +3816,7 @@ msgstr "この行とその子行はすべて削除されます。本当に続け
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
 #, python-format
 msgid "This line is out of sequence."
-msgstr ""
+msgstr "この明細は順序が違います。"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3806,7 +3825,7 @@ msgstr ""
 msgid ""
 "This line is placed before its parent, which is not allowed. You can fix it "
 "by dragging it to the proper position."
-msgstr ""
+msgstr "この行は親の行より前に配置されていますが、これは許可されていません。適切な位置にドラッグすることで修正できます。"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form

@@ -1,31 +1,32 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * l10n_ch_hr_payroll
-#
+# 	* l10n_ch_hr_payroll
+# 
+# Translators:
+# Tiffany Chang, 2025
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.5alpha1+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-20 08:49+0000\n"
-"PO-Revision-Date: 2024-06-24 12:27+0000\n"
+"PO-Revision-Date: 2025-02-07 17:07+0000\n"
+"Last-Translator: Tiffany Chang, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/odoo/teams/41243/it/)\n"
-"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Language: it\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,help:l10n_ch_hr_payroll.field_l10n_ch_accident_insurance_line__solution_number
 msgid ""
 "\n"
-"0: Not UVG insured (e.g. member of the board of directors not working in the "
-"company)\n"
+"0: Not UVG insured (e.g. member of the board of directors not working in the company)\n"
 "1: AAP and AANP insured, with AANP deduction\n"
 "2: Insured AAP and AANP, without AANP deduction\n"
-"3: Only AAP insured, so no AANP deduction (for employees whose weekly work "
-"is < 8 h))"
+"3: Only AAP insured, so no AANP deduction (for employees whose weekly work is < 8 h))"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll
@@ -100,8 +101,8 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_be_individual_account_view_form
 msgid ""
-"<i class=\"oi oi-fw oi-arrow-right\"/>The following XML file can be imported "
-"here for PDF Generation"
+"<i class=\"oi oi-fw oi-arrow-right\"/>The following XML file can be imported"
+" here for PDF Generation"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll
@@ -112,9 +113,9 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_tax_rate_import_wizard_view_form
 msgid ""
-"<span class=\"text-muted\">Tax files (.txt format) can be found at https://"
-"www.estv.admin.ch/estv/fr/accueil/impot-federal-direct/impot-a-la-source/"
-"baremes-cantonaux.html</span>"
+"<span class=\"text-muted\">Tax files (.txt format) can be found at "
+"https://www.estv.admin.ch/estv/fr/accueil/impot-federal-direct/impot-a-la-"
+"source/baremes-cantonaux.html</span>"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll
@@ -518,8 +519,8 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,help:l10n_ch_hr_payroll.field_hr_payslip__l10n_ch_after_departure_payment
 msgid ""
-"Additional payment after leaving in the current year with maximum salary and "
-"third-party benefits"
+"Additional payment after leaving in the current year with maximum salary and"
+" third-party benefits"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll
@@ -849,49 +850,36 @@ msgstr ""
 msgid ""
 "Code meaning:\n"
 "- I: Gross base salary and regular allowances\n"
-"    - Ordinary salary paid, such as monthly, hourly, piece rate, working "
-"from home, etc.\n"
-"    - Regular allowances paid, such as allowances for position or for length "
-"of service,\n"
+"    - Ordinary salary paid, such as monthly, hourly, piece rate, working from home, etc.\n"
+"    - Regular allowances paid, such as allowances for position or for length of service,\n"
 "      residence, housing, travel or cost of living allowances.\n"
 "    - Tips paid subject to AVS contributions.\n"
-"    - Regular payments (at each pay) of a commission, turnover contribution "
-"or other bonus\n"
+"    - Regular payments (at each pay) of a commission, turnover contribution or other bonus\n"
 "      paid regularly.\n"
-"- J: Gross amount of compensation for shift work, Sunday or night work and "
-"other arduousness\n"
+"- J: Gross amount of compensation for shift work, Sunday or night work and other arduousness\n"
 "     bonuses (compensation for on-call duty, dirty work, etc.).\n"
-"- K: Total amount of family allowances paid by the employer in the form of "
-"child allowances,\n"
-"     vocational training allowances, household allowances or care "
-"allowances.\n"
-"- Y: Benefits provided by insurance or similar institutions and which have "
-"an impact on\n"
+"- K: Total amount of family allowances paid by the employer in the form of child allowances,\n"
+"     vocational training allowances, household allowances or care allowances.\n"
+"- Y: Benefits provided by insurance or similar institutions and which have an impact on\n"
 "     employee contributions\n"
-"- L: Amount of AVS/AI/APG/AC/ (1st pillar) and AANP (employee’s share) "
-"contributions.\n"
+"- L: Amount of AVS/AI/APG/AC/ (1st pillar) and AANP (employee’s share) contributions.\n"
 "     Not included:\n"
 "        - the employer’s share,\n"
 "        - the Parifonds,\n"
 "        - daily allowance insurance in the event of IJM illness,\n"
 "        - LAAC supplementary accident insurance\n"
-"        - Social contributions must in principle be transmitted in the form "
-"of negative values.\n"
-"- M: Amount of ordinary contributions (employee's share) to LPP professional "
-"pension provision or\n"
-"     the 2nd pillar, in accordance with legal, statutory or regulatory "
-"provisions.\n"
+"        - Social contributions must in principle be transmitted in the form of negative values.\n"
+"- M: Amount of ordinary contributions (employee's share) to LPP professional pension provision or\n"
+"     the 2nd pillar, in accordance with legal, statutory or regulatory provisions.\n"
 "     The amount indicated should not include redemption contributions.\n"
-"     Regular BVG-LPP contributions must in principle be transmitted as "
-"negative values."
+"     Regular BVG-LPP contributions must in principle be transmitted as negative values."
 msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,help:l10n_ch_hr_payroll.field_hr_salary_rule__l10n_ch_yearly_statement
 msgid ""
 "Code meaning:\n"
-"- O: 13th salary paid (with the 14th and following) provided that it is not "
-"in the form of a bonus\n"
+"- O: 13th salary paid (with the 14th and following) provided that it is not in the form of a bonus\n"
 "- P: Overtime pay\n"
 "- Q: Sporadic Benefits, e.g.\n"
 "        - bonuses,\n"
@@ -901,36 +889,26 @@ msgid ""
 "        - loyalty bonuses, bonuses and gifts for length of service,\n"
 "        - fixed moving compensation,\n"
 "        - Christmas bonuses,\n"
-"        - compensation for members of the board of directors (attendance "
-"fees, fees, etc.).\n"
+"        - compensation for members of the board of directors (attendance fees, fees, etc.).\n"
 "- R: Fringe Benefits\n"
 "        - board and lodging (section 2.1 of the salary certificate);\n"
-"      - the private share of the company car (section 2.2 of the salary "
-"certificate);\n"
-"      - other ancillary salary benefits (section 2.3 of the salary "
-"certificate);\n"
+"      - the private share of the company car (section 2.2 of the salary certificate);\n"
+"      - other ancillary salary benefits (section 2.3 of the salary certificate);\n"
 "      - participation rights (section 5 of the salary certificate).\n"
-"- S: Capital Payment: Capital benefits of a pension nature paid by the "
-"employer directly to the\n"
+"- S: Capital Payment: Capital benefits of a pension nature paid by the employer directly to the\n"
 "     employee and likely to be taxed at a reduced rate.\n"
 "      - severance pay of a provident nature;\n"
 "      - capital benefits of a pension nature;\n"
 "      - salary payments after death.\n"
-"- T: Other Benefits: All other services covered on an optional basis by the "
-"employer, although\n"
+"- T: Other Benefits: All other services covered on an optional basis by the employer, although\n"
 "     they are generally due by the employee.\n"
-"        - partial or total coverage of contributions owed by the employee to "
-"LPP professional\n"
+"        - partial or total coverage of contributions owed by the employee to LPP professional\n"
 "          insurance, including executive insurance;\n"
-"        - payments to occupational pension institutions (2nd pillar) made by "
-"the employer in\n"
+"        - payments to occupational pension institutions (2nd pillar) made by the employer in\n"
 "          favor of the employee (purchase contributions);\n"
-"        - payment of insurance contributions in favor of the employee and "
-"members of his family\n"
-"          (health insurance, optional 3rd pillar b insurance, life "
-"insurance, etc.);\n"
-"        - payment of contributions to recognized forms of linked individual "
-"pension provision (3rd pillar a)."
+"        - payment of insurance contributions in favor of the employee and members of his family\n"
+"          (health insurance, optional 3rd pillar b insurance, life insurance, etc.);\n"
+"        - payment of contributions to recognized forms of linked individual pension provision (3rd pillar a)."
 msgstr ""
 
 #. module: l10n_ch_hr_payroll
@@ -1232,8 +1210,8 @@ msgstr ""
 #: model:ir.model.fields,help:l10n_ch_hr_payroll.field_hr_contract__l10n_ch_is_predefined_category
 msgid ""
 "Des barèmes fixes sont appliqués pour l'impôt à la source retenu sur les "
-"honoraires des administrateurs (art. 93 LIFD) et certaines participations de "
-"collaborateur (art. 97a LIFD). Pour ces impôts, aucun enfant n'est pris en "
+"honoraires des administrateurs (art. 93 LIFD) et certaines participations de"
+" collaborateur (art. 97a LIFD). Pour ces impôts, aucun enfant n'est pris en "
 "compte et un seul taux en %% est appliqué. À cela s'ajoutent des catégories "
 "prédéfinies pour les annonces rectificatives et pour l'annonce des salaires "
 "bruts des frontaliers français pour lesquels l'accord spécial entre les "
@@ -1450,7 +1428,8 @@ msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model:hr.contract.type,name:l10n_ch_hr_payroll.l10n_ch_contract_type_fixedSalaryNoTimeConstraint
-msgid "Fixed-term contract, with commission, packages, piece rate salary, etc."
+msgid ""
+"Fixed-term contract, with commission, packages, piece rate salary, etc."
 msgstr ""
 
 #. module: l10n_ch_hr_payroll
@@ -2077,8 +2056,7 @@ msgstr ""
 #: model_terms:hr.salary.rule,note:l10n_ch_hr_payroll.l10n_ch_employees_withholding_tax
 msgid ""
 "Kept tax in the source\n"
-"See: https://www.estv.admin.ch/estv/fr/accueil/impot-federal-direct/impot-a-"
-"la-source/baremes-cantonaux.html"
+"See: https://www.estv.admin.ch/estv/fr/accueil/impot-federal-direct/impot-a-la-source/baremes-cantonaux.html"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll
@@ -3792,8 +3770,8 @@ msgstr ""
 msgid ""
 "The Central Compensation Office in Geneva assigns a retirement insurance "
 "(RI) number to all newborns and immigrants, which is valid for the rest of "
-"your life and remains the same even after a name change. Further information "
-"on the structure of the RI number can be found on theSwiss Federal Social "
+"your life and remains the same even after a name change. Further information"
+" on the structure of the RI number can be found on theSwiss Federal Social "
 "Insurance Office website (in Germnan)."
 msgstr ""
 
@@ -3822,11 +3800,9 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_hr_payroll_employee_lang_view_form
 msgid ""
-"The following employees have an invalid language for the selected salary "
-"structure.\n"
+"The following employees have an invalid language for the selected salary structure.\n"
 "                        <br/>\n"
-"                        Please assign them a language below before "
-"continuing."
+"                        Please assign them a language below before continuing."
 msgstr ""
 
 #. module: l10n_ch_hr_payroll
@@ -3926,8 +3902,7 @@ msgstr ""
 #: model_terms:hr.salary.rule,note:l10n_ch_hr_payroll.l10n_ch_employees_ac_comp
 msgid ""
 "Unemployment Insurance\n"
-"Source: https://www.cvcicaisseavs.ch/en/employer/unemployment-insurance-ac."
-"html"
+"Source: https://www.cvcicaisseavs.ch/en/employer/unemployment-insurance-ac.html"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll
@@ -4060,8 +4035,8 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,help:l10n_ch_hr_payroll.field_hr_salary_rule__l10n_ch_ac_included
 msgid ""
-"Whether the amount is included in the basis to compute the retirement/"
-"unemployement deduction"
+"Whether the amount is included in the basis to compute the "
+"retirement/unemployement deduction"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll

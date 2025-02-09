@@ -701,7 +701,7 @@ msgstr "是否顯示跟進行動"
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__access_token
 msgid "LWA Access Token"
-msgstr "LWA 存取代碼"
+msgstr "LWA 存取權杖"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__access_token_expiry
@@ -807,7 +807,7 @@ msgstr "只可選擇可用的市場"
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__order_count
 msgid "Order Count"
-msgstr "銷售訂單數量"
+msgstr "訂單數目"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
@@ -1127,7 +1127,7 @@ msgstr "亞馬遜根據亞馬遜配送計劃管理的庫存位置。"
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__refresh_token
 msgid "The long-lived token that can be exchanged for a new access token."
-msgstr "可以交換新的存取代碼的長期有效代碼。"
+msgstr "可以交換新的存取權杖的長期有效代碼。"
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_offer__marketplace_id
@@ -1198,7 +1198,7 @@ msgstr "用於管理此產品的賣家帳戶。"
 msgid ""
 "The short-lived token used instead of the LWA Access Token to access "
 "restricted data"
-msgstr "代替 LWA 存取代碼用於存取受限制資料的短期有效代碼"
+msgstr "代替 LWA 存取權杖用於存取受限制資料的短期有效代碼"
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__access_token
@@ -1249,19 +1249,19 @@ msgstr "使用者定義的帳戶名稱。"
 #. module: sale_amazon
 #: model:ir.model.constraint,message:sale_amazon.constraint_amazon_marketplace_unique_api_ref
 msgid "There can only exist one marketplace for a given API Identifier."
-msgstr "同一個 API 識別碼內，只可存在一個市場。"
+msgstr "同一個 API 識別碼只可以有一個市集。"
 
 #. module: sale_amazon
 #: model:ir.model.constraint,message:sale_amazon.constraint_sale_order_unique_amazon_order_ref
 msgid ""
 "There can only exist one sale order for a given Amazon Order Reference."
-msgstr "同一個亞馬遜訂單參考號碼內，只可存在一張銷售訂單。"
+msgstr "同一個亞馬遜訂單參考編號只可以有一張銷售單。"
 
 #. module: sale_amazon
 #: model:ir.model.constraint,message:sale_amazon.constraint_sale_order_line_unique_amazon_item_ref
 msgid ""
 "There can only exist one sale order line for a given Amazon Item Reference."
-msgstr "同一個亞馬遜商品參考，只能存在一個銷售訂單資料行。"
+msgstr "同一個亞馬遜商品參考編號只可以有一個銷售單資料行。"
 
 #. module: sale_amazon
 #. odoo-python

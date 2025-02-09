@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2025
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-23 16:38+0000\n"
 "PO-Revision-Date: 2025-02-02 01:20+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,12 +24,14 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "%(field_name)s must be set on Partner: %(partner_name)s."
-msgstr ""
+msgstr "%(field_name)s on asetettava kumppanille: %(partner_name)s."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ". This link will give you personalized attention plus lower prices."
 msgstr ""
+". Tämä linkki antaa sinulle henkilökohtaista asiakaspalvelua ja alhaisemmat "
+"hinnat."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_shipping_method_envia
@@ -36,6 +39,8 @@ msgid ""
 "<i class=\"fa fa-info-circle\"/> Available shipping services depend on "
 "enabled carriers in your Envia account."
 msgstr ""
+"<i class=\"fa fa-info-circle\"/> Käytettävissä olevat lähetyspalvelut "
+"riippuvat Envia-tililläsi käytössä olevista kuljetusyhtiöistä."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -46,17 +51,23 @@ msgid ""
 "doorstep. To enable this feature, enable Returned at Shippers Expense "
 "otherwise it will be abandoned at the customer's door."
 msgstr ""
+"Huomaa, että jotkin maat tukevat ainutlaatuisia lisäpalveluja "
+"kuormalavakuljetuksille tai laatikoille. Esimerkiksi Kanadassa on "
+"mahdollisuus käsitellä myöhästyneitä toimituksia palauttamalla ne takaisin "
+"varastoosi tai hylkäämällä ne ovelle. Jos haluat ottaa tämän ominaisuuden "
+"käyttöön, ota käyttöön Palautetaan lähettäjän kustannuksella, muuten lähetys"
+" hylätään asiakkaan ovelle."
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "A phone number must be set on Partner: %(partner_name)s"
-msgstr ""
+msgstr "Kumppanille on asetettava puhelinnumero: %(partner_name)s"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Add New Carriers in Envia"
-msgstr ""
+msgstr "Lisää uusia kuljetusyhtiöitä Enviaan"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__stock_package_type__envia_mail_type__box
@@ -82,7 +93,7 @@ msgstr "Huolitsijan koodi"
 #. odoo-javascript
 #: code:addons/delivery_envia/static/src/components/envia_service_selection_widget.xml:0
 msgid "Carrier:"
-msgstr ""
+msgstr "Kuljettaja:"
 
 #. module: delivery_envia
 #. odoo-python
@@ -91,6 +102,8 @@ msgid ""
 "Carriers and Services must be selected from the list of available shipping "
 "methods."
 msgstr ""
+"Kuljettajat ja palvelut on valittava käytettävissä olevien toimitustapojen "
+"luettelosta."
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_residential_delivery
@@ -98,6 +111,8 @@ msgid ""
 "Certain carriers like UPS will charge an extra fee to deliver to a "
 "residential zone (United States Only)"
 msgstr ""
+"Tietyt kuljetusliikkeet, kuten UPS, veloittavat lisämaksun toimituksesta "
+"asuinalueelle (vain Yhdysvallat)"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_residential_pickup
@@ -105,17 +120,19 @@ msgid ""
 "Certain carriers like UPS will charge an extra fee to pickup from "
 "residential zones (United States Only)"
 msgstr ""
+"Tietyt kuljetusliikkeet, kuten UPS, veloittavat lisämaksun noutamisesta "
+"asuinalueilta (vain Yhdysvallat)"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "Choose an Envia.com Shipping Service"
-msgstr ""
+msgstr "Valitse Envia.com-kuljetuspalvelu"
 
 #. module: delivery_envia
 #: model:ir.model,name:delivery_envia.model_envia_shipping_wizard
 msgid "Choose from the available Envia.com shipping methods"
-msgstr ""
+msgstr "Valitse käytettävissä olevista Envia.comin toimitustavoista"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_shipping_method_envia
@@ -128,6 +145,8 @@ msgid ""
 "Contains the list of available services for the Envia.com account to select "
 "from."
 msgstr ""
+"Sisältää luettelon Envia.com-tilin käytettävissä olevista palveluista, "
+"joista voi valita."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -135,11 +154,13 @@ msgid ""
 "Copy over the API Key from Envia into either the sandbox or production field"
 " in Delivery Methods."
 msgstr ""
+"Kopioi Envian API-avain joko hiekkalaatikko- tai tuotantokenttään kohdassa "
+"Toimitusmenetelmät."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Create an Account"
-msgstr ""
+msgstr "Luo käyttäjätili"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -149,6 +170,10 @@ msgid ""
 "<b>envelope</b>, or <b>pallet</b>, which determines the carriers that can be"
 " used."
 msgstr ""
+"Luo ja muokkaa tätä toimitustapaa varten paketti, jota käytetään viitteenä "
+"tarjouksissa ja tarroissa. Tämä paketti voi olla tyypiltään <b>laatikko</b>,"
+" <b>kirjekuori</b> tai <b>kuormalava</b>, mikä määrittää käytettävät "
+"rahdinkuljettajat."
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__create_uid
@@ -163,7 +188,7 @@ msgstr "Luotu"
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_currency_id
 msgid "Currency set in Envia"
-msgstr ""
+msgstr "Enviassa asetettu valuutta "
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__carrier_id
@@ -173,7 +198,7 @@ msgstr "Toimitus"
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_residential_delivery
 msgid "Delivery Residential Zone"
-msgstr ""
+msgstr "Toimitus asuinalueelle"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_shipping_method_envia
@@ -191,6 +216,8 @@ msgid ""
 "Don’t worry about the printing options, just note which ones exist for your "
 "favorite carrier as we will select them in Odoo."
 msgstr ""
+"Älä ole huolissasi tulostusvaihtoehdoista, vaan huomioi vain, mitkä niistä "
+"ovat olemassa suosikkioperaattorillesi, sillä me valitsemme ne Odoossa."
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_file_type__epl
@@ -200,40 +227,40 @@ msgstr "EPL"
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__stock_package_type__envia_mail_type__envelope
 msgid "Envelope"
-msgstr ""
+msgstr "Verhokäyrä"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__delivery_type__envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__stock_package_type__package_carrier_type__envia
 msgid "Envia"
-msgstr ""
+msgstr "Envia"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_currency_id
 msgid "Envia Account Main Currency"
-msgstr ""
+msgstr "Envia-tilin päävaluutta"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Envia Configuration"
-msgstr ""
+msgstr "Envia-asetukset"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_default_package_type_id
 msgid "Envia Default Package"
-msgstr ""
+msgstr "Envian oletuspaketti"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Envia Documents:"
-msgstr ""
+msgstr "Envian dokumentit:"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Envia Error: %(description)s - %(message)s"
-msgstr ""
+msgstr "Envia virhe: %(description)s - %(message)s"
 
 #. module: delivery_envia
 #. odoo-python
@@ -242,6 +269,8 @@ msgid ""
 "Envia Error: %(message)s - %(description)s %(location)s (Reference code: "
 "%(reference)s)"
 msgstr ""
+"Envia virhe: %(message)s - %(description)s %(location)s (Viitekoodi: "
+"%(reference)s)"
 
 #. module: delivery_envia
 #. odoo-python
@@ -249,7 +278,7 @@ msgstr ""
 msgid ""
 "Envia Error: The API key you entered for %(carrier_name)s seems to be "
 "invalid"
-msgstr ""
+msgstr "Envia virhe: %(carrier_name)s API-avain on virheellinen"
 
 #. module: delivery_envia
 #. odoo-python
@@ -259,6 +288,10 @@ msgid ""
 "does not match the type set on the carrier (%(carrier_package_type)s). Use a"
 " different package or different carrier that matches the mail type."
 msgstr ""
+"Envia virhe: Envia-postin tyyppi (%(package_types)s), joka on asetettu "
+"pakettiin (paketteihin), ei vastaa kuljetusliikkeelle asetettua tyyppiä "
+"(%(carrier_package_type)s). Käytä eri pakettia tai eri kuljetusyritystä, "
+"joka vastaa postityyppiä."
 
 #. module: delivery_envia
 #. odoo-python
@@ -267,43 +300,46 @@ msgid ""
 "Envia Error: The following products don't have weights set: "
 "%(product_names)s"
 msgstr ""
+"Envia virhe: Seuraaville tuotteille ei ole asetettu painoja: "
+"%(product_names)s"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_label_file_type
 msgid "Envia Label File Type"
-msgstr ""
+msgstr "Envia-tarran tiedostotyyppi"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_label_stock_type
 msgid "Envia Label Type"
-msgstr ""
+msgstr "Envia-tarran tyyppi"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_mail_type
 #: model:ir.model.fields,field_description:delivery_envia.field_stock_package_type__envia_mail_type
 msgid "Envia Package Type"
-msgstr ""
+msgstr "Envia-paketin tyyppi"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_production_api_key
 msgid "Envia Production Access Token"
-msgstr ""
+msgstr "Envia tuotannon pääsytunniste"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_sandbox_api_key
 msgid "Envia Sandbox Access Token"
-msgstr ""
+msgstr "Envia hiekkalaatikon pääsytunniste"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Envia Setup"
-msgstr ""
+msgstr "Envia-asetukset"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "Envia order(s) not found to cancel shipment!"
 msgstr ""
+"Envian tilauksia ei löydy, joten toimitusten peruminen ei ole mahdollista!"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_default_package_type_id
@@ -311,6 +347,8 @@ msgid ""
 "Envia requires package dimensions for getting accurate rate, you can define "
 "these in a package type that you set as default"
 msgstr ""
+"Envia tarvitsee paketin mitat tarkan hinnan saamiseksi, voit määrittää ne "
+"pakettityypissä, jonka oletat oletusarvoksi"
 
 #. module: delivery_envia
 #. odoo-python
@@ -320,33 +358,36 @@ msgid ""
 "Make sure city/commune and state/region are set otherwise enter a postal "
 "code directly"
 msgstr ""
+"Envia ei onnistunut löytämään kumppanin postinumeroa: %(partner_name)s. "
+"Varmista, että kaupunki/kunta ja osavaltio/alue on asetettu, muuten anna "
+"postinumero suoraan"
 
 #. module: delivery_envia
 #: model:delivery.carrier,name:delivery_envia.delivery_carrier_envia
 #: model:product.template,name:delivery_envia.product_product_delivery_envia_product_template
 msgid "Envia.com"
-msgstr ""
+msgstr "Envia.com"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_carrier_code
 msgid "Envia.com Carrier Code"
-msgstr ""
+msgstr "Envia.com kuljetuskoodi"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_service_code
 msgid "Envia.com Service Code"
-msgstr ""
+msgstr "Envia.com palvelukoodi"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_service_name
 msgid "Envia.com Service Name"
-msgstr ""
+msgstr "Envia.com Palvelun nimi"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "Failed to fetch Envia Carriers, Please try again later."
-msgstr ""
+msgstr "Envia toimittajien haku epäonnistui, yritä myöhemmin uudelleen."
 
 #. module: delivery_envia
 #. odoo-python
@@ -356,6 +397,9 @@ msgid ""
 " order to send the required information you need to set the UNSPSC code in "
 "the following product: %(product_name)s"
 msgstr ""
+"Meksikoon suuntautuviin LTL-lähetyksiin tarvitaan rahdinkuljetusasiakirja "
+"(Carta Porte), jonka lähettämiseksi sinun on asetettava UNSPSC-koodi "
+"seuraavaan tuotteeseen: %(product_name)s"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -363,6 +407,8 @@ msgid ""
 "For any carriers you'd like to use that are not activated, be sure to "
 "activate it here."
 msgstr ""
+"Jos haluat käyttää operaattoreita, joita ei ole aktivoitu, muista aktivoida "
+"ne täällä."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -370,16 +416,18 @@ msgid ""
 "For your available carriers you’ll need to make sure that they are available"
 " through Envia (make sure to select all available countries):<br/>"
 msgstr ""
+"Varmista, että käytettävissä olevat kuljetusyhtiöt ovat saatavilla Envian "
+"kautta (valitse kaikki käytettävissä olevat maat):<br/>"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_production_api_key
 msgid "Generate an Access Token from within the Production Portal of Envia"
-msgstr ""
+msgstr "Luo käyttöoikeustunniste Envian tuotantoportaalista"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_sandbox_api_key
 msgid "Generate an Access Token from within the Sandbox Portal of Envia"
-msgstr ""
+msgstr "Luo käyttöoikeustunniste Envian Sandbox-portaalista"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__id
@@ -392,16 +440,18 @@ msgid ""
 "If the carrier is unable to deliver the package, the package can be returned"
 " to the shipper or abandoned at the door. (Canada only)"
 msgstr ""
+"Jos rahdinkuljettaja ei pysty toimittamaan pakettia, paketti voidaan "
+"palauttaa lähettäjälle tai jättää ovelle. (Vain Kanada)"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "If you don't have an account"
-msgstr ""
+msgstr "Jos sinulla ei ole tiliä"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "If you don’t have an account, we recommend heading to"
-msgstr ""
+msgstr "Jos sinulla ei ole tiliä, suosittelemme siirtymään osoitteeseen"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__write_uid
@@ -420,22 +470,25 @@ msgid ""
 "Key. This will be used by Odoo to communicate with Envia so note it down for"
 " later."
 msgstr ""
+"Siirry lopuksi kohtaan Kehittäjät / API-avaimet ja luo uusi API-avain. Odoo "
+"käyttää tätä kommunikoidessaan Envian kanssa, joten merkitse se muistiin "
+"myöhempää käyttöä varten."
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/stock_package_type.py:0
 msgid "Length, Width, and Height is necessary for a Envia Package."
-msgstr ""
+msgstr "Pituus, leveys ja korkeus tarvitaan Envia-pakettia varten."
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_lift_delivery
 msgid "Lift Assistance on Delivery"
-msgstr ""
+msgstr "Nostoapu toimituksen yhteydessä"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_lift_pickup
 msgid "Lift Assistance on Pickup"
-msgstr ""
+msgstr "Nostoapu noudossa"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -444,6 +497,9 @@ msgid ""
 "have multi country operations you can also create two separate accounts, "
 "keep in mind that your billing will be done in your main currency. <br/>"
 msgstr ""
+"Varmista, että valitset sopivan maan päälaskutusta varten, jos sinulla on "
+"toimintaa useissa maissa, voit myös luoda kaksi erillistä tiliä, mutta "
+"muista, että laskutus tapahtuu päävaluutassa. <br/>"
 
 #. module: delivery_envia
 #. odoo-python
@@ -452,6 +508,8 @@ msgid ""
 "Missing Fields:\n"
 "%s"
 msgstr ""
+"Puuttuvat kentät:\n"
+"%s"
 
 #. module: delivery_envia
 #. odoo-python
@@ -460,12 +518,14 @@ msgid ""
 "No carrier is set on \"%(delivery_method)s\". To use Envia.com, you'll need "
 "to sync your carriers with your account."
 msgstr ""
+"Kuljetusta ei ole asetettu kohtaan \"%(delivery_method)s\". Jotta voit "
+"käyttää Envia.comia, sinun on synkronoitava operaattorisi tilisi kanssa."
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "No rate found"
-msgstr ""
+msgstr "Hintaa ei löytynyt"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -473,6 +533,8 @@ msgid ""
 "Once your delivery method is properly configured, you can sync the carriers "
 "Envia provides for your country of origin: <br/>"
 msgstr ""
+"Kun toimitustapa on määritetty oikein, voit synkronoida Envian tarjoamat "
+"kuljetusyhtiöt lähtömaasi osalta: <br/>"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -497,12 +559,12 @@ msgstr "PAPER_7X4.75"
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__paper_8_27x11_67
 msgid "PAPER_8.27X11.67"
-msgstr ""
+msgstr "PAPERI_8.27X11.67"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__paper_8_5x11
 msgid "PAPER_8.5X11"
-msgstr ""
+msgstr "PAPERI_8.5X11"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__paper_8_5x11_bottom_half_label
@@ -527,7 +589,7 @@ msgstr "Kuormalava"
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_residential_pickup
 msgid "Pickup Residential Zone"
-msgstr ""
+msgstr "Nouto asuinalueelta"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_lift_delivery
@@ -535,6 +597,8 @@ msgid ""
 "Provide liftgate assistance if the recipient doesn't have a dock or forklift"
 " to unload the shipment. (United States and Mexico Only)"
 msgstr ""
+"Tarjoa nostoporttiapua, jos vastaanottajalla ei ole telakkaa tai trukkia "
+"lähetyksen purkamiseen. (Vain Yhdysvallat ja Meksiko)"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_lift_pickup
@@ -542,6 +606,8 @@ msgid ""
 "Provide liftgate assitance if the supplier doesn't have a dock or forklift "
 "to load the shipment. (United States and Mexico Only)"
 msgstr ""
+"Tarjoa nostoporttiapua, jos tavarantoimittajalla ei ole telakkaa tai trukkia"
+" lähetyksen lastaamiseen. (Vain Yhdysvallat ja Meksiko)"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__delivery_type
@@ -551,32 +617,32 @@ msgstr "Palveluntarjoaja"
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_return_at_senders_expense
 msgid "Returned at Shippers Expense"
-msgstr ""
+msgstr "Palautetaan rahdinantajan kustannuksella"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_2_4x6
 msgid "STOCK_2.4X6"
-msgstr ""
+msgstr "STOCK_2.4X6"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_2_9x5
 msgid "STOCK_2.9X5"
-msgstr ""
+msgstr "STOCK_2.9X5"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_3_8x4_2
 msgid "STOCK_3.8X4.2"
-msgstr ""
+msgstr "STOCK_3.8X4.2"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_3_9x7
 msgid "STOCK_3.9X7"
-msgstr ""
+msgstr "STOCK_3.9X7"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x4
 msgid "STOCK_4X4"
-msgstr ""
+msgstr "STOCK_4X4"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x6
@@ -586,7 +652,7 @@ msgstr "STOCK_4X6"
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x6_5
 msgid "STOCK_4X6.5"
-msgstr ""
+msgstr "STOCK_4X6.5"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x6_75_leading_doc_tab
@@ -596,7 +662,7 @@ msgstr "STOCK_4X6.75_LEADING_DOC_TAB"
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x7_5
 msgid "STOCK_4X7.5"
-msgstr ""
+msgstr "STOCK_4X7.5"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_4x8
@@ -607,39 +673,39 @@ msgstr "STOCK_4X8"
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Sale Order is required to get rate."
-msgstr ""
+msgstr "Myyntitilaus vaaditaan hinnan saamiseksi."
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Sale Order or Picking is required to convert currency."
-msgstr ""
+msgstr "Valuutan muuntamiseen tarvitaan myyntitilaus tai poiminta."
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__country_id
 msgid "Select the country to be used by this delivery method"
-msgstr ""
+msgstr "Valitse maa, jota tämä toimitustapa käyttää"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_mail_type
 #: model:ir.model.fields,help:delivery_envia.field_stock_package_type__envia_mail_type
 msgid "Select the package type for the shipment"
-msgstr ""
+msgstr "Valitse lähetyksen pakkaustyyppi"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_label_stock_type
 msgid "Select the size of the label"
-msgstr ""
+msgstr "Valitse etiketin koko"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_label_file_type
 msgid "Select the printing format of the label"
-msgstr ""
+msgstr "Valitse etiketin tulostusmuoto"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__selected_carrier_code
 msgid "Selected Carrier"
-msgstr ""
+msgstr "Valittu operaattori"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__selected_service_code
@@ -650,12 +716,12 @@ msgstr "Valittu palvelu"
 #. odoo-javascript
 #: code:addons/delivery_envia/static/src/components/envia_service_selection_widget.xml:0
 msgid "Service:"
-msgstr ""
+msgstr "Pyydä huoltoa:"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Setup In Odoo"
-msgstr ""
+msgstr "Asetukset Odoossa"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__country_id
@@ -666,7 +732,7 @@ msgstr "Toimituksen lähde"
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Shipment created into Envia"
-msgstr ""
+msgstr "Lähetys on luotu Enviaan"
 
 #. module: delivery_envia
 #: model:ir.model,name:delivery_envia.model_delivery_carrier
@@ -684,6 +750,8 @@ msgid ""
 "Specify the Origin country that this connector will ship from. By default "
 "this is the company's country."
 msgstr ""
+"Määritä alkuperämaa, josta tämä liitin toimitetaan. Oletusarvoisesti tämä on"
+" yrityksen maa."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -691,6 +759,7 @@ msgid ""
 "Specify the currency your Envia account is configured in. By default this is"
 " the company's currency."
 msgstr ""
+"Määritä Envia-tilisi valuutta. Oletusarvoisesti tämä on yrityksen valuutta."
 
 #. module: delivery_envia
 #: model:ir.model,name:delivery_envia.model_stock_package_type
@@ -700,12 +769,12 @@ msgstr "Varastopaketin tyyppi"
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Sync Carriers/Services from Envia"
-msgstr ""
+msgstr "Synkronoi kuljettajat tai palvelut Enviasta"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Sync Envia Carriers"
-msgstr ""
+msgstr "Synkronoi Envian kuljettajat"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_carrier_code
@@ -713,6 +782,8 @@ msgid ""
 "The carrier on Envia.com used by this carrier. The service code belongs to "
 "it."
 msgstr ""
+"Envia.com-sivustolla oleva operaattori, jota tämä operaattori käyttää. "
+"Palvelukoodi kuuluu sille."
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_service_code
@@ -728,7 +799,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "This action requires an Envia.com carrier."
-msgstr ""
+msgstr "Tämä toiminto edellyttää Envia.com-operaattoria."
 
 #. module: delivery_envia
 #. odoo-python
@@ -740,7 +811,7 @@ msgstr "Seurantanumerot:"
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "Unable to cancel order: %(order_number)s"
-msgstr ""
+msgstr "Tilausta ei voi peruuttaa: %(order_number)s"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -748,6 +819,8 @@ msgid ""
 "You can also preselect which services will be used, our recommendation is to"
 " not limit this as we will pick them in Odoo anyway."
 msgstr ""
+"Voit myös valita etukäteen, mitä palveluita käytetään, mutta suosittelemme, "
+"että tätä ei rajoiteta, koska ne valitaan joka tapauksessa Odoossa."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -755,6 +828,8 @@ msgid ""
 "You should also make sure that if you export to other countries, you have to"
 " select who will pay for customs duties."
 msgstr ""
+"Varmista myös, että jos viet muihin maihin, sinun on valittava, kuka maksaa "
+"tullimaksut."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -763,12 +838,17 @@ msgid ""
 "intend to use in this region. Note that each service can have different "
 "pricing and availability."
 msgstr ""
+"Voit määrittää tietyn Envia-operaattorin ja -palvelun, jota aiot käyttää "
+"tällä alueella. Huomaa, että kullakin palvelulla voi olla erilainen "
+"hinnoittelu ja saatavuus."
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ""
 "You will be asked to confirm your email address and phone number via SMS."
 msgstr ""
+"Sinua pyydetään vahvistamaan sähköpostiosoitteesi ja puhelinnumerosi "
+"tekstiviestillä."
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_file_type__zpl
@@ -783,4 +863,4 @@ msgstr "ZPLII"
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "our personalized link"
-msgstr ""
+msgstr "henkilökohtainen linkkimme"

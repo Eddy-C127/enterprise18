@@ -3,8 +3,8 @@
 # 	* pos_urban_piper
 # 
 # Translators:
-# Rasareeyar Lappiam, 2025
 # Wil Odoo, 2025
+# Rasareeyar Lappiam, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:56+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Rasareeyar Lappiam, 2025\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -66,7 +66,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_product__urbanpiper_pos_config_ids
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_template__urbanpiper_pos_config_ids
 msgid "Available on Food Delivery"
-msgstr ""
+msgstr "มีบริการจัดส่งอาหาร"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -221,7 +221,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.xml:0
 msgid "Delivery Partner"
-msgstr ""
+msgstr "พาร์ทเนอร์การจัดส่ง"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_payment_method__is_delivery_payment
@@ -311,7 +311,7 @@ msgstr "ผิดพลาด"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Error to send delivery order in preparation display."
-msgstr ""
+msgstr "เกิดข้อผิดพลาดในการส่งคำสั่งการจัดส่งในหน้าจอการเตรียมการ"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -738,7 +738,7 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.constraint,message:pos_urban_piper.constraint_pos_delivery_provider_technical_name_uniq
 msgid "Provider Name must be unique."
-msgstr ""
+msgstr "ชื่อผู้ให้บริการจะต้องไม่ซ้ำกัน"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_product__is_recommended_on_urbanpiper
@@ -777,7 +777,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Rejecting this order is not allowed for \"%(providerName)s\""
-msgstr ""
+msgstr "การปฏิเสธคำสั่งซื้อนี้ไม่ได้รับอนุญาตสำหรับ \"%(providerName)s\""
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__delivery_provider_id
@@ -824,7 +824,7 @@ msgstr "สถานะ"
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__delivery_status
 msgid "Status of the order as provided by UrbanPiper."
-msgstr ""
+msgstr "สถานะของคำสั่งซื้อตามที่ UrbanPiper ให้ไว้"
 
 #. module: pos_urban_piper
 #: model:ir.model.constraint,message:pos_urban_piper.constraint_pos_config_urbanpiper_store_identifier_uniq
@@ -879,12 +879,12 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__technical_name
 msgid "Technical name of the provider used by UrbanPiper"
-msgstr ""
+msgstr "ชื่อทางเทคนิคของผู้ให้บริการที่ใช้โดย UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__urbanpiper_apikey
 msgid "The API key for accessing the UrbanPiper services."
-msgstr ""
+msgstr "รหัส API สำหรับการเข้าถึงบริการ UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__pos_urbanpiper_store_identifier
@@ -920,7 +920,7 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__urbanpiper_username
 msgid "The username for the UrbanPiper account."
-msgstr ""
+msgstr "ชื่อผู้ใช้สำหรับบัญชี UrbanPiper"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -984,7 +984,7 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_product_urban_piper_status
 msgid "Urban piper product status"
-msgstr ""
+msgstr "สถานะสินค้า Urban Piper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__urbanpiper_apikey
