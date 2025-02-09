@@ -3,16 +3,16 @@
 # 	* hr_payroll
 # 
 # Translators:
-# Wil Odoo, 2024
-# Tony Ng, 2024
+# Tony Ng, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-05 09:31+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -102,13 +102,13 @@ msgid ""
 "                \n"
 "* When user cancel payslip the status is 'Rejected'."
 msgstr ""
-"* 當薪資單建立時狀態為「草稿」 \n"
+"* 當工資單建立時狀態為「草稿」 \n"
 " \n"
-" * 如果薪資單待驗證，狀態為「正在等待」。\n"
+" * 如果工資單待驗證，狀態為「正在等待」。\n"
 " \n"
-" * 如果薪資單被確認，狀態設定為「完成」。\n"
+" * 如果工資單被確認，狀態設定為「完成」。\n"
 " \n"
-" * 當使用者取消薪資單時狀態為「已拒絕」。"
+" * 當使用者取消工資單時狀態為「已拒絕」。"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
@@ -474,7 +474,7 @@ msgstr "所有"
 #. module: hr_payroll
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_employee_payslips
 msgid "All Payslips"
-msgstr "所有薪資單"
+msgstr "所有工資單"
 
 #. module: hr_payroll
 #: model:hr.salary.rule.category,name:hr_payroll.ALW
@@ -539,7 +539,7 @@ msgstr "找到另一張相同金額的退款工資單。仍想創建新一張嗎
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__appears_on_payslip
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__appears_on_payslip
 msgid "Appears on Payslip"
-msgstr "顯示在薪資單"
+msgstr "在工資單顯示"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__condition_python
@@ -731,6 +731,11 @@ msgid "Cancel"
 msgstr "取消"
 
 #. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip__state__cancel
+msgid "Canceled"
+msgstr "已取消"
+
+#. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_attachment__state__cancel
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_report__state__cancelled
 msgid "Cancelled"
@@ -741,7 +746,7 @@ msgstr "已取消"
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Cannot cancel a payslip that is done."
-msgstr "無法取消已完成的薪資單。"
+msgstr "無法取消已完成的工資單。"
 
 #. module: hr_payroll
 #. odoo-python
@@ -1434,7 +1439,7 @@ msgstr "在工資單表格顯示工資單 PDF 文件"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_hr_work_entry_type_view_form_inherit
 msgid "Display in Payslip"
-msgstr "在薪資單中顯示"
+msgstr "在工資單中顯示"
 
 #. module: hr_payroll
 #: model:res.groups,name:hr_payroll.group_payslip_display
@@ -1457,7 +1462,7 @@ msgstr "完成"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_filter
 msgid "Done Payslip Batches"
-msgstr "已完成的薪資單批次處理"
+msgstr "已完成工資單批次"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_filter
@@ -1487,7 +1492,7 @@ msgstr "草稿"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_filter
 msgid "Draft Payslip Batches"
-msgstr "草稿薪資單批次"
+msgstr "草稿工資單批次"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_filter
@@ -1595,7 +1600,7 @@ msgstr "員工職能"
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payslip_month_form
 #, python-format
 msgid "Employee Payslips"
-msgstr "員工薪資單"
+msgstr "員工工資單"
 
 #. module: hr_payroll
 #. odoo-python
@@ -1827,17 +1832,17 @@ msgstr "產生 PDF"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
 #, python-format
 msgid "Generate Payslips"
-msgstr "生成薪資單"
+msgstr "生成工資單"
 
 #. module: hr_payroll
 #: model:ir.actions.server,name:hr_payroll.action_generate_payslips_from_work_entries
 msgid "Generate payslips"
-msgstr "生成薪資單"
+msgstr "生成工資單"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_employees
 msgid "Generate payslips for all selected employees"
-msgstr "為已選的所有員工生成薪資單"
+msgstr "為已選的所有員工生成工資單"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_employee_declaration__state__pdf_generated
@@ -1847,7 +1852,7 @@ msgstr "已產生的 PDF"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
 msgid "Generated Payslips"
-msgstr "生成的薪資單"
+msgstr "生成的工資單"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
@@ -2060,7 +2065,7 @@ msgstr "印度薪酬管理"
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip__credit_note
 msgid "Indicates this payslip has a refund of another"
-msgstr "表示這張薪資單有另一個退款"
+msgstr "表示這張工資單有另一個退款"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
@@ -2430,12 +2435,6 @@ msgid "New Payslip"
 msgstr "新工資單"
 
 #. module: hr_payroll
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_calendar_event_id
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "下一個活動日曆事件"
-
-#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_date_deadline
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_date_deadline
 msgid "Next Activity Deadline"
@@ -2738,7 +2737,7 @@ msgstr "業務夥伴"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__slip_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_worked_days__payslip_id
 msgid "Pay Slip"
-msgstr "薪資單"
+msgstr "工資單"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__slip_id
@@ -2748,12 +2747,12 @@ msgstr "工資單"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.contribution_register
 msgid "PaySlip Lines by Contribution Register"
-msgstr "薪資單明細行，按繳納登記冊"
+msgstr "工資單資料行，按繳納登記冊劃分"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.contribution_register
 msgid "PaySlip Name"
-msgstr "薪資單名稱"
+msgstr "工資單名稱"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.open_payroll_modules
@@ -2870,7 +2869,7 @@ msgstr "薪酬管理：更新數據"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 #, python-format
 msgid "Payslip"
-msgstr "薪資單"
+msgstr "工資單"
 
 #. module: hr_payroll
 #. odoo-python
@@ -2887,7 +2886,7 @@ msgstr "工資單批次"
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_run
 msgid "Payslip Batches"
-msgstr "薪資單批處理"
+msgstr "工資單批次"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__payslip_count
@@ -2905,7 +2904,7 @@ msgstr "工資單結束日期"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_tree
 msgid "Payslip Input"
-msgstr "薪資單輸入"
+msgstr "工資單輸入"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_tree
@@ -2920,14 +2919,14 @@ msgstr "工資單輸入類型"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__input_line_ids
 msgid "Payslip Inputs"
-msgstr "薪資單輸入"
+msgstr "工資單輸入"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_line
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_line_form
 msgid "Payslip Line"
-msgstr "薪資單明細"
+msgstr "工資單資料行"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.act_contribution_reg_payslip_lines
@@ -2936,7 +2935,7 @@ msgstr "薪資單明細"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_line_view_search_register
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_line_filter
 msgid "Payslip Lines"
-msgstr "薪資單明細"
+msgstr "工資單資料行"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__name
@@ -2944,7 +2943,7 @@ msgstr "薪資單明細"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment_report__payslip_id
 msgid "Payslip Name"
-msgstr "薪資單名稱"
+msgstr "工資單名稱"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payslip_input_type
@@ -2965,7 +2964,7 @@ msgstr "工資單開始日期"
 #: model:ir.model,name:hr_payroll.model_hr_payslip_worked_days
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__worked_days_line_ids
 msgid "Payslip Worked Days"
-msgstr "薪資單的工作天數"
+msgstr "工資單的工作天數"
 
 #. module: hr_payroll
 #. odoo-python
@@ -2983,14 +2982,14 @@ msgstr "薪資單的工作天數"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_tree
 #, python-format
 msgid "Payslips"
-msgstr "薪資單"
+msgstr "工資單"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_hr_payslip_run_tree
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_tree
 msgid "Payslips Batches"
-msgstr "薪資單批處理"
+msgstr "工資單批次"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_tree
@@ -3007,7 +3006,7 @@ msgstr "據之前合約產生的工資單"
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.hr_payslip_action_view_to_pay
 msgid "Payslips To Pay"
-msgstr "待支付薪資單"
+msgstr "待支付工資單"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3084,7 +3083,7 @@ msgstr "請選取要產生 PDF 的申報。"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Post payroll slips in accounting"
-msgstr "在會計帳簿中發佈薪資單"
+msgstr "在會計帳簿中發佈工資單"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3251,11 +3250,6 @@ msgstr "正常工作日"
 #, python-format
 msgid "Reimbursement"
 msgstr "報銷"
-
-#. module: hr_payroll
-#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip__state__cancel
-msgid "Rejected"
-msgstr "已拒絕"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__remaining_amount
@@ -3533,7 +3527,7 @@ msgstr "搜尋申報"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_filter
 msgid "Search Payslip Batches"
-msgstr "搜尋薪資單批次"
+msgstr "搜尋工資單批次"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_line_view_search_register
@@ -3544,7 +3538,7 @@ msgstr "搜尋糧單資料行"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_filter
 msgid "Search Payslips"
-msgstr "搜尋薪資單"
+msgstr "搜尋工資單"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_search
@@ -4097,7 +4091,9 @@ msgid "Unknown State"
 msgstr "未知狀態"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_hr_work_entry_type_view_form_inherit
+#: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Unpaid"
 msgstr "無薪假"
 
@@ -4142,7 +4138,7 @@ msgstr "使用預定的序列排列"
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_line__appears_on_payslip
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__appears_on_payslip
 msgid "Used to display the salary rule on payslip."
-msgstr "用於薪資單顯示薪資規則."
+msgstr "用於工資單顯示薪資規則."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__appears_on_employee_cost_dashboard
@@ -4547,7 +4543,14 @@ msgstr "可從員工個人檔案存取工資單。"
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "You can't validate a cancelled payslip."
-msgstr "您不能驗證已取消的薪資單。"
+msgstr "您不能驗證已取消的工資單。"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_payslip.py:0
+#, python-format
+msgid "You cannot cancel the payment if the payslip has not been paid."
+msgstr ""
 
 #. module: hr_payroll
 #. odoo-python
@@ -4563,7 +4566,7 @@ msgstr "由於另一模組也使用 %s，因此無法刪除，但可以封存。
 #: code:addons/hr_payroll/models/hr_payslip_run.py:0
 #, python-format
 msgid "You cannot delete a payslip batch which is not draft!"
-msgstr "您不能刪除非草稿狀態的薪資單！"
+msgstr "您不能刪除非草稿狀態的工資單！"
 
 #. module: hr_payroll
 #. odoo-python
@@ -4571,7 +4574,7 @@ msgstr "您不能刪除非草稿狀態的薪資單！"
 #: code:addons/hr_payroll/models/hr_payslip_run.py:0
 #, python-format
 msgid "You cannot delete a payslip which is not draft or cancelled!"
-msgstr "您不能刪除非草稿或者取消狀態的薪資單！"
+msgstr "您不能刪除非草稿或者取消狀態的工資單！"
 
 #. module: hr_payroll
 #. odoo-python
@@ -4624,14 +4627,14 @@ msgstr "必須登入至 %s 公司，才可使用此功能"
 #: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:0
 #, python-format
 msgid "You must select employee(s) to generate payslip(s)."
-msgstr "您必須選擇員工以生成薪資單。"
+msgstr "您必須選擇員工以生成工資單。"
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip_line.py:0
 #, python-format
 msgid "You must set a contract to create a payslip line."
-msgstr "您必須設定一份契約以建立薪資單。"
+msgstr "您必須設定一份契約以建立工資單。"
 
 #. module: hr_payroll
 #. odoo-python

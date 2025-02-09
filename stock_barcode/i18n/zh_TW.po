@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Tony Ng, 2024
+# Tony Ng, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Tony Ng, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -282,14 +282,14 @@ msgstr "掃瞄到條碼"
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #, python-format
 msgid "Barcode Scanning"
-msgstr "條碼掃描"
+msgstr "條碼掃瞄"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
 #, python-format
 msgid "Barcode scan is ambiguous with several model: %s. Use the most likely."
-msgstr "條碼掃描不確定，有幾個模型:%s。請使用最可能的。"
+msgstr "條碼掃瞄不確定，有幾個模型:%s。請使用最可能的。"
 
 #. module: stock_barcode
 #. odoo-python
@@ -430,7 +430,7 @@ msgstr "目的地包裹"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Destination location must be scanned"
-msgstr "必須掃描目標位置"
+msgstr "必須掃瞄目標位置"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
@@ -458,12 +458,12 @@ msgstr "確定永久移除此訊息？它不會再出現，因此請確保你不
 msgid ""
 "Does the picker have to put in a package the scanned products? If yes, at "
 "which rate?"
-msgstr "揀貨員是否必須將掃描的產品放入包裹中？如果是，以什麼速度？"
+msgstr "揀貨員是否必須將掃瞄的產品放入包裹中？如果是，以什麼速度？"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__restrict_scan_dest_location
 msgid "Does the picker have to scan the destination? If yes, at which rate?"
-msgstr "揀貨員必須掃描目標位置嗎？如果是，以什麼速度？"
+msgstr "揀貨員必須掃瞄目標位置嗎？如果是，以什麼速度？"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_cancel_operation_view
@@ -525,27 +525,27 @@ msgstr "以下是已創建的欠單："
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_dest_location
 msgid "Force Destination Location scan?"
-msgstr "必須掃描目標位置？"
+msgstr "必須掃瞄目標位置？"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_tracking_number
 msgid "Force Lot/Serial scan?"
-msgstr "強制掃描批次/序號?"
+msgstr "強制掃瞄批次/序號?"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_product
 msgid "Force Product scan?"
-msgstr "強制掃描產品?"
+msgstr "強制掃瞄產品?"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_source_location
 msgid "Force Source Location scan?"
-msgstr "強制掃描來源位置?"
+msgstr "強制掃瞄來源位置?"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_validation_after_dest_location
 msgid "Force a destination on all products"
-msgstr "強制所有產品掃描目標位置"
+msgstr "強制所有產品掃瞄目標位置"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_validation_all_product_packed
@@ -579,7 +579,7 @@ msgstr "識別號"
 msgid ""
 "If the source location must be scanned, then the destination location must "
 "either be scanned after each product or not scanned at all."
-msgstr "如果必須掃描來源地，則須在各產品之後掃描目標地點，或者完全不掃描。"
+msgstr "如果必須掃瞄來源地，則須在各產品之後掃瞄目標地點，或者完全不掃瞄。"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -657,7 +657,7 @@ msgstr "就這樣"
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__restrict_scan_product
 msgid "Line's product must be scanned before the line can be edited"
-msgstr "在編輯產品行之前，必須掃描行內產品"
+msgstr "在編輯產品行之前，必須掃瞄行內產品"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
@@ -687,7 +687,7 @@ msgstr "強制性目標位置"
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_tracking_number__mandatory
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
 msgid "Mandatory Scan"
-msgstr "強制掃描"
+msgstr "強制掃瞄"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -712,7 +712,7 @@ msgstr "沒有 %(picking_type)s為 %(barcode_type)s設置"
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_source_location__no
 msgid "No Scan"
-msgstr "沒有掃描"
+msgstr "沒有掃瞄"
 
 #. module: stock_barcode
 #. odoo-python
@@ -753,7 +753,7 @@ msgstr "命名規則"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Not the expected scan"
-msgstr "不是預計的掃描"
+msgstr "不是預計的掃瞄"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.picking_view_kanban_inherit_barcode
@@ -780,7 +780,7 @@ msgstr "製程"
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_tracking_number__optional
 msgid "Optional Scan"
-msgstr "可選的掃描"
+msgstr "可選的掃瞄"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
@@ -851,7 +851,7 @@ msgstr "揀貨類型"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Please scan destination location for %s before scanning other product"
-msgstr "在掃描其他產品前,請為 %s掃描目標位置, "
+msgstr "在掃瞄其他產品前,請為 %s掃瞄目標位置, "
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -860,14 +860,14 @@ msgstr "在掃描其他產品前,請為 %s掃描目標位置, "
 #: code:addons/stock_barcode/static/src/main_menu.js:0
 #, python-format
 msgid "Please, Scan again!"
-msgstr "請再次掃描！"
+msgstr "請再次掃瞄！"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Press Validate or scan another product"
-msgstr "點擊驗證按鈕或掃描其他產品"
+msgstr "點擊驗證按鈕或掃瞄其他產品"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1019,14 +1019,14 @@ msgstr "只能為已完成的揀貨創建退貨，請先驗證。"
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #, python-format
 msgid "Scan a"
-msgstr "掃描"
+msgstr "掃瞄"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Scan a location"
-msgstr "掃描位置條碼"
+msgstr "掃瞄位置條碼"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1034,49 +1034,49 @@ msgstr "掃描位置條碼"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a lot number"
-msgstr "掃描批次"
+msgstr "掃瞄批次"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a lot number or a packages then the destination location"
-msgstr "先掃描批次或者包裹，然後掃描目標位置。"
+msgstr "先掃瞄批次或者包裹，然後掃瞄目標位置。"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a lot number then the destination location"
-msgstr "先掃描批次，然後掃描目標位置。"
+msgstr "先掃瞄批次，然後掃瞄目標位置。"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a package"
-msgstr "掃描包裹"
+msgstr "掃瞄包裹"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a package or put in pack"
-msgstr "掃描包裹或放入包裹"
+msgstr "掃瞄包裹或放入包裹"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a package or the destination location"
-msgstr "掃描包裹或者目標位置"
+msgstr "掃瞄包裹或者目標位置"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a package, the destination location or another product"
-msgstr "掃描包裹，目標位置或者另一產品"
+msgstr "掃瞄包裹，目標位置或者另一產品"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1084,56 +1084,56 @@ msgstr "掃描包裹，目標位置或者另一產品"
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Scan a product"
-msgstr "掃描產品"
+msgstr "掃瞄產品"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a product before scanning a tracking number"
-msgstr "在掃描追蹤號碼之前掃描產品"
+msgstr "在掃瞄追蹤號碼之前掃瞄產品"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a product from %s"
-msgstr "掃描來自 %s的產品"
+msgstr "掃瞄來自 %s的產品"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Scan a product in %s or scan another location"
-msgstr "掃描來自 %s 的產品或者掃描另一位置"
+msgstr "掃瞄來自 %s 的產品或者掃瞄另一位置"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a product or a package"
-msgstr "掃描產品或者包裹"
+msgstr "掃瞄產品或者包裹"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a product or another package"
-msgstr "掃描產品或者另一包裹"
+msgstr "掃瞄產品或者另一包裹"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a product or the destination location."
-msgstr "掃描產品或者目標位置"
+msgstr "掃瞄產品或者目標位置"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a product then the destination location"
-msgstr "掃描產品，然後掃描目標位置"
+msgstr "掃瞄產品，然後掃瞄目標位置"
 
 #. module: stock_barcode
 #. odoo-python
@@ -1148,147 +1148,147 @@ msgstr "掃瞄產品、批次/序號或包裝，以篩選轉移。"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a product, a package or the destination location"
-msgstr "掃描產品，包裹或目標位置"
+msgstr "掃瞄產品，包裹或目標位置"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a product, a package or the destination location."
-msgstr "掃描產品，包裹或目標位置"
+msgstr "掃瞄產品，包裹或目標位置"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a serial number"
-msgstr "掃描序列號碼"
+msgstr "掃瞄序列號碼"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a serial number or a package"
-msgstr "掃描序列號碼或者包裹"
+msgstr "掃瞄序列號碼或者包裹"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a serial number or a package then the destination location"
-msgstr "掃描序列號碼或者包裹，然後掃描目標位置"
+msgstr "掃瞄序列號碼或者包裹，然後掃瞄目標位置"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a serial number then the destination location"
-msgstr "掃描序列號碼，然後掃描目標位置"
+msgstr "掃瞄序列號碼，然後掃瞄目標位置"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 #, python-format
 msgid "Scan a transfer or a product to filter your records"
-msgstr "通過掃描調撥單號或者產品篩選記錄"
+msgstr "通過掃瞄調撥單號或者產品篩選記錄"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 #, python-format
 msgid "Scan a transfer, a product or a package to filter your records"
-msgstr "通過掃描調撥單號，產品或者包裹號篩選記錄"
+msgstr "通過掃瞄調撥單號，產品或者包裹號篩選記錄"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #, python-format
 msgid "Scan an"
-msgstr "掃描"
+msgstr "掃瞄"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan another serial number"
-msgstr "掃描其他的序列號碼"
+msgstr "掃瞄其他的序列號碼"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Scan lot numbers for product %s to change their quantity"
-msgstr "掃描產品批次號%s以更改其數量"
+msgstr "掃瞄產品批次號%s以更改其數量"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan more lot numbers"
-msgstr "掃描更多的批次"
+msgstr "掃瞄更多的批次"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan more lot numbers or a package"
-msgstr "掃描更多的批次或者包裹"
+msgstr "掃瞄更多的批次或者包裹"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Scan more products in %s or scan another location"
-msgstr "在 %s掃描更多的產品或者掃描其他的位置條碼"
+msgstr "在 %s掃瞄更多的產品或者掃瞄其他的位置條碼"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan more products or a package"
-msgstr "掃描更多的產品或者包裹"
+msgstr "掃瞄更多的產品或者包裹"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan more products, or scan a new source location"
-msgstr "掃描更多產品，或掃描新的來源位置"
+msgstr "掃瞄更多產品，或掃瞄新的來源位置"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Scan serial numbers for product %s to change their quantity"
-msgstr "掃描產品序列號碼%s，以更改其數量"
+msgstr "掃瞄產品序列號碼%s，以更改其數量"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan the destination location"
-msgstr "掃描目標位置"
+msgstr "掃瞄目標位置"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan the package %s"
-msgstr "掃描包裹%s"
+msgstr "掃瞄包裹%s"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan the source location"
-msgstr "掃描來源位置"
+msgstr "掃瞄來源位置"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan the source location or a package"
-msgstr "掃描來源位置，或掃描包裹"
+msgstr "掃瞄來源位置，或掃瞄包裹"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1297,7 +1297,7 @@ msgstr "掃描來源位置，或掃描包裹"
 msgid ""
 "Scanned quantity uses %s as Unit of Measure, but this UoM is not compatible "
 "with the line's one (%s)."
-msgstr "掃描數量使用 %s 作為計量單位，但此計量單位與行的計量單位 (%s) 不兼容。"
+msgstr "掃瞄數量使用 %s 作為計量單位，但此計量單位與行的計量單位 (%s) 不兼容。"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1307,7 +1307,7 @@ msgstr "掃描數量使用 %s 作為計量單位，但此計量單位與行的�
 msgid ""
 "Scanned quantity uses %s as Unit of Measure, but this UoM is not compatible "
 "with the product's one (%s)."
-msgstr "掃描的數量使用%s作為計量單位，但這個計量單位與產品的計量單位（%s）不兼容。"
+msgstr "掃瞄的數量使用%s作為計量單位，但這個計量單位與產品的計量單位（%s）不兼容。"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1381,7 +1381,7 @@ msgstr "庫存包裝類型"
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #, python-format
 msgid "Tap to scan"
-msgstr "點擊即可掃描"
+msgstr "點擊即可掃瞄"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__is_barcode_picking_type
@@ -1424,7 +1424,7 @@ msgstr "掃瞄的位置不屬於此操作的位置"
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
 #, python-format
 msgid "The scanned serial number is already used."
-msgstr "掃描的序列號已被使用。"
+msgstr "掃瞄的序列號已被使用。"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1461,7 +1461,7 @@ msgstr "此頁面中沒有任何要打印的內容。"
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "This package is already scanned."
-msgstr "這個包裹已掃描過。"
+msgstr "這個包裹已掃瞄過。"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1525,7 +1525,7 @@ msgstr "調撥允許您將產品從一個位置移動到另一個位置。"
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
 #, python-format
 msgid "Type barcode you want to scan here"
-msgstr "輸入您想要在此掃描的條碼"
+msgstr "輸入您想要在此掃瞄的條碼"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
@@ -1543,7 +1543,7 @@ msgstr "計量單位"
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
 #, python-format
 msgid "Use camera to scan"
-msgstr "使用相機掃描"
+msgstr "使用相機掃瞄"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1606,28 +1606,28 @@ msgstr ""
 msgid ""
 "You are expected to scan one or more products or a package available at the "
 "picking location"
-msgstr "你要掃描一或多個產品，或揀貨位置可獲得的包裹"
+msgstr "你要掃瞄一或多個產品，或揀貨位置可獲得的包裹"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
 #, python-format
 msgid "You are expected to scan one or more products."
-msgstr "你需要掃描一或多個產品。"
+msgstr "你需要掃瞄一或多個產品。"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "You are supposed to scan %s or another source location"
-msgstr "您應該掃描 %s 或者其他的來源位置"
+msgstr "您應該掃瞄 %s 或者其他的來源位置"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "You can't apply a package type. First, scan product or select a line"
-msgstr "你不能應用包裹類型。首先，掃描產品或選擇資料行"
+msgstr "你不能應用包裹類型。首先，掃瞄產品或選擇資料行"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1655,14 +1655,14 @@ msgstr "您處理的產品少於初始需求："
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "You must scan a package or put in pack"
-msgstr "你必須掃描包裹或放入包裹"
+msgstr "你必須掃瞄包裹或放入包裹"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "You must scan a product"
-msgstr "必須掃描產品"
+msgstr "必須掃瞄產品"
 
 #. module: stock_barcode
 #. odoo-javascript

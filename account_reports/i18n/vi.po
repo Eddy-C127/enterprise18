@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Martin Trigaux, 2024
-# Thi Huong Nguyen, 2024
 # Wil Odoo, 2025
+# Thi Huong Nguyen, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-17 14:28+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Thi Huong Nguyen, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1265,8 +1265,15 @@ msgstr "Khấu trừ"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 #, python-format
-msgid "Deferrals have already been generated."
-msgstr "Đã tạo deferral."
+msgid "Deferrals have not yet been completely generated for this period."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+#, python-format
+msgid "Deferrals have not yet been generated for this period."
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -2400,6 +2407,8 @@ msgid ""
 "Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
 "This is not allowed."
 msgstr ""
+"Dòng '%(child)s' được cấu hình để xuất hiện trước dòng chính '%(parent)s'. "
+"Điều này không được phép."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3216,6 +3225,14 @@ msgstr "Show Warning Move"
 
 #. module: account_reports
 #. odoo-javascript
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
+#, python-format
+msgid "Show already generated deferrals."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "Some"
@@ -3499,7 +3516,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 #, python-format
 msgid "The column '%s' is not available for this report."
-msgstr ""
+msgstr "Cột '%s' không khả dụng trong báo cáo này."
 
 #. module: account_reports
 #. odoo-python
@@ -3681,7 +3698,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
 #, python-format
 msgid "This line is out of sequence."
-msgstr ""
+msgstr "Dòng này không theo trình tự."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3691,6 +3708,8 @@ msgid ""
 "This line is placed before its parent, which is not allowed. You can fix it "
 "by dragging it to the proper position."
 msgstr ""
+"Dòng này được đặt trước dòng chính của nó và điều này không được phép. Bạn "
+"có thể chỉnh sửa bằng cách kéo nó đến đúng vị trí."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form

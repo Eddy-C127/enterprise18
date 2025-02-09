@@ -9,8 +9,8 @@
 # Kostas Goutoudis <goutoudis@gmail.com>, 2024
 # Stefanos Nikou <stefanos.nikou@gmail.com>, 2024
 # Martin Trigaux, 2024
-# Georgios Geitonas, 2025
-# Iasonas Polydoros, 2025
+# Georgios Geitonas <g.geitonas@dileanity.com>, 2025
+# Iasonas Polydoros <j.polydoros@dileanity.com>, 2025
 # 
 msgid ""
 msgstr ""
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Iasonas Polydoros, 2025\n"
+"Last-Translator: Iasonas Polydoros <j.polydoros@dileanity.com>, 2025\n"
 "Language-Team: Greek (https://app.transifex.com/odoo/teams/41243/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,6 +32,7 @@ msgstr ""
 #, python-format
 msgid "%s can't be inventoried. Only storable products can be inventoried."
 msgstr ""
+"%s δεν μπορεί να απογραφεί. Μόνο αποθηκευόμενα είδη μπορούν να απογραφούν."
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
@@ -458,6 +459,8 @@ msgid ""
 "Do you want to permanently remove this message ? It won't appear anymore, so"
 " make sure you don't need the barcodes sheet or you have a copy."
 msgstr ""
+"Θέλετε να διαγράψετε αυτό το μήνυμα μόνιμα; Δεν θα εμφανιστεί ξανά, οπότε "
+"βεβαιωθείτε ότι δεν χρειάζεστε το φύλλο barcodes ή ότι έχετε ένα αντίγραφο."
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__restrict_put_in_pack
@@ -551,12 +554,12 @@ msgstr "Υποχρεωτική Σάρωση Τοποθεσίας Προέλευ�
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_validation_after_dest_location
 msgid "Force a destination on all products"
-msgstr ""
+msgstr "Επιβολή προορισμού σε όλα τα προϊόντα."
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_validation_all_product_packed
 msgid "Force all products to be packed"
-msgstr ""
+msgstr "Επιβολή συσκευασίας σε όλα τα προϊόντα."
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_put_in_pack
@@ -901,7 +904,7 @@ msgstr "Εκτύπωση Δελτίου Αποστολής"
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Print Inventory"
-msgstr ""
+msgstr "Εκτύπωση Αποθέματος"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -915,7 +918,7 @@ msgstr "Εκτύπωση Περιεκτών "
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Print Picking Operations"
-msgstr ""
+msgstr "Εκτύπωση Δελτίου Ενεργειών"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1032,7 +1035,7 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #, python-format
 msgid "Scan a"
-msgstr ""
+msgstr "Σαρώστε"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1119,7 +1122,7 @@ msgstr "Σαρώστε ένα προϊόν από %s"
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Scan a product in %s or scan another location"
-msgstr ""
+msgstr "Σαρώστε ένα είδος στην %s ή σαρώστε άλλη τοποθεσία"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1193,13 +1196,14 @@ msgstr "Σαρώστε ένα σειριακό αριθμό ή έναν περι
 #, python-format
 msgid "Scan a serial number or a package then the destination location"
 msgstr ""
+"Σαρώστε ένα σειριακό αριθμό ή ένα περιέκτη και μετά την τοποθεσία προορισμού"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a serial number then the destination location"
-msgstr ""
+msgstr "Σαρώστε ένα σειριακό αριθμό και μετά την τοποθεσία προορισμού"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1421,7 +1425,7 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "The inventory adjustment has been validated"
-msgstr ""
+msgstr "Η προσαρμογή του αποθέματος έχει επικυρωθεί"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1470,7 +1474,7 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "There is nothing to print in this page."
-msgstr ""
+msgstr "Δεν υπάρχει κάτι προς εκτύπωση σε αυτή τη σελίδα."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1501,7 +1505,7 @@ msgstr "Αυτή η συλλογή ακυρώθηκε"
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
 #, python-format
 msgid "This serial number is already used."
-msgstr ""
+msgstr "Ο σειριακός αριθμός χρησιμοποιείται ήδη."
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_type_kanban
@@ -1537,6 +1541,8 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:stock_barcode.stock_picking_action_kanban
 msgid "Transfers allow you to move products from one location to another."
 msgstr ""
+"Οι εσωτερικές διακινήσεις σας επιτρέπουν να μετακινείτε προϊόντα από τη μια "
+"τοποθεσία στην άλλη."
 
 #. module: stock_barcode
 #. odoo-javascript

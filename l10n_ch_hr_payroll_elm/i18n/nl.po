@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-04 10:19+0000\n"
+"POT-Creation-Date: 2025-02-05 12:16+0000\n"
 "PO-Revision-Date: 2024-06-24 12:27+0000\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -232,7 +232,7 @@ msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__hr_payslip__l10n_ch_after_departure_payment__nk
-msgid "After Departure Payment with correction"
+msgid "After Departure Payment with ST correction"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
@@ -366,73 +366,6 @@ msgid "Code change, correction-payment after departure"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
-#: model:ir.model.fields,help:l10n_ch_hr_payroll_elm.field_hr_salary_rule__l10n_ch_wage_statement
-msgid ""
-"Code meaning:\n"
-"- I: Gross base salary and regular allowances\n"
-"    - Ordinary salary paid, such as monthly, hourly, piece rate, working from home, etc.\n"
-"    - Regular allowances paid, such as allowances for position or for length of service,\n"
-"      residence, housing, travel or cost of living allowances.\n"
-"    - Tips paid subject to AVS contributions.\n"
-"    - Regular payments (at each pay) of a commission, turnover contribution or other bonus\n"
-"      paid regularly.\n"
-"- J: Gross amount of compensation for shift work, Sunday or night work and other arduousness\n"
-"     bonuses (compensation for on-call duty, dirty work, etc.).\n"
-"- K: Total amount of family allowances paid by the employer in the form of child allowances,\n"
-"     vocational training allowances, household allowances or care allowances.\n"
-"- Y: Benefits provided by insurance or similar institutions and which have an impact on\n"
-"     employee contributions\n"
-"- L: Amount of AVS/AI/APG/AC/ (1st pillar) and AANP (employee’s share) contributions.\n"
-"     Not included:\n"
-"        - the employer’s share,\n"
-"        - the Parifonds,\n"
-"        - daily allowance insurance in the event of IJM illness,\n"
-"        - LAAC supplementary accident insurance\n"
-"        - Social contributions must in principle be transmitted in the form of negative values.\n"
-"- M: Amount of ordinary contributions (employee's share) to LPP professional pension provision or\n"
-"     the 2nd pillar, in accordance with legal, statutory or regulatory provisions.\n"
-"     The amount indicated should not include redemption contributions.\n"
-"     Regular BVG-LPP contributions must in principle be transmitted as negative values.\n"
-msgstr ""
-
-#. module: l10n_ch_hr_payroll_elm
-#: model:ir.model.fields,help:l10n_ch_hr_payroll_elm.field_hr_salary_rule__l10n_ch_yearly_statement
-msgid ""
-"Code meaning:\n"
-"- O: 13th salary paid (with the 14th and following) provided that it is not in the form of a bonus\n"
-"- P: Overtime pay\n"
-"- Q: Sporadic Benefits, e.g.\n"
-"        - bonuses,\n"
-"        - merit-based rewards,\n"
-"        - participation in profit or turnover,\n"
-"        - engagement bonuses and severance pay,\n"
-"        - loyalty bonuses, bonuses and gifts for length of service,\n"
-"        - fixed moving compensation,\n"
-"        - Christmas bonuses,\n"
-"        - compensation for members of the board of directors (attendance fees, fees, etc.).\n"
-"- R: Fringe Benefits\n"
-"        - board and lodging (section 2.1 of the salary certificate);\n"
-"      - the private share of the company car (section 2.2 of the salary certificate);\n"
-"      - other ancillary salary benefits (section 2.3 of the salary certificate);\n"
-"      - participation rights (section 5 of the salary certificate).\n"
-"- S: Capital Payment: Capital benefits of a pension nature paid by the employer directly to the\n"
-"     employee and likely to be taxed at a reduced rate.\n"
-"      - severance pay of a provident nature;\n"
-"      - capital benefits of a pension nature;\n"
-"      - salary payments after death.\n"
-"- T: Other Benefits: All other services covered on an optional basis by the employer, although\n"
-"     they are generally due by the employee.\n"
-"        - partial or total coverage of contributions owed by the employee to LPP professional\n"
-"          insurance, including executive insurance;\n"
-"        - payments to occupational pension institutions (2nd pillar) made by the employer in\n"
-"          favor of the employee (purchase contributions);\n"
-"        - payment of insurance contributions in favor of the employee and members of his family\n"
-"          (health insurance, optional 3rd pillar b insurance, life insurance, etc.);\n"
-"        - payment of contributions to recognized forms of linked individual pension provision (3rd pillar a)\n"
-"."
-msgstr ""
-
-#. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_ch_yearly_report__company_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_is_report__company_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_salary_certificate__company_id
@@ -466,7 +399,7 @@ msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_contract__l10n_ch_contractual_13th_month_rate
-msgid "Contractual allowances for 13th month"
+msgid "Contractual allowances for 13th/14th month"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
@@ -874,11 +807,6 @@ msgid "IS Code"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
-#: model:ir.ui.menu,name:l10n_ch_hr_payroll_elm.menu_l10n_ch_employee_is_line
-msgid "IS Corrections"
-msgstr ""
-
-#. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll_elm.l10n_ch_employees_is_salary_dt_aperiodic
 #: model:hr.salary.rule.category,name:l10n_ch_hr_payroll_elm.hr_salary_rule_category_is_dt_aperiodic_salary
 msgid "IS DT Aperiodic Salary"
@@ -1093,6 +1021,11 @@ msgid "L10N Ch Lpp Not Insured"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
+#: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_salary_rule__l10n_ch_salary_certificate
+msgid "L10N Ch Salary Certificate"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll_elm
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll_elm.l10n_ch_insurance_report_view_form
 msgid "LAA"
 msgstr ""
@@ -1296,11 +1229,6 @@ msgid "Lessons count"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
-#: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_contract__l10n_ch_location_unit_id
-msgid "Location Unit"
-msgstr ""
-
-#. module: l10n_ch_hr_payroll_elm
 #. odoo-python
 #: code:addons/l10n_ch_hr_payroll_elm/models/l10n_ch_insurance_report.py:0
 #: code:addons/l10n_ch_hr_payroll_elm/models/l10n_ch_insurance_report.py:0
@@ -1349,12 +1277,7 @@ msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_salary_rule__l10n_ch_wage_statement
-msgid "Monthly Statistics"
-msgstr ""
-
-#. module: l10n_ch_hr_payroll_elm
-#: model:ir.ui.menu,name:l10n_ch_hr_payroll_elm.menu_l10n_ch_is_report
-msgid "Monthly Tax-at-Source Report"
+msgid "Monthly Statistic"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
@@ -1628,14 +1551,9 @@ msgid "Salary Attachment Type"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
-#: model:ir.model,name:l10n_ch_hr_payroll_elm.model_l10n_ch_salary_certificate
-msgid "Salary Certificate By Employee"
-msgstr ""
-
-#. module: l10n_ch_hr_payroll_elm
 #: model:ir.actions.act_window,name:l10n_ch_hr_payroll_elm.l10n_ch_salary_certificate_action
-#: model:ir.ui.menu,name:l10n_ch_hr_payroll_elm.menu_l10n_ch_salary_certificate
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll_elm.l10n_be_individual_account_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll_elm.l10n_ch_salary_certificate_view_tree
 msgid "Salary Certificates"
 msgstr ""
 
@@ -1647,6 +1565,11 @@ msgid "Salary Certificates - Year %s"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
+#: model:ir.ui.menu,name:l10n_ch_hr_payroll_elm.menu_l10n_ch_salary_certificate
+msgid "Salary Certificates Rectification"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll_elm.hr_salary_attachment_type_salary_correction
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll_elm.l10n_ch_employees_basic_correction
 msgid "Salary Correction"
@@ -1655,11 +1578,6 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model,name:l10n_ch_hr_payroll_elm.model_hr_salary_rule
 msgid "Salary Rule"
-msgstr ""
-
-#. module: l10n_ch_hr_payroll_elm
-#: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_salary_rule__l10n_ch_salary_certificate
-msgid "Salary certificate"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
@@ -1690,6 +1608,16 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_accident_insurance_line__solution_code
 msgid "Solution Code"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll_elm
+#: model:ir.ui.menu,name:l10n_ch_hr_payroll_elm.menu_l10n_ch_is_report
+msgid "Source-Tax"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll_elm
+#: model:ir.ui.menu,name:l10n_ch_hr_payroll_elm.menu_l10n_ch_employee_is_line
+msgid "Source-Tax Corrections"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
@@ -1787,6 +1715,11 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll_elm.hr_salary_attachment_thirdpillb
 msgid "THIRDPILLB"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll_elm
+#: model:ir.model,name:l10n_ch_hr_payroll_elm.model_l10n_ch_salary_certificate
+msgid "Tax Salaries Rectification"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
@@ -1909,6 +1842,11 @@ msgid "Worked Days in CH"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
+#: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_contract__l10n_ch_location_unit_id
+msgid "Workplace"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_salary_certificate__xml_file
 msgid "Xml File"
 msgstr ""
@@ -1938,7 +1876,6 @@ msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.actions.act_window,name:l10n_ch_hr_payroll_elm.l10n_ch_insurance_report_action
-#: model:ir.ui.menu,name:l10n_ch_hr_payroll_elm.menu_l10n_ch_insurance_report
 msgid "Yearly Institution Reports"
 msgstr ""
 
@@ -1948,8 +1885,13 @@ msgid "Yearly Paid Public Holidays Count"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
+#: model:ir.ui.menu,name:l10n_ch_hr_payroll_elm.menu_l10n_ch_insurance_report
+msgid "Yearly Salaries"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_salary_rule__l10n_ch_yearly_statement
-msgid "Yearly Statistics"
+msgid "Yearly Statistic"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm

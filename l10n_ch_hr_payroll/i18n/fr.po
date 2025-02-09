@@ -1,18 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * l10n_ch_hr_payroll
+# 	* l10n_ch_hr_payroll
 # 
 # Translators:
 # Tivisse <yti@odoo.com>, 2024
 # Jurgen Gjini, 2024
+# Larissa Manderfeld, 2025
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.5alpha1+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-24 13:12+0000\n"
+"POT-Creation-Date: 2025-02-05 12:17+0000\n"
 "PO-Revision-Date: 2024-06-24 12:27+0000\n"
-"Last-Translator: Jurgen Gjini, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2025\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,6 +61,18 @@ msgid "(object._get_report_base_filename())"
 msgstr "(object._get_report_base_filename())"
 
 #. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_accident_insurance_line__solution_number__0
+msgid ""
+"0 - Not insured (e.g. member of the board of directors not working in the "
+"company)"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_accident_insurance_line__solution_number__1
+msgid "1 - Occupational and Non-Occupational Insured, with deductions"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_accident_insurance_line_rate__employer_non_occupational_part__100
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_accident_insurance_line_rate__employer_occupational_part__100
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_additional_accident_insurance_line_rate__employer_part__100
@@ -76,6 +89,16 @@ msgstr "13ème Mois"
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_salary_rule__l10n_ch_13th_month_included
 msgid "13th Month Included"
 msgstr "13ème Mois Inclus"
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_accident_insurance_line__solution_number__2
+msgid "2 - Occupational and Non-Occupational Insured, without deductions"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_accident_insurance_line__solution_number__3
+msgid "3 - Only Occupational Insured, without deductions (< 8 weekly hours)"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_accident_insurance_line_rate__employer_non_occupational_part__50
@@ -184,6 +207,11 @@ msgid "<strong>To:</strong>"
 msgstr "<strong>Jusqu'au:</strong>"
 
 #. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__a
+msgid "A - Scale for single people"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
 #: model:ir.model.constraint,message:l10n_ch_hr_payroll.constraint_l10n_ch_location_unit__unique
 msgid ""
 "A work location cannot be set more than once for the same company and "
@@ -219,16 +247,9 @@ msgid "AAP (Comp. Part.)"
 msgstr "AAP (Partie Employeur)"
 
 #. module: l10n_ch_hr_payroll
-#: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_contract__l10n_ch_accident_insurance_line_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_payslip__l10n_ch_accident_insurance_line_id
 msgid "AAP/AANP Insurance"
 msgstr "Assurance AAP/AANP"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.actions.act_window,name:l10n_ch_hr_payroll.action_l10n_ch_accident_insurance
-#: model:ir.ui.menu,name:l10n_ch_hr_payroll.menu_l10n_ch_accident_insurance
-msgid "AAP/AANP Insurances"
-msgstr "Assurances AAP/AANP"
 
 #. module: l10n_ch_hr_payroll
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll.l10n_ch_employees_ac
@@ -766,6 +787,11 @@ msgid "Additional Unemployment Insurance"
 msgstr "Assurance chômage complémentaire"
 
 #. module: l10n_ch_hr_payroll
+#: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_l10n_ch_location_unit__partner_id
+msgid "Address"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll.l10n_ch_employees_advance
 msgid "Advance"
 msgstr "Avance"
@@ -846,6 +872,13 @@ msgid "Avs Line"
 msgstr "Ligne AVS"
 
 #. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__b
+msgid ""
+"B - Scale for married couples living in a common household with only one "
+"spouse is gainfully employed"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_l10n_ch_location_unit__bur_ree_number
 msgid "BUR-REE-Number"
 msgstr "Numéro BUR-REE"
@@ -920,6 +953,11 @@ msgstr "Bâle-Campagne"
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_location_unit__canton__bs
 msgid "Bâle-Ville"
 msgstr "Bâle-Ville"
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__c
+msgid "C - Scale for married couples with two incomes"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll.hr_salary_attachment_type_ca_fee
@@ -1060,128 +1098,6 @@ msgid "Code"
 msgstr "Code"
 
 #. module: l10n_ch_hr_payroll
-#: model:ir.model.fields,help:l10n_ch_hr_payroll.field_hr_salary_rule__l10n_ch_wage_statement
-msgid ""
-"Code meaning:\n"
-"- I: Gross base salary and regular allowances\n"
-"    - Ordinary salary paid, such as monthly, hourly, piece rate, working from home, etc.\n"
-"    - Regular allowances paid, such as allowances for position or for length of service,\n"
-"      residence, housing, travel or cost of living allowances.\n"
-"    - Tips paid subject to AVS contributions.\n"
-"    - Regular payments (at each pay) of a commission, turnover contribution or other bonus\n"
-"      paid regularly.\n"
-"- J: Gross amount of compensation for shift work, Sunday or night work and other arduousness\n"
-"     bonuses (compensation for on-call duty, dirty work, etc.).\n"
-"- K: Total amount of family allowances paid by the employer in the form of child allowances,\n"
-"     vocational training allowances, household allowances or care allowances.\n"
-"- Y: Benefits provided by insurance or similar institutions and which have an impact on\n"
-"     employee contributions\n"
-"- L: Amount of AVS/AI/APG/AC/ (1st pillar) and AANP (employee’s share) contributions.\n"
-"     Not included:\n"
-"        - the employer’s share,\n"
-"        - the Parifonds,\n"
-"        - daily allowance insurance in the event of IJM illness,\n"
-"        - LAAC supplementary accident insurance\n"
-"        - Social contributions must in principle be transmitted in the form of negative values.\n"
-"- M: Amount of ordinary contributions (employee's share) to LPP professional pension provision or\n"
-"     the 2nd pillar, in accordance with legal, statutory or regulatory provisions.\n"
-"     The amount indicated should not include redemption contributions.\n"
-"     Regular BVG-LPP contributions must in principle be transmitted as negative values.\n"
-msgstr ""
-"Signification du code :\n"
-"- I : Salaire de base brut et indemnités régulières\n"
-"- Salaire ordinaire payé, tel que mensuel, horaire, à la pièce, travail à domicile, etc.\n"
-"- Les indemnités régulières versées, telles que les indemnités de poste ou d'ancienneté,\n"
-"allocations de résidence, de logement, de déplacement ou de vie chère.\n"
-"- Pourboires versés sous réserve des cotisations AVS.\n"
-"- Versements réguliers (à chaque paie) d'une commission, contribution au chiffre d'affaires ou autre prime\n"
-"payé régulièrement.\n"
-"- J : Montant brut de l'indemnité pour travail posté, travail du dimanche ou de nuit et autres pénibilités\n"
-"primes (rémunération des gardes, sale boulot, etc.).\n"
-"- K : Montant total des allocations familiales versées par l'employeur sous forme d'allocations familiales,\n"
-"les allocations de formation professionnelle, les allocations de foyer ou les allocations de soins.\n"
-"- Y : Prestations servies par les assurances ou institutions assimilées et qui ont un impact sur\n"
-"cotisations salariales\n"
-"- L : Montant des cotisations AVS/AI/APG/AC/ (1er pilier) et AANP (part salariale).\n"
-"Non inclus:\n"
-"- la part patronale,\n"
-"- les Parifonds,\n"
-"- une assurance indemnité journalière en cas de maladie IJM,\n"
-"- Assurance complémentaire accident LAAC\n"
-"- Les cotisations sociales doivent en principe être transmises sous forme de valeurs négatives.\n"
-"- M : Montant des cotisations ordinaires (part salariale) à la prévoyance professionnelle LPP ou\n"
-"le 2ème pilier, conformément aux dispositions légales, statutaires ou réglementaires.\n"
-"Le montant indiqué ne doit pas comprendre les cotisations de rachat.\n"
-"Les cotisations régulières LPP-LPP doivent en principe être transmises sous forme de valeurs négatives.\n"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields,help:l10n_ch_hr_payroll.field_hr_salary_rule__l10n_ch_yearly_statement
-msgid ""
-"Code meaning:\n"
-"- O: 13th salary paid (with the 14th and following) provided that it is not in the form of a bonus\n"
-"- P: Overtime pay\n"
-"- Q: Sporadic Benefits, e.g.\n"
-"        - bonuses,\n"
-"        - merit-based rewards,\n"
-"        - participation in profit or turnover,\n"
-"        - engagement bonuses and severance pay,\n"
-"        - loyalty bonuses, bonuses and gifts for length of service,\n"
-"        - fixed moving compensation,\n"
-"        - Christmas bonuses,\n"
-"        - compensation for members of the board of directors (attendance fees, fees, etc.).\n"
-"- R: Fringe Benefits\n"
-"        - board and lodging (section 2.1 of the salary certificate);\n"
-"      - the private share of the company car (section 2.2 of the salary certificate);\n"
-"      - other ancillary salary benefits (section 2.3 of the salary certificate);\n"
-"      - participation rights (section 5 of the salary certificate).\n"
-"- S: Capital Payment: Capital benefits of a pension nature paid by the employer directly to the\n"
-"     employee and likely to be taxed at a reduced rate.\n"
-"      - severance pay of a provident nature;\n"
-"      - capital benefits of a pension nature;\n"
-"      - salary payments after death.\n"
-"- T: Other Benefits: All other services covered on an optional basis by the employer, although\n"
-"     they are generally due by the employee.\n"
-"        - partial or total coverage of contributions owed by the employee to LPP professional\n"
-"          insurance, including executive insurance;\n"
-"        - payments to occupational pension institutions (2nd pillar) made by the employer in\n"
-"          favor of the employee (purchase contributions);\n"
-"        - payment of insurance contributions in favor of the employee and members of his family\n"
-"          (health insurance, optional 3rd pillar b insurance, life insurance, etc.);\n"
-"        - payment of contributions to recognized forms of linked individual pension provision (3rd pillar a)\n"
-"."
-msgstr ""
-"- O : 13ème salaire versé (avec le 14ème et suivants) à condition qu'il ne soit pas sous forme de prime\n"
-"- P : Rémunération des heures supplémentaires\n"
-"- Q : Avantages sporadiques, par ex.\n"
-"- bonus,\n"
-"- des récompenses au mérite,\n"
-"- participation au bénéfice ou au chiffre d'affaires,\n"
-"- les primes d'engagement et indemnités de départ,\n"
-"- les primes de fidélité, primes et cadeaux d'ancienneté,\n"
-"- une indemnité forfaitaire de déménagement,\n"
-"- les primes de Noël,\n"
-"- les rémunérations des membres du conseil d'administration (jetons de présence, honoraires, etc.).\n"
-"- R : Avantages sociaux\n"
-"- nourriture et logement (article 2.1 du certificat de salaire);\n"
-" - la part privative de la voiture de société (rubrique 2.2 de l'attestation de salaire) ;\n"
-" - les autres avantages salariaux accessoires (section 2.3 du certificat de salaire) ;\n"
-" - les droits de participation (section 5 du certificat de salaire).\n"
-"- S : Paiement de capital : Prestations en capital de nature pension versées par l'employeur directement au\n"
-"salarié et susceptible d’être imposé à un taux réduit.\n"
-" - les indemnités de départ à caractère de prévoyance ;\n"
-" - les prestations en capital à caractère de pension ;\n"
-" - le versement du salaire après le décès.\n"
-"- T : Autres avantages : Tous les autres services couverts à titre facultatif par l'employeur, bien que\n"
-"ils sont généralement dus par le salarié.\n"
-"- prise en charge partielle ou totale des cotisations dues par le salarié à la LPP professionnelle\n"
-"assurance, y compris assurance pour dirigeants;\n"
-"- les versements aux institutions de prévoyance professionnelle (2e pilier) effectués par l'employeur en\n"
-"faveur du salarié (cotisations d'achat) ;\n"
-"- paiement des cotisations d'assurance en faveur du salarié et des membres de sa famille\n"
-"(assurance maladie, assurance facultative 3e pilier b, assurance vie, etc.) ;\n"
-"- paiement des cotisations à des formes reconnues de prévoyance individuelle liée (3e pilier a)"
-
-#. module: l10n_ch_hr_payroll
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll.hr_salary_attachment_type_commission
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll.l10n_ch_employees_commission
 msgid "Commission"
@@ -1216,6 +1132,11 @@ msgid "Company Car (Employee Part)"
 msgstr "Voiture de société (Partie employeur)"
 
 #. module: l10n_ch_hr_payroll
+#: model:ir.ui.menu,name:l10n_ch_hr_payroll.menu_reporting_l10n_ch
+msgid "Company Data"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_compensation_fund_view_form
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.res_config_settings_view_form
 msgid "Company Information"
@@ -1241,6 +1162,11 @@ msgstr "Partie Employeur"
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_l10n_ch_social_insurance_avs_line__employer_rate
 msgid "Company Rate (%)"
 msgstr "Taux Employeur (%)"
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.ui.menu,name:l10n_ch_hr_payroll.menu_l10n_ch_compensation_fund
+msgid "Compensation Funds"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll.l10n_ch_employees_compl_ac_comp
@@ -1361,6 +1287,11 @@ msgid "Customer Number"
 msgstr "Numéro de Client"
 
 #. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__d
+msgid "D - Scale for people whose AVS contributions are reimbursed"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.report_individual_account
 msgid "DEC"
 msgstr "DEC"
@@ -1432,16 +1363,6 @@ msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: l10n_ch_hr_payroll
-#: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_l10n_ch_individual_account__documents_count
-msgid "Documents Count"
-msgstr "Nombre de Documents"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_l10n_ch_individual_account__documents_enabled
-msgid "Documents Enabled"
-msgstr "Documents Activés"
-
-#. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_monthly_summary_view_form
 msgid "Download the Monthly Summary PDF file:"
 msgstr "Téléchargez le fichier PDF du résumé mensuel :"
@@ -1450,6 +1371,17 @@ msgstr "Téléchargez le fichier PDF du résumé mensuel :"
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_monthly_summary_view_form
 msgid "Download the Monthly Summary XLSX file:"
 msgstr "Téléchargez le fichier XLSX du résumé mensuel :"
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__e
+msgid "E - Scale for income taxed under the procedure of simplified count"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_canton__ex
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_spouse_work_canton__ex
+msgid "EX - Foreign"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.hr_employee_view_form
@@ -1508,6 +1440,13 @@ msgid "External Code"
 msgstr "Code Externe"
 
 #. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__f
+msgid ""
+"F - Scale for Italian cross-border commuters whose spouse is working "
+"lucrative outside Switzerland"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.report_individual_account
 msgid "FEB"
 msgstr "FEV"
@@ -1520,18 +1459,21 @@ msgstr "Allocations Familiales"
 
 #. module: l10n_ch_hr_payroll
 #: model:hr.salary.rule.category,name:l10n_ch_hr_payroll.hr_salary_rule_category_caf
-#: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_contract__l10n_ch_compensation_fund_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_payslip__l10n_ch_compensation_fund_id
 msgid "Family Allowance (CAF)"
 msgstr "Allocations Familiale (CAF)"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.actions.act_window,name:l10n_ch_hr_payroll.action_l10n_ch_compensation_fund
-#: model:ir.ui.menu,name:l10n_ch_hr_payroll.menu_l10n_ch_compensation_fund
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_compensation_fund_view_form
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_compensation_fund_view_tree
 msgid "Family Allowances"
 msgstr "Allocations Familiale"
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_contract__l10n_ch_compensation_fund_id
+msgid "Family Compensation Fund"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_monthly_summary__month__2
@@ -1549,12 +1491,6 @@ msgstr "Taux Femme (%)"
 #: model:hr.contract.type,name:l10n_ch_hr_payroll.l10n_ch_contract_type_fixedSalaryMth
 msgid "Fixed term contract with monthly salary"
 msgstr "Contrat à durée déterminée avec salaire mensuel"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_canton__ex
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_spouse_work_canton__ex
-msgid "Foreign"
-msgstr "Etranger"
 
 #. module: l10n_ch_hr_payroll
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll.hr_salary_attachment_type_free_housing
@@ -1596,6 +1532,13 @@ msgstr "A partir du"
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_l10n_ch_lpp_insurance__fund_number
 msgid "Fund Number"
 msgstr "Numéro de Fonds"
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__g
+msgid ""
+"G - Scale for income acquired as compensation which is paid to persons "
+"subject to withholding tax by a person other than that the employer"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_accident_insurance__insurance_company__s21
@@ -1649,6 +1592,13 @@ msgstr "Grisons"
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_sickness_insurance__insurance_company__s270
 msgid "Groupe Mutuel"
 msgstr "Groupe Mutuel"
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__h
+msgid ""
+"H - Scale for single people living together with children or needy persons "
+"whom they take on maintenance essentials"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_compensation_fund__insurance_company__071_000
@@ -1817,6 +1767,13 @@ msgid "Import Tax Rates"
 msgstr "Importer les taux de taxes"
 
 #. module: l10n_ch_hr_payroll
+#. odoo-python
+#: code:addons/l10n_ch_hr_payroll/models/hr_employee.py:0
+#, python-format
+msgid "Incorrect EAN13 Check-sum for this SV-AS Number"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll.hr_salary_attachment_type_indemnity_ai
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll.l10n_ch_employees_indemnity_ai
 msgid "Indemnity AI"
@@ -1969,9 +1926,27 @@ msgstr ""
 "Voir: https://www.estv.admin.ch/estv/fr/accueil/impot-federal-direct/impot-a-la-source/baremes-cantonaux.html"
 
 #. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__l
+msgid ""
+"L - Scale for German cross-border commuters who fulfill the conditions of "
+"the scale A"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_employee__l10n_ch_children
 msgid "L10N Ch Children"
 msgstr "L10N Ch Enfants"
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_contract__l10n_ch_accident_insurance_line_id
+msgid "LAA Insurance"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.actions.act_window,name:l10n_ch_hr_payroll.action_l10n_ch_accident_insurance
+#: model:ir.ui.menu,name:l10n_ch_hr_payroll.menu_l10n_ch_accident_insurance
+msgid "LAA Insurances"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_accident_insurance_view_form
@@ -2138,6 +2113,13 @@ msgid "Lunch Expense"
 msgstr "Frais de repas"
 
 #. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__m
+msgid ""
+"M - Scale for German cross-border commuters who fulfill the conditions of "
+"the scale B"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.report_individual_account
 msgid "MAR"
 msgstr "MAR"
@@ -2227,8 +2209,8 @@ msgstr "Mois"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_salary_rule__l10n_ch_wage_statement
-msgid "Monthly Statistics"
-msgstr "Statistiques Mensuelles"
+msgid "Monthly Statistic"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.actions.act_window,name:l10n_ch_hr_payroll.l10n_ch_monthly_summary_action
@@ -2269,6 +2251,13 @@ msgstr "Résumé mensuel des genres de salaires"
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_res_users__l10n_ch_municipality
 msgid "Municipality ID"
 msgstr "Numéro d'identification de la municipalité"
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__n
+msgid ""
+"N - Scale for German cross-border commuters who fulfill the conditions of "
+"the scale C"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.report_individual_account
@@ -2393,28 +2382,6 @@ msgstr "Aucun seuil LAAC trouvé pour la date %s"
 #, python-format
 msgid "No found rate for gender %s"
 msgstr "Aucun taux trouvé pour le sexe %s"
-
-#. module: l10n_ch_hr_payroll
-#. odoo-python
-#: code:addons/l10n_ch_hr_payroll/models/hr_payslip.py:0
-#, python-format
-msgid ""
-"No specified canton for employees:\n"
-"%s"
-msgstr ""
-"Aucun canton spécifié pour les employés:\n"
-"%s"
-
-#. module: l10n_ch_hr_payroll
-#. odoo-python
-#: code:addons/l10n_ch_hr_payroll/models/hr_payslip.py:0
-#, python-format
-msgid ""
-"No specified tax scale for foreign employees:\n"
-"%s"
-msgstr ""
-"Pas de barème d’imposition précisé pour les salariés étrangers:\n"
-"%s"
 
 #. module: l10n_ch_hr_payroll
 #. odoo-python
@@ -2580,9 +2547,21 @@ msgid "Other or None"
 msgstr "Autre ou aucun"
 
 #. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__p
+msgid ""
+"P - Scale for German cross-border commuters who fulfill the conditions of "
+"the scale H"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_l10n_ch_individual_account__pdf_error
 msgid "PDF Error Message"
 msgstr "Message d'erreur PDF"
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__marital__partnership_dissolved_by_death
+msgid "Partnership Dissolved By Death"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__marital__partnership_dissolved_by_declaration_of_lost
@@ -2590,7 +2569,6 @@ msgid "Partnership Dissolved By Declaration of Lost"
 msgstr "Partenariat dissous par déclaration de perte"
 
 #. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__marital__partnership_dissolved_by_death
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__marital__partnership_dissolved_by_law
 msgid "Partnership Dissolved By Law"
 msgstr "Partenariat dissous par la loi"
@@ -2610,6 +2588,14 @@ msgstr "Payer le 13ème mois"
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_res_users__l10n_ch_has_withholding_tax
 msgid "Pay Withholding Taxes"
 msgstr "Payer les retenues à la sources"
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields,help:l10n_ch_hr_payroll.field_l10n_ch_lpp_insurance__fund_number
+msgid ""
+"Payroll units allow companies and pension institutions to create "
+"\"packages\" that are transmitted independently of one another using the ELM"
+" standard."
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model,name:l10n_ch_hr_payroll.model_hr_payslip_run
@@ -2676,9 +2662,23 @@ msgid "Public Holiday"
 msgstr "Jour férié"
 
 #. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__q
+msgid ""
+"Q - Scale for German cross-border commuters who fulfill the conditions of "
+"the scale G"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.report_payslip_ch
 msgid "Quantity"
 msgstr "Quantité"
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__r
+msgid ""
+"R - Scale for Italian cross-border commuters who fulfill the conditions of "
+"the scale A"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_l10n_ch_accident_insurance_line__rate_ids
@@ -2742,6 +2742,13 @@ msgid "Roman Catholic"
 msgstr "Catholique"
 
 #. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__s
+msgid ""
+"S - Scale for Italian cross-border commuters who fulfill the conditions of "
+"the scale B"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.report_individual_account
 msgid "SEP"
 msgstr "SEP"
@@ -2752,12 +2759,6 @@ msgstr "SEP"
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_sickness_insurance__insurance_company__s95
 msgid "SOLIDA Versicherungen AG"
 msgstr "SOLIDA Versicherungen AG"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_employee__l10n_ch_sv_as_number
-#: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_res_users__l10n_ch_sv_as_number
-msgid "SV-AS Number"
-msgstr "Numéro SV-AS"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_compensation_fund__insurance_company__019_000
@@ -2826,144 +2827,6 @@ msgid "Salary in case of illness"
 msgstr "Salaire en cas de maladie"
 
 #. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__l
-msgid ""
-"Scale for German cross-border commuters who fulfill the conditions of the "
-"scale A"
-msgstr ""
-"Barème pour les frontaliers allemands qui remplissent les conditions du "
-"barème A"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__m
-msgid ""
-"Scale for German cross-border commuters who fulfill the conditions of the "
-"scale B"
-msgstr ""
-"Barème pour les frontaliers allemands qui remplissent les conditions du "
-"barème B"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__n
-msgid ""
-"Scale for German cross-border commuters who fulfill the conditions of the "
-"scale C"
-msgstr ""
-"Barème pour les frontaliers allemands qui remplissent les conditions du "
-"barème C"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__q
-msgid ""
-"Scale for German cross-border commuters who fulfill the conditions of the "
-"scale G"
-msgstr ""
-"Barème pour les frontaliers allemands qui remplissent les conditions du "
-"barème G"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__p
-msgid ""
-"Scale for German cross-border commuters who fulfill the conditions of the "
-"scale H"
-msgstr ""
-"Barème pour les frontaliers allemands qui remplissent les conditions du "
-"barème H"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__r
-msgid ""
-"Scale for Italian cross-border commuters who fulfill the conditions of the "
-"scale A"
-msgstr ""
-"Barème pour les frontaliers italiens qui remplissent les conditions du "
-"barème A"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__s
-msgid ""
-"Scale for Italian cross-border commuters who fulfill the conditions of the "
-"scale B"
-msgstr ""
-"Barème pour les frontaliers italiens qui remplissent les conditions du "
-"barème B"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__t
-msgid ""
-"Scale for Italian cross-border commuters who fulfill the conditions of the "
-"scale C"
-msgstr ""
-"Barème pour les frontaliers italiens qui remplissent les conditions du "
-"barème C"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__u
-msgid ""
-"Scale for Italian cross-border commuters who fulfill the conditions of the "
-"scale H"
-msgstr ""
-"Barème pour les frontaliers italiens qui remplissent les conditions du "
-"barème H"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__f
-msgid ""
-"Scale for Italian cross-border commuters whose spouse is working lucrative "
-"outside Switzerland"
-msgstr ""
-"Barème pour les frontaliers italiens dont le conjoint exerce un travail "
-"lucratif hors de Suisse"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__g
-msgid ""
-"Scale for income acquired as compensation which is paid to persons subject "
-"to withholding tax by a person other than that the employer"
-msgstr ""
-"Barème des revenus acquis à titre de rémunération qui sont versés aux "
-"personnes soumises au prélèvement à la source par une personne autre que "
-"celle de l'employeur"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__e
-msgid "Scale for income taxed under the procedure of simplified count"
-msgstr "Barème des revenus imposés selon la procédure de décompte simplifié"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__b
-msgid ""
-"Scale for married couples living in a common household with only one spouse "
-"is gainfully employed"
-msgstr ""
-"Barème pour les couples mariés vivant dans un ménage commun avec un seul "
-"conjoint exerçant une activité rémunérée"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__c
-msgid "Scale for married couples with two incomes"
-msgstr "Barème pour les couples mariés ayant deux revenus"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__d
-msgid "Scale for people whose AVS contributions are reimbursed"
-msgstr "Barème pour les personnes dont les cotisations AVS sont remboursées"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__a
-msgid "Scale for single people"
-msgstr "Balance pour personnes seules"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__h
-msgid ""
-"Scale for single people living together with children or needy persons whom "
-"they take on maintenance essentials"
-msgstr ""
-"Barème pour les personnes seules vivant en cohabitation avec des enfants ou "
-"des personnes nécessiteuses qu'elles prennent en charge pour leur entretien"
-
-#. module: l10n_ch_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_canton__sh
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_spouse_work_canton__sh
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_location_unit__canton__sh
@@ -3030,6 +2893,12 @@ msgstr "Solutions d'assurance maladie"
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_l10n_ch_hr_payroll_employee_lang_wizard__slip_ids
 msgid "Slip"
 msgstr "Fiche de salaire"
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_employee__l10n_ch_sv_as_number
+#: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_res_users__l10n_ch_sv_as_number
+msgid "Social Insurance N°"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_social_insurance_view_form
@@ -3137,6 +3006,11 @@ msgid "Swiss Localization"
 msgstr "Localisation Suisse"
 
 #. module: l10n_ch_hr_payroll
+#: model:ir.model,name:l10n_ch_hr_payroll.model_l10n_ch_tax_rate_import_wizard
+msgid "Swiss Payroll: Extended tax rate import wizard (website download)"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
 #: model:ir.model,name:l10n_ch_hr_payroll.model_l10n_ch_individual_account
 msgid "Swiss Payroll: Individual Account"
 msgstr "Paie Suisse: Décompte Individuel"
@@ -3145,11 +3019,6 @@ msgstr "Paie Suisse: Décompte Individuel"
 #: model:ir.model,name:l10n_ch_hr_payroll.model_l10n_ch_monthly_summary
 msgid "Swiss Payroll: Monthly Summary"
 msgstr "Paie Suisse: Résumé Mensuel"
-
-#. module: l10n_ch_hr_payroll
-#: model:ir.model,name:l10n_ch_hr_payroll.model_l10n_ch_tax_rate_import_wizard
-msgid "Swiss Payroll: Tax rate import wizard"
-msgstr "Paie Suisse : Assistant d'importation du taux d'imposition"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_employee__l10n_ch_tax_scale
@@ -3303,7 +3172,6 @@ msgstr "Suisse: Master de l'Université des Sciences Appliquées"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.ui.menu,name:l10n_ch_hr_payroll.menu_configuration_l10n_ch
-#: model:ir.ui.menu,name:l10n_ch_hr_payroll.menu_reporting_l10n_ch
 msgid "Switzerland"
 msgstr "Suisse"
 
@@ -3323,6 +3191,13 @@ msgstr "Suisse: Fiche de Salaire"
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_sickness_insurance__insurance_company__s205
 msgid "Sympany"
 msgstr "Sympany"
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__t
+msgid ""
+"T - Scale for Italian cross-border commuters who fulfill the conditions of "
+"the scale C"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_l10n_ch_tax_rate_import_wizard__tax_file_ids
@@ -3363,14 +3238,11 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #. odoo-python
 #: code:addons/l10n_ch_hr_payroll/models/hr_employee.py:0
-#: code:addons/l10n_ch_hr_payroll/models/hr_employee.py:0
 #, python-format
 msgid ""
-"The SV-AS number should be a thirteen-digit number, comma-separated (eg: "
+"The SV-AS number should be a thirteen-digit number, dot-separated (eg: "
 "756.1848.4786.64)"
 msgstr ""
-"Le numéro SV-AS doit être un numéro à treize chiffres, séparés par des "
-"virgules (par exemple : 756.1848.4786.64)"
 
 #. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_individual_account_view_form
@@ -3477,6 +3349,13 @@ msgid "Travel Expense"
 msgstr "Frais de déplacement"
 
 #. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_tax_scale__u
+msgid ""
+"U - Scale for Italian cross-border commuters who fulfill the conditions of "
+"the scale H"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll
 #: model_terms:hr.salary.rule,note:l10n_ch_hr_payroll.l10n_ch_employees_ac
 #: model_terms:hr.salary.rule,note:l10n_ch_hr_payroll.l10n_ch_employees_ac_comp
 msgid ""
@@ -3490,6 +3369,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_social_insurance_view_form
 msgid "Unemployment insurance (AC)"
 msgstr "Assurance chômage (AC)"
+
+#. module: l10n_ch_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__marital__unknown
+#: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.res_config_settings_view_form
+msgid "Unknown"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #. odoo-python
@@ -3666,11 +3551,6 @@ msgid "Work addresses"
 msgstr "Adresses professionnelles"
 
 #. module: l10n_ch_hr_payroll
-#: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_l10n_ch_location_unit__partner_id
-msgid "Working Address"
-msgstr "Adresse de travail"
-
-#. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_l10n_ch_individual_account__year
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_l10n_ch_monthly_summary__year
 msgid "Year"
@@ -3678,8 +3558,8 @@ msgstr "Année"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_salary_rule__l10n_ch_yearly_statement
-msgid "Yearly Statistics"
-msgstr "Statistiques Annuelles"
+msgid "Yearly Statistic"
+msgstr ""
 
 #. module: l10n_ch_hr_payroll
 #. odoo-python

@@ -164,7 +164,7 @@ msgstr "Ετικέτες Λογαριασμού"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__transfer_from_account_id
 msgid "Account Transfer From"
-msgstr ""
+msgstr "Μεταφορά από Λογαριασμό"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_auto_reconcile_wizard
@@ -239,7 +239,7 @@ msgstr "Όλες οι Συναλλαγές"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "All Users Lock Date"
-msgstr ""
+msgstr "Ημερομηνία Κλειδώματος Όλων των Χρηστών"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_model_autocomplete_ids
@@ -719,7 +719,7 @@ msgstr "Καταθέσεις"
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_digest_digest
 msgid "Digest"
-msgstr ""
+msgstr "Περίληψη"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_auto_reconcile_wizard
@@ -748,7 +748,7 @@ msgstr "Συζήτηση"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__display_allow_partials
 msgid "Display Allow Partials"
-msgstr ""
+msgstr "Εμφάνιση Επιτρεπτών Μερών"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__display_name
@@ -763,12 +763,12 @@ msgstr "Εμφάνιση Ονόματος"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__display_stroked_amount_currency
 msgid "Display Stroked Amount Currency"
-msgstr ""
+msgstr "Εμφάνιση Υπογραμμισμένου Ποσού Νομίσματος"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__display_stroked_balance
 msgid "Display Stroked Balance"
-msgstr ""
+msgstr "Εμφάνιση Υπογραμμισμένου Υπολοίπου"
 
 #. module: account_accountant
 #. odoo-python
@@ -863,7 +863,7 @@ msgstr "Σημαία"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__force_partials
 msgid "Force Partials"
-msgstr ""
+msgstr "Αναγκαστικά Μέρη"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__force_price_included_taxes
@@ -1047,7 +1047,7 @@ msgstr "Ημερ. Τιμολογίου"
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__invoicing_switch_threshold
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__invoicing_switch_threshold
 msgid "Invoicing Switch Threshold"
-msgstr ""
+msgstr "Όριο Εναλλαγής Τιμολόγησης"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__is_multi_currency
@@ -1654,6 +1654,10 @@ msgid ""
 "Entries involving taxes). The Tax Return Lock Date is automatically set when"
 " the corresponding Journal Entry is posted."
 msgstr ""
+"Αποτρέπει την τροποποίηση των Δηλώσεων Φόρου μέχρι την καθορισμένη "
+"ημερομηνία, συμπεριλαμβανομένης αυτής (Εγγραφές Ημερολογίου που "
+"περιλαμβάνουν φόρους). Η Ημερομηνία Κλειδώματος Δηλώσεων Φόρου ρυθμίζεται "
+"αυτόματα όταν η αντίστοιχη Εγγραφή Ημερολογίου καταχωρείται."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_form_with_buttons
@@ -1670,7 +1674,7 @@ msgstr "Εισπρακτέα"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Receivable:"
-msgstr ""
+msgstr "Εισπρακτέα:"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__search_mode
@@ -1685,17 +1689,17 @@ msgstr "Συμψηφισμός"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_wizard
 msgid "Reconcile & open"
-msgstr ""
+msgstr "Συμφιλίωση & Άνοιγμα"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_account_id
 msgid "Reconcile Account"
-msgstr ""
+msgstr "Συμφιλίωση Λογαριασμού"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__reconcile_model_id
 msgid "Reconcile Model"
-msgstr ""
+msgstr "Μοντέλο συμφιλίωσης"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__reconciled
@@ -1705,12 +1709,13 @@ msgstr "Συμψηφισμένη"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_model_id
 msgid "Reconciliation model"
-msgstr ""
+msgstr "Μοντέλο συμφιλίωσης"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Record cost of goods sold in your journal entries"
 msgstr ""
+"Καταγράψτε το κόστος των πωληθέντων αγαθών στις ημερολογιακές εγγραφές σας"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__ref
@@ -1727,12 +1732,12 @@ msgstr "Σχετικό"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "Related Purchase(s)"
-msgstr ""
+msgstr "Σχετική αγορά(ες)"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "Related Sale(s)"
-msgstr ""
+msgstr "Σχετική πώληση(εις)"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1749,17 +1754,17 @@ msgstr "Υπόλοιπο"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Residual in Currency"
-msgstr ""
+msgstr "Υπόλοιπο σε Νόμισμα"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__return_todo_command
 msgid "Return Todo Command"
-msgstr ""
+msgstr "Επιστροφή εντολής Todo"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_reconcile_model_line
 msgid "Rules for the reconciliation model"
-msgstr ""
+msgstr "Κανόνες για το μοντέλο συμφιλίωσης"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -1770,7 +1775,7 @@ msgstr "Αποθήκευση"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_form_bank_rec_widget
 msgid "Save & Close"
-msgstr ""
+msgstr "Αποθήκευση & Κλείσιμο"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_form_bank_rec_widget
@@ -1780,74 +1785,74 @@ msgstr "Αποθήκευση  & Δημιουργία Νέου"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "Search Journal Items to Reconcile"
-msgstr ""
+msgstr "Αναζήτηση Στοιχείων Ημερολογίου προς Συμφιλίωση"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__selected_aml_ids
 msgid "Selected Aml"
-msgstr ""
+msgstr "Επιλεγμένο Aml"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__selected_reco_model_id
 msgid "Selected Reco Model"
-msgstr ""
+msgstr "Επιλεγμένο Μοντέλο Reco"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Set as Checked"
-msgstr ""
+msgstr "Ορίστε ως Επιλεγμένο"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__single_currency_mode
 msgid "Single Currency Mode"
-msgstr ""
+msgstr "Λειτουργία Μοναδικού Νομίσματος"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_aml_id
 msgid "Source Aml"
-msgstr ""
+msgstr "Πηγή Aml"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_aml_move_id
 msgid "Source Aml Move"
-msgstr ""
+msgstr "Πηγή Κίνηση Aml"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_aml_move_name
 msgid "Source Aml Move Name"
-msgstr ""
+msgstr "Πηγή Κίνηση Aml Όνομα"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_amount_currency
 msgid "Source Amount Currency"
-msgstr ""
+msgstr "Πηγή Ποσό Νόμισμα"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_balance
 msgid "Source Balance"
-msgstr ""
+msgstr "Πηγή Ισοζύγιο"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_credit
 msgid "Source Credit"
-msgstr ""
+msgstr "Πηγή Πίστωση"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_debit
 msgid "Source Debit"
-msgstr ""
+msgstr "Πηγή Χρέωση"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_id
 msgid "St Line"
-msgstr ""
+msgstr "Γραμμή St"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_transaction_details
 msgid "St Line Transaction Details"
-msgstr ""
+msgstr "Λεπτομέρειες Συναλλαγής Γραμμής St"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__date_from
@@ -1858,7 +1863,7 @@ msgstr "Ημερομηνία Έναρξης"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_fiscal_year__date_from
 msgid "Start Date, included in the fiscal year."
-msgstr ""
+msgstr "Ημερομηνία Έναρξης, που περιλαμβάνεται στο φορολογικό έτος."
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__state
@@ -1875,27 +1880,27 @@ msgstr "Δήλωση"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 msgid "Statement Line"
-msgstr ""
+msgstr "Γραμμή Δήλωσης"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__suggestion_amount_currency
 msgid "Suggestion Amount Currency"
-msgstr ""
+msgstr "Προτεινόμενο Ποσό σε Νόμισμα"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__suggestion_balance
 msgid "Suggestion Balance"
-msgstr ""
+msgstr "Προτεινόμενο Υπόλοιπο"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__suggestion_html
 msgid "Suggestion Html"
-msgstr ""
+msgstr "Πρόταση Html"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
 msgid "Suggestions"
-msgstr ""
+msgstr "Προτάσεις"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__tax_id
@@ -1906,32 +1911,32 @@ msgstr "Φόρος"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__tax_base_amount_currency
 msgid "Tax Base Amount Currency"
-msgstr ""
+msgstr "Ποσό Φορολογικής Βάσης Νόμισμα"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Tax Grids"
-msgstr ""
+msgstr "Φορολογικά Πλέγματα"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__tax_lock_date
 msgid "Tax Lock Date"
-msgstr ""
+msgstr "Ημερομηνία Κλειδώματος Φόρου"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__tax_repartition_line_id
 msgid "Tax Repartition Line"
-msgstr ""
+msgstr "Γραμμή Κατανομής Φόρου"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__tax_lock_date
 msgid "Tax Return Lock Date"
-msgstr ""
+msgstr "Ημερομηνία Κλειδώματος Φορολογικής Δήλωσης"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__tax_tag_ids
 msgid "Tax Tag"
-msgstr ""
+msgstr "Ετικέτα Φόρου"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1970,20 +1975,23 @@ msgid ""
 "The date you set violates the lock date of one of your entry. It will be "
 "overriden by the following date : %(replacement_date)s"
 msgstr ""
+"Η ημερομηνία που ορίσατε παραβιάζει την ημερομηνία κλειδώματος μιας από τις "
+"καταχωρήσεις σας. Θα παρακαμφθεί από την ακόλουθη ημερομηνία : "
+"%(replacement_date)s"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_move__deferred_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_payment__deferred_move_ids
 msgid "The deferred entries created by this invoice"
-msgstr ""
+msgstr "Οι αναβαλλόμενες εγγραφές που δημιουργήθηκαν από αυτό το τιμολόγιο"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 #, python-format
 msgid "The ending date must not be prior to the starting date."
-msgstr ""
+msgstr "Η ημερομηνία λήξης δεν πρέπει να προηγείται της ημερομηνίας έναρξης."
 
 #. module: account_accountant
 #. odoo-python
@@ -1993,6 +2001,8 @@ msgid ""
 "The invoice %(display_name_html)s with an open amount of %(open_amount)s "
 "will be entirely paid by the transaction."
 msgstr ""
+"Το τιμολόγιο %(display_name_html)s με ανοιχτό ποσό %(open_amount)s  θα "
+"πληρωθεί εξ ολοκλήρου από τη συναλλαγή."
 
 #. module: account_accountant
 #. odoo-python
@@ -2002,6 +2012,8 @@ msgid ""
 "The invoice %(display_name_html)s with an open amount of %(open_amount)s "
 "will be reduced by %(amount)s."
 msgstr ""
+"Το τιμολόγιο %(display_name_html)s με ανοιχτό ποσό %(open_amount)s θα "
+"μειωθεί κατά%(amount)s."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -2009,6 +2021,8 @@ msgid ""
 "The invoices up to this date will not be taken into account as accounting "
 "entries"
 msgstr ""
+"Τα τιμολόγια μέχρι την ημερομηνία αυτή δεν θα ληφθούν υπόψη ως λογιστικές "
+"εγγραφές"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__transaction_currency_id
@@ -2020,7 +2034,7 @@ msgstr "Το προαιρετικό νόμισμα αν πρόκειται γι�
 #: model:ir.model.fields,help:account_accountant.field_account_move__deferred_original_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_payment__deferred_original_move_ids
 msgid "The original invoices that created the deferred entries"
-msgstr ""
+msgstr "Τα αρχικά τιμολόγια που δημιούργησαν τις αναβαλλόμενες εγγραφές"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -2028,6 +2042,8 @@ msgid ""
 "The system will try to predict the product on vendor bill lines based on the"
 " label of the line"
 msgstr ""
+"Το σύστημα θα προσπαθήσει να προβλέψει το προϊόν στις γραμμές του "
+"λογαριασμού του προμηθευτή με βάση την ετικέτα της γραμμής."
 
 #. module: account_accountant
 #. odoo-python
@@ -2037,13 +2053,15 @@ msgid ""
 "This bank transaction has been automatically validated using the "
 "reconciliation model '%s'."
 msgstr ""
+"Αυτή η τραπεζική συναλλαγή έχει επικυρωθεί αυτόματα με τη χρήση του μοντέλου"
+" συυμφιλίωσης '%s'."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
 msgid "This can only be used on journal items"
-msgstr ""
+msgstr "Αυτό μπορεί να χρησιμοποιηθεί μόνο σε στοιχεία ημερολογίου"
 
 #. module: account_accountant
 #. odoo-python
@@ -2053,16 +2071,18 @@ msgid ""
 "This reconciliation model can't be used in the manual reconciliation widget "
 "because its configuration is not adapted"
 msgstr ""
+"Αυτό το μοντέλο συμφιλίωσης δεν μπορεί να χρησιμοποιηθεί στο εργαλείο "
+"χειροκίνητης συμφιλίωσης, επειδή η διαμόρφωσή του δεν έχει προσαρμοστεί."
 
 #. module: account_accountant
 #: model:digest.tip,name:account_accountant.digest_tip_account_accountant_0
 msgid "Tip: Bulk update journal items"
-msgstr ""
+msgstr "Συμβουλή: Μαζική ενημέρωση στοιχείων ημερολογίου"
 
 #. module: account_accountant
 #: model:digest.tip,name:account_accountant.digest_tip_account_accountant_1
 msgid "Tip: Find an Accountant or register your Accounting Firm"
-msgstr ""
+msgstr "Συμβουλή: Βρείτε έναν Λογιστή ή καταχωρήστε το Λογιστικό σας Γραφείο"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__to_date
@@ -2078,22 +2098,22 @@ msgstr "Σε"
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #, python-format
 msgid "To Check"
-msgstr ""
+msgstr "Να Ελεγχθεί"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_kanban_bank_rec_widget
 msgid "To check"
-msgstr ""
+msgstr "Να ελεγχθεί"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__todo_command
 msgid "Todo Command"
-msgstr ""
+msgstr "Εντολή Todo"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Total Balance"
-msgstr ""
+msgstr "Συνολικό Υπόλοιπο"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
@@ -2108,12 +2128,12 @@ msgstr "Χρεωστικό Σύνολο"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Total Residual"
-msgstr ""
+msgstr "Συνολικό Υπόλοιπο"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Total Residual in Currency"
-msgstr ""
+msgstr "Συνολικό Υπόλοιπο σε Συνάλλαγμα"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
@@ -2123,14 +2143,14 @@ msgstr "Συναλλαγή"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__transaction_currency_id
 msgid "Transaction Currency"
-msgstr ""
+msgstr "Νόμισμα Συναλλαγής"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Transaction Details"
-msgstr ""
+msgstr "Λεπτομέρειες Συναλλαγής"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.account_journal_dashboard_kanban_view
@@ -2154,7 +2174,7 @@ msgstr "Μεταφορά σε %s"
 #. module: account_accountant
 #: model:ir.actions.server,name:account_accountant.auto_reconcile_bank_statement_line_ir_actions_server
 msgid "Try to reconcile automatically your statement lines"
-msgstr ""
+msgstr "Προσπαθήστε να συμφιλιώσετε αυτόματα τις γραμμές της δήλωσης σας"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -2166,12 +2186,12 @@ msgstr "Μη Συμψηφισμένα"
 #: code:addons/account_accountant/models/res_company.py:0
 #, python-format
 msgid "Unreconciled statements lines"
-msgstr ""
+msgstr "Γραμμές μη συμφιλιωμένων δηλώσεων"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__valid
 msgid "Valid"
-msgstr ""
+msgstr "Έγκυρο"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2195,7 +2215,7 @@ msgstr "Προβολή"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "View models"
-msgstr ""
+msgstr "Εμφάνιση μοντέλων"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__wizard_id
@@ -2206,7 +2226,7 @@ msgstr "Αυτόματος Οδηγός"
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__company_currency_id
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__company_currency_id
 msgid "Wizard Company Currency"
-msgstr ""
+msgstr "Οδηγός Εταιρικό Συνάλλαγμα"
 
 #. module: account_accountant
 #. odoo-python
@@ -2220,7 +2240,7 @@ msgstr "Διαγραφή"
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
 msgid "Write-Off Entry"
-msgstr ""
+msgstr "Εγγραφή Διαγραφής"
 
 #. module: account_accountant
 #. odoo-python
@@ -2230,6 +2250,8 @@ msgid ""
 "You can not have an overlap between two fiscal years, please correct the "
 "start and/or end dates of your fiscal years."
 msgstr ""
+"Δεν μπορεί να υπάρχει επικάλυψη μεταξύ δύο φορολογικών ετών, διορθώστε τις "
+"ημερομηνίες έναρξης ή/και λήξης των φορολογικών σας ετών."
 
 #. module: account_accountant
 #. odoo-python
@@ -2237,6 +2259,8 @@ msgstr ""
 #, python-format
 msgid "You can only reconcile entries with up to two different accounts: %s"
 msgstr ""
+"Μπορείτε να συμφιλιώσετε εγγραφές μόνο με έως και δύο διαφορετικούς "
+"λογαριασμούς: %s"
 
 #. module: account_accountant
 #. odoo-python
@@ -2246,6 +2270,8 @@ msgid ""
 "You cannot change the account for a deferred line in %(move_name)s if it has"
 " already been deferred."
 msgstr ""
+"Δεν μπορείτε να αλλάξετε το λογαριασμό για μια αναβαλλόμενη γραμμή σε "
+"%(move_name)sεάν έχει ήδη αναβληθεί."
 
 #. module: account_accountant
 #. odoo-python
@@ -2253,6 +2279,8 @@ msgstr ""
 #, python-format
 msgid "You cannot create a deferred entry with a start date but no end date."
 msgstr ""
+"Δεν μπορείτε να δημιουργήσετε μια αναβαλλόμενη εγγραφή με ημερομηνία έναρξης"
+" αλλά χωρίς ημερομηνία λήξης."
 
 #. module: account_accountant
 #. odoo-python
@@ -2262,6 +2290,8 @@ msgid ""
 "You cannot create a deferred entry with a start date later than the end "
 "date."
 msgstr ""
+"Δεν μπορείτε να δημιουργήσετε μια αναβαλλόμενη εγγραφή με ημερομηνία έναρξης"
+" μεταγενέστερη από την ημερομηνία λήξης."
 
 #. module: account_accountant
 #. odoo-python
@@ -2270,13 +2300,15 @@ msgstr ""
 msgid ""
 "You cannot generate deferred entries for a miscellaneous journal entry."
 msgstr ""
+"Δεν μπορείτε να δημιουργήσετε αναβαλλόμενες εγγραφές για μια διάφορη εγγραφή"
+" ημερολογίου."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 #, python-format
 msgid "You cannot have a fiscal year on a child company."
-msgstr ""
+msgstr "Δεν μπορείτε να έχετε φορολογικό έτος σε μια θυγατρική εταιρεία."
 
 #. module: account_accountant
 #. odoo-python
@@ -2286,13 +2318,16 @@ msgid ""
 "You cannot reset to draft an invoice that is grouped in deferral entry. You "
 "can create a credit note instead."
 msgstr ""
+"Δεν μπορείτε να επαναφέρετε σε προσχέδιο ένα τιμολόγιο που έχει ομαδοποιηθεί"
+" σε εγγραφή αναβολής. Μπορείτε αντ' αυτού να δημιουργήσετε ένα πιστωτικό "
+"σημείωμα."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 #, python-format
 msgid "You cannot set a lock date in the future."
-msgstr ""
+msgstr "Δεν μπορείτε να ορίσετε ημερομηνία κλειδώματος στο μέλλον."
 
 #. module: account_accountant
 #. odoo-python
@@ -2301,6 +2336,7 @@ msgstr ""
 msgid ""
 "You might want to %(btn_start)sfully reconcile%(btn_end)s the document."
 msgstr ""
+"Ίσως να θέλετε να %(btn_start)sσυμφιλιώσετε πλήρως%(btn_end)s το έγγραφο."
 
 #. module: account_accountant
 #. odoo-python
@@ -2310,6 +2346,8 @@ msgid ""
 "You might want to make a %(btn_start)spartial reconciliation%(btn_end)s "
 "instead."
 msgstr ""
+"Ίσως να θέλετε να κάνετε μια %(btn_start)sμερική "
+"συμφιλίωση%(btn_end)sαντίθετα ."
 
 #. module: account_accountant
 #. odoo-python
@@ -2317,6 +2355,7 @@ msgstr ""
 #, python-format
 msgid "You might want to record a %(btn_start)spartial payment%(btn_end)s."
 msgstr ""
+"Ίσως να θέλετε να καταγράψετε μια %(btn_start)sμερική πληρωμή%(btn_end)s."
 
 #. module: account_accountant
 #. odoo-python
@@ -2325,6 +2364,8 @@ msgstr ""
 msgid ""
 "You might want to set the invoice as %(btn_start)sfully paid%(btn_end)s."
 msgstr ""
+"Μπορεί να θέλετε να ορίσετε το τιμολόγιο ως %(btn_start)sπλήρως "
+"εξοφλημένο%(btn_end)s."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2336,7 +2377,7 @@ msgstr "Συμψηφίσατε"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__aml
 msgid "aml"
-msgstr ""
+msgstr "aml"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__auto_balance
@@ -2364,17 +2405,17 @@ msgstr ""
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "in"
-msgstr ""
+msgstr "σε"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__liquidity
 msgid "liquidity"
-msgstr ""
+msgstr "ρευστότητα"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__manual
 msgid "manual"
-msgstr ""
+msgstr "εγχειρίδιο"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__new_aml
@@ -2396,14 +2437,14 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.account_journal_dashboard_kanban_view
 msgid "to check"
-msgstr ""
+msgstr "για έλεγχο"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/rainbowman_content.xml:0
 #, python-format
 msgid "transaction in"
-msgstr ""
+msgstr "συναλλαγή σε"
 
 #. module: account_accountant
 #. odoo-javascript

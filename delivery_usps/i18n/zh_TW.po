@@ -186,7 +186,7 @@ msgstr "PDF"
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_mail_type__package
 msgid "Package"
-msgstr "包裹"
+msgstr "貨件"
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_custom_container_girth
@@ -228,7 +228,7 @@ msgstr "Parcel"
 #: model:ir.model.fields,help:delivery_usps.field_delivery_carrier__usps_machinable
 msgid ""
 "Please check on USPS website to ensure that your package is machinable."
-msgstr "請檢查 USPS 網站資料，確保你的包裹可由機器處理。"
+msgstr "請檢查 USPS 網站資料，確保你的貨件可由機器處理。"
 
 #. module: delivery_usps
 #. odoo-python
@@ -359,7 +359,7 @@ msgstr "送件已在 USPS 建立<br/><b>追蹤號碼：</b> %s"
 #. module: delivery_usps
 #: model:ir.model,name:delivery_usps.model_delivery_carrier
 msgid "Shipping Methods"
-msgstr "寄送方式"
+msgstr "運送方式"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_domestic_regular_container__sm_flat_rate_box
@@ -414,7 +414,7 @@ msgstr ""
 #: code:addons/delivery_usps/models/usps_request.py:0
 #, python-format
 msgid "The selected USPS service (%s) cannot be used to deliver this package."
-msgstr "選取的 USPS 服務（%s）無法用於送遞此包裹。"
+msgstr "選取的 USPS 服務（%s）無法用於送遞此貨件。"
 
 #. module: delivery_usps
 #. odoo-python
@@ -440,8 +440,8 @@ msgstr "Type of container"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__delivery_type__usps
-msgid "USPS"
-msgstr "USPS"
+msgid "USPS (Legacy)"
+msgstr ""
 
 #. module: delivery_usps
 #: model_terms:ir.ui.view,arch_db:delivery_usps.view_delivery_carrier_form_with_provider_usps
