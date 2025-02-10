@@ -18,8 +18,7 @@ registry.category("web_tour.tours").add("documents_account_tour", {
             tooltipPosition: "bottom",
         },
         {
-            isActive: ["auto"],
-            trigger: '.o_documents_kanban',
+            trigger: ".o_documents_kanban",
         },
         {
     trigger: '[title="Close (Esc)"]',
@@ -27,7 +26,6 @@ registry.category("web_tour.tours").add("documents_account_tour", {
             tooltipPosition: "left",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_search_panel_label",
         },
         {
@@ -41,8 +39,7 @@ registry.category("web_tour.tours").add("documents_account_tour", {
             run: "click",
         },
         {
-            isActive: ["auto"],
-            trigger: 'body:not(:has(.o-FileViewer)) .o_documents_kanban',
+            trigger: "body:not(:has(.o-FileViewer)) .o_documents_kanban",
         },
         {
     trigger: '.o_kanban_record:contains(mail.png)',
@@ -56,7 +53,6 @@ registry.category("web_tour.tours").add("documents_account_tour", {
             tooltipPosition: "bottom",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_documents_kanban",
         },
         {
@@ -66,7 +62,6 @@ registry.category("web_tour.tours").add("documents_account_tour", {
             tooltipPosition: "bottom",
         },
         {
-            isActive: ["auto"],
             trigger: '[title="Mails_inbox.pdf"]',
         },
         {
@@ -75,7 +70,6 @@ registry.category("web_tour.tours").add("documents_account_tour", {
             tooltipPosition: "bottom",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_documents_pdf_canvas:nth(5)", // Makes sure that all the canvas are loaded.
         },
         {
@@ -84,7 +78,6 @@ registry.category("web_tour.tours").add("documents_account_tour", {
             tooltipPosition: "right",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_documents_pdf_manager",
         },
         {
@@ -93,7 +86,6 @@ registry.category("web_tour.tours").add("documents_account_tour", {
             tooltipPosition: "left",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_documents_pdf_manager",
         },
         {
@@ -103,7 +95,6 @@ registry.category("web_tour.tours").add("documents_account_tour", {
             tooltipPosition: "bottom",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_documents_pdf_manager",
         },
         {
@@ -112,7 +103,6 @@ registry.category("web_tour.tours").add("documents_account_tour", {
             tooltipPosition: "bottom",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_pdf_manager_button:not(:disabled)",
         },
         {

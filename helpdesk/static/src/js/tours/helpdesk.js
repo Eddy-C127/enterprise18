@@ -14,7 +14,6 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
             run: "click",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_helpdesk_ticket_btn",
         },
         {
@@ -24,7 +23,6 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
             run: "click",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_helpdesk_ticket_kanban_view",
         },
         {
@@ -34,7 +32,6 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
             run: "click",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_form_editable",
         },
         {
@@ -44,7 +41,6 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
             run: "edit SAP is bad, paid by Odoo",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_form_editable",
         },
         {
@@ -62,17 +58,15 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
             run: "edit Admin",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_form_editable",
         },
         {
-    isActive: ["auto"],
-    trigger: ".ui-autocomplete > li > a:not(:has(i.fa))",
+            isActive: ["auto"],
+            trigger: ".ui-autocomplete > li > a:not(:has(i.fa))",
             run: "click",
-            tooltipPosition: 'right',
+            tooltipPosition: "right",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_form_view",
         },
         {
@@ -82,7 +76,6 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
             run: "click",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_form_view",
         },
         {
@@ -92,7 +85,6 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
             run: "click",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_form_view",
         },
         {
@@ -102,7 +94,6 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
             run: "click",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_form_view",
         },
         {
@@ -112,7 +103,6 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
             run: "click",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_form_view .o_form_saved",
         },
         {
@@ -127,7 +117,6 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
     run: "click",
         },
         {
-            isActive: ["auto"],
             trigger: ".o_form_view",
         },
         {
@@ -155,9 +144,9 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
     run: "click",
         },
         {
-            isActive: ["auto"],
-    trigger: ".o_column_quick_create .o_kanban_add",
-    content: "Clicking on 'Add' when input name is empty won't do anything, 'Add' will still be displayed",
-}
+            trigger: ".o_column_quick_create .o_kanban_add",
+            content:
+                "Clicking on 'Add' when input name is empty won't do anything, 'Add' will still be displayed",
+        },
     ],
 });

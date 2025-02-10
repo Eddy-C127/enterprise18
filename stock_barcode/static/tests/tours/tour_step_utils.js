@@ -46,7 +46,6 @@ export const stepUtils = {
                 run: "click",
             },
             {
-                isActive: ["auto"],
                 content: "wait to be back on the barcode lines",
                 trigger: ".o_add_line",
             },

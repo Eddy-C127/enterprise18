@@ -23,7 +23,7 @@ registry.category("web_tour.tours").add("sign_tour", {
             run: "click",
         },
         {
-            trigger: ":iframe .o_sign_field_type_button:contains(" + _t("Signature") +")",
+            trigger: ":iframe .o_sign_field_type_button:contains(" + _t("Signature") + ")",
             content: markup(_t("<b>Drag & drop “Signature”</b> into the bottom of the document.")),
             tooltipPosition: "bottom",
             run: "drag_and_drop :iframe #viewer",
@@ -88,7 +88,6 @@ registry.category("web_tour.tours").add("sign_tour", {
             run: "click",
         },
         {
-            isActive: ["auto"],
             trigger: ":iframe body:not(:has(footer.modal-footer button.btn-primary))",
         },
         {

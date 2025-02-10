@@ -20,7 +20,6 @@ registry.category("web_tour.tours").add('rental_tour', {
     run: "click",
 },
 {
-    isActive: ["auto"],
     trigger: ".o_breadcrumb .active:contains(Products)",
 },
 {
@@ -101,7 +100,6 @@ registry.category("web_tour.tours").add('rental_tour', {
     run: "click",
 },
 {
-    isActive: ["auto"],
     trigger: ".o_sale_order",
 },
 {
@@ -116,7 +114,6 @@ registry.category("web_tour.tours").add('rental_tour', {
     run: "click",
 },
 {
-    isActive: ["auto"],
     trigger: ".o_sale_order",
 },
 {
