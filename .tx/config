@@ -677,6 +677,15 @@ resource_name          = delivery_usps
 replace_edited_strings = false
 keep_translations      = false
 
+[o:odoo:p:odoo-17:r:delivery_usps_rest]
+file_filter            = delivery_usps_rest/i18n/<lang>.po
+source_file            = delivery_usps_rest/i18n/delivery_usps_rest.pot
+type                   = PO
+minimum_perc           = 0
+resource_name          = delivery_usps_rest
+replace_edited_strings = false
+keep_translations      = false
+
 [o:odoo:p:odoo-17:r:digest_enterprise]
 file_filter            = digest_enterprise/i18n/<lang>.po
 source_file            = digest_enterprise/i18n/digest_enterprise.pot
