@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class HrWorkEntryType(models.Model):
@@ -29,3 +30,8 @@ class HrWorkEntryType(models.Model):
         'hr.payroll.structure', 'hr_payroll_structure_hr_work_entry_type_rel',
         string="Unpaid in Structures Types",
         help="The work entry won’t grant any money to employee in payslip.")
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_work_entry_type(self):
+        if self:
+            raise UserError(_("You cannot delete work entry type(s). Instead archive it."))
