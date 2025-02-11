@@ -8,7 +8,7 @@ export default class BarcodeQuantModel extends BarcodeModel {
     constructor(params) {
         super(...arguments);
         this.lineModel = this.resModel;
-        this.validateMessage = _t("The inventory adjustment has been validated");
+        this.validateMessage = _t("The inventory count has been updated");
         this.validateMethod = "action_validate";
         this.deleteLineMethod = this.validateMethod;
     }
@@ -80,7 +80,7 @@ export default class BarcodeQuantModel extends BarcodeModel {
             if (res && res.special) { // Do nothing if come from a discarded wizard.
                 return this.trigger('refresh');
             }
-            this.notification(_t("The inventory adjustment has been validated"), { type: "success" });
+            this.notification(this.validateMessage, { type: "success" });
             this.trigger('history-back');
         };
         if (action && action.res_model) {
@@ -717,7 +717,7 @@ export default class BarcodeQuantModel extends BarcodeModel {
     }
 
     _getName() {
-        return _t("Inventory Adjustment");
+        return _t("Inventory Count");
     }
 
     _getPrintOptions() {
