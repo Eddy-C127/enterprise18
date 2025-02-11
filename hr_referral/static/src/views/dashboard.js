@@ -9,6 +9,7 @@ import { standardActionServiceProps } from "@web/webclient/actions/action_servic
 export class HrReferralWelcome extends Component {
     static template = "hr_referral.Welcome";
     static props = { ...standardActionServiceProps };
+    static path = "referrals";
 
     setup() {
         super.setup();
