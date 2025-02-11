@@ -1210,6 +1210,54 @@ QUnit.module("Views", (hooks) => {
         );
     });
 
+    QUnit.test("edit grid cell with action context defined", async function (assert) {
+        await makeView({
+            type: "grid",
+            resModel: "analytic.line",
+            serverData,
+            arch: `<grid editable="1">
+                <field name="project_id" type="row"/>
+                <field name="task_id" type="row"/>
+                <field name="date" type="col">
+                    <range name="week" string="Week" span="week" step="day"/>
+                    <range name="month" string="Month" span="month" step="day"/>
+                </field>
+                <field name="unit_amount" type="measure" widget="float_time"/>
+            </grid>`,
+            context: {
+                default_project_id: 1,
+                default_selection_field: "abc",
+            },
+            async mockRPC(route, args) {
+                if (args.method === "grid_unavailability") {
+                    return {};
+                } else if (args.method === "grid_update_cell") {
+                    assert.step(args.method);
+                    const context = args.kwargs.context;
+                    assert.strictEqual(
+                        context.default_project_id,
+                        31,
+                        "The default project should be the one linked to the grid cell instead of the one in the action context."
+                    );
+                    assert.strictEqual(
+                        context.default_selection_field,
+                        "abc",
+                        "The default value of selection field should be the one set in the action context."
+                    );
+                }
+            },
+        });
+
+        const cells = target.querySelectorAll(".o_grid_row .o_grid_cell_readonly");
+        const cell = cells[0];
+        await hoverGridCell(cell);
+        await click(target, ".o_grid_cell");
+        await nextTick();
+        assert.containsOnce(target, ".o_grid_cell input");
+        await editInput(target, ".o_grid_cell input", "2");
+        assert.verifySteps(["grid_update_cell"]);
+    });
+
     QUnit.test("hide row total", async function (assert) {
         await makeView({
             type: "grid",
