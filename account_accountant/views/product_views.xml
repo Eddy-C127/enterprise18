@@ -9,7 +9,7 @@
                     <field name="is_coa_installed" invisible="1"/>
                 </xpath>
                 <xpath expr="//group[@name='accounting_entries']" position="attributes">
-                    <attribute name="groups">account.group_account_manager</attribute>
+                    <attribute name="groups">account.group_account_user</attribute>
                     <attribute name="invisible">not is_coa_installed</attribute>
                 </xpath>
                 <xpath expr="//page[@name='accounting_disabled']" position="attributes">
