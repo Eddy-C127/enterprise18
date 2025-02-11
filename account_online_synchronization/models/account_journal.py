@@ -82,7 +82,7 @@ class AccountJournal(models.Model):
         self.ensure_one()
         timeout = int(self.env['ir.config_parameter'].sudo().get_param('account_online_synchronization.request_timeout')) or 60
         endpoint_url = self.env['account.online.link']._get_odoofin_url('/proxy/v1/get_dashboard_institutions')
-        params = {'country': self.company_id.account_fiscal_country_id.code, 'limit': 28}
+        params = {'country': self.sudo().company_id.account_fiscal_country_id.code, 'limit': 28}
         try:
             resp = requests.post(endpoint_url, json=params, timeout=timeout)
             resp_dict = resp.json()['result']
