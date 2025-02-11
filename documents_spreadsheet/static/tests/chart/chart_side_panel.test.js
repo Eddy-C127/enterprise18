@@ -12,6 +12,7 @@ import { GraphRenderer } from "@web/views/graph/graph_renderer";
 import { patchGraphSpreadsheet } from "@spreadsheet_edition/assets/graph_view/graph_view";
 import { registries } from "@odoo/o-spreadsheet";
 import * as dsHelpers from "@web/../tests/core/tree_editor/condition_tree_editor_test_helpers";
+import { LoadableDataSource } from "@spreadsheet/data_sources/data_source";
 
 defineDocumentSpreadsheetModels();
 describe.current.tags("desktop");
@@ -350,4 +351,20 @@ test("An error is displayed in the side panel if the chart has invalid model", a
     await openChartSidePanel(model, env);
 
     expect(".o-validation-error").toHaveCount(1);
+});
+
+test("An spinner is displayed in the side panel if the chart model isn't loaded yet", async function () {
+    let isDataSourceLoaded = false;
+    patchWithCleanup(LoadableDataSource.prototype, {
+        isReady: () => isDataSourceLoaded,
+    });
+    const { model, env } = await createSpreadsheetFromGraphView({});
+    await openChartSidePanel(model, env);
+    expect(".spinner-border").toHaveCount(1);
+
+    isDataSourceLoaded = true;
+    model.trigger("update");
+    await animationFrame();
+
+    expect(".spinner-border").toHaveCount(0);
 });
