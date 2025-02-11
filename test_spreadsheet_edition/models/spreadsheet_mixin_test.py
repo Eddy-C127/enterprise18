@@ -14,9 +14,6 @@ class SpreadsheetDummy(models.Model):
             }
         }
 
-    def _creation_msg(self):
-        return "test spreadsheet created"
-
     def _get_spreadsheet_selector(self):
         if not tools.config['test_enable']:
             return None

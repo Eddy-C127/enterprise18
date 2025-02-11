@@ -72,6 +72,3 @@ class SpreadsheetTemplate(models.Model):
                 'spreadsheet_id': self.id,
             }
         }
-
-    def _creation_msg(self):
-        return _("New spreadsheet template created")
