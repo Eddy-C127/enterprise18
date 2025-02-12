@@ -58,4 +58,7 @@ registry
     .add(
         "spreadsheet.template/join_spreadsheet_session",
         mockJoinSpreadsheetSession("spreadsheet.template")
-    );
+    )
+    .add("ir.model/get_available_models", function (route, args) {
+        return this.models["ir.model"].records.map((record) => ({ model: record.model, display_name: record.name }));
+    });

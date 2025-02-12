@@ -678,7 +678,7 @@ QUnit.module(
             }
         );
 
-        QUnit.test("Only related models can be selected", async function (assert) {
+        QUnit.test("All accessible models can be selected in the relation filter", async function (assert) {
             const data = getBasicData();
             data["ir.model"].records.push(
                 {
@@ -734,15 +734,15 @@ QUnit.module(
             await openGlobalFilterSidePanel();
             await clickCreateFilter("relation");
             await click(target, ".o_side_panel_related_model input");
-            const [model1, model2, model3, model4, model5, model6] = target.querySelectorAll(
-                ".o-autocomplete--dropdown-item a"
-            );
+            const [model1, model2, model3, model4, model5, model6, model7] =
+              target.querySelectorAll(".o-autocomplete--dropdown-item a");
             assert.equal(model1.innerText, "Product");
             assert.equal(model2.innerText, "Partner");
             assert.equal(model3.innerText, "Users");
-            assert.equal(model4.innerText, "Document");
-            assert.equal(model5.innerText, "Vehicle");
-            assert.equal(model6.innerText, "Computer");
+            assert.equal(model4.innerText, "Apple");
+            assert.equal(model5.innerText, "Document");
+            assert.equal(model6.innerText, "Vehicle");
+            assert.equal(model7.innerText, "Computer");
         });
 
         QUnit.test("Edit an existing global filter", async function (assert) {
