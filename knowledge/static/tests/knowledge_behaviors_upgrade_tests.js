@@ -199,4 +199,29 @@ QUnit.module("Knowledge - Behaviors Full Upgrade from original version", (hooks)
         assert.equal(propNameNodes.length, 0);
         assert.equal(status(anchor.oKnowledgeBehavior.node.component), "mounted");
     });
+
+    QUnit.test("FileBehavior direct file URL", async function (assert) {
+        record.body = unformat(`
+            <div class="o_knowledge_behavior_anchor o_knowledge_behavior_type_file" data-oe-protected="true">
+                <div class="o_knowledge_file_image" data-prop-name="fileImage">
+                    <a href="/knowledge/static/src/demo/Onboarding.pdf?download=true" title="Onboarding.pdf" data-mimetype="application/pdf" class="o_image"></a>
+                </div>
+                <div class="o_knowledge_file_description">
+                    <div class="o_knowledge_file_name" data-prop-name="fileName">Odoo Survival Guide</div>
+                    <div class="o_knowledge_file_extension" data-prop-name="fileExtension">pdf</div>
+                </div>
+            </div>
+        `);
+        await makeView({
+            type: "form",
+            resModel: "knowledge_article",
+            serverData,
+            arch,
+            resId: 1,
+        });
+        const anchor = fixture.querySelector(".o_knowledge_behavior_type_file a");
+        assert.ok(
+            anchor.href.startsWith(`${getOrigin()}/knowledge/static/src/demo/Onboarding.pdf`)
+        );
+    });
 });
