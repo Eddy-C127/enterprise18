@@ -774,9 +774,6 @@ class Article(models.Model):
             manipulation to sudo only those and keep requested ordering based
             on vals_list;
         """
-        if any(vals.get('is_template', False) for vals in vals_list) and not self.env.user.has_group('base.group_system'):
-            raise ValidationError(_('You are not allowed to create a new template.'))
-
         defaults = self.default_get(['article_member_ids', 'internal_permission', 'parent_id'])
         vals_by_parent_id = {}
         vals_as_sudo = []
@@ -887,6 +884,9 @@ class Article(models.Model):
                 articles += next(sudo_articles)
             else:
                 articles += next(notsudo_articles)
+
+        if any(articles.mapped('is_template')) and not self.env.user.has_group('base.group_system'):
+            raise ValidationError(_('You are not allowed to create a new template.'))
 
         return articles
 
