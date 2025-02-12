@@ -227,13 +227,15 @@ class Document(models.Model):
                     "mimetype": "application/o-spreadsheet"
                 })
 
-    @api.depends("thumbnail")
+    @api.depends_context('uid')
+    @api.depends("display_thumbnail")
     def _compute_spreadsheet_thumbnail_checksum(self):
         spreadsheets = self.filtered(lambda doc: doc.handler == "spreadsheet")
-        thumbnails = self.env["ir.attachment"].sudo().search([
-            ("res_model", "=", self._name),
-            ("res_field", "=", "thumbnail"),
-            ("res_id", "in", spreadsheets.ids),
+        thumbnails = self.env['ir.attachment'].sudo().search([
+            ('res_model', '=', self._name),
+            ('res_field', '=', 'display_thumbnail'),
+            ('res_id', 'in', spreadsheets.ids),
+            ('create_uid', '=', self.env.uid)
         ])
         thumbnails_by_documents = thumbnails.grouped("res_id")
         for document in self:
@@ -352,7 +354,7 @@ class Document(models.Model):
             docs = docs[offset:offset + limit]
         else:
             docs = docs[offset:]
-        return docs.read(["display_name", "thumbnail"])
+        return docs.read(["display_name", "display_thumbnail"])
 
     @api.model
     def _get_shortcuts_copy_fields(self):
