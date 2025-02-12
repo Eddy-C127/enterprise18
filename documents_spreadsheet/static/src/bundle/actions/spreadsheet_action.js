@@ -78,9 +78,9 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
         this.actionService.doAction(action, { clear_breadcrumbs: true });
     }
 
-    onSpreadsheetLeftUpdateVals({ data, thumbnail }) {
+    onSpreadsheetLeftUpdateVals({ data, display_thumbnail }) {
         return {
-            ...super.onSpreadsheetLeftUpdateVals({ data, thumbnail }),
+            ...super.onSpreadsheetLeftUpdateVals({ data, display_thumbnail }),
             is_multipage: data.sheets?.length > 1 || false,
         };
     }

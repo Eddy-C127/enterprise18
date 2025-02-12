@@ -205,7 +205,7 @@ class Document(models.Model):
             docs = docs[offset:offset + limit]
         else:
             docs = docs[offset:]
-        return docs.read(["name", "thumbnail"])
+        return docs.read(["name", "display_thumbnail"])
 
     def clone_xlsx_into_spreadsheet(self, archive_source=False):
         """Clone an XLSX document into a new document with its content unzipped, and return the new document id"""

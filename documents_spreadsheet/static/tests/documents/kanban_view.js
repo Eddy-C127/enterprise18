@@ -366,7 +366,7 @@ QUnit.module(
             assert.equal(
                 target.querySelector(".o_documents_inspector_preview .o_document_preview img")
                     .dataset.src,
-                "/documents/image/1/268x130?field=thumbnail&unique="
+                "/documents/image/1/268x130?field=display_thumbnail&unique="
             );
             await click(target, ".o_kanban_record:nth-of-type(2) .o_record_selector");
             assert.containsN(target, ".o_documents_inspector_preview .o_document_preview", 2);
@@ -375,11 +375,11 @@ QUnit.module(
             );
             assert.equal(
                 previews[0].dataset.src,
-                "/documents/image/1/120x130?field=thumbnail&unique="
+                "/documents/image/1/120x130?field=display_thumbnail&unique="
             );
             assert.equal(
                 previews[1].dataset.src,
-                "/documents/image/2/120x130?field=thumbnail&unique="
+                "/documents/image/2/120x130?field=display_thumbnail&unique="
             );
             await click(target, ".o_kanban_record:nth-of-type(3) .o_record_selector");
             assert.containsN(target, ".o_documents_inspector_preview .o_document_preview", 3);
@@ -388,15 +388,15 @@ QUnit.module(
             );
             assert.equal(
                 previews[0].dataset.src,
-                "/documents/image/1/120x75?field=thumbnail&unique="
+                "/documents/image/1/120x75?field=display_thumbnail&unique="
             );
             assert.equal(
                 previews[1].dataset.src,
-                "/documents/image/2/120x75?field=thumbnail&unique="
+                "/documents/image/2/120x75?field=display_thumbnail&unique="
             );
             assert.equal(
                 previews[2].dataset.src,
-                "/documents/image/3/120x75?field=thumbnail&unique="
+                "/documents/image/3/120x75?field=display_thumbnail&unique="
             );
         });
 

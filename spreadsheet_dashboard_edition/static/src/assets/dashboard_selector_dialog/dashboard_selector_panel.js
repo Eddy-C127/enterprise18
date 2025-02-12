@@ -15,7 +15,7 @@ class DashboardSelectorPanel extends SpreadsheetSelectorPanel {
     async _fetchSpreadsheets() {
         const { offset, limit } = this.state.pagerProps;
         this.state.spreadsheets = await this.keepLast.add(
-            this.orm.searchRead("spreadsheet.dashboard", this.domain, ["name", "thumbnail"], {
+            this.orm.searchRead("spreadsheet.dashboard", this.domain, ["name", "display_thumbnail"], {
                 offset,
                 limit,
             })

@@ -208,12 +208,12 @@ export class AbstractSpreadsheetAction extends Component {
      * @protected
      */
     async makeCopy() {
-        const { data, thumbnail } = this.getSaveData();
+        const { data, display_thumbnail } = this.getSaveData();
         const defaultValues = {
             spreadsheet_data: JSON.stringify(data),
             spreadsheet_snapshot: false,
             spreadsheet_revision_ids: [],
-            thumbnail,
+            display_thumbnail,
         };
         const id = await this.orm.call(this.resModel, "copy", [this.resId], {
             default: defaultValues,
@@ -244,19 +244,19 @@ export class AbstractSpreadsheetAction extends Component {
         throw new Error("not implemented by children");
     }
 
-    async onSpreadsheetLeft({ thumbnail, data }) {
+    async onSpreadsheetLeft({ display_thumbnail, data }) {
         if (this.accessToken) {
             return;
         }
         await this.orm.write(
             this.resModel,
             [this.resId],
-            this.onSpreadsheetLeftUpdateVals({ thumbnail, data })
+            this.onSpreadsheetLeftUpdateVals({ display_thumbnail, data })
         );
     }
 
-    onSpreadsheetLeftUpdateVals({ data, thumbnail }) {
-        return { thumbnail };
+    onSpreadsheetLeftUpdateVals({ data, display_thumbnail }) {
+        return { display_thumbnail };
     }
 
     /**
@@ -363,7 +363,7 @@ export class AbstractSpreadsheetAction extends Component {
         return {
             data,
             revisionId: data.revisionId,
-            thumbnail: this.getThumbnail(),
+            display_thumbnail: this.getThumbnail(),
         };
     }
 }

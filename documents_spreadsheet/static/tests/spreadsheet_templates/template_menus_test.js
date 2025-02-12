@@ -84,12 +84,11 @@ QUnit.module("documents_spreadsheet > template menu", {}, () => {
                     assert.step("template_copied");
                     const { spreadsheet_data, thumbnail } = args.kwargs.default;
                     assert.ok(spreadsheet_data);
-                    assert.ok(thumbnail);
+                    assert.ok(!thumbnail);
                     models["spreadsheet.template"].records.push({
                         id: 111,
                         name: "template",
                         spreadsheet_data,
-                        thumbnail,
                     });
                     return 111;
                 }

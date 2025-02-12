@@ -19,7 +19,7 @@
             </xpath>
             <xpath expr="(//div[@name='document_preview']/div)[last()]" position="before">
                 <div t-elif="isSpreadsheet" class="o_attachment_image o_documents_image">
-                    <img t-attf-src="/documents/image/#{record.id.raw_value}?field=thumbnail&amp;unique=#{unique}" alt="Spreadsheet Preview"/>
+                    <img t-attf-src="/documents/image/#{record.id.raw_value}?field=display_thumbnail&amp;unique=#{unique}" alt="Spreadsheet Preview"/>
                 </div>
             </xpath>
         </field>

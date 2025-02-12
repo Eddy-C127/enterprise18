@@ -37,7 +37,7 @@
                 t-as="spreadsheet"
                 t-key="spreadsheet.id"
                 class="o-sp-dialog-item">
-                <div t-if="!spreadsheet.thumbnail"
+                <div t-if="!spreadsheet.display_thumbnail"
                     class="o-sp-dialog-no-preview o-sp-dialog-item-img d-flex flex-grow-1 align-items-center justify-content-center"
                     tabindex="0"
                     t-on-focus="() => this._selectItem(spreadsheet.id)"
@@ -53,7 +53,7 @@
                     t-on-dblclick="props.onSpreadsheetDblClicked"
                     t-att-class="{ selected: state.selectedSpreadsheetId === spreadsheet.id}"
                     t-att-data-id="spreadsheet.id">
-                    <img t-att-src="getUrl(spreadsheet.thumbnail)"
+                    <img t-att-src="getUrl(spreadsheet.display_thumbnail)"
                         t-att-title="spreadsheet.name"/>
                 </div>
                 <div class="o-sp-dialog-item-label"
