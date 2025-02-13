@@ -1116,3 +1116,32 @@ registry.category("web_tour.tours").add("test_barcode_process_without_reservatio
         },
     ]
 })
+
+registry.category("web_tour.tours").add("test_add_product_with_different_uom", {
+    test: true, steps: () => [
+    {
+        trigger: ".o_barcode_client_action .o_add_line",
+        run: "click",
+    },
+    {
+        trigger: ".o_field_widget[name=product_id] input",
+        run: "text product1"
+    },
+    {
+        trigger: ".dropdown-item:contains([TEST] product1)",
+        run: "click",
+    },
+    {
+        trigger: ".o_digipad_button.o_increase",
+        run: "click",
+    },
+    {
+        trigger: "div[name='qty_done'] input:propValue(1)",
+        run() {},
+    },
+    {
+        trigger: "button.o_save",
+        run: "click",
+    },
+    ...stepUtils.validateBarcodeOperation(),
+]});

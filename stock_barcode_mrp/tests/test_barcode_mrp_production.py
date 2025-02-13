@@ -807,3 +807,27 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
                 {'product_id': available_comp.id, 'product_uom_qty': 10, 'quantity': 10, 'picked': True, 'state': 'done'},
             ]
         )
+
+    def test_add_product_with_different_uom(self):
+        """
+        Check that new raw moves for products using a different uom category
+        than the final product of the MO can be created from barcode.
+        """
+        self.clean_access_rights()
+        uom_category = self.env['uom.category'].create({'name': 'Lovely category'})
+        new_uom = self.env['uom.uom'].create({
+            'name': 'Little Boutch',
+            'category_id': uom_category.id,
+            'uom_type': 'reference',
+            'rounding': 0.01
+        })
+        self.product1.uom_id = new_uom.id
+        mo_form = Form(self.env['mrp.production'])
+        mo_form.product_id = self.final_product
+        mo_form.product_qty = 1
+        mo = mo_form.save()
+        mo.action_confirm()
+        action = self.env.ref('stock_barcode_mrp.stock_barcode_mo_client_action')
+        url = '/web#action=%s&active_id=%s' % (action.id, mo.id)
+        self.start_tour(url, 'test_add_product_with_different_uom', login='admin')
+        self.assertEqual(mo.state, "done")
