@@ -72,7 +72,7 @@ registry.category("web_tour.tours").add("test_shop_floor", {
     },
     {
         content: "Validate production check",
-        trigger: '.modal:not(.o_inactive_modal) button:contains("Validate"):enabled',
+        trigger: '.modal:not(.o_inactive_modal) button:contains("Validate")',
         run: "click",
     },
     {
@@ -148,6 +148,9 @@ registry.category("web_tour.tours").add("test_shop_floor", {
         run: "click",
     },
     {
+        trigger: "body:not(:has(.modal:visible))",
+    },
+    {
         content: "Close first operation",
         trigger: '.card-footer button[barcode_trigger="CLWO"]:contains(Mark as Done)',
         run: "click",
@@ -202,7 +205,7 @@ registry.category("web_tour.tours").add("test_shop_floor", {
         run: "click",
     },
     {
-        trigger: "body:not(:has(.modal))",
+        trigger: "body:not(:has(.modal:visible))",
     },
     {
         trigger: 'div.o_mrp_display_record .card-header .fa-pause',
@@ -212,7 +215,7 @@ registry.category("web_tour.tours").add("test_shop_floor", {
         trigger: 'div.o_mrp_display_record .card-header .fa-play',
     },
     {
-        trigger: ".card-footer button[barcode_trigger=CLWO]:contains(Mark as Done):enabled",
+        trigger: ".card-footer button[barcode_trigger=CLWO]:contains(Mark as Done)",
         run: "click",
     },
     {

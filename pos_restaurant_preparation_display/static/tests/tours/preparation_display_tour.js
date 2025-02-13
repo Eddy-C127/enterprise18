@@ -114,6 +114,7 @@ registry.category("web_tour.tours").add("PreparationDisplayTourResto2", {
             ProductScreen.clickDisplayedProduct("Coca-Cola"),
             ProductScreen.orderlineIsToOrder("Coca-Cola"),
             ProductScreen.clickOrderButton(),
+            Chrome.waitRequest(),
             ProductScreen.orderlinesHaveNoChange(),
             Chrome.clickPlanButton(),
         ].flat(),

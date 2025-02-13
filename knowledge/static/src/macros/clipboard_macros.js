@@ -2,6 +2,7 @@
 
 import { AbstractMacro } from "@knowledge/macros/abstract_macro";
 import { pasteElements } from "@knowledge/macros/utils";
+import { click } from "@odoo/hoot-dom";
 
 /**
  * Macro that will open the Full Composer Form view dialog in the Form view
@@ -36,7 +37,6 @@ export class SendAsMessageMacro extends AbstractMacro {
                     }
                     return null;
                 },
-                action: () => {},
             },
             {
                 // Open the full composer Form view Dialog.
@@ -46,7 +46,9 @@ export class SendAsMessageMacro extends AbstractMacro {
                         ".o-mail-Composer-fullComposer:not([disabled])"
                     );
                 },
-                action: "click",
+                async action(trigger) {
+                    await click(trigger);
+                },
             },
             {
                 // Paste the html data inside the message body.
@@ -85,7 +87,6 @@ export class UseAsDescriptionMacro extends AbstractMacro {
             {
                 // Ensure that the Form view is editable
                 trigger: () => this.getFirstVisibleElement(".o_form_editable"),
-                action: () => {},
             },
             {
                 // Search for the target html field and ensure that it is editable.
@@ -104,7 +105,9 @@ export class UseAsDescriptionMacro extends AbstractMacro {
                     }
                     return null;
                 },
-                action: "click",
+                async action(trigger) {
+                    await click(trigger);
+                },
             },
             {
                 // Search for the editable element. Paste the html data inside the
