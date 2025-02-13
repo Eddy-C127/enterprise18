@@ -300,7 +300,7 @@
                 "B34": {
                     "style": 6,
                     "content": "=ODOO.LIST(2,1,\"partner_id\")",
-                    "border": 2
+                    "border": 6
                 },
                 "B35": {
                     "content": "=ODOO.LIST(2,2,\"partner_id\")"
@@ -414,7 +414,7 @@
                 "C34": {
                     "style": 6,
                     "content": "=ODOO.LIST(2,1,\"user_id\")",
-                    "border": 2
+                    "border": 6
                 },
                 "C35": {
                     "content": "=ODOO.LIST(2,2,\"user_id\")"
@@ -591,7 +591,7 @@
                 "D34": {
                     "style": 6,
                     "content": "=ODOO.LIST(2,1,\"recurring_monthly\")",
-                    "border": 2
+                    "border": 6
                 },
                 "D35": {
                     "content": "=ODOO.LIST(2,2,\"recurring_monthly\")"
@@ -1568,12 +1568,11 @@
                         "background": "#FFFFFF",
                         "legendPosition": "bottom",
                         "metaData": {
-                            "groupBy": [
-                                "plan_id"
-                            ],
+                            "groupBy": ["plan_id"],
                             "measure": "recurring_monthly",
                             "order": null,
-                            "resModel": "sale.subscription.report"
+                            "resModel": "sale.subscription.report",
+                            "mode": "pie"
                         },
                         "searchParams": {
                             "comparison": null,
@@ -1585,25 +1584,14 @@
                             },
                             "domain": [
                                 "&",
-                                [
-                                    "product_tmpl_id.recurring_invoice",
-                                    "=",
-                                    true
-                                ],
-                                [
-                                    "subscription_state",
-                                    "in",
-                                    [
-                                        "3_progress",
-                                        "4_paused"
-                                    ]
-                                ],
+                                "&",
+                                "&",
+                                ["product_tmpl_id.recurring_invoice", "=", true],
+                                ["subscription_state", "in", ["3_progress", "4_paused"]],
                                 ["recurring_monthly", "!=", false],
                                 ["state", "!=", "cancel"]
                             ],
-                            "groupBy": [
-                                "plan_id"
-                            ],
+                            "groupBy": ["plan_id"],
                             "orderBy": []
                         },
                         "type": "odoo_pie",
@@ -1651,12 +1639,11 @@
                         "background": "#FFFFFF",
                         "legendPosition": "bottom",
                         "metaData": {
-                            "groupBy": [
-                                "product_id"
-                            ],
+                            "groupBy": ["product_id"],
                             "measure": "recurring_monthly",
                             "order": null,
-                            "resModel": "sale.subscription.report"
+                            "resModel": "sale.subscription.report",
+                            "mode": "pie"
                         },
                         "searchParams": {
                             "comparison": null,
@@ -1668,25 +1655,14 @@
                             },
                             "domain": [
                                 "&",
-                                [
-                                    "product_tmpl_id.recurring_invoice",
-                                    "=",
-                                    true
-                                ],
-                                [
-                                    "subscription_state",
-                                    "in",
-                                    [
-                                        "3_progress",
-                                        "4_paused"
-                                    ]
-                                ],
+                                "&",
+                                "&",
+                                ["product_tmpl_id.recurring_invoice", "=", true],
+                                ["subscription_state", "in", ["3_progress", "4_paused"]],
                                 ["recurring_monthly", "!=", false],
                                 ["state", "!=", "cancel"]
                             ],
-                            "groupBy": [
-                                "product_id"
-                            ],
+                            "groupBy": ["product_id"],
                             "orderBy": []
                         },
                         "type": "odoo_pie",
@@ -1734,12 +1710,11 @@
                         "background": "#FFFFFF",
                         "legendPosition": "bottom",
                         "metaData": {
-                            "groupBy": [
-                                "country_id"
-                            ],
+                            "groupBy": ["country_id"],
                             "measure": "recurring_monthly",
                             "order": null,
-                            "resModel": "sale.subscription.report"
+                            "resModel": "sale.subscription.report",
+                            "mode": "pie"
                         },
                         "searchParams": {
                             "comparison": null,
@@ -1751,25 +1726,14 @@
                             },
                             "domain": [
                                 "&",
-                                [
-                                    "product_tmpl_id.recurring_invoice",
-                                    "=",
-                                    true
-                                ],
-                                [
-                                    "subscription_state",
-                                    "in",
-                                    [
-                                        "3_progress",
-                                        "4_paused"
-                                    ]
-                                ],
+                                "&",
+                                "&",
+                                ["product_tmpl_id.recurring_invoice", "=", true],
+                                ["subscription_state", "in", ["3_progress", "4_paused"]],
                                 ["recurring_monthly", "!=", false],
                                 ["state", "!=", "cancel"]
                             ],
-                            "groupBy": [
-                                "country_id"
-                            ],
+                            "groupBy": ["country_id"],
                             "orderBy": []
                         },
                         "type": "odoo_pie",
@@ -1817,12 +1781,11 @@
                         "background": "#FFFFFF",
                         "legendPosition": "bottom",
                         "metaData": {
-                            "groupBy": [
-                                "team_id"
-                            ],
+                            "groupBy": ["team_id"],
                             "measure": "recurring_monthly",
                             "order": null,
-                            "resModel": "sale.subscription.report"
+                            "resModel": "sale.subscription.report",
+                            "mode": "pie"
                         },
                         "searchParams": {
                             "comparison": null,
@@ -1834,25 +1797,14 @@
                             },
                             "domain": [
                                 "&",
-                                [
-                                    "product_tmpl_id.recurring_invoice",
-                                    "=",
-                                    true
-                                ],
-                                [
-                                    "subscription_state",
-                                    "in",
-                                    [
-                                        "3_progress",
-                                        "4_paused"
-                                    ]
-                                ],
+                                "&",
+                                "&",
+                                ["product_tmpl_id.recurring_invoice", "=", true],
+                                ["subscription_state", "in", ["3_progress", "4_paused"]],
                                 ["recurring_monthly", "!=", false],
                                 ["state", "!=", "cancel"]
                             ],
-                            "groupBy": [
-                                "team_id"
-                            ],
+                            "groupBy": ["team_id"],
                             "orderBy": []
                         },
                         "type": "odoo_pie",
@@ -1964,13 +1916,10 @@
                     "content": "KPI"
                 },
                 "A2": {
-                    "content": "=ODOO.PIVOT.HEADER(1,\"measure\",\"mrr_change_normalized\")"
+                    "content": "=ODOO.PIVOT.HEADER(2,\"measure\",\"recurring_monthly\")"
                 },
                 "A3": {
                     "content": "=ODOO.PIVOT.HEADER(2,\"measure\",\"recurring_yearly\")"
-                },
-                "A4": {
-                    "content": "New MRR"
                 },
                 "A5": {
                     "content": "Total Subscriptions"
@@ -1998,13 +1947,10 @@
                     "content": "Current"
                 },
                 "B2": {
-                    "content": "=ODOO.PIVOT(1,\"mrr_change_normalized\")"
+                    "content": "=ODOO.PIVOT(2,\"recurring_monthly\")"
                 },
                 "B3": {
                     "content": "=ODOO.PIVOT(2,\"recurring_yearly\")"
-                },
-                "B4": {
-                    "content": "=IFERROR(ODOO.PIVOT(3,\"mrr_change_normalized\",\"event_type\",\"0_creation\",\"event_date:year\",2023))"
                 },
                 "B5": {
                     "content": "=ODOO.PIVOT(10,\"order_reference\")"
@@ -2034,8 +1980,7 @@
                     "content": "Previous"
                 },
                 "C4": {
-                    "style": 8,
-                    "content": "=ODOO.PIVOT(3,\"mrr_change_normalized\",\"event_type\",\"0_creation\",\"event_date:year\",2022)"
+                    "style": 8
                 },
                 "D1": {
                     "style": 2,
@@ -2050,8 +1995,7 @@
                     "content": "=IFERROR(FORMAT.LARGE.NUMBER(B3))"
                 },
                 "D4": {
-                    "style": 8,
-                    "content": "=IFERROR(FORMAT.LARGE.NUMBER(B4))"
+                    "style": 8
                 },
                 "D5": {
                     "style": 8,
@@ -2075,7 +2019,6 @@
                 },
                 "D10": {
                     "style": 8,
-                    "format": 3,
                     "content": "=IFERROR(FORMAT.LARGE.NUMBER(B10))"
                 },
                 "D11": {
@@ -2093,8 +2036,7 @@
                     "style": 8
                 },
                 "E4": {
-                    "style": 8,
-                    "content": "=IFERROR(FORMAT.LARGE.NUMBER(C4))"
+                    "style": 8
                 },
                 "E5": {
                     "style": 8
@@ -2213,6 +2155,12 @@
                 "style": "thin",
                 "color": "#2D7E84"
             }
+        },
+        "6": {
+            "top": {
+                "style": "thin",
+                "color": "#2D7E84"
+            }
         }
     },
     "revisionId": "START_REVISION",
@@ -2288,58 +2236,6 @@
         }
     ],
     "pivots": {
-        "1": {
-            "colGroupBys": [],
-            "context": {
-                "search_default_group_by_event_date": 1,
-                "search_default_group_by_event_type": 1
-            },
-            "domain": [
-                [
-                    "event_type",
-                    "!=",
-                    "3_transfer"
-                ]
-            ],
-            "id": "1",
-            "measures": [
-                {
-                    "field": "mrr_change_normalized"
-                }
-            ],
-            "model": "sale.order.log.report",
-            "rowGroupBys": [],
-            "name": "Sale Order Log Analysis",
-            "sortedColumn": {
-                "groupId": [
-                    [],
-                    []
-                ],
-                "measure": "mrr_change_normalized",
-                "order": "desc"
-            },
-            "fieldMatching": {
-                "e6db018b-19ec-42c3-b29e-11b1e3910916": {
-                    "chain": "country_id",
-                    "type": "many2one"
-                },
-                "dbb716a1-5977-47ee-a53e-ca5716303433": {},
-                "7d95fe28-fd13-4805-948c-95742e7d6733": {
-                    "chain": "partner_id",
-                    "type": "many2one"
-                },
-                "b75963ca-ab5f-4da5-9c90-67526517e5e7": {
-                    "chain": "team_id",
-                    "type": "many2one"
-                },
-                "4181e8e3-2e7e-42be-a88b-f24acb7d03e7": {
-                    "chain": "user_id",
-                    "type": "many2one"
-                },
-                "ec466626-f54a-4955-9611-eaa2719f1afb": {},
-                "85d94827-6ce2-429c-9775-ef646cfddb6b": {}
-            }
-        },
         "2": {
             "colGroupBys": [],
             "context": {
@@ -2349,35 +2245,25 @@
             },
             "domain": [
                 "&",
-                [
-                    "is_subscription",
-                    "=",
-                    true
-                ],
-                [
-                    "subscription_state",
-                    "in",
-                    [
-                        "3_progress",
-                        "4_paused"
-                    ]
-                ],
+                "&",
+                ["is_subscription", "=", true],
+                ["subscription_state", "in", ["3_progress", "4_paused"]],
                 ["state", "!=", "cancel"]
             ],
             "id": "2",
             "measures": [
                 {
                     "field": "recurring_yearly"
+                },
+                {
+                    "field": "recurring_monthly"
                 }
             ],
             "model": "sale.subscription.report",
             "rowGroupBys": [],
             "name": "Subscription Analysis",
             "sortedColumn": {
-                "groupId": [
-                    [],
-                    []
-                ],
+                "groupId": [[], []],
                 "measure": "recurring_monthly",
                 "order": "desc"
             },
@@ -2413,20 +2299,12 @@
             }
         },
         "3": {
-            "colGroupBys": [
-                "event_date:year"
-            ],
+            "colGroupBys": ["event_date:year"],
             "context": {
                 "search_default_group_by_event_date": 1,
                 "search_default_group_by_event_type": 1
             },
-            "domain": [
-                [
-                    "event_type",
-                    "!=",
-                    "3_transfer"
-                ]
-            ],
+            "domain": [["event_type", "!=", "3_transfer"]],
             "id": "3",
             "measures": [
                 {
@@ -2434,15 +2312,10 @@
                 }
             ],
             "model": "sale.order.log.report",
-            "rowGroupBys": [
-                "event_type"
-            ],
+            "rowGroupBys": ["event_type"],
             "name": "Sale Order Log Analysis by Event Date (Year)",
             "sortedColumn": {
-                "groupId": [
-                    [],
-                    []
-                ],
+                "groupId": [[], []],
                 "measure": "arr_change_normalized",
                 "order": "asc"
             },
@@ -2477,19 +2350,9 @@
             },
             "domain": [
                 "&",
-                [
-                    "is_subscription",
-                    "=",
-                    true
-                ],
-                [
-                    "subscription_state",
-                    "in",
-                    [
-                        "3_progress",
-                        "4_paused"
-                    ]
-                ],
+                "&",
+                ["is_subscription", "=", true],
+                ["subscription_state", "in", ["3_progress", "4_paused"]],
                 ["state", "!=", "cancel"]
             ],
             "id": "4",
@@ -2502,15 +2365,10 @@
                 }
             ],
             "model": "sale.subscription.report",
-            "rowGroupBys": [
-                "product_id"
-            ],
+            "rowGroupBys": ["product_id"],
             "name": "Subscription Analysis by Product Variant",
             "sortedColumn": {
-                "groupId": [
-                    [],
-                    []
-                ],
+                "groupId": [[], []],
                 "measure": "recurring_monthly",
                 "order": "desc"
             },
@@ -2558,19 +2416,9 @@
             },
             "domain": [
                 "&",
-                [
-                    "is_subscription",
-                    "=",
-                    true
-                ],
-                [
-                    "subscription_state",
-                    "in",
-                    [
-                        "3_progress",
-                        "4_paused"
-                    ]
-                ],
+                "&",
+                ["is_subscription", "=", true],
+                ["subscription_state", "in", ["3_progress", "4_paused"]],
                 ["state", "!=", "cancel"]
             ],
             "id": "5",
@@ -2583,15 +2431,10 @@
                 }
             ],
             "model": "sale.subscription.report",
-            "rowGroupBys": [
-                "template_id"
-            ],
+            "rowGroupBys": ["template_id"],
             "name": "Subscription Analysis by Subscription Template",
             "sortedColumn": {
-                "groupId": [
-                    [],
-                    []
-                ],
+                "groupId": [[], []],
                 "measure": "recurring_monthly",
                 "order": "desc"
             },
@@ -2639,19 +2482,9 @@
             },
             "domain": [
                 "&",
-                [
-                    "is_subscription",
-                    "=",
-                    true
-                ],
-                [
-                    "subscription_state",
-                    "in",
-                    [
-                        "3_progress",
-                        "4_paused"
-                    ]
-                ],
+                "&",
+                ["is_subscription", "=", true],
+                ["subscription_state", "in", ["3_progress", "4_paused"]],
                 ["state", "!=", "cancel"]
             ],
             "id": "6",
@@ -2664,15 +2497,10 @@
                 }
             ],
             "model": "sale.subscription.report",
-            "rowGroupBys": [
-                "team_id"
-            ],
+            "rowGroupBys": ["team_id"],
             "name": "Subscription Analysis by Sales Team",
             "sortedColumn": {
-                "groupId": [
-                    [],
-                    []
-                ],
+                "groupId": [[], []],
                 "measure": "recurring_monthly",
                 "order": "desc"
             },
@@ -2716,19 +2544,9 @@
             },
             "domain": [
                 "&",
-                [
-                    "is_subscription",
-                    "=",
-                    true
-                ],
-                [
-                    "subscription_state",
-                    "in",
-                    [
-                        "3_progress",
-                        "4_paused"
-                    ]
-                ],
+                "&",
+                ["is_subscription", "=", true],
+                ["subscription_state", "in", ["3_progress", "4_paused"]],
                 ["state", "!=", "cancel"]
             ],
             "id": "7",
@@ -2741,15 +2559,10 @@
                 }
             ],
             "model": "sale.subscription.report",
-            "rowGroupBys": [
-                "user_id"
-            ],
+            "rowGroupBys": ["user_id"],
             "name": "Subscription Analysis by Salesperson",
             "sortedColumn": {
-                "groupId": [
-                    [],
-                    []
-                ],
+                "groupId": [[], []],
                 "measure": "recurring_monthly",
                 "order": "desc"
             },
@@ -2793,19 +2606,9 @@
             },
             "domain": [
                 "&",
-                [
-                    "is_subscription",
-                    "=",
-                    true
-                ],
-                [
-                    "subscription_state",
-                    "in",
-                    [
-                        "3_progress",
-                        "4_paused"
-                    ]
-                ],
+                "&",
+                ["is_subscription", "=", true],
+                ["subscription_state", "in", ["3_progress", "4_paused"]],
                 ["state", "!=", "cancel"]
             ],
             "id": "8",
@@ -2818,15 +2621,10 @@
                 }
             ],
             "model": "sale.subscription.report",
-            "rowGroupBys": [
-                "country_id"
-            ],
+            "rowGroupBys": ["country_id"],
             "name": "Subscription Analysis by Country",
             "sortedColumn": {
-                "groupId": [
-                    [],
-                    []
-                ],
+                "groupId": [[], []],
                 "measure": "recurring_monthly",
                 "order": "desc"
             },
@@ -2870,19 +2668,9 @@
             },
             "domain": [
                 "&",
-                [
-                    "is_subscription",
-                    "=",
-                    true
-                ],
-                [
-                    "subscription_state",
-                    "in",
-                    [
-                        "3_progress",
-                        "4_paused"
-                    ]
-                ],
+                "&",
+                ["is_subscription", "=", true],
+                ["subscription_state", "in", ["3_progress", "4_paused"]],
                 ["state", "!=", "cancel"]
             ],
             "id": "9",
@@ -2895,15 +2683,10 @@
                 }
             ],
             "model": "sale.subscription.report",
-            "rowGroupBys": [
-                "plan_id"
-            ],
+            "rowGroupBys": ["plan_id"],
             "name": "Subscription Analysis by Recurrence",
             "sortedColumn": {
-                "groupId": [
-                    [],
-                    []
-                ],
+                "groupId": [[], []],
                 "measure": "price_subtotal",
                 "order": "desc"
             },
@@ -2947,16 +2730,9 @@
             },
             "domain": [
                 "&",
-                [
-                    "is_subscription",
-                    "=",
-                    true
-                ],
-                [
-                    "subscription_state",
-                    "=",
-                    "3_progress"
-                ],
+                "&",
+                ["is_subscription", "=", true],
+                ["subscription_state", "=", "3_progress"],
                 ["state", "!=", "cancel"]
             ],
             "id": "10",
@@ -2993,16 +2769,9 @@
             },
             "domain": [
                 "&",
-                [
-                    "is_subscription",
-                    "=",
-                    true
-                ],
-                [
-                    "subscription_state",
-                    "=",
-                    "6_churn"
-                ],
+                "&",
+                ["is_subscription", "=", true],
+                ["subscription_state", "=", "6_churn"],
                 ["state", "!=", "cancel"]
             ],
             "id": "11",
@@ -3039,16 +2808,9 @@
             },
             "domain": [
                 "&",
-                [
-                    "is_subscription",
-                    "=",
-                    true
-                ],
-                [
-                    "subscription_state",
-                    "=",
-                    "6_churn"
-                ],
+                "&",
+                ["is_subscription", "=", true],
+                ["subscription_state", "=", "6_churn"],
                 ["state", "!=", "cancel"]
             ],
             "id": "12",
@@ -3080,27 +2842,13 @@
     "pivotNextId": 13,
     "lists": {
         "1": {
-            "columns": [
-                "name",
-                "partner_id",
-                "user_id",
-                "recurring_monthly"
-            ],
+            "columns": ["name", "partner_id", "user_id", "recurring_monthly"],
             "domain": [
                 "&",
-                [
-                    "product_tmpl_id.recurring_invoice",
-                    "=",
-                    true
-                ],
-                [
-                    "subscription_state",
-                    "in",
-                    [
-                        "3_progress",
-                        "4_paused"
-                    ]
-                ],
+                "&",
+                "&",
+                ["product_tmpl_id.recurring_invoice", "=", true],
+                ["subscription_state", "in", ["3_progress", "4_paused"]],
                 ["recurring_monthly", "!=", false],
                 ["state", "!=", "cancel"]
             ],
@@ -3151,24 +2899,13 @@
             }
         },
         "2": {
-            "columns": [
-                "name",
-                "partner_id",
-                "user_id",
-                "recurring_monthly"
-            ],
+            "columns": ["name", "partner_id", "user_id", "recurring_monthly"],
             "domain": [
                 "&",
-                [
-                    "product_tmpl_id.recurring_invoice",
-                    "=",
-                    true
-                ],
-                [
-                    "subscription_state",
-                    "=",
-                    "1_draft"
-                ],
+                "&",
+                "&",
+                ["product_tmpl_id.recurring_invoice", "=", true],
+                ["subscription_state", "=", "1_draft"],
                 ["recurring_monthly", "!=", false],
                 ["state", "!=", "cancel"]
             ],
