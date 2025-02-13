@@ -127,8 +127,10 @@ class PaymentTransaction(models.Model):
         :return: None
         """
         ctx = self.env.context.copy()
+        acc_number = token.sdd_mandate_id.partner_bank_id.acc_number
+        iban_last_4 = acc_number and acc_number.replace(' ','')[-4:] or ''
         ctx.update({
-            'iban_last_4': token.payment_details[:4],
+            'iban_last_4': iban_last_4,
             'mandate_ref': token.sdd_mandate_id.name,
             'creditor_identifier': self.env.company.sdd_creditor_identifier,
         })
