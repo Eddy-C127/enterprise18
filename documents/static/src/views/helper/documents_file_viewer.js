@@ -17,6 +17,7 @@ export class DocumentsFileViewer extends Component {
         this.root = useRef("root");
         this.state = useState({
             topOffset: 0,
+            leftOffset: 0,
         });
 
         const onKeydown = this.onIframeKeydown.bind(this);
@@ -46,8 +47,10 @@ export class DocumentsFileViewer extends Component {
                     return;
                 }
                 this.state.topOffset = el.scrollTop;
+                this.state.leftOffset = el.scrollLeft;
                 const scrollHandler = () => {
                     this.state.topOffset = el.scrollTop;
+                    this.state.leftOffset = el.scrollLeft;
                 };
                 el.addEventListener("scroll", scrollHandler);
                 return () => {
