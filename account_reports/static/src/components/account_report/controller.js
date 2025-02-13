@@ -753,7 +753,7 @@ export class AccountReportController {
     buttonAction(ev, button) {
         // Might be overidden to add specific functionality to button
         // For instance adding context to a call ...
-        this.reportAction(ev, button.action, button.action_param, true);
+        this.reportAction(ev, button.error_action || button.action, button.action_param, true);
     }
 
     async reportAction(ev, action, actionParam = null, callOnSectionsSource = false, actionContext=null) {
