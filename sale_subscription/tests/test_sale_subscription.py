@@ -4339,6 +4339,30 @@ class TestSubscription(TestSubscriptionCommon, MockEmail):
             inv = subscription._create_recurring_invoice()
             self.assertEqual(subscription.order_line.last_invoiced_date, datetime.date(2024, 11, 30), "Last invoiced date is updated")
 
+    def test_invoice_credit_email_template(self):
+        invoice = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'invoice_line_ids': [(0, 0, {
+                'name': 'Test',
+                'quantity': 1,
+                'price_unit': 100,
+                'subscription_id': self.subscription.id,
+            })],
+        })
+        template_invoice_id = self.env['account.move.send']._get_default_mail_template_id(invoice).id
+        self.assertEqual(template_invoice_id, self.env.ref('account.email_template_edi_invoice').id, 'The email template id for an Invoice is not what it should be.')
+        credit_note = self.env['account.move'].create({
+            'move_type': 'out_refund',
+            'invoice_line_ids': [(0, 0, {
+                'name': 'Test',
+                'quantity': 1,
+                'price_unit': 100,
+                'subscription_id': self.subscription.id,
+            })],
+        })    
+        template_credit_id = self.env['account.move.send']._get_default_mail_template_id(credit_note).id
+        self.assertEqual(template_credit_id, self.env.ref('account.email_template_edi_credit_note').id, 'The email template id for a Credit Note is not what it should be.')
+
 
     def test_next_billing_details(self):
         with freeze_time("2024-11-20"):
