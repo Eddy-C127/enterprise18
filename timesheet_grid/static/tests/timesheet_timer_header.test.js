@@ -1,14 +1,14 @@
-import { expect, test, describe, beforeEach } from "@odoo/hoot";
-import { click, getActiveElement, queryOne } from "@odoo/hoot-dom";
-import { mockDate, animationFrame, delay } from "@odoo/hoot-mock";
+import { beforeEach, describe, expect, test } from "@odoo/hoot";
+import { click } from "@odoo/hoot-dom";
+import { animationFrame, delay, mockDate } from "@odoo/hoot-mock";
 
-import { onRpc, mountView, patchWithCleanup } from "@web/../tests/web_test_helpers";
-import { serializeDateTime } from "@web/core/l10n/dates";
-import { session } from "@web/session";
 import {
     defineTimesheetModels,
     timesheetModels,
 } from "@timesheet_grid/../tests/timesheet_mock_models";
+import { mountView, onRpc, patchWithCleanup } from "@web/../tests/web_test_helpers";
+import { serializeDateTime } from "@web/core/l10n/dates";
+import { session } from "@web/session";
 
 describe.current.tags("desktop");
 defineTimesheetModels();
@@ -98,17 +98,17 @@ test("Test to check if start button is always in focus", async () => {
 
     // At each mount and patch Start Button should be in focus
     expect(".btn_start_timer").toHaveCount(1);
-    expect(getActiveElement()).toBe(queryOne(".btn_start_timer"));
+    expect(".btn_start_timer").toBeFocused();
 
     // Click on a clickable button/action should be accessible and should not be disturbed
     // Force focus must not disturb other clicks
     await click(".o_grid_row:not(.o_grid_row_title, .o_grid_row_timer)");
     await delay(50);
-    expect(getActiveElement()).toBe(queryOne(".o_grid_component div input"));
+    expect(".o_grid_component div input").toBeFocused();
 
     // Click on body which doesn't have any fields/actions must make Start button to come in focus
     await click(document.body);
-    expect(getActiveElement()).toBe(queryOne(".btn_start_timer"));
+    expect(".btn_start_timer").toBeFocused();
 });
 
 test("Test to check if stop button is always in focus", async () => {
@@ -118,14 +118,14 @@ test("Test to check if stop button is always in focus", async () => {
     await animationFrame();
     // At each mount and patch Stop Button should be in focus
     expect(".btn_stop_timer").toHaveCount(1);
-    expect(getActiveElement()).toBe(queryOne(".btn_stop_timer"));
+    expect(".btn_stop_timer").toBeFocused();
 
     // Click on a clickable button/input should be accessible and should not be disturbed
     // Force focus must not disturb other clicks/inputs
     await click('.o_field_many2one[name="project_id"] input');
-    expect(getActiveElement()).toBe(queryOne('.o_field_many2one[name="project_id"] input'));
+    expect('.o_field_many2one[name="project_id"] input').toBeFocused();
 
     // Click on body which doesn't have any fields/actions must make Stop button to come in focus
     await click(document.body);
-    expect(getActiveElement()).toBe(queryOne(".btn_stop_timer"));
+    expect(".btn_stop_timer").toBeFocused();
 });
