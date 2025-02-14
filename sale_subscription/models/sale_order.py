@@ -1520,6 +1520,12 @@ class SaleOrder(models.Model):
     def _subscription_launch_cron_parallel(self, batch_size):
         self.env.ref('sale_subscription.account_analytic_cron_for_invoice')._trigger()
 
+    def _get_subscription_payment_exception_condition(self):
+        """ Return a boolean if we agree that the payment_exception should be reset.
+        This is needed for being able to inherit easily for other use cases than implemented by now.
+        """
+        return False
+
     def _create_recurring_invoice(self, batch_size=30):
         today = fields.Date.today()
         auto_commit = not bool(config['test_enable'] or config['test_file'])
@@ -1612,7 +1618,7 @@ class SaleOrder(models.Model):
                 with self.env.protecting([subscription._fields['amount_to_invoice']], subscription):
                     existing_invoices = subscription.with_context(recurring_automatic=True)._handle_automatic_invoices(invoice, auto_commit) or self.env['account.move']
                 account_moves |= existing_invoices
-                if all(inv.state != 'draft' for inv in existing_invoices):
+                if subscription._get_subscription_payment_exception_condition() or all(inv.state != 'draft' for inv in existing_invoices):
                     # when the invoice is not confirmed, we keep it and keep the payment_exception flag
                     # Failed payment that delete the invoice will also be handled here and the flag will be removed
                     subscription.with_context(mail_notrack=True).payment_exception = False
