@@ -134,6 +134,7 @@ registry.category("web_tour.tours").add("PreparationDisplayCancelOrderTour", {
             ProductScreen.clickReview(),
             ProductScreen.clickControlButton("Cancel Order"),
             Dialog.confirm(),
+            FloorScreen.isShown(),
         ].flat(),
 });
 

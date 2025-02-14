@@ -43,15 +43,28 @@ patch(PosStore.prototype, {
             }
 
             try {
-                await this.syncAllOrders({
-                    orders: [o],
-                    context: {
-                        preparation: {
-                            process_order: [cancelled, o.general_note || "", o.uiState.noteHistory],
+                if (cancelled) {
+                    await this.data.call("pos_preparation_display.order", "process_order", [
+                        o.id,
+                        cancelled,
+                        o.general_note || "",
+                        o.uiState.noteHistory,
+                    ]);
+                } else {
+                    await this.syncAllOrders({
+                        orders: [o],
+                        context: {
+                            preparation: {
+                                process_order: [
+                                    cancelled,
+                                    o.general_note || "",
+                                    o.uiState.noteHistory,
+                                ],
+                            },
                         },
-                    },
-                });
-                o.updateSavedQuantity();
+                    });
+                    o.updateSavedQuantity();
+                }
             } catch (error) {
                 console.warn(error);
 
