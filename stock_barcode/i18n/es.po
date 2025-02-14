@@ -1056,10 +1056,55 @@ msgstr "Devolver productos"
 
 #. module: stock_barcode
 #. odoo-javascript
-#: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "Scan a"
 msgstr "Escanee"
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.js:0
+msgid ""
+"Scan a %(bold_start)s transfer %(bold_end)s or a %(bold_start)s product "
+"%(bold_end)s to filter your records"
+msgstr ""
+"Escanee un %(bold_start)s traslado %(bold_end)s o un %(bold_start)s producto"
+" %(bold_end)s para filtrar sus registros."
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.js:0
+msgid ""
+"Scan a %(bold_start)s transfer%(bold_end)s, a %(bold_start)s "
+"product%(bold_end)s, a %(bold_start)s lot %(bold_end)s or a %(bold_start)s "
+"package %(bold_end)s to filter your records"
+msgstr ""
+"Escanee un %(bold_start)s traslado %(bold_end)s, un %(bold_start)s producto "
+"%(bold_end)s, un %(bold_start)s lote %(bold_end)s o un %(bold_start)s "
+"paquete %(bold_end)s para filtrar sus registros."
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.js:0
+msgid ""
+"Scan a %(bold_start)s transfer%(bold_end)s, a %(bold_start)s "
+"product%(bold_end)s, or a %(bold_start)s lot %(bold_end)s to filter your "
+"records"
+msgstr ""
+"Escanee un %(bold_start)s traslado %(bold_end)s, un %(bold_start)s producto "
+"%(bold_end)s o un%(bold_start)s lote %(bold_end)s para filtrar sus "
+"registros."
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.js:0
+msgid ""
+"Scan a %(bold_start)s transfer%(bold_end)s, a %(bold_start)s "
+"product%(bold_end)s, or a %(bold_start)s package %(bold_end)s to filter your"
+" records"
+msgstr ""
+"Escanee un %(bold_start)s traslado %(bold_end)s, un %(bold_start)s producto "
+"%(bold_end)s o un %(bold_start)s paquete %(bold_end)s para filtrar sus "
+"registros."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1739,26 +1784,18 @@ msgstr "una ubicación"
 
 #. module: stock_barcode
 #. odoo-javascript
-#: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-msgid "lot"
-msgstr "el lote"
-
-#. module: stock_barcode
-#. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "operation type"
 msgstr "un tipo de operación"
 
 #. module: stock_barcode
 #. odoo-javascript
-#: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "or a"
 msgstr "o"
 
 #. module: stock_barcode
 #. odoo-javascript
-#: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "package"
 msgstr "un paquete"
@@ -1771,7 +1808,6 @@ msgstr "un picking"
 
 #. module: stock_barcode
 #. odoo-javascript
-#: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "product"
 msgstr "un producto"
@@ -1785,12 +1821,6 @@ msgstr "productos no se procesaron en absoluto."
 #: model_terms:ir.ui.view,arch_db:stock_barcode.view_backorder_confirmation
 msgid "products were partially processed."
 msgstr "productos se procesaron parcialmente."
-
-#. module: stock_barcode
-#. odoo-javascript
-#: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-msgid "to filter your records"
-msgstr "para filtrar sus registros"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1827,9 +1857,3 @@ msgstr "para pruebas o"
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "tracking number"
 msgstr "un número de rastreo"
-
-#. module: stock_barcode
-#. odoo-javascript
-#: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-msgid "transfer"
-msgstr "un traslado"

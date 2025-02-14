@@ -3,8 +3,9 @@
 # 	* mrp_mps
 # 
 # Translators:
-# Wil Odoo, 2024
 # Marta Wacławek, 2024
+# Wil Odoo, 2025
+# Tadeusz Karpiński <tadeuszkarpinski@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Marta Wacławek, 2024\n"
+"Last-Translator: Tadeusz Karpiński <tadeuszkarpinski@gmail.com>, 2025\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,6 +59,7 @@ msgstr "Rzeczywisty popyt"
 #: code:addons/mrp_mps/models/mrp_mps.py:0
 msgid "Actual Demand %(product)s %(date)s (%(date_start)s - %(date_end)s)"
 msgstr ""
+"Rzeczywisty popyt %(product)s %(date)s (%(date_start)s - %(date_end)s)"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -86,6 +88,8 @@ msgstr "Rzeczywiste uzupełnienie"
 msgid ""
 "Actual Replenishment %(product)s %(date)s (%(date_start)s - %(date_end)s)"
 msgstr ""
+"Rzeczywiste uzupełnienie %(product)s %(date)s (%(date_start)s - "
+"%(date_end)s)"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -952,7 +956,7 @@ msgstr "Tydzień"
 #. odoo-python
 #: code:addons/mrp_mps/models/res_company.py:0
 msgid "Week %(week_num)s (%(start_date)s-%(end_date)s/%(month)s)"
-msgstr ""
+msgstr "Tydzień %(week_num)s (%(start_date)s-%(end_date)s/%(month)s)"
 
 #. module: mrp_mps
 #: model:ir.model.fields.selection,name:mrp_mps.selection__res_company__manufacturing_period__week

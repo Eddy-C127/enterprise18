@@ -5,7 +5,7 @@
 # Translators:
 # Iván Infantes Castarnado, 2024
 # RGB Consulting <odoo@rgbconsulting.com>, 2024
-# Harcogourmet, 2024
+# Xavier, 2024
 # Marc Tormo i Bochaca <mtbochaca@gmail.com>, 2024
 # Martin Trigaux, 2024
 # Quim - coopdevs <quim.rebull@coopdevs.org>, 2024
@@ -13,7 +13,7 @@
 # marcescu, 2024
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2024
 # Josep Anton Belchi, 2024
-# Ivan Espinola, 2024
+# Ivan Espinola, 2025
 # 
 msgid ""
 msgstr ""
@@ -21,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ivan Espinola, 2024\n"
+"Last-Translator: Ivan Espinola, 2025\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -589,7 +589,7 @@ msgstr "Error"
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
 msgid "Error code: %(error_code)s; description: %(error_message)s"
-msgstr ""
+msgstr "Codi d'error: %(error_code)s; descripció: %(error_message)s"
 
 #. module: sale_amazon
 #: model:ir.model.fields.selection,name:sale_amazon.selection__amazon_marketplace__region__eu-west-1
@@ -1106,6 +1106,8 @@ msgid ""
 "The communication with the API failed.\n"
 "Error code: %(error_code)s; description: %(error_message)s"
 msgstr ""
+"La comunicació amb l'API ha fallat.\n"
+"Codi d'error: %(error_code)s; descripció: %(error_message)s"
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_res_partner__amazon_email
@@ -1375,12 +1377,13 @@ msgstr "El vostre compte d'Amazon està enllaçat amb Odoo."
 #: code:addons/sale_amazon/models/amazon_account.py:0
 msgid "[%(gift_wrap_code)s] Gift Wrapping Charges for %(product)s"
 msgstr ""
+"[%(gift_wrap_code)s] Regalitza les càrregues d'ajust per a %(product)s"
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
 msgid "[%(shipping_code)s] Delivery Charges for %(product)s"
-msgstr ""
+msgstr "[%(shipping_code)s] Càrrega de lliurament per a %(product)s"
 
 #. module: sale_amazon
 #. odoo-python
@@ -1389,6 +1392,8 @@ msgid ""
 "[%(sku)s] %(item_title)s\n"
 "Condition: %(main_condition)s - %(sub_condition)s"
 msgstr ""
+"[%(sku)s] %(item_title)s\n"
+"Condició: %(main_condition)s - %(sub_condition)s"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form

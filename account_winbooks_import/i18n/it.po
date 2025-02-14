@@ -114,11 +114,6 @@ msgid "Import"
 msgstr "Importa"
 
 #. module: account_winbooks_import
-#: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
-msgid "Import (safe-mode)"
-msgstr "Importa (modalità sicura)"
-
-#. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_analytic_ids
 msgid "Import Summary Analytic"
 msgstr "Importa riepilogo analisi"
@@ -200,16 +195,6 @@ msgstr "Codice conto provvisorio"
 msgid ""
 "The code for the Suspense Account you entered doesn't match any account"
 msgstr "Il codice inserito non corrisponde ad alcun conto provvisorio"
-
-#. module: account_winbooks_import
-#. odoo-python
-#: code:addons/account_winbooks_import/wizard/import_wizard.py:0
-msgid ""
-"The following banks were used for multiple partners in Winbooks, which is not allowed in Odoo. The bank number has been only set on one of each group:\n"
-"%s"
-msgstr ""
-"Le seguenti banche sono state utilizzate in Winbooks per più di un partner e ciò non è consentito in Odoo. Il numero di banca è stato impostato solo in uno di ciascun gruppo:\n"
-"%s"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,help:account_winbooks_import.field_account_winbooks_import_wizard__suspense_code

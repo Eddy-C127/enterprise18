@@ -20,8 +20,8 @@
 # Halil, 2024
 # Martin Trigaux, 2024
 # Murat Kaplan <muratk@projetgrup.com>, 2024
-# Tugay Hatıl <tugayh@projetgrup.com>, 2024
-# Murat Durmuş <muratd@projetgrup.com>, 2024
+# Murat Durmuş <muratd@projetgrup.com>, 2025
+# Tugay Hatıl <tugayh@projetgrup.com>, 2025
 # 
 msgid ""
 msgstr ""
@@ -29,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Murat Durmuş <muratd@projetgrup.com>, 2024\n"
+"Last-Translator: Tugay Hatıl <tugayh@projetgrup.com>, 2025\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1297,7 +1297,7 @@ msgstr "Katılımcılar"
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_activity.py:0
 msgid "Participants of %(activity)s (%(filter)s)"
-msgstr ""
+msgstr " %(activity)s (%(filter)s) katılımcıları"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
@@ -1879,6 +1879,8 @@ msgid ""
 "You are trying to set the activity \"%(parent_activity)s\" as \"%(parent_type)s\" while its child \"%(activity)s\" has the trigger type \"%(trigger_type)s\"\n"
 "Please modify one of those activities before saving."
 msgstr ""
+"Alt öğesi \"%(parent_activity)s\", \"%(parent_type)s\" tetikleme türüne sahipken \"%(activity)s\" etkinliğini \"%(trigger_type)s\" olarak ayarlamaya çalışıyorsunuz.\n"
+"Lütfen kaydetmeden önce bu aktivitlerden birini değiştirin."
 
 #. module: marketing_automation
 #. odoo-python

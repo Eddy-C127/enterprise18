@@ -111,11 +111,6 @@ msgid "Import"
 msgstr "Importă"
 
 #. module: account_winbooks_import
-#: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
-msgid "Import (safe-mode)"
-msgstr "Import (mod sigur)"
-
-#. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_analytic_ids
 msgid "Import Summary Analytic"
 msgstr ""
@@ -197,16 +192,6 @@ msgid ""
 msgstr ""
 "Codul contului de suspensie pe care l-ați introdus nu se potrivește cu "
 "niciun cont"
-
-#. module: account_winbooks_import
-#. odoo-python
-#: code:addons/account_winbooks_import/wizard/import_wizard.py:0
-msgid ""
-"The following banks were used for multiple partners in Winbooks, which is not allowed in Odoo. The bank number has been only set on one of each group:\n"
-"%s"
-msgstr ""
-"Următoarele bănci au fost folosite pentru mai mulți parteneri în Winbooks, ceea ce nu este permis în Odoo. Numărul de bancă a fost setat doar pentru unul din fiecare grup:\n"
-"%s"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,help:account_winbooks_import.field_account_winbooks_import_wizard__suspense_code

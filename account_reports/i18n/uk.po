@@ -3,16 +3,16 @@
 # 	* account_reports
 # 
 # Translators:
-# Wil Odoo, 2025
 # Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-25 17:23+0000\n"
+"POT-Creation-Date: 2025-02-10 15:41+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +30,7 @@ msgstr "\" баланс рахунку змінений через"
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 msgid "%(journal)s - %(account)s"
-msgstr ""
+msgstr "%(journal)s - %(account)s"
 
 #. module: account_reports
 #. odoo-python
@@ -48,7 +48,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/res_company.py:0
 msgid "%(report_label)s: %(period)s"
-msgstr ""
+msgstr "%(report_label)s: %(period)s"
 
 #. module: account_reports
 #. odoo-python
@@ -360,8 +360,6 @@ msgid "Accounts"
 msgstr "Рахунки"
 
 #. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Accounts Coverage Report"
 msgstr "Звіт покриття рахунків"
@@ -856,7 +854,7 @@ msgstr "Перенесення можна створити лише для од�
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Carryover from %(date_from)s to %(date_to)s"
-msgstr ""
+msgstr "Перенест з %(date_from)s до %(date_to)s"
 
 #. module: account_reports
 #. odoo-python
@@ -1035,6 +1033,8 @@ msgid ""
 "Company %(company)s already belongs to a tax unit in %(country)s. A company "
 "can at most be part of one tax unit per country."
 msgstr ""
+"Компанія %(company)s вже належить одиниці податку в %(country)s. Компанія "
+"може бути частиною однієї податкової одиниці на країну."
 
 #. module: account_reports
 #. odoo-python
@@ -1110,6 +1110,8 @@ msgid ""
 "Could not expand term %(term)s while evaluating formula "
 "%(unexpanded_formula)s"
 msgstr ""
+"Не вдалося розширити термін %(term)s при оцінці формули "
+"%(unexpanded_formula)s"
 
 #. module: account_reports
 #. odoo-python
@@ -1713,6 +1715,9 @@ msgid ""
 " computing the current report. Make sure the cross-report aggregations of "
 "this report only reference terms belonging to other reports."
 msgstr ""
+"Позначений вираз '%(label)s' рядка '%(line)s' перезаписується під час "
+"обчислення поточного звіту. Переконайтеся, що агрегації перехресних звітів "
+"цього звіту посилаються лише на терміни, що належать до інших звітів."
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__field_name
@@ -1837,6 +1842,8 @@ msgid ""
 "From %(date_from)s\n"
 "to  %(date_to)s"
 msgstr ""
+"Від %(date_from)s\n"
+"до  %(date_to)s"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard_format__fun_param
@@ -2130,6 +2137,8 @@ msgid ""
 "Inconsistent report_id in options dictionary. Options says "
 "%(options_report)s; report is %(report)s."
 msgstr ""
+"Невідповідний report_id у словнику параметрів. Варіанти "
+"кажуть%(options_report)s; звіт %(report)s."
 
 #. module: account_reports
 #. odoo-python
@@ -2182,7 +2191,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Invalid token '%(token)s' in account_codes formula '%(formula)s'"
-msgstr ""
+msgstr "Недійсний токен '%(token)s' в account_codes formula '%(formula)s'"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2396,17 +2405,10 @@ msgstr "Рядок"
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid ""
 "Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
 "This is not allowed."
 msgstr ""
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
-msgid "Line without formula"
-msgstr "Рядок без формули"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -2474,7 +2476,7 @@ msgstr "Члени цієї одиниці"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Method '%(method_name)s' must start with the '%(prefix)s' prefix."
-msgstr ""
+msgstr "Метод '%(method_name)s' повинен починатися з префіксу '%(prefix)s'."
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.misc_operations
@@ -2535,6 +2537,8 @@ msgid ""
 "Multiple draft tax closing entries exist for fiscal position %(position)s after %(period_start)s. There should be at most one. \n"
 " %(closing_entries)s"
 msgstr ""
+"Для схеми оподаткування існує кілька чернеток закриття податку %(position)s після %(period_start)s. Має бути не більше одного. \n"
+" %(closing_entries)s"
 
 #. module: account_reports
 #. odoo-python
@@ -2543,6 +2547,8 @@ msgid ""
 "Multiple draft tax closing entries exist for your domestic region after %(period_start)s. There should be at most one. \n"
 " %(closing_entries)s"
 msgstr ""
+"Для вашого регіону існує кілька чернеток закриття податку після %(period_start)s. Має бути не більше одного. \n"
+" %(closing_entries)s"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3368,14 +3374,14 @@ msgid "Show Warning Move"
 msgstr "Показувати попередження переміщення"
 
 #. module: account_reports
-#: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
-msgid "Single Recipient"
-msgstr ""
-
-#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 msgid "Show already generated deferrals."
+msgstr ""
+
+#. module: account_reports
+#: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
+msgid "Single Recipient"
 msgstr ""
 
 #. module: account_reports
@@ -3709,12 +3715,6 @@ msgid ""
 msgstr ""
 
 #. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
-msgid "The entry that will be generated will take them into account."
-msgstr "У записі, який буде згенеровано, їх буде враховано."
-
-#. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_report_annotation__fiscal_position_id
 msgid "The fiscal position used while annotating."
 msgstr ""
@@ -3831,14 +3831,12 @@ msgstr ""
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
-#, python-format
 msgid "This line is out of sequence."
 msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
-#, python-format
 msgid ""
 "This line is placed before its parent, which is not allowed. You can fix it "
 "by dragging it to the proper position."
@@ -4008,7 +4006,6 @@ msgstr "Нерозподілені прибутки"
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid "Undefined"
 msgstr "Невизначений"
 
@@ -4080,7 +4077,7 @@ msgstr "Значення"
 #. odoo-python
 #: code:addons/account_reports/models/account_move.py:0
 msgid "Vat closing from %(date_from)s to %(date_to)s"
-msgstr ""
+msgstr "Закриття ПДВ з %(date_from)s до %(date_to)s"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_tree

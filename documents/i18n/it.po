@@ -804,6 +804,12 @@ msgid "Activity Types"
 msgstr "Tipi di attività"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
+msgid "Activity assigned to"
+msgstr "Attività assegnata a "
+
+#. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_plan_action_document
 msgid ""
 "Activity plans are used to assign a list of activities in just a few clicks\n"
@@ -813,6 +819,8 @@ msgstr ""
 "                    (ad es. \"processo firma accordo di riservatezza\", \"Flusso di lavoro workspace\"...)"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_activity_type_id
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__activity_type_id
 msgid "Activity type"
@@ -1021,13 +1029,13 @@ msgstr "Si è verificato un errore durante il caricamento."
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Anyone on the internet with the link can edit"
-msgstr ""
+msgstr "Chiunque su Internet con il link può modificare"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Anyone on the internet with the link can view"
-msgstr ""
+msgstr "Chiunque su Internet con il link può visualizzare"
 
 #. module: documents
 #. odoo-javascript
@@ -1445,7 +1453,7 @@ msgstr "Abbandona"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Discoverable"
-msgstr ""
+msgstr "Individuabile"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_access__display_name
@@ -2103,13 +2111,13 @@ msgstr "Diritti utenti interni"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Internal users can edit"
-msgstr ""
+msgstr "Utenti interni possono modificare"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Internal users can view"
-msgstr ""
+msgstr "Utenti interni possono visualizzare"
 
 #. module: documents
 #. odoo-python
@@ -2539,6 +2547,12 @@ msgstr "Riepilogo prossima attività"
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_type_id
 msgid "Next Activity Type"
 msgstr "Tipologia prossima attività"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
+msgid "No activity"
+msgstr "Nessuna attività"
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_type_action_document
@@ -3116,7 +3130,7 @@ msgstr "Salvataggio in corso..."
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Search people"
-msgstr ""
+msgstr "Cerca persone"
 
 #. module: documents
 #. odoo-javascript
@@ -4168,3 +4182,9 @@ msgid ""
 msgstr ""
 "•\n"
 "                                        <b>URL</b>"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to read the permission panel data."
+msgstr "Non ti è consentito leggere i dati del pannello delle autorizzazioni."

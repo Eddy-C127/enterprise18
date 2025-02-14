@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2025
+# Abe Manyo, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:56+0000\n"
 "PO-Revision-Date: 2025-01-28 08:25+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Abe Manyo, 2025\n"
 "Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +23,7 @@ msgstr ""
 #. module: pos_urban_piper_enhancements
 #: model_terms:ir.actions.act_window,help:pos_urban_piper_enhancements.action_pos_store_timing
 msgid "Add a store timing"
-msgstr ""
+msgstr "Tambahkan timing toko"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_product_template_attribute_value__urbanpiper_pos_config_ids
@@ -32,7 +33,7 @@ msgstr "Tersedia pada Pengiriman Makanan"
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,help:pos_urban_piper_enhancements.field_product_template_attribute_value__urbanpiper_pos_config_ids
 msgid "Check this if the value is available for food delivery."
-msgstr ""
+msgstr "Centang ini bila value tersedia untuk pengiriman makanan."
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model,name:pos_urban_piper_enhancements.model_res_config_settings
@@ -57,7 +58,7 @@ msgstr "Dibuat pada"
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_pos_order__delivery_datetime
 msgid "Delivery Datetime"
-msgstr ""
+msgstr "Tanggalwaktu Pengiriman"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_pos_store_timing__display_name
@@ -73,12 +74,12 @@ msgstr "Jam Berakhir"
 #. odoo-javascript
 #: code:addons/pos_urban_piper_enhancements/static/src/point_of_sale_override/store/pos_store.js:0
 msgid "Error to send delivery order in preparation display."
-msgstr ""
+msgstr "Gagal untuk mengirim pesanan pengiriman di tampilan persiapan "
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,help:pos_urban_piper_enhancements.field_pos_order__is_notified
 msgid "Flag indicating if the delivery notification has been sent."
-msgstr ""
+msgstr "Bendera mengindikasikan bila notifikasi pengiriman sudah terkirim."
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields.selection,name:pos_urban_piper_enhancements.selection__pos_store_timing__weekday__friday
@@ -93,7 +94,7 @@ msgstr "ID"
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_pos_order__is_notified
 msgid "Is Notified"
-msgstr ""
+msgstr "Apakah Dinotifikasi"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_pos_store_timing__write_uid
@@ -108,13 +109,13 @@ msgstr "Terakhir Diperbarui pada"
 #. module: pos_urban_piper_enhancements
 #: model_terms:ir.actions.act_window,help:pos_urban_piper_enhancements.action_pos_store_timing
 msgid "Manage store timings for POS delivery order(s)."
-msgstr ""
+msgstr "Kelola timing toko untuk pesanan pengiriman POS."
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_pos_config__urbanpiper_minimum_preparation_time
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_res_config_settings__pos_urbanpiper_minimum_preparation_time
 msgid "Minimum Preparation Time (Seconds)"
-msgstr ""
+msgstr "Waktu Persiapan Minimum (Detik)"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields.selection,name:pos_urban_piper_enhancements.selection__pos_store_timing__weekday__monday
@@ -124,7 +125,7 @@ msgstr "Senin"
 #. module: pos_urban_piper_enhancements
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper_enhancements.view_pos_order_form_inherit_pos_urban_piper
 msgid "Online Order ID"
-msgstr ""
+msgstr "ID Pesanan Online"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model,name:pos_urban_piper_enhancements.model_pos_config
@@ -144,17 +145,17 @@ msgstr "Sesi Point of Sale"
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_pos_store_timing__config_ids
 msgid "Point of Sale accociated to this timing"
-msgstr ""
+msgstr "POS terkait dengan timing ini"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model,name:pos_urban_piper_enhancements.model_pos_store_timing
 msgid "Pos Store Timings"
-msgstr ""
+msgstr "Timing Toko POS"
 
 #. module: pos_urban_piper_enhancements
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper_enhancements.res_config_settings_view_form_pos_urban_piper_enhancements
 msgid "Preparation Time(seconds)"
-msgstr ""
+msgstr "Waktu Persiapan (detik)"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model,name:pos_urban_piper_enhancements.model_pos_preparation_display_order
@@ -185,18 +186,18 @@ msgstr "Sabtu"
 #. odoo-javascript
 #: code:addons/pos_urban_piper_enhancements/static/src/pos_preparation_display_override/components/order/order.xml:0
 msgid "Scheduled At:"
-msgstr ""
+msgstr "Dijadwalkan Pada:"
 
 #. module: pos_urban_piper_enhancements
 #. odoo-javascript
 #: code:addons/pos_urban_piper_enhancements/static/src/point_of_sale_override/store/pos_store.js:0
 msgid "Scheduled Order"
-msgstr ""
+msgstr "Pesanan Terjadwal"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,help:pos_urban_piper_enhancements.field_pos_order__delivery_datetime
 msgid "Scheduled delivery datetime for the delivery order."
-msgstr ""
+msgstr "Tanggalwaktu pengiriman terjadwal untuk pesanan pengiriman."
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields,field_description:pos_urban_piper_enhancements.field_pos_store_timing__start_hour
@@ -208,7 +209,7 @@ msgstr "Jam Mulai"
 #: model:ir.ui.menu,name:pos_urban_piper_enhancements.menu_products_pos_store_timing
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper_enhancements.view_pos_store_timing_list
 msgid "Store Timings"
-msgstr ""
+msgstr "Timing Toko"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields.selection,name:pos_urban_piper_enhancements.selection__pos_store_timing__weekday__sunday
@@ -227,12 +228,14 @@ msgid ""
 "The minimum amount of time the customer must wait for the order to be "
 "prepared."
 msgstr ""
+"Jumlah minimum waktu yang pelanggan harus tunggu untuk pesanan yang sedang "
+"disiapkan."
 
 #. module: pos_urban_piper_enhancements
 #. odoo-javascript
 #: code:addons/pos_urban_piper_enhancements/static/src/point_of_sale_override/screens/ticket_screen/ticket_screen.xml:0
 msgid "This order is scheduled order."
-msgstr ""
+msgstr "Pesanan ini adalah pesanan terjadwal."
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields.selection,name:pos_urban_piper_enhancements.selection__pos_store_timing__weekday__thursday
@@ -252,12 +255,12 @@ msgstr "Urban Piper"
 #. module: pos_urban_piper_enhancements
 #: model:ir.ui.menu,name:pos_urban_piper_enhancements.pos_menu_urban_piper_configuration
 msgid "UrbanPiper"
-msgstr ""
+msgstr "UrbanPiper"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.actions.server,name:pos_urban_piper_enhancements.cron_check_future_delivery_orders_ir_actions_server
 msgid "UrbanPiper: Notify future delivery orders"
-msgstr ""
+msgstr "UrbanPiper: Notifikasi pesanan pengiriman masa depan"
 
 #. module: pos_urban_piper_enhancements
 #: model:ir.model.fields.selection,name:pos_urban_piper_enhancements.selection__pos_store_timing__weekday__wednesday

@@ -6,7 +6,6 @@
 # Tina Milas, 2024
 # Đurđica Žarković <durdica.zarkovic@storm.hr>, 2024
 # Martin Trigaux, 2024
-# Luka Dimjašević, 2024
 # Milan Tribuson <one.mile.code@gmail.com>, 2024
 # Karolina Tonković <karolina.tonkovic@storm.hr>, 2024
 # Jasmina Otročak <jasmina@uvid.hr>, 2024
@@ -15,7 +14,8 @@
 # Bole <bole@dajmi5.com>, 2024
 # Vladimir Olujić <olujic.vladimir@storm.hr>, 2024
 # Servisi RAM d.o.o. <support@servisiram.hr>, 2024
-# Luka Carević <luka@uvid.hr>, 2024
+# Luka Carević <luka@uvid.hr>, 2025
+# Luka Dimjašević, 2025
 # 
 msgid ""
 msgstr ""
@@ -23,7 +23,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Luka Carević <luka@uvid.hr>, 2024\n"
+"Last-Translator: Luka Dimjašević, 2025\n"
 "Language-Team: Croatian (https://app.transifex.com/odoo/teams/41243/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -115,6 +115,9 @@ msgid ""
 "<br/> %(extra_text)s Future entries will be recomputed to depreciate the "
 "asset following the changes."
 msgstr ""
+"Stavka povećanja vrijednosti biti će proknjižena s datumom %(date)s. "
+"<br/>%(extra_text)s Neamortizirane stavke biti će ponovo izračunate sukladno"
+" iznosu povećanja vrijednosti."
 
 #. module: account_asset
 #. odoo-python
@@ -124,6 +127,8 @@ msgid ""
 " A disposal entry will be posted on the %(account_type)s account "
 "<b>%(account)s</b>."
 msgstr ""
+"Amortizacija će biti knjižena na datum %(date)s.<br/> Otpis će biti knjižen "
+"na %(account_type)s kontu gubitka <b>%(account)s</b>."
 
 #. module: account_asset
 #. odoo-python
@@ -133,6 +138,9 @@ msgid ""
 " A second entry will neutralize the original income and post the  outcome of"
 " this sale on account <b>%(account)s</b>."
 msgstr ""
+"Amortizacija će biti knjižena na datum %(date)s.<br/> Ovaj unos će "
+"neutralizirati izvorni prihod i knjižiti ishod ove prodaje na konto "
+"<b>%(account)s</b>."
 
 #. module: account_asset
 #. odoo-python

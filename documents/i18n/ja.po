@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Tiffany Chang, 2024
-# Wil Odoo, 2025
 # Junko Augias, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Junko Augias, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -795,6 +795,12 @@ msgid "Activity Types"
 msgstr "活動タイプ"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
+msgid "Activity assigned to"
+msgstr ""
+
+#. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_plan_action_document
 msgid ""
 "Activity plans are used to assign a list of activities in just a few clicks\n"
@@ -804,6 +810,8 @@ msgstr ""
 "                    (例 \"NDA署名プロセス\"、\"ワークスペースのワークフロー\"...)"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_activity_type_id
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__activity_type_id
 msgid "Activity type"
@@ -1004,13 +1012,13 @@ msgstr "アップロード中にエラーが発生しました。"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Anyone on the internet with the link can edit"
-msgstr ""
+msgstr "リンクを知っているインターネットユーザーなら誰でも編集できます"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Anyone on the internet with the link can view"
-msgstr ""
+msgstr "リンクを知っている人なら誰でも見ることができます"
 
 #. module: documents
 #. odoo-javascript
@@ -1420,7 +1428,7 @@ msgstr "破棄"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Discoverable"
-msgstr ""
+msgstr "閲覧可能"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_access__display_name
@@ -2069,13 +2077,13 @@ msgstr "内部ユーザ権"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Internal users can edit"
-msgstr ""
+msgstr "内部ユーザは編集できます"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Internal users can view"
-msgstr ""
+msgstr "内部ユーザは閲覧できます"
 
 #. module: documents
 #. odoo-python
@@ -2496,6 +2504,12 @@ msgstr "次の活動概要"
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_type_id
 msgid "Next Activity Type"
 msgstr "次の活動タイプ"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
+msgid "No activity"
+msgstr "活動なし"
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_type_action_document
@@ -3059,7 +3073,7 @@ msgstr "保存中..."
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Search people"
-msgstr ""
+msgstr "人を検索する"
 
 #. module: documents
 #. odoo-javascript
@@ -4079,3 +4093,9 @@ msgid ""
 msgstr ""
 "•\n"
 "                                        <b>URL</b>"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to read the permission panel data."
+msgstr ""

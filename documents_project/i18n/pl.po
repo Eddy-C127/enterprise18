@@ -3,8 +3,8 @@
 # 	* documents_project
 # 
 # Translators:
-# Wil Odoo, 2024
 # Marta Wacławek, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Marta Wacławek, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -297,6 +297,10 @@ msgid ""
 "\n"
 "Please update the company of all projects so that they remain in the same company as their workspace, or leave the company of the \"%(workspace)s\" workspace blank."
 msgstr ""
+"Nie można zmienić firmy tego projektu, ponieważ jego obszar roboczy jest powiązany z innymi następującymi projektami, które nadal znajdują się w firmie \"%(other_company)s\":\n"
+"%(other_workspaces)s\n"
+"\n"
+"Zaktualizuj firmę wszystkich projektów, aby pozostały w tej samej firmie, co ich obszar roboczy, lub pozostaw firmę obszaru roboczego \"%(workspace)s\" pustą."
 
 #. module: documents_project
 #. odoo-python
@@ -314,4 +318,4 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "new %(model)s from %(new_record)s"
-msgstr ""
+msgstr "nowy %(model)s od %(new_record)s"

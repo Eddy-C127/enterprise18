@@ -3,8 +3,9 @@
 # 	* account_auto_transfer
 # 
 # Translators:
-# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
 # Wil Odoo, 2024
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2025
+# Martin Trigaux, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Martin Trigaux, 2025\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -93,7 +94,7 @@ msgstr "Автоматична проводка"
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 msgid "Automatic Transfer (%(percent)s%% from account %(origin_account)s)"
-msgstr ""
+msgstr "Автоматична проводка (%(percent)s%% з рахунку %(origin_account)s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -108,6 +109,8 @@ msgid ""
 "Automatic Transfer (entries with analytic account(s): %(analytic_accounts)s "
 "and partner(s): %(partners)s)"
 msgstr ""
+"Автоматична проводка (записи з аналітичними рахунками: %(analytic_accounts)s"
+" та партнерами: %(partners)s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -128,6 +131,8 @@ msgid ""
 "Automatic Transfer (from account %(origin_account)s with analytic "
 "account(s): %(analytic_accounts)s and partner(s): %(partners)s)"
 msgstr ""
+"Автоматична проводка (з рахунку %(origin_account)s з аналітичним рахунком: "
+"%(analytic_accounts)s та партнером: %(partners)s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -136,6 +141,8 @@ msgid ""
 "Automatic Transfer (from account %(origin_account)s with analytic "
 "account(s): %(analytic_accounts)s)"
 msgstr ""
+"Автоматична проводка (з рахунку %(origin_account)s з аналітичним "
+"рахунком(и): %(analytic_accounts)s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -144,6 +151,8 @@ msgid ""
 "Automatic Transfer (from account %(origin_account)s with partner(s): "
 "%(partners)s)"
 msgstr ""
+"Автомтаична проводка (з рахунку %(origin_account)s з партнером: "
+"%(partners)s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -399,6 +408,8 @@ msgid ""
 "The partner filter %(partner_filter)s in combination with the analytic "
 "filter %(analytic_filter)s is duplicated"
 msgstr ""
+"Фільтр партнера %(partner_filter)s разом з аналітичним фільтром "
+"%(analytic_filter)s продубльовано"
 
 #. module: account_auto_transfer
 #. odoo-python

@@ -5,7 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Óscar Fonseca <tecnico@pyming.com>, 2024
-# Larissa Manderfeld, 2024
+# Larissa Manderfeld, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +39,7 @@ msgstr "# Calificación"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__sla_policy_count
 msgid "# SLA Policy"
-msgstr "# Política SLA"
+msgstr "# Política ANS"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__urgent_ticket
@@ -537,7 +537,7 @@ msgstr "<span>Informes</span>"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span>SLA Success Rate</span>"
-msgstr "<span>Tasa de éxito SLA</span>"
+msgstr "<span>Tasa de éxito ANS</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -1338,7 +1338,7 @@ msgstr "Objetivo diario"
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla_status__reached_datetime
 msgid "Datetime at which the SLA stage was reached for the first time"
-msgstr "Fecha/hora en la que se alcanzó por primera vez la etapa SLA"
+msgstr "Fecha/hora en la que se alcanzó por primera vez la etapa ANS"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla_report_analysis__sla_exceeded_hours
@@ -1346,7 +1346,7 @@ msgid ""
 "Day to reach the stage of the SLA, without taking the working calendar into "
 "account"
 msgstr ""
-"Día para alcanzar la etapa SLA, sin tomar en cuenta el calendario de trabajo"
+"Día para alcanzar la etapa ANS, sin tomar en cuenta el calendario de trabajo"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_status__deadline
@@ -1545,12 +1545,12 @@ msgstr "Fallido"
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__sla_fail
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__sla_fail
 msgid "Failed SLA Policy"
-msgstr "Política SLA fallida"
+msgstr "Política ANS fallida"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__sla_failed
 msgid "Failed SLA Ticket"
-msgstr "Ticket de SLA fallido"
+msgstr "Ticket de ANS fallido"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -1561,7 +1561,7 @@ msgstr "Tickets fallidos"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_fsm
 msgid "Field Service"
-msgstr "Servicio externo"
+msgstr "Servicio de campo"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
@@ -1722,12 +1722,12 @@ msgstr "Tiene un mensaje"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__sla_reached
 msgid "Has SLA reached"
-msgstr "Tiene SLA alcanzada"
+msgstr "Tiene ANS alcanzado"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__sla_reached_late
 msgid "Has SLA reached late"
-msgstr "Se excedió el tiempo del SLA"
+msgstr "Se excedió el tiempo del ANS"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.ticket_invitation_follower
@@ -1753,7 +1753,7 @@ msgstr "Información general del servicio de asistencia"
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_helpdesk_sla
 msgid "Helpdesk SLA Policies"
-msgstr "Políticas SLA del servicio de asistencia"
+msgstr "Políticas ANS del servicio de asistencia"
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_helpdesk_stage
@@ -2130,7 +2130,7 @@ msgid ""
 "Make sure tickets are handled in a timely manner by using SLA Policies.<br>"
 msgstr ""
 "Asegúrese de que los tickets se gestionan a tiempo utilizando las políticas "
-"SLA.<br>"
+"ANS.<br>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2141,7 +2141,7 @@ msgstr "Asegúrese de que los tickets se gestionan a tiempo"
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_sla_action_main
 msgid "Make sure tickets are handled on time by using SLA Policies.<br>"
 msgstr ""
-"Utilice políticas SLA y asegúrese de que los tickets se gestionan a "
+"Utilice políticas ANS y asegúrese de que los tickets se gestionan a "
 "tiempo.<br>"
 
 #. module: helpdesk
@@ -2212,7 +2212,7 @@ msgstr "Prioridad mínima "
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla__stage_id
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla_status__sla_stage_id
 msgid "Minimum stage a ticket needs to reach in order to satisfy this SLA."
-msgstr "Etapa mínima que necesita un ticket para cumplir con este SLA."
+msgstr "Etapa mínima que necesita un ticket para cumplir con este ANS."
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_ir_module_module
@@ -2319,7 +2319,7 @@ msgstr "Sin cliente"
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_sla_action
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_sla_action_main
 msgid "No SLA policies found. Let's create one!"
-msgstr "No se encontraron políticas SLA ¡Creemos una!"
+msgstr "No se encontraron políticas ANS ¡Creemos una!"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.mail_activity_type_action_config_helpdesk
@@ -2391,7 +2391,7 @@ msgstr "Número de acciones"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_status_failed
 msgid "Number of SLAs Failed"
-msgstr "Número de SLA fallida"
+msgstr "Número de ANS fallidos"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage_delete_wizard__ticket_count
@@ -2419,7 +2419,7 @@ msgstr "Número de mensajes con error de envío"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "Number of open tickets with at least one SLA failed."
-msgstr "Número de tickets abiertos con al menos un SLA fallido"
+msgstr "Número de tickets abiertos con al menos un ANS fallido"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__partner_open_ticket_count
@@ -2562,7 +2562,7 @@ msgstr "Porcentaje de calificaciones positivas"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 msgid "Percentage of tickets that were closed without failing any SLAs."
-msgstr "Porcentaje de tickets que se cerraron sin fallar el SLA."
+msgstr "Porcentaje de tickets que se cerraron sin fallar el ANS."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -2570,7 +2570,7 @@ msgid ""
 "Percentage of tickets whose SLAs have successfully been reached on time over"
 " the total number of tickets closed within the past 7 days."
 msgstr ""
-"Porcentaje de tickets cuyos SLA se han alcanzado a tiempo con éxito sobre el"
+"Porcentaje de tickets cuyos ANS se han alcanzado a tiempo con éxito sobre el"
 " total de tickets cerrados en los últimos 7 días. "
 
 #. module: helpdesk
@@ -2846,14 +2846,14 @@ msgstr "Devoluciones"
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_id
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "SLA"
-msgstr "SLA"
+msgstr "ANS"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_deadline
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__sla_deadline
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "SLA Deadline"
-msgstr "Fecha límite de SLA"
+msgstr "Fecha límite de ANS"
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_report_analysis__sla_status__failed
@@ -2861,7 +2861,7 @@ msgstr "Fecha límite de SLA"
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "SLA Failed"
-msgstr "SLA fallido"
+msgstr "ANS fallido"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_sla_action
@@ -2874,7 +2874,7 @@ msgstr "SLA fallido"
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_tree
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "SLA Policies"
-msgstr "Políticas SLA"
+msgstr "Políticas ANS"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_res_partner__sla_ids
@@ -2883,30 +2883,30 @@ msgid ""
 "SLA Policies that will automatically apply to the tickets submitted by this "
 "customer."
 msgstr ""
-"Políticas SLA que se aplicarán automáticamente a los tickets que este "
+"Políticas ANS que se aplicarán automáticamente a los tickets que este "
 "cliente envíe."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
 msgid "SLA Policy"
-msgstr "Política SLA"
+msgstr "Política ANS"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__description
 msgid "SLA Policy Description"
-msgstr "Descripción de la política SLA"
+msgstr "Descripción de la política ANS"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_stage_id
 msgid "SLA Stage"
-msgstr "Etapa del SLA"
+msgstr "Etapa del ANS"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_status_ids
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__sla_status_ids
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__sla_status_ids
 msgid "SLA Status"
-msgstr "Estado del SLA"
+msgstr "Estado del ANS"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_sla_report_analysis_action
@@ -2918,38 +2918,38 @@ msgstr "Estado del SLA"
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_report_analysis_view_pivot
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "SLA Status Analysis"
-msgstr "Análisis del estado de SLA"
+msgstr "Análisis del estado de ANS"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_fail
 msgid "SLA Status Failed"
-msgstr "Estado del SLA fallido"
+msgstr "Estado del ANS fallido"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_success
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__sla_success
 msgid "SLA Status Success"
-msgstr "Estado del SLA éxitoso"
+msgstr "Estado del ANS éxitoso"
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_report_analysis__sla_status__reached
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "SLA Success"
-msgstr "SLA exitoso"
+msgstr "ANS exitoso"
 
 #. module: helpdesk
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 msgid "SLA Success Rate"
-msgstr "Tasa de éxito del SLA "
+msgstr "Tasa de éxito del ANS "
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_report_analysis__sla_status__ongoing
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "SLA in Progress"
-msgstr "SLA en proceso"
+msgstr "ANS en proceso"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_ids
@@ -2998,7 +2998,7 @@ msgstr "Planifique su <b>actividad</b>."
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_search
 msgid "Search SLA Policies"
-msgstr "Buscar políticas SLA"
+msgstr "Buscar políticas ANS"
 
 #. module: helpdesk
 #. odoo-python
@@ -3118,7 +3118,7 @@ msgstr "Muestre las calificaciones de clientes"
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_use_sla
 msgid "Show SLA Policies"
-msgstr "Mostrar políticas SLA"
+msgstr "Mostrar políticas ANS"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
@@ -3238,7 +3238,7 @@ msgstr "Análisis de tasa de éxito"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__sla_success
 msgid "Success SLA Policy"
-msgstr "Política de éxito SLA"
+msgstr "Política de éxito ANS"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tag_view_tree
@@ -3326,7 +3326,7 @@ msgid ""
 "calculation of the SLA."
 msgstr ""
 "El tiempo que se invierte en estas etapas no se tomará en cuenta en los "
-"cálculos de SLA."
+"cálculos de ANS."
 
 #. module: helpdesk
 #. odoo-python
@@ -3355,7 +3355,7 @@ msgid ""
 "This SLA Policy will apply to tickets matching ALL of the following "
 "criteria:"
 msgstr ""
-"Esta política SLA será aplicable a los tickets que cumplan con TODOS los "
+"Esta política ANS será aplicable a los tickets que cumplan con TODOS los "
 "siguientes criterios:"
 
 #. module: helpdesk
@@ -3387,14 +3387,14 @@ msgstr ""
 #. odoo-python
 #: code:addons/helpdesk/models/helpdesk_ticket.py:0
 msgid "This ticket was closed %s hours after its SLA deadline."
-msgstr "Este ticket se cerró %s horas después de su fecha límite de SLA."
+msgstr "Este ticket se cerró %s horas después de su fecha límite de ANS."
 
 #. module: helpdesk
 #. odoo-python
 #: code:addons/helpdesk/models/helpdesk_ticket.py:0
 msgid "This ticket was successfully closed %s hours before its SLA deadline."
 msgstr ""
-"Este ticket se cerró con éxito %s horas antes de su fecha límite de SLA."
+"Este ticket se cerró con éxito %s horas antes de su fecha límite de ANS."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_confirmation_wizard
@@ -3496,7 +3496,7 @@ msgstr "Ticket calificado"
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_helpdesk_sla_status
 msgid "Ticket SLA Status"
-msgstr "Estado SLA del ticket"
+msgstr "Estado ANS del ticket"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.quick_create_ticket_form
@@ -3651,7 +3651,7 @@ msgid ""
 "how quickly you reach your service level agreements (SLAs)."
 msgstr ""
 "Rastree el rendimiento de sus equipos, la tasa de éxito de sus tickets y qué"
-" tan rápido puede cumplir con el acuerdo de nivel de servicio (SLA)."
+" tan rápido puede cumplir con el acuerdo de nivel de servicio (ANS)."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3838,7 +3838,7 @@ msgstr "Horas de trabajo para cerrar"
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__sla_deadline_hours
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__ticket_deadline_hours
 msgid "Working Hours until SLA Deadline"
-msgstr "Horas laborales hasta la fecha límite de SLA"
+msgstr "Horas laborales hasta la fecha límite de ANS"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla_status__exceeded_hours
@@ -3846,8 +3846,8 @@ msgid ""
 "Working hours exceeded for reached SLAs compared with deadline. Positive "
 "number means the SLA was reached after the deadline."
 msgstr ""
-"Se excedieron las horas de trabajo para las SLA alcanzadas en comparación "
-"con la fecha límite. Un número positivo significa que el SLA se alcanzó "
+"Se excedieron las horas de trabajo para las ANS alcanzadas en comparación "
+"con la fecha límite. Un número positivo significa que el ANS se alcanzó "
 "después de la fecha límite."
 
 #. module: helpdesk
@@ -3855,7 +3855,7 @@ msgstr ""
 msgid "Working hours used to determine the deadline of SLA Policies."
 msgstr ""
 "Horas de trabajo que se usan para determinar le fecha límite de las "
-"políticas SLA"
+"políticas ANS"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_unarchive_wizard

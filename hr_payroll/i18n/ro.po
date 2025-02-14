@@ -5,7 +5,9 @@
 # Translators:
 # Larisa Pop, 2024
 # Lyall Kindmurr, 2024
-# Wil Odoo, 2024
+# Wil Odoo, 2025
+# Dorin Hongu <dhongu@gmail.com>, 2025
+# Betty Keresztesi, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Betty Keresztesi, 2025\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +45,7 @@ msgstr "# Fluturaș de salariu"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payroll_declaration_mixin.py:0
 msgid "%(employee_name)s-declaration-%(year)s"
-msgstr ""
+msgstr "%(employee_name)s-declaration-%(year)s"
 
 #. module: hr_payroll
 #. odoo-python
@@ -56,6 +58,12 @@ msgid ""
 "- Salary rule: %(name)s (%(code)s)\n"
 "- Error: %(error_message)s"
 msgstr ""
+"%(error_type)s\n"
+"- Angajat: %(employee)s\n"
+"- Contract: %(contract)s\n"
+"- Foaie de salariu: %(payslip)s\n"
+"- Regula salarială: %(name)s (%(code)s)\n"
+"- Eroare: %(error_message)s"
 
 #. module: hr_payroll
 #. odoo-python
@@ -67,7 +75,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "%(start_date_string)s and %(end_date_string)s"
-msgstr ""
+msgstr "%(start_date_string)s și %(end_date_string)s"
 
 #. module: hr_payroll
 #. odoo-python
@@ -2028,7 +2036,7 @@ msgstr "De la"
 #. odoo-python
 #: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:0
 msgid "From %(from_date)s to %(end_date)s"
-msgstr ""
+msgstr "De la %(from_date)s la %(end_date)s"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_form
@@ -2799,12 +2807,6 @@ msgstr "Noi angajați"
 #: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:0
 msgid "New Payslip"
 msgstr "Fluturaș de salariu net"
-
-#. module: hr_payroll
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_calendar_event_id
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Următoarea activitate din calendar"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_date_deadline
@@ -3622,7 +3624,7 @@ msgstr "Cantitate/Rata"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "Quarter %(quarter)s of %(year)s"
-msgstr ""
+msgstr "Trimestrul %(quarter)s din %(year)s"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__quarterly
@@ -4454,6 +4456,9 @@ msgid ""
 "There's no contract set on payslip %(payslip)s for %(employee)s. Check that "
 "there is at least a contract set on the employee form."
 msgstr ""
+"Nu există niciun contract stabilit pe fluturașul de salariu %(payslip)s "
+"pentru %(employee)s. Verificați dacă există cel puțin un contract stabilit "
+"pe formularul angajatului."
 
 #. module: hr_payroll
 #. odoo-python
@@ -4655,7 +4660,9 @@ msgid "Unknown State"
 msgstr "Stare necunoscută"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_hr_work_entry_type_view_form_inherit
+#: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Unpaid"
 msgstr "Neplătit"
 
@@ -4789,7 +4796,7 @@ msgstr "Tip Salariu"
 #. odoo-python
 #: code:addons/hr_payroll/wizard/hr_payroll_index_wizard.py:0
 msgid "Wage indexed by %(percentage).2f%% on %(date)s"
-msgstr ""
+msgstr "Salariu indexat cu %(percentage).2f%% pe %(date)s"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip__state__verify
@@ -5122,6 +5129,8 @@ msgid ""
 "Wrong rule parameter value for %(rule_parameter_name)s at date %(date)s.\n"
 "%(error)s"
 msgstr ""
+"Valoarea parametrului de regulă greșită pentru %(rule_parameter_name)s la data %(date)s.\n"
+"%(error)s"
 
 #. module: hr_payroll
 #. odoo-python
@@ -5194,6 +5203,13 @@ msgstr "Nu puteți valida o plată de plată anulată."
 
 #. module: hr_payroll
 #. odoo-python
+#: code:addons/hr_payroll/models/hr_payslip.py:0
+#, python-format
+msgid "You cannot cancel the payment if the payslip has not been paid."
+msgstr ""
+
+#. module: hr_payroll
+#. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip_input_type.py:0
 msgid ""
 "You cannot delete %s as it is used in another module but you can archive it "
@@ -5253,6 +5269,8 @@ msgstr ""
 #: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
 msgid "You must be logged in a %(country_code)s company to use this feature"
 msgstr ""
+"Trebuie să fiți conectat la o companie %(country_code)s pentru a utiliza "
+"această funcție"
 
 #. module: hr_payroll
 #. odoo-python

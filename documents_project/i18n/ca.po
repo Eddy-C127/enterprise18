@@ -9,7 +9,8 @@
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2024
 # marcescu, 2024
 # Óscar Fonseca <tecnico@pyming.com>, 2024
-# Ivan Espinola, 2024
+# Ivan Espinola, 2025
+# Guspy12, 2025
 # 
 msgid ""
 msgstr ""
@@ -17,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:53+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ivan Espinola, 2024\n"
+"Last-Translator: Guspy12, 2025\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -302,6 +303,10 @@ msgid ""
 "\n"
 "Please update the company of all projects so that they remain in the same company as their workspace, or leave the company of the \"%(workspace)s\" workspace blank."
 msgstr ""
+"No podeu canviar l'empresa d'aquest projecte, perquè el seu espai de treball està enllaçat amb els altres projectes següents que encara estan a l'empresa «%(other_company)s»:\n"
+"%(other_workspaces)s\n"
+"\n"
+"Actualitzeu l'empresa de tots els projectes perquè romanguin a la mateixa empresa que l'espai de treball, o deixeu l'empresa de l'espai de treball \"%(workspace)s\" en blanc."
 
 #. module: documents_project
 #. odoo-python
@@ -319,4 +324,4 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "new %(model)s from %(new_record)s"
-msgstr ""
+msgstr "nou %(model)s des de %(new_record)s"

@@ -714,6 +714,9 @@ msgid ""
 "This functionality is advanced/technical and should only be used if you know what you are doing.\n"
 "More info on https://www.developer.fedex.com"
 msgstr ""
+"Data ekstra di FedEx diatur seperti bagian dalam file json.\n"
+"Fungsionalitas ini advanced/teknis dan harus hanya digunakan bila Anda paham apa yang Anda lakukan.\n"
+"Informasi lebih lanjut di https://www.developer.fedex.com"
 
 #. module: delivery_fedex_rest
 #. odoo-python
@@ -724,17 +727,17 @@ msgstr "Nomor Pelacak:"
 #. module: delivery_fedex_rest
 #: model:ir.model.fields.selection,name:delivery_fedex_rest.selection__delivery_carrier__fedex_rest_service_type__transborder_distribution
 msgid "Transborder distribution"
-msgstr ""
+msgstr "Distribusi lintas perbatasan"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,field_description:delivery_fedex_rest.field_delivery_carrier__fedex_rest_override_shipper_vat
 msgid "Union tax id (EORI/IOSS)"
-msgstr ""
+msgstr "Union tax id (EORI/IOSS)"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,help:delivery_fedex_rest.field_uom_uom__fedex_code
 msgid "UoM Code sent to FedEx"
-msgstr ""
+msgstr "Kode UoM dikirim ke FedEx"
 
 #. module: delivery_fedex_rest
 #. odoo-python
@@ -743,6 +746,8 @@ msgid ""
 "Warning(s) from FedEx:\n"
 "%s"
 msgstr ""
+"Peringatan dari FedEx:\n"
+"%s"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,help:delivery_fedex_rest.field_delivery_carrier__fedex_rest_email_notifications
@@ -750,6 +755,8 @@ msgid ""
 "When enabled, the customer will receive email notifications from FedEx about"
 " this shipment (when an email address is configured on the customer)"
 msgstr ""
+"Saat diaktifkan, pelanggan akan menerima notifikasi email dari FedEx "
+"mengenai pengiriman ini (kapan alamat email dikonfigurasi pada pelanggan)"
 
 #. module: delivery_fedex_rest
 #: model:ir.model.fields,help:delivery_fedex_rest.field_delivery_carrier__fedex_rest_override_shipper_vat
@@ -760,6 +767,11 @@ msgid ""
 "provided the regular tax id on the company will be used with type "
 "BUSINESS_NATIONAL."
 msgstr ""
+"Akan disediakan ke FedEx sebagai pengidentifikasi pajak perusahaan primer "
+"tipe BUSINESS_UNION untuk dimasukkan pada faktur yang dibuat. Gunakan ini "
+"saat Anda harus menggunakan nomor IOSS atau EORI di atas nomor pajak "
+"nasional. Saat tidak disediakan ID pajak reguler pada perusahaan akan "
+"digunakan dengan tipe BUSINESS_NATIONAL."
 
 #. module: delivery_fedex_rest
 #. odoo-python
@@ -775,4 +787,4 @@ msgstr "ZPLII"
 #. module: delivery_fedex_rest
 #: model_terms:ir.ui.view,arch_db:delivery_fedex_rest.view_delivery_carrier_form_with_provider_fedex
 msgid "to create a FedEx developer account"
-msgstr ""
+msgstr "untuk membuat akun developer FedEx"

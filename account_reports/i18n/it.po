@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-25 17:23+0000\n"
+"POT-Creation-Date: 2025-02-10 15:41+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Marianna Ciofani, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/odoo/teams/41243/it/)\n"
@@ -381,8 +381,6 @@ msgid "Accounts"
 msgstr "Conti"
 
 #. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Accounts Coverage Report"
 msgstr "Rendiconto copertura conti"
@@ -1370,12 +1368,14 @@ msgstr "Deducibile "
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 msgid "Deferrals have not yet been completely generated for this period."
 msgstr ""
+"Per questo periodo, i differimenti non sono stati ancora generati "
+"completamente."
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 msgid "Deferrals have not yet been generated for this period."
-msgstr ""
+msgstr "Per questo periodo, i differimenti non sono stati ancora generati."
 
 #. module: account_reports
 #. odoo-python
@@ -1776,6 +1776,8 @@ msgstr "Il campo%s non esiste su  account.move.line."
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Field %s of account.move.line cannot be used in a groupby expression."
 msgstr ""
+"Il campo %s di account.move.line non può essere utilizzato nell'espressione "
+"raggruppa per."
 
 #. module: account_reports
 #. odoo-python
@@ -1784,6 +1786,8 @@ msgid ""
 "Field %s of account.move.line is not searchable and can therefore not be "
 "used in a groupby expression."
 msgstr ""
+"Non è possibile cercare il campo %s di account.move.line e quindi non può "
+"essere usato nell'espressione raggruppa per."
 
 #. module: account_reports
 #. odoo-python
@@ -2448,19 +2452,12 @@ msgstr "Riga"
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid ""
 "Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
 "This is not allowed."
 msgstr ""
 "La riga '%(child)s' è configurata per l'apparizione prima della riga "
 "principale '%(parent)s'. Questo non è consentito."
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
-msgid "Line without formula"
-msgstr "Riga senza formula"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -3438,15 +3435,15 @@ msgid "Show Warning Move"
 msgstr "Mostra avviso movimento"
 
 #. module: account_reports
-#: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
-msgid "Single Recipient"
-msgstr "Destinatario singolo"
-
-#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 msgid "Show already generated deferrals."
-msgstr ""
+msgstr "Mostra già differimenti generati."
+
+#. module: account_reports
+#: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
+msgid "Single Recipient"
+msgstr "Destinatario singolo"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3788,12 +3785,6 @@ msgstr ""
 "alla periodicità impostata."
 
 #. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
-msgid "The entry that will be generated will take them into account."
-msgstr "La registrazione creata ne terrà conto."
-
-#. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_report_annotation__fiscal_position_id
 msgid "The fiscal position used while annotating."
 msgstr "Posizione di bilancio utilizzata durante il commento."
@@ -3913,14 +3904,12 @@ msgstr ""
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
-#, python-format
 msgid "This line is out of sequence."
 msgstr "Questa riga è fuori dalla sequenza."
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
-#, python-format
 msgid ""
 "This line is placed before its parent, which is not allowed. You can fix it "
 "by dragging it to the proper position."
@@ -4105,7 +4094,6 @@ msgstr "Utili non assegnati"
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid "Undefined"
 msgstr "Non definito"
 

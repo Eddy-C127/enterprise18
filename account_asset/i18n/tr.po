@@ -4,8 +4,6 @@
 # 
 # Translators:
 # emre oktem, 2024
-# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2024
-# Mehmet YAYLA, 2024
 # İlknur Püskül <ilknurpuskull@gmail.com>, 2024
 # Buket Şeker <buket_skr@hotmail.com>, 2024
 # Ramiz Deniz Öner <deniz@denizoner.com>, 2024
@@ -21,8 +19,10 @@
 # Nadir Gazioglu <nadirgazioglu@gmail.com>, 2024
 # Umur Akın <umura@projetgrup.com>, 2024
 # Murat Kaplan <muratk@projetgrup.com>, 2024
-# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2024
 # Melih Melik Sonmez, 2025
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2025
+# Mehmet YAYLA, 2025
+# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2025
 # 
 msgid ""
 msgstr ""
@@ -30,7 +30,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Melih Melik Sonmez, 2025\n"
+"Last-Translator: Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2025\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -124,6 +124,9 @@ msgid ""
 "<br/> %(extra_text)s Future entries will be recomputed to depreciate the "
 "asset following the changes."
 msgstr ""
+"%(date)s tarihinde ve bu tarihi içeren bir amortisman girişi "
+"yayınlanacaktır. 1 %(extra_text)s Gelecekteki girişler, değişikliklerin "
+"ardından varlığın amortismanı için yeniden hesaplanacaktır."
 
 #. module: account_asset
 #. odoo-python
@@ -155,6 +158,8 @@ msgstr ""
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "A document linked to %(move_line_name)s has been deleted: %(link)s"
 msgstr ""
+"Bağlantılı bir belge %(move_line_name)s silindi: %(link)s\n"
+" "
 
 #. module: account_asset
 #. odoo-python
@@ -857,13 +862,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "Depreciation entry %(name)s posted (%(value)s)"
-msgstr ""
+msgstr "Amortisman kaydı %(name)s onaylandı (%(value)s)"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "Depreciation entry %(name)s reversed (%(value)s)"
-msgstr ""
+msgstr "Amortisman kaydı %(name)s geri alındı (%(value)s)"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__display_account_asset_id
@@ -1148,6 +1153,8 @@ msgid ""
 "Journal Items of %(account)s should have a label in order to generate an "
 "asset"
 msgstr ""
+"Yevmiye kalemlerinin %(account)s varlık oluşturmak için bir etiketi "
+"olmalıdır"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__write_uid

@@ -7,15 +7,14 @@
 # emre oktem, 2024
 # Ahmet Altinisik <aaltinisik@altinkaya.com.tr>, 2024
 # Umur Akın <umura@projetgrup.com>, 2024
-# Murat Durmuş <muratd@projetgrup.com>, 2024
 # Murat Kaplan <muratk@projetgrup.com>, 2024
 # Levent Karakaş <levent@mektup.at>, 2024
+# Tugay Hatıl <tugayh@projetgrup.com>, 2024
 # Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2024
 # İlknur Gözütok, 2024
 # Özlem Atalay <ozlema@eskayazilim.com.tr>, 2024
-# Tugay Hatıl <tugayh@projetgrup.com>, 2024
-# Halil, 2024
 # Wil Odoo, 2024
+# Cengiz Cokay Global Nonwoven, 2025
 # 
 msgid ""
 msgstr ""
@@ -23,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Cengiz Cokay Global Nonwoven, 2025\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,11 +34,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
 msgid "<i class=\"fa fa-print\"/> Print barcode commands and operation types"
 msgstr ""
+"<i class=\"fa fa-print\"/>barkod talimatları ve operasyon tiplerini yazdır"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
 msgid "<i class=\"fa fa-print\"/> Print barcode demo sheet"
-msgstr ""
+msgstr "<i class=\"fa fa-print\"/> Barkod demosu yazdır"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -50,7 +50,7 @@ msgstr "Komponent Ekle"
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.view_picking_type_form
 msgid "Allow full order validation"
-msgstr ""
+msgstr "Tamm üretim doğrulamaya izin ver"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,help:stock_barcode_mrp.field_stock_move_line__pick_type_create_components_lots
@@ -61,6 +61,7 @@ msgstr "Bileşenler için yeni lot / seri numaraları oluşturulmasına izin ver
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.view_picking_type_form
 msgid "Allow user to produce all even if no components were scanned"
 msgstr ""
+"Komponent taraması yapılmasa da Kullanıcıya Üretimi Tamamlamaya izin ver"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -82,13 +83,13 @@ msgstr "Barkod Kural Seti"
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "Cancel Manufacturing Order"
-msgstr ""
+msgstr "Üretim Emrini İptal et"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/components/main.js:0
 msgid "Cancel manufacturing order?"
-msgstr ""
+msgstr "Üretim Emri İptal edilsin mi?"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
@@ -104,7 +105,7 @@ msgstr "Onayla"
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_stock_picking_type__count_mo_confirmed
 msgid "Count Mo Confirmed"
-msgstr ""
+msgstr "Üretim Emri Miktarı Doğrulandı"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_stock_move_line__pick_type_create_components_lots
@@ -114,7 +115,7 @@ msgstr " Bileşenler için yeni lot/seri numaraları oluştur."
 #. module: stock_barcode_mrp
 #: model_terms:ir.actions.act_window,help:stock_barcode_mrp.mrp_action_kanban
 msgid "Create a new Manufacturing Order"
-msgstr ""
+msgstr "Yeni bir Üretim Emri oluştur"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
@@ -125,12 +126,12 @@ msgstr "Hedef Konum"
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_barcode_form
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
 msgid "Discard"
-msgstr "Sil"
+msgstr "Sil Göz Ardı Et"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_mrp_production__is_completed
 msgid "Is Completed"
-msgstr "Tamamlandı"
+msgstr "Tamamlandı mı"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_stock_move_line__manual_consumption
@@ -167,13 +168,13 @@ msgstr "Yeni"
 #. odoo-python
 #: code:addons/stock_barcode_mrp/models/mrp_production.py:0
 msgid "No Manufacturing Order ready for this %(barcode_type)s"
-msgstr ""
+msgstr "Bu %(barcode_type) için hazır Üretim Emri yok"
 
 #. module: stock_barcode_mrp
 #. odoo-python
 #: code:addons/stock_barcode_mrp/models/mrp_production.py:0
 msgid "No product or order found for barcode %s"
-msgstr ""
+msgstr "%s Bu barkod için Ürün yada Emir bulunamadı"
 
 #. module: stock_barcode_mrp
 #: model:ir.actions.act_window,name:stock_barcode_mrp.mrp_action_kanban
@@ -189,19 +190,19 @@ msgstr "Toplama Türü"
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "Print Finished Product Label (PDF)"
-msgstr ""
+msgstr "Üretilmiş Ürün  Etiketini Yazdır (PDF)"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "Print Finished Product Label (ZPL)"
-msgstr ""
+msgstr "Üretilmiş Ürün Etiketini Yazdır (ZPL)"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "Print Production Order"
-msgstr ""
+msgstr "Üretim Emrini yazdır"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -213,13 +214,13 @@ msgstr "Üret"
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "Produce All"
-msgstr ""
+msgstr "Tümünü Üret"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/components/header.xml:0
 msgid "Producing"
-msgstr ""
+msgstr "Üretiliyor"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
@@ -240,7 +241,7 @@ msgstr "Ürün Varyantı"
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "Product not Allowed"
-msgstr ""
+msgstr "Ürüne izin verilmedi"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
@@ -251,25 +252,29 @@ msgstr "Miktar"
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "Scan a component"
-msgstr ""
+msgstr "Birleşen veya Komponent Taraması Yap"
 
 #. module: stock_barcode_mrp
 #. odoo-python
 #: code:addons/stock_barcode_mrp/models/mrp_production.py:0
 msgid "Scan a product to filter the orders."
-msgstr ""
+msgstr "Emirleri filtrelemek için Ürün Taraması Yap."
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
-#: code:addons/stock_barcode_mrp/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-msgid "Scan an"
-msgstr "Tara"
+#: code:addons/stock_barcode_mrp/static/src/kanban/stock_barcode_kanban_renderer.js:0
+msgid ""
+"Scan an %(bold_start)s order %(bold_end)s or a %(bold_start)s product "
+"%(bold_end)s to filter your records"
+msgstr ""
+"%(bold_start) ürününün Üretim Emrini %(bold_end)s veya  %(bold_start)s "
+"Ürününü %(bold_end)s kayıtlarını filtrelemek için Tara"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "Scan your final product or more components"
-msgstr ""
+msgstr "Final Mamül veya Komponent Taraması Yap"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
@@ -286,7 +291,7 @@ msgstr "Stok Hareketi"
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "The Manufacturing Order has been cancelled"
-msgstr ""
+msgstr "Üretim Emri iptal edildi"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -300,25 +305,25 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "The manufacturing order has been validated"
-msgstr ""
+msgstr "Üretim emri doğrulandı"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "This order is already done"
-msgstr ""
+msgstr "Bu Emir zaten tamamlandı"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "This order is cancelled"
-msgstr ""
+msgstr "Bu Emir iptal edildi"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "To produce more products create a new MO."
-msgstr ""
+msgstr "Daha fazla üretim için yeni bir Üretim Emri oluştur."
 
 #. module: stock_barcode_mrp
 #: model:ir.model,name:stock_barcode_mrp.model_stock_picking
@@ -354,28 +359,4 @@ msgstr "Tamamlandı olarak işaretleme veya ön teslimat oluşturma sihirbazı"
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "You can't add the final product of a MO as a byproduct."
-msgstr ""
-
-#. module: stock_barcode_mrp
-#. odoo-javascript
-#: code:addons/stock_barcode_mrp/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-msgid "or a"
-msgstr "or a"
-
-#. module: stock_barcode_mrp
-#. odoo-javascript
-#: code:addons/stock_barcode_mrp/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-msgid "order"
-msgstr ""
-
-#. module: stock_barcode_mrp
-#. odoo-javascript
-#: code:addons/stock_barcode_mrp/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-msgid "product"
-msgstr "ürün"
-
-#. module: stock_barcode_mrp
-#. odoo-javascript
-#: code:addons/stock_barcode_mrp/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-msgid "to filter your records"
-msgstr ""
+msgstr "Bir Üretim Emri için final ürün yan ürün olarak tanımlanamaz."

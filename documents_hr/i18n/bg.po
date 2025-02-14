@@ -9,14 +9,15 @@
 # Martin Trigaux, 2024
 # aleksandar ivanov, 2024
 # Ивайло Малинов <iv.malinov@gmail.com>, 2024
+# margarita.katzeva, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:53+0000\n"
+"POT-Creation-Date: 2025-02-10 15:42+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ивайло Малинов <iv.malinov@gmail.com>, 2024\n"
+"Last-Translator: margarita.katzeva, 2025\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +28,7 @@ msgstr ""
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.documents_hr_portal_view
 msgid "<i class=\"fa fa-download fa-fw\"/> Download file"
-msgstr ""
+msgstr "<i class=\"fa fa-download fa-fw\"/> Свали файла"
 
 #. module: documents_hr
 #: model:mail.template,body_html:documents_hr.mail_template_document_folder_link
@@ -48,6 +49,21 @@ msgid ""
 "    </tbody></table>\n"
 "                "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0px auto;\"><tbody>\n"
+"        <tr><td valign=\"top\" style=\"text-align: left; font-size: 14px;\">\n"
+"           Уважаеми/а <t t-esc=\"object.name\"/>, твоят личен линк за достъп до документи е наличен за теб.<br/><br/>\n"
+"           Ще намериш всички твои документи, свързани с ЧР в тази папка.<br/><br/>\n"
+"            Пази този линк на сигурно място.<br/><br/>\n"
+"            <div style=\"text-align: center; padding: 16px 0px 16px 0px; font-size: 14px;\">\n"
+"                <a t-attf-href=\"{{ object._get_documents_link_url() }}\" target=\"_blank\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                    Твоите документи\n"
+"                </a>\n"
+"            </div>\n"
+"            Приятен ден,<br/>\n"
+"           Отдел ЧР\n"
+"        </td></tr>\n"
+"    </tbody></table>\n"
+"                "
 
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_tag_absences
@@ -88,16 +104,14 @@ msgstr "Документ"
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_employee__document_count
 msgid "Document Count"
-msgstr ""
+msgstr "Брой документи"
 
 #. module: documents_hr
 #: model:ir.model,name:documents_hr.model_documents_redirect
 msgid "Document Redirect"
-msgstr ""
+msgstr "Пренасочване на документи"
 
 #. module: documents_hr
-#. odoo-python
-#: code:addons/documents_hr/models/res_users.py:0
 #: model:ir.model.fields,field_description:documents_hr.field_res_users__document_count
 #: model_terms:ir.ui.view,arch_db:documents_hr.hr_employee_view_form
 #: model_terms:ir.ui.view,arch_db:documents_hr.res_users_view_form
@@ -112,7 +126,7 @@ msgstr "Настройки на документи Човешки ресурси
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.documents_hr_portal_view
 msgid "Download file"
-msgstr ""
+msgstr "Изтегляне на файл"
 
 #. module: documents_hr
 #: model:ir.model,name:documents_hr.model_hr_employee
@@ -127,6 +141,8 @@ msgid ""
 "Employee's related user and private email must be set to use \"Send Access Link\" function:\n"
 "%s"
 msgstr ""
+"Потребителското име на служителя и личният му имейл трябва да бъдат настроени да използват функцията „Изпращане на линк за достъп“:\n"
+"%s"
 
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_tag_employees
@@ -136,7 +152,7 @@ msgstr "Документи на служители"
 #. module: documents_hr
 #: model:mail.template,name:documents_hr.mail_template_document_folder_link
 msgid "HR: Document Access Link"
-msgstr ""
+msgstr "ЧР: Линк за достъп до документи"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_config_settings__documents_hr_settings
@@ -146,7 +162,7 @@ msgstr "Човешки ресурси"
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.documents_hr_portal_view
 msgid "My documents"
-msgstr ""
+msgstr "Моите документи"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_departure_wizard__private_email
@@ -156,12 +172,12 @@ msgstr "Личен имейл"
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_departure_wizard__send_hr_documents_access_link
 msgid "Send Access Link"
-msgstr ""
+msgstr "Изпрати линк за достъп"
 
 #. module: documents_hr
 #: model:ir.actions.server,name:documents_hr.ir_actions_server_send_access_link
 msgid "Send HR Documents Access Link"
-msgstr ""
+msgstr "Изпрати линк за достъп до ЧР документи"
 
 #. module: documents_hr
 #: model:ir.model.fields,help:documents_hr.field_hr_departure_wizard__send_hr_documents_access_link
@@ -169,11 +185,13 @@ msgid ""
 "Send a share link to the private email of the employee with all the HR files"
 " he owns in Documents app"
 msgstr ""
+"Изпрати линк за споделяне към личния имейл на служителя с всички ЧР файлове,"
+" които притежава в приложението Документи"
 
 #. module: documents_hr
 #: model:mail.template,description:documents_hr.mail_template_document_folder_link
 msgid "Sent manually when recording an employee departure"
-msgstr ""
+msgstr "Изпрати ръчно при записване на напускане на служител"
 
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.documents_hr_portal_view
@@ -184,7 +202,7 @@ msgstr "Размер:"
 #. odoo-python
 #: code:addons/documents_hr/models/hr_employee.py:0
 msgid "The access link has been sent to the employee."
-msgstr ""
+msgstr "Линкът за достъп е изпратен на служителя."
 
 #. module: documents_hr
 #: model:ir.model,name:documents_hr.model_res_users
@@ -200,7 +218,7 @@ msgstr "Работно пространство"
 #. odoo-python
 #: code:addons/documents_hr/models/hr_employee.py:0
 msgid "You can not send the documents link to the employee."
-msgstr ""
+msgstr "Не можете да изпратите линкът към документите на служителя."
 
 #. module: documents_hr
 #. odoo-python
@@ -209,6 +227,8 @@ msgid ""
 "You must set a work contact address on the Employee in order to use "
 "Document's features."
 msgstr ""
+"Трябва да зададете работен адрес за контакт на служителя, за да използвате "
+"функциите на документа."
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_company__documents_hr_folder
@@ -224,3 +244,4 @@ msgstr "Работно пространство по подразбиране - 
 #: model:mail.template,subject:documents_hr.mail_template_document_folder_link
 msgid "{{ object.name }}, your personal documents access link is available"
 msgstr ""
+"{{ служител.име }}, връзката за достъп до вашите лични документи е достъпна"

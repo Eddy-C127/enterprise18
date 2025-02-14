@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-25 17:23+0000\n"
+"POT-Creation-Date: 2025-02-10 15:41+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Larissa Manderfeld, 2025\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
@@ -379,8 +379,6 @@ msgid "Accounts"
 msgstr "Konten"
 
 #. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Accounts Coverage Report"
 msgstr "Bericht zur Kontenabdeckung"
@@ -1368,12 +1366,14 @@ msgstr "Abzugsfähig"
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 msgid "Deferrals have not yet been completely generated for this period."
 msgstr ""
+"Für diesen Zeitraum wurden noch nicht alle Abgrenzungen vollständig "
+"generiert."
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 msgid "Deferrals have not yet been generated for this period."
-msgstr ""
+msgstr "Für diesen Zeitraum wurden noch nicht alle Abgrenzungen generiert."
 
 #. module: account_reports
 #. odoo-python
@@ -1774,6 +1774,8 @@ msgstr "Feld %s existiert nicht in account.move.line."
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Field %s of account.move.line cannot be used in a groupby expression."
 msgstr ""
+"Feld %s von account.move.line kann nicht in einem „Groupby“-Ausdruck "
+"verwendet werden."
 
 #. module: account_reports
 #. odoo-python
@@ -1782,6 +1784,8 @@ msgid ""
 "Field %s of account.move.line is not searchable and can therefore not be "
 "used in a groupby expression."
 msgstr ""
+"Es kann nicht nach dem Feld %s von account.move.line gesucht werden und es "
+"kann daher nicht in einem „Groupby“-Ausdruck verwendet werden."
 
 #. module: account_reports
 #. odoo-python
@@ -2447,19 +2451,12 @@ msgstr "Zeile"
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid ""
 "Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
 "This is not allowed."
 msgstr ""
 "Die Zeile „%(child)s“ ist so konfiguriert, dass sie vor der übergeordneten "
 "Zeile „%(parent)s“ erscheint. Das ist nicht erlaubt."
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
-msgid "Line without formula"
-msgstr "Zeile ohne Formel"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -3438,15 +3435,15 @@ msgid "Show Warning Move"
 msgstr "Buchungswarnung anzeigen"
 
 #. module: account_reports
-#: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
-msgid "Single Recipient"
-msgstr "Ein einziger Empfänger"
-
-#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 msgid "Show already generated deferrals."
-msgstr ""
+msgstr "Sehen Sie sich bereits generierte Abgrenzungen an."
+
+#. module: account_reports
+#: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
+msgid "Single Recipient"
+msgstr "Ein einziger Empfänger"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3786,12 +3783,6 @@ msgstr ""
 "Periodizitätskonfiguration am ehesten übereinstimmt."
 
 #. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
-msgid "The entry that will be generated will take them into account."
-msgstr "Der Eintrag, der erstellt wird, berücksichtigt sie."
-
-#. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_report_annotation__fiscal_position_id
 msgid "The fiscal position used while annotating."
 msgstr "Die bei der Anmerkung verwendete Steuerposition."
@@ -3916,14 +3907,12 @@ msgstr ""
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
-#, python-format
 msgid "This line is out of sequence."
 msgstr "Diese Zeile liegt außerhalb der Sequenz."
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
-#, python-format
 msgid ""
 "This line is placed before its parent, which is not allowed. You can fix it "
 "by dragging it to the proper position."
@@ -4108,7 +4097,6 @@ msgstr "Nicht zugewiesene Gewinne"
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid "Undefined"
 msgstr "Undefiniert"
 

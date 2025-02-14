@@ -73,13 +73,13 @@ msgstr "%s file tidak dipindahkan karena mereka dikunci oleh user lain"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.js:0
 msgid "%s has been copied in My Drive."
-msgstr ""
+msgstr "%s telah disalin di My Drive."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.js:0
 msgid "%s have been copied in My Drive."
-msgstr ""
+msgstr "%s telah disalin di My Drive."
 
 #. module: documents
 #. odoo-javascript
@@ -148,7 +148,7 @@ msgstr "2024"
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_year_current
 msgid "2025"
-msgstr ""
+msgstr "2025"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -712,13 +712,13 @@ msgstr "Akses dokumen dan partner tidak boleh diubah."
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
 msgid "Access to Automations"
-msgstr ""
+msgstr "Akses ke Automation"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/core/document_service.js:0
 msgid "Access to Server Actions"
-msgstr ""
+msgstr "Akses ke Server Action"
 
 #. module: documents
 #. odoo-python
@@ -752,7 +752,7 @@ msgstr "Tindakan Diperluka"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.xml:0
 msgid "Actions on Select"
-msgstr ""
+msgstr "Action pada Pilih"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__active
@@ -804,6 +804,12 @@ msgid "Activity Types"
 msgstr "Jenis Aktivitas"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
+msgid "Activity assigned to"
+msgstr ""
+
+#. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_plan_action_document
 msgid ""
 "Activity plans are used to assign a list of activities in just a few clicks\n"
@@ -813,6 +819,8 @@ msgstr ""
 "                    (contoh, \"Proses tandatangan NDA\", \"Workflow workspace\", ...)"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_activity_type_id
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__activity_type_id
 msgid "Activity type"
@@ -827,7 +835,7 @@ msgstr "Tambah"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.xml:0
 msgid "Add Custom Action"
-msgstr ""
+msgstr "Tambahkan Action Kustom"
 
 #. module: documents
 #. odoo-javascript
@@ -1062,7 +1070,7 @@ msgstr "Apakah Anda yakin ingin menghapus halaman ini ?"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.js:0
 msgid "Are you sure you want to delete this attachment?"
-msgstr ""
+msgstr "Apakah Anda yakin Anda ingin menghapus lampiran ini?"
 
 #. module: documents
 #. odoo-javascript
@@ -1275,7 +1283,7 @@ msgstr "Kontak"
 #: code:addons/documents/static/src/core/document_service.js:0
 #: code:addons/documents/static/src/views/hooks.js:0
 msgid "Contact your Administrator to get access if needed."
-msgstr ""
+msgstr "Hubungi Administrator Anda untuk mendapatkan akses bila dibutuhkan"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_contracts
@@ -1599,13 +1607,13 @@ msgstr "Dokumen di Tong Sampah tidak dapat dibagi"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
 msgid "Documents moved to trash will show up here"
-msgstr ""
+msgstr "Dokumen-Dokumen dipindahkan ke tong sampah bila muncul di sini"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
 msgid "Documents shared with you will appear here"
-msgstr ""
+msgstr "Dokumen-dokumen yangdibagikan dengan Anda akan muncul di sini"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_unlink_mixin
@@ -2341,13 +2349,13 @@ msgstr "Email: %s"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 msgid "Manage Versions"
-msgstr ""
+msgstr "Kelola Versi-Versi"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.js:0
 msgid "Manage Versions of \"%s\""
-msgstr ""
+msgstr "Kelola Versi-Versi dari \"%s\""
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_remove_activities
@@ -2541,6 +2549,12 @@ msgid "Next Activity Type"
 msgstr "Tipe Aktivitas Berikutnya"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
+msgid "No activity"
+msgstr "Tidak ada kegiatan"
+
+#. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_type_action_document
 msgid "No activity types found. Let's create one!"
 msgstr "Tidak ada tipe kegiatan yang ditemukan. Ayo buat baru!"
@@ -2573,7 +2587,7 @@ msgstr "Siapa pun di internet dapat mengakses"
 #. odoo-python
 #: code:addons/documents/models/ir_actions_server.py:0
 msgid "No server actions found for Documents!"
-msgstr ""
+msgstr "Tidak ada action server yang ditemukan untuk Dokumen!"
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_alias_action
@@ -2869,7 +2883,7 @@ msgstr "Proyek"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
 msgid "Put in %s"
-msgstr ""
+msgstr "Masukkan di %s"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__rating_ids
@@ -2886,7 +2900,7 @@ msgstr "Terkini"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
 msgid "Recently accessed Documents will show up here"
-msgstr ""
+msgstr "Dokumen yang baru-baru diakses akan muncul di sini"
 
 #. module: documents
 #. odoo-python
@@ -3122,7 +3136,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
 msgid "Select a folder to upload a document"
-msgstr ""
+msgstr "Pilih folder untuk mengunggah dokumen"
 
 #. module: documents
 #. odoo-javascript
@@ -3709,7 +3723,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
 msgid "Upload New Version"
-msgstr ""
+msgstr "Unggah Versi Baru"
 
 #. module: documents
 #. odoo-python
@@ -3752,6 +3766,8 @@ msgid ""
 "Versions are displayed in the order they were uploaded to Documents.\n"
 "                    If you delete the most recent version, the previous one is automatically restored as the current one."
 msgstr ""
+"Versi-versi yang ditampilkan di order yang diunggah ke Dokumen.\n"
+"                    Bila Anda menghapus versi terkini, versi sebelumnya secara otomatis dipulihkan sebagai versi saat ini."
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_videos
@@ -3931,7 +3947,7 @@ msgstr "Anda tidak dapat menghapus tag yang digunakan di server action."
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot delete this attachment."
-msgstr ""
+msgstr "Anda tidak dapat menghapus lampiran ini."
 
 #. module: documents
 #. odoo-python
@@ -4007,7 +4023,7 @@ msgstr "Ruang individu Anda."
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
 msgid "Your personal space"
-msgstr ""
+msgstr "Personal space Anda"
 
 #. module: documents
 #. odoo-javascript
@@ -4165,3 +4181,9 @@ msgid ""
 msgstr ""
 "•\n"
 "                                        <b>URL</b>"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to read the permission panel data."
+msgstr ""

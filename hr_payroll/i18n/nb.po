@@ -10,7 +10,6 @@
 # Mads Søndergaard, 2024
 # Ørjan Wean <orjan@wean.no>, 2024
 # Lars Aam <lars.aam@vikenfiber.no>, 2024
-# Henning Fyllingsnes, 2024
 # Jorunn D. Newth, 2024
 # Marius Stedjan <marius@stedjan.com>, 2024
 # Martin Trigaux, 2024
@@ -76,7 +75,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "%(start_date_string)s and %(end_date_string)s"
-msgstr ""
+msgstr "%(start_date_string)s og %(end_date_string)s"
 
 #. module: hr_payroll
 #. odoo-python
@@ -2007,7 +2006,7 @@ msgstr "Fra"
 #. odoo-python
 #: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:0
 msgid "From %(from_date)s to %(end_date)s"
-msgstr ""
+msgstr "Fra %(from_date)s til %(end_date)s"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_form
@@ -2765,12 +2764,6 @@ msgstr "Nye ansatte"
 #: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:0
 msgid "New Payslip"
 msgstr "Ny lønnsslipp"
-
-#. module: hr_payroll
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_calendar_event_id
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Neste kalender aktivitet"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_date_deadline
@@ -3579,7 +3572,7 @@ msgstr "Kvantum/sats"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "Quarter %(quarter)s of %(year)s"
-msgstr ""
+msgstr "Kvartal %(quarter)s av %(year)s"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__quarterly
@@ -4391,6 +4384,8 @@ msgid ""
 "There's no contract set on payslip %(payslip)s for %(employee)s. Check that "
 "there is at least a contract set on the employee form."
 msgstr ""
+"Det er ingen kontrakt satt på lønnsslipp %(payslip)s for %(employee)s . "
+"Sjekk at det er satt minst én kontrakt på ansattskjemaet."
 
 #. module: hr_payroll
 #. odoo-python
@@ -4585,7 +4580,9 @@ msgid "Unknown State"
 msgstr "Ukjent status"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_hr_work_entry_type_view_form_inherit
+#: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Unpaid"
 msgstr "Ubetalt"
 
@@ -5108,6 +5105,13 @@ msgstr "Du kan ikke validere en kansellert lønnsslipp"
 
 #. module: hr_payroll
 #. odoo-python
+#: code:addons/hr_payroll/models/hr_payslip.py:0
+#, python-format
+msgid "You cannot cancel the payment if the payslip has not been paid."
+msgstr ""
+
+#. module: hr_payroll
+#. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip_input_type.py:0
 msgid ""
 "You cannot delete %s as it is used in another module but you can archive it "
@@ -5162,6 +5166,8 @@ msgstr ""
 #: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
 msgid "You must be logged in a %(country_code)s company to use this feature"
 msgstr ""
+"Du må være innlogget i et %(country_code)s selskap for å bruke denne "
+"funksjonen."
 
 #. module: hr_payroll
 #. odoo-python

@@ -5,6 +5,9 @@
 # Translators:
 # Lyall Kindmurr, 2024
 # Wil Odoo, 2024
+# Dorin Hongu <dhongu@gmail.com>, 2025
+# Cozmin Candea <office@terrabit.ro>, 2025
+# Larisa_nexterp, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Larisa_nexterp, 2025\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,7 +54,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "%(months)s m"
-msgstr ""
+msgstr "%(months)s m"
 
 #. module: account_asset
 #. odoo-python
@@ -63,7 +66,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "%(years)s y"
-msgstr ""
+msgstr "%(years)s y"
 
 #. module: account_asset
 #. odoo-python
@@ -105,6 +108,9 @@ msgid ""
 "<br/> %(extra_text)s Future entries will be recomputed to depreciate the "
 "asset following the changes."
 msgstr ""
+"O înregistrare de devalorizare va fi postată pe data de %(date)s. <br/> "
+"%(extra_text)s Înregistrările viitoare vor fi recalculare pentru a "
+"devaloriza activul urmând schimbările."
 
 #. module: account_asset
 #. odoo-python
@@ -114,6 +120,9 @@ msgid ""
 " A disposal entry will be posted on the %(account_type)s account "
 "<b>%(account)s</b>."
 msgstr ""
+"O înregistrare de devalorizare va fi postată pe data de %(date)s.<br/> O "
+"înregistrare de eliminare va fi postată pe contul %(account_type)s "
+"<b>%(account)s</b>."
 
 #. module: account_asset
 #. odoo-python
@@ -123,6 +132,9 @@ msgid ""
 " A second entry will neutralize the original income and post the  outcome of"
 " this sale on account <b>%(account)s</b>."
 msgstr ""
+"O înregistrare de devalorizare va fi postată pe data de %(date)s.<br/> O a "
+"doua înregistrare va neutraliza venitul original și va posta rezultatul "
+"vânzării pe contul <b>%(account)s</b>."
 
 #. module: account_asset
 #. odoo-python
@@ -134,7 +146,7 @@ msgstr "O înregistrare de devalorizare va fi postată pe data de %s."
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "A document linked to %(move_line_name)s has been deleted: %(link)s"
-msgstr ""
+msgstr "Un document legat de %(move_line_name)s a fost șters: %(link)s"
 
 #. module: account_asset
 #. odoo-python
@@ -146,7 +158,7 @@ msgstr "Un document legat de această mi;care a fost șters: %s"
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "A gross increase has been created: %(link)s"
-msgstr ""
+msgstr "O creștere brută a fost creată: %(link)s"
 
 #. module: account_asset
 #. odoo-python
@@ -155,6 +167,8 @@ msgid ""
 "A non deductible tax value of %(tax_value)s was added to %(name)s's initial "
 "value of %(purchase_value)s"
 msgstr ""
+"O valoare fiscală nedeductibilă de %(tax_value)s a fost adăugată la valoarea"
+" inițială de %(name)s a lui %(purchase_value)s"
 
 #. module: account_asset
 #: model:ir.model,name:account_asset.model_account_account
@@ -843,13 +857,13 @@ msgstr "Tabloul de amortizare a fost modificat %s"
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "Depreciation entry %(name)s posted (%(value)s)"
-msgstr ""
+msgstr "Intrarea de amortizare %(name)s a fost înregistrată (%(value)s)"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "Depreciation entry %(name)s reversed (%(value)s)"
-msgstr ""
+msgstr "Intrarea de amortizare %(name)s inversată (%(value)s)"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__display_account_asset_id
@@ -1666,6 +1680,9 @@ msgid ""
 "Purchase's value (%(purchase_value)s). Please make sure this is what you "
 "want."
 msgstr ""
+"Suma pe care ați introdus-o (%(entered_amount)s) nu se potrivește cu "
+"valoarea achiziției asociate (%(purchase_value)s). Vă rugăm să vă asigurați "
+"că acesta este ceea ce doriți."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__asset_id

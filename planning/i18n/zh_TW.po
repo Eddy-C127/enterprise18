@@ -3,7 +3,7 @@
 # 	* planning
 # 
 # Translators:
-# Wil Odoo, 2024
+# Wil Odoo, 2025
 # Tony Ng, 2025
 # 
 msgid ""
@@ -965,7 +965,7 @@ msgstr "開始日期"
 #: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_unit__day
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_unit__day
 msgid "Days"
-msgstr "天內"
+msgstr "天"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__self_unassign_days_before
@@ -2640,7 +2640,7 @@ msgstr "你不可取消指派其他員工，只可取消指派你自己。"
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You cannot assign yourself to a shift in the past."
-msgstr ""
+msgstr "你不可將自己分配至過去的輪班。"
 
 #. module: planning
 #. odoo-python
@@ -2670,7 +2670,7 @@ msgstr "調班不可調換成過去的班次。"
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You cannot unassign yourself from a shift in the past."
-msgstr ""
+msgstr "你不可將自己取消分配至過去的輪班。"
 
 #. module: planning
 #. odoo-javascript

@@ -1,40 +1,43 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* documents_account
-#
+# 
 # Translators:
-# Mohammad Tahmasebi <hit.tah75@gmail.com>, 2023
-# Maziar Niaki <maziarmn@gmail.com>, 2023
-# M.Hossein S.Farvashani <Farvashani@gmail.com>, 2023
-# Martin Trigaux, 2023
-# Hamid Darabi, 2023
-# Hanna Kheradroosta, 2023
-# Hamed Mohammadi <hamed@dehongi.com>, 2023
-#
+# zakariya moradi, 2025
+# Tiffany Chang, 2025
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:02+0000\n"
-"PO-Revision-Date: 2022-09-22 05:46+0000\n"
-"Last-Translator: Hamed Mohammadi <hamed@dehongi.com>, 2023\n"
+"POT-Creation-Date: 2024-09-26 09:15+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Tiffany Chang, 2025\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
-"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: documents_account
 #. odoo-javascript
 #: code:addons/documents_account/static/src/js/tour.js:0
 msgid "<b>Deselect this page</b> as we plan to process all bills first."
-msgstr "<b>این صفحه را لغو انتخاب کنید</b> زیرا قصد داریم ابتدا همه صورتحساب ها را پردازش کنیم."
+msgstr ""
+"<b>این صفحه را لغو انتخاب کنید</b> زیرا قصد داریم ابتدا همه صورتحساب ها را "
+"پردازش کنیم."
 
 #. module: documents_account
-#: model:ir.model,name:documents_account.model_documents_workflow_rule
-msgid "A set of condition and actions which will be available to all attachments matching the conditions"
-msgstr "مجموعه ای از شرایط و اقداماتی که برای همه پیوست های منطبق با شرایط در دسترس خواهد بود"
+#. odoo-javascript
+#: code:addons/documents_account/static/src/js/tour.js:0
+msgid "<b>Select</b> this page to continue."
+msgstr ""
+
+#. module: documents_account
+#: model_terms:ir.ui.view,arch_db:documents_account.account_move_view_form
+msgid "<span class=\"o_stat_text\">Documents</span>"
+msgstr "<span class=\"o_stat_text\">اسناد</span>"
 
 #. module: documents_account
 #: model:ir.model.constraint,message:documents_account.constraint_documents_account_folder_setting_journal_unique
@@ -47,25 +50,29 @@ msgid "Accounting "
 msgstr "حسابداری "
 
 #. module: documents_account
-#: model:ir.model.fields,field_description:documents_account.field_res_company__account_folder
+#: model:ir.model,name:documents_account.model_account_report
+msgid "Accounting Report"
+msgstr "گزارش حسابداری"
+
+#. module: documents_account
+#: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__company_account_folder_id
+#: model:ir.model.fields,field_description:documents_account.field_res_company__account_folder_id
 msgid "Accounting Workspace"
 msgstr "فضای کاری حسابداری"
 
 #. module: documents_account
 #. odoo-javascript
 #: code:addons/documents_account/static/src/js/tour.js:0
-msgid "As this PDF contains multiple documents, let's split and process in bulk."
-msgstr "از آنجایی که این PDF حاوی چندین سند است، بیایید به صورت انبوه تقسیم و پردازش کنیم."
+msgid ""
+"As this PDF contains multiple documents, let's split and process in bulk."
+msgstr ""
+"از آنجایی که این PDF حاوی چندین سند است، بیایید به صورت انبوه تقسیم و پردازش"
+" کنیم."
 
 #. module: documents_account
 #: model:ir.model,name:documents_account.model_ir_attachment
 msgid "Attachment"
 msgstr "پیوست"
-
-#. module: documents_account
-#: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_bank_statement
-msgid "Bank Statement"
-msgstr ""
 
 #. module: documents_account
 #: model_terms:ir.ui.view,arch_db:documents_account.res_config_settings_view_form
@@ -92,13 +99,23 @@ msgstr "برای <b>پیش نمایش سند</b> روی تصویر کوچک کل
 #. module: documents_account
 #. odoo-javascript
 #: code:addons/documents_account/static/src/js/tour.js:0
-msgid "Click on the <b>page separator</b>: we don't want to split these two pages as they belong to the same document."
-msgstr "روی <b>جداکننده صفحه</b> کلیک کنید: ما نمی‌خواهیم این دو صفحه را جدا کنیم زیرا به یک سند تعلق دارند."
+msgid ""
+"Click on the <b>page separator</b>: we don't want to split these two pages "
+"as they belong to the same document."
+msgstr ""
+"روی <b>جداکننده صفحه</b> کلیک کنید: ما نمی‌خواهیم این دو صفحه را جدا کنیم "
+"زیرا به یک سند تعلق دارند."
+
+#. module: documents_account
+#. odoo-javascript
+#: code:addons/documents_account/static/src/js/tour.js:0
+msgid "Click the cross to <b>exit preview</b>."
+msgstr ""
 
 #. module: documents_account
 #: model:ir.model,name:documents_account.model_res_company
 msgid "Companies"
-msgstr "شرکت"
+msgstr "شرکت‌ها"
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__company_id
@@ -111,32 +128,43 @@ msgid "Config Settings"
 msgstr "تنظیمات پیکربندی"
 
 #. module: documents_account
-#: model:ir.model.fields,field_description:documents_account.field_documents_workflow_rule__create_model
-msgid "Create"
-msgstr "ایجاد"
+#. odoo-python
+#: code:addons/documents_account/models/account_report.py:0
+msgid "Copy to Documents"
+msgstr ""
 
 #. module: documents_account
-#: model:documents.workflow.rule,name:documents_account.credit_note_rule
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_credit_note
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_credit_note_code
 msgid "Create Customer Credit Note"
 msgstr ""
 
 #. module: documents_account
-#: model:documents.workflow.rule,name:documents_account.customer_invoice_rule
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_customer_invoice
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_customer_invoice_code
 msgid "Create Customer Invoice"
 msgstr "ایجاد فاکتور مشتری"
 
 #. module: documents_account
-#: model:documents.workflow.rule,name:documents_account.misc_entry_rule
-msgid "Create Miscellaneous Operations"
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_misc_entry
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_misc_entry_code
+msgid "Create Misc Entry"
 msgstr ""
 
 #. module: documents_account
-#: model:documents.workflow.rule,name:documents_account.vendor_bill_rule_financial
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_vendor_bill
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_vendor_bill_code
 msgid "Create Vendor Bill"
 msgstr ""
 
 #. module: documents_account
-#: model:documents.workflow.rule,name:documents_account.vendor_refund_rule
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_vendor_receipt
+msgid "Create Vendor Receipt"
+msgstr ""
+
+#. module: documents_account
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_vendor_refund
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_vendor_refund_code
 msgid "Create Vendor Refund"
 msgstr ""
 
@@ -151,29 +179,25 @@ msgid "Created on"
 msgstr "ایجادشده در"
 
 #. module: documents_account
-#: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_move_out_refund
-msgid "Credit note"
-msgstr "سند بستانکاری"
-
-#. module: documents_account
-#: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_move_out_invoice
-msgid "Customer invoice"
-msgstr "فاکتور مشتری"
-
-#. module: documents_account
-#: model:ir.model.fields,field_description:documents_account.field_documents_workflow_rule__display_journal_id
-msgid "Display Journal"
-msgstr ""
-
-#. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__display_name
 msgid "Display Name"
-msgstr "نام نمایشی"
+msgstr "نام نمایش داده شده"
+
+#. module: documents_account
+#: model:ir.model,name:documents_account.model_documents_document
+msgid "Document"
+msgstr "سند"
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_res_company__documents_account_settings
 msgid "Documents Account Settings"
 msgstr "تنظیمات حساب اسناد"
+
+#. module: documents_account
+#. odoo-python
+#: code:addons/documents_account/models/account_report.py:0
+msgid "Export"
+msgstr "خروجی"
 
 #. module: documents_account
 #: model:ir.model,name:documents_account.model_account_reports_export_wizard_format
@@ -207,25 +231,42 @@ msgid "Generated Documents"
 msgstr "اسناد تولید شده"
 
 #. module: documents_account
+#: model:ir.model.fields,field_description:documents_account.field_account_bank_statement_line__has_documents
+#: model:ir.model.fields,field_description:documents_account.field_account_move__has_documents
+msgid "Has Documents"
+msgstr ""
+
+#. module: documents_account
+#: model:ir.model.fields,field_description:documents_account.field_documents_document__has_embedded_pdf
+msgid "Has Embedded PDF"
+msgstr ""
+
+#. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__id
 msgid "ID"
 msgstr "شناسه"
 
 #. module: documents_account
-#: model:documents.workflow.rule,name:documents_account.bank_statement_rule
+#: model:ir.actions.server,name:documents_account.ir_actions_server_bank_statement
+#: model:ir.actions.server,name:documents_account.ir_actions_server_bank_statement_code
 msgid "Import Bank Statement"
-msgstr ""
+msgstr "وارد کردن بیانیه بانک"
+
+#. module: documents_account
+#. odoo-python
+#: code:addons/documents_account/models/documents_document.py:0
+msgid "Invoices"
+msgstr "فاکتورها"
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__journal_id
-#: model:ir.model.fields,field_description:documents_account.field_documents_workflow_rule__journal_id
 msgid "Journal"
 msgstr "روزنامه"
 
 #. module: documents_account
 #: model:ir.model,name:documents_account.model_account_move
 msgid "Journal Entry"
-msgstr "داده روزنامه"
+msgstr "سند دفترروزنامه‌"
 
 #. module: documents_account
 #: model:ir.model,name:documents_account.model_documents_account_folder_setting
@@ -245,7 +286,7 @@ msgstr "روزنامه ها برای همگام سازی"
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__write_uid
 msgid "Last Updated by"
-msgstr "آخرین تغییر توسط"
+msgstr "آخرین بروز رسانی توسط"
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__write_date
@@ -255,14 +296,20 @@ msgstr "آخرین بروز رسانی در"
 #. module: documents_account
 #. odoo-javascript
 #: code:addons/documents_account/static/src/js/tour.js:0
-msgid "Let's process documents in your Inbox.<br/><i>Tip: Use Tags to filter documents and structure your process.</i>"
-msgstr "بیایید اسناد را در صندوق ورودی خود پردازش کنیم.<br/><i>نکته: از برچسب‌ها برای فیلتر کردن اسناد و ساختار فرآیند خود استفاده کنید.</i>"
+msgid ""
+"Let's process documents in your Inbox.<br/><i>Tip: Use Tags to filter "
+"documents and structure your process.</i>"
+msgstr ""
+"بیایید اسناد را در صندوق ورودی خود پردازش کنیم.<br/><i>نکته: از برچسب‌ها "
+"برای فیلتر کردن اسناد و ساختار فرآیند خود استفاده کنید.</i>"
 
 #. module: documents_account
 #. odoo-javascript
 #: code:addons/documents_account/static/src/js/tour.js:0
 msgid "Let's process these bills: turn them into vendor bills."
-msgstr "بیایید این صورت‌حساب‌ها را پردازش کنیم: آنها را به صورت‌حساب‌های فروشنده تبدیل کنیم."
+msgstr ""
+"بیایید این صورت‌حساب‌ها را پردازش کنیم: آنها را به صورت‌حساب‌های فروشنده "
+"تبدیل کنیم."
 
 #. module: documents_account
 #. odoo-javascript
@@ -273,23 +320,14 @@ msgstr "بیایید این سند را که از اسکنر ما آمده اس�
 #. module: documents_account
 #. odoo-javascript
 #: code:addons/documents_account/static/src/js/tour.js:0
-msgid "Let's tag this mail as legal<br/> <i>Tips: actions can be tailored to your process, according to the workspace.</i>"
-msgstr ""
-
-#. module: documents_account
-#: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_move_entry
-msgid "Miscellaneous Operations"
-msgstr ""
-
-#. module: documents_account
-#: model:ir.model.fields,field_description:documents_account.field_documents_workflow_rule__move_type
-msgid "Move Type"
+msgid ""
+"Let's tag this mail as legal<br/> <i>Tips: actions can be tailored to your "
+"process, according to the workspace.</i>"
 msgstr ""
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_account_bank_statement_line__suspense_statement_line_id
 #: model:ir.model.fields,field_description:documents_account.field_account_move__suspense_statement_line_id
-#: model:ir.model.fields,field_description:documents_account.field_account_payment__suspense_statement_line_id
 msgid "Request document from a bank statement line"
 msgstr ""
 
@@ -298,11 +336,6 @@ msgstr ""
 #: code:addons/documents_account/static/src/js/tour.js:0
 msgid "Send this letter to the legal department, by assigning the right tags."
 msgstr "این نامه را با اختصاص برچسب های مناسب به بخش حقوقی ارسال کنید."
-
-#. module: documents_account
-#: model:ir.model.fields,field_description:documents_account.field_documents_workflow_rule__suitable_journal_ids
-msgid "Suitable Journal"
-msgstr ""
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_account_reports_export_wizard__tag_ids
@@ -321,20 +354,13 @@ msgid "This invoice has been initiated by a bank transaction."
 msgstr ""
 
 #. module: documents_account
-#: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_move_in_refund
-msgid "Vendor Credit Note"
-msgstr "سند بستانکار فروشنده"
-
-#. module: documents_account
-#: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_move_in_invoice
-msgid "Vendor bill"
-msgstr "صورتحساب فروشنده"
-
-#. module: documents_account
 #. odoo-javascript
 #: code:addons/documents_account/static/src/js/tour.js:0
-msgid "Want to become a <b>paperless company</b>? Let's discover Odoo Documents."
-msgstr "آیا می خواهید به یک <b>شرکت بدون کاغذ</b> تبدیل شوید؟ بیایید اسناد Odoo را کشف کنیم."
+msgid ""
+"Want to become a <b>paperless company</b>? Let's discover Odoo Documents."
+msgstr ""
+"آیا می خواهید به یک <b>شرکت بدون کاغذ</b> تبدیل شوید؟ بیایید اسناد Odoo را "
+"کشف کنیم."
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__folder_id
@@ -343,13 +369,20 @@ msgid "Workspace"
 msgstr "فضای کار"
 
 #. module: documents_account
-#. odoo-javascript
-#: code:addons/documents_account/static/src/js/tour.js:0
-msgid "Wow... 6 documents processed in a few seconds, You're good.<br/>The tour is complete. Try uploading your own documents now."
-msgstr "وای... 6 سند در چند ثانیه پردازش شد، کا شما خوب است.<br/>تور کامل شد. اکنون اسناد خود را بارگذاری کنید."
+#: model_terms:web_tour.tour,rainbow_man_message:documents_account.documents_account_tour
+msgid ""
+"Wow... 6 documents processed in a few seconds, You're good.<br>The tour is "
+"complete. Try uploading your own documents now."
+msgstr ""
 
 #. module: documents_account
-#: model:ir.model.fields,field_description:documents_account.field_res_config_settings__account_folder
+#. odoo-python
+#: code:addons/documents_account/models/documents_document.py:0
+msgid "You can not create account move on folder."
+msgstr ""
+
+#. module: documents_account
+#: model:ir.model.fields,field_description:documents_account.field_res_config_settings__account_folder_id
 msgid "account default folder"
 msgstr "پوشه پیش فرض حساب"
 

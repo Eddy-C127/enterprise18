@@ -114,11 +114,6 @@ msgid "Import"
 msgstr "นำเข้า"
 
 #. module: account_winbooks_import
-#: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
-msgid "Import (safe-mode)"
-msgstr "นำเข้า (โหมดปลอดภัย)"
-
-#. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_analytic_ids
 msgid "Import Summary Analytic"
 msgstr "นำเข้าข้อมูลสรุปการวิเคราะห์"
@@ -199,16 +194,6 @@ msgstr "รหัสบัญชีพัก"
 msgid ""
 "The code for the Suspense Account you entered doesn't match any account"
 msgstr "รหัสสำหรับบัญชีพักที่คุณป้อนไม่ตรงกับบัญชีใดๆ"
-
-#. module: account_winbooks_import
-#. odoo-python
-#: code:addons/account_winbooks_import/wizard/import_wizard.py:0
-msgid ""
-"The following banks were used for multiple partners in Winbooks, which is not allowed in Odoo. The bank number has been only set on one of each group:\n"
-"%s"
-msgstr ""
-"ธนาคารต่อไปนี้ถูกใช้สำหรับพาร์ทเนอร์หลายรายใน Winbooks ซึ่งไม่ได้รับอนุญาตใน Odoo หมายเลขธนาคารถูกกำหนดไว้เพียงกลุ่มเดียวเท่านั้น:\n"
-"%s"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,help:account_winbooks_import.field_account_winbooks_import_wizard__suspense_code

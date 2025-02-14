@@ -114,11 +114,6 @@ msgid "Import"
 msgstr "Importieren"
 
 #. module: account_winbooks_import
-#: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
-msgid "Import (safe-mode)"
-msgstr "Import (sicherer Modus)"
-
-#. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_analytic_ids
 msgid "Import Summary Analytic"
 msgstr "Importzusammenfassung Kostenrechnung"
@@ -202,16 +197,6 @@ msgid ""
 msgstr ""
 "Der von Ihnen eingegebene Code für das Zwischenkonto stimmt mit keinem Konto"
 " überein"
-
-#. module: account_winbooks_import
-#. odoo-python
-#: code:addons/account_winbooks_import/wizard/import_wizard.py:0
-msgid ""
-"The following banks were used for multiple partners in Winbooks, which is not allowed in Odoo. The bank number has been only set on one of each group:\n"
-"%s"
-msgstr ""
-"Die folgenden Banken wurden für mehrere Partner in Winbooks verwendet, was in Odoo nicht zulässig ist. Die Banknummer wurde nur für je eine Gruppe festgelegt:\n"
-"%s"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,help:account_winbooks_import.field_account_winbooks_import_wizard__suspense_code

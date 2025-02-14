@@ -7,7 +7,7 @@
 # Susanna Pujol, 2024
 # Pere Martínez, 2024
 # Iván Infantes Castarnado, 2024
-# Josep Sànchez <papapep@gmx.com>, 2024
+# Josep Sànchez <papapep@pinatell.net>, 2024
 # Carles Antoli <carlesantoli@hotmail.com>, 2024
 # 7b9408628f00af852f513eb4f12c005b_f9c6891, 2024
 # Lluís Dalmau <lluis.dalmau@guifi.net>, 2024
@@ -22,22 +22,23 @@
 # Martin Trigaux, 2024
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2024
 # Marc Tormo i Bochaca <mtbochaca@gmail.com>, 2024
-# marcescu, 2024
-# Óscar Fonseca <tecnico@pyming.com>, 2024
 # Santiago Payà <santiagopim@gmail.com>, 2024
 # Quim - coopdevs <quim.rebull@coopdevs.org>, 2024
 # Ivan Espinola, 2024
 # Xavier, 2025
-# jabiri7, 2025
+# EstudiTIC - estuditic.com <odoo@estuditic.com>, 2025
+# Óscar Fonseca <tecnico@pyming.com>, 2025
 # Wil Odoo, 2025
+# marcescu, 2025
+# jabiri7, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-25 17:23+0000\n"
+"POT-Creation-Date: 2025-02-10 15:41+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: jabiri7, 2025\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,7 +56,7 @@ msgstr "\" el balanç del compte es veu afectat per"
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 msgid "%(journal)s - %(account)s"
-msgstr ""
+msgstr "%(journal)s - %(account)s"
 
 #. module: account_reports
 #. odoo-python
@@ -381,8 +382,6 @@ msgid "Accounts"
 msgstr "Comptes"
 
 #. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Accounts Coverage Report"
 msgstr "Informe de cobertura de comptes"
@@ -876,7 +875,7 @@ msgstr "Carryover només es pot generar per a un únic grup de columnes."
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Carryover from %(date_from)s to %(date_to)s"
-msgstr ""
+msgstr "Recorregut de %(date_from)s a %(date_to)s"
 
 #. module: account_reports
 #. odoo-python
@@ -1055,6 +1054,8 @@ msgid ""
 "Company %(company)s already belongs to a tax unit in %(country)s. A company "
 "can at most be part of one tax unit per country."
 msgstr ""
+"Empresa%(company)s ja pertany a una unitat d'impostos %(country)s. Una "
+"empresa pot, com a màxim, formar part d'una unitat fiscal per país."
 
 #. module: account_reports
 #. odoo-python
@@ -1130,6 +1131,8 @@ msgid ""
 "Could not expand term %(term)s while evaluating formula "
 "%(unexpanded_formula)s"
 msgstr ""
+"No s'ha pogut expandir el terme %(term)s mentre s'avaluava la fórmula "
+"%(unexpanded_formula)s"
 
 #. module: account_reports
 #. odoo-python
@@ -1854,6 +1857,8 @@ msgid ""
 "From %(date_from)s\n"
 "to  %(date_to)s"
 msgstr ""
+"De %(date_from)s\n"
+"a  %(date_to)s"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard_format__fun_param
@@ -2075,7 +2080,7 @@ msgstr "Graelles d'impostos"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "In %s"
-msgstr ""
+msgstr "A %s"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_search
@@ -2148,6 +2153,8 @@ msgid ""
 "Inconsistent report_id in options dictionary. Options says "
 "%(options_report)s; report is %(report)s."
 msgstr ""
+"Reportid inconsistent al diccionari d'opcions. Les opcions diuen "
+"%(options_report)s; l'informe és %(report)s."
 
 #. module: account_reports
 #. odoo-python
@@ -2200,7 +2207,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Invalid token '%(token)s' in account_codes formula '%(formula)s'"
-msgstr ""
+msgstr "Token invàlid '%(token)s' a la fórmula account_codes '%(formula)s'"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2414,17 +2421,10 @@ msgstr "Línia "
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid ""
 "Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
 "This is not allowed."
 msgstr ""
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
-msgid "Line without formula"
-msgstr "Línia sense fórmula"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -2494,6 +2494,7 @@ msgstr "Membres d'aquesta unitat"
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Method '%(method_name)s' must start with the '%(prefix)s' prefix."
 msgstr ""
+"El mètode «%(method_name)s» ha de començar amb el prefix «%(prefix)s»."
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.misc_operations
@@ -2554,6 +2555,8 @@ msgid ""
 "Multiple draft tax closing entries exist for fiscal position %(position)s after %(period_start)s. There should be at most one. \n"
 " %(closing_entries)s"
 msgstr ""
+"Hi ha múltiples esborranys d'entrades de tancament d'impostos per a la posició fiscal %(position)s després de %(period_start)s. Hauria d'haver-hi com a màxim un. \n"
+" %(closing_entries)s"
 
 #. module: account_reports
 #. odoo-python
@@ -2562,6 +2565,8 @@ msgid ""
 "Multiple draft tax closing entries exist for your domestic region after %(period_start)s. There should be at most one. \n"
 " %(closing_entries)s"
 msgstr ""
+"Hi ha múltiples entrades de tancament d'esborranys d'impostos per a la vostra regió domèstica després de %(period_start)s. Hauria d'haver-hi com a màxim un. \n"
+" %(closing_entries)s"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3085,7 +3090,7 @@ msgstr "Guanys anteriors sense assignar"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
 msgid "Print & Send"
-msgstr ""
+msgstr "Imprimeix i Envia"
 
 #. module: account_reports
 #. odoo-python
@@ -3388,14 +3393,14 @@ msgid "Show Warning Move"
 msgstr "Mostra el moviment d'avís"
 
 #. module: account_reports
-#: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
-msgid "Single Recipient"
-msgstr ""
-
-#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 msgid "Show already generated deferrals."
+msgstr ""
+
+#. module: account_reports
+#: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
+msgid "Single Recipient"
 msgstr ""
 
 #. module: account_reports
@@ -3726,12 +3731,6 @@ msgid ""
 msgstr ""
 
 #. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
-msgid "The entry that will be generated will take them into account."
-msgstr ""
-
-#. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_report_annotation__fiscal_position_id
 msgid "The fiscal position used while annotating."
 msgstr ""
@@ -3847,14 +3846,12 @@ msgstr ""
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
-#, python-format
 msgid "This line is out of sequence."
 msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
-#, python-format
 msgid ""
 "This line is placed before its parent, which is not allowed. You can fix it "
 "by dragging it to the proper position."
@@ -4021,7 +4018,6 @@ msgstr "Beneficios no asignados"
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
-#, python-format
 msgid "Undefined"
 msgstr "Indefinit"
 
@@ -4093,7 +4089,7 @@ msgstr "Valor"
 #. odoo-python
 #: code:addons/account_reports/models/account_move.py:0
 msgid "Vat closing from %(date_from)s to %(date_to)s"
-msgstr ""
+msgstr "Tancament de l'IVA a partir de %(date_from)s a %(date_to)s"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_tree

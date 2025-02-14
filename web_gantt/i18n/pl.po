@@ -3,7 +3,7 @@
 # 	* web_gantt
 # 
 # Translators:
-# Wil Odoo, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_model.js:0
 msgid "%(hour)sh%(minute)s"
-msgstr ""
+msgstr "%(hour)s godz%(minute)s"
 
 #. module: web_gantt
 #. odoo-python
@@ -35,7 +35,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_model.js:0
 msgid "%sh"
-msgstr ""
+msgstr "%sh"
 
 #. module: web_gantt
 #: model:ir.model,name:web_gantt.model_ir_actions_act_window_view
@@ -196,6 +196,8 @@ msgid ""
 "Invalid attributes (%(invalid_attributes)s) in gantt view. Attributes must "
 "be in (%(valid_attributes)s)"
 msgstr ""
+"Nieprawidłowe atrybuty (%(invalid_attributes)s) w widoku gantt. Atrybuty "
+"muszą być w (%(valid_attributes)s)"
 
 #. module: web_gantt
 #. odoo-python
@@ -347,6 +349,7 @@ msgstr ""
 #: code:addons/web_gantt/models/models.py:0
 msgid "You cannot reschedule %(main_record)s towards %(other_record)s."
 msgstr ""
+"Nie można zmienić harmonogramu %(main_record)s w kierunku %(other_record)s."
 
 #. module: web_gantt
 #. odoo-javascript

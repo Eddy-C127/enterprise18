@@ -14,6 +14,7 @@
 # marcescu, 2024
 # Josep Anton Belchi, 2024
 # Marc Tormo i Bochaca <mtbochaca@gmail.com>, 2024
+# Ivan Espinola, 2025
 # 
 msgid ""
 msgstr ""
@@ -21,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Marc Tormo i Bochaca <mtbochaca@gmail.com>, 2024\n"
+"Last-Translator: Ivan Espinola, 2025\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -328,6 +329,12 @@ msgid ""
 "- 2 letters or digits: location code\n"
 "- 3 letters or digits: branch code, optional\n"
 msgstr ""
+"El codi BIC «%(bic_code)s» associat al banc «%(bank)s» del compte bancari «%(account)s» del soci «%(partner)s» no respecta la convenció requerida. \n"
+"Ha de contenir 8 o 11 caràcters i coincidir amb la següent estructura: \n"
+"- 4 lletres: codi institucional o codi bancari \n"
+"- 2 lletres: codi de país \n"
+"- 2 lletres o dígits: codi de localització \n"
+"- 3 lletres o dígits: codi de branca, opcional\n"
 
 #. module: account_iso20022
 #. odoo-python

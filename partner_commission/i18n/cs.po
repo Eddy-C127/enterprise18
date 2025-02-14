@@ -3,7 +3,8 @@
 # 	* partner_commission
 # 
 # Translators:
-# Wil Odoo, 2024
+# Wil Odoo, 2025
+# Aleš Fiala <f.ales1@seznam.cz>, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:27+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Aleš Fiala <f.ales1@seznam.cz>, 2025\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,6 +27,8 @@ msgid ""
 "\n"
 "%(product)s: from %(start_date)s to %(end_date)s"
 msgstr ""
+"\n"
+"%(product)s: z %(start_date)s do %(end_date)s"
 
 #. module: partner_commission
 #. odoo-python
@@ -297,7 +300,7 @@ msgstr "Produkt"
 #. odoo-python
 #: code:addons/partner_commission/models/commission_plan.py:0
 msgid "Product %(product)s does not belong to category %(category)s"
-msgstr ""
+msgstr "Produkt %(product)s nepatří do kategorie %(category)s"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__category_id

@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Olga Gutorova, 2024
-# Wil Odoo, 2024
 # Ilya Rozhkov, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Ilya Rozhkov, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,7 +52,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "%(months)s m"
-msgstr ""
+msgstr "%(months)s m"
 
 #. module: account_asset
 #. odoo-python
@@ -64,7 +64,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "%(years)s y"
-msgstr ""
+msgstr "%(years)s y"
 
 #. module: account_asset
 #. odoo-python
@@ -107,6 +107,9 @@ msgid ""
 "<br/> %(extra_text)s Future entries will be recomputed to depreciate the "
 "asset following the changes."
 msgstr ""
+"Амортизационная проводка будет опубликована с даты %(date)s включительно. "
+"<br/> %(extra_text)s Будущие проводки будут пересчитаны для начисления "
+"амортизации актива после изменений."
 
 #. module: account_asset
 #. odoo-python
@@ -116,6 +119,8 @@ msgid ""
 " A disposal entry will be posted on the %(account_type)s account "
 "<b>%(account)s</b>."
 msgstr ""
+"Запись об амортизации будет сделана на дату %(date)s включительно.<br/> На "
+"счете %(account_type)s будет сделана проводка по выбытию <b>%(account)s</b>."
 
 #. module: account_asset
 #. odoo-python
@@ -125,6 +130,9 @@ msgid ""
 " A second entry will neutralize the original income and post the  outcome of"
 " this sale on account <b>%(account)s</b>."
 msgstr ""
+"Запись об амортизации будет сделана на дату %(date)s включительно.<br/> "
+"Вторая проводка нейтрализует первоначальный доход и отражает результат этой "
+"продажи на счете <b>%(account)s</b>."
 
 #. module: account_asset
 #. odoo-python
@@ -136,7 +144,7 @@ msgstr "Запись об амортизации будет размещена �
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "A document linked to %(move_line_name)s has been deleted: %(link)s"
-msgstr ""
+msgstr "Документ, связанный с %(move_line_name)s, был удален: %(link)s"
 
 #. module: account_asset
 #. odoo-python
@@ -157,6 +165,8 @@ msgid ""
 "A non deductible tax value of %(tax_value)s was added to %(name)s's initial "
 "value of %(purchase_value)s"
 msgstr ""
+"К первоначальной стоимости %(tax_value)s, равной %(name)s, была добавлена "
+"невычитаемая налоговая стоимость %(purchase_value)s"
 
 #. module: account_asset
 #: model:ir.model,name:account_asset.model_account_account
@@ -848,13 +858,13 @@ msgstr "Амортизационная доска изменена %s"
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "Depreciation entry %(name)s posted (%(value)s)"
-msgstr ""
+msgstr "Амортизационная проводка %(name)s размещена (%(value)s)"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "Depreciation entry %(name)s reversed (%(value)s)"
-msgstr ""
+msgstr "Амортизационная проводка %(name)s сторнирована (%(value)s)"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__display_account_asset_id
@@ -1671,6 +1681,9 @@ msgid ""
 "Purchase's value (%(purchase_value)s). Please make sure this is what you "
 "want."
 msgstr ""
+"Введенная вами сумма (%(entered_amount)s) не совпадает со значением "
+"связанной покупки (%(purchase_value)s). Убедитесь, что это именно то, что "
+"вам нужно."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__asset_id

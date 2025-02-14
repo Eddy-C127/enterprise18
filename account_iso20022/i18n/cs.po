@@ -3,7 +3,7 @@
 # 	* account_iso20022
 # 
 # Translators:
-# Wil Odoo, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -318,6 +318,12 @@ msgid ""
 "- 2 letters or digits: location code\n"
 "- 3 letters or digits: branch code, optional\n"
 msgstr ""
+"BIC kód '%(bic_code)s' spojený s bankou '%(bank)s' bankovního účtu '%(account)s' partnera '%(partner)s' nerespektuje požadovanou konvenci.\n"
+"Musí obsahovat 8 nebo 11 znaků a odpovídat následující struktuře:\n"
+"- 4 písmena: kód instituce nebo kód banky\n"
+"- 2 písmena: kód země\n"
+"- 2 písmena nebo číslice: kód umístění\n"
+"- 3 písmena nebo číslice: kód pobočky, volitelný\n"
 
 #. module: account_iso20022
 #. odoo-python

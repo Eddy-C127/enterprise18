@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Thi Huong Nguyen, 2024
+# Thi Huong Nguyen, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +34,7 @@ msgstr "<i class=\"fa fa-print\"/> In một trang mã vạch demo"
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/components/main.js:0
 msgid "Add Component"
-msgstr "Thêm nguyên liệu"
+msgstr "Thêm thành phần"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.view_picking_type_form
@@ -44,14 +44,13 @@ msgstr "Cho phép xác thực toàn bộ đơn hàng"
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,help:stock_barcode_mrp.field_stock_move_line__pick_type_create_components_lots
 msgid "Allow to create new lot/serial numbers for the components"
-msgstr "Cho phép tạo số sê-ri/lô mới cho các nguyên liệu"
+msgstr "Cho phép tạo số sê-ri/lô mới cho các thành phần"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.view_picking_type_form
 msgid "Allow user to produce all even if no components were scanned"
 msgstr ""
-"Cho phép người dùng tạo tất cả ngay cả khi không có nguyên liệu nào được "
-"quét"
+"Cho phép người dùng tạo tất cả ngay cả khi không có thành phần nào được quét"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -62,7 +61,7 @@ msgstr "Bạn có chắc chắn muốn huỷ lệnh sản xuất này không?"
 #. module: stock_barcode_mrp
 #: model:ir.actions.client,name:stock_barcode_mrp.stock_barcode_mo_client_action
 msgid "Barcode MO Client Action"
-msgstr "Tác vụ máy khách LSX Mã vạch"
+msgstr "Tác vụ máy khách MO Mã vạch"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
@@ -95,12 +94,12 @@ msgstr "Xác nhận"
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_stock_picking_type__count_mo_confirmed
 msgid "Count Mo Confirmed"
-msgstr "Số LSX đã được xác nhận"
+msgstr "Số MO đã được xác nhận"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_stock_move_line__pick_type_create_components_lots
 msgid "Create New Lots/Serial Numbers for Components"
-msgstr "Tạo số lô/sê-ri mới cho các nguyên liệu"
+msgstr "Tạo số lô/sê-ri mới cho các thành phần"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.actions.act_window,help:stock_barcode_mrp.mrp_action_kanban
@@ -242,7 +241,7 @@ msgstr "Số lượng"
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "Scan a component"
-msgstr "Quét một nguyên liệu"
+msgstr "Quét một thành phần"
 
 #. module: stock_barcode_mrp
 #. odoo-python
@@ -252,15 +251,17 @@ msgstr "Quét một sản phẩm để lọc đơn hàng."
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
-#: code:addons/stock_barcode_mrp/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-msgid "Scan an"
-msgstr "Quét một"
+#: code:addons/stock_barcode_mrp/static/src/kanban/stock_barcode_kanban_renderer.js:0
+msgid ""
+"Scan an %(bold_start)s order %(bold_end)s or a %(bold_start)s product "
+"%(bold_end)s to filter your records"
+msgstr ""
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "Scan your final product or more components"
-msgstr "Quét sản phẩm cuối cùng của bạn hoặc nhiều nguyên liệu hơn"
+msgstr "Quét sản phẩm cuối cùng của bạn hoặc nhiều thành phần hơn"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
@@ -286,8 +287,8 @@ msgid ""
 "The lines with a kit have been replaced with their components. Please check "
 "the picking before the final validation."
 msgstr ""
-"Những dòng có kit đã được thay thế bằng nguyên liệu của chúng. Vui lòng kiểm"
-" tra phiếu kho trước khi xác nhận lần cuối."
+"Những dòng có kit đã được thay thế bằng thành phần của chúng. Vui lòng kiểm "
+"tra phiếu kho trước khi xác nhận lần cuối."
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -311,7 +312,7 @@ msgstr "Lệnh này đã bị hủy"
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "To produce more products create a new MO."
-msgstr "Để sản xuất nhiều sản phẩm hơn, hãy tạo một LSX mới."
+msgstr "Để sản xuất nhiều sản phẩm hơn, hãy tạo một MO mới."
 
 #. module: stock_barcode_mrp
 #: model:ir.model,name:stock_barcode_mrp.model_stock_picking
@@ -336,8 +337,8 @@ msgid ""
 "When activated, then the registration of consumption for that component is recorded manually exclusively.\n"
 "If not activated, and any of the components consumption is edited manually on the manufacturing order, Odoo assumes manual consumption also."
 msgstr ""
-"Khi được kích hoạt, thì việc ghi nhận lượng sử dụng cho nguyên liệu đó được ghi lại riêng theo cách thủ công.\n"
-"Nếu không được kích hoạt và bất kỳ lượng sử dụng nguyên liệu nào được chỉnh sửa thủ công trên lệnh sản xuất, thì Odoo cũng coi là lượng tiêu thụ thủ công."
+"Khi được kích hoạt, thì việc ghi nhận lượng sử dụng cho thành phần đó được ghi lại riêng theo cách thủ công.\n"
+"Nếu không được kích hoạt nhưng có bất kỳ lượng sử dụng thành phần nào được chỉnh sửa thủ công trên lệnh sản xuất, thì Odoo cũng coi đó là lượng sử dụng thủ công."
 
 #. module: stock_barcode_mrp
 #: model:ir.model,name:stock_barcode_mrp.model_mrp_production_backorder
@@ -348,28 +349,4 @@ msgstr "Công cụ để đánh dấu là đã hoàn tất hoặc tạo đơn h�
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "You can't add the final product of a MO as a byproduct."
-msgstr "Bạn không thể thêm sản phẩm cuối cùng của một LSX làm phụ phẩm."
-
-#. module: stock_barcode_mrp
-#. odoo-javascript
-#: code:addons/stock_barcode_mrp/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-msgid "or a"
-msgstr "hoặc một"
-
-#. module: stock_barcode_mrp
-#. odoo-javascript
-#: code:addons/stock_barcode_mrp/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-msgid "order"
-msgstr "đơn hàng"
-
-#. module: stock_barcode_mrp
-#. odoo-javascript
-#: code:addons/stock_barcode_mrp/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-msgid "product"
-msgstr "sản phẩm"
-
-#. module: stock_barcode_mrp
-#. odoo-javascript
-#: code:addons/stock_barcode_mrp/static/src/kanban/stock_barcode_kanban_renderer.xml:0
-msgid "to filter your records"
-msgstr "để lọc bản ghi của bạn."
+msgstr "Bạn không thể thêm sản phẩm cuối cùng của một MO làm phụ phẩm."

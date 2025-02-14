@@ -3,10 +3,11 @@
 # 	* account_asset
 # 
 # Translators:
-# Bohdan Lisnenko, 2024
 # Yaroslav Husyar, 2024
 # Wil Odoo, 2024
+# Bohdan Lisnenko, 2025
 # Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2025
+# Martin Trigaux, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2025\n"
+"Last-Translator: Martin Trigaux, 2025\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,7 +54,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "%(months)s m"
-msgstr ""
+msgstr "%(months)s м"
 
 #. module: account_asset
 #. odoo-python
@@ -65,7 +66,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "%(years)s y"
-msgstr ""
+msgstr "%(years)s р"
 
 #. module: account_asset
 #. odoo-python
@@ -107,6 +108,9 @@ msgid ""
 "<br/> %(extra_text)s Future entries will be recomputed to depreciate the "
 "asset following the changes."
 msgstr ""
+"Запис амортизації буде опубліковано включно по дату %(date)s. <br/> "
+"%(extra_text)s Подальші записи будуть перераховані для амортизації активу "
+"після змін."
 
 #. module: account_asset
 #. odoo-python
@@ -116,6 +120,8 @@ msgid ""
 " A disposal entry will be posted on the %(account_type)s account "
 "<b>%(account)s</b>."
 msgstr ""
+"Запис амортизації буде опубліковано включно по дату %(date)s.<br/> Запис про"
+" утилізацію буде розміщено на рахунку %(account_type)s <b>%(account)s</b>."
 
 #. module: account_asset
 #. odoo-python
@@ -125,6 +131,9 @@ msgid ""
 " A second entry will neutralize the original income and post the  outcome of"
 " this sale on account <b>%(account)s</b>."
 msgstr ""
+"Запис амортизації буде опубліковано включно по дату %(date)s.<br/> Другий "
+"запис нейтралізує початковий дохід і опублікує результат цього продажу на "
+"рахунку<b>%(account)s</b>."
 
 #. module: account_asset
 #. odoo-python
@@ -136,7 +145,7 @@ msgstr "Запис амортизації буде опубліковано вк
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "A document linked to %(move_line_name)s has been deleted: %(link)s"
-msgstr ""
+msgstr "Документ, пов'язаний з %(move_line_name)s, видалено: %(link)s"
 
 #. module: account_asset
 #. odoo-python
@@ -148,7 +157,7 @@ msgstr "Документ, пов'язаний з цим переміщенням
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "A gross increase has been created: %(link)s"
-msgstr ""
+msgstr "Створено валовий приріст: %(link)s"
 
 #. module: account_asset
 #. odoo-python
@@ -157,6 +166,8 @@ msgid ""
 "A non deductible tax value of %(tax_value)s was added to %(name)s's initial "
 "value of %(purchase_value)s"
 msgstr ""
+"Податкова вартість, яка не підлягає вирахуванню %(tax_value)s була додана до"
+" початкового значення %(name)s %(purchase_value)s"
 
 #. module: account_asset
 #: model:ir.model,name:account_asset.model_account_account
@@ -846,13 +857,13 @@ msgstr "Табицю амортизації змінено %s"
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "Depreciation entry %(name)s posted (%(value)s)"
-msgstr ""
+msgstr "Запис амортизації %(name)s опубліковано (%(value)s)"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "Depreciation entry %(name)s reversed (%(value)s)"
-msgstr ""
+msgstr "Запис амортизації %(name)s зарезервовано (%(value)s)"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__display_account_asset_id
@@ -1665,6 +1676,9 @@ msgid ""
 "Purchase's value (%(purchase_value)s). Please make sure this is what you "
 "want."
 msgstr ""
+"Сума, яку ви ввели (%(entered_amount)s) не відповідає вартості пов’язаної "
+"купівлі (%(purchase_value)s). Будь ласка, переконайтеся, що це те, що ви "
+"хочете."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__asset_id

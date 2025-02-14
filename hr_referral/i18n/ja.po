@@ -34,7 +34,7 @@ msgstr ""
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_recruitment_report__referral_hired
 msgid "# Hired by Referral"
-msgstr "# 紹介による採用"
+msgstr "# リファラル採用"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_referral_send_sms_view_form
@@ -236,7 +236,7 @@ msgstr "アラート"
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_alert
 msgid "Alert in Referral App"
-msgstr "紹介アプリアラート"
+msgstr "リファラルアプリアラート"
 
 #. module: hr_referral
 #: model:ir.actions.act_window,name:hr_referral.action_hr_referral_alert_configuration
@@ -581,17 +581,17 @@ msgstr "従業員"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_report__employee_referral_hired
 msgid "Employee Referral Hired"
-msgstr "採用された従業員紹介"
+msgstr "採用された従業員リファラル"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_report__employee_referral_refused
 msgid "Employee Referral Refused"
-msgstr "不採用の従業員紹介"
+msgstr "却下された従業員リファラル"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_report
 msgid "Employee Referral Report"
-msgstr "従業員紹介レポート"
+msgstr "従業員リファラルレポート"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_form
@@ -610,13 +610,13 @@ msgstr "従業員分析"
 #. module: hr_referral
 #: model:ir.actions.act_window,name:hr_referral.employee_referral_report_action
 msgid "Employees Referral Analysis"
-msgstr "従業員の紹介分析"
+msgstr "従業員リファラル分析"
 
 #. module: hr_referral
 #. odoo-javascript
 #: code:addons/hr_referral/static/src/widgets/copy_referral_link_button.js:0
 msgid "Error while copying the Referral link: %s to clipboard"
-msgstr "参照リンク:%sをクリップボードにコピー中にエラーが発生しました"
+msgstr "リファラルリンク:%sをクリップボードにコピー中にエラーが発生しました"
 
 #. module: hr_referral
 #: model:ir.model.fields,help:hr_referral.field_hr_referral_alert__url
@@ -717,7 +717,7 @@ msgstr "グループ化"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_referral_alert_view_search
 msgid "HR Referral Alert Search"
-msgstr "人事紹介アラート検索"
+msgstr "人事リファラルアラート検索"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__has_message
@@ -773,12 +773,12 @@ msgstr "採用"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_res_users__hr_referral_level_id
 msgid "Hr Referral Level"
-msgstr "人事紹介レベル"
+msgstr "人事リファラルレベル"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_res_users__hr_referral_onboarding_page
 msgid "Hr Referral Onboarding Page"
-msgstr "人事紹介オンボーディングページ"
+msgstr "人事リファラルオンボーディングページ"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_alert__id
@@ -871,12 +871,12 @@ msgstr "職位"
 #. odoo-javascript
 #: code:addons/hr_referral/static/src/views/dashboard.xml:0
 msgid "Job Referral Program"
-msgstr "職務紹介"
+msgstr "求人リファラルプログラム"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_job__job_open_date
 msgid "Job Start Recruitment Date"
-msgstr "採用開始日"
+msgstr "求人採用開始日"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_report__write_date
@@ -948,7 +948,7 @@ msgstr "レベル名"
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_level
 msgid "Level for referrals"
-msgstr "紹介用のレベル"
+msgstr "リファラル用レベル"
 
 #. module: hr_referral
 #: model:ir.actions.act_window,name:hr_referral.action_hr_referral_level_configuration
@@ -1018,7 +1018,7 @@ msgstr "活動期限"
 #: model:ir.actions.act_window,name:hr_referral.action_hr_applicant_employee_referral
 #: model:ir.actions.act_window,name:hr_referral.action_hr_refused_applicant_employee_referral
 msgid "My Referral"
-msgstr "自分の紹介"
+msgstr "自分のリファラル"
 
 #. module: hr_referral
 #. odoo-python
@@ -1268,46 +1268,46 @@ msgstr "リファラ"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_points_filter
 msgid "Referral"
-msgstr "紹介"
+msgstr "リファラル"
 
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/models/hr_job.py:0
 msgid "Referral %(user)s: %(job_url)s"
-msgstr "紹介 %(user)s: %(job_url)s"
+msgstr "リファラル %(user)s: %(job_url)s"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_alert_mail_wizard
 msgid "Referral Alert Mail Wizard"
-msgstr "紹介アラートメールウィザード"
+msgstr "リファラルアラートメールウィザード"
 
 #. module: hr_referral
 #: model:ir.ui.menu,name:hr_referral.menu_report_employee_referral_all
 msgid "Referral Analysis"
-msgstr "紹介分析"
+msgstr "リファラル分析"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_res_company__hr_referral_background
 #: model:ir.model.fields,field_description:hr_referral.field_res_config_settings__hr_referral_background
 msgid "Referral Background"
-msgstr "紹介の背景"
+msgstr "リファラル背景"
 
 #. module: hr_referral
 #: model:ir.actions.server,name:hr_referral.action_hr_job_launch_referral_campaign
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_kanban_inherit_referral
 msgid "Referral Campaign"
-msgstr "紹介キャンペーン"
+msgstr "リファラルキャンペーン"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_campaign_wizard
 msgid "Referral Campaign Wizard"
-msgstr "紹介キャンペーンウィザード"
+msgstr "リファラルキャンペーンウィザード"
 
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/models/hr_job.py:0
 msgid "Referral Campaign for %(job)s"
-msgstr "%(job)s用紹介キャンペーン"
+msgstr "%(job)s用リファラルキャンペーン"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_link_to_share
@@ -1317,63 +1317,63 @@ msgstr "共有する紹介リンク"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_res_users__referral_point_ids
 msgid "Referral Point"
-msgstr "紹介ポイント"
+msgstr "リファラルポイント"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_applicant__referral_points_ids
 msgid "Referral Points"
-msgstr "紹介ポイント"
+msgstr "リファラルポイント"
 
 #. module: hr_referral
 #: model:res.groups,name:hr_referral.group_hr_referral_reward_responsible_user
 msgid "Referral Reward Responsible User"
-msgstr "紹介リワード責任者ユーザ"
+msgstr "リファラルリワード責任者ユーザ"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_send_mail
 msgid "Referral Send Mail"
-msgstr "紹介メール送信"
+msgstr "リファラルメール送信"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_send_sms
 msgid "Referral Send sms"
-msgstr "紹介SMS送信"
+msgstr "リファラルSMS送信"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_applicant__referral_state
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_report__referral_state
 msgid "Referral State"
-msgstr "紹介ステータス"
+msgstr "リファラルステータス"
 
 #. module: hr_referral
 #. odoo-javascript
 #: code:addons/hr_referral/static/src/widgets/copy_referral_link_button.js:0
 msgid "Referral link: %s has been copied to clipboard"
-msgstr "紹介リンク: %s がクリップボードにコピーされました"
+msgstr "リファラルリンク: %s がクリップボードにコピーされました"
 
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/wizard/hr_referral_link_to_share.py:0
 msgid "Referral: %(name)s"
-msgstr "紹介: %(name)s"
+msgstr "リファラル: %(name)s"
 
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/models/hr_applicant.py:0
 msgid "Referral: %(partner)s (%(applicant)s)"
-msgstr "紹介: %(partner)s (%(applicant)s)"
+msgstr "リファラル: %(partner)s (%(applicant)s)"
 
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/wizard/hr_referral_link_to_share.py:0
 msgid "Referral: %(url)s"
-msgstr "紹介: %(url)s"
+msgstr "リファラル: %(url)s"
 
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/models/hr_applicant.py:0
 msgid "Referral: %s"
-msgstr "紹介: %s"
+msgstr "リファラル: %s"
 
 #. module: hr_referral
 #. odoo-javascript
@@ -1381,7 +1381,7 @@ msgstr "紹介: %s"
 #: model:ir.ui.menu,name:hr_referral.menu_hr_referral_root
 #: model_terms:ir.ui.view,arch_db:hr_referral.res_config_settings_view__form
 msgid "Referrals"
-msgstr "紹介"
+msgstr "リファラル"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_applicant_view_search_bis_inherit_referral
@@ -1464,7 +1464,7 @@ msgstr "ポイント/ギフト検索"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_filter
 msgid "Search Referral"
-msgstr "紹介検索"
+msgstr "リファラル検索"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_email_body_template
@@ -1562,7 +1562,7 @@ msgstr "共有項目情報"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_recruitment_stage__use_in_referral
 msgid "Show in Referrals"
-msgstr "紹介で表示"
+msgstr "リファラルで表示"
 
 #. module: hr_referral
 #. odoo-javascript
@@ -1580,7 +1580,7 @@ msgstr "スキップして開始"
 #. odoo-python
 #: code:addons/hr_referral/models/hr_applicant.py:0
 msgid "Sorry, your referral %s has been refused in the recruitment process."
-msgstr "あなたの紹介%sは採用プロセス中に不採用になりました。"
+msgstr "あなたのリファラル%sは採用プロセス中に不採用になりました。"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_res_users__utm_source_id
@@ -1674,14 +1674,14 @@ msgid ""
 "                    The referral campaign will automatically publish it."
 msgstr ""
 "この求人ポジションは公開されていません。 \n"
-"                    紹介キャンペーンにより自動的に公開されます。"
+"                    リファラルキャンペーンにより自動的に公開されます。"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_referral_link_to_share_view_form
 msgid ""
 "This link contains a tracker so that people clicking on it will account to a"
 " referral for you, even if they apply on a position after a few days."
-msgstr "このリンクにはトラッカーが含まれており、クリックした人が数日後にそのポジションに応募したとしても、あなたの紹介となります。"
+msgstr "このリンクにはトラッカーが含まれており、クリックした人が数日後にそのポジションに応募したとしても、あなたのリファラルとなります。"
 
 #. module: hr_referral
 #: model:ir.model.fields,help:hr_referral.field_hr_recruitment_stage__use_in_referral
@@ -1770,7 +1770,7 @@ msgstr "このギフトの責任者ユーザ"
 #. module: hr_referral
 #: model:res.groups,name:hr_referral.group_hr_recruitment_referral_user
 msgid "User: Referral only"
-msgstr "ユーザ: 紹介のみ"
+msgstr "ユーザ: リファラルのみ"
 
 #. module: hr_referral
 #. odoo-javascript
@@ -1797,7 +1797,7 @@ msgstr "ウェブサイト通信履歴"
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_onboarding
 msgid "Welcome Onboarding in Referral App"
-msgstr "紹介アプリのオンボーディングへようこそ"
+msgstr "リファラルアプリのオンボーディングへようこそ"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_job__twitter_clicks
@@ -1826,7 +1826,7 @@ msgid ""
 "You cannot delete these UTM Campaigns as they are linked to the following jobs in Referral:\n"
 "%(job_names)s"
 msgstr ""
-"これらのUTMキャンペーンは、紹介アプリの以下の仕事にリンクしているため、削除することができません: \n"
+"これらのUTMキャンペーンは、リファラルアプリの以下の仕事にリンクしているため、削除することができません: \n"
 "%(job_names)s"
 
 #. module: hr_referral
@@ -1836,7 +1836,7 @@ msgid ""
 "You cannot delete these UTM Sources as they are linked to the following users in Referral:\n"
 "%(employee_names)s"
 msgstr ""
-"これらのUTMソースは、紹介アプリの以下のユーザにリンクしているため、削除することができません: \n"
+"これらのUTMソースは、リファラルアプリの以下のユーザにリンクしているため、削除することができません: \n"
 "%(employee_names)s"
 
 #. module: hr_referral

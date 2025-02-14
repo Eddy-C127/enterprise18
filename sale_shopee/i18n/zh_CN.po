@@ -459,7 +459,7 @@ msgstr ""
 #. module: sale_shopee
 #: model:ir.actions.act_window,name:sale_shopee.quick_create_account_action
 msgid "Create Shopee Accounts"
-msgstr ""
+msgstr "创建 Shopee 账户"
 
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_shopee_account__create_uid
@@ -488,7 +488,7 @@ msgstr "天"
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_shopee_shop__team_id
 msgid "Default Sales Team"
-msgstr ""
+msgstr "默认销售团队"
 
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_shopee_shop__user_id
@@ -514,11 +514,12 @@ msgid ""
 "Shopee shop authorization on Shopee Account view. Once expired, the user "
 "must re-authorize the connection on Shopee Account view."
 msgstr ""
+"在 Shopee 账户视图中进行 Shopee 店铺授权时返回的店铺授权到期日期。一旦授权过期，用户必须在 Shopee 账户视图中重新授权连接。"
 
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_shopee_shop__fbs_location_id
 msgid "FBS Stock Location"
-msgstr ""
+msgstr "FBS 库存位置"
 
 #. module: sale_shopee
 #: model:ir.model.fields.selection,name:sale_shopee.selection__stock_picking__shopee_label_status__failed
@@ -534,11 +535,15 @@ msgid ""
 "\n"
 "One of the following input could be incorrect: Partner ID, Partner Key, or API Endpoint."
 msgstr ""
+"由于以下错误，未能授权商店：\n"
+"- %(message)s\n"
+"\n"
+"其中一项输入可能有误：合作伙伴 ID、合作伙伴密钥或 API 端点。"
 
 #. module: sale_shopee
 #: model:ir.actions.server,name:sale_shopee.action_fetch_shipping_label
 msgid "Fetch Shipping Label"
-msgstr ""
+msgstr "读取运输标签"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_shop_view_form
@@ -1189,23 +1194,23 @@ msgstr ""
 msgid ""
 "The last time the orders were synchronized with Shopee. Orders whose status "
 "has not changed since this date will not be created nor updated in Odoo."
-msgstr ""
+msgstr "订单最后一次与 Shopee 同步的时间。在此日期后状态未发生变化的订单，将不会在 Odoo 中创建或更新。"
 
 #. module: sale_shopee
 #: model:ir.model.fields,help:sale_shopee.field_stock_picking__last_picking_sync_date
 msgid "The last time the picking was synchronized with Shopee."
-msgstr ""
+msgstr "上次与 Shopee 同步拣货的时间。"
 
 #. module: sale_shopee
 #: model:ir.model.fields,help:sale_shopee.field_shopee_shop__last_shop_status_sync_date
 msgid "The last time the shop status was synchronized with Shopee"
-msgstr ""
+msgstr "店铺状态上次与 Shopee 同步的时间。"
 
 #. module: sale_shopee
 #. odoo-python
 #: code:addons/sale_shopee/controllers/onboarding.py:0
 msgid "The request signature is not valid."
-msgstr ""
+msgstr "请求签名无效。"
 
 #. module: sale_shopee
 #: model:ir.model.fields,help:sale_shopee.field_shopee_shop__status
@@ -1214,6 +1219,8 @@ msgid ""
 "Shopee.- Active: The shop is active and can be synchronized with Odoo.- "
 "Error: The shop is banned and cannot be synchronized with Odoo."
 msgstr ""
+"商店在Shopee系统的状态。 - 停用：商店尚未通过 Shopee 审核。- 生效：店铺处于生效状态，可与 Odoo 同步。 - "
+"错误：店铺禁用，无法与 Odoo 同步。"
 
 #. module: sale_shopee
 #: model:ir.model.fields,help:sale_shopee.field_sale_order__shopee_delivery_status
@@ -1226,6 +1233,12 @@ msgid ""
 "- Cancelled: The order has been cancelled.\n"
 "- Pickup Failed: 3PL parcel pickup failed. Need to rearrange shipment."
 msgstr ""
+"Shopee 系统内的送货订单状态：\n"
+"- 准备发货：卖方可安排发货。\n"
+"- 已安排发货：卖家已在线安排发货，并从第三方物流公司（3PL）获得了跟踪号码。\n"
+"- 已发货：包裹已投递至第三方物流公司，或由第三方物流公司取走。\n"
+"- 已取消：订单已取消。\n"
+"- 取件失败： 3PL 包裹取件失败。需要重新安排发货。"
 
 #. module: sale_shopee
 #: model:ir.model.fields,help:sale_shopee.field_stock_picking__shopee_label_status

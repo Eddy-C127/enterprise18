@@ -111,11 +111,6 @@ msgid "Import"
 msgstr "导入"
 
 #. module: account_winbooks_import
-#: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
-msgid "Import (safe-mode)"
-msgstr "导入（安全模式）"
-
-#. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_analytic_ids
 msgid "Import Summary Analytic"
 msgstr "导入摘要分析"
@@ -195,16 +190,6 @@ msgstr "暂记科目代码"
 msgid ""
 "The code for the Suspense Account you entered doesn't match any account"
 msgstr "输入的暂记科目代码与任何科目均不匹配"
-
-#. module: account_winbooks_import
-#. odoo-python
-#: code:addons/account_winbooks_import/wizard/import_wizard.py:0
-msgid ""
-"The following banks were used for multiple partners in Winbooks, which is not allowed in Odoo. The bank number has been only set on one of each group:\n"
-"%s"
-msgstr ""
-"以下银行在Winbooks中用于多个合作伙伴，Odoo不允许此类使用。银行编号仅在各群组中的一个中设置：\n"
-"%s"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,help:account_winbooks_import.field_account_winbooks_import_wizard__suspense_code

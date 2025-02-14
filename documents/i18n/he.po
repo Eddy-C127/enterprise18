@@ -11,7 +11,6 @@
 # Ofir Blum <ofir.blum@gmail.com>, 2024
 # Netta Waizer, 2024
 # שהאב חוסיין <shhab89@gmail.com>, 2024
-# NoaFarkash, 2024
 # MichaelHadar, 2024
 # Roy Sayag, 2024
 # ExcaliberX <excaliberx@gmail.com>, 2024
@@ -22,9 +21,10 @@
 # Jonathan Spier, 2024
 # Lilach Gilliam <lilach.gilliam@gmail.com>, 2025
 # Martin Trigaux, 2025
-# ZVI BLONDER <ZVIBLONDER@gmail.com>, 2025
 # Yihya Hugirat <hugirat@gmail.com>, 2025
 # or balmas, 2025
+# NoaFarkash, 2025
+# ZVI BLONDER <ZVIBLONDER@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
@@ -32,7 +32,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: or balmas, 2025\n"
+"Last-Translator: ZVI BLONDER <ZVIBLONDER@gmail.com>, 2025\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -622,6 +622,12 @@ msgid "Activity Types"
 msgstr "סוגי פעילויות"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
+msgid "Activity assigned to"
+msgstr ""
+
+#. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_plan_action_document
 msgid ""
 "Activity plans are used to assign a list of activities in just a few clicks\n"
@@ -629,6 +635,8 @@ msgid ""
 msgstr ""
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_activity_type_id
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__activity_type_id
 msgid "Activity type"
@@ -1331,7 +1339,7 @@ msgstr "בקשת מסמך {{ object.name != False and ': '+ object.name or '' }}
 #: code:addons/documents/models/documents_document.py:0
 #: code:addons/documents/models/mail_activity.py:0
 msgid "Document Request: %(name)s Uploaded by: %(user)s"
-msgstr ""
+msgstr "בקשת מסמך: %(name)s הועלה על ידי: %(user)s"
 
 #. module: documents
 #: model:mail.template,name:documents.mail_template_document_request_reminder
@@ -2330,6 +2338,12 @@ msgstr "תיאור הפעילות הבאה "
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_type_id
 msgid "Next Activity Type"
 msgstr "סוג הפעילות הבאה"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
+msgid "No activity"
+msgstr "אין פעילות"
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_type_action_document
@@ -3894,7 +3908,7 @@ msgstr "שיתף תיקיה זו איתך:"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
 msgid "status code: %(status)s, message: %(message)s"
-msgstr ""
+msgstr "קוד סטטוס: %(status)s, הודעה: %(message)s"
 
 #. module: documents
 #. odoo-javascript
@@ -3913,4 +3927,10 @@ msgstr "ללא שם"
 msgid ""
 "•\n"
 "                                        <b>URL</b>"
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to read the permission panel data."
 msgstr ""
