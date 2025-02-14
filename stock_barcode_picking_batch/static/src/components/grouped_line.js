@@ -19,5 +19,12 @@ patch(GroupedLineComponent.prototype, {
             return true;
         }
         return super.displayToggleBtn;
-    }
+    },
+
+    get linesToDisplay() {
+        if (this.env.model.resModel === "stock.picking.batch" && !Boolean(this.pickingName)) {
+            return this.props.line.lines;
+        }
+        return super.linesToDisplay;
+    },
 });
