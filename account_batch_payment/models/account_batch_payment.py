@@ -148,9 +148,6 @@ class AccountBatchPayment(models.Model):
     @api.constrains('batch_type', 'journal_id', 'payment_ids')
     def _check_payments_constrains(self):
         for record in self:
-            all_companies = set(record.payment_ids.mapped('company_id'))
-            if len(all_companies) > 1:
-                raise ValidationError(_("All payments in the batch must belong to the same company."))
             all_journals = set(record.payment_ids.mapped('journal_id'))
             if len(all_journals) > 1 or (record.payment_ids and record.payment_ids[:1].journal_id != record.journal_id):
                 raise ValidationError(_("The journal of the batch payment and of the payments it contains must be the same."))
