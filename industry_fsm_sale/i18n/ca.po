@@ -11,7 +11,7 @@
 # marcescu, 2023
 # Josep Anton Belchi, 2023
 # Martin Trigaux, 2023
-# Quim - eccit <quim@eccit.com>, 2023
+# Quim - coopdevs <quim.rebull@coopdevs.org>, 2023
 # Óscar Fonseca <tecnico@pyming.com>, 2023
 # Ivan Espinola, 2023
 # Arnau Ros, 2023
@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:42+0000\n"
+"POT-Creation-Date: 2025-02-10 10:51+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Manel Fernandez Ramirez <manelfera@outlook.com>, 2024\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
@@ -468,20 +468,8 @@ msgstr "Comanda"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_project__sale_line_id
-#: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__sale_line_id
 msgid "Sales Order Item"
 msgstr "Element de la comanda de venda"
-
-#. module: industry_fsm_sale
-#: model:ir.model.fields,help:industry_fsm_sale.field_project_task__sale_line_id
-msgid ""
-"Sales Order Item to which the time spent on this task will be added in order to be invoiced to your customer.\n"
-"By default the sales order item set on the project will be selected. In the absence of one, the last prepaid sales order item that has time remaining will be used.\n"
-"Remove the sales order item in order to make this task non billable. You can also change or remove the sales order item of each timesheet entry individually."
-msgstr ""
-"Element de la comanda de vendes al qual s'afegirà el temps dedicat a aquesta tasca per tal de facturar-lo al vostre client.\n"
-"Per defecte, se seleccionarà l'element de comanda de vendes establert al projecte. En absència d'una, s'utilitzarà l'últim article de comanda de prepagament que queda temps.\n"
-"Suprimiu l'element de comanda de vendes per tal que aquesta tasca no sigui facturable. També podeu canviar o eliminar l'element de comanda de vendes de cada entrada de full de temps individualment."
 
 #. module: industry_fsm_sale
 #: model:ir.model,name:industry_fsm_sale.model_sale_order_line

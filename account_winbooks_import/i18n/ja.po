@@ -102,11 +102,6 @@ msgid "Import"
 msgstr "インポート"
 
 #. module: account_winbooks_import
-#: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
-msgid "Import (safe-mode)"
-msgstr "インポート（セーフモード）"
-
-#. module: account_winbooks_import
 #. odoo-javascript
 #: code:addons/account_winbooks_import/static/src/xml/account_winbooks_import.xml:0
 #, python-format
@@ -175,17 +170,6 @@ msgstr "仮勘定コード"
 msgid ""
 "The code for the Suspense Account you entered doesn't match any account"
 msgstr "入力した仮勘定用のコードと一致する勘定がありません"
-
-#. module: account_winbooks_import
-#. odoo-python
-#: code:addons/account_winbooks_import/wizard/import_wizard.py:0
-#, python-format
-msgid ""
-"The following banks were used for multiple partners in Winbooks, which is not allowed in Odoo. The bank number has been only set on one of each group:\n"
-"%s"
-msgstr ""
-"以下の銀行がWinbooksで複数のパートナーに使用されていますが、Odooでは許可されていません。銀行番号は各グループの1つにのみ設定されています：\n"
-"%s"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,help:account_winbooks_import.field_account_winbooks_import_wizard__suspense_code

@@ -6,7 +6,6 @@
 # Özlem Atalay <ozlema@eskayazilim.com.tr>, 2023
 # Ahmet Altinisik <aaltinisik@altinkaya.com.tr>, 2023
 # Melih Melik Sonmez, 2023
-# Nadir Gazioglu <nadirgazioglu@gmail.com>, 2023
 # Murat Durmuş <muratd@projetgrup.com>, 2023
 # İmat Yahya Çataklı <yahya.catakli@soluto.com.tr>, 2023
 # Buket Şeker <buket_skr@hotmail.com>, 2023
@@ -25,14 +24,15 @@
 # Martin Trigaux, 2024
 # Mehmet YAYLA, 2024
 # Ayhan Kızıltan, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ayhan Kızıltan, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -794,6 +794,12 @@ msgstr "Başlamak için tıklayın"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
 #: code:addons/sign/static/src/js/tours/sign.js:0
+#: model:sign.template,redirect_url_text:sign.template_sign_1
+#: model:sign.template,redirect_url_text:sign.template_sign_2
+#: model:sign.template,redirect_url_text:sign.template_sign_3
+#: model:sign.template,redirect_url_text:sign.template_sign_4
+#: model:sign.template,redirect_url_text:sign.template_sign_5
+#: model:sign.template,redirect_url_text:sign.template_sign_tour
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 #: model_terms:ir.ui.view,arch_db:sign.sign_terms_conditions_setting_banner
 #, python-format
@@ -2264,16 +2270,6 @@ msgid "Oops"
 msgstr "Hata"
 
 #. module: sign
-#: model:sign.template,redirect_url_text:sign.template_sign_1
-#: model:sign.template,redirect_url_text:sign.template_sign_2
-#: model:sign.template,redirect_url_text:sign.template_sign_3
-#: model:sign.template,redirect_url_text:sign.template_sign_4
-#: model:sign.template,redirect_url_text:sign.template_sign_5
-#: model:sign.template,redirect_url_text:sign.template_sign_tour
-msgid "Open Link"
-msgstr "Bağlantıyı Aç"
-
-#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.ignore_sign_request_item
 msgid "Operation successful"
 msgstr ""
@@ -2632,7 +2628,6 @@ msgstr "Kaydet"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_body.js:0
-#: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.js:0
 #, python-format
 msgid "Saved"
 msgstr "Kaydedildi"
@@ -3038,7 +3033,7 @@ msgstr "İmza Talebi"
 #: code:addons/sign/wizard/sign_send_request.py:0
 #, python-format
 msgid "Signature Request - %(file_name)s"
-msgstr ""
+msgstr "İmza İsteği - %(file_name)s"
 
 #. module: sign
 #. odoo-python

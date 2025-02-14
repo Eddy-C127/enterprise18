@@ -5,20 +5,28 @@
 # Translators:
 # Wil Odoo, 2023
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
+# Chloe Wang, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2025-02-10 10:52+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023\n"
+"Last-Translator: Chloe Wang, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: spreadsheet_dashboard_hr_contract
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#, python-format
+msgid "All contract start date"
+msgstr ""
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
@@ -45,20 +53,11 @@ msgstr "平均工资"
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
-msgid "Cancelled contracts"
-msgstr "取消的合同"
-
-#. module: spreadsheet_dashboard_hr_contract
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#, python-format
 msgid "Contract history by Job Position"
 msgstr "按工作职位划分的合同历史"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
 msgid "Contracts"
@@ -81,14 +80,12 @@ msgstr "离职员工"
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
 msgid "Department"
 msgstr "部门"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
 msgid "Departure Reason"
@@ -111,18 +108,12 @@ msgstr "员工"
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
 msgid "Employee Contract by Status"
 msgstr "按身份分列的员工合同"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #: model:spreadsheet.dashboard,name:spreadsheet_dashboard_hr_contract.spreadsheet_dashboard_employees
 #, python-format
@@ -131,9 +122,6 @@ msgstr "员工"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
 msgid "Employees Analysis"
@@ -145,6 +133,27 @@ msgstr "员工分析"
 #, python-format
 msgid "Employees Analysis by Department"
 msgstr "按部门划分的员工分析"
+
+#. module: spreadsheet_dashboard_hr_contract
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#, python-format
+msgid "Employees departures"
+msgstr ""
+
+#. module: spreadsheet_dashboard_hr_contract
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#, python-format
+msgid "Employees first contract date"
+msgstr ""
+
+#. module: spreadsheet_dashboard_hr_contract
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#, python-format
+msgid "Expiration contract dates"
+msgstr ""
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
@@ -171,22 +180,8 @@ msgstr "工作岗位"
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
-msgid "New + Running"
-msgstr "新 + 运行"
-
-#. module: spreadsheet_dashboard_hr_contract
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#, python-format
 msgid "New Employees Over Time"
 msgstr "新员工随时间变化"
-
-#. module: spreadsheet_dashboard_hr_contract
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#, python-format
-msgid "New Employees Over Time by Departure Date (Month)"
-msgstr "按离职日期（月）分列的新员工超时情况"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
@@ -197,7 +192,6 @@ msgstr "按离职原因分列的新员工离职时间"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
 msgid "New Employees Over Time by First Contract Date (Month)"
@@ -220,7 +214,6 @@ msgstr "新合同"
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
 msgid "New employees"
 msgstr "新员工"
@@ -236,8 +229,8 @@ msgstr "原因"
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
-msgid "Running contracts"
-msgstr "运行合同"
+msgid "Running and new contracts"
+msgstr "生效及新订立合约"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript

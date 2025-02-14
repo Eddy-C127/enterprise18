@@ -4,17 +4,17 @@
 # 
 # Translators:
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
-# Wil Odoo, 2024
 # Chloe Wang, 2024
 # Raymond Yu <cl_yu@hotmail.com>, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Raymond Yu <cl_yu@hotmail.com>, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,13 +85,6 @@ msgstr "添加IOT 盒子向导"
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
-msgid "Are you sure you want to reboot the IoT box?"
-msgstr "您确定想重启IoT盒子吗？"
-
-#. module: iot
-#. odoo-javascript
-#: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
-#, python-format
 msgid "Are you sure you want to restart Odoo on the IoT box?"
 msgstr "您确定想重启IoT盒子上的Odoo吗？"
 
@@ -121,9 +114,12 @@ msgid "Camera"
 msgstr "摄像头"
 
 #. module: iot
-#: model_terms:ir.ui.view,arch_db:iot.view_select_printers_wizard
-msgid "Cancel"
-msgstr "取消"
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Check IoT Box connection. Try restarting if needed."
+msgstr "检查物联网盒连接。必要时尝试重启。"
 
 #. module: iot
 #. odoo-javascript
@@ -131,26 +127,6 @@ msgstr "取消"
 #, python-format
 msgid "Check if the device is still connected"
 msgstr "检查设备是否仍在连接"
-
-#. module: iot
-#. odoo-javascript
-#: code:addons/iot/static/src/iot_websocket_service.js:0
-#, python-format
-msgid "Check the IoT connection. Try restarting if needed."
-msgstr "检查 IoT 连接。必要时尝试重启。"
-
-#. module: iot
-#: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
-#: model:ir.ui.menu,name:iot.view_iot_selected_printer_local_action
-msgid "Clear Selected Devices"
-msgstr "清除所选设备"
-
-#. module: iot
-#. odoo-javascript
-#: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
-#, python-format
-msgid "Clear automatic reports"
-msgstr "清晰的自动报告"
 
 #. module: iot
 #. odoo-javascript
@@ -201,6 +177,11 @@ msgstr "关闭窗口并重试"
 #: model:ir.model.fields,field_description:iot.field_iot_device__company_id
 msgid "Company"
 msgstr "公司"
+
+#. module: iot
+#: model:ir.ui.menu,name:iot.view_iot_selected_printer_local_action
+msgid "Configuration"
+msgstr "配置"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_box_view_kanban
@@ -337,6 +318,13 @@ msgstr "下载日志"
 #, python-format
 msgid "Download logs"
 msgstr "下载日志"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_report_action.js:0
+#, python-format
+msgid "Failed to send to printer."
+msgstr "发送到打印机失败。"
 
 #. module: iot
 #. odoo-javascript
@@ -528,13 +516,27 @@ msgid "Network"
 msgstr "网络"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
+#, python-format
+msgid "New IoT Box connected!"
+msgstr "新的物联网盒子已连接！"
+
+#. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "No IoT Box found!"
 msgstr "未找到 IOT 盒子"
 
 #. module: iot
 #. odoo-javascript
-#: code:addons/iot/static/src/select_printer_form.js:0
+#: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
+#, python-format
+msgid "No new IoT Box found."
+msgstr "未找到新的物联网盒子。"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/select_printer_wizard.js:0
 #, python-format
 msgid "No printer selected"
 msgstr "未选择打印机"
@@ -599,6 +601,13 @@ msgid "Please check if the IoT Box is still connected."
 msgstr "请检查IoT Box是否仍连接。"
 
 #. module: iot
+#. odoo-python
+#: code:addons/iot/wizard/add_iot_box.py:0
+#, python-format
+msgid "Please enter a pairing code."
+msgstr "请输入配对码。"
+
+#. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
@@ -650,8 +659,24 @@ msgstr "报告 xml"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__report_ids
+#: model:ir.ui.menu,name:iot.iot_settings_menu_action
 msgid "Reports"
 msgstr "报告"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
+#, python-format
+msgid "Reports with linked printers"
+msgstr "包含链接打印机的报告"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
+#: model:ir.ui.menu,name:iot.iot_clear_selected_devices
+#, python-format
+msgid "Reset Linked Printers"
+msgstr "重置链接的打印机"
 
 #. module: iot
 #. odoo-javascript
@@ -688,7 +713,7 @@ msgstr "比例"
 
 #. module: iot
 #. odoo-javascript
-#: code:addons/iot/static/src/select_printer_form.js:0
+#: code:addons/iot/static/src/select_printer_wizard.js:0
 #, python-format
 msgid "Select at least one printer"
 msgstr "请选择至少一部打印机"
@@ -700,6 +725,7 @@ msgstr "选择打印机"
 
 #. module: iot
 #. odoo-javascript
+#: code:addons/iot/static/src/iot_report_action.js:0
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 #, python-format
 msgid "Sending to printer %s..."
@@ -796,16 +822,23 @@ msgid "USB"
 msgstr "USB"
 
 #. module: iot
-#. odoo-javascript
-#: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
+#. odoo-python
+#: code:addons/iot/wizard/add_iot_box.py:0
 #, python-format
-msgid "Unlink"
-msgstr "取消链接"
+msgid "Using Pairing Code to connect..."
+msgstr "使用配对码连接⋯"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__variant
 msgid "Variant"
 msgstr "变体"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
+#, python-format
+msgid "Waiting for a new IoT Box..."
+msgstr "等待新的物联网盒子⋯"
 
 #. module: iot
 #. odoo-python
@@ -830,6 +863,11 @@ msgstr "连接"
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid "or wifi"
 msgstr "或 wifi"
+
+#. module: iot
+#: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
+msgid "reset.linked.printers"
+msgstr "reset.linked.printers"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action

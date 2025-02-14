@@ -3,14 +3,14 @@
 # 	* delivery_fedex
 # 
 # Translators:
-# Wil Odoo, 2023
+# Wil Odoo, 2025
 # Tony Ng, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Tony Ng, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -119,18 +119,18 @@ msgstr "額外數據"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_rate_request
-msgid "Extra data for rate"
-msgstr "費用率額外數據"
+msgid "Extra data for rate (legacy)"
+msgstr "收費率額外數據（舊系統）"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_return_request
-msgid "Extra data for return"
-msgstr "退貨額外數據"
+msgid "Extra data for return (legacy)"
+msgstr "退貨額外數據（舊系統）"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_ship_request
-msgid "Extra data for ship"
-msgstr "運輸額外數據"
+msgid "Extra data for ship (legacy)"
+msgstr "貨運額外數據（舊系統）"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_label_file_type
@@ -171,6 +171,11 @@ msgstr "FEDEX_FIRST"
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_ground
 msgid "FEDEX_GROUND"
 msgstr "FEDEX_GROUND"
+
+#. module: delivery_fedex
+#: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_international_connect_plus
+msgid "FEDEX_INTERNATIONAL_CONNECT_PLUS"
+msgstr "FEDEX_INTERNATIONAL_CONNECT_PLUS"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_international_priority

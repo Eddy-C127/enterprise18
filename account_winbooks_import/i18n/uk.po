@@ -102,11 +102,6 @@ msgid "Import"
 msgstr "Імпорт"
 
 #. module: account_winbooks_import
-#: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
-msgid "Import (safe-mode)"
-msgstr "Імпорт (безпечний режим)"
-
-#. module: account_winbooks_import
 #. odoo-javascript
 #: code:addons/account_winbooks_import/static/src/xml/account_winbooks_import.xml:0
 #, python-format
@@ -177,17 +172,6 @@ msgstr "Код рахунку Suspense"
 msgid ""
 "The code for the Suspense Account you entered doesn't match any account"
 msgstr "Код, який ви ввели для рахунку Suspense не відповідає жодному рахунку"
-
-#. module: account_winbooks_import
-#. odoo-python
-#: code:addons/account_winbooks_import/wizard/import_wizard.py:0
-#, python-format
-msgid ""
-"The following banks were used for multiple partners in Winbooks, which is not allowed in Odoo. The bank number has been only set on one of each group:\n"
-"%s"
-msgstr ""
-"Наведені нижче банки були використані для кількох партнерів у Winbooks, що заборонено в Odoo. Номер банку встановлено лише для одного з кожної групи:\n"
-"%s"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,help:account_winbooks_import.field_account_winbooks_import_wizard__suspense_code

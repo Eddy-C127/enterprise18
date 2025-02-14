@@ -9,19 +9,20 @@
 # RGB Consulting <odoo@rgbconsulting.com>, 2023
 # Susanna Pujol, 2023
 # Albert Parera, 2023
-# AncesLatino2004, 2023
+# 7b9408628f00af852f513eb4f12c005b_f9c6891, 2023
 # Marc Tormo i Bochaca <mtbochaca@gmail.com>, 2023
 # Sandra Franch <sandra.franch@upc.edu>, 2023
 # Carles Antoli <carlesantoli@hotmail.com>, 2023
 # Martin Trigaux, 2023
-# Quim - eccit <quim@eccit.com>, 2023
+# Quim - coopdevs <quim.rebull@coopdevs.org>, 2023
 # Ivan Espinola, 2023
 # martioodo hola, 2023
 # marcescu, 2023
 # Josep Anton Belchi, 2024
-# Harcogourmet, 2024
+# Xavier, 2024
 # Arnau Ros, 2024
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2024
+# Noemi Pla, 2025
 # 
 msgid ""
 msgstr ""
@@ -29,7 +30,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Manel Fernandez Ramirez <manelfera@outlook.com>, 2024\n"
+"Last-Translator: Noemi Pla, 2025\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -293,7 +294,7 @@ msgstr "Es Pot Modificar"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__can_edit_user_id
 msgid "Can Edit User"
-msgstr ""
+msgstr "Pot modificar l'usuari"
 
 #. module: approvals
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__cancel
@@ -622,6 +623,9 @@ msgid ""
 " If Employee's Manager is selected as approver, they will be the first in "
 "line."
 msgstr ""
+"Si aquesta casella està marcada, els aprovadors han d'aprovar en seqüència "
+"(un darrer l'altre). Si se selecciona el gestor d'empleats com a aprovador, "
+"aquest serà el primer en la llista."
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__image
@@ -853,7 +857,7 @@ msgstr "Nombre de peticions a validar"
 #. module: approvals
 #: model:res.groups,name:approvals.group_approval_user
 msgid "Officer: Approve all requests"
-msgstr ""
+msgstr "Responsable: aprova totes les sol·licituds"
 
 #. module: approvals
 #: model:ir.model.fields.selection,name:approvals.selection__approval_category__has_amount__optional
@@ -1026,13 +1030,16 @@ msgid ""
 "Simple users should not be able to remove themselves as approvers because "
 "they will lose access to the record if they misclick."
 msgstr ""
+"Els usuaris generals no haurien de tindre autorització per eliminar-se a "
+"ells mateixos com a aprovadors, ja que perdrien l'accés al registre si fan "
+"clic accidentalment."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 #, python-format
 msgid "Start date should precede the end date."
-msgstr ""
+msgstr "La data d'inici hauria de precedir a la data de finalització."
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__status
@@ -1208,7 +1215,7 @@ msgstr ""
 #: code:addons/approvals/models/approval_request.py:0
 #, python-format
 msgid "You have to attach at least one document."
-msgstr ""
+msgstr "Ha d'adjuntar almenys un document."
 
 #. module: approvals
 #. odoo-python

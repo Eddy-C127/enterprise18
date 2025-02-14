@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: George Tarasidis <george_tarasidis@yahoo.com>, 2024\n"
 "Language-Team: Greek (https://app.transifex.com/odoo/teams/41243/el/)\n"
@@ -435,6 +435,11 @@ msgid "USPS (Legacy)"
 msgstr ""
 
 #. module: delivery_usps
+#: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_label_file_type
+msgid "USPS (Legacy) Label File Type"
+msgstr ""
+
+#. module: delivery_usps
 #: model_terms:ir.ui.view,arch_db:delivery_usps.view_delivery_carrier_form_with_provider_usps
 msgid "USPS Configuration"
 msgstr ""
@@ -472,11 +477,6 @@ msgstr ""
 msgid ""
 "USPS International is used only to ship outside of the U.S.A. Please change "
 "the delivery method into USPS Domestic."
-msgstr ""
-
-#. module: delivery_usps
-#: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_label_file_type
-msgid "USPS Label File Type"
 msgstr ""
 
 #. module: delivery_usps

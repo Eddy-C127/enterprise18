@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Tony Ng, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -586,7 +586,7 @@ msgid ""
 "The estimated shipping price cannot be computed because the weight is missing for the following product(s): \n"
 " %s"
 msgstr ""
-"The estimated shipping price cannot be computed because the weight is missing for the following product(s): \n"
+"由於以下產品缺漏重量資料，因此未能估算預計運費：\n"
 " %s"
 
 #. module: delivery_sendcloud
@@ -616,11 +616,12 @@ msgstr "沒有可用的運輸產品，請更新「發貨人」欄位，或在您
 
 #. module: delivery_sendcloud
 #. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid ""
-"There is no rate available for this order with the selected shipping product"
-msgstr "所選取運輸產品沒有適用於該訂單的費用率"
+"There is no rate available for this order with the selected shipping "
+"product."
+msgstr "對於已選取的運輸產品，沒有收費率可用於此訂單。"
 
 #. module: delivery_sendcloud
 #. odoo-python

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-05 09:31+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
@@ -306,6 +306,17 @@ msgid "<strong>Computed on </strong>"
 msgstr "<strong>Tính trên </strong>"
 
 #. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid ""
+"<strong>Congrats, Your first payslip is now finished. It's time for you to "
+"explore the Payroll app by yourself.</strong>"
+msgstr ""
+"<strong>Xin chúc mừng. Phiếu lương đầu tiên của bạn đã hoàn tất. Giờ là lúc "
+"bạn tự mình khám phá ứng dụng Bảng lương.</strong>"
+
+#. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong>Contract Start Date</strong>"
 msgstr "<strong>Ngày bắt đầu hợp đồng</strong>"
@@ -451,6 +462,13 @@ msgstr "Thêm phiếu lương"
 #, python-format
 msgid "Add a <strong>name</strong> to the contract."
 msgstr "Thêm <strong>tên</strong> vào hợp đồng."
+
+#. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid "Add a employee to your contract"
+msgstr "Thêm một nhân viên vào hợp đồng của bạn"
 
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.action_view_hr_payroll_structure_from_type
@@ -790,24 +808,10 @@ msgstr "Danh mục"
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 #, python-format
-msgid "Check the <strong>Salary Structure Type</strong>."
-msgstr "Kiểm tra <strong>Loại cấu trúc lương</strong>."
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
 msgid ""
 "Check the <strong>Work Entries</strong> linked to your newly created "
 "Contract."
 msgstr "Kiểm tra <strong>Công</strong> liên kết với Hợp đồng mới tạo của bạn."
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Check the <strong>Working Schedule</strong>."
-msgstr "Kiểm tra <strong>Lịch làm việc</strong>."
 
 #. module: hr_payroll
 #: model:hr.salary.attachment.type,name:hr_payroll.hr_salary_attachment_type_child_support
@@ -841,13 +845,6 @@ msgid ""
 "Click here to generate a <strong>Batch</strong> for the displayed Employees."
 msgstr ""
 "Nhấp vào đây để tạo <strong>Bảng lương</strong> cho Nhân viên được hiển thị."
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Click here to go back to the <strong>Employee's profile</strong>."
-msgstr "Nhấn vào đây để quay lại trang <strong>Hồ sơ nhân viên</strong>."
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -902,15 +899,6 @@ msgstr "Đóng"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__paid_date
 msgid "Close Date"
 msgstr "Ngày thanh toán"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Close the window."
-msgstr "Đóng cửa sổ."
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_type__round_days_type__half-up
@@ -1038,17 +1026,6 @@ msgstr "Xung đột"
 #, python-format
 msgid "Conflicts"
 msgstr "Xung đột"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid ""
-"Congratulations! You created your first contract and generated your first "
-"payslip!"
-msgstr ""
-"Chúc mừng! Bạn đã tạo hợp đồng đầu tiên và tạo phiếu lương đầu tiên của "
-"mình!"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__contract_id
@@ -2470,6 +2447,12 @@ msgid "New Payslip"
 msgstr "Phiếu lương mới"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_calendar_event_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Sự kiện trên lịch cho hoạt động tiếp theo"
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_date_deadline
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_date_deadline
 msgid "Next Activity Deadline"
@@ -3108,14 +3091,6 @@ msgid "Period"
 msgstr "Giai đoạn"
 
 #. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Pick an Employee to see his <strong>Contract's History</strong>."
-msgstr ""
-"Chọn một Nhân viên để xem <strong>Lịch sử hợp đồng</strong> của người đó."
-
-#. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_report__work_entry_source__planning
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_report__work_entry_source__planning
 msgid "Planning"
@@ -3314,6 +3289,13 @@ msgstr "Khoản tiền còn lại phải là số dương."
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_attachment__remaining_amount
 msgid "Remaining amount to be paid."
 msgstr "Khoản tiền còn lại cần thanh toán."
+
+#. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid "Remove \"Conflicting\" filter"
+msgstr "Xóa bộ lọc \"Xung đột\""
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__report_id
@@ -3603,13 +3585,6 @@ msgstr "Tìm Quy tắc lương"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_structure_type_view_search
 msgid "Search Structure Type"
 msgstr "Tìm kiếm loại cấu trúc"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Select an <strong>HR Responsible</strong> for the contract."
-msgstr "Chọn một <strong>Nhân sự phụ trách</strong> cho hợp đồng."
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__semi-annually
@@ -4621,13 +4596,6 @@ msgid ""
 msgstr ""
 "Bạn nhận được thông báo này vì bạn là người phụ trách nhân sự của nhân viên "
 "này."
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "You can access the Payslips from the Employee's Profile."
-msgstr "Bạn có thể truy cập Phiếu lương từ Hồ sơ của Nhân viên."
 
 #. module: hr_payroll
 #. odoo-python

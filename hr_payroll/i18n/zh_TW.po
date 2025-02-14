@@ -3,16 +3,16 @@
 # 	* hr_payroll
 # 
 # Translators:
-# Tony Ng, 2025
 # Wil Odoo, 2025
+# Tony Ng, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-05 09:31+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Tony Ng, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -303,6 +303,15 @@ msgid "<strong>Computed on </strong>"
 msgstr "<strong>計算於 </strong>"
 
 #. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid ""
+"<strong>Congrats, Your first payslip is now finished. It's time for you to "
+"explore the Payroll app by yourself.</strong>"
+msgstr "<strong>恭喜！你已完成設定第一張工資單。現在，是時候讓你親自探索薪酬管理應用程式的其他功能了。</strong>"
+
+#. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong>Contract Start Date</strong>"
 msgstr "<strong>合約開始日期</strong>"
@@ -448,6 +457,13 @@ msgstr "加入工資單"
 #, python-format
 msgid "Add a <strong>name</strong> to the contract."
 msgstr "在合約中加入<strong>名稱</strong>。"
+
+#. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid "Add a employee to your contract"
+msgstr "將員工加入至合約內"
 
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.action_view_hr_payroll_structure_from_type
@@ -775,24 +791,10 @@ msgstr "類別"
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 #, python-format
-msgid "Check the <strong>Salary Structure Type</strong>."
-msgstr "檢查<strong>薪金結構類型</strong>。"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
 msgid ""
 "Check the <strong>Work Entries</strong> linked to your newly created "
 "Contract."
 msgstr "檢查連結至新建立合約的<strong>工作記項</strong>。"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Check the <strong>Working Schedule</strong>."
-msgstr "檢查<strong>工作日程</strong>。"
 
 #. module: hr_payroll
 #: model:hr.salary.attachment.type,name:hr_payroll.hr_salary_attachment_type_child_support
@@ -825,13 +827,6 @@ msgstr "按一下此處，建立新<strong>合約</strong>。"
 msgid ""
 "Click here to generate a <strong>Batch</strong> for the displayed Employees."
 msgstr "按一下此處，為顯示的員工產生一個<strong>批次</strong>。"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Click here to go back to the <strong>Employee's profile</strong>."
-msgstr "按此返回<strong>員工個人資料</strong>。"
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -883,15 +878,6 @@ msgstr "關閉"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__paid_date
 msgid "Close Date"
 msgstr "關閉日期"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Close the window."
-msgstr "關閉視窗。"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_type__round_days_type__half-up
@@ -1019,15 +1005,6 @@ msgstr "衝突"
 #, python-format
 msgid "Conflicts"
 msgstr "衝突"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid ""
-"Congratulations! You created your first contract and generated your first "
-"payslip!"
-msgstr "恭喜，你成功建立了第一份合約，及產生了第一張工資單！"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__contract_id
@@ -1292,7 +1269,7 @@ msgstr "日"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_report__number_of_days
 msgid "Days"
-msgstr "天內"
+msgstr "天"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__count_leave
@@ -2435,6 +2412,12 @@ msgid "New Payslip"
 msgstr "新工資單"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_calendar_event_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "下一個活動日曆事件"
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_date_deadline
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_date_deadline
 msgid "Next Activity Deadline"
@@ -2829,7 +2812,7 @@ msgstr "薪酬結構"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Payroll rules that apply to your country"
-msgstr "適用於貴國的薪資規則"
+msgstr "適用於你國家/地區的薪酬規則"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
@@ -3061,13 +3044,6 @@ msgid "Period"
 msgstr "期間"
 
 #. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Pick an Employee to see his <strong>Contract's History</strong>."
-msgstr "選擇一名員工，以查看其<strong>合約歷史記錄</strong>。"
-
-#. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_report__work_entry_source__planning
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_report__work_entry_source__planning
 msgid "Planning"
@@ -3083,7 +3059,7 @@ msgstr "請選取要產生 PDF 的申報。"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Post payroll slips in accounting"
-msgstr "在會計帳簿中發佈工資單"
+msgstr "將工資單過賬至會計賬目"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3267,6 +3243,13 @@ msgid "Remaining amount to be paid."
 msgstr "要支付的剩餘金額。"
 
 #. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid "Remove \"Conflicting\" filter"
+msgstr "移除「有衝突」篩選器"
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__report_id
 msgid "Report"
 msgstr "報表"
@@ -3448,14 +3431,14 @@ msgstr "薪酬制度"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_category_tree
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_salary_rule_category_filter
 msgid "Salary Rule Categories"
-msgstr "薪資規則類別"
+msgstr "薪酬規則類別"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_salary_rule_category
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_line_view_search_register
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_line_filter
 msgid "Salary Rule Category"
-msgstr "薪資規則類別"
+msgstr "薪酬規則類別"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_rule_parameter
@@ -3481,7 +3464,7 @@ msgstr "工資規則參數"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_employee_grade_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_rule_filter
 msgid "Salary Rules"
-msgstr "薪資規則"
+msgstr "薪酬規則"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3548,19 +3531,12 @@ msgstr "搜尋工資附件"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_rule_filter
 msgid "Search Salary Rule"
-msgstr "搜尋薪資規則"
+msgstr "搜尋薪酬規則"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_structure_type_view_search
 msgid "Search Structure Type"
 msgstr "搜尋結構類型"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Select an <strong>HR Responsible</strong> for the contract."
-msgstr "選擇負責合約的<strong>人力資源職員</strong> 。"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__semi-annually
@@ -3774,7 +3750,7 @@ msgstr "薪資規則的代碼可以被其他規則的計算公式使用。這樣
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_input_type__code
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_worked_days__work_entry_type_id
 msgid "The code that can be used in the salary rules"
-msgstr "可以在薪資規則中使用的代碼"
+msgstr "可在薪酬規則中使用的代碼"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_line__amount_select
@@ -4138,7 +4114,7 @@ msgstr "使用預定的序列排列"
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_line__appears_on_payslip
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__appears_on_payslip
 msgid "Used to display the salary rule on payslip."
-msgstr "用於工資單顯示薪資規則."
+msgstr "用於在工資單中顯示薪酬規則。"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__appears_on_employee_cost_dashboard
@@ -4530,13 +4506,6 @@ msgid ""
 "You are receiving this message because you are the HR Responsible of this "
 "employee."
 msgstr "你收到此訊息，因你是負責此員工人力資源事宜的職員。"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "You can access the Payslips from the Employee's Profile."
-msgstr "可從員工個人檔案存取工資單。"
 
 #. module: hr_payroll
 #. odoo-python

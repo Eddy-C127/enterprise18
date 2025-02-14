@@ -5,15 +5,15 @@
 # Translators:
 # Wil Odoo, 2023
 # Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2023
-# Larissa Manderfeld, 2024
+# Larissa Manderfeld, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -334,12 +334,11 @@ msgstr "Mostrar el número de condiciones satisfechas"
 
 #. module: industry_fsm
 #: model:ir.model.fields,help:industry_fsm.field_project_project__is_fsm
-#: model:ir.model.fields,help:industry_fsm.field_project_task__is_fsm
 msgid ""
 "Display tasks in the Field Service module and allow planning with start/end "
 "dates."
 msgstr ""
-"Muestre tareas en el módulo de Servicio externo y permita la planificación "
+"Muestre tareas en el módulo de Servicio de campo y permita la planificación "
 "con fechas de inicio y finalización."
 
 #. module: industry_fsm
@@ -369,19 +368,18 @@ msgstr "Análisis de las tareas del Servicio externo "
 #: code:addons/industry_fsm/models/project_project.py:0
 #: code:addons/industry_fsm/models/res_company.py:0
 #: model:ir.model.fields,field_description:industry_fsm.field_project_project__is_fsm
-#: model:ir.model.fields,field_description:industry_fsm.field_project_task__is_fsm
 #: model:ir.ui.menu,name:industry_fsm.fsm_menu_root
 #: model:project.project,name:industry_fsm.fsm_project
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_view_form_inherit
 #: model_terms:ir.ui.view,arch_db:industry_fsm.res_config_settings_view_form
 #, python-format
 msgid "Field Service"
-msgstr "Servicio externo"
+msgstr "Servicio de campo"
 
 #. module: industry_fsm
 #: model:mail.template,name:industry_fsm.mail_template_data_intervention_details
 msgid "Field Service: Intervention Scheduled"
-msgstr "Servicio externo: intervención planificada"
+msgstr "Servicio de campo: intervención planificada"
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_fsm_map
@@ -415,6 +413,11 @@ msgstr ""
 "instalación de aire acondicionado, etc.).</i>"
 
 #. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__total_hours_spent
+msgid "Hours By Task (Including Subtasks)"
+msgstr "Horas por tarea (incluyendo subtareas)"
+
+#. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__effective_hours
 msgid "Hours Spent"
 msgstr "Horas dedicadas"
@@ -430,6 +433,11 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__message_is_follower
 msgid "Is Follower"
 msgstr "Es un seguidor"
+
+#. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_project_task__is_fsm
+msgid "Is Fsm"
+msgstr "Es gestión de servicio externo"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_project_task__is_task_phone_update
@@ -502,7 +510,7 @@ msgstr "Línea"
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_view_form_inherit
 msgid "Manage tasks in the Field Service module"
-msgstr "Gestione tareas en el módulo de Servicio externo"
+msgstr "Gestione tareas en el módulo de Servicio de campo"
 
 #. module: industry_fsm
 #: model:ir.actions.act_window,name:industry_fsm.project_task_action_fsm_map
@@ -654,7 +662,7 @@ msgid ""
 "start.</i>"
 msgstr ""
 "¿Listo para <b>gestionar sus intervenciones in situ</b>? <i>Haga clic en "
-"Servicio externo para empezar.</i>"
+"Servicio de campo para empezar.</i>"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__remaining_hours
@@ -914,11 +922,6 @@ msgstr "Hoy"
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_task_view_search_fsm
 msgid "Today Activities"
 msgstr "Actividades de hoy"
-
-#. module: industry_fsm
-#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__total_hours_spent
-msgid "Total Hours"
-msgstr "Total de horas"
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_type_action_fsm

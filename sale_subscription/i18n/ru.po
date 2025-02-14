@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Ilya Rozhkov, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
@@ -1544,8 +1544,8 @@ msgstr "Нажмите здесь, чтобы добавить товары ил
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
-#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Closable"
 msgstr "Перекрываемый"
 
@@ -2282,10 +2282,10 @@ msgstr ""
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__filter_pre_domain
 msgid ""
 "If present, this condition must be satisfied before the update of the "
-"record."
+"record. Not checked on record creation."
 msgstr ""
-"Если это условие присутствует, оно должно быть выполнено до обновления "
-"записи."
+"Если условие задано, оно должно быть выполнено перед обновлением записи. При"
+" создании записи проверка не производится."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__end_date

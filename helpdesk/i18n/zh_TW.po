@@ -3,16 +3,16 @@
 # 	* helpdesk
 # 
 # Translators:
-# Wil Odoo, 2024
 # Tony Ng, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -766,13 +766,6 @@ msgstr "確定要繼續？"
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
 msgid "Are you sure you want to delete these stages?"
 msgstr "確定要刪除這些階段嗎？"
-
-#. module: helpdesk
-#. odoo-javascript
-#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
-#, python-format
-msgid "Assign the ticket to a <b>member of your team</b>."
-msgstr "將支援請求分配給團隊的<b>其中一名成員</b>。"
 
 #. module: helpdesk
 #. odoo-python
@@ -2523,6 +2516,13 @@ msgid "Open Time (hours)"
 msgstr "未完成時間（小時）"
 
 #. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+#, python-format
+msgid "Open the ticket."
+msgstr "開啟支援請求。"
+
+#. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_force_thread_id
 msgid ""
 "Optional ID of a thread (record) to which all incoming messages will be "
@@ -3050,6 +3050,13 @@ msgstr "樣品"
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_progress_data
 msgid "Satisfied"
 msgstr "滿意"
+
+#. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+#, python-format
+msgid "Save this ticket and the modifications you've made to it."
+msgstr "儲存此支援請求，以及你所作的修改。"
 
 #. module: helpdesk
 #. odoo-javascript

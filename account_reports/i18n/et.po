@@ -18,19 +18,19 @@
 # Eneli Õigus <enelioigus@gmail.com>, 2024
 # Andre Roomet <andreroomet@gmail.com>, 2024
 # Aveli Kannel <aveli@avalah.ee>, 2024
-# Birgit Vijar, 2024
 # Anna, 2024
 # Martin Aavastik <martin@avalah.ee>, 2024
 # Martin Trigaux, 2025
 # Stevin Lilla, 2025
+# Birgit Vijar, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-17 14:28+0000\n"
+"POT-Creation-Date: 2025-02-10 10:50+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Stevin Lilla, 2025\n"
+"Last-Translator: Birgit Vijar, 2025\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1027,6 +1027,8 @@ msgid ""
 "Company %s already belongs to a tax unit in %s. A company can at most be "
 "part of one tax unit per country."
 msgstr ""
+"Ettevõte %s juba kuulub maksugruppi %s. Ettevõte saab kuuluda ainult ühte "
+"maksugruppi riigi kohta. "
 
 #. module: account_reports
 #. odoo-python
@@ -1089,7 +1091,7 @@ msgstr "Müügikulud (kaubad, toore, materjal ja teenused)"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Could not expand term %s while evaluating formula %s"
-msgstr ""
+msgstr "Ei õnnestunud terminit laiendada %s hinnates %s"
 
 #. module: account_reports
 #. odoo-python
@@ -2484,7 +2486,7 @@ msgstr "Selle üksuse liikmed"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Method '%s' must start with the '%s' prefix."
-msgstr ""
+msgstr "Meetod '%s' peab algama '%s'."
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.misc_operations
@@ -2521,6 +2523,8 @@ msgid ""
 "Multiple draft tax closing entries exist for fiscal position %s after %s. There should be at most one. \n"
 " %s"
 msgstr ""
+"Mitu mustandis maksusulgemise kannet eksisteerib finantspositsioonil %s pärast %s. Peaks olema ainult üks. \n"
+" %s"
 
 #. module: account_reports
 #. odoo-python
@@ -2530,6 +2534,8 @@ msgid ""
 "Multiple draft tax closing entries exist for your domestic region after %s. There should be at most one. \n"
 " %s"
 msgstr ""
+"Mitu mustandis maksu sulgemise kannet eksisteerib sinu kohalikus piirkonnas pärast %s. Peaks olema ainult üks. \n"
+" %s"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3541,13 +3547,6 @@ msgid "The current balance in the"
 msgstr "Jooksev saldo"
 
 #. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
-#, python-format
-msgid "The entry that will be generated will take them into account."
-msgstr "Kanne mis luuakse võtab need arvesse. "
-
-#. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_tax_unit__vat
 msgid "The identifier to be used when submitting a report for this unit."
 msgstr ""
@@ -3862,6 +3861,7 @@ msgstr "Jaotamata kasum"
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
+#: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Undefined"
 msgstr "Määramata"
@@ -3875,7 +3875,6 @@ msgstr "Ava kõik"
 
 #. module: account_reports
 #. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format

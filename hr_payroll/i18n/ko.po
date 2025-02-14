@@ -3,15 +3,15 @@
 # 	* hr_payroll
 # 
 # Translators:
-# Sarah Park, 2023
 # Daye Jeong, 2024
+# Sarah Park, 2025
 # Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-05 09:31+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
@@ -307,6 +307,15 @@ msgid "<strong>Computed on </strong>"
 msgstr "<strong>다음에서 계산 </strong>"
 
 #. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid ""
+"<strong>Congrats, Your first payslip is now finished. It's time for you to "
+"explore the Payroll app by yourself.</strong>"
+msgstr "<strong>축하합니다! 첫 급여 명세서가 완성되었습니다. 이제 급여 앱을 독립적으로 탐색할 차례입니다.</strong>"
+
+#. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong>Contract Start Date</strong>"
 msgstr "<strong>계약 시작일</strong>"
@@ -452,6 +461,13 @@ msgstr "급여 명세서 추가"
 #, python-format
 msgid "Add a <strong>name</strong> to the contract."
 msgstr "계약서에 <strong>이름</strong>을 추가합니다."
+
+#. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid "Add a employee to your contract"
+msgstr "계약에 직원 추가하기"
 
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.action_view_hr_payroll_structure_from_type
@@ -779,24 +795,10 @@ msgstr "카테고리"
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 #, python-format
-msgid "Check the <strong>Salary Structure Type</strong>."
-msgstr "<strong>급여 구조 유형</strong>을 확인하세요."
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
 msgid ""
 "Check the <strong>Work Entries</strong> linked to your newly created "
 "Contract."
 msgstr "새로 생성한 계약과 관련된 <strong>작업 항목</strong>을 확인하세요."
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Check the <strong>Working Schedule</strong>."
-msgstr "<strong>근무 일정</strong>을 확인하세요."
 
 #. module: hr_payroll
 #: model:hr.salary.attachment.type,name:hr_payroll.hr_salary_attachment_type_child_support
@@ -829,13 +831,6 @@ msgstr "새로운 <strong>계약서</strong>를 작성하시려면 여기를 클
 msgid ""
 "Click here to generate a <strong>Batch</strong> for the displayed Employees."
 msgstr "표시된 직원에 대한 <strong>일괄 작업</strong>을 생성하려면 여기를 클릭하세요."
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Click here to go back to the <strong>Employee's profile</strong>."
-msgstr "<strong>직원 프로필</strong>로 돌아가려면 여기를 클릭하세요."
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -888,15 +883,6 @@ msgstr "닫기"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__paid_date
 msgid "Close Date"
 msgstr "마감일"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Close the window."
-msgstr "창 닫기."
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_type__round_days_type__half-up
@@ -1024,15 +1010,6 @@ msgstr "충돌"
 #, python-format
 msgid "Conflicts"
 msgstr "충돌"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid ""
-"Congratulations! You created your first contract and generated your first "
-"payslip!"
-msgstr "축하합니다, 첫 번째 근로 계약서와 급여 명세서를 생성했습니다!"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__contract_id
@@ -2442,6 +2419,12 @@ msgid "New Payslip"
 msgstr "새로운 급여 명세서"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_calendar_event_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "다음 활동 캘린더 행사"
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_date_deadline
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_date_deadline
 msgid "Next Activity Deadline"
@@ -3068,13 +3051,6 @@ msgid "Period"
 msgstr "기간"
 
 #. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Pick an Employee to see his <strong>Contract's History</strong>."
-msgstr "직원을 선택하여 <strong>계약 내역</strong>을 확인할 수 있습니다."
-
-#. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_report__work_entry_source__planning
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_report__work_entry_source__planning
 msgid "Planning"
@@ -3272,6 +3248,13 @@ msgstr "잔액은 양수여야 합니다."
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_attachment__remaining_amount
 msgid "Remaining amount to be paid."
 msgstr "결제해야 할 잔액."
+
+#. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid "Remove \"Conflicting\" filter"
+msgstr "\"충돌\" 필터 제거"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__report_id
@@ -3561,13 +3544,6 @@ msgstr "급여 규정 검색"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_structure_type_view_search
 msgid "Search Structure Type"
 msgstr "구조 유형 검색"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Select an <strong>HR Responsible</strong> for the contract."
-msgstr "계약서에 추가할 <strong>인사팀 담당자</strong>를 선택합니다."
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__semi-annually
@@ -4526,6 +4502,8 @@ msgid ""
 "Wrong rule parameter value for %s at date %s.\n"
 "%s"
 msgstr ""
+"%s에 대한 잘못된 규칙 매개 변수 값이 %s에 있습니다.\n"
+"%s"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_declaration_mixin__year
@@ -4542,13 +4520,6 @@ msgid ""
 msgstr "해당 직원의 인사 담당자이므로 이 메시지를 받으셨습니다."
 
 #. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "You can access the Payslips from the Employee's Profile."
-msgstr "직원 프로필에서 급여 명세서에 접근할 수 있습니다."
-
-#. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
@@ -4560,7 +4531,7 @@ msgstr "취소된 급여 명세서는 확인할 수 없습니다."
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "You cannot cancel the payment if the payslip has not been paid."
-msgstr ""
+msgstr "지급되지 않은 급여명세서는 지급을 취소할 수 없습니다."
 
 #. module: hr_payroll
 #. odoo-python

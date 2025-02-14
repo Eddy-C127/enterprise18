@@ -3,18 +3,18 @@
 # 	* delivery_fedex
 # 
 # Translators:
-# Wil Odoo, 2023
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # Jeffery CHEN <jeffery9@gmail.com>, 2024
-# Chloe Wang, 2024
+# Wil Odoo, 2025
+# Chloe Wang, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Chloe Wang, 2024\n"
+"Last-Translator: Chloe Wang, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -121,18 +121,18 @@ msgstr "额外数据"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_rate_request
-msgid "Extra data for rate"
-msgstr "费率的额外数据"
+msgid "Extra data for rate (legacy)"
+msgstr "费率的额外数据（旧版）"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_return_request
-msgid "Extra data for return"
-msgstr "退货的额外数据"
+msgid "Extra data for return (legacy)"
+msgstr "退货的额外数据（旧版）"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_ship_request
-msgid "Extra data for ship"
-msgstr "运输的额外数据"
+msgid "Extra data for ship (legacy)"
+msgstr "送货的额外数据（旧版）"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_label_file_type
@@ -173,6 +173,11 @@ msgstr "FEDEX_FIRST"
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_ground
 msgid "FEDEX_GROUND"
 msgstr "FEDEX_路运"
+
+#. module: delivery_fedex
+#: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_international_connect_plus
+msgid "FEDEX_INTERNATIONAL_CONNECT_PLUS"
+msgstr "FEDEX_INTERNATIONAL_CONNECT_PLUS"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_international_priority

@@ -3,16 +3,16 @@
 # 	* documents
 # 
 # Translators:
-# Wil Odoo, 2024
 # Tony Ng, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-10 14:52+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tony Ng, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,13 +85,13 @@ msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2017
-msgid "2023"
-msgstr "2023"
+msgid "2024"
+msgstr "2024"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2018
-msgid "2024"
-msgstr "2024"
+msgid "2025"
+msgstr "2025"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -1212,6 +1212,11 @@ msgid "Create Share"
 msgstr "建立分享"
 
 #. module: documents
+#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
+msgid "Create Vendor Bill"
+msgstr "建立供應商賬單"
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__activity_option
 msgid "Create a new activity"
 msgstr "建立新‎‎活動"
@@ -1263,7 +1268,7 @@ msgstr "自訂彈回訊息"
 #: model:ir.model.fields.selection,name:documents.selection__documents_share__activity_date_deadline_range_type__days
 #: model:ir.model.fields.selection,name:documents.selection__documents_workflow_rule__activity_date_deadline_range_type__days
 msgid "Days"
-msgstr "天內"
+msgstr "天"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__alias_defaults
@@ -1393,7 +1398,6 @@ msgstr "文件"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_count
 #: model:ir.model.fields,field_description:documents.field_res_partner__document_count
-#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 msgid "Document Count"
 msgstr "文件數"
 
@@ -1473,6 +1477,7 @@ msgstr "文件：文件請求"
 #: model:ir.actions.act_window,name:documents.document_action
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_ids
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__document_ids
+#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 #: model:ir.module.category,name:documents.module_category_documents_management
 #: model:ir.ui.menu,name:documents.dashboard
 #: model:ir.ui.menu,name:documents.menu_root
@@ -2140,11 +2145,6 @@ msgid "Logout"
 msgstr "登出"
 
 #. module: documents
-#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
-msgid "Mark As Bill"
-msgstr ""
-
-#. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_internal_mad
 msgid "Mark As Draft"
 msgstr "標記為草稿"
@@ -2339,6 +2339,11 @@ msgstr "新標籤"
 #, python-format
 msgid "New Workspace"
 msgstr "新工作區"
+
+#. module: documents
+#: model:ir.model.fields,field_description:documents.field_documents_document__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "下一個活動日曆事件"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_date_deadline
@@ -2580,6 +2585,12 @@ msgstr "展示"
 #: model:documents.tag,name:documents.documents_internal_template_project
 msgid "Project"
 msgstr "專案"
+
+#. module: documents
+#: model:ir.model.fields,field_description:documents.field_documents_document__rating_ids
+#: model:ir.model.fields,field_description:documents.field_documents_share__rating_ids
+msgid "Ratings"
+msgstr "評分"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
@@ -2849,8 +2860,8 @@ msgstr "序列"
 
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_finance_2018contracts
-msgid "Set As 2024 Contracts"
-msgstr "設定為 2024 年合約"
+msgid "Set As 2025 Contracts"
+msgstr ""
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__partner_id

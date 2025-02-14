@@ -7,14 +7,15 @@
 # digitouch UAB <digitouchagencyeur@gmail.com>, 2023
 # Martin Trigaux, 2023
 # Gailius Kazlauskas <gailius@vialaurea.lt>, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2025-02-10 10:51+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Gailius Kazlauskas <gailius@vialaurea.lt>, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Lithuanian (https://app.transifex.com/odoo/teams/41243/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,6 +41,14 @@ msgstr ""
 "                <option value=\"50\">Pusė etato</option>\n"
 "                <option value=\"40\">2/5</option>\n"
 "                <option value=\"20\">1/5</option>"
+
+#. module: hr_contract_salary_payroll
+#. odoo-javascript
+#: code:addons/hr_contract_salary_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid ""
+"Click on <strong>Contract Details</strong> to access contract information."
+msgstr ""
 
 #. module: hr_contract_salary_payroll
 #: model:ir.model.fields,field_description:hr_contract_salary_payroll.field_hr_contract_salary_resume__code
@@ -103,6 +112,13 @@ msgstr ""
 #: model:ir.model,name:hr_contract_salary_payroll.model_hr_contract_salary_resume
 msgid "Salary Package Resume"
 msgstr "Atlyginimo paketo suvestinė"
+
+#. module: hr_contract_salary_payroll
+#. odoo-javascript
+#: code:addons/hr_contract_salary_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid "Select an <strong>HR Responsible</strong> for the contract."
+msgstr "Pasirinkite už sutartį <strong>atsakingą asmenį</strong>."
 
 #. module: hr_contract_salary_payroll
 #: model:ir.ui.menu,name:hr_contract_salary_payroll.hr_payroll_menu_contract_templates

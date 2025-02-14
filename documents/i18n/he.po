@@ -17,23 +17,23 @@
 # NoaFarkash, 2023
 # דודי מלכה <Dudimalka6@gmail.com>, 2023
 # Roy Sayag, 2023
-# ZVI BLONDER <ZVIBLONDER@gmail.com>, 2023
 # Martin Trigaux, 2023
 # Netta Waizer, 2023
 # Yihya Hugirat <hugirat@gmail.com>, 2023
 # yael terner, 2024
 # Ha Ketem <haketem@gmail.com>, 2024
 # Jonathan Spier, 2024
-# Lilach Gilliam <lilach.gilliam@gmail.com>, 2025
 # or balmas, 2025
+# Lilach Gilliam <lilach.gilliam@gmail.com>, 2025
+# ZVI BLONDER <ZVIBLONDER@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-10 14:52+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: or balmas, 2025\n"
+"Last-Translator: ZVI BLONDER <ZVIBLONDER@gmail.com>, 2025\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -108,13 +108,13 @@ msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2017
-msgid "2023"
-msgstr ""
+msgid "2024"
+msgstr "2024"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2018
-msgid "2024"
-msgstr "2024"
+msgid "2025"
+msgstr "2025"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -1035,6 +1035,11 @@ msgid "Create Share"
 msgstr "צור שיתוף"
 
 #. module: documents
+#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
+msgid "Create Vendor Bill"
+msgstr ""
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__activity_option
 msgid "Create a new activity"
 msgstr "צור פעילות חדשה"
@@ -1216,7 +1221,6 @@ msgstr "מסמך"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_count
 #: model:ir.model.fields,field_description:documents.field_res_partner__document_count
-#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 msgid "Document Count"
 msgstr "כמות מסמכים"
 
@@ -1296,6 +1300,7 @@ msgstr "מסמך: בקשת מסמך"
 #: model:ir.actions.act_window,name:documents.document_action
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_ids
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__document_ids
+#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 #: model:ir.module.category,name:documents.module_category_documents_management
 #: model:ir.ui.menu,name:documents.dashboard
 #: model:ir.ui.menu,name:documents.menu_root
@@ -1974,11 +1979,6 @@ msgid "Logout"
 msgstr "התנתק"
 
 #. module: documents
-#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
-msgid "Mark As Bill"
-msgstr ""
-
-#. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_internal_mad
 msgid "Mark As Draft"
 msgstr "סמן כטיוטה"
@@ -2173,6 +2173,11 @@ msgstr ""
 #, python-format
 msgid "New Workspace"
 msgstr ""
+
+#. module: documents
+#: model:ir.model.fields,field_description:documents.field_documents_document__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "הפעילות הבאה ביומן"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_date_deadline
@@ -2417,6 +2422,12 @@ msgstr "מצגות"
 #: model:documents.tag,name:documents.documents_internal_template_project
 msgid "Project"
 msgstr "פרויקט"
+
+#. module: documents
+#: model:ir.model.fields,field_description:documents.field_documents_document__rating_ids
+#: model:ir.model.fields,field_description:documents.field_documents_share__rating_ids
+msgid "Ratings"
+msgstr "דירוגים"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
@@ -2684,7 +2695,7 @@ msgstr "רצף"
 
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_finance_2018contracts
-msgid "Set As 2024 Contracts"
+msgid "Set As 2025 Contracts"
 msgstr ""
 
 #. module: documents

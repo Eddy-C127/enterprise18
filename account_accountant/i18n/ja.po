@@ -5,16 +5,16 @@
 # Translators:
 # Ryoko Tsuda <ryoko@quartile.co>, 2024
 # Martin Trigaux, 2024
-# Wil Odoo, 2024
-# Junko Augias, 2024
+# Wil Odoo, 2025
+# Junko Augias, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Junko Augias, 2024\n"
+"Last-Translator: Junko Augias, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -777,7 +777,7 @@ msgstr ""
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 #, python-format
 msgid "Exchange Difference%s"
-msgstr ""
+msgstr "為替差 %s"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_open_auto_reconcile_wizard
@@ -918,6 +918,11 @@ msgstr "グループ化"
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__group_tax_id
 msgid "Group Tax"
 msgstr "税をグループ化する"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_move_line__has_abnormal_deferred_dates
+msgid "Has Abnormal Deferred Dates"
+msgstr "異常な繰延日あり"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_move_line__has_deferred_moves
@@ -1762,6 +1767,11 @@ msgstr "貸方参照元"
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_debit
 msgid "Source Debit"
 msgstr "借方参照元"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_rate
+msgid "Source Rate"
+msgstr "ソースレート"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_id

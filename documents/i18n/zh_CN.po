@@ -7,18 +7,18 @@
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # Yazi Tian, 2024
 # 湘子 南 <1360857908@qq.com>, 2024
-# Chloe Wang, 2024
-# Wil Odoo, 2024
 # Jeffery CHEN <jeffery9@gmail.com>, 2024
 # Raymond Yu <cl_yu@hotmail.com>, 2024
+# Chloe Wang, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-10 14:52+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Raymond Yu <cl_yu@hotmail.com>, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,13 +91,13 @@ msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2017
-msgid "2023"
-msgstr "2023年"
+msgid "2024"
+msgstr "2024"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2018
-msgid "2024"
-msgstr "2024"
+msgid "2025"
+msgstr "2025"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -1216,6 +1216,11 @@ msgid "Create Share"
 msgstr "创建共享"
 
 #. module: documents
+#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
+msgid "Create Vendor Bill"
+msgstr "创建供应商账单"
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__activity_option
 msgid "Create a new activity"
 msgstr "创建新‎‎活动"
@@ -1397,7 +1402,6 @@ msgstr "单据"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_count
 #: model:ir.model.fields,field_description:documents.field_res_partner__document_count
-#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 msgid "Document Count"
 msgstr "文档数"
 
@@ -1477,6 +1481,7 @@ msgstr "文档：文档请求"
 #: model:ir.actions.act_window,name:documents.document_action
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_ids
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__document_ids
+#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 #: model:ir.module.category,name:documents.module_category_documents_management
 #: model:ir.ui.menu,name:documents.dashboard
 #: model:ir.ui.menu,name:documents.menu_root
@@ -2144,11 +2149,6 @@ msgid "Logout"
 msgstr "注销"
 
 #. module: documents
-#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
-msgid "Mark As Bill"
-msgstr "标记为账单"
-
-#. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_internal_mad
 msgid "Mark As Draft"
 msgstr "标记为草稿"
@@ -2343,6 +2343,11 @@ msgstr "新标签"
 #, python-format
 msgid "New Workspace"
 msgstr "新工作区"
+
+#. module: documents
+#: model:ir.model.fields,field_description:documents.field_documents_document__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "下一活动日历事件"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_date_deadline
@@ -2585,6 +2590,12 @@ msgstr "展示"
 #: model:documents.tag,name:documents.documents_internal_template_project
 msgid "Project"
 msgstr "项目"
+
+#. module: documents
+#: model:ir.model.fields,field_description:documents.field_documents_document__rating_ids
+#: model:ir.model.fields,field_description:documents.field_documents_share__rating_ids
+msgid "Ratings"
+msgstr "点评"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
@@ -2854,8 +2865,8 @@ msgstr "序列"
 
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_finance_2018contracts
-msgid "Set As 2024 Contracts"
-msgstr "设定为 2024 年合同"
+msgid "Set As 2025 Contracts"
+msgstr ""
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__partner_id

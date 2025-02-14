@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2025-02-10 10:52+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
@@ -19,6 +19,13 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: spreadsheet_dashboard_hr_contract
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#, python-format
+msgid "All contract start date"
+msgstr ""
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
@@ -45,20 +52,11 @@ msgstr "Авг. Зарплата"
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
-msgid "Cancelled contracts"
-msgstr "Аннулированные контракты"
-
-#. module: spreadsheet_dashboard_hr_contract
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#, python-format
 msgid "Contract history by Job Position"
 msgstr "История контрактов по должностям"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
 msgid "Contracts"
@@ -81,14 +79,12 @@ msgstr "Уволенные сотрудники"
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
 msgid "Department"
 msgstr "Отдел"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
 msgid "Departure Reason"
@@ -111,18 +107,12 @@ msgstr "Сотрудник"
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
 msgid "Employee Contract by Status"
 msgstr "Контракт с работником по статусу"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #: model:spreadsheet.dashboard,name:spreadsheet_dashboard_hr_contract.spreadsheet_dashboard_employees
 #, python-format
@@ -131,9 +121,6 @@ msgstr "Сотрудники"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
 msgid "Employees Analysis"
@@ -145,6 +132,27 @@ msgstr "Анализ сотрудников"
 #, python-format
 msgid "Employees Analysis by Department"
 msgstr "Анализ сотрудников по отделам"
+
+#. module: spreadsheet_dashboard_hr_contract
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#, python-format
+msgid "Employees departures"
+msgstr ""
+
+#. module: spreadsheet_dashboard_hr_contract
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#, python-format
+msgid "Employees first contract date"
+msgstr ""
+
+#. module: spreadsheet_dashboard_hr_contract
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#, python-format
+msgid "Expiration contract dates"
+msgstr ""
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
@@ -171,22 +179,8 @@ msgstr "Место работы"
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
-msgid "New + Running"
-msgstr "Новое + бег"
-
-#. module: spreadsheet_dashboard_hr_contract
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#, python-format
 msgid "New Employees Over Time"
 msgstr "Новые сотрудники с течением времени"
-
-#. module: spreadsheet_dashboard_hr_contract
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#, python-format
-msgid "New Employees Over Time by Departure Date (Month)"
-msgstr "Новые сотрудники за период времени по дате увольнения (месяц)"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
@@ -197,7 +191,6 @@ msgstr "Новые сотрудники за период времени по п
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
 msgid "New Employees Over Time by First Contract Date (Month)"
@@ -220,7 +213,6 @@ msgstr "Новые контракты"
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
 msgid "New employees"
 msgstr "Новые сотрудники"
@@ -236,8 +228,8 @@ msgstr "Причина"
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
-msgid "Running contracts"
-msgstr "Выполнение контрактов"
+msgid "Running and new contracts"
+msgstr ""
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript

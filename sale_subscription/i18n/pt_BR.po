@@ -4,16 +4,16 @@
 # 
 # Translators:
 # a75f12d3d37ea5bf159c4b3e85eb30e7_0fa6927, 2023
-# Wil Odoo, 2024
 # Maitê Dietze, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Maitê Dietze, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1100,6 +1100,7 @@ msgstr "Tipos de atividades"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_quantity
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_quantity
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Add Products"
 msgstr "Adicionar produtos"
 
@@ -1251,6 +1252,7 @@ msgstr "Encerramento automático"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__auto_close_limit_display
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Automatic Closing After"
 msgstr "Encerramento automático após"
 
@@ -1529,6 +1531,7 @@ msgstr "Clique aqui para adicionar alguns produtos ou serviços"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Closable"
 msgstr "Encerrável"
 
@@ -2263,10 +2266,10 @@ msgstr ""
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__filter_pre_domain
 msgid ""
 "If present, this condition must be satisfied before the update of the "
-"record."
+"record. Not checked on record creation."
 msgstr ""
-"Se presente, esta condição precisa ser satisfeita antes da atualização do "
-"registro."
+"Se presente, essa condição deverá ser atendida antes da atualização do "
+"registro. Não verificada na criação do registro."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__end_date
@@ -3486,6 +3489,7 @@ msgstr "Pedido relacionado"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_extend
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_extend
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 #, python-format
 msgid "Renew"

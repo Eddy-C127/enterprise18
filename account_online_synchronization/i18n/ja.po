@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Ryoko Tsuda <ryoko@quartile.co>, 2024
-# Wil Odoo, 2024
-# Junko Augias, 2024
+# Junko Augias, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:42+0000\n"
+"POT-Creation-Date: 2025-02-10 10:50+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Junko Augias, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -980,6 +980,7 @@ msgstr "再接続"
 
 #. module: account_online_synchronization
 #. odoo-javascript
+#: code:addons/account_online_synchronization/static/src/components/connected_until_widget/connected_until_widget.xml:0
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_journal_dashboard_inherit_online_sync
 #, python-format
@@ -1023,6 +1024,11 @@ msgstr "問題を報告"
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__client_id
 msgid "Represent a link for a given user towards a banking institution"
 msgstr "指定されたユーザーの銀行機関へのリンクを表す"
+
+#. module: account_online_synchronization
+#: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
+msgid "Reset"
+msgstr "リセット"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__activity_user_id
@@ -1126,6 +1132,11 @@ msgstr "オンライン同期サービスは現在ご利用頂けません。後
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__provider_type
 msgid "Third Party Provider"
 msgstr "第3者プロバイダー"
+
+#. module: account_online_synchronization
+#: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
+msgid "This button will reset the fetching status"
+msgstr "このボタンは取得状況をリセットします。"
 
 #. module: account_online_synchronization
 #. odoo-python

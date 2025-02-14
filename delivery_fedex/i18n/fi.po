@@ -9,15 +9,16 @@
 # Martin Trigaux, 2023
 # Topi Aura <topi@aurat.fi>, 2023
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Wil Odoo, 2025
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -125,18 +126,18 @@ msgstr "Lisätiedot"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_rate_request
-msgid "Extra data for rate"
-msgstr "Lisätiedot hintaa varten"
+msgid "Extra data for rate (legacy)"
+msgstr "Lisätiedot nopeutta varten (vanhat tiedot)"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_return_request
-msgid "Extra data for return"
-msgstr "Lisätiedot palautusta varten"
+msgid "Extra data for return (legacy)"
+msgstr "Paluuta koskevat lisätiedot (vanhat tiedot)"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_ship_request
-msgid "Extra data for ship"
-msgstr "Lisätiedot lähetystä varten"
+msgid "Extra data for ship (legacy)"
+msgstr "Alusta koskevat lisätiedot (legacy)"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_label_file_type
@@ -177,6 +178,11 @@ msgstr "FEDEX_FIRST"
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_ground
 msgid "FEDEX_GROUND"
 msgstr "FEDEX_GROUND"
+
+#. module: delivery_fedex
+#: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_international_connect_plus
+msgid "FEDEX_INTERNATIONAL_CONNECT_PLUS"
+msgstr "FEDEX_INTERNATIONAL_CONNECT_PLUS"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_international_priority

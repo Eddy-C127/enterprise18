@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Tony Ng, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -771,6 +771,12 @@ msgstr "按一下以開始"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
 #: code:addons/sign/static/src/js/tours/sign.js:0
+#: model:sign.template,redirect_url_text:sign.template_sign_1
+#: model:sign.template,redirect_url_text:sign.template_sign_2
+#: model:sign.template,redirect_url_text:sign.template_sign_3
+#: model:sign.template,redirect_url_text:sign.template_sign_4
+#: model:sign.template,redirect_url_text:sign.template_sign_5
+#: model:sign.template,redirect_url_text:sign.template_sign_tour
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 #: model_terms:ir.ui.view,arch_db:sign.sign_terms_conditions_setting_banner
 #, python-format
@@ -1901,7 +1907,7 @@ msgstr "紀錄"
 #: model:ir.model.fields,field_description:sign.field_sign_log__longitude
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__longitude
 msgid "Longitude"
-msgstr "Longitude"
+msgstr "經度"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__mail_sent_order
@@ -2246,16 +2252,6 @@ msgid "Oops"
 msgstr "哎呀"
 
 #. module: sign
-#: model:sign.template,redirect_url_text:sign.template_sign_1
-#: model:sign.template,redirect_url_text:sign.template_sign_2
-#: model:sign.template,redirect_url_text:sign.template_sign_3
-#: model:sign.template,redirect_url_text:sign.template_sign_4
-#: model:sign.template,redirect_url_text:sign.template_sign_5
-#: model:sign.template,redirect_url_text:sign.template_sign_tour
-msgid "Open Link"
-msgstr "開啟連結"
-
-#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.ignore_sign_request_item
 msgid "Operation successful"
 msgstr "操作成功"
@@ -2304,7 +2300,7 @@ msgstr "原始檔案"
 #: model_terms:ir.ui.view,arch_db:sign.encrypted_ask_password
 #, python-format
 msgid "PDF is encrypted"
-msgstr "PDF is encrypted"
+msgstr "PDF 已加密"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
@@ -2475,7 +2471,7 @@ msgstr "報表"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__request_item_infos
 msgid "Request Item Infos"
-msgstr "Request Item Infos"
+msgstr "請求項目資訊"
 
 #. module: sign
 #. odoo-javascript
@@ -2614,7 +2610,6 @@ msgstr "儲存"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_body.js:0
-#: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.js:0
 #, python-format
 msgid "Saved"
 msgstr "已儲存"
@@ -2708,7 +2703,7 @@ msgstr "發送"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__nb_wait
 msgid "Sent Requests"
-msgstr "Sent Requests"
+msgstr "已傳送請求"
 
 #. module: sign
 #. odoo-javascript

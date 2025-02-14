@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
@@ -775,6 +775,12 @@ msgstr "클릭하여 시작하기"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
 #: code:addons/sign/static/src/js/tours/sign.js:0
+#: model:sign.template,redirect_url_text:sign.template_sign_1
+#: model:sign.template,redirect_url_text:sign.template_sign_2
+#: model:sign.template,redirect_url_text:sign.template_sign_3
+#: model:sign.template,redirect_url_text:sign.template_sign_4
+#: model:sign.template,redirect_url_text:sign.template_sign_5
+#: model:sign.template,redirect_url_text:sign.template_sign_tour
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 #: model_terms:ir.ui.view,arch_db:sign.sign_terms_conditions_setting_banner
 #, python-format
@@ -2250,16 +2256,6 @@ msgid "Oops"
 msgstr "이런"
 
 #. module: sign
-#: model:sign.template,redirect_url_text:sign.template_sign_1
-#: model:sign.template,redirect_url_text:sign.template_sign_2
-#: model:sign.template,redirect_url_text:sign.template_sign_3
-#: model:sign.template,redirect_url_text:sign.template_sign_4
-#: model:sign.template,redirect_url_text:sign.template_sign_5
-#: model:sign.template,redirect_url_text:sign.template_sign_tour
-msgid "Open Link"
-msgstr "링크 열기"
-
-#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.ignore_sign_request_item
 msgid "Operation successful"
 msgstr "작업 성공"
@@ -2618,7 +2614,6 @@ msgstr "저장"
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_body.js:0
-#: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.js:0
 #, python-format
 msgid "Saved"
 msgstr "저장됨"

@@ -106,11 +106,6 @@ msgid "Import"
 msgstr "Tuo"
 
 #. module: account_winbooks_import
-#: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
-msgid "Import (safe-mode)"
-msgstr "Tuo (turvallisessa tilassa)"
-
-#. module: account_winbooks_import
 #. odoo-javascript
 #: code:addons/account_winbooks_import/static/src/xml/account_winbooks_import.xml:0
 #, python-format
@@ -180,17 +175,6 @@ msgstr "Välitilin koodi"
 msgid ""
 "The code for the Suspense Account you entered doesn't match any account"
 msgstr "Koodi, jota käytit välitiliin ei vastaa yhtäkään tiliä"
-
-#. module: account_winbooks_import
-#. odoo-python
-#: code:addons/account_winbooks_import/wizard/import_wizard.py:0
-#, python-format
-msgid ""
-"The following banks were used for multiple partners in Winbooks, which is not allowed in Odoo. The bank number has been only set on one of each group:\n"
-"%s"
-msgstr ""
-"Seuraavia pankkitilejä on käytetty useille partnereille Winbooksissa. Tämä ei ole sallittua Odoossa. Pankkitilin tulee olla asetettu vain kerran ryhmälle:\n"
-"%s"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,help:account_winbooks_import.field_account_winbooks_import_wizard__suspense_code

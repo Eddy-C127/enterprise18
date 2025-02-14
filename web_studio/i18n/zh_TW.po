@@ -5,15 +5,15 @@
 # Translators:
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
-# Tony Ng, 2024
+# Tony Ng, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Tony Ng, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -419,6 +419,13 @@ msgid ""
 "All changes done to the report's structure will be discarded and the report "
 "will be reset to its factory settings."
 msgstr "對報告結構所做的所有變更，都將會捨棄，而報告會重設為出廠設定。"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility.xml:0
+#, python-format
+msgid "Allow visibility to groups"
+msgstr "允許向群組顯示"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1729,6 +1736,13 @@ msgstr "為了與 base_automation 兼容，已禁用對「建立」、「寫入�
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility.xml:0
+#, python-format
+msgid "Forbid visibility to groups"
+msgstr "禁止向群組顯示"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/editor/editor_menu/editor_menu.js:0
 #: code:addons/web_studio/static/src/studio_service.js:0
 #, python-format
@@ -2145,7 +2159,6 @@ msgstr "離開 diff 比對"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
-#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility.xml:0
 #, python-format
 msgid "Limit visibility to groups"
 msgstr "限制群組可見性"
@@ -4084,6 +4097,13 @@ msgstr "例：屬性"
 #, python-format
 msgid "e.g. Real Estate"
 msgstr "例：房地產"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/field_properties/field_properties.xml:0
+#, python-format
+msgid "for company"
+msgstr "適用公司"
 
 #. module: web_studio
 #. odoo-javascript

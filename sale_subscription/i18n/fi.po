@@ -28,15 +28,15 @@
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Martin Trigaux, 2024
 # Marko Happonen <marko.happonen@sprintit.fi>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1123,6 +1123,7 @@ msgstr "Toimenpiteiden tyypit"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_quantity
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_quantity
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Add Products"
 msgstr "Lisää tuotteita"
 
@@ -1274,6 +1275,7 @@ msgstr "Automaattinen sulkeminen"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__auto_close_limit_display
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Automatic Closing After"
 msgstr "Automaattinen sulkeminen jälkeen"
 
@@ -1552,6 +1554,7 @@ msgstr "Klikkaa tästä lisätäksesi joitakin tuotteita tai palveluita"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Closable"
 msgstr "Suljettavissa"
 
@@ -2285,9 +2288,10 @@ msgstr ""
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__filter_pre_domain
 msgid ""
 "If present, this condition must be satisfied before the update of the "
-"record."
+"record. Not checked on record creation."
 msgstr ""
-"Jos käytössä, niin tämän ehdon pitää täyttyä ennen tietueen päivitystä."
+"Jos tämä ehto on olemassa, sen on täytyttävä ennen tietueen päivittämistä. "
+"Ei tarkisteta tietuetta luotaessa."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__end_date
@@ -3503,6 +3507,7 @@ msgstr "Liittyvä tilaus"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_extend
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_extend
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 #, python-format
 msgid "Renew"

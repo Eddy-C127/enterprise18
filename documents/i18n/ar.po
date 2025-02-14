@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Malaz Abuidris <msea@odoo.com>, 2024
-# Wil Odoo, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-10 14:52+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,13 +88,13 @@ msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2017
-msgid "2023"
-msgstr "2023"
+msgid "2024"
+msgstr "2024"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2018
-msgid "2024"
-msgstr "2024"
+msgid "2025"
+msgstr ""
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -1236,6 +1236,11 @@ msgid "Create Share"
 msgstr "إنشاء مشاركة "
 
 #. module: documents
+#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
+msgid "Create Vendor Bill"
+msgstr "إنشاء فاتورة المورد "
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__activity_option
 msgid "Create a new activity"
 msgstr "إنشاء نشاط جديد"
@@ -1417,7 +1422,6 @@ msgstr "المستند"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_count
 #: model:ir.model.fields,field_description:documents.field_res_partner__document_count
-#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 msgid "Document Count"
 msgstr "عدد المستندات"
 
@@ -1497,6 +1501,7 @@ msgstr "المستند: طلب المستند "
 #: model:ir.actions.act_window,name:documents.document_action
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_ids
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__document_ids
+#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 #: model:ir.module.category,name:documents.module_category_documents_management
 #: model:ir.ui.menu,name:documents.dashboard
 #: model:ir.ui.menu,name:documents.menu_root
@@ -2177,11 +2182,6 @@ msgid "Logout"
 msgstr "تسجيل الخروج"
 
 #. module: documents
-#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
-msgid "Mark As Bill"
-msgstr ""
-
-#. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_internal_mad
 msgid "Mark As Draft"
 msgstr "التعيين كمسودة "
@@ -2376,6 +2376,11 @@ msgstr "علامة تصنيف جديدة "
 #, python-format
 msgid "New Workspace"
 msgstr "مساحة عمل جديدة "
+
+#. module: documents
+#: model:ir.model.fields,field_description:documents.field_documents_document__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "الفعالية التالية في تقويم الأنشطة "
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_date_deadline
@@ -2625,6 +2630,12 @@ msgstr "العروض التقديمية "
 #: model:documents.tag,name:documents.documents_internal_template_project
 msgid "Project"
 msgstr "المشروع"
+
+#. module: documents
+#: model:ir.model.fields,field_description:documents.field_documents_document__rating_ids
+#: model:ir.model.fields,field_description:documents.field_documents_share__rating_ids
+msgid "Ratings"
+msgstr "التقييمات "
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
@@ -2896,8 +2907,8 @@ msgstr "تسلسل "
 
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_finance_2018contracts
-msgid "Set As 2024 Contracts"
-msgstr "التعيين كعقود 2024 "
+msgid "Set As 2025 Contracts"
+msgstr ""
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__partner_id

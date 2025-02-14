@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Martin Trigaux, 2023
-# Wil Odoo, 2024
 # Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:42+0000\n"
+"POT-Creation-Date: 2025-02-10 10:50+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -984,6 +984,7 @@ msgstr "З'єднати ще раз"
 
 #. module: account_online_synchronization
 #. odoo-javascript
+#: code:addons/account_online_synchronization/static/src/components/connected_until_widget/connected_until_widget.xml:0
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_journal_dashboard_inherit_online_sync
 #, python-format
@@ -1028,6 +1029,11 @@ msgstr "Проблема звіту"
 msgid "Represent a link for a given user towards a banking institution"
 msgstr ""
 "Представляють посилання для певного користувача на банківську установу"
+
+#. module: account_online_synchronization
+#: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
+msgid "Reset"
+msgstr "Скинути"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__activity_user_id
@@ -1133,6 +1139,11 @@ msgstr "Послуга онлайн-синхронізації зараз не �
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__provider_type
 msgid "Third Party Provider"
 msgstr "Сторонній провайдер"
+
+#. module: account_online_synchronization
+#: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
+msgid "This button will reset the fetching status"
+msgstr ""
 
 #. module: account_online_synchronization
 #. odoo-python

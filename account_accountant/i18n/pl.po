@@ -5,16 +5,16 @@
 # Translators:
 # Tadeusz Karpiński <tadeuszkarpinski@gmail.com>, 2024
 # Martin Trigaux, 2024
-# Wil Odoo, 2024
 # Marta Wacławek, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Marta Wacławek, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -946,6 +946,11 @@ msgid "Group Tax"
 msgstr "Podatek grupy"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_move_line__has_abnormal_deferred_dates
+msgid "Has Abnormal Deferred Dates"
+msgstr "Posiada nietypowe odroczone daty"
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_move_line__has_deferred_moves
 msgid "Has Deferred Moves"
 msgstr "Posiada odroczone wpisy"
@@ -1812,6 +1817,11 @@ msgstr "Źródło kredytu"
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_debit
 msgid "Source Debit"
 msgstr "Debet źródłowy "
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_rate
+msgid "Source Rate"
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_id

@@ -6,6 +6,7 @@
 # Alexandros Kapetanios <alexandros@gnugr.org>, 2024
 # Kostas Goutoudis <goutoudis@gmail.com>, 2024
 # Martin Trigaux, 2024
+# Agapi Psyllou, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Agapi Psyllou, 2025\n"
 "Language-Team: Greek (https://app.transifex.com/odoo/teams/41243/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,17 +53,19 @@ msgstr ""
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_hr_documents_absences
 msgid "Absences"
-msgstr ""
+msgstr "Απουσίες"
 
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.res_config_settings_view_form
 msgid "Centralize your employees' documents (contracts, payslips, etc.)"
 msgstr ""
+"Συγκεντρώστε τα έγγραφα του υπαλλήλου σας (συμβόλαια, αποδείξεις "
+"μισθοδοσίας, κτλ.)"
 
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_hr_documents_Cerification
 msgid "Certifications"
-msgstr ""
+msgstr "Πιστοποιήσεις"
 
 #. module: documents_hr
 #: model:ir.model,name:documents_hr.model_res_company
@@ -77,7 +80,7 @@ msgstr "Ρυθμίσεις διαμόρφωσης"
 #. module: documents_hr
 #: model:ir.model,name:documents_hr.model_hr_departure_wizard
 msgid "Departure Wizard"
-msgstr ""
+msgstr "Οδηγός Αποχώρησης"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_users__document_ids
@@ -87,7 +90,7 @@ msgstr "Έγγραφο"
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_employee__document_count
 msgid "Document Count"
-msgstr ""
+msgstr "Καταμέτρηση Εγγράφων"
 
 #. module: documents_hr
 #. odoo-python
@@ -103,7 +106,7 @@ msgstr "Έγγραφα"
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_company__documents_hr_settings
 msgid "Documents Hr Settings"
-msgstr ""
+msgstr "Ρυθμίσεις Εγγράφων HR"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_employee__documents_share_id
@@ -123,11 +126,13 @@ msgid ""
 "Employee's related user and private email must be set to use \"Send Access Link\" function:\n"
 "%s"
 msgstr ""
+"Ο σχετικός χρήστης και το ιδιωτικό email του υπαλλήλου πρέπει να είναι ρυθμισμένα να χρησιμοποιούν την function \"Αποστολή Συνδέσμου Πρόσβασης\" :\n"
+"%s"
 
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_hr_documents_employees
 msgid "Employees Documents"
-msgstr ""
+msgstr "Έγγραφα Υπαλλήλων"
 
 #. module: documents_hr
 #: model:documents.folder,name:documents_hr.documents_hr_folder
@@ -144,7 +149,7 @@ msgstr ""
 #. module: documents_hr
 #: model:mail.template,name:documents_hr.mail_template_document_folder_link
 msgid "HR: Document Access Link"
-msgstr ""
+msgstr "HR: Σύνδεσμος Πρόσβασης σε Έγγραφα"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_config_settings__documents_hr_settings
@@ -154,17 +159,17 @@ msgstr "Ανθρώπινοι Πόροι"
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_departure_wizard__private_email
 msgid "Private Email"
-msgstr ""
+msgstr "Ιδιωτικό Email"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_departure_wizard__send_hr_documents_access_link
 msgid "Send Access Link"
-msgstr ""
+msgstr "Αποστολή Σύνδεσμου Πρόσβασης"
 
 #. module: documents_hr
 #: model:ir.actions.server,name:documents_hr.ir_actions_server_send_access_link
 msgid "Send HR Documents Access Link"
-msgstr ""
+msgstr "Αποστολή Συνδέσμου Πρόσβασης στα Έγγραφα του HR"
 
 #. module: documents_hr
 #: model:ir.model.fields,help:documents_hr.field_hr_departure_wizard__send_hr_documents_access_link
@@ -172,18 +177,20 @@ msgid ""
 "Send a share link to the private email of the employee with all the HR files"
 " he owns in Documents app"
 msgstr ""
+"Στείλτε έναν κοινόχρηστο σύνδεσμο στο ιδιωτικό email του  υπαλλήλου με όλα "
+"τα αρχεία ανθρώπινου δυναμικού που του ανήκουν στην εφαρμογή Εγγράφων"
 
 #. module: documents_hr
 #: model:mail.template,description:documents_hr.mail_template_document_folder_link
 msgid "Sent manually when recording an employee departure"
-msgstr ""
+msgstr "Αποστολή χειροκίνητα όταν καταγράφεται μια αποχώρηση υπαλλήλου"
 
 #. module: documents_hr
 #. odoo-python
 #: code:addons/documents_hr/models/hr_employee.py:0
 #, python-format
 msgid "The access link has been sent to the employee."
-msgstr ""
+msgstr "Ο σύνδεσμος πρόσβασης έχει σταλεί στον υπάλληλο."
 
 #. module: documents_hr
 #: model:ir.model,name:documents_hr.model_res_users
@@ -193,7 +200,7 @@ msgstr "Χρήστης"
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.res_config_settings_view_form
 msgid "Workspace"
-msgstr ""
+msgstr "Χώρος Εργασίας"
 
 #. module: documents_hr
 #. odoo-python
@@ -203,18 +210,22 @@ msgid ""
 "You must set a work contact address on the Employee in order to use "
 "Document's features."
 msgstr ""
+"Πρέπει να ορίσετε μια διεύθυνση επικοινωνίας εργασίας στον Υπάλληλο για να "
+"χρησιμοποιεί τα χαρακτηριστικά των Εγγράφων."
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_company__documents_hr_folder
 msgid "hr Workspace"
-msgstr ""
+msgstr "Χώρος Εργασίας Ανθρώπινου Δυναμικού"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_config_settings__documents_hr_folder
 msgid "hr default workspace"
-msgstr ""
+msgstr "προκαθαρισμένος χώρος εργασίας ανθρώπινου δυναμικού"
 
 #. module: documents_hr
 #: model:mail.template,subject:documents_hr.mail_template_document_folder_link
 msgid "{{ object.name }}, your personal documents access link is available"
 msgstr ""
+"{{ object.name }},  ο προσωπικό σας σύνδεσμος πρόσβασης στα έγγραφά σας "
+"είναι διαθέσιμος"

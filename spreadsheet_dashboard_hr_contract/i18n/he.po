@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2025-02-10 10:52+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: or balmas, 2025\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
@@ -23,6 +23,13 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: he\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;\n"
+
+#. module: spreadsheet_dashboard_hr_contract
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#, python-format
+msgid "All contract start date"
+msgstr ""
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
@@ -43,13 +50,6 @@ msgstr ""
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
 msgid "Avg. Salary"
-msgstr ""
-
-#. module: spreadsheet_dashboard_hr_contract
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#, python-format
-msgid "Cancelled contracts"
 msgstr ""
 
 #. module: spreadsheet_dashboard_hr_contract
@@ -141,6 +141,27 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
+msgid "Employees departures"
+msgstr ""
+
+#. module: spreadsheet_dashboard_hr_contract
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#, python-format
+msgid "Employees first contract date"
+msgstr ""
+
+#. module: spreadsheet_dashboard_hr_contract
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#, python-format
+msgid "Expiration contract dates"
+msgstr ""
+
+#. module: spreadsheet_dashboard_hr_contract
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#, python-format
 msgid "Expired contracts"
 msgstr ""
 
@@ -162,22 +183,8 @@ msgstr "תפקיד"
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
-msgid "New + Running"
-msgstr ""
-
-#. module: spreadsheet_dashboard_hr_contract
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#, python-format
 msgid "New Employees Over Time"
 msgstr "שעות נוספות של עובדים חדשים"
-
-#. module: spreadsheet_dashboard_hr_contract
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-#, python-format
-msgid "New Employees Over Time by Departure Date (Month)"
-msgstr ""
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
@@ -225,7 +232,7 @@ msgstr "סיבה"
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
 #, python-format
-msgid "Running contracts"
+msgid "Running and new contracts"
 msgstr ""
 
 #. module: spreadsheet_dashboard_hr_contract

@@ -19,19 +19,19 @@
 # Mihkel avalah, 2023
 # Leaanika Randmets, 2024
 # JanaAvalah, 2024
-# Stevin Lilla, 2024
 # Anna, 2024
 # Siim Raasuke, 2024
-# Birgit Vijar, 2024
 # Martin Trigaux, 2025
+# Birgit Vijar, 2025
+# Stevin Lilla, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-05 09:31+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2025\n"
+"Last-Translator: Stevin Lilla, 2025\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -324,6 +324,17 @@ msgid "<strong>Computed on </strong>"
 msgstr "<strong>Arvutatud </strong>"
 
 #. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid ""
+"<strong>Congrats, Your first payslip is now finished. It's time for you to "
+"explore the Payroll app by yourself.</strong>"
+msgstr ""
+"<strong>Õnnitlused, Sinu esimene palgalipik on loodud. Nüüd on aeg avastada "
+"Palgaarvestuse moodulit. </strong>"
+
+#. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong>Contract Start Date</strong>"
 msgstr "<strong>Lepingu alguskuupäev</strong>"
@@ -469,6 +480,13 @@ msgstr "Lisa palgalehed"
 #, python-format
 msgid "Add a <strong>name</strong> to the contract."
 msgstr "Lisage <strong>nimi</strong> lepingusse."
+
+#. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid "Add a employee to your contract"
+msgstr "Lisa töötaja lepingule"
 
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.action_view_hr_payroll_structure_from_type
@@ -807,24 +825,10 @@ msgstr "Kategooria"
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 #, python-format
-msgid "Check the <strong>Salary Structure Type</strong>."
-msgstr "Kontrollige <strong>palgastruktuuri tüüpi</strong>."
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
 msgid ""
 "Check the <strong>Work Entries</strong> linked to your newly created "
 "Contract."
 msgstr "Kontrollige loodud lepinguga seotud <strong>Töökandeid</strong>."
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Check the <strong>Working Schedule</strong>."
-msgstr "Kontrollige <strong>Tööaega</strong>."
 
 #. module: hr_payroll
 #: model:hr.salary.attachment.type,name:hr_payroll.hr_salary_attachment_type_child_support
@@ -857,13 +861,6 @@ msgstr "Vajutage siia, et luua uus <strong>leping</strong>."
 msgid ""
 "Click here to generate a <strong>Batch</strong> for the displayed Employees."
 msgstr "Et luua töötajatest <strong>koond</strong> klõpsake siin."
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Click here to go back to the <strong>Employee's profile</strong>."
-msgstr "Vajutage siia, et minna tagasi <strong>töötaja profiilile</strong>."
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -918,15 +915,6 @@ msgstr "Sulge"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__paid_date
 msgid "Close Date"
 msgstr "Sulgemiskuupäev"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Close the window."
-msgstr "Sulge aken."
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_type__round_days_type__half-up
@@ -1054,15 +1042,6 @@ msgstr "Konflikt"
 #, python-format
 msgid "Conflicts"
 msgstr "Konfliktid"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid ""
-"Congratulations! You created your first contract and generated your first "
-"payslip!"
-msgstr "Õnnitleme! Olete loonud esimese lepingu ja teinud esimese palgalehe!"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__contract_id
@@ -2476,6 +2455,12 @@ msgid "New Payslip"
 msgstr "Uued palgalehed"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_calendar_event_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Järgmine tegevus kalendris"
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_date_deadline
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_date_deadline
 msgid "Next Activity Deadline"
@@ -3113,14 +3098,6 @@ msgid "Period"
 msgstr "Periood"
 
 #. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Pick an Employee to see his <strong>Contract's History</strong>."
-msgstr ""
-"Lepingu ajaloo nägemiseks valige töötaja <strong>Lepingu ajalugu</strong>."
-
-#. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_report__work_entry_source__planning
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_report__work_entry_source__planning
 msgid "Planning"
@@ -3318,6 +3295,13 @@ msgstr "Järelejäänud summa peab olema positiivne."
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_attachment__remaining_amount
 msgid "Remaining amount to be paid."
 msgstr "Järelejäänud summa tasumiseks."
+
+#. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid "Remove \"Conflicting\" filter"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__report_id
@@ -3607,13 +3591,6 @@ msgstr "Otsi palgalehe koode"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_structure_type_view_search
 msgid "Search Structure Type"
 msgstr "Otsi struktuuritüüpi"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Select an <strong>HR Responsible</strong> for the contract."
-msgstr "Vali <strong>HR vastutaja</strong> lepingu jaoks."
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__semi-annually
@@ -4612,13 +4589,6 @@ msgid ""
 "You are receiving this message because you are the HR Responsible of this "
 "employee."
 msgstr "Oled saanud selle sõnumi, sest oled töötaja vastutav isik. "
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "You can access the Payslips from the Employee's Profile."
-msgstr "Palgalehtedele pääsete ligi töötaja profiilist."
 
 #. module: hr_payroll
 #. odoo-python

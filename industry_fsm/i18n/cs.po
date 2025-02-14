@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Jakub Smolka, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
@@ -310,7 +310,6 @@ msgstr "Zobrazit počet spokojených podmínek"
 
 #. module: industry_fsm
 #: model:ir.model.fields,help:industry_fsm.field_project_project__is_fsm
-#: model:ir.model.fields,help:industry_fsm.field_project_task__is_fsm
 msgid ""
 "Display tasks in the Field Service module and allow planning with start/end "
 "dates."
@@ -345,7 +344,6 @@ msgstr "Analýza úkolů v terénu"
 #: code:addons/industry_fsm/models/project_project.py:0
 #: code:addons/industry_fsm/models/res_company.py:0
 #: model:ir.model.fields,field_description:industry_fsm.field_project_project__is_fsm
-#: model:ir.model.fields,field_description:industry_fsm.field_project_task__is_fsm
 #: model:ir.ui.menu,name:industry_fsm.fsm_menu_root
 #: model:project.project,name:industry_fsm.fsm_project
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_view_form_inherit
@@ -391,6 +389,11 @@ msgstr ""
 "atd.).</i>"
 
 #. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__total_hours_spent
+msgid "Hours By Task (Including Subtasks)"
+msgstr ""
+
+#. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__effective_hours
 msgid "Hours Spent"
 msgstr "Strávených hodin"
@@ -406,6 +409,11 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__message_is_follower
 msgid "Is Follower"
 msgstr "Je odběratel"
+
+#. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_project_task__is_fsm
+msgid "Is Fsm"
+msgstr ""
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_project_task__is_task_phone_update
@@ -883,11 +891,6 @@ msgstr "Dnes"
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_task_view_search_fsm
 msgid "Today Activities"
 msgstr "Dnešní aktivity"
-
-#. module: industry_fsm
-#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__total_hours_spent
-msgid "Total Hours"
-msgstr "Celkem hodin"
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_type_action_fsm

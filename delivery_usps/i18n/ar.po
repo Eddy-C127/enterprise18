@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Wil Odoo, 2023\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
@@ -445,6 +445,11 @@ msgid "USPS (Legacy)"
 msgstr ""
 
 #. module: delivery_usps
+#: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_label_file_type
+msgid "USPS (Legacy) Label File Type"
+msgstr ""
+
+#. module: delivery_usps
 #: model_terms:ir.ui.view,arch_db:delivery_usps.view_delivery_carrier_form_with_provider_usps
 msgid "USPS Configuration"
 msgstr "تهيئة USPS "
@@ -487,11 +492,6 @@ msgid ""
 msgstr ""
 "تُستخدم خدمة USPS الدولية للشحن خارج الولايات المتحدة الأمريكية فقط. الرجاء "
 "تغيير طريقة التوصيل لـUSPS المحلية. "
-
-#. module: delivery_usps
-#: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_label_file_type
-msgid "USPS Label File Type"
-msgstr "نوع ملف بطاقة عنوان USPS"
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_mail_type

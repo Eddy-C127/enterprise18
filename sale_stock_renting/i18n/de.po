@@ -3,16 +3,16 @@
 # 	* sale_stock_renting
 # 
 # Translators:
-# Wil Odoo, 2023
 # Larissa Manderfeld, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:12+0000\n"
+"POT-Creation-Date: 2025-02-10 10:52+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,6 +75,11 @@ msgstr "Verfügbarkeit"
 #: model:ir.model.fields,field_description:sale_stock_renting.field_rental_order_wizard_line__qty_available
 msgid "Available"
 msgstr "Verfügbar"
+
+#. module: sale_stock_renting
+#: model:ir.model.fields,field_description:sale_stock_renting.field_sale_order_line__available_reserved_lots
+msgid "Available Reserved Lots"
+msgstr "Verfügbare reservierte Lose"
 
 #. module: sale_stock_renting
 #. odoo-javascript
@@ -140,6 +145,11 @@ msgstr "Journalbuchung"
 #: model:ir.model,name:sale_stock_renting.model_stock_lot
 msgid "Lot/Serial"
 msgstr "Los/Serie"
+
+#. module: sale_stock_renting
+#: model:ir.model,name:sale_stock_renting.model_stock_warehouse_orderpoint
+msgid "Minimum Inventory Rule"
+msgstr "Mindestbestandsregel"
 
 #. module: sale_stock_renting
 #: model_terms:ir.ui.view,arch_db:sale_stock_renting.res_config_settings_inherit_view_form
@@ -251,16 +261,16 @@ msgid "Reserved Lot"
 msgstr "Reserviertes Los"
 
 #. module: sale_stock_renting
-#: model:ir.model,name:sale_stock_renting.model_stock_return_picking
-msgid "Return Picking"
-msgstr "Abholung zurückgeben"
-
-#. module: sale_stock_renting
 #. odoo-javascript
 #: code:addons/sale_stock_renting/static/src/widgets/qty_at_date_widget.xml:0
 #, python-format
 msgid "Reserved lots unavailable"
 msgstr "Reservierte Lose nicht verfügbar"
+
+#. module: sale_stock_renting
+#: model:ir.model,name:sale_stock_renting.model_stock_return_picking
+msgid "Return Picking"
+msgstr "Abholung zurückgeben"
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_rental_order_wizard_line__returnable_lot_ids

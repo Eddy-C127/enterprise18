@@ -3,16 +3,16 @@
 # 	* helpdesk_sale_timesheet
 # 
 # Translators:
-# Wil Odoo, 2024
 # Larissa Manderfeld, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:42+0000\n"
+"POT-Creation-Date: 2025-02-10 10:51+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -141,16 +141,6 @@ msgstr "Anzahl Rechnungen"
 #, python-format
 msgid "Invoices"
 msgstr "Rechnungen"
-
-#. module: helpdesk_sale_timesheet
-#. odoo-python
-#: code:addons/helpdesk_sale_timesheet/models/helpdesk_ticket.py:0
-msgid ""
-"You cannot link the order item %s - %s to this ticket because it is not a "
-"service product."
-msgstr ""
-"Sie können die Auftragsposition %s - %s nicht mit diesem Ticket verknüpfen, "
-"da es sich nicht um ein Dienstleistungsprodukt handelt."
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
@@ -327,3 +317,14 @@ msgstr "Zeiterfassungen"
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Total"
 msgstr "Gesamt"
+
+#. module: helpdesk_sale_timesheet
+#. odoo-python
+#: code:addons/helpdesk_sale_timesheet/models/helpdesk_ticket.py:0
+#, python-format
+msgid ""
+"You cannot link order item %s - %s to this ticket because it is not a "
+"service product."
+msgstr ""
+"Sie können die Auftragsposition %s - %s nicht mit diesem Ticket verknüpfen, "
+"da es sich nicht um ein Dienstleistungsprodukt handelt."

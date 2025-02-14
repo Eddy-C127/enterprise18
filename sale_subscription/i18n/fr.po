@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Jolien De Paepe, 2024
-# Wil Odoo, 2024
 # Tiffany Chang, 2024
 # Manon Rondou, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Manon Rondou, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1531,8 +1531,8 @@ msgstr "Cliquez ici pour ajouter des produits ou services"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
-#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Closable"
 msgstr "Résiliable"
 
@@ -2267,9 +2267,10 @@ msgstr ""
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__filter_pre_domain
 msgid ""
 "If present, this condition must be satisfied before the update of the "
-"record."
+"record. Not checked on record creation."
 msgstr ""
-"Si définie, la condition doit être remplie avant la mise à jour de "
+"Si elle est présente, cette condition doit être remplie avant la mise à jour"
+" de l'enregistrement. Ceci n'est pas vérifié lors de la création de "
 "l'enregistrement."
 
 #. module: sale_subscription

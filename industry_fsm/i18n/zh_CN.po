@@ -5,16 +5,17 @@
 # Translators:
 # Wil Odoo, 2023
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
-# 何彬 <vnsoft.he@gmail.com>, 2023
+# Odoo哥 <vnsoft.he@gmail.com>, 2023
 # Jeffery CHEN <jeffery9@gmail.com>, 2023
+# Chloe Wang, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2023\n"
+"Last-Translator: Chloe Wang, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -328,7 +329,6 @@ msgstr "显示满意的条件计数"
 
 #. module: industry_fsm
 #: model:ir.model.fields,help:industry_fsm.field_project_project__is_fsm
-#: model:ir.model.fields,help:industry_fsm.field_project_task__is_fsm
 msgid ""
 "Display tasks in the Field Service module and allow planning with start/end "
 "dates."
@@ -361,7 +361,6 @@ msgstr "FSM任务分析"
 #: code:addons/industry_fsm/models/project_project.py:0
 #: code:addons/industry_fsm/models/res_company.py:0
 #: model:ir.model.fields,field_description:industry_fsm.field_project_project__is_fsm
-#: model:ir.model.fields,field_description:industry_fsm.field_project_task__is_fsm
 #: model:ir.ui.menu,name:industry_fsm.fsm_menu_root
 #: model:project.project,name:industry_fsm.fsm_project
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_view_form_inherit
@@ -405,6 +404,11 @@ msgid ""
 msgstr "给它一个<b>标题</b><i>（例如：锅炉维修、空调安装等。)</i>"
 
 #. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__total_hours_spent
+msgid "Hours By Task (Including Subtasks)"
+msgstr "总花费工时，按任务划分（包括子任务）"
+
+#. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__effective_hours
 msgid "Hours Spent"
 msgstr "耗时"
@@ -420,6 +424,11 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__message_is_follower
 msgid "Is Follower"
 msgstr "是关注者"
+
+#. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_project_task__is_fsm
+msgid "Is Fsm"
+msgstr ""
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_project_task__is_task_phone_update
@@ -886,11 +895,6 @@ msgstr "今天"
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_task_view_search_fsm
 msgid "Today Activities"
 msgstr "今日活动"
-
-#. module: industry_fsm
-#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__total_hours_spent
-msgid "Total Hours"
-msgstr "总时数"
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_type_action_fsm

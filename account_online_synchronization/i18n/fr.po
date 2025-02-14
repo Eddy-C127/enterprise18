@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Jolien De Paepe, 2023
-# Wil Odoo, 2024
-# Manon Rondou, 2024
+# Manon Rondou, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:42+0000\n"
+"POT-Creation-Date: 2025-02-10 10:50+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Manon Rondou, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -990,6 +990,7 @@ msgstr "Se reconnecter"
 
 #. module: account_online_synchronization
 #. odoo-javascript
+#: code:addons/account_online_synchronization/static/src/components/connected_until_widget/connected_until_widget.xml:0
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_journal_dashboard_inherit_online_sync
 #, python-format
@@ -1034,6 +1035,11 @@ msgstr "Rapporter le problème"
 msgid "Represent a link for a given user towards a banking institution"
 msgstr ""
 "Représente un lien pour un utilisateur donné vers un établissement bancaire"
+
+#. module: account_online_synchronization
+#: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
+msgid "Reset"
+msgstr "Réinitialiser"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__activity_user_id
@@ -1141,6 +1147,11 @@ msgstr ""
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__provider_type
 msgid "Third Party Provider"
 msgstr "Fournisseur tiers"
+
+#. module: account_online_synchronization
+#: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
+msgid "This button will reset the fetching status"
+msgstr "Ce bouton réinitialisera le statut de récupération."
 
 #. module: account_online_synchronization
 #. odoo-python

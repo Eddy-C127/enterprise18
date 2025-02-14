@@ -6,17 +6,17 @@
 # Bojan Borovnjak <bojan.borovnjak@modoolar.com>, 2023
 # Martin Trigaux, 2023
 # コフスタジオ, 2024
-# Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2024
 # Milan Bojovic <mbojovic@outlook.com>, 2024
 # Geoinfo d.o.o. <geoinfobih@gmail.com>, 2024
+# Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:42+0000\n"
+"POT-Creation-Date: 2025-02-10 10:50+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Geoinfo d.o.o. <geoinfobih@gmail.com>, 2024\n"
+"Last-Translator: Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2025\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -933,6 +933,7 @@ msgstr "Ponovo poveži"
 
 #. module: account_online_synchronization
 #. odoo-javascript
+#: code:addons/account_online_synchronization/static/src/components/connected_until_widget/connected_until_widget.xml:0
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_journal_dashboard_inherit_online_sync
 #, python-format
@@ -976,6 +977,11 @@ msgstr "Report issue"
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__client_id
 msgid "Represent a link for a given user towards a banking institution"
 msgstr "Represent a link for a given user towards a banking institution"
+
+#. module: account_online_synchronization
+#: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
+msgid "Reset"
+msgstr "Resetuj"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__activity_user_id
@@ -1083,6 +1089,11 @@ msgstr ""
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__provider_type
 msgid "Third Party Provider"
 msgstr "Dobavljač usluga treće strane"
+
+#. module: account_online_synchronization
+#: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
+msgid "This button will reset the fetching status"
+msgstr ""
 
 #. module: account_online_synchronization
 #. odoo-python

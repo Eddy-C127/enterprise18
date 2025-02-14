@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-05 09:31+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
@@ -51,6 +51,12 @@ msgid ""
 "- Salary rule: %s (%s)\n"
 "- Error: %s"
 msgstr ""
+"%s\n"
+"- Pracownik: %s\n"
+"- Umowa: %s\n"
+"- Odcinek wypłaty: %s\n"
+"- Reguła wypłaty: %s (%s)\n"
+"- Błąd: %s"
 
 #. module: hr_payroll
 #. odoo-python
@@ -71,7 +77,7 @@ msgstr "%s i %s"
 #: code:addons/hr_payroll/models/hr_payroll_declaration_mixin.py:0
 #, python-format
 msgid "%s-declaration-%s"
-msgstr ""
+msgstr "%s-deklaracja-%s"
 
 #. module: hr_payroll
 #: model:ir.actions.report,print_report_name:hr_payroll.action_report_payslip
@@ -304,6 +310,17 @@ msgid "<strong>Computed on </strong>"
 msgstr "<strong>Obliczone na</strong>"
 
 #. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid ""
+"<strong>Congrats, Your first payslip is now finished. It's time for you to "
+"explore the Payroll app by yourself.</strong>"
+msgstr ""
+"<strong>Gratulacje, Twój pierwszy pasek wypłaty został ukończony. Teraz "
+"pora, abyś zapoznał się osobiście z aplikacją Lista płac.</strong>"
+
+#. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong>Contract Start Date</strong>"
 msgstr "<strong>Data rozpoczęcia umowy</strong>"
@@ -448,6 +465,13 @@ msgstr "Dodaj paski wypłaty"
 #, python-format
 msgid "Add a <strong>name</strong> to the contract."
 msgstr "Dodaj <strong>nazwę</strong> do umowy."
+
+#. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid "Add a employee to your contract"
+msgstr "Dodaj pracownika do umowy"
 
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.action_view_hr_payroll_structure_from_type
@@ -788,25 +812,11 @@ msgstr "Kategoria"
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 #, python-format
-msgid "Check the <strong>Salary Structure Type</strong>."
-msgstr "Sprawdź <strong>typ struktury wynagrodzeń</strong>."
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
 msgid ""
 "Check the <strong>Work Entries</strong> linked to your newly created "
 "Contract."
 msgstr ""
 "Sprawdź <strong>wpisy prac</strong> powiązane z nowo utworzonym kontraktem."
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Check the <strong>Working Schedule</strong>."
-msgstr "Sprawdź <strong>harmonogram pracy</strong>."
 
 #. module: hr_payroll
 #: model:hr.salary.attachment.type,name:hr_payroll.hr_salary_attachment_type_child_support
@@ -841,13 +851,6 @@ msgid ""
 msgstr ""
 "Kliknij tutaj, aby wygenerować <strong>partię</strong> dla wyświetlonych "
 "pracowników."
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Click here to go back to the <strong>Employee's profile</strong>."
-msgstr "Kliknij tutaj, aby wrócić do <strong>profilu pracownika</strong>."
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -904,15 +907,6 @@ msgstr "Zamknij"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__paid_date
 msgid "Close Date"
 msgstr "Data zamknięcia"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Close the window."
-msgstr "Zamknij okno."
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_type__round_days_type__half-up
@@ -1040,17 +1034,6 @@ msgstr "Konflikt"
 #, python-format
 msgid "Conflicts"
 msgstr "Konflikty"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid ""
-"Congratulations! You created your first contract and generated your first "
-"payslip!"
-msgstr ""
-"Gratulacje! Stworzyłeś swoją pierwszą umowę i wygenerowałeś swój pierwszy "
-"pasek wypłaty!"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__contract_id
@@ -2470,6 +2453,12 @@ msgid "New Payslip"
 msgstr "Nowy pasek wypłaty"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_calendar_event_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Następna Czynność wydarzenia w kalendarzu"
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_date_deadline
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_date_deadline
 msgid "Next Activity Deadline"
@@ -3105,14 +3094,6 @@ msgid "Period"
 msgstr "Okres"
 
 #. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Pick an Employee to see his <strong>Contract's History</strong>."
-msgstr ""
-"Wybierz pracownika, aby zobaczyć <strong>historię jego umowy</strong>."
-
-#. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_report__work_entry_source__planning
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_report__work_entry_source__planning
 msgid "Planning"
@@ -3312,6 +3293,13 @@ msgstr "Pozostała kwota musi być dodatnia."
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_attachment__remaining_amount
 msgid "Remaining amount to be paid."
 msgstr "Pozostała kwota do zapłaty."
+
+#. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+#, python-format
+msgid "Remove \"Conflicting\" filter"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__report_id
@@ -3601,13 +3589,6 @@ msgstr "Szukaj według reguł wynagrodzenia"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_structure_type_view_search
 msgid "Search Structure Type"
 msgstr "Typ struktury wyszukiwania"
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "Select an <strong>HR Responsible</strong> for the contract."
-msgstr "Wybierz <strong>osobę odpowiedzialną z HR</strong> dla umowy."
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__semi-annually
@@ -4614,13 +4595,6 @@ msgid ""
 msgstr ""
 "Otrzymujesz tę wiadomość, ponieważ jesteś osobą odpowiedzialną za sprawy "
 "kadrowe tego pracownika."
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-#, python-format
-msgid "You can access the Payslips from the Employee's Profile."
-msgstr "Dostęp do pasków wypłaty można uzyskać z Profilu pracownika."
 
 #. module: hr_payroll
 #. odoo-python

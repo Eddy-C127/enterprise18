@@ -102,11 +102,6 @@ msgid "Import"
 msgstr "Importeren"
 
 #. module: account_winbooks_import
-#: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
-msgid "Import (safe-mode)"
-msgstr "Import (veilige-mode)"
-
-#. module: account_winbooks_import
 #. odoo-javascript
 #: code:addons/account_winbooks_import/static/src/xml/account_winbooks_import.xml:0
 #, python-format
@@ -179,17 +174,6 @@ msgid ""
 msgstr ""
 "De code voor de tussenrekening die je hebt ingevoerd, komt niet overeen met "
 "een rekening"
-
-#. module: account_winbooks_import
-#. odoo-python
-#: code:addons/account_winbooks_import/wizard/import_wizard.py:0
-#, python-format
-msgid ""
-"The following banks were used for multiple partners in Winbooks, which is not allowed in Odoo. The bank number has been only set on one of each group:\n"
-"%s"
-msgstr ""
-"De volgende banken werden gebruikt voor meerdere relaties in Winbooks, wat niet is toegestaan in Odoo. Het banknummer is slechts op één van elke groep ingesteld:\n"
-"%s"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,help:account_winbooks_import.field_account_winbooks_import_wizard__suspense_code

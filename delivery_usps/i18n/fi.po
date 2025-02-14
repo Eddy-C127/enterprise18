@@ -11,15 +11,15 @@
 # Martin Trigaux, 2023
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
 # Kim Asplund <kim.asplund@gmail.com>, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -451,6 +451,11 @@ msgstr "Säiliön tyyppi"
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__delivery_type__usps
 msgid "USPS (Legacy)"
+msgstr "USPS (Legacy)"
+
+#. module: delivery_usps
+#: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_label_file_type
+msgid "USPS (Legacy) Label File Type"
 msgstr ""
 
 #. module: delivery_usps
@@ -496,11 +501,6 @@ msgid ""
 msgstr ""
 "USPS International -lähetystapaa käytetään vain lähetyksiin Yhdysvaltojen "
 "ulkopuolelle. Vaihda toimitustapa USPS Domestic -lähetystavaksi."
-
-#. module: delivery_usps
-#: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_label_file_type
-msgid "USPS Label File Type"
-msgstr "USPS-tarran tiedostotyyppi"
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_mail_type

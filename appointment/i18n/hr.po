@@ -20,16 +20,16 @@
 # Martin Trigaux, 2024
 # Karolina Tonković <karolina.tonkovic@storm.hr>, 2024
 # Sven ServisiRAM <sven@servisiram.hr>, 2024
-# Bole <bole@dajmi5.com>, 2024
 # Servisi RAM d.o.o. <support@servisiram.hr>, 2024
+# Bole <bole@dajmi5.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Servisi RAM d.o.o. <support@servisiram.hr>, 2024\n"
+"Last-Translator: Bole <bole@dajmi5.com>, 2025\n"
 "Language-Team: Croatian (https://app.transifex.com/odoo/teams/41243/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -93,7 +93,7 @@ msgstr "#{day['today_cls'] and 'Danas' or ''}"
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "%(appointment_name)s with %(partner_name)s"
-msgstr ""
+msgstr "%(appointment_name)s sa %(partner_name)s"
 
 #. module: appointment
 #. odoo-python
@@ -107,7 +107,7 @@ msgstr ""
 #: code:addons/appointment/models/appointment_resource.py:0
 #, python-format
 msgid "%(original_name)s (copy)"
-msgstr ""
+msgstr "%(original_name)s (kopija)"
 
 #. module: appointment
 #. odoo-python
@@ -2457,13 +2457,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:appointment.field_appointment_question__placeholder
 msgid "Placeholder"
 msgstr "Rezervirano"
-
-#. module: appointment
-#. odoo-python
-#: code:addons/appointment/controllers/appointment.py:0
-#, python-format
-msgid "Please connect to book the appointment"
-msgstr ""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info

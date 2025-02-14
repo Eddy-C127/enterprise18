@@ -9,14 +9,14 @@
 # Martin Trigaux, 2023
 # Arnis Putniņš <arnis@allegro.lv>, 2023
 # ievaputnina <ievai.putninai@gmail.com>, 2023
-# Will Sensors, 2024
+# Will Sensors, 2025
 # Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-10 14:52+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2025\n"
 "Language-Team: Latvian (https://app.transifex.com/odoo/teams/41243/lv/)\n"
@@ -90,12 +90,12 @@ msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2017
-msgid "2023"
+msgid "2024"
 msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2018
-msgid "2024"
+msgid "2025"
 msgstr ""
 
 #. module: documents
@@ -1008,6 +1008,11 @@ msgid "Create Share"
 msgstr ""
 
 #. module: documents
+#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
+msgid "Create Vendor Bill"
+msgstr "Izveidot iepirkuma rēķinu"
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__activity_option
 msgid "Create a new activity"
 msgstr ""
@@ -1189,7 +1194,6 @@ msgstr "Dokuments"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_count
 #: model:ir.model.fields,field_description:documents.field_res_partner__document_count
-#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 msgid "Document Count"
 msgstr ""
 
@@ -1229,7 +1233,7 @@ msgstr ""
 #: code:addons/documents/models/mail_activity.py:0
 #, python-format
 msgid "Document Request: %s Uploaded by: %s"
-msgstr ""
+msgstr "Dokumenta pieprasījums: %s Augšupielādēja: %s"
 
 #. module: documents
 #: model:mail.template,name:documents.mail_template_document_request_reminder
@@ -1271,6 +1275,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:documents.document_action
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_ids
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__document_ids
+#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 #: model:ir.module.category,name:documents.module_category_documents_management
 #: model:ir.ui.menu,name:documents.dashboard
 #: model:ir.ui.menu,name:documents.menu_root
@@ -1940,11 +1945,6 @@ msgid "Logout"
 msgstr "Iziet"
 
 #. module: documents
-#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
-msgid "Mark As Bill"
-msgstr ""
-
-#. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_internal_mad
 msgid "Mark As Draft"
 msgstr ""
@@ -2139,6 +2139,11 @@ msgstr ""
 #, python-format
 msgid "New Workspace"
 msgstr ""
+
+#. module: documents
+#: model:ir.model.fields,field_description:documents.field_documents_document__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Nākamās darbības kalendāra pasākums"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_date_deadline
@@ -2385,6 +2390,12 @@ msgstr ""
 #: model:documents.tag,name:documents.documents_internal_template_project
 msgid "Project"
 msgstr "Projekti"
+
+#. module: documents
+#: model:ir.model.fields,field_description:documents.field_documents_document__rating_ids
+#: model:ir.model.fields,field_description:documents.field_documents_share__rating_ids
+msgid "Ratings"
+msgstr "Reitingi"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
@@ -2652,7 +2663,7 @@ msgstr "Sekvence"
 
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_finance_2018contracts
-msgid "Set As 2024 Contracts"
+msgid "Set As 2025 Contracts"
 msgstr ""
 
 #. module: documents

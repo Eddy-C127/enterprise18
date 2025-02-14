@@ -3,19 +3,17 @@
 # 	* iot
 # 
 # Translators:
-# Lucia Pacheco, 2023
 # Iran Villalobos López, 2023
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
-# Wil Odoo, 2024
 # Fernanda Alvarez, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Fernanda Alvarez, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -86,13 +84,6 @@ msgstr "Agregar asistente de la caja IoT"
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
-msgid "Are you sure you want to reboot the IoT box?"
-msgstr "¿Está seguro de que desea reiniciar la caja IoT?"
-
-#. module: iot
-#. odoo-javascript
-#: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
-#, python-format
 msgid "Are you sure you want to restart Odoo on the IoT box?"
 msgstr "¿Está seguro de que desea reiniciar Odoo en la caja IoT?"
 
@@ -123,9 +114,12 @@ msgid "Camera"
 msgstr "Cámara"
 
 #. module: iot
-#: model_terms:ir.ui.view,arch_db:iot.view_select_printers_wizard
-msgid "Cancel"
-msgstr "Cancelar"
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Check IoT Box connection. Try restarting if needed."
+msgstr "Revise la conexión de la caja IoT y reiníciela si es necesario."
 
 #. module: iot
 #. odoo-javascript
@@ -133,26 +127,6 @@ msgstr "Cancelar"
 #, python-format
 msgid "Check if the device is still connected"
 msgstr "Compruebe si el dispositivo sigue conectado"
-
-#. module: iot
-#. odoo-javascript
-#: code:addons/iot/static/src/iot_websocket_service.js:0
-#, python-format
-msgid "Check the IoT connection. Try restarting if needed."
-msgstr "Verifique la conexión de la caja IoT y reiníciela si es necesario."
-
-#. module: iot
-#: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
-#: model:ir.ui.menu,name:iot.view_iot_selected_printer_local_action
-msgid "Clear Selected Devices"
-msgstr "Borrar dispositivos seleccionados"
-
-#. module: iot
-#. odoo-javascript
-#: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
-#, python-format
-msgid "Clear automatic reports"
-msgstr "Borrar reportes automáticos"
 
 #. module: iot
 #. odoo-javascript
@@ -205,6 +179,11 @@ msgstr "Cierre esta ventana e inténtelo de nuevo"
 #: model:ir.model.fields,field_description:iot.field_iot_device__company_id
 msgid "Company"
 msgstr "Empresa"
+
+#. module: iot
+#: model:ir.ui.menu,name:iot.view_iot_selected_printer_local_action
+msgid "Configuration"
+msgstr "Configuración"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_box_view_kanban
@@ -341,6 +320,13 @@ msgstr "Descargar registros"
 #, python-format
 msgid "Download logs"
 msgstr "Descargar registros"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_report_action.js:0
+#, python-format
+msgid "Failed to send to printer."
+msgstr "No se pudo enviar a la impresora."
 
 #. module: iot
 #. odoo-javascript
@@ -534,13 +520,27 @@ msgid "Network"
 msgstr "Red"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
+#, python-format
+msgid "New IoT Box connected!"
+msgstr "La caja IoT no está conectada."
+
+#. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "No IoT Box found!"
 msgstr "No se ha encontrado ninguna caja IoT"
 
 #. module: iot
 #. odoo-javascript
-#: code:addons/iot/static/src/select_printer_form.js:0
+#: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
+#, python-format
+msgid "No new IoT Box found."
+msgstr "No se encontró una caja IoT nueva."
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/select_printer_wizard.js:0
 #, python-format
 msgid "No printer selected"
 msgstr "No seleccionó ninguna impresora"
@@ -609,6 +609,13 @@ msgid "Please check if the IoT Box is still connected."
 msgstr "Verifique si la caja IoT sigue conectada."
 
 #. module: iot
+#. odoo-python
+#: code:addons/iot/wizard/add_iot_box.py:0
+#, python-format
+msgid "Please enter a pairing code."
+msgstr "Ingrese un código de emparejamiento."
+
+#. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
@@ -660,8 +667,24 @@ msgstr "Reporte XML"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__report_ids
+#: model:ir.ui.menu,name:iot.iot_settings_menu_action
 msgid "Reports"
 msgstr "Reportes"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
+#, python-format
+msgid "Reports with linked printers"
+msgstr "Reportes con contactos vinculados"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
+#: model:ir.ui.menu,name:iot.iot_clear_selected_devices
+#, python-format
+msgid "Reset Linked Printers"
+msgstr "Reiniciar impresoras vinculadas"
 
 #. module: iot
 #. odoo-javascript
@@ -698,7 +721,7 @@ msgstr "Báscula"
 
 #. module: iot
 #. odoo-javascript
-#: code:addons/iot/static/src/select_printer_form.js:0
+#: code:addons/iot/static/src/select_printer_wizard.js:0
 #, python-format
 msgid "Select at least one printer"
 msgstr "Seleccione al menos una impresora"
@@ -710,6 +733,7 @@ msgstr "Selección de impresoras"
 
 #. module: iot
 #. odoo-javascript
+#: code:addons/iot/static/src/iot_report_action.js:0
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 #, python-format
 msgid "Sending to printer %s..."
@@ -810,16 +834,23 @@ msgid "USB"
 msgstr "USB"
 
 #. module: iot
-#. odoo-javascript
-#: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
+#. odoo-python
+#: code:addons/iot/wizard/add_iot_box.py:0
 #, python-format
-msgid "Unlink"
-msgstr "Desvincular"
+msgid "Using Pairing Code to connect..."
+msgstr "Usar código de emparejamiento para conectar..."
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__variant
 msgid "Variant"
 msgstr "Variante"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
+#, python-format
+msgid "Waiting for a new IoT Box..."
+msgstr "Esperando una nueva caja IoT..."
 
 #. module: iot
 #. odoo-python
@@ -846,6 +877,11 @@ msgstr "conectar"
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid "or wifi"
 msgstr "o Wi-Fi"
+
+#. module: iot
+#: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
+msgid "reset.linked.printers"
+msgstr "reset.linked.printers"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action

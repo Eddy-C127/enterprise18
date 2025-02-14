@@ -5,11 +5,11 @@
 # Translators:
 # Albert Parera, 2023
 # jabiri7, 2023
+# Óscar Fonseca <tecnico@pyming.com>, 2023
 # Ivan Espinola, 2023
 # Josep Anton Belchi, 2023
 # Martin Trigaux, 2023
-# Quim - eccit <quim@eccit.com>, 2023
-# Óscar Fonseca <tecnico@pyming.com>, 2023
+# Quim - coopdevs <quim.rebull@coopdevs.org>, 2023
 # marcescu, 2023
 # Santiago Payà <santiagopim@gmail.com>, 2024
 # 
@@ -105,11 +105,6 @@ msgid "Import"
 msgstr "Importar"
 
 #. module: account_winbooks_import
-#: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
-msgid "Import (safe-mode)"
-msgstr "Importa (mode segur)"
-
-#. module: account_winbooks_import
 #. odoo-javascript
 #: code:addons/account_winbooks_import/static/src/xml/account_winbooks_import.xml:0
 #, python-format
@@ -179,17 +174,6 @@ msgid ""
 "The code for the Suspense Account you entered doesn't match any account"
 msgstr ""
 "El codi del compte transitori que ha introduït no coincideix amb cap compte"
-
-#. module: account_winbooks_import
-#. odoo-python
-#: code:addons/account_winbooks_import/wizard/import_wizard.py:0
-#, python-format
-msgid ""
-"The following banks were used for multiple partners in Winbooks, which is not allowed in Odoo. The bank number has been only set on one of each group:\n"
-"%s"
-msgstr ""
-"Els bancs següents es van utilitzar per a diversos contactes en els Winbooks, que no es permet a Odoo. El número del banc només s'ha establert en un de cada grup:\n"
-"%s"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,help:account_winbooks_import.field_account_winbooks_import_wizard__suspense_code

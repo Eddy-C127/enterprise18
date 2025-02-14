@@ -3,17 +3,17 @@
 # 	* sale_external_tax
 # 
 # Translators:
-# Wil Odoo, 2023
-# Larissa Manderfeld, 2024
 # Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024
+# Wil Odoo, 2025
+# Larissa Manderfeld, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2025-02-10 10:51+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,6 +35,11 @@ msgstr "Es Avatax"
 #: model:ir.model.fields,field_description:sale_external_tax.field_sale_order__is_tax_computed_externally
 msgid "Is Tax Computed Externally"
 msgstr "¿Se calcula el impuesto externamente?"
+
+#. module: sale_external_tax
+#: model:ir.model,name:sale_external_tax.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Pago anticipado para factura de ventas"
 
 #. module: sale_external_tax
 #: model:ir.model,name:sale_external_tax.model_sale_order
@@ -60,7 +65,7 @@ msgid ""
 "instead of Odoo."
 msgstr ""
 "Campo técnico para determinar si el impuesto se calcula mediante un servicio"
-" externo y no con Odoo."
+" de campo y no con Odoo."
 
 #. module: sale_external_tax
 #. odoo-python

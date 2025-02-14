@@ -14,19 +14,20 @@
 # Hanna Kheradroosta, 2023
 # Hamid Darabi, 2023
 # Faraz Sadri Alamdari <ifarazir@gmail.com>, 2023
-# Martin Trigaux, 2023
 # F Hariri <fhari1234@gmail.com>, 2023
 # rahim agh <rahim.aghareb@gmail.com>, 2023
 # Abbas Ebadian, 2024
 # Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024
+# Martin Trigaux, 2025
+# Tiffany Chang, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:42+0000\n"
+"POT-Creation-Date: 2025-02-10 10:51+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024\n"
+"Last-Translator: Tiffany Chang, 2025\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -441,6 +442,11 @@ msgstr ""
 #: model:hr.contract.salary.personal.info,name:hr_contract_salary.hr_contract_salary_personal_info_city
 msgid "City"
 msgstr "شهر"
+
+#. module: hr_contract_salary
+#: model:sign.template,redirect_url_text:hr_contract_salary.sign_template_cdi_developer
+msgid "Close"
+msgstr "بستن"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_resume__code
@@ -1500,11 +1506,6 @@ msgid "Oops"
 msgstr "اوپس"
 
 #. module: hr_contract_salary
-#: model:sign.template,redirect_url_text:hr_contract_salary.sign_template_cdi_developer
-msgid "Open Link"
-msgstr "لینک باز"
-
-#. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__origin_contract_id
 msgid "Origin Contract"
 msgstr ""
@@ -1958,7 +1959,7 @@ msgstr "مدرک در قرارداد را امضا کن"
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
 msgid "Signature Request - %s"
-msgstr ""
+msgstr "درخواست امضا - %s"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__display_type__slider

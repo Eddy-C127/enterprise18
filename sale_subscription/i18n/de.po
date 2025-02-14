@@ -3,16 +3,16 @@
 # 	* sale_subscription
 # 
 # Translators:
-# Wil Odoo, 2024
 # Larissa Manderfeld, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1097,6 +1097,7 @@ msgstr "Aktivitätstypen"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_quantity
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_quantity
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Add Products"
 msgstr "Produkte hinzufügen"
 
@@ -1249,6 +1250,7 @@ msgstr "Automatische Schließung"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__auto_close_limit_display
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Automatic Closing After"
 msgstr "Automatische Schließung nach"
 
@@ -1528,6 +1530,7 @@ msgstr "Klicken Sie hier, um Produkte oder Dienstleistungen hinzuzufügen."
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Closable"
 msgstr "Kündbar"
 
@@ -2265,10 +2268,10 @@ msgstr ""
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__filter_pre_domain
 msgid ""
 "If present, this condition must be satisfied before the update of the "
-"record."
+"record. Not checked on record creation."
 msgstr ""
 "Falls vorhanden, muss diese Bedingung vor der Aktualisierung des Datensatzes"
-" erfüllt werden."
+" erfüllt werden. Ist nicht bei Erstellung des Datensatzes angekreuzt."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__end_date
@@ -3492,6 +3495,7 @@ msgstr "Zugehöriger Auftrag"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_extend
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_extend
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 #, python-format
 msgid "Renew"

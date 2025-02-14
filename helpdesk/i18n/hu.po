@@ -3,22 +3,22 @@
 # 	* helpdesk
 # 
 # Translators:
-# Tibor Kőnig <konig.tibor@evitalit.hu>, 2023
+# f1b3a33e3b33fcf18004a5292e501f50_3500ca8 <373b677b151624c4521d9efc77b996fd_750224>, 2023
 # Gergő Kertész <gergo.kertesz@maxflow.hu>, 2023
 # Martin Trigaux, 2023
 # Tamás Dombos, 2023
 # Ákos Nagy <akos.nagy@oregional.hu>, 2023
 # krnkris, 2023
-# Tamás Németh <ntomasz81@gmail.com>, 2023
 # gezza <geza.nagy@oregional.hu>, 2024
+# Tamás Németh <ntomasz81@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: gezza <geza.nagy@oregional.hu>, 2024\n"
+"Last-Translator: Tamás Németh <ntomasz81@gmail.com>, 2025\n"
 "Language-Team: Hungarian (https://app.transifex.com/odoo/teams/41243/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -656,13 +656,6 @@ msgstr "Biztos benne, hogy folytatja?"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
 msgid "Are you sure you want to delete these stages?"
-msgstr ""
-
-#. module: helpdesk
-#. odoo-javascript
-#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
-#, python-format
-msgid "Assign the ticket to a <b>member of your team</b>."
 msgstr ""
 
 #. module: helpdesk
@@ -2412,6 +2405,13 @@ msgid "Open Time (hours)"
 msgstr "Idő nyitott állapotban (óra)"
 
 #. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+#, python-format
+msgid "Open the ticket."
+msgstr ""
+
+#. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_force_thread_id
 msgid ""
 "Optional ID of a thread (record) to which all incoming messages will be "
@@ -2935,6 +2935,13 @@ msgstr "Minta"
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_progress_data
 msgid "Satisfied"
 msgstr "Elégedett"
+
+#. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+#, python-format
+msgid "Save this ticket and the modifications you've made to it."
+msgstr "Mentse ezt a hibajegyet és az elvégzett módosításokat."
 
 #. module: helpdesk
 #. odoo-javascript

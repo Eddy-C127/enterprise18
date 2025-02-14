@@ -3,16 +3,16 @@
 # 	* delivery_fedex
 # 
 # Translators:
-# Wil Odoo, 2023
-# Thi Huong Nguyen, 2024
+# Wil Odoo, 2025
+# Thi Huong Nguyen, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -119,18 +119,18 @@ msgstr "Dữ liệu bổ sung"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_rate_request
-msgid "Extra data for rate"
-msgstr "Dữ liệu bổ sung về cước phí"
+msgid "Extra data for rate (legacy)"
+msgstr "Dữ liệu bổ sung về cước phí (cũ)"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_return_request
-msgid "Extra data for return"
-msgstr "Dữ liệu bổ sung về trả hàng"
+msgid "Extra data for return (legacy)"
+msgstr "Dữ liệu bổ sung về trả hàng (cũ)"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_ship_request
-msgid "Extra data for ship"
-msgstr "Dữ liệu bổ sung về vận chuyển"
+msgid "Extra data for ship (legacy)"
+msgstr "Dữ liệu bổ sung về vận chuyển (cũ)"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_label_file_type
@@ -171,6 +171,11 @@ msgstr "FEDEX_FIRST"
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_ground
 msgid "FEDEX_GROUND"
 msgstr "FEDEX_GROUND"
+
+#. module: delivery_fedex
+#: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_international_connect_plus
+msgid "FEDEX_INTERNATIONAL_CONNECT_PLUS"
+msgstr "FEDEX_INTERNATIONAL_CONNECT_PLUS"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_international_priority

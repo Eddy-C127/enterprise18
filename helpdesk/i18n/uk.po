@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Bohdan Lisnenko, 2023
-# Martin Trigaux, 2023
 # Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
 # Wil Odoo, 2024
+# Martin Trigaux, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Martin Trigaux, 2025\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -788,13 +788,6 @@ msgstr "Ви впевнені, що хочете продовжити?"
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
 msgid "Are you sure you want to delete these stages?"
 msgstr "Ви впевнені, що хочете видалити ці етапи?"
-
-#. module: helpdesk
-#. odoo-javascript
-#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
-#, python-format
-msgid "Assign the ticket to a <b>member of your team</b>."
-msgstr "Призначте заявку <b>члену вашої команди</b>."
 
 #. module: helpdesk
 #. odoo-python
@@ -2597,6 +2590,13 @@ msgid "Open Time (hours)"
 msgstr "Робочий час (години)"
 
 #. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+#, python-format
+msgid "Open the ticket."
+msgstr ""
+
+#. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_force_thread_id
 msgid ""
 "Optional ID of a thread (record) to which all incoming messages will be "
@@ -3136,6 +3136,13 @@ msgstr "Зразок"
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_progress_data
 msgid "Satisfied"
 msgstr "Задоволений"
+
+#. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+#, python-format
+msgid "Save this ticket and the modifications you've made to it."
+msgstr "Збережіть цю заявку та внесені до неї зміни."
 
 #. module: helpdesk
 #. odoo-javascript

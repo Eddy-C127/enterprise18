@@ -12,21 +12,22 @@
 # Ivan Goychev <igoychev.projects@gmail.com>, 2023
 # Martin Trigaux, 2023
 # KeyVillage, 2023
-# Maria Boyadjieva <marabo2000@gmail.com>, 2023
 # aleksandar ivanov, 2023
 # Rumena Georgieva <rumena.georgieva@gmail.com>, 2024
 # Elena Varbanova, 2024
-# Petko Karamotchev, 2024
 # Veselina Slavkova, 2025
 # Martin Dinovski, 2025
+# Petko Karamotchev, 2025
+# Maria Boyadjieva <marabo2000@gmail.com>, 2025
+# margarita.katzeva, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-10 14:52+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Dinovski, 2025\n"
+"Last-Translator: margarita.katzeva, 2025\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -98,12 +99,12 @@ msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2017
-msgid "2023"
+msgid "2024"
 msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2018
-msgid "2024"
+msgid "2025"
 msgstr ""
 
 #. module: documents
@@ -1018,6 +1019,11 @@ msgid "Create Share"
 msgstr ""
 
 #. module: documents
+#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
+msgid "Create Vendor Bill"
+msgstr ""
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__activity_option
 msgid "Create a new activity"
 msgstr ""
@@ -1199,9 +1205,8 @@ msgstr "Документ"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_count
 #: model:ir.model.fields,field_description:documents.field_res_partner__document_count
-#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 msgid "Document Count"
-msgstr ""
+msgstr "Брой документи"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -1279,6 +1284,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:documents.document_action
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_ids
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__document_ids
+#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 #: model:ir.module.category,name:documents.module_category_documents_management
 #: model:ir.ui.menu,name:documents.dashboard
 #: model:ir.ui.menu,name:documents.menu_root
@@ -1353,7 +1359,7 @@ msgstr ""
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
 msgid "Download file"
-msgstr ""
+msgstr "Изтегляне на файл"
 
 #. module: documents
 #. odoo-javascript
@@ -1948,11 +1954,6 @@ msgid "Logout"
 msgstr "Изход"
 
 #. module: documents
-#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
-msgid "Mark As Bill"
-msgstr ""
-
-#. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_internal_mad
 msgid "Mark As Draft"
 msgstr "Маркирай като чернова"
@@ -2147,6 +2148,11 @@ msgstr ""
 #, python-format
 msgid "New Workspace"
 msgstr ""
+
+#. module: documents
+#: model:ir.model.fields,field_description:documents.field_documents_document__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Следващото събитие от календара на дейностите"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_date_deadline
@@ -2393,6 +2399,12 @@ msgstr "Презентации"
 #: model:documents.tag,name:documents.documents_internal_template_project
 msgid "Project"
 msgstr "Проект"
+
+#. module: documents
+#: model:ir.model.fields,field_description:documents.field_documents_document__rating_ids
+#: model:ir.model.fields,field_description:documents.field_documents_share__rating_ids
+msgid "Ratings"
+msgstr "Оценявания"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
@@ -2660,7 +2672,7 @@ msgstr "Последователност"
 
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_finance_2018contracts
-msgid "Set As 2024 Contracts"
+msgid "Set As 2025 Contracts"
 msgstr ""
 
 #. module: documents

@@ -7,19 +7,19 @@
 # JanisJanis <jbojars@gmail.com>, 2023
 # Anzelika Adejanova, 2023
 # Martin Trigaux, 2024
-# Camille Dantinne <cmd@odoo.com>, 2024
 # Arnis Putniņš <arnis@allegro.lv>, 2024
 # ievaputnina <ievai.putninai@gmail.com>, 2024
 # Will Sensors, 2025
 # Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2025
+# Camille Dantinne <cmd@odoo.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2025\n"
+"Last-Translator: Camille Dantinne <cmd@odoo.com>, 2025\n"
 "Language-Team: Latvian (https://app.transifex.com/odoo/teams/41243/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1214,8 +1214,8 @@ msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
-#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Closable"
 msgstr ""
 
@@ -1937,7 +1937,7 @@ msgstr ""
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__filter_pre_domain
 msgid ""
 "If present, this condition must be satisfied before the update of the "
-"record."
+"record. Not checked on record creation."
 msgstr ""
 
 #. module: sale_subscription
@@ -4751,7 +4751,7 @@ msgstr "name"
 #: code:addons/sale_subscription/models/sale_subscription_plan.py:0
 #, python-format
 msgid "per %d months"
-msgstr ""
+msgstr "per %d mėn"
 
 #. module: sale_subscription
 #. odoo-python

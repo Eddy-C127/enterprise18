@@ -3,18 +3,19 @@
 # 	* account_avatax
 # 
 # Translators:
-# Alexandros Kapetanios <alexandros@gnugr.org>, 2024
 # George Tarasidis <george_tarasidis@yahoo.com>, 2024
 # Martin Trigaux, 2024
 # Kostas Goutoudis <goutoudis@gmail.com>, 2024
+# Charalampos Loukas, 2025
+# Alexandros Kapetanios <alexandros@gnugr.org>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:10+0000\n"
+"POT-Creation-Date: 2025-02-10 10:50+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Kostas Goutoudis <goutoudis@gmail.com>, 2024\n"
+"Last-Translator: Alexandros Kapetanios <alexandros@gnugr.org>, 2025\n"
 "Language-Team: Greek (https://app.transifex.com/odoo/teams/41243/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,6 +90,11 @@ msgid "API KEY"
 msgstr "API KEY"
 
 #. module: account_avatax
+#: model:ir.model,name:account_avatax.model_account_chart_template
+msgid "Account Chart Template"
+msgstr "Πρότυπο γραφήματος λογαριασμού"
+
+#. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_account_fiscal_position__avatax_invoice_account_id
 msgid "Account that will be used by Avatax taxes for invoices."
 msgstr ""
@@ -155,7 +161,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax.field_res_partner__avatax_unique_code
 #: model:ir.model.fields,field_description:account_avatax.field_res_users__avatax_unique_code
 msgid "Avalara Code"
-msgstr ""
+msgstr "Κωδικός Avalara"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_config_settings__avalara_partner_code
@@ -638,7 +644,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_avatax.field_res_partner__avatax_unique_code
 #: model:ir.model.fields,help:account_avatax.field_res_users__avatax_unique_code
 msgid "Use this code to cross-reference in the Avalara portal."
-msgstr ""
+msgstr "Χρησιμοποιήστε αυτόν τον κωδικό ως διασταύρωση στην πύλη Avalara."
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_exemption__valid_country_ids

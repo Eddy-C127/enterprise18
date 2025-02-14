@@ -10,14 +10,15 @@
 # Mikael Åkerberg <mikael.akerberg@mariaakerberg.com>, 2023
 # Anders Wallenquist <anders.wallenquist@vertel.se>, 2024
 # Jakob Krabbe <jakob.krabbe@vertel.se>, 2024
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2025-02-10 10:51+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jakob Krabbe <jakob.krabbe@vertel.se>, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -79,6 +80,11 @@ msgstr "Bifoga en fil"
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__attachment_ids
 msgid "Attachment"
 msgstr "Bilaga"
+
+#. module: hr_contract_sign
+#: model:sign.template,redirect_url_text:hr_contract_sign.template_sign_termination
+msgid "Close"
+msgstr "Stäng"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__contract_id
@@ -245,11 +251,6 @@ msgstr ""
 #: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
 #, python-format
 msgid "Only %s has to sign."
-msgstr ""
-
-#. module: hr_contract_sign
-#: model:sign.template,redirect_url_text:hr_contract_sign.template_sign_termination
-msgid "Open Link"
 msgstr ""
 
 #. module: hr_contract_sign

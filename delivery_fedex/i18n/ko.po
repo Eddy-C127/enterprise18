@@ -3,16 +3,16 @@
 # 	* delivery_fedex
 # 
 # Translators:
-# Wil Odoo, 2023
-# Daye Jeong, 2024
+# Wil Odoo, 2025
+# Daye Jeong, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Daye Jeong, 2024\n"
+"Last-Translator: Daye Jeong, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -119,18 +119,18 @@ msgstr "추가 데이터"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_rate_request
-msgid "Extra data for rate"
-msgstr "요금 관련 추가 데이터"
+msgid "Extra data for rate (legacy)"
+msgstr "요금에 대한 추가 정보 (레거시)"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_return_request
-msgid "Extra data for return"
-msgstr "반품 관련 추가 데이터"
+msgid "Extra data for return (legacy)"
+msgstr "반품에 대한 추가 정보 (레거시)"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_extra_data_ship_request
-msgid "Extra data for ship"
-msgstr "쉬핑 관련 추가 데이터"
+msgid "Extra data for ship (legacy)"
+msgstr "선박용 추가 데이터 (레거시)"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_label_file_type
@@ -171,6 +171,11 @@ msgstr "FEDEX_FIRST"
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_ground
 msgid "FEDEX_GROUND"
 msgstr "FEDEX_GROUND"
+
+#. module: delivery_fedex
+#: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_international_connect_plus
+msgid "FEDEX_INTERNATIONAL_CONNECT_PLUS"
+msgstr "FEDEX_INTERNATIONAL_CONNECT_PLUS"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_service_type__fedex_international_priority

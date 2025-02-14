@@ -102,11 +102,6 @@ msgid "Import"
 msgstr "Importar"
 
 #. module: account_winbooks_import
-#: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
-msgid "Import (safe-mode)"
-msgstr "Importar (modo seguro)"
-
-#. module: account_winbooks_import
 #. odoo-javascript
 #: code:addons/account_winbooks_import/static/src/xml/account_winbooks_import.xml:0
 #, python-format
@@ -179,17 +174,6 @@ msgid ""
 msgstr ""
 "El código introducido de la cuenta transitoria no coincide con ninguna "
 "cuenta."
-
-#. module: account_winbooks_import
-#. odoo-python
-#: code:addons/account_winbooks_import/wizard/import_wizard.py:0
-#, python-format
-msgid ""
-"The following banks were used for multiple partners in Winbooks, which is not allowed in Odoo. The bank number has been only set on one of each group:\n"
-"%s"
-msgstr ""
-"Varios contactos utilizaron los siguientes bancos en Winbooks, lo cual no está permitido en Odoo. El número de banco solo se ha establecido en uno de cada grupo:\n"
-"%s"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,help:account_winbooks_import.field_account_winbooks_import_wizard__suspense_code

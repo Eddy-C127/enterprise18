@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024
-# Wil Odoo, 2024
-# Larissa Manderfeld, 2024
+# Larissa Manderfeld, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:42+0000\n"
+"POT-Creation-Date: 2025-02-10 10:51+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -103,7 +103,7 @@ msgstr "Servicio de asistencia"
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_sla
 msgid "Helpdesk SLA Policies"
-msgstr "Políticas SLA del servicio de asistencia"
+msgstr "Políticas ANS del servicio de asistencia"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_team
@@ -142,16 +142,6 @@ msgstr "Número de facturas"
 #, python-format
 msgid "Invoices"
 msgstr "Facturas"
-
-#. module: helpdesk_sale_timesheet
-#. odoo-python
-#: code:addons/helpdesk_sale_timesheet/models/helpdesk_ticket.py:0
-msgid ""
-"You cannot link the order item %s - %s to this ticket because it is not a "
-"service product."
-msgstr ""
-"No puede vincular el elemento del pedido %s - %s a este ticket porque no es "
-"un producto de servicio."
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
@@ -229,7 +219,7 @@ msgstr "Horas restantes en el pedido de venta:"
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_product_product__sla_id
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_product_template__sla_id
 msgid "SLA Policy"
-msgstr "Política SLA"
+msgstr "Política ANS"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,help:helpdesk_sale_timesheet.field_product_product__sla_id
@@ -238,13 +228,13 @@ msgid ""
 "SLA Policy that will automatically apply to the tickets linked to a sales "
 "order item containing this service."
 msgstr ""
-"Política SLA que se aplicará automáticamente a los tickets vinculados a un "
+"Política ANS que se aplicará automáticamente a los tickets vinculados a un "
 "elemento de un pedido de venta que contenga este servicio."
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_sla_report_analysis
 msgid "SLA Status Analysis"
-msgstr "Análisis del estado de SLA"
+msgstr "Análisis del estado de ANS"
 
 #. module: helpdesk_sale_timesheet
 #. odoo-python
@@ -328,3 +318,14 @@ msgstr "Partes de horas"
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Total"
 msgstr "Total"
+
+#. module: helpdesk_sale_timesheet
+#. odoo-python
+#: code:addons/helpdesk_sale_timesheet/models/helpdesk_ticket.py:0
+#, python-format
+msgid ""
+"You cannot link order item %s - %s to this ticket because it is not a "
+"service product."
+msgstr ""
+"No puede vincular el elemento del pedido %s - %s a este ticket porque es un "
+"producto de servicio."

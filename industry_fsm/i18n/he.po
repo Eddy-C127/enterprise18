@@ -6,7 +6,7 @@
 # Lilach Gilliam <lilach@apprcase.com>, 2023
 # Ofir Blum <ofir.blum@gmail.com>, 2023
 # Sagi Ahiel, 2023
-# hed shefer <hed@laylinetech.com>, 2023
+# Hed Shefer <hed@laylinetech.com>, 2023
 # דודי מלכה <Dudimalka6@gmail.com>, 2023
 # Netta Waizer, 2023
 # Adi Sharashov <Adi@laylinetech.com>, 2023
@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Jonathan Spier, 2024\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
@@ -321,7 +321,6 @@ msgstr "הצג כמות תנאים מרוצים "
 
 #. module: industry_fsm
 #: model:ir.model.fields,help:industry_fsm.field_project_project__is_fsm
-#: model:ir.model.fields,help:industry_fsm.field_project_task__is_fsm
 msgid ""
 "Display tasks in the Field Service module and allow planning with start/end "
 "dates."
@@ -354,7 +353,6 @@ msgstr "ניתוח נתוני משימות שירות שטח"
 #: code:addons/industry_fsm/models/project_project.py:0
 #: code:addons/industry_fsm/models/res_company.py:0
 #: model:ir.model.fields,field_description:industry_fsm.field_project_project__is_fsm
-#: model:ir.model.fields,field_description:industry_fsm.field_project_task__is_fsm
 #: model:ir.ui.menu,name:industry_fsm.fsm_menu_root
 #: model:project.project,name:industry_fsm.fsm_project
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_view_form_inherit
@@ -398,6 +396,11 @@ msgid ""
 msgstr ""
 
 #. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__total_hours_spent
+msgid "Hours By Task (Including Subtasks)"
+msgstr ""
+
+#. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__effective_hours
 msgid "Hours Spent"
 msgstr "זמן עבודה"
@@ -413,6 +416,11 @@ msgstr "מזהה"
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__message_is_follower
 msgid "Is Follower"
 msgstr "עוקב"
+
+#. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_project_task__is_fsm
+msgid "Is Fsm"
+msgstr ""
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_project_task__is_task_phone_update
@@ -875,11 +883,6 @@ msgstr "היום"
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_task_view_search_fsm
 msgid "Today Activities"
 msgstr "פעילויות היום"
-
-#. module: industry_fsm
-#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__total_hours_spent
-msgid "Total Hours"
-msgstr "סה\"כ שעות"
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_type_action_fsm
