@@ -332,6 +332,9 @@ class HrContract(models.Model):
         Returns the amount (expressed in hours) of work
         for a contract between two dates.
         If called on multiple contracts, sum work amounts of each contract.
+                
+        Precondition: the set of contracts that this method is called on
+        must have the same timezone.
         :param date_from: The start date
         :param date_to: The end date
         :returns: a dictionary {work_entry_id: hours_1, work_entry_2: hours_2}
@@ -339,7 +342,9 @@ class HrContract(models.Model):
         assert isinstance(date_from, datetime)
         assert isinstance(date_to, datetime)
         
-        contract_tz_name = (self.resource_calendar_id or self.employee_id.resource_calendar_id).tz
+        tzs = set((self.resource_calendar_id or self.employee_id.resource_calendar_id).mapped('tz'))
+        assert len(tzs) == 1
+        contract_tz_name = tzs.pop()
         tz = pytz.timezone(contract_tz_name) if contract_tz_name else pytz.utc
         utc = pytz.timezone('UTC')
         date_from_tz = tz.localize(date_from).astimezone(utc).replace(tzinfo=None)
