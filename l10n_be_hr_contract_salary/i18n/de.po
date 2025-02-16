@@ -3,8 +3,9 @@
 # 	* l10n_be_hr_contract_salary
 # 
 # Translators:
-# Wil Odoo, 2024
 # Chris Egal <sodaswed@web.de>, 2025
+# Larissa Manderfeld, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-29 14:41+0000\n"
 "PO-Revision-Date: 2024-01-30 08:20+0000\n"
-"Last-Translator: Chris Egal <sodaswed@web.de>, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +34,7 @@ msgstr "%s € (CO2-Gebühren) + %s € (Rente)"
 #: code:addons/l10n_be_hr_contract_salary/models/hr_contract.py:0
 #, python-format
 msgid "%s € (Rent)"
-msgstr ""
+msgstr "%s € (Miete)"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_thirteen_month
@@ -70,17 +71,17 @@ msgstr ">= 65 Jahre alt"
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_ambulatory_insured_spouse
 msgid "Ambulatory (spouse)"
-msgstr ""
+msgstr "Ambulant (Ehepartner)"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_ambulatory_insured_children
 msgid "Ambulatory Children (<19 y/o)"
-msgstr ""
+msgstr "Ambulante Versicherung für Kunder (< 19 Jahre alt)"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_ambulatory_insured_adults
 msgid "Ambulatory Children (>= 19 y/o)"
-msgstr ""
+msgstr "Ambulante Versicherung für Kunder (>= 19 Jahre alt)"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_ambulatory_insurance
@@ -90,17 +91,17 @@ msgstr "Ambulante Versicherung"
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_ambulatory_insurance_note
 msgid "Ambulatory Insurance (info)"
-msgstr ""
+msgstr "Ambulante Versicherung (Info)"
 
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_generate_simulation_link__assigned_car_warning
 msgid "Assigned Car Warning"
-msgstr ""
+msgstr "Warnung für zugeordnetes Fahrzeug"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_transport_private_bike
 msgid "Bicyle Cost"
-msgstr ""
+msgstr "Fahrradkosten"
 
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_generate_simulation_link__l10n_be_canteen_cost
@@ -137,7 +138,7 @@ msgstr "Provisionen"
 #: model:hr.contract.salary.benefit,fold_label:l10n_be_hr_contract_salary.l10n_be_transport_company_bike
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_transport_company_bike
 msgid "Company Bike"
-msgstr ""
+msgstr "Firmenfahrrad"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,fold_label:l10n_be_hr_contract_salary.l10n_be_transport_company_car
@@ -166,7 +167,7 @@ msgstr "Ein Angebot erstellen"
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_job__l10n_be_custom_representation_fees
 msgid "Customized Representation Fees"
-msgstr ""
+msgstr "Benutzerdefinierte Repräsentationsgebühren"
 
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_generate_simulation_link__car_id
@@ -233,12 +234,14 @@ msgstr "Fahrerlaubnis"
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_contract__driving_license_filename
 msgid "Driving License Filename"
-msgstr ""
+msgstr "Dateiname des Führerscheins"
 
 #. module: l10n_be_hr_contract_salary
 #: model_terms:hr.contract.salary.benefit,description:l10n_be_hr_contract_salary.l10n_be_meal_vouchers
 msgid "Each month you'll receive 8€ per day worked on a meal voucher card."
 msgstr ""
+"Sie erhalten jeden Monat 8 € pro gearbeitetem Tag auf Ihrer "
+"Mahlzeitscheckkarte."
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_eco_voucher
@@ -308,6 +311,9 @@ msgid ""
 "Enter the number of kilometers between your home and your work place. The "
 "approximative amount reimbursed by the employer is calculated accordingly."
 msgstr ""
+"Geben Sie die Anzahl Kilometer zwischen ihrem Zuhause und Ihrem Arbeitsplatz"
+" ein. Der ungefähre Betrag, der vom Arbeitgeber erstattet wird, wird "
+"entsprechend berechnet."
 
 #. module: l10n_be_hr_contract_salary
 #: model_terms:hr.contract.salary.benefit,description:l10n_be_hr_contract_salary.l10n_be_transport_private_bike
@@ -316,6 +322,9 @@ msgid ""
 "reimbursed amount is of 0.20 cents per km with a maximum amount of 8€, "
 "computed on a one-day-per-week basis."
 msgstr ""
+"Geben Sie die Anzahl Kilometer zwischen ihrem Zuhause und Ihrem Arbeitsplatz"
+" ein. Der erstattete Betrag beträgt 0,20 Cent pro km mit einem Höchstbetrag "
+"von 8 €, berechnet auf der Grundlage eines Arbeitstags pro Woche."
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_extra_time_off
@@ -329,6 +338,8 @@ msgid ""
 "For all insured persons, indicate the last name / first name / date of birth"
 " / relationship / Indicate if disabled"
 msgstr ""
+"Geben Sie für alle versicherten Personen den Nachnamen, den Vornamen, das "
+"Geburtsdatum, den Beziehungsstand sowie eine etwaige Beeinträchtigung an."
 
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_generate_simulation_link__new_car
@@ -346,7 +357,7 @@ msgstr "Tankkarte"
 #: code:addons/l10n_be_hr_contract_salary/controllers/main.py:0
 #, python-format
 msgid "Gross (Part Time)"
-msgstr ""
+msgstr "Brutto (Teilzeit)"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_group_insurance
@@ -356,7 +367,7 @@ msgstr "Gruppenversicherung"
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_job__l10n_be_custom_representation_fees_homeworking
 msgid "Homeworking"
-msgstr ""
+msgstr "Home-Office"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_hospital_insurance
@@ -366,7 +377,7 @@ msgstr "Krankenhausversicherung"
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_hospital_insurance_note
 msgid "Hospital insurance (info)"
-msgstr ""
+msgstr "Krankenhausversicherung (Info)"
 
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_contract__id_card
@@ -381,7 +392,7 @@ msgstr "Ausweiskopie (beidseitig)"
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_contract__id_card_filename
 msgid "Id Card Filename"
-msgstr ""
+msgstr "Dateiname des Personalausweises"
 
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,help:l10n_be_hr_contract_salary.field_hr_job__l10n_be_contract_ip
@@ -395,6 +406,8 @@ msgid ""
 "If checked, the job position will grant a withholding taxes exemption to "
 "eligible employees"
 msgstr ""
+"Wenn diese Option ausgewählt ist, gewährt die Stelle berechtigten "
+"Mitarbeitern eine Befreiung von der Quellensteuer. "
 
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,help:l10n_be_hr_contract_salary.field_hr_job__l10n_be_custom_representation_fees
@@ -416,7 +429,7 @@ msgstr ""
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_contract__image_1920_filename
 msgid "Image 1920 Filename"
-msgstr ""
+msgstr "Bild 1920 Dateiname"
 
 #. module: l10n_be_hr_contract_salary
 #: model_terms:hr.contract.salary.benefit,description:l10n_be_hr_contract_salary.l10n_be_extra_time_off
@@ -431,19 +444,19 @@ msgstr ""
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_insured_children
 msgid "Insured Children (< 19 y/o)"
-msgstr ""
+msgstr "Versicherte Kinder (< 19 J.)"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_insured_adults
 msgid "Insured Children (>= 19 y/o)"
-msgstr ""
+msgstr "Versicherte Kinder (>= 19 J.)"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,fold_label:l10n_be_hr_contract_salary.l10n_be_ambulatory_insured_spouse
 #: model:hr.contract.salary.benefit,fold_label:l10n_be_hr_contract_salary.l10n_be_insured_spouse
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_insured_spouse
 msgid "Insured Spouse"
-msgstr ""
+msgstr "Versicherter Ehepartner"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_intellectual_property
@@ -459,7 +472,7 @@ msgstr "Internet"
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_contract__internet_invoice_filename
 msgid "Internet Invoice Filename"
-msgstr ""
+msgstr "Dateiname der Internetrechnung"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_internet
@@ -508,7 +521,7 @@ msgstr "Entfernung Zuhause/Arbeit"
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_contract__l10n_be_bicyle_cost
 msgid "L10N Be Bicyle Cost"
-msgstr ""
+msgstr "L10N Be Fahrradkosten"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.personal.info.value,name:l10n_be_hr_contract_salary.hr_contract_salary_personal_info_marital_cohabitant
@@ -533,7 +546,7 @@ msgstr "Essensschecks"
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_contract__mobile_invoice_filename
 msgid "Mobile Invoice Filename"
-msgstr ""
+msgstr "Dateiname der Handyrechnung"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.personal.info,name:l10n_be_hr_contract_salary.hr_contract_salary_personal_info_mobile_invoice
@@ -620,28 +633,28 @@ msgstr "Telefon-Abo"
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,fold_label:l10n_be_hr_contract_salary.l10n_be_transport_private_bike
 msgid "Private Bike"
-msgstr ""
+msgstr "Privatfahrrad"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,fold_label:l10n_be_hr_contract_salary.l10n_be_transport_private_car
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_transport_private_car
 msgid "Private Car"
-msgstr ""
+msgstr "Privatauto"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_transport_public
 msgid "Public Transport"
-msgstr ""
+msgstr "Öffentliche Verkehrsmittel"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,fold_label:l10n_be_hr_contract_salary.l10n_be_transport_public
 msgid "Public Transportation"
-msgstr ""
+msgstr "Öffentliche Verkehrsmittel"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.department,name:l10n_be_hr_contract_salary.hr_department_rdbe
 msgid "RD BE"
-msgstr ""
+msgstr "RD BE"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_representation_fees
@@ -657,7 +670,7 @@ msgstr "SIM-Karte Kopie"
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model,name:l10n_be_hr_contract_salary.model_hr_contract_salary_offer
 msgid "Salary Package Offer"
-msgstr ""
+msgstr "Gehaltspaketsangebot"
 
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model,name:l10n_be_hr_contract_salary.model_hr_contract_salary_resume
@@ -667,12 +680,12 @@ msgstr "Gehaltspaket Lebenslauf"
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.personal.info,placeholder:l10n_be_hr_contract_salary.hr_contract_salary_personal_info_spouse_fiscal_status
 msgid "Select a Situation"
-msgstr ""
+msgstr "Eine Situation auswählen"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.personal.info,placeholder:l10n_be_hr_contract_salary.hr_contract_salary_personal_info_marital
 msgid "Select a status"
-msgstr ""
+msgstr "Einen Status auswählen"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.personal.info,name:l10n_be_hr_contract_salary.hr_contract_salary_personal_info_seniority
@@ -688,7 +701,7 @@ msgstr "Senioren"
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_generate_simulation_link__show_new_car
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_contract_salary_offer__show_new_car
 msgid "Show New Car"
-msgstr ""
+msgstr "Neues Auto anzeigen"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.personal.info,name:l10n_be_hr_contract_salary.hr_contract_salary_personal_info_sim_card
@@ -698,7 +711,7 @@ msgstr "SIM-Karte Kopie"
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_contract__sim_card_filename
 msgid "Sim Card Filename"
-msgstr ""
+msgstr "Dateiname der SIM-Karte"
 
 #. module: l10n_be_hr_contract_salary
 #: model_terms:hr.contract.salary.benefit,description:l10n_be_hr_contract_salary.l10n_be_intellectual_property
@@ -708,6 +721,10 @@ msgid ""
 "intellectual property income. This amount will be paid in cash every month "
 "and is taxed less."
 msgstr ""
+"Da Odoo massiv in die Entwicklung und Erstellung von Inhalten für geistiges "
+"Eigentum investiert, sind wir rechtlich in der Lage, einen Teil der Gehälter"
+" unserer Mitarbeiter als Einkommen aus geistigem Eigentum zu zahlen. Dieser "
+"Betrag wird jeden Monat in bar ausgezahlt und ist geringer zu versteuern."
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.personal.info.value,name:l10n_be_hr_contract_salary.hr_contract_salary_personal_info_marital_single
@@ -801,7 +818,7 @@ msgstr "Verwitwet"
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.benefit,name:l10n_be_hr_contract_salary.l10n_be_transport_new_car
 msgid "Wishlist Car"
-msgstr ""
+msgstr "Auto der Wunschliste"
 
 #. module: l10n_be_hr_contract_salary
 #: model:hr.contract.salary.personal.info.value,name:l10n_be_hr_contract_salary.hr_contract_salary_personal_info_high_income
@@ -826,7 +843,7 @@ msgstr "Mit niedriger Rente"
 #. module: l10n_be_hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:l10n_be_hr_contract_salary.hr_contract_salary_offer_view_search
 msgid "With a Vehicle"
-msgstr ""
+msgstr "Mit einem Fahrzeug"
 
 #. module: l10n_be_hr_contract_salary
 #: model:ir.model.fields,field_description:l10n_be_hr_contract_salary.field_hr_job__l10n_be_contract_withholding_taxes_exemption

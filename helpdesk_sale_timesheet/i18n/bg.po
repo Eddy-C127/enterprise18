@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:42+0000\n"
+"POT-Creation-Date: 2025-02-10 10:51+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: KeyVillage, 2024\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
@@ -144,14 +144,6 @@ msgstr "Брой фактури"
 #, python-format
 msgid "Invoices"
 msgstr "Фактури"
-
-#. module: helpdesk_sale_timesheet
-#. odoo-python
-#: code:addons/helpdesk_sale_timesheet/models/helpdesk_ticket.py:0
-msgid ""
-"You cannot link the order item %s - %s to this ticket because it is not a "
-"service product."
-msgstr ""
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
@@ -320,3 +312,12 @@ msgstr "Графици"
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Total"
 msgstr "Общ"
+
+#. module: helpdesk_sale_timesheet
+#. odoo-python
+#: code:addons/helpdesk_sale_timesheet/models/helpdesk_ticket.py:0
+#, python-format
+msgid ""
+"You cannot link order item %s - %s to this ticket because it is not a "
+"service product."
+msgstr ""

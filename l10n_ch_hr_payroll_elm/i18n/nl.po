@@ -2,12 +2,21 @@
 # This file contains the translation of the following modules:
 # 	* l10n_ch_hr_payroll_elm
 # 
+# Translators:
+# Jolien De Paepe, 2025
+# Yenthe Van Ginneken <yenthespam@gmail.com>, 2025
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2025
+# Manon Rondou, 2025
+# Wil Odoo, 2025
+# Tiffany Chang, 2025
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-05 12:16+0000\n"
 "PO-Revision-Date: 2024-06-24 12:27+0000\n"
+"Last-Translator: Tiffany Chang, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +43,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll_elm.l10n_ch_insurance_report_view_form
 msgid "273S Sheet"
-msgstr ""
+msgstr "Fiche 273S"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_salary_rule__l10n_ch_5_cents_rounding
@@ -51,7 +60,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll_elm.hr_contract_view_form
 msgid "<span>%</span>"
-msgstr ""
+msgstr "<span>%</span>"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll_elm.hr_contract_view_form
@@ -241,17 +250,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_acc_threshold__amount
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_retirement_rente__amount
 msgid "Amount"
-msgstr ""
+msgstr "Bedrag"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__l10n_ch_is_report__month__4
 msgid "April"
-msgstr ""
+msgstr "April"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__l10n_ch_is_report__month__8
 msgid "August"
-msgstr ""
+msgstr "Augustus"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_ch_yearly_report__avs_institution_ids
@@ -358,7 +367,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_payslip_is_log_line__code
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_payslip__l10n_ch_after_departure_payment
@@ -366,11 +375,78 @@ msgid "Code change, correction-payment after departure"
 msgstr ""
 
 #. module: l10n_ch_hr_payroll_elm
+#: model:ir.model.fields,help:l10n_ch_hr_payroll_elm.field_hr_salary_rule__l10n_ch_wage_statement
+msgid ""
+"Code meaning:\n"
+"- I: Gross base salary and regular allowances\n"
+"    - Ordinary salary paid, such as monthly, hourly, piece rate, working from home, etc.\n"
+"    - Regular allowances paid, such as allowances for position or for length of service,\n"
+"      residence, housing, travel or cost of living allowances.\n"
+"    - Tips paid subject to AVS contributions.\n"
+"    - Regular payments (at each pay) of a commission, turnover contribution or other bonus\n"
+"      paid regularly.\n"
+"- J: Gross amount of compensation for shift work, Sunday or night work and other arduousness\n"
+"     bonuses (compensation for on-call duty, dirty work, etc.).\n"
+"- K: Total amount of family allowances paid by the employer in the form of child allowances,\n"
+"     vocational training allowances, household allowances or care allowances.\n"
+"- Y: Benefits provided by insurance or similar institutions and which have an impact on\n"
+"     employee contributions\n"
+"- L: Amount of AVS/AI/APG/AC/ (1st pillar) and AANP (employee’s share) contributions.\n"
+"     Not included:\n"
+"        - the employer’s share,\n"
+"        - the Parifonds,\n"
+"        - daily allowance insurance in the event of IJM illness,\n"
+"        - LAAC supplementary accident insurance\n"
+"        - Social contributions must in principle be transmitted in the form of negative values.\n"
+"- M: Amount of ordinary contributions (employee's share) to LPP professional pension provision or\n"
+"     the 2nd pillar, in accordance with legal, statutory or regulatory provisions.\n"
+"     The amount indicated should not include redemption contributions.\n"
+"     Regular BVG-LPP contributions must in principle be transmitted as negative values.\n"
+msgstr ""
+
+#. module: l10n_ch_hr_payroll_elm
+#: model:ir.model.fields,help:l10n_ch_hr_payroll_elm.field_hr_salary_rule__l10n_ch_yearly_statement
+msgid ""
+"Code meaning:\n"
+"- O: 13th salary paid (with the 14th and following) provided that it is not in the form of a bonus\n"
+"- P: Overtime pay\n"
+"- Q: Sporadic Benefits, e.g.\n"
+"        - bonuses,\n"
+"        - merit-based rewards,\n"
+"        - participation in profit or turnover,\n"
+"        - engagement bonuses and severance pay,\n"
+"        - loyalty bonuses, bonuses and gifts for length of service,\n"
+"        - fixed moving compensation,\n"
+"        - Christmas bonuses,\n"
+"        - compensation for members of the board of directors (attendance fees, fees, etc.).\n"
+"- R: Fringe Benefits\n"
+"        - board and lodging (section 2.1 of the salary certificate);\n"
+"      - the private share of the company car (section 2.2 of the salary certificate);\n"
+"      - other ancillary salary benefits (section 2.3 of the salary certificate);\n"
+"      - participation rights (section 5 of the salary certificate).\n"
+"- S: Capital Payment: Capital benefits of a pension nature paid by the employer directly to the\n"
+"     employee and likely to be taxed at a reduced rate.\n"
+"      - severance pay of a provident nature;\n"
+"      - capital benefits of a pension nature;\n"
+"      - salary payments after death.\n"
+"- T: Other Benefits: All other services covered on an optional basis by the employer, although\n"
+"     they are generally due by the employee.\n"
+"        - partial or total coverage of contributions owed by the employee to LPP professional\n"
+"          insurance, including executive insurance;\n"
+"        - payments to occupational pension institutions (2nd pillar) made by the employer in\n"
+"          favor of the employee (purchase contributions);\n"
+"        - payment of insurance contributions in favor of the employee and members of his family\n"
+"          (health insurance, optional 3rd pillar b insurance, life insurance, etc.);\n"
+"        - payment of contributions to recognized forms of linked individual pension provision (3rd pillar a)\n"
+"."
+msgstr ""
+
+#. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_ch_yearly_report__company_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_is_report__company_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_salary_certificate__company_id
 msgid "Company"
-msgstr ""
+msgstr "Bedrijf"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance__laa_insurance_id
@@ -435,7 +511,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_acc_threshold__create_uid
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_retirement_rente__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Aangemaakt door"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_ch_yearly_report__create_date
@@ -449,14 +525,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_acc_threshold__create_date
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_retirement_rente__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Aangemaakt op"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_ch_yearly_report__currency_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_is_report__currency_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_salary_certificate__currency_id
 msgid "Currency"
-msgstr ""
+msgstr "Valuta"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_contract__l10n_ch_current_occupation_rate
@@ -474,7 +550,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_payslip_is_log_line__date
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll_elm.hr_salary_attachment_dead_alw
@@ -485,7 +561,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__l10n_ch_is_report__month__12
 msgid "December"
-msgstr ""
+msgstr "December"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,help:l10n_ch_hr_payroll_elm.field_hr_contract__l10n_ch_is_predefined_category
@@ -502,12 +578,12 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_salary_certificate__name
 msgid "Description"
-msgstr ""
+msgstr "Omschrijving"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll_elm.l10n_ch_social_insurance_view_form
 msgid "Details"
-msgstr ""
+msgstr "Details"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_ch_yearly_report__display_name
@@ -521,7 +597,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_acc_threshold__display_name
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_retirement_rente__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Schermnaam"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll_elm.hr_salary_attachment_ded_rht_itp
@@ -544,12 +620,12 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_employee_is_line__employee_id
 msgid "Employee"
-msgstr ""
+msgstr "Werknemer"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model,name:l10n_ch_hr_payroll_elm.model_hr_contract
 msgid "Employee Contract"
-msgstr ""
+msgstr "Arbeidsovereenkomst"
 
 #. module: l10n_ch_hr_payroll_elm
 #. odoo-python
@@ -589,12 +665,12 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__l10n_ch_is_report__month__2
 msgid "February"
-msgstr ""
+msgstr "Februari"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll_elm.hr_salary_attachment_fee_ch
 msgid "Fee"
-msgstr ""
+msgstr "Vergoeding"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.contract.type,name:l10n_ch_hr_payroll_elm.l10n_ch_contract_type_fixedSalaryHrs
@@ -626,7 +702,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_retirement_rente__date_from
 #, python-format
 msgid "From"
-msgstr ""
+msgstr "Van"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll_elm.l10n_ch_employees_func_allowance
@@ -664,7 +740,7 @@ msgstr ""
 #: code:addons/l10n_ch_hr_payroll_elm/models/l10n_ch_insurance_report.py:0
 #, python-format
 msgid "Gross Salary"
-msgstr ""
+msgstr "Brutoloon"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll_elm.l10n_ch_employees_holiday_allowance
@@ -689,7 +765,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_acc_threshold__id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_retirement_rente__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll_elm.l10n_ch_insurance_report_view_form
@@ -897,7 +973,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll_elm.l10n_ch_employees_perfecting
 msgid "Improvement"
-msgstr ""
+msgstr "Vooruitgang"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.rule.category,name:l10n_ch_hr_payroll_elm.hr_salary_rule_category_indemnite_perte_gain
@@ -913,14 +989,14 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll_elm.l10n_ch_insurance_report_view_form
 msgid "Institutions"
-msgstr ""
+msgstr "Instellingen"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_ac_threshold__insurance_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_acc_threshold__insurance_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_retirement_rente__insurance_id
 msgid "Insurance"
-msgstr ""
+msgstr "Verzekering"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_accident_insurance__insurance_code
@@ -967,7 +1043,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_salary_attachment__is_refund
 msgid "Is Refund"
-msgstr ""
+msgstr "Is restitutie"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.actions.report,name:l10n_ch_hr_payroll_elm.action_is_report
@@ -978,22 +1054,22 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_salary_attachment__is_quantity
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_salary_attachment_type__is_quantity
 msgid "Is quantity ?"
-msgstr ""
+msgstr "Is hoeveelheid?"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__l10n_ch_is_report__month__1
 msgid "January"
-msgstr ""
+msgstr "Januari"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__l10n_ch_is_report__month__7
 msgid "July"
-msgstr ""
+msgstr "Juli"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__l10n_ch_is_report__month__6
 msgid "June"
-msgstr ""
+msgstr "Juni"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance__l10n_ch_avs_ac_threshold_ids
@@ -1202,7 +1278,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_acc_threshold__write_uid
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_retirement_rente__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Laatst bijgewerkt door"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_ch_yearly_report__write_date
@@ -1216,7 +1292,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_acc_threshold__write_date
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_retirement_rente__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Laatst bijgewerkt op"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_contract__l10n_ch_lesson_wage
@@ -1242,12 +1318,12 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__l10n_ch_is_report__month__3
 msgid "March"
-msgstr ""
+msgstr "Maart"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__l10n_ch_is_report__month__5
 msgid "May"
-msgstr ""
+msgstr "Mei"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.contract.type,name:l10n_ch_hr_payroll_elm.l10n_ch_contract_type_administrativeBoard
@@ -1257,13 +1333,13 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_is_report__month
 msgid "Month"
-msgstr ""
+msgstr "Maand"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__hr_contract__l10n_ch_is_model__monthly
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__hr_payslip__l10n_ch_is_model__monthly
 msgid "Monthly"
-msgstr ""
+msgstr "Maandelijks"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_contract__l10n_ch_monthly_effective_days
@@ -1297,7 +1373,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_is_report__name
 #, python-format
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll_elm.l10n_ch_employees_night_allowance
@@ -1340,7 +1416,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__l10n_ch_is_report__month__11
 msgid "November"
-msgstr ""
+msgstr "November"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll_elm.hr_salary_attachment_oncallalw
@@ -1365,7 +1441,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__l10n_ch_is_report__month__10
 msgid "October"
-msgstr ""
+msgstr "Oktober"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll_elm.l10n_ch_social_insurance_view_form
@@ -1412,13 +1488,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_ch_yearly_report_line__pdf_file
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_is_report_line__pdf_file
 msgid "PDF File"
-msgstr ""
+msgstr "PDF-bestand"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_ch_yearly_report_line__pdf_filename
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_is_report_line__pdf_filename
 msgid "PDF Filename"
-msgstr ""
+msgstr "PDF-bestandsnaam"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll_elm.hr_salary_attachment_prevybonus
@@ -1428,7 +1504,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model,name:l10n_ch_hr_payroll_elm.model_hr_payslip
 msgid "Pay Slip"
-msgstr ""
+msgstr "Loonstrook"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_payslip__l10n_ch_pay_13th_month
@@ -1443,7 +1519,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_payslip_is_log_line__payslip_id
 msgid "Payslip"
-msgstr ""
+msgstr "Loonstrook"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_employee_is_line__payslips_to_correct
@@ -1479,12 +1555,12 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_employee_is_line__reason
 msgid "Reason"
-msgstr ""
+msgstr "Reden"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll_elm.hr_salary_attachment_view_search
 msgid "Refunds"
-msgstr ""
+msgstr "Retouren"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll_elm.hr_salary_attachment_type_rental_housing
@@ -1496,18 +1572,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_ch_yearly_report_line__report_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_is_report_line__report_id
 msgid "Report"
-msgstr ""
+msgstr "Rapport"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_ch_yearly_report__report_line_ids
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_is_report__report_line_ids
 msgid "Report Line"
-msgstr ""
+msgstr "Rapportregel"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_ch_yearly_report_line__report_type
 msgid "Report Type"
-msgstr ""
+msgstr "Rapport soort"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll_elm.hr_salary_attachment_type_restreint_private_share_service_car
@@ -1519,7 +1595,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__hr_contract__l10n_ch_avs_status__retired
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__hr_payslip__l10n_ch_avs_status__retired
 msgid "Retired"
-msgstr ""
+msgstr "Met pensioen"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll_elm.l10n_ch_social_insurance_view_form
@@ -1543,12 +1619,12 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model,name:l10n_ch_hr_payroll_elm.model_hr_salary_attachment
 msgid "Salary Attachment"
-msgstr ""
+msgstr "Loonbeslag"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model,name:l10n_ch_hr_payroll_elm.model_hr_salary_attachment_type
 msgid "Salary Attachment Type"
-msgstr ""
+msgstr "Soort loonaanpassing"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.actions.act_window,name:l10n_ch_hr_payroll_elm.l10n_ch_salary_certificate_action
@@ -1578,7 +1654,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model,name:l10n_ch_hr_payroll_elm.model_hr_salary_rule
 msgid "Salary Rule"
-msgstr ""
+msgstr "Salarisregel"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll_elm.hr_salary_attachment_type_salary_hourly
@@ -1598,7 +1674,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__l10n_ch_is_report__month__9
 msgid "September"
-msgstr ""
+msgstr "September"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll_elm.l10n_ch_employees_sev_pay
@@ -1766,7 +1842,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_social_insurance_avs_retirement_rente__date_to
 #, python-format
 msgid "To"
-msgstr ""
+msgstr "Tot"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_contract__l10n_ch_total_occupation_rate
@@ -1813,12 +1889,12 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_is_report__work_location_ids
 msgid "Work Location"
-msgstr ""
+msgstr "Werklocatie"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll_elm.l10n_ch_is_report_view_form
 msgid "Work Locations"
-msgstr ""
+msgstr "Werklocaties"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model,name:l10n_ch_hr_payroll_elm.model_l10n_ch_location_unit
@@ -1844,7 +1920,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_contract__l10n_ch_location_unit_id
 msgid "Workplace"
-msgstr ""
+msgstr "Werkplaats"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_salary_certificate__xml_file
@@ -1854,20 +1930,20 @@ msgstr ""
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_salary_certificate__xml_filename
 msgid "Xml Filename"
-msgstr ""
+msgstr "Xml-bestandsnaam"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_ch_yearly_report__year
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_is_report__year
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_salary_certificate__year
 msgid "Year"
-msgstr ""
+msgstr "Jaar"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__hr_contract__l10n_ch_is_model__yearly
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__hr_payslip__l10n_ch_is_model__yearly
 msgid "Yearly"
-msgstr ""
+msgstr "Jaarlijks"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_contract__l10n_ch_yearly_holidays

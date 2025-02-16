@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-05 09:32+0000\n"
+"POT-Creation-Date: 2025-02-10 10:51+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
@@ -250,14 +250,14 @@ msgstr "该字段允许您在会计级别删除“净薪金”规则中该规则
 
 #. module: hr_payroll_account
 #. odoo-python
+#: code:addons/hr_payroll_account/models/hr_payslip.py:0
+#, python-format
+msgid "You can't create a journal entry for a paid payslip."
+msgstr ""
+
+#. module: hr_payroll_account
+#. odoo-python
 #: code:addons/hr_payroll_account/models/account_journal.py:0
 #, python-format
 msgid "You cannot delete the journal linked to a Salary Structure"
 msgstr "无法删除与薪资结构关联的日记账"
-
-#. module: hr_payroll_account
-#. odoo-python
-#: code:addons/hr_payroll_account/models/hr_payroll_account.py:0
-#, python-format
-msgid "You can't create a journal entry for a paid payslip."
-msgstr ""

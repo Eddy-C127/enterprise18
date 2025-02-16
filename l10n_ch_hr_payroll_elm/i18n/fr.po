@@ -3,7 +3,8 @@
 # 	* l10n_ch_hr_payroll_elm
 # 
 # Translators:
-# Tivisse <yti@odoo.com>, 2024
+# Tivisse <yti@odoo.com>, 2025
+# Manon Rondou, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-05 12:16+0000\n"
 "PO-Revision-Date: 2024-06-24 12:27+0000\n"
-"Last-Translator: Tivisse <yti@odoo.com>, 2024\n"
+"Last-Translator: Manon Rondou, 2025\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -241,7 +242,7 @@ msgstr "Paiement Après Départ"
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll_elm.selection__hr_payslip__l10n_ch_after_departure_payment__nk
 msgid "After Departure Payment with ST correction"
-msgstr ""
+msgstr "Paiement après départ avec correction ST"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_payslip_is_log_line__amount
@@ -374,6 +375,128 @@ msgid "Code change, correction-payment after departure"
 msgstr "Changement de code, correction-paiement après le départ"
 
 #. module: l10n_ch_hr_payroll_elm
+#: model:ir.model.fields,help:l10n_ch_hr_payroll_elm.field_hr_salary_rule__l10n_ch_wage_statement
+msgid ""
+"Code meaning:\n"
+"- I: Gross base salary and regular allowances\n"
+"    - Ordinary salary paid, such as monthly, hourly, piece rate, working from home, etc.\n"
+"    - Regular allowances paid, such as allowances for position or for length of service,\n"
+"      residence, housing, travel or cost of living allowances.\n"
+"    - Tips paid subject to AVS contributions.\n"
+"    - Regular payments (at each pay) of a commission, turnover contribution or other bonus\n"
+"      paid regularly.\n"
+"- J: Gross amount of compensation for shift work, Sunday or night work and other arduousness\n"
+"     bonuses (compensation for on-call duty, dirty work, etc.).\n"
+"- K: Total amount of family allowances paid by the employer in the form of child allowances,\n"
+"     vocational training allowances, household allowances or care allowances.\n"
+"- Y: Benefits provided by insurance or similar institutions and which have an impact on\n"
+"     employee contributions\n"
+"- L: Amount of AVS/AI/APG/AC/ (1st pillar) and AANP (employee’s share) contributions.\n"
+"     Not included:\n"
+"        - the employer’s share,\n"
+"        - the Parifonds,\n"
+"        - daily allowance insurance in the event of IJM illness,\n"
+"        - LAAC supplementary accident insurance\n"
+"        - Social contributions must in principle be transmitted in the form of negative values.\n"
+"- M: Amount of ordinary contributions (employee's share) to LPP professional pension provision or\n"
+"     the 2nd pillar, in accordance with legal, statutory or regulatory provisions.\n"
+"     The amount indicated should not include redemption contributions.\n"
+"     Regular BVG-LPP contributions must in principle be transmitted as negative values.\n"
+msgstr ""
+"Signification du code :\n"
+"- I : Salaire de base brut et indemnités régulières\n"
+"- Salaire ordinaire payé, tel que mensuel, horaire, à la pièce, travail à domicile, etc.\n"
+"- Les indemnités régulières versées, telles que les indemnités de poste ou d'ancienneté,\n"
+"allocations de résidence, de logement, de déplacement ou de vie chère.\n"
+"- Pourboires versés sous réserve des cotisations AVS.\n"
+"- Versements réguliers (à chaque paie) d'une commission, contribution au chiffre d'affaires ou autre prime\n"
+"payé régulièrement.\n"
+"- J : Montant brut de l'indemnité pour travail posté, travail du dimanche ou de nuit et autres pénibilités\n"
+"primes (rémunération des gardes, sale boulot, etc.).\n"
+"- K : Montant total des allocations familiales versées par l'employeur sous forme d'allocations familiales,\n"
+"les allocations de formation professionnelle, les allocations de foyer ou les allocations de soins.\n"
+"- Y : Prestations servies par les assurances ou institutions assimilées et qui ont un impact sur\n"
+"cotisations salariales\n"
+"- L : Montant des cotisations AVS/AI/APG/AC/ (1er pilier) et AANP (part salariale).\n"
+"Non inclus:\n"
+"- la part patronale,\n"
+"- les Parifonds,\n"
+"- une assurance indemnité journalière en cas de maladie IJM,\n"
+"- Assurance complémentaire accident LAAC\n"
+"- Les cotisations sociales doivent en principe être transmises sous forme de valeurs négatives.\n"
+"- M : Montant des cotisations ordinaires (part salariale) à la prévoyance professionnelle LPP ou\n"
+"le 2ème pilier, conformément aux dispositions légales, statutaires ou réglementaires.\n"
+"Le montant indiqué ne doit pas comprendre les cotisations de rachat.\n"
+"Les cotisations régulières LPP-LPP doivent en principe être transmises sous forme de valeurs négatives.\n"
+
+#. module: l10n_ch_hr_payroll_elm
+#: model:ir.model.fields,help:l10n_ch_hr_payroll_elm.field_hr_salary_rule__l10n_ch_yearly_statement
+msgid ""
+"Code meaning:\n"
+"- O: 13th salary paid (with the 14th and following) provided that it is not in the form of a bonus\n"
+"- P: Overtime pay\n"
+"- Q: Sporadic Benefits, e.g.\n"
+"        - bonuses,\n"
+"        - merit-based rewards,\n"
+"        - participation in profit or turnover,\n"
+"        - engagement bonuses and severance pay,\n"
+"        - loyalty bonuses, bonuses and gifts for length of service,\n"
+"        - fixed moving compensation,\n"
+"        - Christmas bonuses,\n"
+"        - compensation for members of the board of directors (attendance fees, fees, etc.).\n"
+"- R: Fringe Benefits\n"
+"        - board and lodging (section 2.1 of the salary certificate);\n"
+"      - the private share of the company car (section 2.2 of the salary certificate);\n"
+"      - other ancillary salary benefits (section 2.3 of the salary certificate);\n"
+"      - participation rights (section 5 of the salary certificate).\n"
+"- S: Capital Payment: Capital benefits of a pension nature paid by the employer directly to the\n"
+"     employee and likely to be taxed at a reduced rate.\n"
+"      - severance pay of a provident nature;\n"
+"      - capital benefits of a pension nature;\n"
+"      - salary payments after death.\n"
+"- T: Other Benefits: All other services covered on an optional basis by the employer, although\n"
+"     they are generally due by the employee.\n"
+"        - partial or total coverage of contributions owed by the employee to LPP professional\n"
+"          insurance, including executive insurance;\n"
+"        - payments to occupational pension institutions (2nd pillar) made by the employer in\n"
+"          favor of the employee (purchase contributions);\n"
+"        - payment of insurance contributions in favor of the employee and members of his family\n"
+"          (health insurance, optional 3rd pillar b insurance, life insurance, etc.);\n"
+"        - payment of contributions to recognized forms of linked individual pension provision (3rd pillar a)\n"
+"."
+msgstr ""
+"- O : 13ème salaire versé (avec le 14ème et suivants) à condition qu'il ne soit pas sous forme de prime\n"
+"- P : Rémunération des heures supplémentaires\n"
+"- Q : Avantages sporadiques, par ex.\n"
+"- bonus,\n"
+"- des récompenses au mérite,\n"
+"- participation au bénéfice ou au chiffre d'affaires,\n"
+"- les primes d'engagement et indemnités de départ,\n"
+"- les primes de fidélité, primes et cadeaux d'ancienneté,\n"
+"- une indemnité forfaitaire de déménagement,\n"
+"- les primes de Noël,\n"
+"- les rémunérations des membres du conseil d'administration (jetons de présence, honoraires, etc.).\n"
+"- R : Avantages sociaux\n"
+"- nourriture et logement (article 2.1 du certificat de salaire);\n"
+" - la part privative de la voiture de société (rubrique 2.2 de l'attestation de salaire) ;\n"
+" - les autres avantages salariaux accessoires (section 2.3 du certificat de salaire) ;\n"
+" - les droits de participation (section 5 du certificat de salaire).\n"
+"- S : Paiement de capital : Prestations en capital de nature pension versées par l'employeur directement au\n"
+"salarié et susceptible d’être imposé à un taux réduit.\n"
+" - les indemnités de départ à caractère de prévoyance ;\n"
+" - les prestations en capital à caractère de pension ;\n"
+" - le versement du salaire après le décès.\n"
+"- T : Autres avantages : Tous les autres services couverts à titre facultatif par l'employeur, bien que\n"
+"ils sont généralement dus par le salarié.\n"
+"- prise en charge partielle ou totale des cotisations dues par le salarié à la LPP professionnelle\n"
+"assurance, y compris assurance pour dirigeants;\n"
+"- les versements aux institutions de prévoyance professionnelle (2e pilier) effectués par l'employeur en\n"
+"faveur du salarié (cotisations d'achat) ;\n"
+"- paiement des cotisations d'assurance en faveur du salarié et des membres de sa famille\n"
+"(assurance maladie, assurance facultative 3e pilier b, assurance vie, etc.) ;\n"
+"- paiement des cotisations à des formes reconnues de prévoyance individuelle liée (3e pilier a)"
+
+#. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_ch_yearly_report__company_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_is_report__company_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_salary_certificate__company_id
@@ -408,7 +531,7 @@ msgstr "Compensation rachat LPP employeur"
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_contract__l10n_ch_contractual_13th_month_rate
 msgid "Contractual allowances for 13th/14th month"
-msgstr ""
+msgstr "Indemnités contractuelles pour le 13e/14e mois"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_payslip_is_log_line__corrected_slip_id
@@ -1040,7 +1163,7 @@ msgstr "L10N Ch Non Assuré LPP"
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_salary_rule__l10n_ch_salary_certificate
 msgid "L10N Ch Salary Certificate"
-msgstr ""
+msgstr "Certificat de salaire L10N Ch"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll_elm.l10n_ch_insurance_report_view_form
@@ -1295,7 +1418,7 @@ msgstr "Rapport IS Mensuel"
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_salary_rule__l10n_ch_wage_statement
 msgid "Monthly Statistic"
-msgstr ""
+msgstr "Statistique mensuelle"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll_elm.hr_salary_attachment_nightalw
@@ -1586,7 +1709,7 @@ msgstr "Certificats de Salaire - Année %s"
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.ui.menu,name:l10n_ch_hr_payroll_elm.menu_l10n_ch_salary_certificate
 msgid "Salary Certificates Rectification"
-msgstr ""
+msgstr "Rectification des certificats de salaire"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll_elm.hr_salary_attachment_type_salary_correction
@@ -1632,12 +1755,12 @@ msgstr "Code de la solution"
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.ui.menu,name:l10n_ch_hr_payroll_elm.menu_l10n_ch_is_report
 msgid "Source-Tax"
-msgstr ""
+msgstr "Impôt à la source"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.ui.menu,name:l10n_ch_hr_payroll_elm.menu_l10n_ch_employee_is_line
 msgid "Source-Tax Corrections"
-msgstr ""
+msgstr "Corrections de l’impôt à la source"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll_elm.hr_salary_attachment_type_special_indemnity
@@ -1739,7 +1862,7 @@ msgstr "Troisième pilier B payé par l'employeur"
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model,name:l10n_ch_hr_payroll_elm.model_l10n_ch_salary_certificate
 msgid "Tax Salaries Rectification"
-msgstr ""
+msgstr "Rectification des salaires imposables"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model,name:l10n_ch_hr_payroll_elm.model_l10n_ch_is_report
@@ -1865,7 +1988,7 @@ msgstr "Jours prestés en Suisse"
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_contract__l10n_ch_location_unit_id
 msgid "Workplace"
-msgstr ""
+msgstr "Lieu de travail"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_l10n_ch_salary_certificate__xml_file
@@ -1908,12 +2031,12 @@ msgstr "Nombre de jours fériés payés annuels"
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.ui.menu,name:l10n_ch_hr_payroll_elm.menu_l10n_ch_insurance_report
 msgid "Yearly Salaries"
-msgstr ""
+msgstr "Salaires annuels"
 
 #. module: l10n_ch_hr_payroll_elm
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll_elm.field_hr_salary_rule__l10n_ch_yearly_statement
 msgid "Yearly Statistic"
-msgstr ""
+msgstr "Statistique annuelle"
 
 #. module: l10n_ch_hr_payroll_elm
 #. odoo-python
