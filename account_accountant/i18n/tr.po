@@ -25,6 +25,7 @@
 # Umur Akın <umura@projetgrup.com>, 2024
 # Ediz Duman <neps1192@gmail.com>, 2025
 # Yedigen, 2025
+# hakan demir, 2025
 # 
 msgid ""
 msgstr ""
@@ -32,7 +33,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-10 15:41+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Yedigen, 2025\n"
+"Last-Translator: hakan demir, 2025\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -255,12 +256,12 @@ msgstr "Hesap denkleştirme sihirbazı"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_expense_account_id
 msgid "Account used for deferred expenses"
-msgstr ""
+msgstr "Ertelenmiş giderler için kullanılan hesap"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_revenue_account_id
 msgid "Account used for deferred revenues"
-msgstr ""
+msgstr "Ertelenmiş gelirler için kullanılan hesap"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__account_ids
@@ -296,6 +297,8 @@ msgid ""
 "After the data extraction, check and validate the bill. If no vendor has "
 "been found, add one before validating."
 msgstr ""
+"Veri çıkarıldıktan sonra faturayı kontrol edin ve doğrulayın. Eğer satıcı "
+"bulunamazsa, doğrulamadan önce bir tane ekleyin."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -306,7 +309,7 @@ msgstr "Tüm İşlemler"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_model_autocomplete_ids
 msgid "All reconciliation models"
-msgstr ""
+msgstr "Tüm mutabakat modelleri"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__allow_partials
@@ -332,13 +335,13 @@ msgstr "Tutar"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 msgid "Amount (Company Currency)"
-msgstr ""
+msgstr "Tutar (Şirket Para Birimi)"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 msgid "Amount (Foreign Currency)"
-msgstr ""
+msgstr "Tutar (Yabancı Para Birimi)"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_currency

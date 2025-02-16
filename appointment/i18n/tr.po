@@ -29,6 +29,7 @@
 # Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2024
 # Wil Odoo, 2025
 # Murat Kaplan <muratk@projetgrup.com>, 2025
+# hakan demir, 2025
 # 
 msgid ""
 msgstr ""
@@ -36,7 +37,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Murat Kaplan <muratk@projetgrup.com>, 2025\n"
+"Last-Translator: hakan demir, 2025\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,23 +59,23 @@ msgstr "# Randevular"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_count_request
 msgid "# Appointments To Confirm"
-msgstr ""
+msgstr "# Onaylanacak Randevular"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__calendar_event_count
 msgid "# Bookings"
-msgstr ""
+msgstr "# Rezervasyonlar"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_invite_count
 msgid "# Invitation Links"
-msgstr ""
+msgstr "# Davet Bağlantıları"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_resource_count
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_count
 msgid "# Resources"
-msgstr ""
+msgstr "# Kaynaklar"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_staff_user_count
@@ -85,7 +86,7 @@ msgstr "# Personel Kullanıcıları"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_count_upcoming
 msgid "# Upcoming Appointments"
-msgstr ""
+msgstr "# Yaklaşan Randevular"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_calendar
@@ -102,19 +103,19 @@ msgstr "%(appointment_name)s ile %(partner_name)s"
 #. odoo-python
 #: code:addons/appointment/models/appointment_type.py:0
 msgid "%(attendee_name)s - %(appointment_name)s Booking"
-msgstr ""
+msgstr "%(attendee_name)s - %(appointment_name)s Rezervasyon"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/controllers/calendar_view.py:0
 msgid "%(name)s - Let's meet anytime"
-msgstr ""
+msgstr "%(name)s - Hadi, istediğin zaman buluşalım!"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/controllers/calendar_view.py:0
 msgid "%(name)s - My availabilities"
-msgstr ""
+msgstr "%(name)s - Benim müsaitliklerim"
 
 #. module: appointment
 #. odoo-python
@@ -172,6 +173,8 @@ msgid ""
 "<br/>\n"
 "                                <span>Total</span>"
 msgstr ""
+"<br/>\n"
+"                                <span>Toplam</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -179,6 +182,8 @@ msgid ""
 "<br/>\n"
 "                                <span>Upcoming</span>"
 msgstr ""
+"<br/>\n"
+"                                <span>Yaklaşan</span>"
 
 #. module: appointment
 #: model:mail.template,body_html:appointment.attendee_invitation_mail_template
@@ -517,7 +522,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<i class=\"fa fa-check-circle text-success me-3\"/>Appointment Scheduled!"
-msgstr ""
+msgstr "Randevu Planlandı!"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
@@ -530,6 +535,8 @@ msgid ""
 "<i class=\"fa fa-lg fa-calendar-plus-o me-3 text-primary\"/>Schedule another"
 " meeting"
 msgstr ""
+"<i class=\"fa fa-lg fa-calendar-plus-o me-3 text-primary\"/>Başka bir "
+"toplantı planlayın"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -544,21 +551,23 @@ msgid ""
 "<i class=\"fa fa-pencil me-2\" role=\"img\" aria-label=\"Edit\" "
 "title=\"Create custom questions in backend\"/>Add Custom Questions"
 msgstr ""
+"<i class=\"fa fa-pencil me-2\" role=\"img\" aria-label=\"Edit\" "
+"title=\"Create custom questions in backend\"/>Özel Sorular Ekleyin"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "<i class=\"fa fa-plus me-1\"/> Add Guests"
-msgstr ""
+msgstr "<i class=\"fa fa-plus me-1\"/> Misafir Ekleyin"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<i class=\"fa fa-plus me-1\"/>Add Guests"
-msgstr ""
+msgstr "<i class=\"fa fa-plus me-1\"/>Misafir Ekleyin"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<i class=\"fa fa-thumbs-up me-3 text-info\"/>Appointment Reserved!"
-msgstr ""
+msgstr "<i class=\"fa fa-thumbs-up me-3 text-info\"/>Randevu Rezerve Edildi!"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -566,11 +575,13 @@ msgid ""
 "<i class=\"fa fa-times text-danger me-2\"/><strong>Appointment cancelled!</strong>\n"
 "                                        You can now choose a different schedule that suits you better."
 msgstr ""
+"<i class=\"fa fa-times text-danger me-2\"/><strong>Randevu İptal Edildi!</strong>\n"
+"                                        Şimdi size daha uygun olan farklı bir takvim seçebilirsiniz."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<i class=\"fa fa-times text-danger me-3\"/>Appointment Cancelled"
-msgstr ""
+msgstr "<i class=\"fa fa-times text-danger me-3\"/>Randevu İptal Edildi"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
@@ -578,6 +589,8 @@ msgid ""
 "<i class=\"fa fa-video-camera fa-fw me-2 mt-1 text-muted\"/>\n"
 "                <span class=\"o_not_editable\">Online</span>"
 msgstr ""
+"<i class=\"fa fa-video-camera fa-fw me-2 mt-1 text-muted\"/>\n"
+"                <span class=\"o_not_editable\">Çevrimiçi</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
@@ -586,6 +599,9 @@ msgid ""
 "                    <span invisible=\"schedule_based_on != 'users'\">Impossible to share a link for an appointment type that has no user assigned.</span>\n"
 "                    <span invisible=\"schedule_based_on != 'resources'\">Impossible to share a link for an appointment type that has no resource assigned.</span>"
 msgstr ""
+"<i class=\"fa fa-warning me-2\"/>\n"
+"                    <span invisible=\"schedule_based_on != 'users'\">Kullanıcı atanmamış bir randevu türü için bağlantı paylaşmak mümkün değildir.</span>\n"
+"                    <span invisible=\"schedule_based_on != 'resources'\">Kaynak atanmamış bir randevu türü için bağlantı paylaşmak mümkün değildir.</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
@@ -594,51 +610,56 @@ msgid ""
 "                    <span invisible=\"schedule_based_on != 'users'\">You need to be part of an appointment type to be able to share a personal link.</span>\n"
 "                    <span invisible=\"schedule_based_on != 'resources'\">You can't create a personal link for an appointment type based on resources.</span>"
 msgstr ""
+"<i class=\"fa fa-warning me-2\"/>\n"
+"                    <span invisible=\"schedule_based_on != 'users'\">Kişisel bir bağlantı paylaşabilmek için bir randevu türünün parçası olmanız gerekir.</span>\n"
+"                    <span invisible=\"schedule_based_on != 'resources'\">Kaynaklara dayalı bir randevu türü için kişisel bir bağlantı oluşturamazsınız.</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_date
 msgid "<small class=\"text-uppercase text-muted\">Date &amp; time</small>"
-msgstr ""
+msgstr "<small class=\"text-uppercase text-muted\">Tarih ve Saat</small>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
 msgid "<small class=\"text-uppercase text-muted\">Meeting details</small>"
-msgstr ""
+msgstr "<small class=\"text-uppercase text-muted\">Toplantı Detayları</small>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<small>Add to Google Agenda</small>"
-msgstr ""
+msgstr "<small>Google Takvimi'ne Ekle</small>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<small>Add to iCal/Outlook</small>"
-msgstr ""
+msgstr "<small>Outlook Takvimi'ne Ekle</small>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-globe\"/> Preview"
-msgstr ""
+msgstr "<span class=\"fa fa-globe\"/> Önizleme"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-pencil\"/> Edit"
-msgstr ""
+msgstr "<span class=\"fa fa-pencil\"/> Düzenle"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-share-alt\"/> Share"
-msgstr ""
+msgstr "<span class=\"fa fa-share-alt\"/> Paylaş"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-trash\"/> Delete"
-msgstr ""
+msgstr "<span class=\"fa fa-trash\"/> Sil"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "<span class=\"me-1\">Attendees marked as busy at the selected time</span>"
 msgstr ""
+"<span class=\"me-1\">Seçilen saatte meşgul olarak işaretlenen "
+"katılımcılar</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -646,11 +667,13 @@ msgid ""
 "<span class=\"me-1\">You are scheduling a booking outside the available "
 "hours of</span>"
 msgstr ""
+"<span class=\"me-1\">Mevcut saatlerin dışında bir rezervasyon "
+"planlıyorsunuz.</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "<span class=\"mx-1\">or</span>"
-msgstr ""
+msgstr "<span class=\"mx-1\">veya</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -660,42 +683,42 @@ msgstr "<span class=\"text-muted\">Katılımcılar</span>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span class=\"text-muted\">Details</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">Detaylar</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span class=\"text-muted\">Duration</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">Süre</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span class=\"text-muted\">For</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">İçin</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span class=\"text-muted\">How to join</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">Nasıl katılınır</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span class=\"text-muted\">Resources</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">Kaynaklar</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span class=\"text-muted\">When</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">Ne zaman</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span class=\"text-muted\">Where</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">Nerede</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "<span> hours before the meeting</span>"
-msgstr ""
+msgstr "<span> Toplantıdan önceki saatler</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -706,12 +729,12 @@ msgstr "<span> saat</span>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "<span>Add more details about you</span>"
-msgstr ""
+msgstr "<span>Hakkınızda daha fazla detay ekleyin</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span>Not available anymore?</span>"
-msgstr ""
+msgstr "<span>Artık mevcut değil mi?</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -721,7 +744,7 @@ msgstr "<span>Online</span>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "<span>people</span>"
-msgstr ""
+msgstr "<span>Kişiler</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -731,6 +754,9 @@ msgid ""
 "                                            Someone has booked the same time slot a few\n"
 "                                            seconds before you."
 msgstr ""
+"<strong>Randevu başarısız oldu!</strong>\n"
+"                                            Seçilen zaman dilimi artık mevcut değil. \n"
+"Aynı zaman dilimini birkaç saniye önce başka biri rezerve etti."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -739,31 +765,34 @@ msgid ""
 "                                            The selected timeslot is not available.\n"
 "                                            It appears you already have another meeting with us at that date."
 msgstr ""
+"<strong>Randevu başarısız oldu!</strong>\n"
+"                                            Seçilen zaman dilimi mevcut değil. \n"
+"Görünüşe göre o tarihte bizimle başka bir toplantınız var."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Booked for: </strong>"
-msgstr ""
+msgstr "<strong>Rezervasyon Yapıldı: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Contact Information</strong>"
-msgstr ""
+msgstr "<strong>İletişim Bilgileri</strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Email: </strong>"
-msgstr ""
+msgstr "<strong>E-posta: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Name: </strong>"
-msgstr ""
+msgstr "<strong>Ad: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Phone: </strong>"
-msgstr ""
+msgstr "<strong>Telefon: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -773,7 +802,7 @@ msgstr "<strong>Başlangıç Tarihi\\: </strong>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Status: </strong>"
-msgstr ""
+msgstr "<strong>Durum: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -789,7 +818,7 @@ msgstr "<strong>Tür: </strong>"
 #. odoo-python
 #: code:addons/appointment/models/appointment_type.py:0
 msgid "A %s appointment type shouldn't be limited by datetimes."
-msgstr ""
+msgstr "Bir %s randevu türü, tarih ve saatlerle sınırlı olmamalıdır."
 
 #. module: appointment
 #. odoo-python
@@ -1372,7 +1401,7 @@ msgstr "Rezerve eden"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__calendar_event_id
 msgid "Booking"
-msgstr ""
+msgstr "Rezervasyon"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -1392,7 +1421,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__booking_line_ids
 msgid "Booking Lines"
-msgstr ""
+msgstr "Rezervasyon Satırları"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -1469,12 +1498,12 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__capacity_reserved
 msgid "Capacity Reserved"
-msgstr ""
+msgstr "Rezerve Edilen Kapasite"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__capacity_used
 msgid "Capacity Used"
-msgstr ""
+msgstr "Kullanılan Kapasite"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__capacity_reserved
