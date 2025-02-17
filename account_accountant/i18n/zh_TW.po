@@ -95,6 +95,9 @@ msgid ""
 "                                            <i>This change is irreversible</i>\n"
 "                                        </span>"
 msgstr ""
+"<span class=\"text-danger o_form_label\" invisible=\"hard_lock_date == current_hard_lock_date\">\n"
+"                                            <b>此變更不可還原</b><i></i>\n"
+"                                        </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -1644,7 +1647,7 @@ msgstr "旁註"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Need an irreversible lock to ensure inalterability, for all users?"
-msgstr ""
+msgstr "需要對所有使用者套用不可還原的鎖定，以確保資料不變？"
 
 #. module: account_accountant
 #. odoo-javascript
