@@ -524,3 +524,139 @@ registry.category("web_tour.tours").add("test_under_consume_materials_in_shopflo
         },
     ],
 });
+
+registry.category("web_tour.tours").add("test_component_registration_on_split_productions", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "button:has(input[name='Lovely Workcenter'])",
+            run: "click",
+        },
+        {
+            trigger: "button.active:has(input[name='Lovely Workcenter'])",
+            run() {},
+        },
+        {
+            trigger: "button:contains('Confirm')",
+            run: "click",
+        },
+        {
+            content: "Swap to the WO view of the Lovely Workcenter",
+            trigger: ".o_control_panel button:contains(Lovely Workcenter)",
+            run: "click",
+        },
+        {
+            content: "Open register production",
+            trigger:
+                ".o_mrp_display_record:has(.card-title:contains(SMO1)) .o_mrp_record_line span:contains(Register component)",
+            run: "click",
+        },
+        {
+            trigger: ".modal-content .o_field_widget[name='lot_id'] input",
+            run: "text SN002",
+        },
+        {
+            trigger: ".dropdown-item:contains(SN002)",
+            run: "click",
+        },
+        {
+            trigger: "button:contains('Validate')",
+            run: "click",
+        },
+        {
+            content: "Check that the component registration has been completed",
+            trigger:
+                ".o_mrp_display_record:has(.card-title:contains(SMO1)) button:contains(Mark as Done)",
+            run() {},
+        },
+        {
+            trigger:
+                ".o_mrp_display_record:has(.card-title:contains(SMO1)) .o_mrp_record_line:contains(Register Production) button.fa-plus",
+            run: "click",
+        },
+        {
+            trigger:
+                ".o_mrp_display_record:has(.card-title:contains(SMO1)) .text-decoration-line-through:contains(Register Production)",
+            run() {},
+        },
+        {
+            trigger:
+                ".o_mrp_display_record:has(.card-title:contains(SMO1)) button:contains(Mark as Done)",
+            run: "click",
+        },
+        {
+            trigger:
+                ".o_mrp_display_record:has(.card-title:contains(SMO1)) button:contains(Close Production)",
+            run: "click",
+        },
+        {
+            content: "Check that the production was splitted",
+            trigger: ".o_mrp_display_record:has(.card-title:contains(SMO1-002))",
+            run() {},
+        },
+        // Process the operations for SMO2 in reverse order and consume more than expected
+        {
+            trigger:
+                ".o_mrp_display_record:has(.card-title:contains(SMO2)) .o_mrp_record_line:contains(Register Production) button.fa-plus",
+            run: "click",
+        },
+        {
+            trigger:
+                ".o_mrp_display_record:has(.card-title:contains(SMO2)) .text-decoration-line-through:contains(Register Production)",
+            run() {},
+        },
+        {
+            trigger:
+                ".o_mrp_display_record:has(.card-title:contains(SMO2)) .o_mrp_record_line span:contains(Register component)",
+            run: "click",
+        },
+        {
+            trigger: ".modal-content .o_field_widget[name='lot_id'] input",
+            run: "text SN006",
+        },
+        {
+            trigger: ".dropdown-item:contains(SN006)",
+            run: "click",
+        },
+        {
+            trigger: "button:contains(Continue consumption)",
+            run: "click",
+        },
+        {
+            trigger: ".modal-content:not(:has(span[name=component_remaining_qty]))",
+            run() {},
+        },
+        {
+            trigger: ".modal-content .o_field_widget[name='lot_id'] input",
+            run: "text SN004",
+        },
+        {
+            trigger: ".dropdown-item:contains(SN004)",
+            run: "click",
+        },
+        {
+            trigger: "button:contains('Validate')",
+            run: "click",
+        },
+        {
+            trigger:
+                ".o_mrp_display_record:has(.card-title:contains(SMO2)) button:contains(Mark as Done)",
+            run: "click",
+        },
+        {
+            trigger:
+                ".o_mrp_display_record:has(.card-title:contains(SMO2)) button:contains(Close Production)",
+            run: "click",
+        },
+        {
+            trigger:
+                ".modal-content:has(.modal-title:contains(Consumption Warning)) button[name=action_confirm]",
+            run: "click",
+        },
+        {
+            content: "Check that the production was splitted",
+            trigger: ".o_mrp_display_record:has(.card-title:contains(SMO2-002))",
+            run() {},
+        },
+    ],
+});
