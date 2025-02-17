@@ -1,7 +1,6 @@
 {
     'name': 'Czech Republic - Accounting Reports 2025',
     'icon': '/account/static/description/l10n.png',
-    'countries': ['cz'],
     'version': '1.0',
     'description': """
 This module adds the following reports for the Czech Republic:
