@@ -32,7 +32,7 @@ registry.category("web_tour.tours").add("pos_settle_account_due", {
         ].flat(),
 });
 
-registry.category("web_tour.tours").add("SettleDueButtonPresent", {
+registry.category("web_tour.tours").add("SettleDueUICoherency", {
     steps: () =>
         [
             Chrome.startPoS(),
@@ -42,6 +42,19 @@ registry.category("web_tour.tours").add("SettleDueButtonPresent", {
             PartnerList.checkDropDownItemText("Deposit money"),
             PartnerList.clickPartnerOptions("B Partner"),
             PartnerList.checkDropDownItemText("Settle due accounts"),
+            {
+                isActive: ["auto"],
+                trigger: "div.o_popover :contains('Settle Due Accounts')",
+                content: "Check the popover opened",
+                run: "click",
+            },
+            Utils.selectButton("Bank"),
+            PaymentScreen.clickValidate(),
+            Utils.selectButton("Yes"),
+            {
+                content: "Receipt doesn't include Empty State",
+                trigger: ".pos-receipt:not(:has(i.fa-shopping-cart))",
+            },
         ].flat(),
 });
 

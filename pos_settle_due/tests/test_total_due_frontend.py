@@ -9,7 +9,6 @@ from odoo import Command
 
 @odoo.tests.tagged('post_install', '-at_install')
 class TestPointOfSaleFlow(TestPointOfSaleHttpCommon):
-
     def test_settle_account_due_update_instantly(self):
         self.partner_test_a = self.env["res.partner"].create({"name": "A Partner"})
         self.customer_account_payment_method = self.env['pos.payment.method'].create({
@@ -21,8 +20,12 @@ class TestPointOfSaleFlow(TestPointOfSaleHttpCommon):
         self.main_pos_config.open_ui()
         self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'pos_settle_account_due_update_instantly', login="accountman")
 
-    def test_settle_due_account_button(self):
-        """ Test that an invoice can be created after the session is closed """
+    def test_settle_due_account_ui_coherency(self):
+        """
+        Test that an invoice can be created after the session is closed
+        Also that the button changes text depending on the current due amount.
+        And that the receipt does not have a misleading empty state.
+        """
         self.customer_account_payment_method = self.env['pos.payment.method'].create({
             'name': 'Customer Account',
             'split_transactions': True,
@@ -30,7 +33,7 @@ class TestPointOfSaleFlow(TestPointOfSaleHttpCommon):
         self.partner_test_a = self.env["res.partner"].create({"name": "A Partner"})
         self.partner_test_b = self.env["res.partner"].create({"name": "B Partner"})
 
-        self.main_pos_config.write({'payment_method_ids': [(6, 0, self.customer_account_payment_method.ids)]})
+        self.main_pos_config.write({'payment_method_ids': [(4, self.customer_account_payment_method.id)]})
 
         self.main_pos_config.open_ui()
         current_session = self.main_pos_config.current_session_id
@@ -64,7 +67,7 @@ class TestPointOfSaleFlow(TestPointOfSaleHttpCommon):
         order_payment.with_context(**payment_context).check()
         current_session.close_session_from_ui()
         self.main_pos_config.open_ui()
-        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'SettleDueButtonPresent', login="accountman")
+        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'SettleDueUICoherency', login="accountman")
 
     def test_settle_due_search_more(self):
         self.customer_account_payment_method = self.env['pos.payment.method'].create({
