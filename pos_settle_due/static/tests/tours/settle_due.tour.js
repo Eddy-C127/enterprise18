@@ -3,10 +3,11 @@ import * as PartnerListScreenPoS from "@point_of_sale/../tests/tours/helpers/Par
 import * as PartnerListScreenSettleDue from "@pos_settle_due/../tests/helpers/PartnerListScreenTourMethods";
 const PartnerListScreen = { ...PartnerListScreenPoS, ...PartnerListScreenSettleDue };
 import * as ProductScreen from "@point_of_sale/../tests/tours/helpers/ProductScreenTourMethods";
+import * as PaymentScreen from "@point_of_sale/../tests/tours/helpers/PaymentScreenTourMethods";
 import * as Utils from "@point_of_sale/../tests/tours/helpers/utils";
 import { registry } from "@web/core/registry";
 
-registry.category("web_tour.tours").add("SettleDueButtonPresent", {
+registry.category("web_tour.tours").add("SettleDueUICoherency", {
     test: true,
     steps: () =>
         [
@@ -17,6 +18,14 @@ registry.category("web_tour.tours").add("SettleDueButtonPresent", {
             ProductScreen.clickPartnerButton(),
             PartnerListScreen.clickPartnerDetailsButton("B Partner"),
             PartnerListScreen.settleButtonTextIs("Settle due accounts"),
+            { trigger: `.button.settle-due` },
+            Utils.selectButton("Bank"),
+            PaymentScreen.clickValidate(),
+            { trigger: `.button.confirm:contains("Yes")` },
+            {
+                content: "Receipt doesn't include Empty State",
+                trigger: ".pos-receipt:not(:has(i.fa-shopping-cart))",
+            },
         ].flat(),
 });
 
