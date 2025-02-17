@@ -102,6 +102,9 @@ class AccountMove(models.Model):
         # hook for l10n tax payment wizard
         return self.action_open_tax_report()
 
+    def _action_tax_to_send(self):
+        return self.action_open_tax_report()
+
     def action_open_tax_report(self):
         action = self.env["ir.actions.actions"]._for_xml_id("account_reports.action_account_report_gt")
         if not self.tax_closing_report_id:
