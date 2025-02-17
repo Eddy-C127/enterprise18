@@ -6396,9 +6396,6 @@ class AccountReport(models.Model):
         if isinstance(groupby_fields_name, str | bool):
             groupby_fields_name = groupby_fields_name.split(',') if groupby_fields_name else []
 
-        custom_handler_name = self._get_custom_handler_model()
-        custom_groupby_map = self.env[custom_handler_name]._get_custom_groupby_map() if custom_handler_name else {}
-
         for field_name in (fname.strip() for fname in groupby_fields_name):
             groupby_field = self.env['account.move.line']._fields.get(field_name)
             if groupby_field:
@@ -6408,8 +6405,8 @@ class AccountReport(models.Model):
                     self.env['account.move.line']._field_to_sql('account_move_line', field_name, Query(self.env, 'account_move_line'))
                 except ValueError:
                     raise UserError(self.env._("Field %s of account.move.line cannot be used in a groupby expression.", field_name)) from None
-            elif custom_handler_name:
-                if field_name not in custom_groupby_map:
+            elif (custom_handler_name := self._get_custom_handler_model()):
+                if field_name not in self.env[custom_handler_name]._get_custom_groupby_map():
                     raise UserError(_("Field %s does not exist on account.move.line, and is not supported by this report's custom handler.", field_name))
             else:
                 raise UserError(_("Field %s does not exist on account.move.line.", field_name))
