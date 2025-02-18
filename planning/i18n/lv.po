@@ -1680,17 +1680,17 @@ msgstr ""
 #. module: planning
 #: model:mail.template,name:planning.email_template_planning_planning
 msgid "Planning: New Schedule"
-msgstr ""
+msgstr "Plānošana: Jauns grafiks"
 
 #. module: planning
 #: model:mail.template,name:planning.email_template_slot_single
 msgid "Planning: New Shift"
-msgstr ""
+msgstr "Plānošana: Jauna maiņa"
 
 #. module: planning
 #: model:mail.template,name:planning.email_template_shift_switch_email
 msgid "Planning: Shift Re-assigned"
-msgstr ""
+msgstr "Plānošana: Mainīta maiņa"
 
 #. module: planning
 #: model:ir.actions.server,name:planning.ir_cron_forecast_schedule_ir_actions_server
@@ -2576,6 +2576,8 @@ msgid ""
 "Your planning from {{ format_date(ctx.get('start_datetime')) }} to {{ "
 "format_date(ctx.get('end_datetime')) }}"
 msgstr ""
+"Jūsu grafiks no {{ format_date(ctx.get('start_datetime')) }} līdz {{ "
+"format_date(ctx.get('end_datetime')) }}"
 
 #. module: planning
 #: model:mail.template,subject:planning.email_template_shift_switch_email
@@ -2583,6 +2585,8 @@ msgid ""
 "Your shift on {{ ctx.get('start_datetime') }} was re-assigned to {{ "
 "ctx.get('new_assignee_name', 'Marc Demo') }}"
 msgstr ""
+"Jūsu maiņa {{ ctx.get('start_datetime') }} tika piešķirta {{ "
+"ctx.get('new_assignee_name', 'Marc Demo') }}"
 
 #. module: planning
 #. odoo-javascript
@@ -2678,3 +2682,4 @@ msgstr "līdz"
 #: model:mail.template,subject:planning.email_template_slot_single
 msgid "{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}"
 msgstr ""
+"{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}"
