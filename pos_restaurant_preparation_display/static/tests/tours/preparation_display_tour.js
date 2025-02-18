@@ -160,3 +160,33 @@ registry.category("web_tour.tours").add("PreparationDisplayChangeQuantityTour", 
             ProductScreen.orderlinesHaveNoChange(),
         ].flat(),
 });
+
+registry.category("web_tour.tours").add("test_update_internal_note_of_order", {
+    test: true,
+    steps: () =>
+        [
+            ProductScreen.confirmOpeningPopup(),
+            FloorScreen.clickTable("5"),
+            ProductScreen.clickHomeCategory(),
+            ProductScreen.orderBtnIsPresent(),
+            ProductScreen.clickDisplayedProduct("Test Food"),
+            ProductScreen.orderlineIsToOrder("Test Food"),
+            ProductScreen.clickOrderButton(),
+            ProductScreen.orderlinesHaveNoChange(),
+            ProductScreen.addInternalNote("Test Internal Notes"),
+            ProductScreen.selectedOrderlineHas("Test Food", "1.0"),
+            ProductScreen.pressNumpad("⌫"),
+            ProductScreen.selectedOrderlineHas("Test Food", "0.0"),
+            ProductScreen.pressNumpad("⌫"),
+            ProductScreen.orderIsEmpty(),
+            ProductScreen.clickOrderButton(),
+
+            ProductScreen.clickDisplayedProduct("Demo Food"),
+            ProductScreen.clickOrderButton(),
+            ProductScreen.orderlinesHaveNoChange(),
+            ProductScreen.totalAmountIs("10"),
+            ProductScreen.clickPayButton(),
+            PaymentScreen.clickPaymentMethod("Cash"),
+            PaymentScreen.clickValidate(),
+        ].flat(),
+})
