@@ -366,6 +366,7 @@ QUnit.module("Views", (hooks) => {
     QUnit.test("export cohort", async function (assert) {
         assert.expect(6);
 
+        const def = makeDeferred();
         mockDownload(async (options) => {
             var data = JSON.parse(await options.data.data.text());
             assert.strictEqual(options.url, "/web/cohort/export");
@@ -374,6 +375,7 @@ QUnit.module("Views", (hooks) => {
             assert.strictEqual(data.date_start_string, "Start");
             assert.strictEqual(data.date_stop_string, "Stop");
             assert.strictEqual(data.title, "Subscription");
+            def.resolve();
             return Promise.resolve();
         });
 
@@ -385,6 +387,7 @@ QUnit.module("Views", (hooks) => {
         });
 
         await click(target.querySelector(".o_cohort_download_button"));
+        await def;
     });
 
     QUnit.test(
