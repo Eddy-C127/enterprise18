@@ -108,7 +108,7 @@
                 </div>
 
                 <button type="button" class="btn btn-secondary o_documents_share_button"
-                    t-if="documentService.userIsInternal and selectionCount === 1"
+                    t-if="!isInTrash and documentService.userIsInternal and selectionCount === 1"
                     t-on-click="() => this.onShare()">
                     Share
                 </button>
@@ -120,7 +120,7 @@
                 </button>
 
                 <t t-set="_embeddedActions" t-value="embeddedActions"/>
-                <div t-if="_embeddedActions.length" class="d-flex flex-row flex-wrap btn-group">
+                <div t-if="!isInTrash and _embeddedActions.length" class="d-flex flex-row flex-wrap btn-group">
                     <t t-set="firstEmbeddedActions" t-value="_embeddedActions.slice(0, 2)"/>
                     <t t-set="lastEmbeddedActions" t-value="_embeddedActions.slice(2)"/>
 

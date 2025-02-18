@@ -4,14 +4,14 @@
         t-inherit-mode="extension">
         <xpath expr="//*[hasclass('o_documents_share_button')]" position="after">
             <button type="button" class="btn btn-secondary"
-                t-if="userIsInternal and singleSelection?.data?.handler === 'spreadsheet'"
+                t-if="!isInTrash and userIsInternal and singleSelection?.data?.handler === 'spreadsheet'"
                 t-on-click.prevent="onClickFreezeAndShareSpreadsheet" data-hotkey="s">
                 <t t-call="spreadsheet_edition.SpreadsheetIcon"/> Freeze and share
             </button>
         </xpath>
         <xpath expr="//*[hasclass('o_documents_export')]" position="after">
             <button class="dropdown-item w-100"
-                t-if="userIsInternal and this.documentsState.viewType === 'list'"
+                t-if="!isInTrash and userIsInternal and this.documentsState.viewType === 'list'"
                 t-on-click="() => this.onInsertInSpreadsheet()">
                 <i class="oi oi-view-list fa-fw me-1"/>
                 <span class="d-inline-block">Insert in spreadsheet</span>
