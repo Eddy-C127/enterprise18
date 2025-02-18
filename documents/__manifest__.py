@@ -97,6 +97,9 @@ App to upload and manage your documents.
             'documents/static/tests/tours/*',
         ],
         'web.assets_unit_tests': [
+            'documents/static/tests/helpers/**/*',
+            ('remove', 'documents/static/tests/helpers/mock_server/**/*'),
+            ('remove', 'documents/static/tests/helpers/model_definitions_setup.js'),
             'documents/static/tests/error_dialog_patch.test.js',
         ],
         'web.qunit_suite_tests': [
