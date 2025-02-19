@@ -768,3 +768,42 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
             backorder_mo.move_finished_ids,
             [{'quantity': 5, 'product_uom_qty': 5,}]
         )
+
+    def test_barcode_process_without_reservation(self):
+        """
+        Check  that an MO can be processed even without initial reservation
+        nor any qty set manually
+        """
+        self.clean_access_rights()
+
+        available_comp, unavailable_comp = self.component01, self.product1
+        self.env['stock.quant']._update_available_quantity(available_comp, self.stock_location, quantity=10)
+
+        manufacturing_order = self.env['mrp.production'].create({
+            'name': 'TBPWR mo',
+            'product_id': self.final_product.id,
+            'product_qty': 10,
+            'move_raw_ids': [
+                Command.create({
+                    'product_id': available_comp.id,
+                    'product_uom_qty': 10,
+                }),
+                Command.create({
+                    'product_id': unavailable_comp.id,
+                    'product_uom_qty': 4,
+                }),
+            ],
+        })
+        manufacturing_order.action_confirm()
+
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = f"/web#action={action_id.id}"
+        self.start_tour(url, 'test_barcode_process_without_reservation', login='admin')
+        # Check that the MO was validated and the quantity set automatically as nothing was edited
+        self.assertEqual(manufacturing_order.state, 'done')
+        self.assertRecordValues(
+            manufacturing_order.move_raw_ids.sorted('product_uom_qty'), [
+                {'product_id': unavailable_comp.id, 'product_uom_qty': 4, 'quantity': 4, 'picked': True, 'state': 'done'},
+                {'product_id': available_comp.id, 'product_uom_qty': 10, 'quantity': 10, 'picked': True, 'state': 'done'},
+            ]
+        )

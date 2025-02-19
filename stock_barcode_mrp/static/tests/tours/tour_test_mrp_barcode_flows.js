@@ -1098,3 +1098,21 @@ registry.category("web_tour.tours").add("test_mrp_uncompleted_move_split_on_barc
         { trigger: ".o_stock_barcode_main_menu", run(){}},
     ]
 })
+
+registry.category("web_tour.tours").add("test_barcode_process_without_reservation", {
+    test: true,
+    steps: () => [
+        {
+            trigger: ".o_stock_barcode_main_menu",
+            run: "scan TBPWR mo"
+        },
+        { 
+            trigger: ".o_validate_page",
+            run: "click"
+        },
+        { 
+            trigger: ".o_notification.border-success",
+            run() {},
+        },
+    ]
+})
