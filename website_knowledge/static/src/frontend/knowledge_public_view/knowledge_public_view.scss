@@ -54,9 +54,16 @@
 
     // Sidebar
     // --------------------------------------------------------------------------
+    .o_knowledge_sidebar_owl_component:empty {
+        width: clamp(200px, var(--knowledge-article-sidebar-size), 576px);
+        border-right: 4px solid $o-gray-200;
+    }
+
     .o_knowledge_sidebar {
         width: clamp(200px, var(--knowledge-article-sidebar-size), 576px);
         transition: width 0.15s linear;
+        height: 100%;
+        border-right: 4px solid $o-gray-200;
 
         .o_article_handle {
             &.o_article_active {
@@ -93,13 +100,8 @@
 
 @include media-breakpoint-down(md) {
     .o_knowledge_public_view {
-        &:not(.o_toggle_aside) {
-            .o_knowledge_backdrop {
-                display: none;
-            }
-            .o_knowledge_sidebar {
-                transform: translateX(-100%);
-            }
+        .o_knowledge_sidebar.o_knowledge_desktop_sidebar {
+            transform: translateX(-100%);
         }
         .o_knowledge_sidebar,
         .o_knowledge_main {

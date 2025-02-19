@@ -5,6 +5,7 @@ import {
     onPatched,
     onWillPatch,
     onWillUnmount,
+    useExternalListener,
     useRef,
     useState,
     useSubEnv,
@@ -12,17 +13,53 @@ import {
 import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { KeepLast } from "@web/core/utils/concurrency";
+import { useBus } from "@web/core/utils/hooks";
 import { debounce, throttleForAnimation } from "@web/core/utils/timing";
 import { KNOWLEDGE_PUBLIC_EMBEDDINGS } from "@website_knowledge/frontend/editor/embedded_components/embedding_sets";
 import { PublicHtmlViewer } from "@website_knowledge/frontend/editor/html_viewer/public_html_viewer";
 
-class KnowledgePublic extends Component {
+export class KnowledgePublicFormResizer extends Component {
+    static props = {};
+    static template = "website_knowledge.knowledgePublicFormResizer";
+
+    /**
+     * Enables the user to resize the aside block.
+     * Note: When the user grabs the resizer, a new listener will be attached
+     * to the document. The listener will be removed as soon as the user releases
+     * the resizer to free some resources.
+     */
+    resizeSidebar() {
+        const onPointerMove = throttleForAnimation((event) => {
+            event.preventDefault();
+            this.env.bus.trigger("WEBSITE_KNOWLEDGE:SET_SIDEBAR_SIZE", {
+                sidebarSize: event.pageX,
+            });
+        });
+        const onPointerUp = () => {
+            document.removeEventListener("pointermove", onPointerMove);
+            document.body.style.cursor = "auto";
+            document.body.style.userSelect = "auto";
+        };
+        // Add style to root element because resizing has a transition delay,
+        // meaning that the cursor is not always on top of the resizer.
+        document.body.style.cursor = "col-resize";
+        document.body.style.userSelect = "none";
+        document.addEventListener("pointermove", onPointerMove);
+        document.addEventListener("pointerup", onPointerUp, { once: true });
+    }
+}
+
+export class KnowledgePublic extends Component {
     static components = {
+        // Deprecated
         HtmlViewer: PublicHtmlViewer,
+        KnowledgePublicFormResizer,
     };
     static props = {
-        record: { type: Object },
+        resId: { type: Number, optional: true },
         showSidebar: { type: Boolean },
+        // Deprecated
+        record: { type: Object, optional: true },
     };
     static template = "website_knowledge.knowledgePublic";
 
@@ -33,7 +70,8 @@ class KnowledgePublic extends Component {
             localStorage.getItem(this.storageKey)?.split(";").map(Number) || [];
         // Debounce the search articles method to reduce the number of rpcs
         this.searchArticles = debounce(this.searchArticles, 500);
-        if (this.props.record.resId) {
+        if (this.props.record?.resId) {
+            // Deprecated
             this.props.record.data.body = markup(this.props.record.data.body);
         }
         // Sidebar handling TODO @engagement TODO ABD
@@ -45,12 +83,19 @@ class KnowledgePublic extends Component {
             sidebarSize: 300,
             showAsideMobile: false,
         });
+        useBus(this.env.bus, "WEBSITE_KNOWLEDGE:SET_SIDEBAR_SIZE", (ev) => {
+            this.state.sidebarSize = ev.detail.sidebarSize;
+        });
+        const headerToggleAsideButton = document.querySelector(".o_header_toggle_aside_button");
+        if (headerToggleAsideButton) {
+            useExternalListener(headerToggleAsideButton, "click", this.toggleAsideMobile);
+        }
         this.keepLastRender = new KeepLast();
         this.renderTree();
         this.boundLoadMoreArticles = this.loadMoreArticles.bind(this);
         this.boundFoldArticle = this.foldArticle.bind(this);
         useSubEnv({
-            articleId: this.props.record.resId,
+            articleId: this.resId,
         });
         onMounted(() => {
             this.addLoadMoreHandlers();
@@ -68,6 +113,10 @@ class KnowledgePublic extends Component {
             this.removeLoadMoreHandlers();
             this.removeFoldHandlers();
         });
+    }
+
+    get resId() {
+        return this.props.resId || this.props.record?.resId;
     }
 
     addLoadMoreHandlers() {
@@ -155,10 +204,12 @@ class KnowledgePublic extends Component {
         localStorage.setItem(this.storageKey, this.unfoldedArticlesIds.join(";"));
     }
 
+    /**
+     * @deprecated
+     */
     getConfig() {
-        // TODO ABD: migration hook
         const config = {
-            value: this.props.record.data.body,
+            value: this.props.record?.data.body ?? "",
             embeddedComponents: [...KNOWLEDGE_PUBLIC_EMBEDDINGS],
         };
         return config;
@@ -167,7 +218,7 @@ class KnowledgePublic extends Component {
     async loadMoreArticles(ev) {
         ev.preventDefault();
         const rpcParams = {
-            active_article_id: this.props.record.resId || false,
+            active_article_id: this.resId || false,
             parent_id: ev.target.dataset["parentId"] || false,
             limit: ev.target.dataset["limit"],
             offset: ev.target.dataset["offset"] || 0,
@@ -205,13 +256,13 @@ class KnowledgePublic extends Component {
     async renderTree() {
         const params = new URLSearchParams(document.location.search);
         if (params.get("auto_unfold")) {
-            this.unfoldedArticlesIds.push(this.props.record.resId);
+            this.unfoldedArticlesIds.push(this.resId);
         }
         try {
             this.state.tree = markup(
                 await this.keepLastRender.add(
                     rpc("/knowledge/public_sidebar", {
-                        active_article_id: this.props.record.resId,
+                        active_article_id: this.resId,
                         unfolded_articles_ids: this.unfoldedArticlesIds,
                     })
                 )
@@ -222,28 +273,9 @@ class KnowledgePublic extends Component {
     }
 
     /**
-     * Enables the user to resize the aside block.
-     * Note: When the user grabs the resizer, a new listener will be attached
-     * to the document. The listener will be removed as soon as the user releases
-     * the resizer to free some resources.
+     * @deprecated
      */
-    resizeSidebar() {
-        const onPointerMove = throttleForAnimation((event) => {
-            event.preventDefault();
-            this.state.sidebarSize = event.pageX;
-        });
-        const onPointerUp = () => {
-            document.removeEventListener("pointermove", onPointerMove);
-            document.body.style.cursor = "auto";
-            document.body.style.userSelect = "auto";
-        };
-        // Add style to root element because resizing has a transition delay,
-        // meaning that the cursor is not always on top of the resizer.
-        document.body.style.cursor = "col-resize";
-        document.body.style.userSelect = "none";
-        document.addEventListener("pointermove", onPointerMove);
-        document.addEventListener("pointerup", onPointerUp, { once: true });
-    }
+    resizeSidebar() {}
 
     async searchArticles(ev) {
         ev.preventDefault();
@@ -257,7 +289,7 @@ class KnowledgePublic extends Component {
                 await this.keepLastRender.add(
                     rpc("/knowledge/public_sidebar", {
                         search_term: searchTerm,
-                        active_article_id: this.props.record.resId,
+                        active_article_id: this.resId,
                     })
                 )
             );
@@ -272,3 +304,6 @@ class KnowledgePublic extends Component {
 }
 
 registry.category("public_components").add("knowledge.public_view", KnowledgePublic);
+registry
+    .category("public_components")
+    .add("website_knowledge.public_form_resizer", KnowledgePublicFormResizer);
