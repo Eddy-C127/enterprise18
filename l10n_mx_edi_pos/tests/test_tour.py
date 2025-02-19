@@ -89,6 +89,7 @@ class TestUi(TestMxEdiPosCommon, TestPointOfSaleHttpCommon):
             'country_id': self.new_partner.country_id.id,
             'state_id': self.new_partner.state_id,
             'phone': "123456789",
+            'vat': 'GODE561231GR8',
             'invoice_l10n_mx_edi_usage': 'D10',
             'partner_l10n_mx_edi_fiscal_regime': '624',
             'csrf_token': odoo.http.Request.csrf_token(self)

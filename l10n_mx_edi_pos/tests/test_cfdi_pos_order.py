@@ -606,6 +606,7 @@ class TestCFDIPosOrder(TestMxEdiPosCommon, TestPointOfSaleHttpCommon):
                 'zipcode': '12345',
                 'country_id': self.env.ref('base.mx').id,
                 'phone': "123456789",
+                'vat': 'XAXX010101000',
                 'invoice_l10n_mx_edi_usage': 'D10',
                 'partner_l10n_mx_edi_fiscal_regime': '624',
                 'csrf_token': http.Request.csrf_token(self),
