@@ -51,7 +51,7 @@ class AccountExternalTaxMixin(models.AbstractModel):
                 tax_cache[key] = self.env['account.tax'].search([
                     *self.env['account.tax']._check_company_domain(doc.company_id),
                     ('name', '=', tax_name),
-                ]) or self.env['account.tax'].sudo().with_company(self._find_avatax_credentials_company(doc.company_id)).create({
+                ], limit=1) or self.env['account.tax'].sudo().with_company(self._find_avatax_credentials_company(doc.company_id)).create({
                     'name': tax_name,
                     'amount': rate,
                     'amount_type': 'fixed' if fixed else 'percent',
