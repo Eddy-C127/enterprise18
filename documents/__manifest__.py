@@ -91,27 +91,22 @@ App to upload and manage your documents.
             'web/static/src/start.js',
         ],
         'web.tests_assets': [
-            'documents/static/tests/helpers/**/*',
+            'documents/static/tests/legacy/helpers/**/*',
         ],
         'web.assets_tests': [
             'documents/static/tests/tours/*',
         ],
         'web.assets_unit_tests': [
-            'documents/static/tests/helpers/**/*',
-            ('remove', 'documents/static/tests/helpers/mock_server/**/*'),
-            ('remove', 'documents/static/tests/helpers/model_definitions_setup.js'),
-            'documents/static/tests/error_dialog_patch.test.js',
+            'documents/static/tests/**/*',
+            ('remove', 'documents/static/tests/legacy/**/*'),
         ],
         'web.qunit_suite_tests': [
-            'documents/static/tests/**/*',
-            ('remove', 'documents/static/tests/**/*mobile_tests.js'),
-            ('remove', 'documents/static/tests/helpers/**/*'),
-            ('remove', 'documents/static/tests/tours/*'),
-            ('remove', 'documents/static/tests/error_dialog_patch.test.js'),
+            'documents/static/tests/legacy/**/*',
+            ('remove', 'documents/static/tests/legacy/**/*mobile_tests.js'),
         ],
         'web.qunit_mobile_suite_tests': [
-            'documents/static/tests/documents_test_utils.js',
-            'documents/static/tests/documents_kanban_mobile_tests.js',
+            'documents/static/tests/legacy/documents_test_utils.js',
+            'documents/static/tests/legacy/documents_kanban_mobile_tests.js',
         ],
     }
 }
