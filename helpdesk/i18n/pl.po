@@ -5,8 +5,8 @@
 # Translators:
 # Wil Odoo, 2024
 # Interactive AV-IT, 2024
-# Marta Wacławek, 2024
 # Tomasz Leppich <t.leppich@gmail.com>, 2024
+# Marta Wacławek, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:51+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Tomasz Leppich <t.leppich@gmail.com>, 2024\n"
+"Last-Translator: Marta Wacławek, 2025\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -130,6 +130,17 @@ msgid ""
 "    </div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"        Szanowna(y) <t t-out=\"object.sudo().partner_id.name or 'Madam/Sir'\">Pani/Panie</t>,<br/><br/>\n"
+"         Chcielibyśmy poinformować, że zamknęliśmy zgłoszenie (numer referencyjny <t t-out=\"object.id or ''\">15</t>). \n"
+"       Mamy nadzieję, że świadczone usługi spełniły Państwa oczekiwania i że zaoferowane rozwiązanie Państwa satysfakcjonuje.<br/><br/>\n"
+"        Jeśli jednak mają Państwo dalsze pytania lub uwagi, prosimy nie wahać się odpowiedzieć na tę wiadomość e-mail, aby ponownie otworzyć zgłoszenie. \n"
+"Nasz zespół jest zawsze gotowy do pomocy i z przyjemnością odpowie na wszelkie dalsze pytania.<br/><br/>\n"
+"         Dziękujemy za wybranie naszych usług i za współpracę w trakcie tego procesu.<br/><br/>\n"
+"        Z poważaniem,<br/><br/>\n"
+"        Zespół <t t-out=\"object.team_id.name or 'Helpdesk'\">Helpdesk</t>.\n"
+"    </div>\n"
+"        "
 
 #. module: helpdesk
 #: model:mail.template,body_html:helpdesk.rating_ticket_request_email_template

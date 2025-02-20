@@ -1,26 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* web_map
-#
+# 
 # Translators:
-# Reinaldo Ramos <reinaldo.ramos@arxi.pt>, 2022
-# Pedro Castro Silva <pedrocs@exo.pt>, 2022
-# Nuno Silva <nuno.silva@arxi.pt>, 2022
-# Ricardo Martins <ricardo.nbs.martins@gmail.com>, 2022
-# Manuela Silva <mmsrs@sky.com>, 2022
-#
+# Rita Bastos, 2025
+# Peter Lawrence Romão <peterromao@yahoo.co.uk>, 2025
+# Wil Odoo, 2025
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Manuela Silva <mmsrs@sky.com>, 2022\n"
+"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Portuguese (https://app.transifex.com/odoo/teams/41243/pt/)\n"
-"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: pt\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #. module: web_map
@@ -46,6 +44,7 @@ msgstr ""
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.js:0
+#: model_terms:ir.ui.view,arch_db:web_map.view_res_partner_filter_inherit_map
 msgid "Address"
 msgstr "Endereço"
 
@@ -58,12 +57,12 @@ msgstr "Base"
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 msgid "Close"
-msgstr "Fechar"
+msgstr "Encerrar"
 
 #. module: web_map
 #: model:ir.model,name:web_map.model_res_config_settings
 msgid "Config Settings"
-msgstr "Configurações"
+msgstr "Definições de Configuração"
 
 #. module: web_map
 #: model:ir.model,name:web_map.model_res_partner
@@ -79,7 +78,7 @@ msgstr "Endereço Completo do Contacto"
 #. module: web_map
 #: model:ir.model,name:web_map.model_ir_http
 msgid "HTTP Routing"
-msgstr "Rotas HTTP"
+msgstr "Roteamento HTTP"
 
 #. module: web_map
 #. odoo-javascript
@@ -94,8 +93,6 @@ msgid "Locating new addresses..."
 msgstr ""
 
 #. module: web_map
-#. odoo-javascript
-#: code:addons/web_map/static/src/map_view/map_view.js:0
 #: model:ir.model.fields.selection,name:web_map.selection__ir_actions_act_window_view__view_mode__map
 #: model:ir.model.fields.selection,name:web_map.selection__ir_ui_view__type__map
 msgid "Map"
@@ -145,7 +142,7 @@ msgstr "Nenhum(a)"
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 msgid "Open"
-msgstr ""
+msgstr "Aberto"
 
 #. module: web_map
 #. odoo-javascript
@@ -185,7 +182,9 @@ msgstr ""
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
-msgid "The view has switched to another provider but functionalities will be limited"
+msgid ""
+"The view has switched to another provider but functionalities will be "
+"limited"
 msgstr ""
 
 #. module: web_map
@@ -197,7 +196,9 @@ msgstr ""
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
-msgid "To get routing on your map, you first need to set up your MapBox token. It's free."
+msgid ""
+"To get routing on your map, you first need to set up your MapBox token. It's"
+" free."
 msgstr ""
 
 #. module: web_map

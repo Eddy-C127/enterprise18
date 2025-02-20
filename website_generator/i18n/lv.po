@@ -37,6 +37,15 @@ msgid ""
 "            </div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"            <p><b>Lieliskas ziņas!</b> Jūsu tīmekļa vietnes konvertēšana ir pabeigta, un Jūsu jaunā integrētā Odoo vietne tagad ir pieejama.</p>\n"
+"            <p>Apskatiet Jūsu jauno vietni šeit: <a t-att-href=\"ctx.get('website_url')\"><t t-out=\"ctx.get('website_url')\"/></a></p>\n"
+"            <p>Paldies, ka Jūs izvēlējāties Odoo Jūsu vietnes integrēšanai!</p>\n"
+"            <p>Ar cieņu,</p>\n"
+"            <br/>\n"
+"            <p>Odoo - Labākais atvērtā pirmkoda vietņu veidotājs.</p>\n"
+"            </div>\n"
+"            "
 
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__additional_urls
@@ -386,7 +395,7 @@ msgstr ""
 #. module: website_generator
 #: model:mail.template,subject:website_generator.email_template_website_scrapped
 msgid "Your Odoo Website is Ready!"
-msgstr ""
+msgstr "Jūsu Odoo tīmekļa lapa ir gatava!"
 
 #. module: website_generator
 #. odoo-javascript

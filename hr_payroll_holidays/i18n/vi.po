@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,13 +57,13 @@ msgstr "Hoãn sang tháng sau"
 #. module: hr_payroll_holidays
 #: model_terms:ir.ui.view,arch_db:hr_payroll_holidays.res_config_settings_view_form
 msgid "Deferred Time Off"
-msgstr "Nghỉ phép đã hoãn"
+msgstr "Ngày nghỉ đã hoãn"
 
 #. module: hr_payroll_holidays
 #: model:ir.model.fields,field_description:hr_payroll_holidays.field_res_company__deferred_time_off_manager
 #: model:ir.model.fields,field_description:hr_payroll_holidays.field_res_config_settings__deferred_time_off_manager
 msgid "Deferred Time Off Manager"
-msgstr "Quản lý nghỉ phép đã hoãn"
+msgstr "Quản lý ngày nghỉ đã hoãn"
 
 #. module: hr_payroll_holidays
 #: model_terms:ir.ui.view,arch_db:hr_payroll_holidays.hr_leave_view_search
@@ -88,7 +89,7 @@ msgstr "Đánh dấu là hoãn lại"
 #. module: hr_payroll_holidays
 #: model_terms:ir.actions.act_window,help:hr_payroll_holidays.hr_leave_work_entry_action
 msgid "Meet the time off dashboard."
-msgstr "Đây là trang chủ nghỉ phép."
+msgstr "Đây là trang chủ ngày nghỉ."
 
 #. module: hr_payroll_holidays
 #. odoo-python
@@ -97,7 +98,7 @@ msgid ""
 "Not enough attendance work entries to report the time off %s. Please make "
 "the operation manually"
 msgstr ""
-"Không đủ công chấm công để báo cáo nghỉ phép %s. Vui lòng thực hiện thao tác"
+"Không đủ công chấm công để báo cáo ngày nghỉ %s. Vui lòng thực hiện thao tác"
 " thủ công"
 
 #. module: hr_payroll_holidays
@@ -105,7 +106,7 @@ msgstr ""
 #: code:addons/hr_payroll_holidays/models/hr_leave.py:0
 msgid "Only an employee time off to defer can be reported to next month"
 msgstr ""
-"Chỉ có nghỉ phép cần hoãn lại của nhân viên mới có thể được báo cáo vào "
+"Chỉ có ngày nghỉ cần hoãn lại của nhân viên mới có thể được báo cáo vào "
 "tháng tiếp theo"
 
 #. module: hr_payroll_holidays
@@ -127,7 +128,7 @@ msgstr "Vui lòng tạo công cho %s theo cách thủ công"
 #. module: hr_payroll_holidays
 #: model_terms:ir.ui.view,arch_db:hr_payroll_holidays.res_config_settings_view_form
 msgid "Postpone time off after payslip validation"
-msgstr "Hoãn nghỉ phép sau khi xác nhận phiếu lương"
+msgstr "Hoãn ngày nghỉ sau khi xác nhận phiếu lương"
 
 #. module: hr_payroll_holidays
 #: model_terms:ir.ui.view,arch_db:hr_payroll_holidays.hr_leave_view_form_inherit
@@ -146,7 +147,7 @@ msgid ""
 "The next month work entries are not generated yet or are validated already "
 "for time off %s"
 msgstr ""
-"Công của tháng tiếp theo chưa được tạo hoặc đã được xác nhận cho nghỉ phép "
+"Công của tháng tiếp theo chưa được tạo hoặc đã được xác nhận cho ngày nghỉ "
 "%s"
 
 #. module: hr_payroll_holidays
@@ -165,7 +166,7 @@ msgstr ""
 msgid ""
 "The time off %s can not be reported because it is defined over more than 2 "
 "months"
-msgstr "Không thể báo cáo nghỉ phép %s vì nó được xác định trong hơn 2 tháng"
+msgstr "Không thể báo cáo ngày nghỉ %s vì nó được xác định trong hơn 2 tháng"
 
 #. module: hr_payroll_holidays
 #. odoo-python
@@ -181,7 +182,7 @@ msgid ""
 "\n"
 " %s"
 msgstr ""
-"Có số giờ nghỉ phép cần hoãn cho các nhân viên sau:\n"
+"Có số giờ ngày nghỉ cần hoãn cho các nhân viên sau:\n"
 "\n"
 " %s"
 
@@ -190,7 +191,7 @@ msgstr ""
 #: model:ir.model,name:hr_payroll_holidays.model_hr_leave
 #: model_terms:ir.ui.view,arch_db:hr_payroll_holidays.res_config_settings_view_form
 msgid "Time Off"
-msgstr "Nghỉ phép"
+msgstr "Ngày nghỉ"
 
 #. module: hr_payroll_holidays
 #: model:hr.payroll.dashboard.warning,name:hr_payroll_holidays.hr_payroll_dashboard_warning_leaves_no_allocation
@@ -200,7 +201,7 @@ msgstr "Đơn nghỉ phép không liên kết với phân bổ"
 #. module: hr_payroll_holidays
 #: model:hr.payroll.dashboard.warning,name:hr_payroll_holidays.hr_payroll_dashboard_warning_leaves_to_defer
 msgid "Time Off To Defer"
-msgstr "Nghỉ phép cần hoãn"
+msgstr "Ngày nghỉ cần hoãn"
 
 #. module: hr_payroll_holidays
 #: model:hr.payroll.dashboard.warning,name:hr_payroll_holidays.hr_payroll_dashboard_warning_leaves_no_document
@@ -210,12 +211,12 @@ msgstr "Đơn nghỉ phép không có tài liệu liên quan"
 #. module: hr_payroll_holidays
 #: model:ir.actions.act_window,name:hr_payroll_holidays.hr_leave_action_open_to_defer
 msgid "Time Off to Defer"
-msgstr "Nghỉ phép cần hoãn"
+msgstr "Ngày nghỉ cần hoãn"
 
 #. module: hr_payroll_holidays
 #: model:ir.ui.menu,name:hr_payroll_holidays.menu_work_entry_leave_to_approve
 msgid "Time Off to Report"
-msgstr "Nghỉ phép để Báo cáo"
+msgstr "Ngày nghỉ cần báo cáo"
 
 #. module: hr_payroll_holidays
 #: model_terms:ir.ui.view,arch_db:hr_payroll_holidays.hr_leave_view_search
@@ -236,7 +237,7 @@ msgstr "Để hoãn trong phiếu lương kế tiếp"
 #. odoo-python
 #: code:addons/hr_payroll_holidays/models/hr_leave.py:0
 msgid "Validated Time Off to Defer"
-msgstr "Nghỉ phép đã xác nhận cần hoãn"
+msgstr "Ngày nghỉ đã xác nhận cần hoãn"
 
 #. module: hr_payroll_holidays
 #. odoo-javascript
@@ -248,13 +249,13 @@ msgstr "Bạn có một số giờ"
 #. odoo-javascript
 #: code:addons/hr_payroll_holidays/static/src/views/hooks.js:0
 msgid "You have some <button>time off</button> to defer to the next month."
-msgstr "Bạn có một số <button>nghỉ phép</button> cần hoãn sang tháng sau."
+msgstr "Bạn có một số <button>ngày nghỉ</button> cần hoãn sang tháng sau."
 
 #. module: hr_payroll_holidays
 #. odoo-javascript
 #: code:addons/hr_payroll_holidays/static/src/xml/templates.xml:0
 msgid "time off"
-msgstr "nghỉ phép"
+msgstr "ngày nghỉ"
 
 #. module: hr_payroll_holidays
 #. odoo-javascript

@@ -44,7 +44,7 @@ msgid ""
 "<i class=\"fa fa-fw fa-lg fa-long-arrow-right me-3\" title=\"Scrap "
 "Location\"/>"
 msgstr ""
-"<i class=\"fa fa-fw fa-lg fa-long-arrow-right me-3\" title=\"Địa điểm phế "
+"<i class=\"fa fa-fw fa-lg fa-long-arrow-right me-3\" title=\"Vị trí phế "
 "phẩm\"/>"
 
 #. module: stock_barcode
@@ -75,7 +75,7 @@ msgstr "<i class=\"fa fa-print\"/> In một trang mã vạch demo"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
 msgid "<i class=\"fa fa-print\"/> Print storage locations"
-msgstr "<i class=\"fa fa-print\"/> In địa điểm lưu kho"
+msgstr "<i class=\"fa fa-print\"/> In vị trí lưu kho"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
@@ -157,7 +157,7 @@ msgstr ""
 msgid ""
 "Allow users to see the expected quantity of a product to count in a location"
 msgstr ""
-"Cho phép người dùng xem số lượng sản phẩm dự kiến ​​​​để đếm ở một địa điểm"
+"Cho phép người dùng xem số lượng sản phẩm dự kiến ​​​​để đếm ở một vị trí"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__show_reserved_sns
@@ -324,7 +324,7 @@ msgstr "Liên hệ"
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__group_barcode_count_entire_location
 #: model:res.groups,name:stock_barcode.group_barcode_count_entire_location
 msgid "Count Entire Locations"
-msgstr "Đếm toàn bộ địa điểm"
+msgstr "Đếm toàn bộ vị trí"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
@@ -373,7 +373,7 @@ msgstr "Dữ liệu demo đang hoạt động"
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 msgid "Destination Location"
-msgstr "Địa điểm đích"
+msgstr "Vị trí đích"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
@@ -384,7 +384,7 @@ msgstr "Kiện hàng đích"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Destination location must be scanned"
-msgstr "Địa điểm đích phải được quét"
+msgstr "Vị trí đích phải được quét"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
@@ -505,7 +505,7 @@ msgstr ""
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_dest_location
 msgid "Force Destination Location scan?"
-msgstr "Buộc quét địa điểm đích?"
+msgstr "Buộc quét vị trí đích?"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_tracking_number
@@ -520,7 +520,7 @@ msgstr "Buộc quét sản phẩm?"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_source_location
 msgid "Force Source Location scan?"
-msgstr "Buộc quét địa điểm nguồn?"
+msgstr "Buộc quét vị trí nguồn?"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_validation_after_dest_location
@@ -569,8 +569,8 @@ msgid ""
 "If the source location must be scanned, then the destination location must "
 "either be scanned after each product or not scanned at all."
 msgstr ""
-"Nếu phải quét địa điểm nguồn, thì địa điểm đích phải được quét sau mỗi sản "
-"phẩm hoặc không quét gì cả."
+"Nếu phải quét vị trí nguồn, thì vị trí đích phải được quét sau mỗi sản phẩm "
+"hoặc không quét gì cả."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -608,13 +608,13 @@ msgstr "Mã số quốc tế được sử dụng để xác định sản phẩ
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-msgid "Inventory Adjustment"
-msgstr "Điều chỉnh tồn kho"
+msgid "Inventory Count"
+msgstr ""
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_location
 msgid "Inventory Locations"
-msgstr "Địa điểm kiểm kho"
+msgstr "Vị trí kiểm kho"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -651,12 +651,12 @@ msgstr "Sản phẩm của dòng phải được quét trước khi có thể ch
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
 msgid "Location"
-msgstr "Địa điểm"
+msgstr "Vị trí"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__location_processed
 msgid "Location Processed"
-msgstr "Địa điểm đã xử lý"
+msgstr "Vị trí đã xử lý"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -674,7 +674,7 @@ msgstr "Lô/sê-ri"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Mandatory Destination Location"
-msgstr "Địa điểm đích bắt buộc"
+msgstr "Vị trí đích bắt buộc"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_source_location__mandatory
@@ -687,7 +687,7 @@ msgstr "Quét bắt buộc"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Mandatory Source Location"
-msgstr "Địa điểm nguồn bắt buộc"
+msgstr "Vị trí nguồn bắt buộc"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__barcode_max_time_between_keys_in_ms
@@ -746,7 +746,7 @@ msgstr ""
 #: code:addons/stock_barcode/controllers/stock_barcode.py:0
 msgid "No picking or location or product corresponding to barcode %(barcode)s"
 msgstr ""
-"Không có phiếu lấy hàng, địa điểm hay sản phẩm nào tương ứng với mã vạch "
+"Không có phiếu lấy hàng, vị trí hay sản phẩm nào tương ứng với mã vạch "
 "%(barcode)s"
 
 #. module: stock_barcode
@@ -841,7 +841,7 @@ msgstr "Số lượng gói hàng"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__parent_location_id
 msgid "Parent Location"
-msgstr "Địa điểm chính"
+msgstr "Vị trí chính"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__parent_location_dest_id
@@ -867,7 +867,7 @@ msgstr "Kiểu lấy hàng"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Please scan destination location for %s before scanning other product"
-msgstr "Vui lòng quét địa điểm đích cho %s trước khi quét sản phẩm khác"
+msgstr "Vui lòng quét vị trí đích cho %s trước khi quét sản phẩm khác"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1092,7 +1092,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 msgid "Scan a location"
-msgstr "Quét một địa điểm"
+msgstr "Quét một vị trí"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1104,13 +1104,13 @@ msgstr "Quét một số lô"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a lot number or a packages then the destination location"
-msgstr "Quét một số lô hoặc một kiện hàng, sau đó là địa điểm đích"
+msgstr "Quét một số lô hoặc một kiện hàng, sau đó là vị trí đích"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a lot number then the destination location"
-msgstr "Quét một số lô, sau đó là địa điểm đích"
+msgstr "Quét một số lô, sau đó là vị trí đích"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1128,13 +1128,13 @@ msgstr "Quét một kiện hàng hoặc đóng hàng thành kiện"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a package or the destination location"
-msgstr "Quét một kiện hàng hoặc địa điểm đích"
+msgstr "Quét một kiện hàng hoặc vị trí đích"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a package, the destination location or another product"
-msgstr "Quét một kiện hàng, địa điểm đích hoặc sản phẩm khác"
+msgstr "Quét một kiện hàng, vị trí đích hoặc sản phẩm khác"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1159,7 +1159,7 @@ msgstr "Quét một sản phẩm từ %s"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 msgid "Scan a product in %s or scan another location"
-msgstr "Quét một sản phẩm trong %s hoặc quét địa điểm khác"
+msgstr "Quét một sản phẩm trong %s hoặc quét vị trí khác"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1177,13 +1177,13 @@ msgstr "Quét một sản phẩm hoặc một kiện hàng khác"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product or the destination location."
-msgstr "Quét một sản phẩm hoặc địa điểm đích."
+msgstr "Quét một sản phẩm hoặc vị trí đích."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product then the destination location"
-msgstr "Quét một sản phẩm sau đó là địa điểm đích"
+msgstr "Quét một sản phẩm sau đó là vị trí đích"
 
 #. module: stock_barcode
 #. odoo-python
@@ -1197,13 +1197,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product, a package or the destination location"
-msgstr "Quét một sản phẩm, kiện hàng hoặc địa điểm đích"
+msgstr "Quét một sản phẩm, kiện hàng hoặc vị trí đích"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product, a package or the destination location."
-msgstr "Quét một sản phẩm, kiện hàng hoặc địa điểm đích."
+msgstr "Quét một sản phẩm, kiện hàng hoặc vị trí đích."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1221,13 +1221,13 @@ msgstr "Quét một số sê-ri hoặc một kiện hàng"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a serial number or a package then the destination location"
-msgstr "Quét một số sê-ri hoặc kiện hàng, sau đó là địa điểm đích"
+msgstr "Quét một số sê-ri hoặc kiện hàng, sau đó là vị trí đích"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a serial number then the destination location"
-msgstr "Quét một số sê-ri, sau đó là địa điểm đích"
+msgstr "Quét một số sê-ri, sau đó là vị trí đích"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1263,7 +1263,7 @@ msgstr "Quét thêm số lô hoặc một kiện hàng"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 msgid "Scan more products in %s or scan another location"
-msgstr "Quét thêm sản phẩm trong %s hoặc quét địa điểm khác"
+msgstr "Quét thêm sản phẩm trong %s hoặc quét vị trí khác"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1275,7 +1275,7 @@ msgstr "Quét thêm sản phẩm hoặc một kiện hàng"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan more products, or scan a new source location"
-msgstr "Quét thêm sản phẩm, hoặc quét một địa điểm nguồn"
+msgstr "Quét thêm sản phẩm, hoặc quét một vị trí nguồn"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1293,7 +1293,7 @@ msgstr "Quét số sê-ri cho sản phẩm %s để thay đổi số lượng c�
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan the destination location"
-msgstr "Quét địa điểm đích"
+msgstr "Quét vị trí đích"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1305,13 +1305,13 @@ msgstr "Quét kiện hàng %s"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan the source location"
-msgstr "Quét địa điểm nguồn"
+msgstr "Quét vị trí nguồn"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan the source location or a package"
-msgstr "Quét địa điểm nguồn hoặc một kiện hàng"
+msgstr "Quét vị trí nguồn hoặc một kiện hàng"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1356,12 +1356,12 @@ msgstr "Quét kiện hàng"
 #: model:ir.model,name:stock_barcode.model_stock_scrap
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 msgid "Scrap"
-msgstr "Phế phẩm"
+msgstr "Loại bỏ"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 msgid "Scrap Location"
-msgstr "Địa điểm phế phẩm"
+msgstr "Vị trí phế phẩm"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
@@ -1417,7 +1417,7 @@ msgstr "Một vài sê-ri không được đếm, đặt là còn thiếu?"
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 msgid "Source Location"
-msgstr "Địa điểm nguồn"
+msgstr "Vị trí nguồn"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
@@ -1467,8 +1467,8 @@ msgstr ""
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
-msgid "The inventory adjustment has been validated"
-msgstr "Điều chỉnh tồn kho này đã được xác nhận"
+msgid "The inventory count has been updated"
+msgstr ""
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1480,13 +1480,13 @@ msgstr "Không nên lấy sản phẩm %s trong hoạt động này."
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "The scanned location doesn't belong to this operation's destination"
-msgstr "Địa điểm được quét không nằm trong đích của hoạt động này"
+msgstr "Vị trí được quét không nằm trong đích của hoạt động này"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "The scanned location doesn't belong to this operation's location"
-msgstr "Địa điểm được quét không thuộc về địa điểm của hoạt động này"
+msgstr "Vị trí được quét không thuộc về vị trí của hoạt động này"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1603,7 +1603,7 @@ msgstr "Tên lệnh chuyển hàng"
 #: model_terms:ir.actions.act_window,help:stock_barcode.stock_picking_action_kanban
 msgid "Transfers allow you to move products from one location to another."
 msgstr ""
-"Lệnh chuyển hàng cho phép bạn chuyển sản phẩm từ địa điểm này sang địa điểm "
+"Lệnh chuyển hàng cho phép bạn chuyển sản phẩm từ vị trí này sang vị trí "
 "khác."
 
 #. module: stock_barcode
@@ -1652,8 +1652,8 @@ msgid ""
 "When scanning a location in inventory adjustments, you will be assigned to "
 "count all products from this location"
 msgstr ""
-"Khi quét một địa điểm trong điều chỉnh tồn kho, bạn sẽ được chỉ định đếm tất"
-" cả sản phẩm từ địa điểm này"
+"Khi quét một vị trí trong điều chỉnh tồn kho, bạn sẽ được chỉ định đếm tất "
+"cả sản phẩm từ vị trí này"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1676,8 +1676,8 @@ msgid ""
 "You are about to take the product %(productName)s from the location %(locationName)s but this product isn't reserved in this location.\n"
 "Scan the current location to confirm that."
 msgstr ""
-"Bạn sắp lấy sản phẩm %(productName)s từ địa điểm %(locationName)s nhưng sản phẩm này không được dự trữ ở địa điểm đó.\n"
-"Hãy quét địa điểm hiện tại để xác nhận."
+"Bạn sắp lấy sản phẩm %(productName)s từ vị trí %(locationName)s nhưng sản phẩm này không được dự trữ ở vị trí đó.\n"
+"Hãy quét vị trí hiện tại để xác nhận."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1686,14 +1686,14 @@ msgid ""
 "You are expected to scan one or more products or a package available at the "
 "picking location"
 msgstr ""
-"Bạn sẽ quét một hoặc nhiều sản phẩm hoặc kiện hàng có sẵn tại địa điểm lấy "
+"Bạn sẽ quét một hoặc nhiều sản phẩm hoặc kiện hàng có sẵn tại vị trí lấy "
 "hàng"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "You are supposed to scan %s or another source location"
-msgstr "Bạn sẽ quét %s hoặc một địa điểm nguồn khác"
+msgstr "Bạn sẽ quét %s hoặc một vị trí nguồn khác"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1758,7 +1758,7 @@ msgstr "cho hoạt động."
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "location"
-msgstr "địa điểm"
+msgstr "vị trí"
 
 #. module: stock_barcode
 #. odoo-javascript
