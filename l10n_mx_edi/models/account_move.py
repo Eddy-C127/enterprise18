@@ -1043,7 +1043,7 @@ class AccountMove(models.Model):
                 to_currency=mxn_currency,
                 company=self.company_id,
                 date=self.date,
-            ) if self.amount_total else 1.0
+            )
 
     def _l10n_mx_edi_get_invoice_cfdi_filename(self):
         """ Get the filename of the CFDI.
