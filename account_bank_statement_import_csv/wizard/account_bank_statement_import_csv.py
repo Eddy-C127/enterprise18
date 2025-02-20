@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+import contextlib
 
 import psycopg2
 
@@ -130,25 +131,22 @@ class AccountBankStmtImportCSV(models.TransientModel):
 
     def execute_import(self, fields, columns, options, dryrun=False):
         if options.get('bank_stmt_import'):
-            self._cr.execute('SAVEPOINT import_bank_stmt')
-            res = super().execute_import(fields, columns, options, dryrun=dryrun)
-            statement = self.env['account.bank.statement'].create({
-                'reference': self.file_name,
-                'line_ids': [Command.set(res.get('ids', []))],
-                **options.get('statement_vals', {}),
-            })
+            with self.env.cr.savepoint(flush=False) as sp:
+                res = super().execute_import(fields, columns, options, dryrun=dryrun)
+                statement = self.env['account.bank.statement'].create({
+                    'reference': self.file_name,
+                    'line_ids': [Command.set(res.get('ids', []))],
+                    **options.get('statement_vals', {}),
+                })
 
-            try:
-                if dryrun:
-                    self._cr.execute('ROLLBACK TO SAVEPOINT import_bank_stmt')
-                else:
-                    self._cr.execute('RELEASE SAVEPOINT import_bank_stmt')
+                with contextlib.suppress(psycopg2.InternalError):
+                    sp.close(rollback=dryrun)
+
+                if not dryrun:
                     res['messages'].append({
                         'statement_id': statement.id,
                         'type': 'bank_statement'
-                        })
-            except psycopg2.InternalError:
-                pass
-            return res
+                    })
+                return res
         else:
             return super(AccountBankStmtImportCSV, self).execute_import(fields, columns, options, dryrun=dryrun)
