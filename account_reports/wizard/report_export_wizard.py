@@ -3,7 +3,7 @@
 
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError
-from odoo.models import check_method_name
+from odoo.service.model import get_public_method
 
 import json
 import base64
@@ -61,13 +61,13 @@ class ReportExportWizard(models.TransientModel):
         for format in self.export_format_ids:
             # format.fun_to_call is a button function, so it has to be public
             fun_name = format.fun_to_call
-            check_method_name(fun_name)
-            if self.report_id.custom_handler_model_id and hasattr(self.env[self.report_id.custom_handler_model_name], fun_name):
-                report_function = getattr(self.env[self.report_id.custom_handler_model_name], fun_name)
-            else:
-                report_function = getattr(self.report_id, fun_name)
             report_function_params = [format.fun_param] if format.fun_param else []
-            report_action = report_function(report_options, *report_function_params)
+            if self.report_id.custom_handler_model_id and hasattr(self.env[self.report_id.custom_handler_model_name], fun_name):
+                report = self.env[self.report_id.custom_handler_model_name]
+            else:
+                report = self.report_id
+            report_function = get_public_method(report, fun_name)
+            report_action = report_function(report, report_options, *report_function_params)
 
             to_create_attachments.append(format.apply_export(report_action))
 
@@ -91,13 +91,12 @@ class ReportExportWizardOption(models.TransientModel):
 
             # file_generator functions are always public for ir_actions_account_report_download
             file_generator = report_action['data']['file_generator']
-            check_method_name(file_generator)
             report = self.export_wizard_id.report_id
             if report.custom_handler_model_id and hasattr(self.env[report.custom_handler_model_name], file_generator):
-                generation_function = getattr(self.env[report.custom_handler_model_name], file_generator)
-            else:
-                generation_function = getattr(report, file_generator)
-            export_result = generation_function(report_options)
+                report = self.env[report.custom_handler_model_name]
+
+            generation_function = get_public_method(report, file_generator)
+            export_result = generation_function(report, report_options)
 
             # We use the options from the action, as the action may have added or modified
             # stuff into them (see l10n_es_reports, with BOE wizard)
