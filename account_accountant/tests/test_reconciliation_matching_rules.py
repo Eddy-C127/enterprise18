@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from freezegun import freeze_time
-from contextlib import contextmanager
+from contextlib import closing
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.tests.common import Form
@@ -1080,12 +1080,6 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
 
     @freeze_time('2019-01-01')
     def test_invoice_matching_using_match_text_location(self):
-        @contextmanager
-        def rollback():
-            savepoint = self.cr.savepoint()
-            yield
-            savepoint.rollback()
-
         rule = self._create_reconcile_model(
             match_partner=False,
             allow_payment_tolerance=False,
@@ -1112,7 +1106,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
             {},
         )
 
-        with rollback():
+        with closing(self.cr.savepoint()):
             term_line.name = "1234"
             st_line.payment_ref = "1234"
 
@@ -1129,7 +1123,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
                 {},
             )
 
-        with rollback():
+        with closing(self.cr.savepoint()):
             # Test Matching on exact_token.
             term_line.name = "PAY-123"
             st_line.payment_ref = "PAY-123"
@@ -1141,7 +1135,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
             )
 
         with self.subTest(rule_field='match_text_location_label', st_line_field='payment_ref'):
-            with rollback():
+            with closing(self.cr.savepoint()):
                 term_line.name = ''
                 st_line.payment_ref = '/?'
 
@@ -1158,7 +1152,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
         ):
             with self.subTest(rule_field=rule_field, st_line_field=st_line_field):
 
-                with rollback():
+                with closing(self.cr.savepoint()):
                     rule[rule_field] = True
                     st_line[st_line_field] = "123456"
                     term_line.name = "123456"

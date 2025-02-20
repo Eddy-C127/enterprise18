@@ -167,17 +167,18 @@ class Base(models.AbstractModel):
             new_start_date, new_stop_date, start_date_field_name, stop_date_field_name,
         )
 
-        sp = self.env.cr.savepoint()
+        with self.env.cr.savepoint() as sp:
+            record_ids_to_exclude = defaultdict(list)
 
-        record_ids_to_exclude = defaultdict(list)
-
-        result = result is True and trigger_record._web_gantt_action_reschedule_related_records(
-            dependency_field_name, dependency_inverted_field_name,
-            start_date_field_name, stop_date_field_name,
-            direction,
-            record_ids_to_exclude,
-            cache
-        )
+            result = result is True and trigger_record._web_gantt_action_reschedule_related_records(
+                dependency_field_name, dependency_inverted_field_name,
+                start_date_field_name, stop_date_field_name,
+                direction,
+                record_ids_to_exclude,
+                cache
+            )
+            if result is not True:
+                sp.rollback()
 
         if result is not True:
             if result is False:
@@ -197,8 +198,6 @@ class Base(models.AbstractModel):
                         'message': message,
                     }
                 }
-
-        sp.close(rollback=result is not True)
         return result
 
     @api.model
