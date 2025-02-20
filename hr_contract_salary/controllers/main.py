@@ -151,14 +151,12 @@ class HrContractSalary(http.Controller):
 
     @http.route(['/salary_package/simulation/offer/<int:offer_id>'], type='http', auth="public", website=True, sitemap=False)
     def salary_package(self, offer_id=None, **kw):
-        response = False
-
         debug = request.session.debug
         for bundle_name in ["web.assets_frontend", "web.assets_frontend_lazy"]:
             request.env["ir.qweb"]._get_asset_nodes(bundle_name, debug=debug, js=True, css=True)
         request.env.cr.commit()
 
-        request.env.cr.execute('SAVEPOINT salary')
+        sp = request.env.cr.savepoint(flush=False)
 
         offer = request.env['hr.contract.salary.offer'].sudo().browse(offer_id)
         contract = offer.contract_template_id
@@ -255,7 +253,7 @@ class HrContractSalary(http.Controller):
         response.flatten()
         request.env.flush_all()
         request.env.cr.precommit.clear()
-        request.env.cr.execute('ROLLBACK TO SAVEPOINT salary')
+        sp.close(rollback=True)
         return response
 
     @http.route(['/salary_package/thank_you/<int:contract_id>'], type='http', auth="public", website=True, sitemap=False)
