@@ -153,7 +153,7 @@ class SocialMediaTwitter(models.Model):
             method,
             url_quote(url, unsafe='+:/'),
             url_quote('&'.join([
-                ('%s=%s' % (url_quote(key, unsafe='+:/'), url_quote(params[key], unsafe='+:/')))
+                ('%s=%s' % (url_quote(key, unsafe='+:/'), url_quote(params[key], unsafe='+:/,')))
                 for key in sorted(params.keys())
             ]), unsafe='+:/')
         ])
