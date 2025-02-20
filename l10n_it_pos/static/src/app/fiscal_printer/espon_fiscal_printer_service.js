@@ -156,9 +156,7 @@ class EpsonFiscalPrinter extends Reactive {
 const epsonFiscalPrinterService = {
     dependencies: ["dialog", "epson_fiscal_printer_command"],
     start(env, dependencies) {
-        return (isHttps, ip) => {
-            return new EpsonFiscalPrinter(isHttps, ip, env, dependencies);
-        };
+        return (isHttps, ip) => new EpsonFiscalPrinter(isHttps, ip, env, dependencies);
     },
 };
 
