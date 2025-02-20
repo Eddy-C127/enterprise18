@@ -3,6 +3,7 @@ import datetime
 from odoo import Command, fields
 from odoo.addons.documents.tests.test_documents_common import TransactionCaseDocuments
 from odoo.exceptions import AccessError, UserError, ValidationError
+from odoo.tests import freeze_time
 from odoo.tools import mute_logger
 
 
@@ -141,9 +142,15 @@ class TestDocumentsAccess(TransactionCaseDocuments):
              ]},
         ])
         self.assertFalse(folder_a3.access_ids)
-        self.assertEqual(len(folder_a4.access_ids), 1)
-        self.assertEqual(folder_a4.access_ids.partner_id, self.internal_user.partner_id)
-
+        self.assertEqual(len(folder_a4.access_ids), 3)
+        self.assertEqual(
+            folder_a4.access_ids.mapped(lambda a: (a.partner_id, a.role)),
+            [
+                (self.internal_user.partner_id, 'view'),
+                (self.portal_user.partner_id, 'view'),
+                (self.doc_user.partner_id, 'edit'),
+            ]
+        )
         self.folder_a.access_internal = 'edit'
         self.folder_a.access_via_link = 'view'
 
@@ -610,6 +617,7 @@ class TestDocumentsAccess(TransactionCaseDocuments):
         # internal user cannot write on pinned folders
         self._assert_raises_check_access_rule(self.folder_a.with_user(self.internal_user), 'write')
 
+        self.folder_b.children_ids.action_update_access_rights(partners={self.doc_user.partner_id: (False, False)})
         self.folder_b.folder_id = False
         self.assertEqual(self.folder_b.owner_id, self.doc_user)
         self.folder_b.action_update_access_rights(
@@ -713,6 +721,7 @@ class TestDocumentsAccess(TransactionCaseDocuments):
         self.assertEqual(self.document_gif.access_via_link, 'none')
         self.assertEqual(self.document_txt.access_via_link, 'view')
         document_txt_private = self.document_txt.copy()
+        self.assertIn(document_txt_private.access_ids.role, {False, 'edit'})
         document_txt_private.is_access_via_link_hidden = True
         self.assertEqual(document_txt_private.access_via_link, 'view')
 
@@ -1012,15 +1021,20 @@ class TestDocumentsAccess(TransactionCaseDocuments):
         (documents | self.folder_b).with_user(self.internal_user).copy()
 
         gif_copy, txt_copy = documents.with_user(self.internal_user).copy()
+        self.assertEqual((gif_copy | txt_copy).owner_id, self.internal_user)
         self.assertTrue(gif_copy.attachment_id)
         gif_copy_access_ids = gif_copy.access_ids
-        self.assertEqual(gif_copy_access_ids.partner_id, self.internal_user.partner_id)
-        self.assertEqual(gif_copy_access_ids.role, 'view')
-        self.assertFalse(gif_copy_access_ids.expiration_date)
+        self.assertEqual(
+            set((a.partner_id.name, a.role) for a in gif_copy_access_ids),
+            {(self.internal_user.name, False), (self.doc_user.name, 'edit')},
+            "Existing member and original owner should have access"
+        )
+        self.assertSetEqual({*gif_copy_access_ids.mapped('expiration_date')}, {False})
         txt_copy_access_by_partner = {a.partner_id: (a.role, a.expiration_date) for a in txt_copy.access_ids}
-        self.assertEqual(len(txt_copy_access_by_partner), 2)
+        self.assertEqual(len(txt_copy_access_by_partner), 3)
         self.assertEqual(txt_copy_access_by_partner.get(self.portal_user.partner_id), ('view', IN_ONE_DAY))
-        self.assertEqual(txt_copy_access_by_partner.get(self.internal_user.partner_id), ('edit', False))
+        self.assertEqual(txt_copy_access_by_partner.get(self.doc_user.partner_id), ('edit', False))
+        self.assertEqual(txt_copy_access_by_partner.get(self.internal_user.partner_id), (False, False))
 
         self.document_txt.action_archive()
         with self.assertRaises(UserError, msg='Cannot copy document in the Trash'):
@@ -1028,7 +1042,7 @@ class TestDocumentsAccess(TransactionCaseDocuments):
 
         url_document_in_my_folder = self.env['documents.document'].create(
             {'name': 'url', 'type': 'url', 'url': 'https://www.odoo.com/', 'owner_id': self.internal_user.id})
-        _, url_copied = (self.document_gif | url_document_in_my_folder).copy()
+        _, url_copied = (self.document_gif | url_document_in_my_folder).with_user(self.internal_user).copy()
         self.assertEqual(url_copied.owner_id, self.internal_user)
 
         shortcut = self.env['documents.document'].create(
@@ -1058,9 +1072,16 @@ class TestDocumentsAccess(TransactionCaseDocuments):
         # If a manager copies a root folder, do not change the owner
         self.folder_b.folder_id = False
         self.assertEqual(self.folder_b.owner_id, self.doc_user)
+        self.assertFalse(self.folder_b.is_pinned_folder)
         copied_folder = self.folder_b.with_user(self.document_manager).copy()
         self.assertFalse(copied_folder.folder_id)
-        self.assertEqual(copied_folder.owner_id, self.doc_user)
+        self.assertEqual(copied_folder.owner_id, self.document_manager)
+
+        self.folder_b.owner_id = self.odoobot
+        self.assertTrue(self.folder_b.is_pinned_folder)
+        copied_folder = self.folder_b.with_user(self.document_manager).copy()
+        self.assertFalse(copied_folder.folder_id)
+        self.assertEqual(copied_folder.owner_id, self.odoobot)
 
         # The user has the access on the documents, but he can not create pinned folders
         # Create the copy in "My Drive"
@@ -1199,3 +1220,46 @@ class TestDocumentsAccess(TransactionCaseDocuments):
             'parent_res_id': self.document_txt.folder_id.id,
         })
         self.assertIn(embedded_action, self.document_txt.available_embedded_actions_ids)
+
+    @freeze_time('2025-02-26 15:02:00')
+    def test_log_owner_access_when_passing_access_ids(self):
+        doc = self.env['documents.document'].with_user(self.doc_user).create({
+            'access_ids': [Command.create({'partner_id': self.document_manager.partner_id.id, 'role': 'edit'})]})
+        self.assertEqual(
+            set(doc.access_ids.mapped(lambda a: (a.partner_id, a.role, a.last_access_date))),
+            {
+                (self.document_manager.partner_id, 'edit', False),
+                (self.doc_user.partner_id, False, fields.datetime.now())
+            }
+        )
+        doc = self.env['documents.document'].with_user(self.doc_user).create({'access_ids': False})
+        self.assertEqual(set(doc.access_ids.mapped(lambda a: (a.partner_id, a.role, a.last_access_date))),
+                         {(self.doc_user.partner_id, False, fields.datetime.now())})
+
+    def test_odoobot_owner_doesnt_become_member(self):
+        doc = self.env['documents.document'].create({'folder_id': self.folder_a.id, 'owner_id': self.odoobot.id})
+        doc.owner_id = self.document_manager
+        self.assertNotIn(self.odoobot.partner_id, doc.access_ids.partner_id)
+
+    def test_permission_panel_access_ids_without_logs_and_owner(self):
+        doc = self.env['documents.document'].create({
+            'folder_id': self.folder_a.id,
+            'owner_id': self.document_manager.id,
+            'access_ids': False,
+        })
+        self.assertEqual(doc.access_ids.partner_id, self.document_manager.partner_id)
+        self.env['documents.access'].create({
+            'document_id': doc.id,
+            'last_access_date': fields.Datetime.now(),
+            'partner_id': self.internal_user.partner_id.id,
+            'role': False,
+        })
+        doc.owner_id = self.odoobot
+        self.assertEqual(len(doc.access_ids), 2)
+        self.assertEqual([a['partner_id']['id'] for a in doc.permission_panel_data()['record']['access_ids']],
+                         [self.document_manager.partner_id.id])
+        doc.owner_id = self.document_manager
+        self.assertEqual(len(doc.access_ids), 2)
+        self.assertEqual([a['partner_id']['id'] for a in doc.permission_panel_data()['record']['access_ids']],
+                         [],
+                         "Odoobot shouldn't have become a member, owner, and logs shouldn't be shown")

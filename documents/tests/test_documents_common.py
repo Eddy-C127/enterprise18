@@ -48,6 +48,7 @@ class TransactionCaseDocuments(TransactionCase):
                 'name': 'Public user',
             },
         ])
+        cls.odoobot = cls.env.ref('base.user_root')
         cls.folder_a, cls.folder_b = cls.env['documents.document'].create([
             {
                 'type': 'folder',

@@ -141,7 +141,7 @@ class TestCaseDocuments(TransactionCaseDocuments):
         ])
         folders.flush_recordset()
         folders.invalidate_recordset()
-        with self.assertQueryCount(162):
+        with self.assertQueryCount(161):
             self.env['documents.document'].create([{
                 'folder_id': folder.id,
                 'type': 'binary',

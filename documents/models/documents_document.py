@@ -94,7 +94,7 @@ class Document(models.Model):
     tag_ids = fields.Many2many('documents.tag', 'document_tag_rel', string="Tags")
     partner_id = fields.Many2one('res.partner', string="Contact", tracking=True)
     owner_id = fields.Many2one('res.users', default=lambda self: self.env.user.id, string="Owner",
-                               required=True, tracking=True, index=True)
+                               required=True, tracking=True, index=True, copy=False)
     lock_uid = fields.Many2one('res.users', string="Locked by")
     is_locked = fields.Boolean(compute="_compute_is_locked", string="Locked")
     request_activity_id = fields.Many2one('mail.activity')
@@ -1425,7 +1425,7 @@ class Document(models.Model):
         self.check_access('read')
         documents_order = {doc.id: idx for idx, doc in enumerate(self)}
         new_documents = [self.browse()] * len(self)
-
+        is_manager = self.env.is_admin() or self.env.user.has_group('documents.group_documents_manager')
         skip_documents = self.env.context.get('documents_copy_folders_only')
 
         shortcuts = self.filtered('shortcut_document_id')
@@ -1449,7 +1449,7 @@ class Document(models.Model):
                 new_folder.id
                 for old_folder, new_folder in zip(folders, new_folders)
                 if old_folder._cannot_create_sibling()
-            ]).sudo().write({'folder_id': False, 'owner_id': self.env.user.id})
+            ]).sudo().write({'folder_id': False})
 
             for old_folder, new_folder in zip(folders, new_folders):
                 if folder_embedded_actions := embedded_actions.get(old_folder.id):
@@ -1458,17 +1458,20 @@ class Document(models.Model):
                 # no need to check for permission as all the checks have been done
                 old_folder.children_ids.copy({'folder_id': new_folder.id})
                 new_documents[documents_order[old_folder.id]] = new_folder
+                if is_manager and old_folder.is_pinned_folder:  # Otherwise copies in My Drive
+                    new_folder.owner_id = old_folder.owner_id
 
         if not skip_documents and (documents_sudo := (self - shortcuts - folders).sudo()):
             new_binaries_sudo = documents_sudo._copy_with_access(default=default)
             for old_document_sudo, new_binary_sudo in zip(documents_sudo, new_binaries_sudo):
                 new_documents[documents_order[old_document_sudo.id]] = new_binary_sudo.sudo(False)
-
+                if is_manager and not old_document_sudo.folder_id and not old_document_sudo.owner_id.active:
+                    new_binary_sudo.owner_id = old_document_sudo.owner_id
             # move in "My Drive" if needed
             self.browse([
                 new_binary_sudo.id for new_binary_sudo in new_binaries_sudo
                 if new_binary_sudo.sudo(self.env.su)._cannot_create_sibling()
-            ]).sudo().write({'folder_id': False, 'owner_id': self.env.user.id})
+            ]).sudo().write({'folder_id': False})
 
             if to_copy_attachment_sudo := documents_sudo._copy_attachment_filter(default):
                 new_attachments_iterator = iter(to_copy_attachment_sudo.attachment_id.with_context(no_document=True).copy())
@@ -1515,7 +1518,11 @@ class Document(models.Model):
             return res
         access_vals_list = []
         for doc, doc_copied in zip(self, res):
-            access_vals_list += doc.access_ids.filtered('role').copy_data(default={'document_id': doc_copied.id})
+            owner_partner = doc_copied.owner_id.filtered('active').partner_id  # already done at doc_copied creation
+            doc_access_to_have = doc.access_ids.filtered('role')
+            doc_access_to_create = doc_access_to_have.filtered(
+                lambda a: a.partner_id not in doc_copied.access_ids.partner_id | owner_partner)
+            access_vals_list += doc_access_to_create.copy_data(default={'document_id': doc_copied.id})
         self.env['documents.access'].sudo().create(access_vals_list)
         return res
 
@@ -1686,43 +1693,38 @@ class Document(models.Model):
         vals_list_to_update_linked_record = []
         for vals, old_vals in zip(vals_list, old_vals_list):
             owner = self.env['res.users'].browse(vals.get('owner_id', self.env.user.id))
-            owner_values = {'partner_id': owner.partner_id.id, 'role': False, 'last_access_date': fields.Datetime.now()}
-            vals_values = {
-                'owner_id': owner.id,
-                'access_ids': [Command.create(owner_values)] if owner != odoobot else []
-            }
+            vals_values = {'owner_id': owner.id}
             if vals.get('shortcut_document_id'):
                 self.browse(vals.get('shortcut_document_id')).check_access('read')
 
-            if vals.get('folder_id'):
-                folder = self.env['documents.document'].browse(vals['folder_id'])
+            folder = self.env['documents.document'].browse(vals.get('folder_id', False))
+            if folder:
                 if not folder.active:
                     raise UserError('It is not possible to create documents in an archived folder.')
-                vals_partners_ids = [val[2]['partner_id'] for val in vals_values['access_ids']]
-                folder_access = [
-                    Command.create({'partner_id': access.partner_id.id, 'role': access.role})
-                    for access in folder.access_ids
-                    if (
-                        access.role
-                        and access.partner_id != owner.partner_id
-                        and access.partner_id.id not in vals_partners_ids
-                    )
-                ]
                 vals_values.update({
                     'access_via_link': folder.access_via_link,
                     'access_internal': folder.access_internal,
-                    'access_ids':
-                        vals_values['access_ids']
-                        + folder_access + (
-                             [Command.create({'partner_id': folder.owner_id.partner_id.id, 'role': 'edit'})]
-                             if (
-                                folder.owner_id != odoobot
-                                and folder.owner_id != owner
-                                and folder.owner_id.partner_id.id not in (vals_partners_ids + [a[2]['partner_id'] for a in folder_access])
-                            ) else []
-                        ),
                 })
             vals.update((k, v) for k, v in vals_values.items() if k not in old_vals)
+            # Add folder-inherited members without overriding provided values
+            if (folder and (inherited_access_ids := folder._get_inherited_access_ids_vals())
+                    and old_vals.get('access_ids') not in (False, Command.set([]), [])):
+                vals_access_ids_to_check = vals['access_ids'] if old_vals.get('access_ids') else []
+                partner_ids = [val[2]['partner_id'] for val in vals_access_ids_to_check]
+                access_vals_to_add = [v for v in inherited_access_ids if v['partner_id'] not in partner_ids]
+                vals['access_ids'] += [Command.create(access_vals) for access_vals in access_vals_to_add]
+
+            # Ensure owner logged access
+            if owner != odoobot:
+                vals['access_ids'] = vals['access_ids'] or []
+                for values in vals['access_ids']:
+                    if values and values[2] and values[2]['partner_id'] == owner.partner_id.id:
+                        values[2]['last_access_date'] = fields.Datetime.now()
+                        break
+                else:
+                    vals['access_ids'] += [
+                        Command.create({'partner_id': owner.partner_id.id, 'last_access_date': fields.Datetime.now()})
+                    ]
 
             # If res_model and res_id are not set, we must get it from the related attachment if set (prepare list)
             if 'res_model' not in vals and 'res_id' not in vals and isinstance(vals.get('attachment_id'), int):
@@ -1745,6 +1747,21 @@ class Document(models.Model):
                 [vals_tuple[1] for vals_tuple in model_vals_tuple_list],
             )
         return updated_vals_list
+
+    def _get_inherited_access_ids_vals(self):
+        """Get access values to create when creating a document inside a folder (self).
+        :rtype: list[dict]
+        :return: vals_list for folder child `access_ids`.
+        """
+        self.ensure_one()
+        vals = [
+            {'partner_id': access.partner_id.id, 'role': access.role, 'expiration_date': access.expiration_date}
+            for access in self.access_ids.filtered('role')
+            if access.partner_id != self.owner_id.partner_id
+        ]
+        if self.owner_id != self.env.ref('base.user_root'):
+            vals += [{'partner_id': self.owner_id.partner_id.id, 'role': 'edit'}]
+        return vals
 
     def _prepare_create_values_for_model(self, res_model, vals_list, pre_vals_list):
         """Override to add values depending on related model/record"""
@@ -1772,8 +1789,8 @@ class Document(models.Model):
                 owner_id = owner_id.id
             if not is_manager and any(d.owner_id != self.env.user for d in self):
                 raise AccessError(_("You cannot change the owner of documents you do not own."))
-
-            documents_changing_owner = self.filtered(lambda d: d.owner_id.id != owner_id)
+            odoobot = self.env.ref('base.user_root')
+            documents_changing_owner = self.filtered(lambda d: d.owner_id.id not in {owner_id, odoobot.id})
             shortcuts_to_check_owner_target_access |= documents_changing_owner.shortcut_ids.filtered(
                 lambda d: d.owner_id == d.shortcut_document_id.owner_id)
             previous_owner_access_to_keep.update({
@@ -2165,7 +2182,8 @@ class Document(models.Model):
             'access_via_link_options': [('1', _("Must have the link to access")), ('0', _("Discoverable"))],
             'access_internal': self._fields.get('access_internal')._description_selection(self.env),
             'doc_access_roles': self.env['documents.access']._fields.get('role')._description_selection(self.env)}
-        record['access_ids'] = [a for a in record['access_ids'] if a['role']]
+        record['access_ids'] = [a for a in record['access_ids']
+                                if a['role'] and a['partner_id'] != record['owner_id']['partner_id']]
         if record['owner_id']['id'] == self.env.ref('base.user_root').id:
             record['owner_id'] = False  # Only a real user should be shown in the panel
         return {'record': record, 'selections': selections}
