@@ -769,12 +769,12 @@ msgstr ""
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
 msgid "The batch cannot be validated."
-msgstr ""
+msgstr "Η παρτίδα δεν μπορεί να επικυρωθεί."
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
 msgid "The batch could not be validated"
-msgstr ""
+msgstr "Η παρτίδα δεν μπόρεσε να επικυρωθεί"
 
 #. module: account_batch_payment
 #. odoo-python
@@ -783,13 +783,15 @@ msgstr ""
 msgid ""
 "The batch must have the same payment method as the payments it contains."
 msgstr ""
+"Η παρτίδα πρέπει να έχει τον ίδιο τρόπο πληρωμής με τις πληρωμές που "
+"περιέχει."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "The batch must have the same type as the payments it contains."
-msgstr ""
+msgstr "Η παρτίδα πρέπει να έχει τον ίδιο τύπο με τις πληρωμές που περιέχει."
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_error_wizard__batch_payment_id
@@ -797,6 +799,8 @@ msgid ""
 "The batch payment generating the errors and warnings displayed in this "
 "wizard."
 msgstr ""
+"Η πληρωμή της παρτίδας που δημιουργεί τα σφάλματα και τις προειδοποιήσεις "
+"που εμφανίζονται σε αυτόν τον οδηγό."
 
 #. module: account_batch_payment
 #. odoo-python
@@ -806,11 +810,14 @@ msgid ""
 "The journal of the batch payment and of the payments it contains must be the"
 " same."
 msgstr ""
+"Το ημερολόγιο της πληρωμής της παρτίδας και των πληρωμών που περιέχει πρέπει"
+" να είναι το ίδιο."
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__payment_method_id
 msgid "The payment method used by the payments in this batch."
 msgstr ""
+"Ο τρόπος πληρωμής που χρησιμοποιείται από τις πληρωμές σε αυτήν την παρτίδα."
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
@@ -823,6 +830,9 @@ msgid ""
 "True if and only if the options to remove the payments causing the errors or"
 " warnings from the batch should be shown"
 msgstr ""
+"Αληθές αν και μόνο αν οι επιλογές για να αφαιρεθούν οι πληρωμές που "
+"προκαλούν τα σφάλματα ή τις προειδοποιήσεις από την παρτίδα πρέπει να "
+"εμφανίζονται"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__activity_exception_decoration
@@ -842,17 +852,17 @@ msgstr "Επικύρωση"
 #. module: account_batch_payment
 #: model:ir.actions.act_window,name:account_batch_payment.action_batch_payment_out
 msgid "Vendor Batch Payments"
-msgstr ""
+msgstr "Πληρωμές Παρτίδας Προμηθευτών"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard__warning_line_ids
 msgid "Warning Line"
-msgstr ""
+msgstr "Γραμμή Προειδοποίησης"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard_line__warning_wizard_id
 msgid "Warning Wizard"
-msgstr ""
+msgstr "Οδηγός Προειδοποίησης"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__website_message_ids
@@ -870,13 +880,15 @@ msgid ""
 "Whether or not this batch payment should display the 'Generate File' button "
 "instead of 'Print' in form view."
 msgstr ""
+"Εάν αυτή η πληρωμή παρτίδας πρέπει ή όχι να εμφανίζει το κουμπί «Δημιουργία "
+"Αρχείου» αντί για το «Εκτύπωση» στην προβολή φόρμας."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "You cannot add payments that are not posted."
-msgstr ""
+msgstr "Δεν μπορείτε να προσθέσετε πληρωμές που δεν έχουν καταχωρηθεί."
 
 #. module: account_batch_payment
 #. odoo-python
@@ -884,13 +896,15 @@ msgstr ""
 #, python-format
 msgid "You cannot add payments with zero amount in a Batch Payment."
 msgstr ""
+"Δεν μπορείτε να προσθέσετε πληρωμές με μηδενικό ποσό σε μια Πληρωμή "
+"Παρτίδας."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "You cannot add the same payment to multiple batches."
-msgstr ""
+msgstr "Δεν μπορείτε να προσθέσετε την ίδια πληρωμή σε πολλές παρτίδες."
 
 #. module: account_batch_payment
 #. odoo-python
@@ -900,10 +914,12 @@ msgstr ""
 msgid ""
 "You cannot create a batch with payments that are already in another batch."
 msgstr ""
+"Δεν μπορείτε να δημιουργήσετε μια παρτίδα με πληρωμές που βρίσκονται ήδη σε "
+"άλλη παρτίδα."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "You cannot create batches with overlapping payments."
-msgstr ""
+msgstr "Δεν μπορείτε να δημιουργήσετε παρτίδες με επικαλυπτόμενες πληρωμές."

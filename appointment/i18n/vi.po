@@ -5,7 +5,7 @@
 # Translators:
 # Duy BQ <duybq86@gmail.com>, 2023
 # Wil Odoo, 2024
-# Thi Huong Nguyen, 2024
+# Thi Huong Nguyen, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -340,7 +340,7 @@ msgstr ""
 "            <ul>\n"
 "                <li>Loại lịch hẹn: <t t-out=\"object.event_id.appointment_type_id.name or ''\">Lên lịch buổi demo</t></li>\n"
 "                <t t-if=\"object.event_id.location\">\n"
-"                    <li>Địa điểm: <t t-out=\"object.event_id.location or ''\">Bruxelles</t>\n"
+"                    <li>Vị trí: <t t-out=\"object.event_id.location or ''\">Bruxelles</t>\n"
 "                        (<a target=\"_blank\" t-attf-href=\"http://maps.google.com/maps?oi=map&amp;q={{object.event_id.location}}\">Xem bản đồ</a>)\n"
 "                    </li>\n"
 "                </t>\n"
@@ -528,7 +528,7 @@ msgstr ""
 "            <td style=\"padding-top: 5px;\">\n"
 "                <p><strong>Thông tin sự kiện</strong></p>\n"
 "                <ul>\n"
-"                    <li t-if=\"object.location\">Địa điểm: <t t-out=\"object.location or ''\">Bruxelles</t>\n"
+"                    <li t-if=\"object.location\">Vị trí: <t t-out=\"object.location or ''\">Bruxelles</t>\n"
 "                        (<a target=\"_blank\" t-attf-href=\"http://maps.google.com/maps?oi=map&amp;q={{ object.location }}\">Xem bản đồ</a>)\n"
 "                    </li>\n"
 "                    <li t-if=\"recurrent\">Thời gian: <t t-out=\"object.recurrence_id.name or ''\">3 sự kiện mỗi tuần</t></li>\n"
@@ -677,7 +677,7 @@ msgstr ""
 "                <del>\n"
 "                    <p><strong>Chi tiết sự kiện</strong></p>\n"
 "                    <ul>\n"
-"                            <li t-if=\"object.location\">Địa điểm: <t t-out=\"object.location or ''\">Bruxelles</t>\n"
+"                            <li t-if=\"object.location\">Vị trí: <t t-out=\"object.location or ''\">Bruxelles</t>\n"
 "                                (<a target=\"_blank\" t-attf-href=\"http://maps.google.com/maps?oi=map&amp;q={{ object.location }}\">Xem bản đồ</a>)\n"
 "                            </li>\n"
 "                            <li t-if=\"recurrent\">Thời gian: <t t-out=\"object.recurrence_id.name or ''\">3 sự kiện mỗi tuần</t></li>\n"
@@ -2920,7 +2920,7 @@ msgstr "Lịch tạm ngừng sử dụng tài nguyên"
 #. module: appointment
 #: model:ir.model,name:appointment.model_resource_calendar
 msgid "Resource Working Time"
-msgstr "Nguồn lực thời gian làm việc"
+msgstr "Tài nguyên thời gian làm việc"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.appointment_resource_action
