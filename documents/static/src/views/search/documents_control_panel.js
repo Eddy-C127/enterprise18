@@ -271,6 +271,7 @@ export class DocumentsControlPanel extends ControlPanel {
         this.documentService.toggleChatterState();
 
         if (this.documentsState.isChatterVisible) {
+            this.observer?.disconnect();
             this.observer = new MutationObserver(() => {
                 const chatterContainer = document.querySelector('.o-mail-Thread');
                 if (chatterContainer && this.env.isSmall) {
@@ -288,7 +289,7 @@ export class DocumentsControlPanel extends ControlPanel {
                         view === "kanban"
                             ? ".o_kanban_record.o_record_selected"
                             : ".o_data_row.o_data_row_selected";
-                    document.querySelector(selectedRecordClass).scrollIntoView({
+                    document.querySelector(selectedRecordClass)?.scrollIntoView({
                         behavior: "instant",
                         block: view === "kanban" ? "start" : "center",
                     });
