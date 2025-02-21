@@ -73,30 +73,7 @@ class MainComponent extends Component {
         useBus(this.env.model, "playSound", this.playSound.bind(this));
         useBus(bus, "refresh", (ev) => this._onRefreshState(ev.detail));
 
-        onWillStart(async () => {
-            const barcodeData = await this.rpc(
-                '/stock_barcode/get_barcode_data',
-                { model: this.resModel, res_id: this.resId }
-            );
-            barcodeData.actionId = this.props.actionId;
-            this.config = { play_sound: true, ...barcodeData.config };
-            if (this.config.play_sound) {
-                const fileExtension = new Audio().canPlayType("audio/ogg") ? "ogg" : "mp3";
-                this.sounds = {
-                    error: new Audio(url(`/stock_barcode/static/src/audio/error.${fileExtension}`)),
-                    notify: new Audio(url(`/mail/static/src/audio/ting.${fileExtension}`)),
-                };
-                this.sounds.error.load();
-                this.sounds.notify.load();
-            }
-            this.groups = barcodeData.groups;
-            this.env.model.setData(barcodeData);
-            this.state.displayNote = Boolean(this.env.model.record.note);
-            this.env.model.addEventListener('process-action', this._onDoAction.bind(this));
-            this.env.model.addEventListener('refresh', (ev) => this._onRefreshState(ev.detail));
-            this.env.model.addEventListener('update', () => this.render(true));
-            this.env.model.addEventListener('history-back', () => this.env.config.historyBack());
-        });
+        onWillStart(() => this.onWillStart());
 
         onPatched(() => {
             this._scrollToSelectedLine();
@@ -121,6 +98,31 @@ class MainComponent extends Component {
 
     get highlightValidateButton() {
         return this.env.model.highlightValidateButton;
+    }
+
+    async onWillStart() {
+        const barcodeData = await this.rpc("/stock_barcode/get_barcode_data", {
+            model: this.resModel,
+            res_id: this.resId,
+        });
+        barcodeData.actionId = this.props.actionId;
+        this.config = { play_sound: true, ...barcodeData.config };
+        if (this.config.play_sound) {
+            const fileExtension = new Audio().canPlayType("audio/ogg") ? "ogg" : "mp3";
+            this.sounds = {
+                error: new Audio(url(`/stock_barcode/static/src/audio/error.${fileExtension}`)),
+                notify: new Audio(url(`/mail/static/src/audio/ting.${fileExtension}`)),
+            };
+            this.sounds.error.load();
+            this.sounds.notify.load();
+        }
+        this.groups = barcodeData.groups;
+        this.env.model.setData(barcodeData);
+        this.state.displayNote = Boolean(this.env.model.record.note);
+        this.env.model.addEventListener("process-action", this._onDoAction.bind(this));
+        this.env.model.addEventListener("refresh", (ev) => this._onRefreshState(ev.detail));
+        this.env.model.addEventListener("update", () => this.render(true));
+        this.env.model.addEventListener("history-back", () => this.env.config.historyBack());
     }
 
     get isTransfer() {

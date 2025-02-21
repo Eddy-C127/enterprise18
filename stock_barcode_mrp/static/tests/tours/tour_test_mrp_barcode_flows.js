@@ -1206,3 +1206,35 @@ registry.category("web_tour.tours").add("test_not_allowing_component_lot_creatio
         run() {},
     },
 ]});
+
+registry.category("web_tour.tours").add("test_barcode_mo_creation_in_mo2", {
+    steps: () => [
+        { trigger: ".o_kanban_record_title:contains('MO2')", run: "click" },
+        { trigger: ".o-kanban-button-new", run: "click" },
+        {
+            content: "Click on the button to add a product",
+            trigger: "button.o_add_line",
+            run: "click",
+        },
+        { trigger: "input#product_id_0", run: "text Product4" },
+        { trigger: ".ui-autocomplete a:contains('Product4')", run: "click" },
+        { trigger: "button.o_save", run: "click" },
+        { trigger: "button.o_validate_page:enabled", run: "click" },
+        { trigger: ".o_notification.border-success", run(){}},
+        { trigger: ".o_notification .o_notification_close", run: "click" },
+        { trigger: ".o_menu_toggle", run: "click" },
+        { trigger: ".o_app[data-menu-xmlid='stock_barcode.stock_barcode_menu']", run: "click"},
+        // Create a new MO by scanning the operation's barcode.
+        { trigger: ".o_stock_barcode_main_menu", run: "scan MO2_BARCODE" },
+        {
+            content: "Click on the button to add a product",
+            trigger: "button.o_add_line",
+            run: "click",
+        },
+        { trigger: "input#product_id_0", run: "text Product4" },
+        { trigger: ".ui-autocomplete a:contains('Product4')", run: "click" },
+        { trigger: "button.o_save", run: "click" },
+        { trigger: "button.o_validate_page:enabled", run: "click" },
+        { trigger: ".o_notification.border-success", run(){}},
+    ],
+});

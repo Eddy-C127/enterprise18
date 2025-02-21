@@ -879,3 +879,32 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         self.start_tour(url, 'test_not_allowing_component_lot_creation', login='admin')
         self.assertEqual(mo.move_raw_line_ids.lot_id, lots[1])
         self.assertEqual(mo.move_byproduct_ids.move_line_ids.lot_name, '77734319')
+
+    def test_barcode_mo_creation_in_mo2(self):
+        """
+        Ensures that MO is created in another manufacturing operation type (MO2)
+        with creating new MO in MO2 operation type and confirm it and Produce it.
+        """
+        self.clean_access_rights()
+
+        mo2_operation_type = self.env['stock.picking.type'].create({
+            'name': 'MO2',
+            'barcode': 'MO2_BARCODE',
+            'code': 'mrp_operation',
+            'sequence_code': 'MO2',
+            'warehouse_id': self.env.ref('stock.warehouse0').id,
+	    })
+        product_to_manufacture = self.env['product.product'].create({
+            'name': 'Product4',
+            'type': 'product',
+            'barcode': 'MO2_TEST_PRODUCT',
+        })
+        action_id = self.env.ref('stock_barcode.stock_picking_type_action_kanban')
+        url = "/web#action=" + str(action_id.id)
+        self.start_tour(url, 'test_barcode_mo_creation_in_mo2', login='admin')
+
+        mos = self.env['mrp.production'].search([('product_id', '=', product_to_manufacture.id)])
+        self.assertRecordValues(mos, [
+            {"picking_type_id": mo2_operation_type.id},
+            {"picking_type_id": mo2_operation_type.id},
+        ])
