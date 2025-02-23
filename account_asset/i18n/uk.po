@@ -6,8 +6,8 @@
 # Yaroslav Husyar, 2024
 # Wil Odoo, 2024
 # Bohdan Lisnenko, 2025
-# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2025
 # Martin Trigaux, 2025
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2025
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Martin Trigaux, 2025\n"
+"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2025\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,13 +42,13 @@ msgstr "К-сть опублікованих записів амортизаці
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "%(asset)s: Disposal"
-msgstr ""
+msgstr "%(asset)s: Ліквідація"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "%(asset)s: Sale"
-msgstr ""
+msgstr "%(asset)s: Продаж"
 
 #. module: account_asset
 #. odoo-python
@@ -60,7 +60,7 @@ msgstr "%(months)s м"
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "%(move_line)s (%(current)s of %(total)s)"
-msgstr ""
+msgstr "%(move_line)s (%(current)s від %(total)s)"
 
 #. module: account_asset
 #. odoo-python
@@ -93,7 +93,7 @@ msgstr "%s: Амортизація"
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "(No %s)"
-msgstr ""
+msgstr "(No %s)"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -121,7 +121,7 @@ msgid ""
 "<b>%(account)s</b>."
 msgstr ""
 "Запис амортизації буде опубліковано включно по дату %(date)s.<br/> Запис про"
-" утилізацію буде розміщено на рахунку %(account_type)s <b>%(account)s</b>."
+" ліквідацію буде розміщено на рахунку %(account_type)s <b>%(account)s</b>."
 
 #. module: account_asset
 #. odoo-python
@@ -151,7 +151,7 @@ msgstr "Документ, пов'язаний з %(move_line_name)s, видал�
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "A document linked to this move has been deleted: %s"
-msgstr "Документ, пов'язаний з цим переміщенням, було видалено: %s"
+msgstr "Документ, пов'язаний з цією проводкою, було видалено: %s"
 
 #. module: account_asset
 #. odoo-python
@@ -183,7 +183,7 @@ msgid ""
 msgstr ""
 "Тип рахунку має інформаційне призначення, для створення звітів, відповідно "
 "до законодавства конкретних країн і встановлення правил для закриття "
-"фінансового року та створення відкритих записів."
+"звітного періоду та створення відкритих записів."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__account_depreciation_id
@@ -206,7 +206,8 @@ msgstr ""
 msgid ""
 "Account used to record the purchase of the asset at its original price."
 msgstr ""
-"Рахунок використовується для запису покупки активу за його первісною ціною."
+"Рахунок використовується для запису купівлі активу за його первісною "
+"вартістю."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__gain_account_id
@@ -337,6 +338,8 @@ msgid ""
 "An asset wil be created for each asset model when this account is used on a "
 "vendor bill or a refund"
 msgstr ""
+"Актив буде створено для кожної моделі активу, коли цей обліковий запис "
+"використовується для рахунку постачальника або відшкодування"
 
 #. module: account_asset
 #. odoo-python
@@ -395,7 +398,7 @@ msgstr "Контрагентний рахунок активу"
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_group_form_view
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_group_list_view
 msgid "Asset Group"
-msgstr ""
+msgstr "Група активів"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_id_display_name
@@ -433,7 +436,7 @@ msgstr "Моделі активу"
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_move_type
 #: model:ir.model.fields,field_description:account_asset.field_account_move__asset_move_type
 msgid "Asset Move Type"
-msgstr ""
+msgstr "Тип проводки активу"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__name
@@ -472,7 +475,7 @@ msgstr "Актив створений з рахунка-фактури: %s"
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "Asset disposed. %s"
-msgstr "Актив утилізовано. %s"
+msgstr "Актив ліквідовано. %s"
 
 #. module: account_asset
 #. odoo-python
@@ -670,12 +673,12 @@ msgstr "Кількість активів"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__count_linked_asset
 msgid "Count Linked Asset"
-msgstr ""
+msgstr "Підрахунок повʼязаних активів"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset_group__count_linked_assets
 msgid "Count Linked Assets"
-msgstr ""
+msgstr "Підрахунок повʼязаних активів"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__country_code
@@ -766,7 +769,7 @@ msgstr "Дата початку нарахування амортизації"
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "Dec. then Straight"
-msgstr "Зниження, потім пряма"
+msgstr "Зниження, потім прямолінійно"
 
 #. module: account_asset
 #. odoo-python
@@ -1026,7 +1029,7 @@ msgstr "Групувати за рахунком"
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group By Asset Group"
-msgstr ""
+msgstr "Групувати за групою активів"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
@@ -1038,13 +1041,13 @@ msgstr "Групувати за..."
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group by Account"
-msgstr ""
+msgstr "Групувати за рахунком"
 
 #. module: account_asset
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group by Asset Group"
-msgstr ""
+msgstr "Групувати за групою активів"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__has_message
@@ -1148,7 +1151,7 @@ msgstr "Елементи журналу"
 msgid ""
 "Journal Items of %(account)s should have a label in order to generate an "
 "asset"
-msgstr "Проводка %(account)s має мати мітку, щоб створити актив"
+msgstr "Проводка %(account)s повинна мати мітку, щоб створити актив"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__write_uid
@@ -1178,7 +1181,7 @@ msgstr "Лінійно"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__linked_assets_ids
 msgid "Linked Assets"
-msgstr ""
+msgstr "Повʼязані активи"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__asset_modify__gain_or_loss__loss
@@ -1222,7 +1225,7 @@ msgstr "Модель"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__asset_properties_definition
 msgid "Model Properties"
-msgstr ""
+msgstr "Властивості моделі"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
@@ -1275,17 +1278,17 @@ msgstr "Назва"
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_move__asset_move_type__negative_revaluation
 msgid "Negative revaluation"
-msgstr ""
+msgstr "Негативна переоцінка"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__net_gain_on_sale
 msgid "Net gain on sale"
-msgstr ""
+msgstr "Чистий прибуток від продажу"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__net_gain_on_sale
 msgid "Net value of gain or loss on sale of an asset"
-msgstr ""
+msgstr "Чиста вартість прибутку або витрат від продажу активу"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__value_residual
@@ -1327,7 +1330,7 @@ msgstr "Ні"
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "No Grouping"
-msgstr ""
+msgstr "Без групування"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__prorata_computation_type__none
@@ -1416,7 +1419,7 @@ msgstr "На утриманні"
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "Open Asset"
-msgstr "Відкритий актив"
+msgstr "Відкрити актив"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__original_value
@@ -1456,7 +1459,7 @@ msgstr "Тривалість періоду"
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_move__asset_move_type__positive_revaluation
 msgid "Positive revaluation"
-msgstr ""
+msgstr "Позитивна переоцінка"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -1639,7 +1642,7 @@ msgid ""
 "value increase items"
 msgstr ""
 "Сума амортизованої вартості, вартості відшкодування та балансової вартості "
-"всіх предметів збільшення вартості"
+"всіх елементів збільшення вартості"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__country_code
@@ -1781,7 +1784,7 @@ msgstr "Збільшення вартості для: %(asset)s"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__warning_count_assets
 msgid "Warning Count Assets"
-msgstr ""
+msgstr "Попередження підрахунку активів"
 
 #. module: account_asset
 #. odoo-python
@@ -1842,6 +1845,8 @@ msgstr "Ви не можете переоцінити актив до дати �
 msgid ""
 "You cannot add or remove bills when the asset is already running or closed."
 msgstr ""
+"Ви не можете додавати або видаляти рахунки, коли актив уже запущений або "
+"закритий."
 
 #. module: account_asset
 #. odoo-python
@@ -1948,7 +1953,7 @@ msgstr "записи"
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "entry"
-msgstr "entry"
+msgstr "запис"
 
 #. module: account_asset
 #. odoo-python

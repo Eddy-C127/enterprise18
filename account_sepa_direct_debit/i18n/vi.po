@@ -32,6 +32,13 @@ msgid "(optional)"
 msgstr "(tuỳ chọn)"
 
 #. module: account_sepa_direct_debit
+#: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.view_batch_payment_form_inherit
+msgid ""
+".\n"
+"                        SEPA requires a 5 days notice."
+msgstr ""
+
+#. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
 msgid "123456789"
 msgstr "123456789"
@@ -811,12 +818,8 @@ msgstr ""
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_account_batch_payment__sdd_required_collection_date
 msgid ""
 "Date when the company expects to receive the payments of this batch. It "
-"can't be inferior to the sending day + the longest pre-notification period "
-"defined in the mandates linked to this batch."
+"can't be inferior to the sending day + the minimum pre-notification period."
 msgstr ""
-"Ngày công ty dự kiến ​​nhận được khoản thanh toán của loạt này. Không thể "
-"nhỏ hơn ngày gửi + thời hạn thông báo trước dài nhất được xác định trong các"
-" uỷ nhiệm liên quan đến loạt này."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -929,6 +932,11 @@ msgstr "Mọi uỷ nhiệm thuộc về đối tác này."
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__expiration_warning_already_sent
 msgid "Expiration warning sent"
 msgstr "Đã gửi cảnh báo hết hạn"
+
+#. module: account_sepa_direct_debit
+#: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.view_batch_payment_form_inherit
+msgid "First-Time Payments"
+msgstr ""
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__message_follower_ids
@@ -1429,8 +1437,8 @@ msgstr "Yêu cầu cách thức xử lý thanh toán cho sao kê liên quan từ
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_account_batch_payment__sdd_required_collection_date
-msgid "Required collection date"
-msgstr "Ngày thu tiền yêu cầu"
+msgid "Required Collection Date"
+msgstr ""
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__activity_user_id
@@ -1587,13 +1595,10 @@ msgstr "Khách hàng uỷ nhiệm ghi nợ trực tiếp SEPA không có quốc 
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid ""
-"SEPA regulations set the minimum pre-notification period to a minimum of 2 "
+"SEPA regulations set the minimum pre-notification period to a minimum of %s "
 "days to allow enough time for the customer to check that their account is "
 "adequately funded."
 msgstr ""
-"Quy định của SEPA yêu cầu thời gian thông báo trước tối thiểu là 2 ngày để "
-"khách hàng có đủ thời gian kiểm tra xem tài khoản của họ có đủ tiền hay "
-"không."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1736,14 +1741,9 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid ""
-"The bank needs to be informed at least 5 days in advance for collections "
-"related to a new mandate and 2 days in advance when the mandate is already "
-"known by them. In this case, the minimum collection date must be the "
-"%(date)s"
+"The bank needs to be informed at least %(min_days_new)s days in advance for collections related to a new mandate and %(min_days)s days in advance when the mandate is already known by them.\n"
+"The minimum collection date must be %(date)s."
 msgstr ""
-"Ngân hàng cần được thông báo trước ít nhất 5 ngày đối với các khoản thu liên"
-" quan đến uỷ nhiệm mới và trước 2 ngày khi uỷ nhiệm mà họ đã biết. Trong "
-"trường hợp này, ngày thu tối thiểu phải là %(date)s"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1827,6 +1827,11 @@ msgstr ""
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_sdd_mandate__name
 msgid "The unique identifier of this mandate."
 msgstr "Mã định danh duy nhất của uỷ nhiệm này."
+
+#. module: account_sepa_direct_debit
+#: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.view_batch_payment_form_inherit
+msgid "This batch includes payments from mandates with no prior collections:"
+msgstr ""
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_report_invoice_document
@@ -1970,11 +1975,9 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid ""
-"You cannot generate a SEPA Direct Debit file with a required collection date inferior to the sending day + the longest pre-notification period defined in the mandates linked to this batch.\n"
-"According to these payments mandates, the minimum required date should be the %(minimum_date)s"
+"You cannot generate a SEPA Direct Debit file with a required collection date inferior to the sending day + the minimum pre-notification period of %(prenot_days)s days.\n"
+"The minimum required date should be %(minimum_date)s."
 msgstr ""
-"Bạn không thể tạo tệp Ghi nợ trực tiếp SEPA với ngày thu tiền bắt buộc nhỏ hơn ngày gửi + thời hạn thông báo trước dài nhất được xác định trong các uỷ nhiệm được liên kết với loạt này.\n"
-"Theo các uỷ nhiệm thanh toán này, ngày bắt buộc nhỏ nhất phải là %(minimum_date)s"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
