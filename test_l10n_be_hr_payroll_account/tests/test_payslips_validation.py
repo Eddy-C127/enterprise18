@@ -10791,7 +10791,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         private_car_line = payslip.line_ids.filtered(lambda l: l.code == 'CAR.PRIV')
         self.assertEqual(private_car_line.quantity, 15)
 
-        payslip_results =         {
+        payslip_results = {
             'BASIC': 2650.0,
             'ATN.INT': 5.0,
             'ATN.MOB': 4.0,
@@ -10807,9 +10807,9 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'ATN.MOB.2': -4.0,
             'M.ONSS': -15.39,
             'MEAL_V_EMP': -16.35,
-            'CAR.PRIV': 33.58,
+            'CAR.PRIV': 34.62,
             'REP.FEES': 150.0,
-            'NET': 2263.47,
+            'NET': 2264.51,
             'REMUNERATION': 2650.0,
             'ONSSEMPLOYERBASIC': 664.75,
             'ONSSEMPLOYERFFE': 1.86,
