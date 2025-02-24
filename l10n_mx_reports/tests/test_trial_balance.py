@@ -176,6 +176,8 @@ class TestL10nMXTrialBalanceReport(TestMxEdiCommon, TestAccountReportsCommon):
             <catalogocuentas:Ctas CodAgrup="108" NumCta="108" Desc="Allowance for doubtful accounts" Nivel="1" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="108.01" NumCta="108.01" Desc="Allowance for doubtful accounts national" Nivel="2" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="108.02" NumCta="108.02" Desc="Allowance for doubtful accounts foreign" Nivel="2" Natur="D"/>
+            <catalogocuentas:Ctas CodAgrup="113" NumCta="113" Desc="Tax credit" Nivel="1" Natur="D"/>
+            <catalogocuentas:Ctas CodAgrup="113.02" NumCta="113.02" Desc="Income tax to recover" Nivel="2" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="115" NumCta="115" Desc="Inventory" Nivel="1" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="115.01" NumCta="115.01" Desc="Inventory" Nivel="2" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="115.02" NumCta="115.02" Desc="Raw materials and materials" Nivel="2" Natur="D"/>
