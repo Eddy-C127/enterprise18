@@ -20,7 +20,7 @@ class AccountTaxReportHandler(models.AbstractModel):
 
     def _custom_options_initializer(self, report, options, previous_options=None):
         options['buttons'].append({'name': _('Closing Entry'), 'action': 'action_periodic_vat_entries', 'sequence': 110, 'always_show': True})
-        self._enable_export_buttons_for_common_vat_groups_in_branches(options)
+        options['enable_export_buttons_for_common_vat_in_branches'] = True
 
     def _custom_line_postprocessor(self, report, options, lines, warnings=None):
         if warnings is not None:

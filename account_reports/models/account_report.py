@@ -1669,12 +1669,22 @@ class AccountReport(models.Model):
             initializer = initializers_in_sequence[initializer_index]
             initializer(options, previous_options=previous_options)
 
-        # Sort the buttons list by sequence, for rendering
         options_companies = self.env['res.company'].browse(self.get_report_company_ids(options))
+        # Set export buttons to 'branch_allowed' if the currently selected company branches all share the same VAT
+        # number and no unselected sub-branch of the active company has the same VAT number. Companies with an empty VAT
+        # field will be considered as having the same VAT number as their closest parent with a non-empty VAT.
+        if options.get('enable_export_buttons_for_common_vat_in_branches'):
+            report_accepted_company_ids = set(options_companies.ids)
+            same_vat_branch_ids = set(self.env.company._get_branches_with_same_vat().ids)
+            if report_accepted_company_ids == same_vat_branch_ids:
+                options['buttons'] = [{**button, 'branch_allowed': button.get('branch_allowed', True)} for button in options['buttons']]
+
+        # Disable buttons without branch_allowed = True if not all branches are selected
         if not options_companies._all_branches_selected():
             for button in filter(lambda x: not x.get('branch_allowed'), options['buttons']):
                 button['disabled'] = True
 
+        # Sort the buttons list by sequence, for rendering
         options['buttons'] = sorted(options['buttons'], key=lambda x: x.get('sequence', 90))
 
         return options
@@ -6258,16 +6268,8 @@ class AccountReportCustomHandler(models.AbstractModel):
         return {}
 
     def _enable_export_buttons_for_common_vat_groups_in_branches(self, options):
-        """ Helper function to be called in _custom_options_initializer to change the behavior of the report so that the export
-        buttons are all forced to 'branch_allowed' in case the currently selected company branches all share the same VAT number, and
-        no unselected sub-branch of the active company has the same VAT number. Companies without explicit VAT number (empty vat field)
-        will be considered as having the same VAT number as their closest parent with a non-empty VAT.
-        """
-        report_accepted_company_ids = set(self.env['account.report'].get_report_company_ids(options))
-        same_vat_branch_ids = set(self.env.company._get_branches_with_same_vat().ids)
-        if report_accepted_company_ids == same_vat_branch_ids:
-            for button in options['buttons']:
-                button['branch_allowed'] = True
+        """ DEPRECATED: to be removed in master. Buttons are now set to 'branch_allowed' when needed in get_options() """
+        pass
 
 
 class AccountReportFileDownloadException(Exception):

@@ -118,7 +118,7 @@ class ECSalesReportCustomHandler(models.AbstractModel):
 
         report._init_options_journals(options, previous_options=previous_options)
 
-        self._enable_export_buttons_for_common_vat_groups_in_branches(options)
+        options['enable_export_buttons_for_common_vat_in_branches'] = True
 
     def _init_core_custom_options(self, report, options, previous_options=None):
         """

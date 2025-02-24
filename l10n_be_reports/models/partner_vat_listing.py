@@ -58,7 +58,7 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
             'file_export_type': _('XML')
         }]
 
-        self._enable_export_buttons_for_common_vat_groups_in_branches(options)
+        options['enable_export_buttons_for_common_vat_in_branches'] = True
 
     def _custom_line_postprocessor(self, report, options, lines, warnings=None):
         if warnings is not None:
