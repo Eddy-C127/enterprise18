@@ -84,12 +84,7 @@ registry.category("web_tour.tours").add("shared_sign_request_tour", {
             run: "click",
         },
         {
-            trigger: '.modal-title:contains("All done!")',
-        },
-        {
-            content: "Download Document",
-            trigger: "button.btn.btn-primary",
-            run: "click",
+            trigger: `.modal-title:contains("It's signed!")`,
         },
     ],
 });
