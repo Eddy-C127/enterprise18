@@ -11,6 +11,7 @@ from .common import TestECDeliveryGuideCommon
 @tagged('post_install_l10n', 'post_install', '-at_install')
 class TestECDeliveryGuide(TestECDeliveryGuideCommon):
 
+    @freeze_time('2025-02-24')
     def test_send_delivery_guide_flow(self):
         ''' Test the delivery guide submission + cancellation flow. '''
         with self.mock_zeep_client((
