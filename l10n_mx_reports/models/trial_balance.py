@@ -65,9 +65,11 @@ class TrialBalanceCustomHandler(models.AbstractModel):
 
         account_lines = []
         parents = defaultdict(lambda: defaultdict(int))
-        for line in [line for line in report_lines if line.get('level') == 4]:
-            dummy, res_id = report._get_model_info_from_id(line['id'])
-            account = self.env['account.account'].browse(res_id)
+        for line in [line for line in report_lines if line.get('level') >= 4]:
+            account_id = report._get_res_id_from_line_id(line['id'], 'account.account')
+            if not account_id:
+                continue
+            account = self.env['account.account'].browse(account_id)
             is_credit_account = any([account.account_type.startswith(acc_type) for acc_type in ['liability', 'equity', 'income']])
             balance_sign = -1 if is_credit_account else 1
             cols = line.get('columns', [])
