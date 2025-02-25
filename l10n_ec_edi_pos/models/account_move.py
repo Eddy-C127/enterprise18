@@ -11,6 +11,13 @@ class AccountMove(models.Model):
     def _load_pos_data_domain(self, data):
         return [('pos_order_ids', 'in', [order['id'] for order in data['pos.order']['data']])]
 
+    @api.model
+    def _load_pos_data_fields(self, config_id):
+        result = super()._load_pos_data_fields(config_id)
+        if self.env.company.country_id.code == 'EC':
+            return ['id']
+        return result
+
     def _l10n_ec_get_payment_data(self):
         # EXTENDS l10n_ec_edi
         # If an invoice is created from a pos order, then the payment is collected at the moment of sale.
