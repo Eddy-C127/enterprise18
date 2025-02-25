@@ -28,7 +28,9 @@ class PosSession(models.Model):
         # for the domain refer at _get_pos_ui_pos_preparation_display_display
         return {
             'search_params': {
-                'domain': ['|', ('pos_config_ids', '=', self.config_id.id), ('pos_config_ids', '=', False)]
+                'domain': [('id','in',
+                            [display.id for display in self.env['pos_preparation_display.display'].search([])\
+                                .filtered(lambda d: not d.pos_config_ids or self.config_id in d.pos_config_ids)])]
             }
         }
 
