@@ -122,11 +122,6 @@ msgid "Has lines with tracked products"
 msgstr "มีรายการสินค้าที่ติดตาม"
 
 #. module: sale_stock_renting
-#: model:ir.model.fields,field_description:sale_stock_renting.field_res_company__rental_loc_id
-msgid "In rent"
-msgstr "อยู่ในค่าเช่า"
-
-#. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_sale_rental_schedule__is_available
 msgid "Is Available"
 msgstr "พร้อม"
@@ -223,6 +218,11 @@ msgstr "เช่า"
 #: model:ir.model,name:sale_stock_renting.model_sale_rental_report
 msgid "Rental Analysis Report"
 msgstr "รายงานการวิเคราะห์การเช่า"
+
+#. module: sale_stock_renting
+#: model:ir.model.fields,field_description:sale_stock_renting.field_res_company__rental_loc_id
+msgid "Rental Location"
+msgstr ""
 
 #. module: sale_stock_renting
 #: model:ir.model,name:sale_stock_renting.model_sale_rental_schedule

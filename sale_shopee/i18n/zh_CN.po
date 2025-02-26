@@ -1060,48 +1060,48 @@ msgstr ""
 msgid ""
 "Shopee is processing the shipping label. Odoo will try fetching the shipping"
 " label again later."
-msgstr ""
+msgstr "Shopee 正在处理运输标签。Odoo 稍后会再次尝试获取发货标签。"
 
 #. module: sale_shopee
 #. odoo-python
 #: code:addons/sale_shopee/models/shopee_shop.py:0
 msgid "Shopee move: %(name)s"
-msgstr ""
+msgstr "Shopee 移动：%(name)s"
 
 #. module: sale_shopee
 #: model:mail.template,name:sale_shopee.inventory_sync_failure
 msgid "Shopee: Inventory Synchronization Failure"
-msgstr ""
+msgstr "Shopee：库存同步失败"
 
 #. module: sale_shopee
 #: model:mail.template,name:sale_shopee.order_sync_failure
 msgid "Shopee: Order Synchronization Failure"
-msgstr ""
+msgstr "Shopee：订单同步失败"
 
 #. module: sale_shopee
 #: model:mail.template,name:sale_shopee.picking_sync_failure
 msgid "Shopee: Shipping Label Synchronization Failure"
-msgstr ""
+msgstr "Shopee：运输标签同步失败"
 
 #. module: sale_shopee
 #: model:ir.actions.server,name:sale_shopee.ir_cron_sync_shopee_pickings_retry_ir_actions_server
 msgid "Shopee: retry sync shipping labels"
-msgstr ""
+msgstr "Shopee：重试同步运输标签"
 
 #. module: sale_shopee
 #: model:ir.actions.server,name:sale_shopee.ir_cron_sync_shopee_inventory_ir_actions_server
 msgid "Shopee: sync inventory"
-msgstr ""
+msgstr "Shopee：同步库存"
 
 #. module: sale_shopee
 #: model:ir.actions.server,name:sale_shopee.ir_cron_sync_shopee_orders_ir_actions_server
 msgid "Shopee: sync orders"
-msgstr ""
+msgstr "Shopee：同步订单"
 
 #. module: sale_shopee
 #: model:ir.actions.server,name:sale_shopee.ir_cron_sync_shopee_pickings_ir_actions_server
 msgid "Shopee: sync shipping labels"
-msgstr ""
+msgstr "Shopee：同步运输标签"
 
 #. module: sale_shopee
 #. odoo-python
@@ -1109,7 +1109,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_shopee.field_shopee_account__shop_ids
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_account_view_form
 msgid "Shops"
-msgstr ""
+msgstr "商店"
 
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_shopee_shop__status
@@ -1124,7 +1124,7 @@ msgstr "存储"
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_shop_view_form
 msgid "Sync Inventory"
-msgstr ""
+msgstr "同步库存"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_shop_view_form
@@ -1134,23 +1134,23 @@ msgstr "同步订单"
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_shop_view_form
 msgid "Synchronization Information"
-msgstr ""
+msgstr "同步信息"
 
 #. module: sale_shopee
 #: model:mail.template,subject:sale_shopee.inventory_sync_failure
 msgid "Synchronization of Shopee inventory has failed"
-msgstr ""
+msgstr "Shopee 库存同步失败"
 
 #. module: sale_shopee
 #: model:mail.template,subject:sale_shopee.order_sync_failure
 msgid ""
 "Synchronization of Shopee order {{ ctx.get('shopee_order_ref') }} has failed"
-msgstr ""
+msgstr "同步 Shopee 订单 {{ ctx.get('shopee_order_ref') }} 失败"
 
 #. module: sale_shopee
 #: model:mail.template,subject:sale_shopee.picking_sync_failure
 msgid "Synchronization of shipping labels has failed"
-msgstr ""
+msgstr "运输标签同步失败"
 
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_shopee_shop__synchronize_inventory
@@ -1179,7 +1179,7 @@ msgstr "下订单的 Shopee 商店。"
 #: model:ir.model.fields,help:sale_shopee.field_sale_order__shopee_order_ref
 #: model:ir.model.fields,help:sale_shopee.field_stock_picking__shopee_order_ref
 msgid "The Shopee-defined order reference."
-msgstr ""
+msgstr "Shopee 定义的订单编号。"
 
 #. module: sale_shopee
 #: model:ir.model.fields,help:sale_shopee.field_shopee_shop__team_id

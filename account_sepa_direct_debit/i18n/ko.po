@@ -3,9 +3,9 @@
 # 	* account_sepa_direct_debit
 # 
 # Translators:
-# Sarah Park, 2024
 # Daye Jeong, 2025
 # Wil Odoo, 2025
+# Sarah Park, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Sarah Park, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,6 +37,8 @@ msgid ""
 ".\n"
 "                        SEPA requires a 5 days notice."
 msgstr ""
+".\n"
+"                        SEPA는 5일 전에 반드시 통지해야 합니다."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -811,7 +813,7 @@ msgstr "이 날짜까지 위임을 사용할 수 있습니다. 이후에는 자�
 msgid ""
 "Date when the company expects to receive the payments of this batch. It "
 "can't be inferior to the sending day + the minimum pre-notification period."
-msgstr ""
+msgstr "회사가 이 배치에 대한 대금을 수령할 것으로 예상하는 날짜입니다. 송금일 + 최소 사전 통지 기간보다 빠를 수 없습니다."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -928,7 +930,7 @@ msgstr "만료 경고 전송"
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.view_batch_payment_form_inherit
 msgid "First-Time Payments"
-msgstr ""
+msgstr "최초 결제"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__message_follower_ids
@@ -1422,7 +1424,7 @@ msgstr "관련 은행거래명세서에 대한 일괄 작업 예약을 은행에
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_account_batch_payment__sdd_required_collection_date
 msgid "Required Collection Date"
-msgstr ""
+msgstr "필수 수금일"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__activity_user_id
@@ -1580,6 +1582,8 @@ msgid ""
 "days to allow enough time for the customer to check that their account is "
 "adequately funded."
 msgstr ""
+"SEPA 규정은 최소 %s일의 사전 통지 기간을 요구하여 고객이 자신의 계정에 충분한 자금이 입금되었는지 확인할 수 있는 충분한 시간을 "
+"제공합니다."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1721,6 +1725,8 @@ msgid ""
 "The bank needs to be informed at least %(min_days_new)s days in advance for collections related to a new mandate and %(min_days)s days in advance when the mandate is already known by them.\n"
 "The minimum collection date must be %(date)s."
 msgstr ""
+"신규 위임과 관련된 추심의 경우 최소 %(min_days_new)s일 전에, 기존 위임에 따른 추심의 경우 %(min_days)s일 전에 은행에 통지해야 합니다.\n"
+"최소 징수일은 %(date)s일이어야 합니다."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1799,7 +1805,7 @@ msgstr "이 위임에 대한 고유 식별 기호입니다."
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.view_batch_payment_form_inherit
 msgid "This batch includes payments from mandates with no prior collections:"
-msgstr ""
+msgstr "이 배치에 있는 지급 항목에는 이전 수금 내역이 없는 위임이 포함되어 있습니다:"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_report_invoice_document
@@ -1933,6 +1939,8 @@ msgid ""
 "You cannot generate a SEPA Direct Debit file with a required collection date inferior to the sending day + the minimum pre-notification period of %(prenot_days)s days.\n"
 "The minimum required date should be %(minimum_date)s."
 msgstr ""
+"수금 날짜가 송금일 + 최소 사전 통지 기간 %(prenot_days)s일보다 빠른 SEPA 자동 이체 파일을 생성할 수 없습니다.\n"
+"최소 필수일은 %(minimum_date)s여야 합니다."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
