@@ -200,12 +200,17 @@ class L10nFrSendVatReport(models.TransientModel):
             'rof': "TVA1",  # "référence obligation fiscale"
         }
         # EDI partner
-        aspone_vals = {
-            'identifier': "9210007",
-            'designation': "ASP-ONE.FR",
-            'address': {'number': 56, 'street': "RUE DE BILLANCOURT", 'postal_code': 92100,
-                        'city': "BOULOGNE-BILLANCOURT", 'country_code': "FR"},
-            'reference': "DEC00001",
+        edi_partner_vals = {
+            'identifier': '4200001',
+            'designation': 'TESSI INFORMATIQUE',
+            'address': {
+                'number': 7,
+                'street': 'PARC METROTECH',
+                'postal_code': 42650,
+                'city': 'SAINT-JEAN-BONNEFONDS',
+                'country_code': 'FR',
+            },
+            'reference': 'DEC00001',
         }
         # T-IDENTIF
         identif_vals = [
@@ -233,7 +238,7 @@ class L10nFrSendVatReport(models.TransientModel):
                 'reference': "INFENT000042",  # internal reference to the emitor
                 'writer': writer_vals,
                 'debtor': debtor_vals,
-                'edi_partner': aspone_vals,
+                'edi_partner': edi_partner_vals,
                 'recipients': [{'designation': self.recipient}],
                 # T-IDENTIF form
                 'identif': {
