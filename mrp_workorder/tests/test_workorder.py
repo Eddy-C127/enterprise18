@@ -638,6 +638,10 @@ class TestShopFloor(HttpCase, TestMrpWorkorderCommon):
         Check that components added to a WO from the shopfloor are visible
         on both the WO and the MO.
         """
+        user_admin = self.env.ref('base.user_admin')
+        user_admin.write({
+            'groups_id': [Command.link(self.ref('mrp.group_mrp_routings'))],
+        })
         # remove shopfloor record polution
         self.env['mrp.production'].search([('state', '!=', 'done')]).unlink()
         mo_form = Form(self.env['mrp.production'])
