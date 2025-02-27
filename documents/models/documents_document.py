@@ -1945,6 +1945,7 @@ class Document(models.Model):
                 values = self.env['documents.document'].search_read(
                     expression.AND([domain, [('folder_id', 'child_of', unique_folder_id)]]),
                     search_panel_fields,
+                    order='name asc',
                 )
                 accessible_folder_ids = {rec['id'] for rec in values}
                 for record in values:
@@ -1955,7 +1956,7 @@ class Document(models.Model):
                     'values': values,
                 }
 
-            records = self.env['documents.document'].search_read(domain, search_panel_fields)
+            records = self.env['documents.document'].search_read(domain, search_panel_fields, order='name asc')
             accessible_folder_ids = {rec['id'] for rec in records}
             alias_tag_data = {}
             if not self.env.user.share:
