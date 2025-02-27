@@ -301,18 +301,21 @@
     </template>
 
     <template id="suggested_products_list" inherit_id="website_sale.suggested_products_list">
-        <xpath expr="//div[@name='website_sale_suggested_product_price']/t[@t-set='combination_info']" position="after">
-            <span t-if="combination_info.get('is_rental') and combination_info['rental_duration']" class="h6">from</span>
-        </xpath>
         <xpath expr="//div[@name='website_sale_suggested_product_price']/del" position="attributes">
             <attribute name="t-if">not product.rent_ok</attribute>
         </xpath>
         <xpath expr="//div[@name='website_sale_suggested_product_price']//span" position="after">
             <span t-if="combination_info.get('is_rental') and combination_info['rental_duration']" class="h6">
-                <span>per</span>
+                <span class="ps-1">per</span>
                 <span t-if="combination_info['rental_duration'] > 1" t-esc="combination_info['rental_duration']"/>
                 <span t-esc="combination_info['rental_unit']"/>
             </span>
+        </xpath>
+        <xpath
+            expr="//div[@name='website_sale_suggested_product_price']/t[@t-set='combination_info']"
+            position="after">
+            <span t-if="combination_info.get('is_rental') and combination_info['rental_duration']"
+                class="h6 pe-1">from</span>
         </xpath>
     </template>
 
