@@ -23,12 +23,12 @@ msgstr ""
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.worksheet_page
 msgid "<strong>Lot/Serial Number: </strong>"
-msgstr ""
+msgstr "<strong>Šarža/Sériové číslo:</strong>"
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.worksheet_page
 msgid "<strong>Work Order: </strong>"
-msgstr ""
+msgstr "<strong>Pracovná objednávka: </strong>"
 
 #. module: quality_mrp_workorder
 #: model:ir.model.fields,field_description:quality_mrp_workorder.field_mrp_production__check_ids
@@ -38,14 +38,14 @@ msgstr "Doklady"
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_inherit_mrp_workorder
 msgid "Component Lot/Serial"
-msgstr ""
+msgstr "Šarža/SČ komponentu"
 
 #. module: quality_mrp_workorder
 #. odoo-javascript
 #: code:addons/quality_mrp_workorder/static/src/components/menuPopup.xml:0
 #, python-format
 msgid "Create a Quality Alert"
-msgstr ""
+msgstr "Vytvoriť varovanie kvality"
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_alert_view_form_inherit_mrp
@@ -83,7 +83,7 @@ msgstr "Šarža/sériové"
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_search_inherit_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_point_view_search_inherit_mrp_workorder
 msgid "Manufacturing Steps"
-msgstr ""
+msgstr "Výrobné kroky"
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_tablet_inherit_quality
@@ -130,7 +130,7 @@ msgstr "Kontrola kvality"
 #: code:addons/quality_mrp_workorder/models/quality.py:0
 #, python-format
 msgid "Quality Check Failed"
-msgstr ""
+msgstr "Kontrola kvality zlyhala"
 
 #. module: quality_mrp_workorder
 #. odoo-javascript
@@ -139,7 +139,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_search_inherit_mrp_workorder
 #, python-format
 msgid "Quality Checks"
-msgstr ""
+msgstr "Kontroly kvality"
 
 #. module: quality_mrp_workorder
 #: model:ir.model,name:quality_mrp_workorder.model_quality_point
@@ -176,6 +176,8 @@ msgid ""
 "The Quantity quality check type is not possible with manufacturing operation"
 " types."
 msgstr ""
+"Typ kontroly kvality množstva nie je možné použiť s typmi výrobných "
+"operácií."
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_tablet_inherit_quality

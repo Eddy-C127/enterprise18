@@ -11,6 +11,7 @@
 # Wil Odoo, 2024
 # Aleš Fiala <f.ales1@seznam.cz>, 2024
 # Jakub Smolka, 2024
+# Stanislav Kurinec, 2025
 # 
 msgid ""
 msgstr ""
@@ -18,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jakub Smolka, 2024\n"
+"Last-Translator: Stanislav Kurinec, 2025\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -315,6 +316,11 @@ msgid ""
 " is complete. The link is private, only those that receive the link will be "
 "able to sign it.</span>"
 msgstr ""
+"<span class=\"text-muted\" attrs=\"{'invisible': [('share_link', '=', "
+"False)]}\">Sdílení vytvoří kopii souboru k podpisu. Soubor je dostupný "
+"pomocí odkazu níže. Kterýkoliv uživatel použitím odkazu vygeneruje dokument "
+"při dokončení podepisování. Odkaz je soukromý, pouze ti co odkaz obdrží, "
+"budou moci dokument podepsat.</span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -426,7 +432,7 @@ msgstr "Varování přístupových práv"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.portal_my_home_sign
 msgid "Access your signed documents"
-msgstr ""
+msgstr "Přístup k vašim podepsaným dokumentům"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__access_via_link
@@ -516,7 +522,7 @@ msgstr "Přidat iniciály"
 #: code:addons/sign/static/src/dialogs/initial_all_pages_dialog.xml:0
 #, python-format
 msgid "Add Once"
-msgstr ""
+msgstr "Přidat jednou"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
@@ -675,7 +681,7 @@ msgstr "Pole pro automatické doplnění partnera"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_option__available
 msgid "Available in new templates"
-msgstr ""
+msgstr "K dispozici v nových šablonách"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -1719,7 +1725,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
 msgid "If you do not wish to receive future reminders about this document,"
-msgstr ""
+msgstr "Pokud si nepřejete v budoucnu dostávat notfikace o tomto dokumentu,"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_not_enough_credits
@@ -3681,7 +3687,7 @@ msgstr "Neexistují žádné žádosti o podpisy."
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #, python-format
 msgid "There are other documents waiting for your signature:"
-msgstr ""
+msgstr "Na váš podpis čekají další dokumenty:"
 
 #. module: sign
 #. odoo-python
@@ -4316,7 +4322,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.ignore_sign_request_item
 msgid "You won't receive any notification for this signature request anymore."
-msgstr ""
+msgstr "O této žádosti na podpis již nebudete dostávat žádné oznámení."
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_action
