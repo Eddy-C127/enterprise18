@@ -22,7 +22,7 @@ class SpreadsheetSaleOrder(models.Model):
     _inherit = 'spreadsheet.mixin'
     _description = 'Quotation Spreadsheet'
 
-    name = fields.Char(required=True)
+    name = fields.Char(required=True, default=lambda self: self.env._('Untitled spreadsheet'))
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
     order_id = fields.Many2one('sale.order')
 
