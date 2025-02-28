@@ -12,8 +12,8 @@ patch(PosScaleService.prototype, {
 
     reset() {
         if (this.isMeasuring) {
-            this._scaleDevice.removeListener();
-            this._scaleDevice.action({ action: "stop_reading" });
+            this._scaleDevice?.removeListener();
+            this._scaleDevice?.action({ action: "stop_reading" });
         }
         super.reset(...arguments);
     },
@@ -38,6 +38,8 @@ patch(PosScaleService.prototype, {
             this._checkScaleIsConnected();
         } catch (error) {
             this.onError?.(error.message);
+            this.isMeasuring = false;
+            return;
         }
 
         this._scaleDevice.addListener((data) => {

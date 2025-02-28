@@ -7,7 +7,7 @@ from odoo.tests import HttpCase
 # files (full list defined in controllers/checksum.py)
 # Any change to these files will require re-certification with LNE.
 # DO NOT CHANGE IT WITHOUT CONTACTING THE POS TEAM FIRST!
-EXPECTED_CHECKSUM = "ced992fa4e48b19512bff40aa99c0b2fa1a5518f0045afd1d67256966c1fc77f"
+EXPECTED_CHECKSUM = "cb989f680d41f0367082b3c1dbc0408064c8bd45a99e5a3484993e7810d361da"
 
 
 class TestScaleChecksum(HttpCase):
