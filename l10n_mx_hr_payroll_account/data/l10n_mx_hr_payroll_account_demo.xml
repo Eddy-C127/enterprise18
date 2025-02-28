@@ -39,6 +39,7 @@
 
     <record id="l10n_mx_hr_payroll.res_partner_bank_account_cecilia" model="res.partner.bank">
         <field name="bank_id" ref="l10n_mx.acc_bank_014_SANTANDER"/>
+        <field name="l10n_mx_edi_clabe">014279991443975186</field>
     </record>
 
     <record id="res_partner_bank_account_cesar" model="res.partner.bank">
@@ -65,6 +66,10 @@
         <field name="bank_account_id" ref="l10n_mx_hr_payroll_account.res_partner_bank_account_xochilt"/>
     </record>
 
+    <record id="l10n_mx_hr_payroll.res_partner_xochilt" model="res.partner">
+        <field name="l10n_mx_edi_fiscal_regime">605</field>
+    </record>
+
     <record id="res_partner_bank_account_karla" model="res.partner.bank">
         <field name="acc_number">014279991443975189</field>
         <field name="bank_id" ref="l10n_mx.acc_bank_014_SANTANDER"/>
@@ -75,5 +80,9 @@
 
     <record id="l10n_mx_hr_payroll.hr_employee_karla" model="hr.employee">
         <field name="bank_account_id" ref="l10n_mx_hr_payroll_account.res_partner_bank_account_karla"/>
+    </record>
+
+    <record id="l10n_mx_hr_payroll.res_partner_karla" model="res.partner">
+        <field name="l10n_mx_edi_fiscal_regime">605</field>
     </record>
 </odoo>

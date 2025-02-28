@@ -114,7 +114,7 @@
         <field name="company_ids" eval="[(4, ref('l10n_mx_hr_payroll.res_company_mx'))]"/>
         <field name="company_id" ref="l10n_mx_hr_payroll.res_company_mx"/>
         <field name="groups_id" eval="[(6,0,[ref('base.group_user')])]"/>
-        <field name="image_1920" type="base64" file="l10n_mx_hr_payroll/static/img/hr_employe_cecilia.jpg"/>
+        <field name="image_1920" type="base64" file="l10n_mx_hr_payroll/static/img/hr_employee_cecilia.jpg"/>
     </record>
 
     <record id="res_partner_cecilia_work_address" model="res.partner">
@@ -134,7 +134,6 @@
     <record id="res_partner_bank_account_cecilia" model="res.partner.bank">
         <field name="acc_number">014279991443975186</field>
         <field name="bank_id" ref="base.bank_ing"/>
-        <field name="l10n_mx_edi_clabe">014279991443975186</field>
         <field name="partner_id" ref="l10n_mx_hr_payroll.res_partner_cecilia_private_address"/>
         <field name="company_id" ref="l10n_mx_hr_payroll.res_company_mx"/>
     </record>
@@ -169,7 +168,7 @@
         <field name="resource_calendar_id" ref="resource.resource_calendar_std"/>
         <field name="identification_id">8752027365496</field>
         <field name="bank_account_id" ref="l10n_mx_hr_payroll.res_partner_bank_account_cecilia"/>
-        <field name="image_1920" type="base64" file="l10n_mx_hr_payroll/static/img/hr_employe_cecilia.jpg"/>
+        <field name="image_1920" type="base64" file="l10n_mx_hr_payroll/static/img/hr_employee_cecilia.jpg"/>
         <field name="company_id" ref="l10n_mx_hr_payroll.res_company_mx"/>
         <field name="user_id" ref="l10n_mx_hr_payroll.user_cecilia"/>
     </record>
@@ -225,14 +224,13 @@
         <field name="country_id" ref="base.mx"/>
         <field name="phone">+5255465165</field>
         <field name="email">xcc@odoo.com</field>
-        <field name="l10n_mx_edi_fiscal_regime">605</field>
         <field name="company_id" ref="l10n_mx_hr_payroll.res_company_mx"/>
     </record>
 
     <record id="user_xochilt" model="res.users">
         <field name="partner_id" ref="l10n_mx_hr_payroll.res_partner_xochilt"/>
-        <field name="login">xochilt</field>
-        <field name="password">xochilt</field>
+        <field name="login">xochiltcasas</field>
+        <field name="password">xochiltcasas</field>
         <field name="company_ids" eval="[(4, ref('l10n_mx_hr_payroll.res_company_mx'))]"/>
         <field name="company_id" ref="l10n_mx_hr_payroll.res_company_mx"/>
         <field name="groups_id" eval="[(6,0,[ref('base.group_user')])]"/>
@@ -309,14 +307,13 @@
         <field name="country_id" ref="base.mx"/>
         <field name="phone">+52565514651</field>
         <field name="email">kfn@odoo.com</field>
-        <field name="l10n_mx_edi_fiscal_regime">605</field>
         <field name="company_id" ref="l10n_mx_hr_payroll.res_company_mx"/>
     </record>
 
     <record id="user_karla" model="res.users">
         <field name="partner_id" ref="l10n_mx_hr_payroll.res_partner_karla"/>
-        <field name="login">karla</field>
-        <field name="password">karla</field>
+        <field name="login">karlafuente</field>
+        <field name="password">karlafuente</field>
         <field name="company_ids" eval="[(4, ref('l10n_mx_hr_payroll.res_company_mx'))]"/>
         <field name="company_id" ref="l10n_mx_hr_payroll.res_company_mx"/>
         <field name="groups_id" eval="[(6,0,[ref('base.group_user')])]"/>
