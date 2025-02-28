@@ -172,31 +172,32 @@ class CzechVATControlReportCustomHandler(models.AbstractModel):
         tables, where_clause, where_params = report._query_get(options, 'strict_range', domain=domain)
         tax_group_12 = self.env.ref(f'account.{self.env.company.root_id.id}_tax_group_vat_12', raise_if_not_found=False)
 
-        select_clause = ''
+        select_clauses = []
         # According to the report part, additional select, where and groupby clauses are set.
-        groupby_clause = ''
+        groupby_clauses = []
         if code not in {'a5', 'b3'}:  # All codes except aggregated ones require information on individual moves.
-            select_clause += """
+            select_clauses.append(SQL("""
                 partner.vat AS partner_vat,
                 country.code AS country_code,
                 account_move_line__move_id.taxable_supply_date AS taxable_supply_date,
-                account_move_line__move_id.name AS move_name,
-            """
-            groupby_clause += 'partner.vat, account_move_line__move_id.name, account_move_line__move_id.taxable_supply_date, country.code'
+                account_move_line__move_id.name AS move_name
+            """))
+            groupby_clauses.append(SQL('partner.vat, account_move_line__move_id.name, account_move_line__move_id.taxable_supply_date, country.code'))
         else:
             where_clause += ' AND account_move_line__move_id.amount_total <= 10000'
 
         if code in {'a1', 'b1'}:  # A1 and B1 have reverse charges codes.
-            select_clause += 'account_move_line.l10n_cz_supplies_code AS supplies_code,'
-            groupby_clause += ', account_move_line.l10n_cz_supplies_code'
+            select_clauses.append(SQL('account_move_line.l10n_cz_supplies_code AS supplies_code'))
+            groupby_clauses.append(SQL('account_move_line.l10n_cz_supplies_code'))
 
         if code in {'a4', 'b2'}:
             where_clause += ' AND account_move_line__move_id.amount_total > 10000'
             if code == 'a4':  # A4 might include special regime transactions.
-                select_clause += 'account_move_line__move_id.l10n_cz_scheme_code AS supplies_code,'
-                groupby_clause += ', account_move_line__move_id.l10n_cz_scheme_code'
+                select_clauses.append(SQL('account_move_line__move_id.l10n_cz_scheme_code AS supplies_code'))
+                groupby_clauses.append(SQL('account_move_line__move_id.l10n_cz_scheme_code'))
 
-        groupby_clause, orderby_clause = cz_utils.build_query_clauses(groupby_clause, current_groupby)
+        if current_groupby:
+            groupby_clauses.append(SQL.identifier('account_move_line', current_groupby))
 
         tail_query, tail_params = report._get_engine_query_tail(offset, limit)
         query, params = SQL(
@@ -240,12 +241,12 @@ class CzechVATControlReportCustomHandler(models.AbstractModel):
                 %(tail_query)s
             """,
             select_from_groupby=SQL('%s AS grouping_key,', SQL.identifier('account_move_line', current_groupby)) if current_groupby else SQL(''),
-            select_clause=SQL(select_clause),
+            select_clause=SQL("%s,", SQL(", ").join(select_clauses)) if select_clauses else SQL(),
             tax_group_12=tax_group_12.id if tax_group_12 else 0,
             tables=SQL(tables),
             where_clause=SQL(where_clause, *where_params),
-            groupby_clause=SQL(groupby_clause),
-            orderby_clause=SQL(orderby_clause),
+            groupby_clause=SQL("GROUP BY %s", SQL(", ").join(groupby_clauses)) if groupby_clauses else SQL(),
+            orderby_clause=SQL("ORDER BY %s", SQL(", ").join(groupby_clauses)) if groupby_clauses else SQL(),
             tail_query=SQL(tail_query),
         )
         self._cr.execute(query, params + tail_params)

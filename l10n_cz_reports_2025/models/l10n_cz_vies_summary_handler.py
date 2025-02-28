@@ -99,8 +99,9 @@ class CzechVIESSummaryReportCustomHandler(models.AbstractModel):
             ([current_groupby] if current_groupby else [])
         )
 
-        groupby_clause = 'country.code, partner.vat, l10n_cz_transaction_code'
-        groupby_clause, orderby_clause = cz_utils.build_query_clauses(groupby_clause, current_groupby)
+        groupby_clause = SQL('country.code, partner.vat, l10n_cz_transaction_code')
+        if current_groupby:
+            groupby_clause = SQL("%s, %s", groupby_clause, SQL.identifier("account_move_line", current_groupby))
 
         tables, where_clause, where_params = report._query_get(options, 'strict_range')
         tail_query, tail_params = report._get_engine_query_tail(offset, limit)
@@ -126,9 +127,9 @@ class CzechVIESSummaryReportCustomHandler(models.AbstractModel):
             select_from_groupby=SQL('%s AS grouping_key,', SQL.identifier('account_move_line', current_groupby)) if current_groupby else SQL(''),
             tables=SQL(tables),
             where_clause=SQL(where_clause, *where_params),
-            eu_countries=SQL(tuple(cz_utils.get_eu_country_codes(self.env, options))),
-            groupby_clause=SQL(groupby_clause),
-            orderby_clause=SQL(orderby_clause),
+            eu_countries=tuple(cz_utils.get_eu_country_codes(self.env, options)),
+            groupby_clause=SQL("GROUP BY %s", groupby_clause),
+            orderby_clause=SQL("ORDER BY %s", groupby_clause),
             tail_query=SQL(tail_query),
         )
         self._cr.execute(query, params + tail_params)
