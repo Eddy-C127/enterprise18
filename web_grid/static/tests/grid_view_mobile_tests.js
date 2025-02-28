@@ -4,7 +4,13 @@
 
 import { browser } from "@web/core/browser/browser";
 import { Domain } from "@web/core/domain";
-import { click, getFixture, patchDate, patchWithCleanup } from "@web/../tests/helpers/utils";
+import {
+    click,
+    getFixture,
+    patchDate,
+    patchWithCleanup,
+    triggerScroll,
+} from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 
 let serverData, target;
@@ -289,5 +295,67 @@ QUnit.module("Views", (hooks) => {
             "Day",
             "The default active range should be the first one define in the grid view"
         );
+    });
+
+    QUnit.test("virtual scroll loads next records on mobile", async function (assert) {
+        // Inspired by the test `Only relevant grid rows are rendered with larger recordsets`
+
+        // Setup: generates 100 new tasks and related analytic lines distributed
+        // in all available projects, deterministically based on their ID.
+        const { fields: alFields, records: analyticLines } = serverData.models["analytic.line"];
+        const { records: tasks } = serverData.models["task"];
+        const { records: projects } = serverData.models["project"];
+        const selectionValues = alFields.selection_field.selection;
+        const today = luxon.DateTime.local().toFormat("yyyy-MM-dd");
+        for (let id = 100; id < 200; id++) {
+            const projectId = projects[id % projects.length].id;
+            tasks.push({
+                id,
+                display_name: `BS task #${id}`,
+                project_id: projectId,
+            });
+            analyticLines.push({
+                id,
+                project_id: projectId,
+                task_id: id,
+                selection_field: selectionValues[id % selectionValues.length][0],
+                date: today,
+                unit_amount: (id % 10) + 1, // 1 to 10
+            });
+        }
+        await makeView({
+            type: "grid",
+            resModel: "analytic.line",
+            serverData,
+            arch: `<grid >
+                    <field name="project_id" type="row"/>
+                    <field name="task_id" type="row"/>
+                    <field name="date" type="col">
+                        <range name="week" string="Week" span="week" step="day"/>
+                        <range name="day" string="Day" span="day" step="day"/>
+                    </field>
+                    <field name="unit_amount" type="measure"/>
+                </grid>`,
+            async mockRPC(route, args) {
+                if (args.method === "grid_unavailability") {
+                    return {};
+                }
+            },
+        });
+
+        const content = target.querySelector(".o_content");
+        content.style = "height: 600px; overflow: scroll;";
+
+        // This is to ensure that the virtual rows will not be impacted by
+        // sub-pixel calculations.
+        await triggerScroll(content, { top: 0 });
+
+        // Scroll to the middle of the grid
+        await triggerScroll(content, { top: content.scrollHeight / 2 });
+        assert.containsOnce(content, `a[href^="#id=101&"]`);
+
+        // Scroll to the end of the grid
+        await triggerScroll(content, { top: content.scrollHeight });
+        assert.containsOnce(content, `a[href^="#id=199&"]`);
     });
 });

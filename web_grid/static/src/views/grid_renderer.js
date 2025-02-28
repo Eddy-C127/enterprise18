@@ -137,7 +137,14 @@ export class GridRenderer extends Component {
     }
 
     get rowHeight() {
-        return 48;
+        const baseHeight = 48;
+        /*
+         * On mobile devices, grouped by fields are stacked vertically.
+         * By default, the base height accommodates up to 2 fields.
+         * For each additional field beyond the first 2, we add 20px to maintain proper spacing.
+         */
+        const extraHeight = this.isMobile ? Math.max(0, this.props.model.rowFields.length - 2) * 20 : 0;
+        return baseHeight + extraHeight;
     }
 
     getRowPosition(row, isCreateInlineRow = false) {
