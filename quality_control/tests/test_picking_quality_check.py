@@ -952,6 +952,7 @@ class TestQualityCheck(TestQualityCommon):
         untracked_check_ids.do_pass()
         self.assertEqual(untracked_check_ids.quality_state, 'pass')
         self.env.invalidate_all()
+        self.assertFalse(picking_in.check_quality())
         self.assertEqual(move_tracked_product.quantity, 1)
         self.assertFalse(move_tracked_product.picked)
         # Validate incoming shipment.
