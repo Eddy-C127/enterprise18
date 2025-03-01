@@ -3,11 +3,11 @@
 # 	* account_bank_statement_import
 # 
 # Translators:
-# Nadir Gazioglu <nadirgazioglu@gmail.com>, 2024
 # Umur Akın <umura@projetgrup.com>, 2024
+# Murat Kaplan <muratk@projetgrup.com>, 2024
 # Ediz Duman <neps1192@gmail.com>, 2025
 # Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2025
-# Murat Kaplan <muratk@projetgrup.com>, 2025
+# Hakan Türkün, 2025
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Murat Kaplan <muratk@projetgrup.com>, 2025\n"
+"Last-Translator: Hakan Türkün, 2025\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -57,8 +57,8 @@ msgid ""
 "Cannot find in which journal import this statement. Please manually select a"
 " journal."
 msgstr ""
-"Bu kaydın hangi yevmiyeye aktarılacağını bulunamıyor. Lütfen elle bir "
-"yevmiye seçin."
+"Bu kaydın hangi yevmiyeye aktarılacağı bulunamıyor. Lütfen manuel olarak bir"
+" yevmiye seçin."
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -73,6 +73,8 @@ msgid ""
 "Could not make sense of the given file.\n"
 "Did you install the module to support this type of file?"
 msgstr ""
+"İlgili dosya ilişkilendirilemedi.\n"
+"Bu dosyayı destekleyecek modülü yüklediniz mi?"
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -129,7 +131,7 @@ msgstr "Filtrelerinizle eşleşen işlem bulunamadı."
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_bank_statement.py:0
 msgid "Nothing to do here!"
-msgstr ""
+msgstr "Yapacak bir iş yok!"
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -137,7 +139,8 @@ msgstr ""
 msgid ""
 "The account of this statement (%(account)s) is not the same as the journal "
 "(%(journal)s)."
-msgstr "Bu kaydın (%(account)s) hesabı, yevmiye (%(journal)s) aynı değil."
+msgstr ""
+"Bu ekstreye ait (%(account)s) hesabı, yevmiye (%(journal)s) ile aynı değil."
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -153,7 +156,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "The following files could not be imported:\n"
-msgstr ""
+msgstr "Aşağıdaki dosyalar içeri alınamadı\n"
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -162,6 +165,8 @@ msgid ""
 "This file doesn't contain any statement for account %s.\n"
 "If it contains transactions for more than one account, it must be imported on each of them."
 msgstr ""
+"Bu dosya %s hesabına ait bir ekstre içermiyor. \n"
+"Birden fazla hesap için işlemleri içeriyorsa, her bir hesap için ayrı aktarılmalıdır."
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -170,27 +175,29 @@ msgid ""
 "This file doesn't contain any transaction for account %s.\n"
 "If it contains transactions for more than one account, it must be imported on each of them."
 msgstr ""
+"Bu dosya %s hesabına ait bir hareket içermiyor.\n"
+"Birden fazla hesap için işlemleri içeriyorsa, her bir hesap için ayrı aktarılmalıdır."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "View successfully imported statements"
-msgstr ""
+msgstr "Başarıyla aktarılmış ekstreleri görüntüleyin."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "You already have imported that file."
-msgstr "Bu dosya çoktan içe aktarılmış."
+msgstr "Bu dosyayı daha önce içeri aktarmıştınız."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "You have to set a Default Account for the journal: %s"
-msgstr "You have to set a Default Account for the journal: %s"
+msgstr "%s yevmiyesi için bir ön tanımlı hesap belirlemelisiniz."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "You uploaded an invalid or empty file."
-msgstr ""
+msgstr "Geçersiz veya boş bir dosya yüklediniz."

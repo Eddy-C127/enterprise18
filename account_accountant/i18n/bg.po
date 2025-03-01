@@ -19,6 +19,7 @@
 # Petko Karamotchev, 2024
 # Veselina Slavkova, 2025
 # KeyVillage, 2025
+# Krasimir Dankov, 2025
 # 
 msgid ""
 msgstr ""
@@ -26,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-10 15:41+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: KeyVillage, 2025\n"
+"Last-Translator: Krasimir Dankov, 2025\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -388,6 +389,9 @@ msgid ""
 "in accordance with its journal sequence. This lock date is irreversible and "
 "does not allow any exception."
 msgstr ""
+"Всеки запис до и включително датата ще бъдат отложени за по-късно в "
+"съответствие с реда в дневника. Тази крайна дата е необратима и не подлежи "
+"на никакви изключения"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
@@ -395,6 +399,8 @@ msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
 "in accordance with its journal's sequence."
 msgstr ""
+"Всеки запис до и включително датата ще бъдат отложени за по-късно в "
+"съответствие с реда в дневника."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date

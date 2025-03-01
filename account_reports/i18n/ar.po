@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Martin Trigaux, 2024
-# Malaz Abuidris <msea@odoo.com>, 2025
 # Wil Odoo, 2025
+# Malaz Abuidris <msea@odoo.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-10 15:41+0000\n"
+"POT-Creation-Date: 2025-02-25 10:04+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2025\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -159,6 +159,21 @@ msgid ""
 "            </div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                <p style=\"margin: 0px; padding: 0px;\">\n"
+"                    <t t-if=\"object.id != object.commercial_partner_id.id\">عزيزنا <t t-out=\"object.name or ''\"/> (<t t-out=\"object.commercial_partner_id.name or ''\"/>)،</t>\n"
+"                    <t t-else=\"\">عزيزنا <t t-out=\"object.name or ''\"/>،</t>\n"
+"                    <br/>\n"
+"                    يُرجى الاطلاع على كشف حسابك في المرفقات.\n"
+"                    <br/>\n"
+"                    لا تتردد في التواصل معنا إذا كانت لديك أي أسئلة أو استفسارات.\n"
+"                    <br/>\n"
+"                    مع وافر الشكر والتقدير،\n"
+"                    <br/>\n"
+"\t                <t t-out=\"object._get_followup_responsible().name if is_html_empty(object._get_followup_responsible().signature) else object._get_followup_responsible().signature\"/>\n"
+"                </p>\n"
+"            </div>\n"
+"        "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
@@ -539,6 +554,7 @@ msgstr ""
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_amount
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_amount
 #: model:account.report.column,name:account_reports.customer_statement_amount
+#: model:account.report.column,name:account_reports.followup_report_amount
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget_item__amount
 msgid "Amount"
 msgstr "مبلغ"
@@ -550,6 +566,7 @@ msgstr "مبلغ"
 #: model:account.report.column,name:account_reports.aged_receivable_report_amount_currency
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_amount_currency
 #: model:account.report.column,name:account_reports.customer_statement_report_amount_currency
+#: model:account.report.column,name:account_reports.followup_report_report_amount_currency
 #: model:account.report.column,name:account_reports.partner_ledger_report_amount_currency
 msgid "Amount Currency"
 msgstr "عملة المبلغ"
@@ -672,6 +689,7 @@ msgstr "B: %s"
 #: model:account.report.column,name:account_reports.balance_sheet_balance
 #: model:account.report.column,name:account_reports.cash_flow_report_balance
 #: model:account.report.column,name:account_reports.customer_statement_report_balance
+#: model:account.report.column,name:account_reports.followup_report_report_balance
 #: model:account.report.column,name:account_reports.executive_summary_column
 #: model:account.report.column,name:account_reports.general_ledger_report_balance
 #: model:account.report.column,name:account_reports.journal_report_balance
@@ -1283,7 +1301,7 @@ msgstr "كشف حساب العميل "
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_customer_statement_report_handler
 msgid "Customer Statement Custom Handler"
-msgstr ""
+msgstr "المعالج المخصص لكشف حساب العميل "
 
 #. module: account_reports
 #. odoo-javascript
@@ -1337,13 +1355,13 @@ msgstr "قابل للاستقطاع "
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 msgid "Deferrals have not yet been completely generated for this period."
-msgstr ""
+msgstr "لم يتم بعد إنشاء التأجيلات بالكامل لهذه الفترة. "
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 msgid "Deferrals have not yet been generated for this period."
-msgstr ""
+msgstr "لم يتم بعد إنشاء التأجيلات لهذه الفترة. "
 
 #. module: account_reports
 #. odoo-python
@@ -1506,6 +1524,7 @@ msgstr "متأخر"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filter_aging.xml:0
 #: model:account.report.column,name:account_reports.customer_statement_report_date_maturity
+#: model:account.report.column,name:account_reports.followup_report_date_maturity
 #: model:account.report.column,name:account_reports.partner_ledger_report_date_maturity
 msgid "Due Date"
 msgstr "موعد إجراء المكالمة "
@@ -1746,7 +1765,7 @@ msgstr "الحقل %s غير موجود في account.move.line. "
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Field %s of account.move.line cannot be used in a groupby expression."
-msgstr ""
+msgstr "لا يمكن استخدام حقل%s  account.move.line في تعبير groupby. "
 
 #. module: account_reports
 #. odoo-python
@@ -1755,6 +1774,8 @@ msgid ""
 "Field %s of account.move.line is not searchable and can therefore not be "
 "used in a groupby expression."
 msgstr ""
+"لا يمكن البحث في حقل %s لـ account.move.line، وبالتالي لا يمكن استخدامه في "
+"تعبير groupby. "
 
 #. module: account_reports
 #. odoo-python
@@ -1825,6 +1846,16 @@ msgid ""
 " to"
 msgstr ""
 "يجب أن تنطبق الأوضاع المالية على كافة الشركات لوحدة الضريبة. ربما عليك "
+
+#. module: account_reports
+#: model:account.report,name:account_reports.followup_report
+msgid "Follow-Up Report"
+msgstr ""
+
+#. module: account_reports
+#: model:ir.model,name:account_reports.model_account_followup_report_handler
+msgid "Follow-Up Report Custom Handler"
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -2206,6 +2237,7 @@ msgstr "الرمز غير صالح '%(token)s' في صيغة account_codes '%(fo
 #: model:account.report.column,name:account_reports.aged_payable_report_invoice_date
 #: model:account.report.column,name:account_reports.aged_receivable_report_invoice_date
 #: model:account.report.column,name:account_reports.customer_statement_report_invoicing_date
+#: model:account.report.column,name:account_reports.followup_report_invoicing_date
 #: model:account.report.column,name:account_reports.partner_ledger_report_invoicing_date
 msgid "Invoice Date"
 msgstr "تاريخ الفاتورة"
@@ -2231,14 +2263,14 @@ msgstr "يبدو أنه توجد حركة إغلاق معتمدة على غير�
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid ""
 "It's not possible to select a budget with the horizontal group feature."
-msgstr ""
+msgstr "لا يمكن تحديد ميزانية باستخدام خاصية المجموعة الأفقية. "
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid ""
 "It's not possible to select a horizontal group with the budget feature."
-msgstr ""
+msgstr "لا يمكن تحديد مجموعة أفقية باستخدام خاصية الميزانية. "
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget__item_ids
@@ -2416,6 +2448,8 @@ msgid ""
 "Line '%(child)s' is configured to appear before its parent '%(parent)s'. "
 "This is not allowed."
 msgstr ""
+"تم تهيئة البند '%(child)s' ليظهر قبل البند الأصلي '%(parent)s'. لا يُسمح "
+"بذلك.  "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -2598,7 +2632,7 @@ msgstr "صافي الزيادة في النقد وما يعادل النقد "
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_npmargin0
 msgid "Net profit margin (net profit / revenue)"
-msgstr ""
+msgstr "صافي هامش الربح (صافي الربح / الإيرادات) "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
@@ -2971,7 +3005,7 @@ msgstr "يرجى تحديد قالب بريد لإرسال عدة كشوفات. 
 msgid ""
 "Please select the main company and its branches in the company selector to "
 "proceed."
-msgstr ""
+msgstr "يرجى تحديد الشركة الرئيسية وفروعها في أداة اختيار الشركة للمتابعة. "
 
 #. module: account_reports
 #. odoo-python
@@ -3048,7 +3082,7 @@ msgstr "الفترة السابقة"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "Previous Periods"
-msgstr ""
+msgstr "الفترات السابقة "
 
 #. module: account_reports
 #. odoo-javascript
@@ -3060,7 +3094,7 @@ msgstr "العام الماضي"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "Previous Years"
-msgstr ""
+msgstr "السنوات الماضية "
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings_line_2
@@ -3296,7 +3330,7 @@ msgstr "إرسال"
 #. odoo-python
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 msgid "Send %s Statement"
-msgstr ""
+msgstr "إرسال كشف حساب %s "
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report__send_and_print_values
@@ -3379,7 +3413,7 @@ msgstr "إظهار حركة تحذير "
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 msgid "Show already generated deferrals."
-msgstr ""
+msgstr "إظهار التأجيلات التي تم إنشاؤها بالفعل. "
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
@@ -3669,6 +3703,8 @@ msgid ""
 "The attachments of the tax report can be found on the %(link_start)sclosing "
 "entry%(link_end)s of the representative company."
 msgstr ""
+"يمكن العثور على مرفقات التقرير الضريبي في %(link_start)sقيد "
+"الإقفال%(link_end)s للشركة الممثلة. "
 
 #. module: account_reports
 #. odoo-python
@@ -3715,6 +3751,8 @@ msgid ""
 "will be created for the closest-matching period according to your "
 "periodicity setup."
 msgstr ""
+"لا تتطابق التواريخ المحددة حالياً مع إحدى الفترات الضريبية. سيتم إنشاء القيد"
+" الختامي لأقرب فترة مطابقة وفقاً لإعدادات معدل التكرار والدورية الخاصة بك. "
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_report_annotation__fiscal_position_id
@@ -3764,7 +3802,7 @@ msgstr "هناك "
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid ""
 "There are currently reports waiting to be sent, please try again later."
-msgstr ""
+msgstr "هناك تقارير بانتظار إرسالها حالياً. يُرجى إعادة المحاولة لاحقاً. "
 
 #. module: account_reports
 #. odoo-javascript
@@ -3830,7 +3868,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
 msgid "This line is out of sequence."
-msgstr ""
+msgstr "هذا البند خارج التسلسل. "
 
 #. module: account_reports
 #. odoo-javascript
@@ -3839,6 +3877,8 @@ msgid ""
 "This line is placed before its parent, which is not allowed. You can fix it "
 "by dragging it to the proper position."
 msgstr ""
+"تم وضع هذا البند قبل البند الأصلي، وهو أمر غير مسموح به. يمكنك إصلاحه عن "
+"طريق سحبه إلى المكان المناسب. "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
@@ -3877,6 +3917,8 @@ msgid ""
 "This report uses report-specific code.\n"
 "                        You can customize it manually, but any change in the parameters used for its computation could lead to errors."
 msgstr ""
+"يستخدم هذا التقرير كود خاص بالتقرير.\n"
+"                        يمكنك تخصيصه يدوياً، ولكن قد يؤدي أي تغيير في العوامل المستخدمة في حسابه إلى حدوث أخطاء. "
 
 #. module: account_reports
 #. odoo-javascript
@@ -3885,6 +3927,8 @@ msgid ""
 "This report uses the CTA conversion method to consolidate multiple companies using different currencies,\n"
 "        which can lead the report to be unbalanced."
 msgstr ""
+"يستخدم هذا التقرير طريقة التحويل CTA لدمج عدة شركات تستخدم عملات مختلفة،\n"
+"        مما قد يؤدي إلى اختلال توازن التقرير.  "
 
 #. module: account_reports
 #. odoo-python
@@ -4260,6 +4304,8 @@ msgid ""
 " Each of them will be created in accordance with its company tax "
 "periodicity."
 msgstr ""
+"أنت على وشك إنشاء القيود الختامية لعدة شركات في آنٍ واحد. سيتم إنشاء كل منها"
+" وفقاً لمعدل تكرار ضريبة الشركة الخاصة بها. "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main

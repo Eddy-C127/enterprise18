@@ -30,16 +30,17 @@
 # Murat Kaplan <muratk@projetgrup.com>, 2024
 # Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2025
 # Tugay Hatıl <tugayh@projetgrup.com>, 2025
-# Melih Melik Sonmez, 2025
 # Wil Odoo, 2025
+# Hakan Türkün, 2025
+# Melih Melik Sonmez, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-10 15:41+0000\n"
+"POT-Creation-Date: 2025-02-25 10:04+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Melih Melik Sonmez, 2025\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,13 +64,13 @@ msgstr "%(journal)s - %(account)s"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "%(names)s and %(remaining)s others"
-msgstr ""
+msgstr "%(names)s ve %(remaining)s diğerleri"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "%(names)s and one other"
-msgstr ""
+msgstr "%(names)s ve bir tane daha"
 
 #. module: account_reports
 #. odoo-python
@@ -87,13 +88,13 @@ msgstr "%s (kopya)"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "%s is not a numeric value"
-msgstr ""
+msgstr "%s numerik bir değer değil"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "%s selected"
-msgstr ""
+msgstr "%s seçildi."
 
 #. module: account_reports
 #. odoo-python
@@ -557,6 +558,7 @@ msgstr ""
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_amount
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_amount
 #: model:account.report.column,name:account_reports.customer_statement_amount
+#: model:account.report.column,name:account_reports.followup_report_amount
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget_item__amount
 msgid "Amount"
 msgstr "Tutar"
@@ -568,6 +570,7 @@ msgstr "Tutar"
 #: model:account.report.column,name:account_reports.aged_receivable_report_amount_currency
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_amount_currency
 #: model:account.report.column,name:account_reports.customer_statement_report_amount_currency
+#: model:account.report.column,name:account_reports.followup_report_report_amount_currency
 #: model:account.report.column,name:account_reports.partner_ledger_report_amount_currency
 msgid "Amount Currency"
 msgstr "Para Birimi Tutarı"
@@ -690,6 +693,7 @@ msgstr ""
 #: model:account.report.column,name:account_reports.balance_sheet_balance
 #: model:account.report.column,name:account_reports.cash_flow_report_balance
 #: model:account.report.column,name:account_reports.customer_statement_report_balance
+#: model:account.report.column,name:account_reports.followup_report_report_balance
 #: model:account.report.column,name:account_reports.executive_summary_column
 #: model:account.report.column,name:account_reports.general_ledger_report_balance
 #: model:account.report.column,name:account_reports.journal_report_balance
@@ -980,7 +984,7 @@ msgstr "Kilit Tarihini Değiştir"
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "Check Partner(s) Email(s)"
-msgstr ""
+msgstr "İş Ortaklarının Epostalarını Kontrol Et"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1417,7 +1421,7 @@ msgstr "Gecikme birimleri"
 #. odoo-python
 #: code:addons/account_reports/models/account_move.py:0
 msgid "Depending moves"
-msgstr ""
+msgstr "Bağlı hareketler"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1520,6 +1524,7 @@ msgstr "Geciken"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filter_aging.xml:0
 #: model:account.report.column,name:account_reports.customer_statement_report_date_maturity
+#: model:account.report.column,name:account_reports.followup_report_date_maturity
 #: model:account.report.column,name:account_reports.partner_ledger_report_date_maturity
 msgid "Due Date"
 msgstr "Vade Tarihi"
@@ -1828,6 +1833,16 @@ msgstr ""
 msgid ""
 "Fiscal Positions should apply to all companies of the tax unit. You may want"
 " to"
+msgstr ""
+
+#. module: account_reports
+#: model:account.report,name:account_reports.followup_report
+msgid "Follow-Up Report"
+msgstr ""
+
+#. module: account_reports
+#: model:ir.model,name:account_reports.model_account_followup_report_handler
+msgid "Follow-Up Report Custom Handler"
 msgstr ""
 
 #. module: account_reports
@@ -2154,7 +2169,7 @@ msgstr "Başlangıç Bakiyesi"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 msgid "Integer Rounding"
-msgstr "Sayı (Integer) Yuvarlama"
+msgstr "Tam Sayıya Yuvarlama"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2202,6 +2217,7 @@ msgstr ""
 #: model:account.report.column,name:account_reports.aged_payable_report_invoice_date
 #: model:account.report.column,name:account_reports.aged_receivable_report_invoice_date
 #: model:account.report.column,name:account_reports.customer_statement_report_invoicing_date
+#: model:account.report.column,name:account_reports.followup_report_invoicing_date
 #: model:account.report.column,name:account_reports.partner_ledger_report_invoicing_date
 msgid "Invoice Date"
 msgstr "Fatura Tarihi"
@@ -3237,7 +3253,7 @@ msgstr "Gelir"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__reversal_date
 msgid "Reversal Date"
-msgstr "Ters Tarih"
+msgstr "Ters Kayıt Tarihi"
 
 #. module: account_reports
 #. odoo-python
@@ -3632,7 +3648,7 @@ msgstr "Muhasebe raporu indirmeleri için teknik model"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/ellipsis/ellipsis.js:0
 msgid "Text copied"
-msgstr ""
+msgstr "Kopyalanmış metin"
 
 #. module: account_reports
 #. odoo-python
@@ -4087,7 +4103,7 @@ msgstr "İş Ortağı Görüntüle"
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "View Partner(s)"
-msgstr ""
+msgstr "İş Ortaklarını Görüntüle"
 
 #. module: account_reports
 #. odoo-python

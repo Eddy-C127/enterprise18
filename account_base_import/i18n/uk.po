@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2025\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +44,7 @@ msgstr "Модуль імпорту рахунків Winbooks"
 #. module: account_base_import
 #: model:ir.model,name:account_base_import.model_account_import_summary
 msgid "Account import summary view"
-msgstr ""
+msgstr "Перегляд підсумку імпорту рахунку"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
@@ -172,37 +173,37 @@ msgstr "Імпорт партнерів"
 #. odoo-python
 #: code:addons/account_base_import/wizard/account_import_summary.py:0
 msgid "Import Summary"
-msgstr ""
+msgstr "Імпортувати підсумок"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_account_ids
 msgid "Import Summary Account"
-msgstr ""
+msgstr "Імпортувати рахунок підсумку"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_journal_ids
 msgid "Import Summary Journal"
-msgstr ""
+msgstr "Імпортувати журнал підсумку"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_move_ids
 msgid "Import Summary Move"
-msgstr ""
+msgstr "Імпортувати проводку імпорту"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_name
 msgid "Import Summary Name"
-msgstr ""
+msgstr "Імпортувати назву підсумку"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_partner_ids
 msgid "Import Summary Partner"
-msgstr ""
+msgstr "Імпортувати партнера підсумку"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_tax_ids
 msgid "Import Summary Tax"
-msgstr ""
+msgstr "Імпортувати податок підсумку"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -227,7 +228,7 @@ msgstr "Імпорт плану рахунків та початкових за�
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "Imported Data"
-msgstr ""
+msgstr "Імпортовані дані"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
@@ -284,7 +285,7 @@ msgstr ""
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "No data was imported."
-msgstr ""
+msgstr "Жодних даних не було імпортовано."
 
 #. module: account_base_import
 #. odoo-javascript
@@ -403,11 +404,13 @@ msgid ""
 "You must provide both the `code_mapping_ids/company_id` and the "
 "`code_mapping_ids/code` columns."
 msgstr ""
+"Необхідно вказати стовпці `code_mapping_ids/company_id` і "
+"`code_mapping_ids/code`."
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "accounts imported"
-msgstr ""
+msgstr "рахунки імпортовано"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -424,12 +427,12 @@ msgstr ""
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "journals imported"
-msgstr ""
+msgstr "журнали імпортовано"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "moves imported"
-msgstr ""
+msgstr "проводки імпортовано"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -440,12 +443,12 @@ msgstr "або"
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "partners imported"
-msgstr ""
+msgstr "партнерів імпортовано"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "taxes imported"
-msgstr ""
+msgstr "податки імпортовано"
 
 #. module: account_base_import
 #. odoo-javascript

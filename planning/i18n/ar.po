@@ -1330,6 +1330,9 @@ msgid ""
 " of another employee, notifying the person who requested to switch that the "
 "shift has been taken"
 msgstr ""
+"يتم إرسال بريد إلكتروني تلقائياً عندما يقوم أحد الموظفين بالتبديل الذاتي إلى"
+" المناوبة غير المرغوب فيها لموظف آخر، مع إخطار الشخص الذي طلب التبديل بأن "
+"المناوبة قد تم أخذها "
 
 #. module: planning
 #: model:mail.template,description:planning.email_template_slot_single
@@ -2050,6 +2053,8 @@ msgid ""
 "Please add a work email for the following employee so that they can receive "
 "their planning:"
 msgstr ""
+"يُرجى إضافة بريد إلكتروني خاص بالعمل للموظف التالي حتى يتمكن من استلام "
+"التخطيط الخاص به: "
 
 #. module: planning
 #. odoo-javascript
@@ -2697,7 +2702,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "This method must take two slots in argument."
-msgstr ""
+msgstr "يجب أن تأخذ هذه الطريقة خانتين في الوسيطة. "
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -2865,7 +2870,7 @@ msgstr "لا يمكنك إلغاء تعيين أي موظف آخر سوى نفس
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You cannot assign yourself to a shift in the past."
-msgstr ""
+msgstr "لا يمكنك تكليف نفسك بمناوبة في الماضي. "
 
 #. module: planning
 #. odoo-python
@@ -2895,7 +2900,7 @@ msgstr "لا يمكنك تبديل نوبة عمل في الماضي. "
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You cannot unassign yourself from a shift in the past."
-msgstr ""
+msgstr "لا يمكنك إلغاء تعيين نفسك من مناوبة في الماضي. "
 
 #. module: planning
 #. odoo-javascript

@@ -26,6 +26,8 @@ msgid ""
 "Base folder for the folders created on-the-fly in the Sign App. Permission "
 "of the created folders will be inherited from this base folder."
 msgstr ""
+"المجلد الأساسي للمجلدات التي تم إنشاؤها في تطبيق التوقيع الإلكتروني. سيتم "
+"توريث إذن المجلدات التي تم إنشاؤها من هذا المجلد الأساسي. "
 
 #. module: documents_sign
 #: model:ir.model,name:documents_sign.model_res_company
@@ -48,6 +50,7 @@ msgid ""
 "Each document template can be configured to centralize signed documents into"
 " a specific folder."
 msgstr ""
+"يمكن تهيئة كل من قوالب المستند لجمع كافة المستندات الموقعة في مجلد محدد. "
 
 #. module: documents_sign
 #: model_terms:ir.ui.view,arch_db:documents_sign.res_config_settings_view_form_inherit_documents_sign
@@ -86,7 +89,7 @@ msgstr "التوقيع على المستند الأساسي "
 #. module: documents_sign
 #: model:ir.model.fields,field_description:documents_sign.field_res_company__documents_sign_folder_id
 msgid "Sign Folder"
-msgstr ""
+msgstr "مجلد التوقيع "
 
 #. module: documents_sign
 #: model:ir.actions.server,name:documents_sign.ir_actions_server_create_sign_template_direct_create

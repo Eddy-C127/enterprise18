@@ -91,6 +91,13 @@ msgid ""
 "                <i data-trigger-type=\"whatsapp_not_click\" class=\"fa fa-hand-pointer-o o_ma_text_rejected o_add_child_activity text-danger\" title=\"Not Clicked\" role=\"img\" aria-label=\"Not Clicked\"/>\n"
 "                <i data-trigger-type=\"whatsapp_bounced\" class=\"fa fa-exclamation-circle o_ma_text_error o_add_child_activity text-danger\" title=\"Bounced\" role=\"img\" aria-label=\"Error\"/>"
 msgstr ""
+"<i data-trigger-type=\"whatsapp_read\" class=\"fa fa-check-circle o_ma_text_read o_add_child_activity text-info\" title=\"تم فتحها \" role=\"img\" aria-label=\"Opened\"/>\n"
+"                <i data-trigger-type=\"whatsapp_not_read\" class=\"fa fa-check-circle o_ma_text_read o_add_child_activity text-danger\" title=\"لم يتم فتحها \" role=\"img\" aria-label=\"Not Opened\"/>\n"
+"                <i data-trigger-type=\"whatsapp_replied\" class=\"fa fa-reply o_ma_text_replied o_add_child_activity text-success\" title=\"تم الرد عليها \" role=\"img\" aria-label=\"replied\"/>\n"
+"                <i data-trigger-type=\"whatsapp_not_replied\" class=\"fa fa-reply o_ma_text_replied o_add_child_activity text-danger\" title=\"لم يتم الرد عليها \" role=\"img\" aria-label=\"not replied\"/>\n"
+"                <i data-trigger-type=\"whatsapp_click\" class=\"fa fa-hand-pointer-o o_ma_text_processed o_add_child_activity text-success\" title=\"تم الضغط عليها \" role=\"img\" aria-label=\"Clicked\"/>\n"
+"                <i data-trigger-type=\"whatsapp_not_click\" class=\"fa fa-hand-pointer-o o_ma_text_rejected o_add_child_activity text-danger\" title=\"لم يتم الضغط عليها \" role=\"img\" aria-label=\"Not Clicked\"/>\n"
+"                <i data-trigger-type=\"whatsapp_bounced\" class=\"fa fa-exclamation-circle o_ma_text_error o_add_child_activity text-danger\" title=\"ارتدت \" role=\"img\" aria-label=\"Error\"/>"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_participant_view_form
@@ -173,6 +180,8 @@ msgid ""
 "Make sure you select url tracking under buttons option, otherwise those "
 "links won't be tracked"
 msgstr ""
+"احرص على تحديد خاصية تتبع عنوان url ضمن خيار الأزرار، وإلا فلن يتم تتبع هذه "
+"الروابط "
 
 #. module: marketing_automation_whatsapp
 #: model:ir.model,name:marketing_automation_whatsapp.model_marketing_activity
@@ -392,6 +401,8 @@ msgid ""
 "after the Participant <strong>clicks</strong><br/>on any link included in "
 "the <strong>Whatsapp message</strong> sent by the Activity \""
 msgstr ""
+"بعد قيام المشترِك <strong>بالضغط</strong><br/> على أي رابط تم تضميته في "
+"<strong>رسالة Whatsapp</strong> المرسَلة بواسطة النشاط\" "
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_activity_summary_template_whatsapp
@@ -399,6 +410,7 @@ msgid ""
 "after the Participant <strong>opens the Whatsapp message</strong> sent by "
 "the Activity \""
 msgstr ""
+"بعد قيام المشترك <strong>بفتح رسالة Whatsapp</strong> التي أرسلها النشاط \""
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_activity_summary_template_whatsapp
@@ -406,6 +418,8 @@ msgid ""
 "after the Participant <strong>replies to the Whatsapp message</strong> sent "
 "by the Activity \""
 msgstr ""
+"بعد قيام المشترك <strong>بالرد على رسالة Whatsapp</strong> التي أرسلها "
+"النشاط \""
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_activity_summary_template_whatsapp
@@ -424,3 +438,5 @@ msgid ""
 "if no link included in the <strong>Whatsapp message</strong> sent by the "
 "Activity \""
 msgstr ""
+"إذا لم يكن هناك رابط في <strong>رسالة Whatsapp</strong> التي تم إرسالها "
+"بواسطة النشاط \" "

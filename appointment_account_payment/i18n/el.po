@@ -8,6 +8,7 @@
 # Martin Trigaux, 2024
 # Charalampos Loukas, 2025
 # Agapi Psyllou, 2025
+# Anastasia Mimou, 2025
 # 
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Agapi Psyllou, 2025\n"
+"Last-Translator: Anastasia Mimou, 2025\n"
 "Language-Team: Greek (https://app.transifex.com/odoo/teams/41243/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,6 +32,9 @@ msgid ""
 "%(date_start)s at %(time_start)s to\n"
 "%(date_end)s at %(time_end)s (%(timezone)s)"
 msgstr ""
+"%(name)s\n"
+"%(date_start)s στις %(time_start)s ως\n"
+"%(date_end)s στις %(time_end)s (%(timezone)s)"
 
 #. module: appointment_account_payment
 #. odoo-python
@@ -40,6 +44,9 @@ msgid ""
 "%(date_start)s at %(time_start)s to\n"
 "%(date_end)s at %(time_end)s (%(timezone)s)"
 msgstr ""
+"%(name)sμε  %(staff_user)s\n"
+"%(date_start)sστις  %(time_start)s ως\n"
+"%(date_end)s στις %(time_end)s (%(timezone)s)"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_validated
@@ -49,7 +56,7 @@ msgstr ""
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
 msgid "<i class=\"fa fa-pencil fa-fw me-1\"/>Edit my appointment"
-msgstr ""
+msgstr "<i class=\"fa fa-pencil fa-fw me-1\"/>Επεξεργασία του ραντεβού μου"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
@@ -69,6 +76,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/> Configure Payment "
 "Providers"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/> Διαμόρφωση Παρόχων "
+"Πληρωμών"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_type_view_form
@@ -80,7 +89,7 @@ msgstr ""
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 msgid "<span>Online</span>"
-msgstr ""
+msgstr "<span>Online</span>"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_progress_bar
@@ -95,16 +104,19 @@ msgid ""
 "<strong>Warning</strong> Make sure you are logged in as the right partner "
 "before making this payment."
 msgstr ""
+"<strong>Προσοχή</strong> Βεβαιωθείτε ότι έχετε συνδεθεί ως ο σωστός "
+"συνεργάτης πριν πραγματοποιήσετε αυτή την πληρωμή."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
 msgid "<strong>Warning</strong> The currency is missing or incorrect."
-msgstr ""
+msgstr "<strong>Προσοχή</strong> Το νόμισμα λείπει ή είναι λανθασμένο."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
 msgid "<strong>Warning</strong> You must be logged in to pay."
 msgstr ""
+"<strong>Προσοχή</strong> Πρέπει να είστε συνδεδεμένοι για να πληρώσετε."
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__booking_token
@@ -114,7 +126,7 @@ msgstr "Διακριτικό Πρόσβασης"
 #. module: appointment_account_payment
 #: model:ir.model.constraint,message:appointment_account_payment.constraint_appointment_type_check_product_and_payment_step
 msgid "Activating the payment step requires a product"
-msgstr ""
+msgstr "Η ενεργοποίηση του βήματος πληρωμής απαιτεί ένα προϊόν."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
@@ -129,12 +141,12 @@ msgstr "Απαντήσεις"
 #. module: appointment_account_payment
 #: model:ir.model,name:appointment_account_payment.model_appointment_answer_input
 msgid "Appointment Answer Inputs"
-msgstr ""
+msgstr "Πληροφορίες Απαντήσεων Ραντεβού"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__appointment_answer_input_ids
 msgid "Appointment Answers"
-msgstr ""
+msgstr "Απαντήσεις Ραντεβού"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__appointment_invite_id
@@ -144,7 +156,7 @@ msgstr "Πρόσκληση Ραντεβού"
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__account_move_id
 msgid "Appointment Invoice"
-msgstr ""
+msgstr "Τιμολόγιο Ραντεβού"
 
 #. module: appointment_account_payment
 #: model:ir.model,name:appointment_account_payment.model_appointment_type
@@ -155,7 +167,7 @@ msgstr "Τύπος ραντεβού"
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__asked_capacity
 msgid "Asked Capacity"
-msgstr ""
+msgstr "Ζητούμενη Χωρητικότητα"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
@@ -165,17 +177,17 @@ msgstr "Συμμετέχοντες"
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view_form
 msgid "Booking"
-msgstr ""
+msgstr "Κράτηση"
 
 #. module: appointment_account_payment
 #: model:product.template,name:appointment_account_payment.default_booking_product_product_template
 msgid "Booking Fees"
-msgstr ""
+msgstr "Τέλη Κράτησης"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__booking_line_ids
 msgid "Booking Lines"
-msgstr ""
+msgstr "Γραμμές Κράτησης"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_appointment_type__product_id
@@ -190,17 +202,17 @@ msgstr "Συμβάν Ημερολογίου"
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking_line__capacity_reserved
 msgid "Capacity Reserved"
-msgstr ""
+msgstr "Κρατημένη Χωρητικότητα"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking_line__capacity_used
 msgid "Capacity Used"
-msgstr ""
+msgstr "Χρησιμοποιημένη Χωρητικότητα"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_form
 msgid "Confirm Appointment"
-msgstr ""
+msgstr "Επιβεβαίωση Ραντεβού"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__partner_id
@@ -235,6 +247,8 @@ msgid ""
 "Discover the secrets kept in high-end kitchens with one of our starred "
 "chefs, from the comfort of your own home."
 msgstr ""
+"Ανακαλύψτε τα μυστικά που κρύβονται σε υψηλής ποιότητας κουζίνες με έναν από"
+" τους βραβευμένους σεφ μας, από την άνεση του σπιτιού σας."
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__display_name
@@ -251,12 +265,12 @@ msgstr "Διάρκεια"
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 msgid "For"
-msgstr ""
+msgstr "Για"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__guest_ids
 msgid "Guests"
-msgstr ""
+msgstr "Επισκέπτες"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__id
@@ -267,7 +281,7 @@ msgstr "Κωδικός"
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__not_available
 msgid "Is Not Available"
-msgstr ""
+msgstr "Δεν Είναι Διαθέσιμο"
 
 #. module: appointment_account_payment
 #: model:ir.model,name:appointment_account_payment.model_account_move
@@ -310,18 +324,18 @@ msgstr "Συνάντηση"
 #: model:ir.model.fields,field_description:appointment_account_payment.field_appointment_answer_input__calendar_booking_id
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking_line__calendar_booking_id
 msgid "Meeting Booking"
-msgstr ""
+msgstr "Κράτηση Συνάντησης"
 
 #. module: appointment_account_payment
 #: model:ir.model,name:appointment_account_payment.model_calendar_booking_line
 msgid "Meeting Resource Booking"
-msgstr ""
+msgstr "Κράτηση Πόρων Συνάντησης"
 
 #. module: appointment_account_payment
 #: model:appointment.type,name:appointment_account_payment.appointment_type_online_cooking_lesson
 #: model:product.template,name:appointment_account_payment.product_appointment_type_online_cooking_lesson_product_template
 msgid "Online Cooking Lesson"
-msgstr ""
+msgstr "Διαδικτυακό Μάθημα Μαγειρικής"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_validated
@@ -348,17 +362,17 @@ msgstr ""
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
 msgid "Payment for \""
-msgstr ""
+msgstr "Πληρωμή για \""
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_type_view_form
 msgid "Pick a Product"
-msgstr ""
+msgstr "Διάλεξε ένα Προϊόν"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_form
 msgid "Proceed to Payment"
-msgstr ""
+msgstr "Προχωρήστε στην Πληρωμή"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__product_id
@@ -369,6 +383,8 @@ msgstr "Είδος"
 #: model:ir.model.fields,help:appointment_account_payment.field_appointment_type__has_payment_step
 msgid "Require visitors to pay to confirm their booking"
 msgstr ""
+"Απαιτείται από τους επισκέπτες να πληρώσουν για να επιβεβαιώσουν την κράτησή"
+" τους."
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking_line__appointment_resource_id
@@ -413,11 +429,15 @@ msgid ""
 "Thank you for your reservation. We will soon contact you to discuss menu "
 "options."
 msgstr ""
+"Ευχαριστούμε για την κράτησή σας. Θα επικοινωνήσουμε σύντομα μαζί σας για να"
+" συζητήσουμε τις επιλογές μενού."
 
 #. module: appointment_account_payment
 #: model:ir.model.constraint,message:appointment_account_payment.constraint_appointment_answer_input_check_event_or_booking
 msgid "The answer inputs must be linked to a meeting or to a booking"
 msgstr ""
+"Οι πληροφορίες απαντήσεων πρέπει να συνδέονται με μια συνάντηση ή με μια "
+"κράτηση."
 
 #. module: appointment_account_payment
 #. odoo-python
@@ -426,6 +446,8 @@ msgid ""
 "The following booking was not confirmed due to insufficient availability or "
 "configuration changes: %s"
 msgstr ""
+"Η παρακάτω κράτηση δεν επιβεβαιώθηκε λόγω ανεπαρκούς διαθεσιμότητας ή "
+"αλλαγών στη διαμόρφωση: %s"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,help:appointment_account_payment.field_appointment_type__product_lst_price
@@ -437,17 +459,17 @@ msgstr ""
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
 msgid "There is nothing to pay."
-msgstr ""
+msgstr "Δεν υπάρχει τίποτα να πληρώσετε."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
 msgid "This invoice is already paid for."
-msgstr ""
+msgstr "Αυτό το τιμολόγιο έχει ήδη πληρωθεί."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
 msgid "This is a preview of the customer appointment payment form."
-msgstr ""
+msgstr "Αυτή είναι μια προεπισκόπηση της φόρμας πληρωμής ραντεβού πελάτη."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_validated
@@ -465,11 +487,13 @@ msgid ""
 "Unfortunately, it looks like this booking is not possible anymore. Please "
 "contact us to find an alternative."
 msgstr ""
+"Δυστυχώς, φαίνεται ότι αυτή η κράτηση δεν είναι πια δυνατή. Παρακαλούμε "
+"επικοινωνήστε μαζί μας για να βρούμε μια εναλλακτική.."
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_appointment_type__has_payment_step
 msgid "Up-front Payment"
-msgstr ""
+msgstr "Προκαταβολή"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
@@ -494,7 +518,7 @@ msgstr "ή"
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 msgid "people"
-msgstr ""
+msgstr "άνθρωποι   "
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_info

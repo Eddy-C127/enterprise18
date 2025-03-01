@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2025
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2025\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +30,7 @@ msgstr "%(company)s Нагадування про оплату - %(partner)s"
 #. odoo-python
 #: code:addons/account_followup/models/account_followup.py:0
 msgid "%(delay)s days (copy of %(name)s)"
-msgstr ""
+msgstr "%(delay)s дні (копія %(name)s)"
 
 #. module: account_followup
 #: model:ir.actions.report,print_report_name:account_followup.action_report_followup
@@ -101,6 +102,37 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px;\">\n"
+"                        <t t-if=\"object.id != object.commercial_partner_id.id\">Шановний(а) <t t-out=\"object.name or ''\"/> (<t t-out=\"object.commercial_partner_id.name or ''\"/>),</t>\n"
+"                        <t t-else=\"\">Шановний(а) <t t-out=\"object.name or ''\"/>,</t>\n"
+"                        <br/>\n"
+"                        Нам стало відомо, що у вас є непогашений залишок <t t-out=\"format_amount(object.total_overdue, object.currency_id) or ''\"/>\n"
+"                        <br/>\n"
+"                        Просимо вас вжити необхідних заходів для оплати цієї суми протягом наступних 8 днів.\n"
+"                        <br/>\n"
+"                        </p><div t-if=\"object._show_pay_now_button()\" class=\"d-flex\">\n"
+"                            <a t-att-href=\"'/my/invoices/overdue'\" class=\"btn btn-primary\">Оплатити зараз</a>\n"
+"                        </div>\n"
+"                        Якщо ви вже здійснили платіж після отримання цього повідомлення, не звертайте на нього уваги.\n"
+"                        Наш відділ бухгалтерії доступний, якщо вам потрібна будь-яка допомога або у вас виникли запитання.\n"
+"                        <br/>\n"
+"                        Дякуємо за співпрацю.\n"
+"                        <br/>\n"
+"                        З повагою,\n"
+"                        <t t-if=\"not is_html_empty(object._get_followup_responsible().signature)\">\n"
+"                            <br/>\n"
+"                            <t t-out=\"object._get_followup_responsible().signature\"/>\n"
+"                        </t>\n"
+"                        <t t-else=\"\">\n"
+"                            <br/>\n"
+"                            --\n"
+"                            <br/>\n"
+"                            <t t-out=\"object._get_followup_responsible().name\"/>\n"
+"                        </t>\n"
+"                    \n"
+"                </div>\n"
+"            "
 
 #. module: account_followup
 #: model:mail.template,body_html:account_followup.demo_followup_email_template_4
@@ -131,6 +163,31 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p>\n"
+"                        <t t-if=\"object.id != object.commercial_partner_id.id\">Шановний(а) <t t-out=\"object.name or ''\"/> (<t t-out=\"object.commercial_partner_id.name or ''\"/>),</t>\n"
+"                        <t t-else=\"\">Шановний(а) <t t-out=\"object.name or ''\"/>,</t>\n"
+"                        <br/>\n"
+"                        Незважаючи на кілька нагадувань, ваш рахунок досі не розрахований.\n"
+"Якщо повний платіж не буде здійснено протягом наступних 8 днів, судові дії щодо стягнення боргу будуть вжиті без додаткового повідомлення.\n"
+"Я вірю, що ця дія виявиться непотрібною, і деталі належних платежів надруковано нижче.\n"
+"У разі виникнення будь-яких питань з цього приводу, не соромтеся звертатися до нашої бухгалтерії.\n"
+"                        <br/>\n"
+"                        З найкращими побажаннями,\n"
+"                        <br/>\n"
+"                        <t t-if=\"not is_html_empty(object._get_followup_responsible().signature)\">\n"
+"                            <br/>\n"
+"                            <t t-out=\"object._get_followup_responsible().signature\"/>\n"
+"                        </t>\n"
+"                        <t t-else=\"\">\n"
+"                            <br/>\n"
+"                            --\n"
+"                            <br/>\n"
+"                            <t t-out=\"object._get_followup_responsible().name\"/>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_followup
 #: model:mail.template,body_html:account_followup.demo_followup_email_template_2
@@ -163,11 +220,38 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p>\n"
+"                        <t t-if=\"object.id != object.commercial_partner_id.id\">Шановний(а) <t t-out=\"object.name or ''\"/> (<t t-out=\"object.commercial_partner_id.name or ''\"/>),</t>\n"
+"                        <t t-else=\"\">Шановний(а) <t t-out=\"object.name or ''\"/>,</t>\n"
+"                        <br/>\n"
+"                        Ми розчаровані тим, що, незважаючи на надсилання нагадування, ваш рахунок зараз серйозно протермінований.\n"
+"                        <br/>\n"
+"                        Важливо, щоб оплата була здійснена негайно, інакше нам доведеться розглянути питання про зупинку вашого рахунку, що означає, що ми більше не зможемо постачати вашій компанії (товари/послуги). Прохання вжити відповідних заходів для здійснення цього платежу протягом наступних 8 днів.\n"
+"                        <br/>\n"
+"                        Якщо виникла проблема з оплатою рахунку, про яку ми не знаємо, не соромтеся зв’язатися з нашою бухгалтерією, щоб ми могли швидко вирішити цю проблему.\n"
+"                        <br/>\n"
+"                        Подробиці належних платежів надруковано нижче.\n"
+"                        <br/>\n"
+"                        З найкращими побажаннями,\n"
+"                        <t t-if=\"not is_html_empty(object._get_followup_responsible().signature)\">\n"
+"                            <br/>\n"
+"                            <t t-out=\"object._get_followup_responsible().signature\"/>\n"
+"                        </t>\n"
+"                        <t t-else=\"\">\n"
+"                            <br/>\n"
+"                            --\n"
+"                            <br/>\n"
+"                            <t t-out=\"object._get_followup_responsible().name\"/>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.res_partner_view_form
 msgid "<span class=\"o_stat_text\">Customer Statement</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Виписка клієнта</span>"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.res_partner_view_form
@@ -557,6 +641,9 @@ msgid ""
 "notifications about any email reply made by the partner on the reminder "
 "email."
 msgstr ""
+"Якщо встановлено, ці користувачі будуть додані як підписники на партнері та "
+"отримуватимуть сповіщення про будь-яку відповідь партнера на електронний "
+"лист із нагадуванням."
 
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__followup_status__in_need_of_action
@@ -566,7 +653,7 @@ msgstr "Що потребують дії"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_partner_property_form_followup
 msgid "Invoice Follow-ups"
-msgstr ""
+msgstr "Нагадування рахунка-фактури"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.template_followup_report
@@ -660,6 +747,8 @@ msgid ""
 "No follow-up action will be taken before this date.\n"
 "                Sending a reminder will set this date depending on the levels configuration, and you can change it manually."
 msgstr ""
+"До цієї дати подальші дії вживатися не будуть.\n"
+"Надсилання нагадування встановить цю дату залежно від конфігурації рівнів, і ви можете змінити її вручну."
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__activity_note
@@ -728,7 +817,7 @@ msgstr "Надрукувати лист-нагадування"
 #. module: account_followup
 #: model:ir.actions.server,name:account_followup.action_account_reports_customer_statements_do_followup
 msgid "Process Follow-ups"
-msgstr ""
+msgstr "Обробити нагадування"
 
 #. module: account_followup
 #. odoo-python
@@ -760,7 +849,7 @@ msgstr "Дія звіту"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.customer_statements_search_view
 msgid "Requires Follow-up"
-msgstr ""
+msgstr "Вимагає нагадування"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__activity_default_responsible_type

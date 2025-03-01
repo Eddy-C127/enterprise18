@@ -42,7 +42,7 @@ msgstr "تم القبول"
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_batch_payment__account_online_linked
 msgid "Account Online Linked"
-msgstr ""
+msgstr "تم ربط الحساب عبر الإنترنت "
 
 #. module: account_online_payment
 #: model:ir.actions.server,name:account_online_payment.ir_cron_bank_sync_update_payment_status_ir_actions_server
@@ -52,7 +52,7 @@ msgstr "الحساب: تحديث حالة الدفع "
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_batch_payment__payment_identifier
 msgid "Batch ID"
-msgstr ""
+msgstr "معرّف الدفعة "
 
 #. module: account_online_payment
 #: model:ir.model,name:account_online_payment.model_account_batch_payment
@@ -67,12 +67,12 @@ msgstr "تم الإلغاء "
 #. module: account_online_payment
 #: model:ir.actions.server,name:account_online_payment.action_account_online_payment_check_status
 msgid "Check Status"
-msgstr ""
+msgstr "تحقق من الحالة "
 
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_payment__end_to_end_id
 msgid "End to End ID"
-msgstr ""
+msgstr "معرف طرف إلى طرف "
 
 #. module: account_online_payment
 #: model_terms:ir.ui.view,arch_db:account_online_payment.view_batch_payment_form_inherit
@@ -107,6 +107,8 @@ msgid ""
 "Please be aware that signed payments may have already been processed and "
 "sent to the bank."
 msgstr ""
+"يُرجى العلم بأنه قد تكون المدفوعات الموقعة قد تمت معالجتها بالفعل وإرسالها "
+"إلى البنك. "
 
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_batch_payment__redirect_url
@@ -121,7 +123,7 @@ msgstr "تم الرفض "
 #. module: account_online_payment
 #: model_terms:ir.ui.view,arch_db:account_online_payment.view_batch_payment_form_inherit
 msgid "Sign Payment"
-msgstr ""
+msgstr "التوقيع على الدفع "
 
 #. module: account_online_payment
 #. odoo-python
@@ -150,4 +152,4 @@ msgstr "XML"
 #. odoo-python
 #: code:addons/account_online_payment/models/account_payment.py:0
 msgid "You cannot modify a payment that has already been sent to the bank."
-msgstr ""
+msgstr "لا يمكنك تعديل دفعة تم إرسالها بالفعل إلى البنك. "

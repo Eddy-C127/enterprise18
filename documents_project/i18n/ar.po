@@ -125,6 +125,8 @@ msgid ""
 "All of the attachments of your tasks will be automatically added as "
 "documents in this workspace as well."
 msgstr ""
+"المجلد الذي سيتم وضع كافة المستندات في فئات فيه. ستتم إضافة كافة مرفقات "
+"مهامك تلقائياً كمستندات في مساحة العمل هذه أيضاً. "
 
 #. module: documents_project
 #. odoo-python
@@ -139,6 +141,8 @@ msgid ""
 "Impossible to update write `res_id` without `access_internal` for records "
 "with different `res_models` when some are linked to projects or tasks."
 msgstr ""
+"لا يمكن تحديث كتابة `res_id` دون `access_internal` للسجلات ذات `res_models` "
+"المختلفة عندما يكون بعضها مرتبطاً بمشاريع أو مهام. "
 
 #. module: documents_project
 #. odoo-python
@@ -225,6 +229,8 @@ msgid ""
 "The \"%(folder)s\" folder should either be in the \"%(company)s\" company "
 "like this project or be open to all companies."
 msgstr ""
+"يجب أن يكون المجلد \"%(folder)s\" إما في الشركة \"%(company)s\" التي فيها "
+"المشروع، أو مفتوحاً لكافة الشركات. "
 
 #. module: documents_project
 #. odoo-python
@@ -232,7 +238,7 @@ msgstr ""
 msgid ""
 "The \"%s\" workspace is required by the Project application and cannot be "
 "archived."
-msgstr ""
+msgstr "مساحة العمل \"%s\" مطلوبة من قِبَل تطبيق المشروع ولا يمكن أرشفتها. "
 
 #. module: documents_project
 #. odoo-python
@@ -250,6 +256,8 @@ msgid ""
 " to which it is linked. Please update the company of the \"%(project)s\" "
 "project, or leave the company of this workspace empty."
 msgstr ""
+"يجب أن يبقى هذا المجلد في نفس شركة المشروع \"%(project)s\" المرتبط به. يرجى "
+"تحديث شركة المشروع \"%(project)s\"، أو ترك شركة مساحة العمل هذه فارغة. "
 
 #. module: documents_project
 #. odoo-python
@@ -260,6 +268,10 @@ msgid ""
 "\n"
 "Please update the company of those projects, or leave the company of this workspace empty."
 msgstr ""
+"يجب أن يبقى هذا المجلد في نفس شركة المشروع التالي المرتبط به:\n"
+"%s\n"
+"\n"
+"يرجى تحديث شركة تلك المشاريع  أو ترك شركة مساحة العمل هذه فارغة. "
 
 #. module: documents_project
 #: model_terms:ir.actions.act_window,help:documents_project.action_view_documents_project_project

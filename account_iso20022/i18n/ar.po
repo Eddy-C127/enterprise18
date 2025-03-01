@@ -87,7 +87,7 @@ msgstr "المدين"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_journal.py:0
 msgid "Employee %s has no country in their address."
-msgstr ""
+msgstr "ليس للموظف %s دولة محددة في عنوانه. "
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_res_company__iso20022_orgid_issr
@@ -297,7 +297,7 @@ msgstr "بعض المدفوعات ليس بها حساب بنك مستلِم م�
 msgid ""
 "Specifies which party/parties will bear the charges associated with the "
 "processing of the payment transaction."
-msgstr ""
+msgstr "يحدد الطرف/الأطراف التي ستتحمل الرسوم المتعلقة بمعالجة معاملة الدفع. "
 
 #. module: account_iso20022
 #: model:account.payment.method,name:account_iso20022.account_payment_method_iso20022_se
@@ -346,6 +346,7 @@ msgid ""
 "The Name Identification and Issuer details are required to proceed. Please "
 "configure them in the settings."
 msgstr ""
+"تفاصيل تعريف الاسم والمُصدر مطلوبة للمتابعة. يرجى تهيئتها في الإعدادات. "
 
 #. module: account_iso20022
 #. odoo-python
@@ -411,6 +412,7 @@ msgid ""
 "Will appear as the name of the party initiating the payment. Limited to 70 "
 "characters."
 msgstr ""
+"سوف يظهر كاسم الطرف المبادر بعملية الدفع. يقتصر على 70 حرفاً كحد أقصى. "
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_res_config_settings__iso20022_orgid_issr

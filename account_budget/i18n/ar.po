@@ -94,6 +94,8 @@ msgid ""
 "Amount supposed to be Billed/Invoiced, formula = (Budget Amount / Budget "
 "Days) x Budget Days Completed"
 msgstr ""
+"المبلغ المفترض أن يتم إصدار فواتير مورّدين/فواتير عملاء به، المعادلة = (مبلغ"
+" الميزانية / أيام الميزانية) × أيام الميزانية المنجزة "
 
 #. module: account_budget
 #: model:ir.model,name:account_budget.model_account_analytic_account
@@ -210,7 +212,7 @@ msgstr "نوع الميزانية "
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__budget_amount
 msgid "Budgeted"
-msgstr ""
+msgstr "مدرجة في الميزانية "
 
 #. module: account_budget
 #. odoo-python
@@ -258,7 +260,7 @@ msgstr "ملتزم "
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__committed_percentage
 msgid "Committed (%)"
-msgstr ""
+msgstr "الملتزمون (٪) "
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__company_id
@@ -688,7 +690,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_budget/models/budget_line.py:0
 msgid "The 'End Date' must be greater than or equal to 'Start Date'."
-msgstr ""
+msgstr "يجب أن يكون 'تاريخ الانتهاء' أكبر من أو يساوي 'تاريخ البدء'. "
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__theoritical_amount
