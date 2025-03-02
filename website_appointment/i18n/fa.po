@@ -8,6 +8,7 @@
 # Martin Trigaux, 2023
 # Hanna Kheradroosta, 2024
 # Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024
+# Tiffany Chang, 2025
 # 
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:22+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024\n"
+"Last-Translator: Tiffany Chang, 2025\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -198,6 +199,13 @@ msgstr "پیام وب سایت متفاوت"
 
 #. module: website_appointment
 #. odoo-javascript
+#: code:addons/website_appointment/static/src/js/appointment_frontend/appointment_form.js:0
+#, python-format
+msgid "Error"
+msgstr "خطا"
+
+#. module: website_appointment
+#. odoo-javascript
 #: code:addons/website_appointment/static/src/xml/appointment_no_slot.xml:0
 #, python-format
 msgid "Go back to Appointment"
@@ -294,6 +302,13 @@ msgstr "انواع خاص"
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment_options
 msgid "Specific users"
 msgstr "کاربران خاص"
+
+#. module: website_appointment
+#. odoo-python
+#: code:addons/website_appointment/controllers/appointment.py:0
+#, python-format
+msgid "Suspicious activity detected by Google reCaptcha."
+msgstr "فعالیت مشکوکی توسط گوگل reCaptcha شناسایی شد."
 
 #. module: website_appointment
 #. odoo-python

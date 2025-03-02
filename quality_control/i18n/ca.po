@@ -14,7 +14,7 @@
 # Ivan Espinola, 2023
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2023
 # Martin Trigaux, 2023
-# Quim - eccit <quim@eccit.com>, 2023
+# Quim - coopdevs <quim.rebull@coopdevs.org>, 2023
 # Marc Tormo i Bochaca <mtbochaca@gmail.com>, 2023
 # Arnau Ros, 2023
 # marcescu, 2023
@@ -37,13 +37,8 @@ msgstr ""
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Operations"
-msgstr "% d'operacions"
-
-#. module: quality_control
-#: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Transfers"
-msgstr "% de transferències"
+msgid "% of the time"
+msgstr ""
 
 #. module: quality_control
 #: model:ir.actions.report,print_report_name:quality_control.quality_check_report
@@ -1224,6 +1219,11 @@ msgstr "Provar el percentatge dins del lot"
 #: model:ir.model.fields,field_description:quality_control.field_quality_point__testing_percentage_within_lot
 msgid "Testing Percentage Within Lot"
 msgstr "Percentatge de prova dins del lot"
+
+#. module: quality_control
+#: model:ir.model.fields,help:quality_control.field_quality_point__measure_frequency_value
+msgid "The probability of each quality check being generated"
+msgstr ""
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_alert__title
