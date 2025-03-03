@@ -17,7 +17,7 @@ Intrastat Reports for Services
     'license': 'OEEL-1',
     'assets': {
         'web.assets_backend': [
-            'account_intrastat/static/src/components/**/*',
+            'account_intrastat_services/static/src/components/**/*',
         ],
     },
 }
