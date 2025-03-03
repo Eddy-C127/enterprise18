@@ -58,8 +58,6 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         }
 
     def _custom_options_initializer(self, report, options, previous_options):
-        super()._custom_options_initializer(report, options, previous_options=previous_options)
-
         # Filter only partners with VAT
         options['intrastat_with_vat'] = previous_options.get('intrastat_with_vat', False)
 
