@@ -297,9 +297,14 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             run: "text mail.activity",
         },
         {
+            trigger: '[name="relation_id"] .o-autocomplete--dropdown-menu li a:has(.fa-spin)',
+            in_modal: true,
+            run() {},
+        },
+        {
             // select Activity as model
             trigger:
-                '[name="relation_id"] .o-autocomplete--dropdown-menu li a:not(:has(.fa-spin)):contains(Activity)',
+                '[name="relation_id"] .o-autocomplete--dropdown-menu li a:not(:has(.fa-spin)):contains(Activity):not(:contains("Activity "))',
             in_modal: true,
             run(helpers) {
                 const el = Array.from(this.$anchor).find((el) => el.textContent === "Activity");
