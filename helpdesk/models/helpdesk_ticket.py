@@ -131,11 +131,11 @@ class HelpdeskTicket(models.Model):
     # customer portal: include comment and (incoming/outgoing) emails in communication history
     website_message_ids = fields.One2many(domain=lambda self: [('model', '=', self._name), ('message_type', 'in', ['email', 'comment', 'email_outgoing'])])
 
-    first_response_hours = fields.Float("Hours to First Response")
-    avg_response_hours = fields.Float("Average Hours to Respond")
+    first_response_hours = fields.Float("Hours to First Response", copy=False)
+    avg_response_hours = fields.Float("Average Hours to Respond", copy=False)
     oldest_unanswered_customer_message_date = fields.Datetime("Oldest Unanswered Customer Message Date")
     answered_customer_message_count = fields.Integer('# Exchanges')
-    total_response_hours = fields.Float("Total Exchange Time in Hours")
+    total_response_hours = fields.Float("Total Exchange Time in Hours", copy=False)
     display_extra_info = fields.Boolean(compute="_compute_display_extra_info")
 
     @api.depends('stage_id', 'kanban_state')
