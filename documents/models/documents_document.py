@@ -1003,6 +1003,46 @@ class Document(models.Model):
 
         shortcuts_to_check_owner_target_access._unlink_shortcut_if_target_inaccessible()
 
+    def _update_company(self, company_id):
+        """Apply company to documents and children, without stopping (see _action_update_members).
+
+        :param int|bool company_id: Id to set or False
+        """
+        self.flush_model()
+        to_update_domain = expression.AND([
+            expression.OR([[('id', 'in', self.ids)], [('company_id', '!=', company_id)]]),
+            # the update is done only "target -> shortcut",
+            # but not "shortcut -> target"
+            [('shortcut_document_id', '=', False)],
+            [('id', 'child_of', self.ids)],
+            [] if self.env.su else [('user_permission', '=', 'edit')],
+        ])
+        to_update = self.with_context(active_test=False)._search(to_update_domain).select('id')
+        shortcuts_to_check_owner_target_access = self.search([('shortcut_document_id', 'any', to_update_domain)])
+        # update shortcuts in sudo to keep them synchronized
+        shortcuts_union = SQL("""
+                         UNION
+                        SELECT shortcut.id
+                          FROM documents_document AS shortcut
+                          JOIN documents_to_update
+                            ON documents_to_update.id = shortcut.shortcut_document_id
+        """ if company_id else "")
+        self.env.cr.execute(SQL("""
+                    WITH documents_to_update AS (%(to_update)s),
+                    documents_and_shortcuts AS (
+                        SELECT id FROM documents_to_update
+                        %(shortcuts_union)s
+                    )
+                    UPDATE documents_document
+                       SET %(field)s = %(value)s
+                      FROM documents_and_shortcuts AS doc
+                     WHERE documents_document.id = doc.id
+                """, field=SQL('company_id'), value=company_id or None, to_update=to_update, shortcuts_union=shortcuts_union))
+
+        self.invalidate_model(['company_id', 'user_permission'])
+
+        shortcuts_to_check_owner_target_access._unlink_shortcut_if_target_inaccessible()
+
     def _get_access_update_domain(self):
         return [] if self.env.su else [('user_permission', '=', 'edit')]
 
@@ -1724,7 +1764,7 @@ class Document(models.Model):
         vals_list = super()._prepare_create_values(vals_list)
         folders = self.env['documents.document'].browse(v['folder_id'] for v in vals_list if v.get('folder_id'))
         users = self.env['res.users'].browse(v['owner_id'] for v in vals_list if v.get('owner_id'))
-        folders.fetch(('access_internal', 'access_via_link', 'access_ids', 'active', 'owner_id'))
+        folders.fetch(('access_internal', 'access_via_link', 'access_ids', 'active', 'company_id', 'owner_id'))
         (users | folders.owner_id).fetch(['partner_id'])
         odoobot = self.env.ref('base.user_root')
         vals_list_to_update_linked_record = []
@@ -1742,6 +1782,9 @@ class Document(models.Model):
                     'access_via_link': folder.access_via_link,
                     'access_internal': folder.access_internal,
                 })
+                if folder.company_id:
+                    vals_values['company_id'] = folder.company_id.id
+
             vals.update((k, v) for k, v in vals_values.items() if k not in old_vals)
             # Add folder-inherited members without overriding provided values
             if (folder and (inherited_access_ids := folder._get_inherited_access_ids_vals())
@@ -1947,8 +1990,8 @@ class Document(models.Model):
                 document.with_context(no_document=True).request_activity_id.action_feedback(
                     feedback=feedback, attachment_ids=[document.attachment_id.id])
 
-        if (company_id := vals.get('company_id')) and self.shortcut_ids:  # no need if resetting company_id to False
-            self.shortcut_ids.sudo().write({'company_id': company_id})
+        if ((company_id := vals.get('company_id')) is not None) and self.shortcut_ids | self.children_ids:
+            self._update_company(company_id)
 
         if shortcuts_to_check_owner_target_access:
             shortcuts_to_check_owner_target_access._unlink_shortcut_if_target_inaccessible()
@@ -2171,8 +2214,8 @@ class Document(models.Model):
     def _unlink_shortcut_if_target_inaccessible(self):
         """As a fix in stable version, delete shortcuts when target is no longer accessible to the owner."""
         for owner, shortcuts in self.filtered('shortcut_document_id').grouped("owner_id").items():
-            shortcuts_as_owner_sudo = shortcuts.with_user(owner).sudo()
-            shortcuts_as_owner_sudo.filtered(lambda d: d.shortcut_document_id.user_permission == 'none').unlink()
+            shortcuts_as_owner = shortcuts.with_user(owner).with_context(allowed_company_ids=owner.company_ids.ids)
+            shortcuts_as_owner.sudo().filtered(lambda d: d.shortcut_document_id.user_permission == 'none').unlink()
 
     @api.autovacuum
     def _gc_clear_bin(self):
