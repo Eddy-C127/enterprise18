@@ -666,7 +666,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             'id': report._get_generic_line_id('account.move.line', aml_id, parent_line_id=parent_line_id, markup=date),
             'caret_options': caret_type,
             'parent_id': parent_line_id,
-            'name': move_name,
+            'name': move_name or _('Draft Entry'),
             'columns': line_columns,
             'level': 3,
         }
