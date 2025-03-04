@@ -3106,6 +3106,56 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.start_tour(url, 'test_satisfy_existing_lot_line_before_exceeding_demand', login='admin', timeout=180)
         self.assertRecordValues(delivery, [{'backorder_ids': [], 'state': 'done'}])
 
+    def test_split_uncomplete_moves_on_exit_with_neutral_changes(self):
+        """
+        Check that the post barcode process does change the state of the record if
+        neutral actions were performed such as adding and removing products to the
+        delivery.
+        """
+
+        self.clean_access_rights()
+
+        lots = self.env['stock.lot'].create([
+            {'name': 'SN001', 'product_id': self.productserial1.id},
+            {'name': 'SN002', 'product_id': self.productserial1.id},
+        ])
+        for lot in lots:
+            self.env['stock.quant']._update_available_quantity(self.productserial1, self.stock_location, 1, lot_id=lot)
+        # Creates a delivery for 2 x productserial1 initially reserved with SN001 and SN002
+        delivery = self.env['stock.picking'].create({
+            'name': "SUMOEWNC",
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.customer_location.id,
+            'picking_type_id': self.picking_type_out.id,
+            'move_ids': [Command.create({
+                'location_id': self.stock_location.id,
+                'location_dest_id': self.customer_location.id,
+                'name': "productserial1 x2",
+                'product_id': self.productserial1.id,
+                'product_uom_qty': 2,
+            })]
+        })
+        delivery.action_confirm()
+        self.assertRecordValues(delivery.move_ids, [
+            {'product_uom_qty': 2.0, 'quantity': 2.0, 'picked': False, 'lot_ids': lots.ids }
+        ])
+        self.assertRecordValues(delivery.move_line_ids, [
+            {'quantity': 1.0, 'picked': False, 'lot_id': lots[0].id },
+            {'quantity': 1.0, 'picked': False, 'lot_id': lots[1].id },
+        ])
+
+        action = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = f"/web#action={action.id}"
+        self.start_tour(url, 'test_split_uncomplete_moves_on_exit_with_neutral_changes', login='admin')
+        # Checks the values haven't changed
+        self.assertRecordValues(delivery.move_ids, [
+            {'product_uom_qty': 2.0, 'quantity': 2.0, 'picked': False, 'lot_ids': lots.ids }
+        ])
+        self.assertRecordValues(delivery.move_line_ids, [
+            {'quantity': 1.0, 'picked': False, 'lot_id': lots[0].id },
+            {'quantity': 1.0, 'picked': False, 'lot_id': lots[1].id },
+        ])
+
     def test_fetch_archived_records_in_lazy_barcode_cache(self):
         """
         Check that a picking related to archived records can be processed in barcode
