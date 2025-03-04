@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Tony Ng, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 09:52+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Tony Ng, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,6 +43,25 @@ msgid ""
 "</table>\n"
 "        "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"    <tr>\n"
+"        <td valign=\"top\">\n"
+"            <h2>你好！</h2>\n"
+"            <div style=\"font-size: 13px;\">\n"
+"                感謝你提出申請以及對 <t t-out=\"object.company_id.name or ''\">YourCompany</t> 感興趣。<br/>\n"
+"                <br/>\n"
+"                我想安排與你進行一次電話面試，大約需時 30 分鐘。\n"
+"                屆時我們會檢閱你的履歷，以及討論你想加入 <t t-out=\"object.company_id.name or ''\">YourCompany</t> 團隊的原因。\n"
+"                你可按下方按鈕，在我們的時間表內預約一個時段。<br/>\n"
+"            </div>\n"
+"            <br/>\n"
+"            <a t-att-href=\"env['ir.config_parameter'].sudo().get_param('web.base.url') + '/book/interview'\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">預約我的面試</a><br/>\n"
+"            <br/>\n"
+"            順祝  安康\n"
+"        </td>\n"
+"    </tr>\n"
+"</table>\n"
+"        "
 
 #. module: appointment_hr_recruitment
 #: model:ir.model.fields,field_description:appointment_hr_recruitment.field_appointment_invite__applicant_id

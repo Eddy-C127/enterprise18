@@ -11,7 +11,6 @@
 # Johanna Valkonen <miujohanna@gmail.com>, 2024
 # Jenni Heikkilä <jenni.heikkila@sv-oy.fi>, 2024
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
-# Konsta Aavaranta, 2024
 # a0002ef8927c0b0b9c58a7cc5f73028e_ba3d803 <aeb43a6499fcef2a5a423b3f4a45b153_32479>, 2024
 # Martin Trigaux, 2024
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
@@ -20,6 +19,7 @@
 # Mikko Salmela <salmemik@gmail.com>, 2024
 # Pekko Tuomisto <pekko.tuomisto@web-veistamo.fi>, 2024
 # Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Konsta Aavaranta, 2025
 # 
 msgid ""
 msgstr ""
@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Konsta Aavaranta, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,7 @@ msgstr ""
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "1st amortization schedule"
-msgstr "ensimmäisen kuoletuksen aikataulu"
+msgstr "ensimmäisen poiston aikataulu"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__30a/360
@@ -122,7 +122,7 @@ msgstr "Kaikki luonnosmerkinnät"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Amortization schedule"
-msgstr "Kuoletusaikataulu"
+msgstr "Poistoaikataulu"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__amount_borrowed
@@ -248,7 +248,7 @@ msgstr "Vahvista"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__count_linked_assets
 msgid "Count Linked Assets"
-msgstr "Count Linkitetyt omaisuuserät"
+msgstr "Laske linkitetyt omaisuuserät"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_asset__count_linked_loans
@@ -432,7 +432,7 @@ msgstr "Korkokannan on oltava 0 ja 100 välillä"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Interests"
-msgstr "Kiinnostuksen kohteet"
+msgstr "Korot"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_is_follower
@@ -464,7 +464,7 @@ msgstr "Päiväkirja"
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_move
 msgid "Journal Entry"
-msgstr "Päiväkirjan kirjaus"
+msgstr "Päiväkirjavienti"
 
 #. module: account_loans
 #: model:account.journal,name:account_loans.account_loans_journal_loan
@@ -504,7 +504,7 @@ msgstr "Linkitetyt varat"
 #. odoo-python
 #: code:addons/account_loans/models/account_asset.py:0
 msgid "Linked loans"
-msgstr "Sidotut lainat"
+msgstr "Linkitetyt lainat"
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_loan
@@ -547,22 +547,22 @@ msgstr "Lainan päivämäärä"
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Loan Entries"
-msgstr "Lainamerkinnät"
+msgstr "Lainakirjaukset"
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_loan_line
 msgid "Loan Line"
-msgstr "Lainan merkintä"
+msgstr "Lainarivi"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__line_ids
 msgid "Loan Lines"
-msgstr "Lainan merkinnät"
+msgstr "Lainarivit"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Loan Settings"
-msgstr "Lainan aasetukset"
+msgstr "Lainan asetukset"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__loan_term
@@ -579,7 +579,7 @@ msgstr "Laina-ajan on oltava positiivinen"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Loan lines"
-msgstr "Lainan merkinnät"
+msgstr "Lainarivit"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__display_name
@@ -590,7 +590,7 @@ msgstr "Lainan nimi"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.asset_group_form_view_inherit_loan
 msgid "Loan(s)"
-msgstr "Lainat"
+msgstr "Laina(t)"
 
 #. module: account_loans
 #. odoo-python
@@ -716,12 +716,12 @@ msgstr "Esikatselu"
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__principal
 msgid "Principal"
-msgstr "Pääasiallinen"
+msgstr "Lainan pääoma"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Principals"
-msgstr "Pääasialliset"
+msgstr "Lainojen pääomat"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__loan_properties
@@ -747,7 +747,7 @@ msgstr "Aiheeseen liittyvä laina"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_asset_form_inherit_loan
 msgid "Related Loan(s)"
-msgstr "Liitännäislainat"
+msgstr "Liittyvät lainat"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_asset__linked_loans_ids
@@ -787,7 +787,7 @@ msgid ""
 "Set up your amortization schedule, or import it, and let Odoo handle the "
 "monthly interest and principal adjustments automatically."
 msgstr ""
-"Määritä kuoletusohjelma tai tuo se ja anna Odoon hoitaa kuukausittaiset "
+"Määritä poisto-ohjelma tai tuo se ja anna Odoon hoitaa kuukausittaiset "
 "korko- ja pääomakorjaukset automaattisesti."
 
 #. module: account_loans
@@ -855,7 +855,7 @@ msgid ""
 "The loan amount %(loan_amount)s should be equal to the sum of the "
 "principals: %(principal_sum)s (difference %(principal_difference)s)"
 msgstr ""
-"Lainamäärän %(loan_amount)s on oltava yhtä suuri kuin päämäärien summa: "
+"Lainamäärän %(loan_amount)s on oltava yhtä suuri kuin pääomien summa: "
 "%(principal_sum)s (erotus %(principal_difference)s)"
 
 #. module: account_loans
@@ -893,18 +893,18 @@ msgstr "Lainan nimi on asetettava."
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "This entry has been %s"
-msgstr "Tämä merkintä on ollut %s"
+msgstr "Tämä vienti on ollut %s"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "This entry has been reversed from %s"
-msgstr "Tämä merkintä on peruutettu %s"
+msgstr "Tämä vienti on peruutettu %s"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Total Amounts Borrowed"
-msgstr "Lainatut määrät yhteensä"
+msgstr "Lainattu määrä yhteensä"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
@@ -924,7 +924,7 @@ msgstr "Maksut yhteensä"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total principals"
-msgstr "Pääasialliset yhteensä"
+msgstr "Pääoma yhteensä"
 
 #. module: account_loans
 #. odoo-javascript

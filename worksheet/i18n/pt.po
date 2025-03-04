@@ -4,9 +4,9 @@
 # 
 # Translators:
 # Peter Lawrence Romão <peterromao@yahoo.co.uk>, 2025
-# NumerSpiral HBG, 2025
 # Wil Odoo, 2025
 # Rita Bastos, 2025
+# J Ponte, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:29+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Rita Bastos, 2025\n"
+"Last-Translator: J Ponte, 2025\n"
 "Language-Team: Portuguese (https://app.transifex.com/odoo/teams/41243/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +31,7 @@ msgstr "%s (cópia)"
 #. module: worksheet
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_form
 msgid "<span class=\"o_stat_text\">Worksheets</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Folha de trabalho</span>"
 
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__action_id
@@ -55,7 +55,7 @@ msgstr "Análise"
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_form
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_search
 msgid "Archived"
-msgstr "Arquivados"
+msgstr "Arquivado"
 
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__company_id
@@ -77,7 +77,7 @@ msgstr "Criado em"
 #. odoo-javascript
 #: code:addons/worksheet/static/src/open_studio_button_widget/open_studio_button_widget.xml:0
 msgid "Design Template"
-msgstr ""
+msgstr "Desenhar template"
 
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__display_name
@@ -92,12 +92,12 @@ msgstr "Agrupar Por"
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__res_model
 msgid "Host Model"
-msgstr ""
+msgstr "Modelo de hospedagem"
 
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__id
 msgid "ID"
-msgstr "Id."
+msgstr "ID."
 
 #. module: worksheet
 #. odoo-python
@@ -106,6 +106,8 @@ msgid ""
 "Keep track of and analyze intervention data. Identify recurring patterns and"
 " take preventive measures accordingly."
 msgstr ""
+"Monitore e analise os dados de intervenção. Identifique padrões recorrentes "
+"e tome medidas preventivas de acordo."
 
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__write_uid
@@ -141,7 +143,7 @@ msgstr "Sem dados a mostrar"
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__report_view_id
 msgid "Report View"
-msgstr ""
+msgstr "Visualização de relatório"
 
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__sequence
@@ -152,12 +154,12 @@ msgstr "Sequência"
 #. odoo-python
 #: code:addons/worksheet/models/worksheet_template.py:0
 msgid "The host model name should be an existing model."
-msgstr ""
+msgstr "O nome do modelo de hospedagem deve ser um modelo existente."
 
 #. module: worksheet
 #: model:ir.model.fields,help:worksheet.field_worksheet_template__res_model
 msgid "The model that is using this template"
-msgstr ""
+msgstr "O modelo que está usando este template"
 
 #. module: worksheet
 #. odoo-python
@@ -165,6 +167,8 @@ msgstr ""
 msgid ""
 "The template to print this worksheet template should be a QWeb template."
 msgstr ""
+"O template para imprimir esse template de folha de trabalho deve ser um "
+"template QWeb."
 
 #. module: worksheet
 #. odoo-python
@@ -173,21 +177,23 @@ msgid ""
 "Unfortunately, you cannot unlink this worksheet template from %s because the"
 " template is still connected to tasks within the company."
 msgstr ""
+"Infelizmente, você não pode desvincular este template de folha de trabalho "
+"de %s porque o template ainda está conectado a tarefas na empresa."
 
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__worksheet_count
 msgid "Worksheet Count"
-msgstr ""
+msgstr "Total de folhas"
 
 #. module: worksheet
 #: model:ir.model,name:worksheet.model_worksheet_template
 msgid "Worksheet Template"
-msgstr "Modelo de Folha de Trabalho"
+msgstr "Template de Folha de Trabalho"
 
 #. module: worksheet
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_search
 msgid "Worksheet Template Search"
-msgstr ""
+msgstr "Pesquisa de templates de folhas de trabalho"
 
 #. module: worksheet
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_list
@@ -204,8 +210,13 @@ msgid ""
 "move them to a project for the right company, or keep this worksheet "
 "template open to all companies."
 msgstr ""
+"Você não pode restringir esse template de folha a '%(selected_company)s' "
+"porque isso ainda está conectado a tarefas em '%(tasks_company)s' (e "
+"potencialmente em outras empresas). Desvincule essas tarefas do template de "
+"folha, mova-as para um projeto da empresa certa ou mantenha o template de "
+"folha aberto para todas as empresas."
 
 #. module: worksheet
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_form
 msgid "e.g Device Installation"
-msgstr ""
+msgstr "Ex.: instalação de dispositivo"

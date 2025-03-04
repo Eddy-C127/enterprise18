@@ -3573,7 +3573,7 @@ msgstr "Commande client"
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_order_alert
 msgid "Sale Order Alert"
-msgstr "Alerte de bon de commande"
+msgstr "Alerte de commande client"
 
 #. module: sale_subscription
 #: model:ir.actions.act_window,name:sale_subscription.action_sale_order_lines
@@ -3583,14 +3583,14 @@ msgstr "Lignes de commande"
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_order_log
 msgid "Sale Order Log"
-msgstr "Journal de bon de commande"
+msgstr "Journal de commande client"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_analysis_graph
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_growth_graph
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_growth_pivot
 msgid "Sale Order Log Analysis"
-msgstr "Analyse du journal de bon de commande"
+msgstr "Analyse du journal de commande client"
 
 #. module: sale_subscription
 #: model:ir.actions.server,name:sale_subscription.ir_cron_sale_subscription_update_kpi_ir_actions_server
@@ -4295,7 +4295,7 @@ msgstr "La dernière transaction de la commande est actuellement en attente"
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_check_start_date_lower_next_invoice_date
 msgid "The next invoice date of a sale order should be after its start date."
 msgstr ""
-"La prochaine date de facturation d'un bon de commande devrait être "
+"La prochaine date de facturation d'une commande client devrait être "
 "postérieure à sa date de début."
 
 #. module: sale_subscription
@@ -4936,7 +4936,7 @@ msgstr "Vous ne pouvez pas annuler un abonnement qui a été facturé."
 #: code:addons/sale_subscription/wizard/sale_subscription_change_customer_wizard.py:0
 msgid "You cannot change the customer of non recurring sale order."
 msgstr ""
-"Vous ne pouvez pas changer le client d'un bon de commande non récurrent."
+"Vous ne pouvez pas changer le client d'une commande client non récurrente."
 
 #. module: sale_subscription
 #. odoo-python
