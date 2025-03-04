@@ -669,6 +669,10 @@ export default class BarcodePickingModel extends BarcodeModel {
             ['internal', 'outgoing'].includes(this.record.picking_type_code);
     }
 
+    get displayReturnButton() {
+        return this.resModel === 'stock.picking' && this.isDone;
+    }
+
     get useScanSourceLocation() {
         return super.useScanSourceLocation && this.config.restrict_scan_source_location;
     }

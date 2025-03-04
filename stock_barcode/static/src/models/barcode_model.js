@@ -172,6 +172,10 @@ export default class BarcodeModel extends EventBus {
         return false;
     }
 
+    get displayReturnButton() {
+        return false;
+    }
+
     get useScanDestinationLocation() {
         return this.displayDestinationLocation;
     }
