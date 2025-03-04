@@ -1,6 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
+from markupsafe import Markup
 
 
 class AccountMoveSend(models.TransientModel):
@@ -52,6 +53,9 @@ class AccountMoveSend(models.TransientModel):
                         'error_title': _("Error when sending to the KRA:"),
                         'errors': [error['message']],
                     }
+                    # To help support diagnose issues, log timeouts in the chatter
+                    if error['code'] == 'TIM':
+                        invoice.message_post(body=Markup('<p>%s</p>') % error['message'])
 
                 if self._can_commit():
                     self._cr.commit()
