@@ -5,8 +5,8 @@
 # Translators:
 # Jolien De Paepe, 2024
 # Tiffany Chang, 2024
-# Manon Rondou, 2024
 # Wil Odoo, 2025
+# Manon Rondou, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Manon Rondou, 2025\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3604,7 +3604,7 @@ msgstr "Commande client"
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_order_alert
 msgid "Sale Order Alert"
-msgstr "Alerte de bon de commande"
+msgstr "Alerte de commande client"
 
 #. module: sale_subscription
 #: model:ir.actions.act_window,name:sale_subscription.action_sale_order_lines
@@ -3614,14 +3614,14 @@ msgstr "Lignes de commande"
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_order_log
 msgid "Sale Order Log"
-msgstr "Journal de bon de commande"
+msgstr "Journal de commande client"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_analysis_graph
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_growth_graph
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_growth_pivot
 msgid "Sale Order Log Analysis"
-msgstr "Analyse du journal de bon de commande"
+msgstr "Analyse du journal de commande client"
 
 #. module: sale_subscription
 #: model:ir.actions.server,name:sale_subscription.ir_cron_sale_subscription_update_kpi_ir_actions_server
@@ -3668,7 +3668,7 @@ msgstr "Rapport d'analyse du journal des ventes"
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__order_state__sale
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__state__sale
 msgid "Sales Order"
-msgstr "Bon de commande"
+msgstr "Commande client"
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_order_line
@@ -4356,7 +4356,7 @@ msgstr "La dernière transaction de la commande est actuellement en attente"
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_check_start_date_lower_next_invoice_date
 msgid "The next invoice date of a sale order should be after its start date."
 msgstr ""
-"La prochaine date de facturation d'un bon de commande devrait être "
+"La prochaine date de facturation d'une commande client devrait être "
 "postérieure à sa date de début."
 
 #. module: sale_subscription
@@ -4985,7 +4985,7 @@ msgstr "Vous ne pouvez pas annuler un abonnement qui a été facturé."
 #, python-format
 msgid "You cannot change the customer of non recurring sale order."
 msgstr ""
-"Vous ne pouvez pas changer le client d'un bon de commande non récurrent."
+"Vous ne pouvez pas changer le client d'une commande client non récurrente."
 
 #. module: sale_subscription
 #. odoo-python

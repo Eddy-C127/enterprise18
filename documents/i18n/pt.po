@@ -12,6 +12,8 @@
 # Maitê Dietze, 2024
 # Peter Lawrence Romão <peterromao@yahoo.co.uk>, 2025
 # Wil Odoo, 2025
+# J Ponte, 2025
+# Tomás Azevedo, 2025
 # 
 msgid ""
 msgstr ""
@@ -19,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Tomás Azevedo, 2025\n"
 "Language-Team: Portuguese (https://app.transifex.com/odoo/teams/41243/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +41,7 @@ msgstr ""
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "%s (remaining pages)"
-msgstr ""
+msgstr "%s (páginas restantes)"
 
 #. module: documents
 #. odoo-javascript
@@ -61,20 +63,22 @@ msgstr ""
 #, python-format
 msgid "%s file(s) not moved because they are locked by another user"
 msgstr ""
+"%s ficheiro(s) não movidos porque se encontram bloqueados por outro "
+"utilizador"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "%s new document(s) created"
-msgstr ""
+msgstr "%s novo documento(s) criado(s)"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "%s page(s) deleted"
-msgstr ""
+msgstr "%s página(s) eliminada(s)"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
@@ -88,6 +92,10 @@ msgid ""
 "your documents in bulk with the split tool: launch user defined actions, "
 "request a signature, convert to vendor bills with AI, etc."
 msgstr ""
+". Os arquivos digitalizados aparecerão automaticamente no seu espaço de "
+"trabalho. Em seguida, processe múltiplos documentos com a ferramenta "
+"Dividir: inicie ações definidas pelo utilizador, solicite uma assinatura, "
+"converta em faturas de fornecedores com IA, etc."
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2017
@@ -102,7 +110,7 @@ msgstr ""
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
 msgid "<b class=\"tip_title\">Tip: Become a paperless company</b>"
-msgstr ""
+msgstr "<b class=\"tip_title\">Dica: Torne-se uma empresa sem papel</b>"
 
 #. module: documents
 #. odoo-javascript
@@ -2380,7 +2388,7 @@ msgstr ""
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__thumbnail_status__present
 msgid "Present"
-msgstr ""
+msgstr "Presente"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_internal_template_presentations

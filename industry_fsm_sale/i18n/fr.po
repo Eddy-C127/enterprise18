@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Jolien De Paepe, 2023
-# Manon Rondou, 2024
 # Wil Odoo, 2024
+# Manon Rondou, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-10 10:51+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Manon Rondou, 2025\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -141,7 +141,8 @@ msgid ""
 "Sales Order Item without distinction."
 msgstr ""
 "En sauvegardant ce changement, toutes les entrées de feuilles de temps "
-"seront liées à l'article du bon de commande sélectionné sans distinction."
+"seront liées à l'article de la commande client sélectionnée sans "
+"distinction."
 
 #. module: industry_fsm_sale
 #. odoo-python
@@ -458,12 +459,12 @@ msgstr "Facture de paiement d'avance"
 #. module: industry_fsm_sale
 #: model:ir.model,name:industry_fsm_sale.model_sale_order
 msgid "Sales Order"
-msgstr "Bon de commande"
+msgstr "Commande client"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_project__sale_line_id
 msgid "Sales Order Item"
-msgstr "Article du bon de commande"
+msgstr "Article de la commande client"
 
 #. module: industry_fsm_sale
 #: model:ir.model,name:industry_fsm_sale.model_sale_order_line
@@ -476,7 +477,7 @@ msgid ""
 "Sales order item that will be selected by default on the tasks and timesheets of this project, except if the employee set on the timesheets is explicitely linked to another sales order item on the project.\n"
 "It can be modified on each task and timesheet entry individually if necessary."
 msgstr ""
-"Article du bon de commande qui sera sélectionné par défaut sur les tâches et feuilles de temps de ce projet, sauf si l'employé renseigné sur les feuilles de temps est explicitement lié à un article du bon de commande sur le projet.\n"
+"Article de la commande client qui sera sélectionné par défaut sur les tâches et feuilles de temps de ce projet, sauf si l'employé renseigné sur les feuilles de temps est explicitement lié à un article de la commande client sur le projet.\n"
 "Il peut être modifié sur chaque tâche et entrée de feuille de temps individuellement si nécessaire."
 
 #. module: industry_fsm_sale
@@ -538,7 +539,7 @@ msgstr ""
 #: code:addons/industry_fsm_sale/models/sale_order.py:0
 #, python-format
 msgid "This Sales Order has been created from Task: %s"
-msgstr "Ce bon de commande a été créé à partir de la tâche : %s"
+msgstr "Cette commande client a été créée à partir de la tâche : %s"
 
 #. module: industry_fsm_sale
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.portal_my_task

@@ -88,7 +88,7 @@ msgstr "Bouton d'affichage de la facture"
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_account_analytic_line__display_sol
 msgid "Display Sol"
-msgstr "Afficher la ligne du bon de commande"
+msgstr "Afficher la ligne de la commande client"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
@@ -175,12 +175,12 @@ msgstr ""
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__project_sale_order_id
 msgid "Project's sale order"
-msgstr "Bon de commande du projet"
+msgstr "Commande client du projet"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__sale_order_id
 msgid "Ref. Sales Order"
-msgstr "Réf. du bon de commande"
+msgstr "Réf. de la commande client"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__use_helpdesk_sale_timesheet
@@ -190,12 +190,12 @@ msgstr "Facturation de la feuille de temps activée sur l'équipe"
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
 msgid "Remaining Days on SO"
-msgstr "Jours restants sur le bon de commande"
+msgstr "Jours restants sur la commande client"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Remaining Days on SO:"
-msgstr "Jours restants sur le bon de commande :"
+msgstr "Jours restants sur la commande client :"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__remaining_hours_available
@@ -208,12 +208,12 @@ msgstr "Heures restantes disponibles"
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket_report_analysis__remaining_hours_so
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
 msgid "Remaining Hours on SO"
-msgstr "Heures restantes sur le bon de commande"
+msgstr "Heures restantes sur la commande client"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Remaining Hours on SO:"
-msgstr "Heures restantes sur le bon de commande :"
+msgstr "Heures restantes sur la commande client :"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_product_product__sla_id
@@ -229,7 +229,7 @@ msgid ""
 "order item containing this service."
 msgstr ""
 "Politique SLA qui s'appliquera automatiquement aux tickets liés à un article"
-" du bon de commande contenant ce service."
+" de la commande client contenant ce service."
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_sla_report_analysis
@@ -244,7 +244,7 @@ msgstr "Analyse des statuts SLA"
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
 #, python-format
 msgid "Sales Order"
-msgstr "Bon de commande"
+msgstr "Commande client"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla_report_analysis__sale_line_id
@@ -252,7 +252,7 @@ msgstr "Bon de commande"
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket_report_analysis__sale_line_id
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Sales Order Item"
-msgstr "Article du bon de commande"
+msgstr "Article de la commande client"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,help:helpdesk_sale_timesheet.field_helpdesk_ticket__sale_line_id
@@ -262,15 +262,15 @@ msgid ""
 "Remove the sales order item in order to make this ticket non-billable.\n"
 "You can also change or remove the sales order item of each timesheet entry individually."
 msgstr ""
-"Article du bon de commande auquel viendra s'ajouter le temps passé sur ce ticket afin d'être facturé à votre client.\n"
-"Par défaut, le dernier article du bon de commande prépayé qui a du temps restant sera sélectionné.\n"
-"Supprimez l'article du bon de commande afin de rendre ce ticket non facturable.\n"
-"Vous pouvez également modifier ou supprimer l'article du bon de commande de chaque entrée de feuille de temps individuellement."
+"Article de la commande client à laquelle viendra s'ajouter le temps passé sur ce ticket afin d'être facturé à votre client.\n"
+"Par défaut, le dernier article de la commande client prépayée qui a du temps restant sera sélectionné.\n"
+"Supprimez l'article de la commande client afin de rendre ce ticket non facturable.\n"
+"Vous pouvez également modifier ou supprimer l'article de la commande client de chaque entrée de feuille de temps individuellement."
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla__sale_line_ids
 msgid "Sales Order Items"
-msgstr "Articles du bon de commande"
+msgstr "Articles de la commande client"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_sale_order_line
@@ -280,7 +280,7 @@ msgstr "Ligne de commande"
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,help:helpdesk_sale_timesheet.field_helpdesk_ticket__project_sale_order_id
 msgid "Sales order to which the project is linked."
-msgstr "Bon de commande auquel le projet est lié."
+msgstr "Commande client à laquelle le projet est lié."
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_helpdesk_ticket_timesheet
