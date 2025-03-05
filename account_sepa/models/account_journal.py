@@ -284,8 +284,13 @@ class AccountJournal(models.Model):
     def _get_DbtrAcct(self):
         DbtrAcct = etree.Element("DbtrAcct")
         Id = etree.SubElement(DbtrAcct, "Id")
-        IBAN = etree.SubElement(Id, "IBAN")
-        IBAN.text = self.bank_account_id.sanitized_acc_number
+        if self.sepa_pain_version == 'iso_20022' and self.bank_account_id.acc_type != 'iban':
+            Othr = etree.SubElement(Id, "Othr")
+            OthrId = etree.SubElement(Othr, "Id")
+            OthrId.text = self.bank_account_id.sanitized_acc_number
+        else:
+            IBAN = etree.SubElement(Id, "IBAN")
+            IBAN.text = self.bank_account_id.sanitized_acc_number
         Ccy = etree.SubElement(DbtrAcct, "Ccy")
         Ccy.text = self.currency_id and self.currency_id.name or self.company_id.currency_id.name
 
