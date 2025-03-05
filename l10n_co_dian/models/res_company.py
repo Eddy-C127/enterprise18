@@ -27,6 +27,13 @@ class ResCompany(models.Model):
         ],
         default=lambda self: self._default_l10n_co_dian_provider(),
     )
+    l10n_co_dian_demo_mode = fields.Boolean(
+        string="DIAN Demo Mode",
+        default=False,
+        compute='_compute_l10n_co_dian_demo_mode',
+        store=True,
+        readonly=False,
+    )
 
     @api.depends('l10n_co_dian_test_environment')
     def _compute_l10n_co_dian_certification_process(self):
@@ -47,3 +54,9 @@ class ResCompany(models.Model):
             return 'carvajal'
         else:
             return 'dian'
+
+    @api.depends('l10n_co_dian_test_environment')
+    def _compute_l10n_co_dian_demo_mode(self):
+        for company in self:
+            if company.l10n_co_dian_test_environment:
+                company.l10n_co_dian_demo_mode = False
