@@ -33,7 +33,11 @@ class SaleCommissionReport(models.Model):
             "name": _('Commission Detail: %(name)s', name=self.target_id.name),
             "views": [[self.env.ref('sale_commission.sale_achievement_report_view_list').id, "list"]],
             "context": {'commission_user_ids': self.user_id.ids, 'commission_team_ids': self.team_id.ids},
-            "domain": [('plan_id', '=', self.plan_id.id), ('user_id', '=', self.user_id.id), ('team_id', '=', self.team_id.id)], # FP TODO: add date filter based on context
+            "domain": [('plan_id', '=', self.plan_id.id),
+                       ('user_id', '=', self.user_id.id),
+                       ('date', '>=', self.target_id.date_from),
+                       ('date', '<=', self.target_id.date_to),
+                    ], # FP TODO: add date filter based on context
         }
 
     def write(self, values):
