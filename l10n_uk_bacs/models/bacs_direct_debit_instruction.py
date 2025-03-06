@@ -79,7 +79,6 @@ class BACSDirectDebitInstruction(models.Model):
         if self.filtered(lambda x: x.state != 'draft'):
             raise UserError(_("Only mandates in draft state can be deleted from database when cancelled."))
 
-    @api.depends()
     def _compute_from_moves(self):
         ''' Retrieve the invoices reconciled to the payments through the reconciliation (account.partial.reconcile). '''
         stored_ddis = self.mapped('id')
@@ -89,15 +88,17 @@ class BACSDirectDebitInstruction(models.Model):
             self.paid_invoice_ids = False
             self.payment_ids = False
             return
-        self.env['account.move'].flush_model(['bacs_ddi_id', 'move_type'])
+        self.env['account.move'].flush_model(['move_type'])
+        self.env['account.payment'].flush_model(['bacs_ddi_id'])
 
         self._cr.execute('''
             SELECT
-                move.bacs_ddi_id,
-                ARRAY_AGG(move.id) AS invoice_ids
-            FROM account_move move
-            WHERE move.bacs_ddi_id IN %s
-            GROUP BY move.bacs_ddi_id
+                payment.bacs_ddi_id,
+                ARRAY_AGG(rel.invoice_id) AS invoice_ids
+            FROM account_payment payment
+            JOIN account_move__account_payment rel ON rel.payment_id = payment.id
+            WHERE payment.bacs_ddi_id IN %s
+            GROUP BY payment.bacs_ddi_id
         ''', [tuple(stored_ddis)])
         query_res = dict((mandate_id, invoice_ids) for mandate_id, invoice_ids in self._cr.fetchall())
 
@@ -108,15 +109,16 @@ class BACSDirectDebitInstruction(models.Model):
 
         self._cr.execute('''
             SELECT
-                move.bacs_ddi_id,
+                payment.bacs_ddi_id,
                 ARRAY_AGG(payment.id) AS payment_ids
             FROM account_payment payment
             JOIN account_payment_method method ON method.id = payment.payment_method_id
-            JOIN account_move move ON move.id = payment.move_id
-            WHERE move.bacs_ddi_id IS NOT NULL
+            JOIN account_move__account_payment rel ON rel.payment_id = payment.id
+            JOIN account_move move ON move.id = rel.invoice_id
+            WHERE payment.bacs_ddi_id IS NOT NULL
             AND move.state = 'posted'
             AND method.code = 'bacs_dd'
-            GROUP BY move.bacs_ddi_id
+            GROUP BY payment.bacs_ddi_id
         ''')
         query_res = dict((mandate_id, payment_ids) for mandate_id, payment_ids in self._cr.fetchall())
 
