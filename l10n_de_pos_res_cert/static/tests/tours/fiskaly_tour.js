@@ -1,3 +1,5 @@
+/* global posmodel */
+
 import * as Chrome from "@point_of_sale/../tests/tours/utils/chrome_util";
 import * as ReceiptScreen from "@point_of_sale/../tests/tours/utils/receipt_screen_util";
 import * as PaymentScreen from "@point_of_sale/../tests/tours/utils/payment_screen_util";
@@ -33,5 +35,27 @@ registry.category("web_tour.tours").add("FiskalyTour", {
             PaymentScreen.clickInvoiceButton(),
             PaymentScreen.clickValidate(),
             ReceiptScreen.clickNextOrder(),
+        ].flat(),
+});
+
+registry.category("web_tour.tours").add("test_fiskaly_tss_payload", {
+    steps: () =>
+        [
+            Chrome.startPoS(),
+            Dialog.confirm("Open Register"),
+            FloorScreen.clickTable("5"),
+            ProductScreen.addOrderline("Coca-Cola", "1", "5"),
+            ProductScreen.clickPayButton(),
+            PaymentScreen.clickPaymentMethod("Random Name"),
+            {
+                content: "Check if the payload is correct",
+                trigger: "body",
+                run: () => {
+                    const payment = posmodel.get_order()._createAmountPerPaymentTypeArray();
+                    if (payment[0].payment_type != "CASH") {
+                        throw new Error("Payment type should be CASH");
+                    }
+                },
+            },
         ].flat(),
 });
