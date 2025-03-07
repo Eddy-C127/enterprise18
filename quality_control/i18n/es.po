@@ -22,13 +22,8 @@ msgstr ""
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Operations"
-msgstr "% de operaciones"
-
-#. module: quality_control
-#: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Transfers"
-msgstr "% de traslados"
+msgid "% of the time"
+msgstr "% del tiempo"
 
 #. module: quality_control
 #: model:ir.actions.report,print_report_name:quality_control.quality_check_report
@@ -1438,6 +1433,11 @@ msgstr ""
 "exitoso. Si hay varias hojas, debe especificar cuál quiere usar (por "
 "ejemplo, Hoja2!C4). Si no se especifica, la primera hoja se selecciona por "
 "defecto."
+
+#. module: quality_control
+#: model:ir.model.fields,help:quality_control.field_quality_point__measure_frequency_value
+msgid "The probability of each quality check being generated"
+msgstr "La probabilidad de que se genere cada control de calidad"
 
 #. module: quality_control
 #. odoo-python

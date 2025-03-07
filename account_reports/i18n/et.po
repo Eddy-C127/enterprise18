@@ -175,6 +175,20 @@ msgid ""
 "            </div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                <p style=\"margin: 0px; padding: 0px;\">\n"
+"                    <t t-if=\"object.id != object.commercial_partner_id.id\">Lugupeetud <t t-out=\"object.name or ''\"/> (<t t-out=\"object.commercial_partner_id.name or ''\"/>),</t>\n"
+"                    <t t-else=\"\">Lugupeetud <t t-out=\"object.name or ''\"/>,</t>\n"
+"                    <br/>\n"
+"                   Manusest leiate konto väljavõtte.\n"
+"                    <br/>\n"
+"                    Küsimuste korral palun võtke ühendust.\n"
+"                    <br/>\n"
+"                    Lugupidamisega\n"
+"                    <br/>\n"
+"\t                <t t-out=\"object._get_followup_responsible().name if is_html_empty(object._get_followup_responsible().signature) else object._get_followup_responsible().signature\"/>\n"
+"                </p>\n"
+"            </div>"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
@@ -614,7 +628,7 @@ msgstr "Analüütiline grupp"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 msgid "Analytic Simulations"
-msgstr ""
+msgstr "Analüütilised simulatsioonid"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2163,6 +2177,8 @@ msgid ""
 "Inconsistent data: more than one external value at the same date for a "
 "'most_recent' external line."
 msgstr ""
+"Ebamäärased andmed: rohkem kui üks väline väärtus samal kuupäeval "
+"'most_recent' reale."
 
 #. module: account_reports
 #. odoo-python
@@ -2624,7 +2640,7 @@ msgstr "Raha ja raha ekvivalentide netokasv"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_npmargin0
 msgid "Net profit margin (net profit / revenue)"
-msgstr ""
+msgstr "Netokasumi marginaal (netokasum/tulud)"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
@@ -2999,7 +3015,7 @@ msgstr "Palun vali e-kirja mall, et saata väljavõtteid."
 msgid ""
 "Please select the main company and its branches in the company selector to "
 "proceed."
-msgstr ""
+msgstr "Palun valige peamine ettevõte ja selle harud et jätkata."
 
 #. module: account_reports
 #. odoo-python
@@ -3076,7 +3092,7 @@ msgstr "Eelmine periood"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "Previous Periods"
-msgstr ""
+msgstr "Eelmised perioodid"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3088,7 +3104,7 @@ msgstr "Eelmine aasta"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "Previous Years"
-msgstr ""
+msgstr "Eelmised aastad"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings_line_2
@@ -3325,7 +3341,7 @@ msgstr "Saada"
 #. odoo-python
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 msgid "Send %s Statement"
-msgstr ""
+msgstr "Saada %s väljavõte"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report__send_and_print_values
@@ -3352,7 +3368,7 @@ msgstr "Saada konto aruanded automaatselt"
 #. odoo-python
 #: code:addons/account_reports/models/account_move.py:0
 msgid "Send tax report: %s"
-msgstr ""
+msgstr "Saada maksu aruanne: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -3702,7 +3718,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 msgid "The column '%s' is not available for this report."
-msgstr ""
+msgstr "Veerg '%s' ei ole saadaval selles aruandes."
 
 #. module: account_reports
 #. odoo-python
@@ -3855,7 +3871,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
 msgid "This line is out of sequence."
-msgstr ""
+msgstr "See rida on järjestusest väljas."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3902,6 +3918,8 @@ msgid ""
 "This report uses report-specific code.\n"
 "                        You can customize it manually, but any change in the parameters used for its computation could lead to errors."
 msgstr ""
+"See aruanne kasutab aruande põhilist koodi.\n"
+"Saate seda muuta käsitsi, aga muudatused parameetrites võivad põhjustada arvutamises vigu."
 
 #. module: account_reports
 #. odoo-javascript

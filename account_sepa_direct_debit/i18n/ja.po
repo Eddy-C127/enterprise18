@@ -3,8 +3,8 @@
 # 	* account_sepa_direct_debit
 # 
 # Translators:
-# Junko Augias, 2025
 # Wil Odoo, 2025
+# Junko Augias, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Junko Augias, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,6 +36,8 @@ msgid ""
 ".\n"
 "                        SEPA requires a 5 days notice."
 msgstr ""
+".\n"
+"                        SEPAでは5日前の通知が必要です。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -808,7 +810,7 @@ msgstr "委任状を使用できる期限。この日を過ぎると自動的に
 msgid ""
 "Date when the company expects to receive the payments of this batch. It "
 "can't be inferior to the sending day + the minimum pre-notification period."
-msgstr ""
+msgstr "会社がこのバッチの支払を受け取ると予想する日付。 送信日＋最低事前通知期間を下回ることはできません。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -925,7 +927,7 @@ msgstr "期限切れ警告が送信されました"
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.view_batch_payment_form_inherit
 msgid "First-Time Payments"
-msgstr ""
+msgstr "初回支払"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__message_follower_ids
@@ -1417,7 +1419,7 @@ msgstr "銀行からの関連する銀行取引明細書の一括記入を要求
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_account_batch_payment__sdd_required_collection_date
 msgid "Required Collection Date"
-msgstr ""
+msgstr "必要回収日"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__activity_user_id
@@ -1513,7 +1515,7 @@ msgstr "SEPA直接引落顧客事前通知メール"
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
 msgid "SEPA Direct Debit Mandate"
-msgstr "SEPAダイレクトデビットマンデート"
+msgstr "SEPA Direct Debit Mandate"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_account_journal__debit_sepa_pain_version
@@ -1523,7 +1525,7 @@ msgstr "SEPA口座振替Painバージョン"
 #. module: account_sepa_direct_debit
 #: model:mail.template,name:account_sepa_direct_debit.email_template_sdd_new_mandate
 msgid "SEPA Direct Debit Sending"
-msgstr "SEPA直接引落送信中"
+msgstr "SEPA Direct Debit送信中"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_res_company__sdd_creditor_identifier
@@ -1574,7 +1576,7 @@ msgid ""
 "SEPA regulations set the minimum pre-notification period to a minimum of %s "
 "days to allow enough time for the customer to check that their account is "
 "adequately funded."
-msgstr ""
+msgstr "SEPA規則では、顧客が口座に十分な資金があることを確認するのに十分な時間を確保するため、事前通知の最小期間を%s日間に設定しています。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1716,6 +1718,8 @@ msgid ""
 "The bank needs to be informed at least %(min_days_new)s days in advance for collections related to a new mandate and %(min_days)s days in advance when the mandate is already known by them.\n"
 "The minimum collection date must be %(date)s."
 msgstr ""
+"新しい委任状に関連する回収については、銀行には少なくとも%(min_days_new)s日前までに通知する必要があります。また、銀行がすでに委任状を認知している場合は、%(min_days)s日前までに通知する必要があります。\n"
+"最低回収日は、 %(date)sとなります。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1794,7 +1798,7 @@ msgstr "この委任状特有の識別子"
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.view_batch_payment_form_inherit
 msgid "This batch includes payments from mandates with no prior collections:"
-msgstr ""
+msgstr "このバッチには、これまでに回収実績のない委任者からの支払いが含まれています:"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_report_invoice_document
@@ -1925,6 +1929,8 @@ msgid ""
 "You cannot generate a SEPA Direct Debit file with a required collection date inferior to the sending day + the minimum pre-notification period of %(prenot_days)s days.\n"
 "The minimum required date should be %(minimum_date)s."
 msgstr ""
+"送信日＋事前通知の最短期間%(prenot_days)s日よりも後の日付を回収日として指定したSEPA Direct Debitファイルは作成できません。\n"
+"必要な最小の日付は%(minimum_date)s日です。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python

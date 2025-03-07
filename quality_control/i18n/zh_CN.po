@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Odoo哥 <vnsoft.he@gmail.com>, 2024
+# 何彬 <vnsoft.he@gmail.com>, 2024
 # Raymond Yu <cl_yu@hotmail.com>, 2024
 # Chloe Wang, 2024
 # 
@@ -24,13 +24,8 @@ msgstr ""
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Operations"
-msgstr "% 的操作"
-
-#. module: quality_control
-#: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Transfers"
-msgstr "% 的调拨"
+msgid "% of the time"
+msgstr ""
 
 #. module: quality_control
 #: model:ir.actions.report,print_report_name:quality_control.quality_check_report
@@ -1425,6 +1420,11 @@ msgid ""
 "specified, the first sheet is selected by default."
 msgstr ""
 "如果成功单元格值为 TRUE，则检查成功。如果有多个工作表，请指定要使用哪一个（例如 Sheet2!C4）。如果未指定，则默认选择第一个工作表。"
+
+#. module: quality_control
+#: model:ir.model.fields,help:quality_control.field_quality_point__measure_frequency_value
+msgid "The probability of each quality check being generated"
+msgstr ""
 
 #. module: quality_control
 #. odoo-python

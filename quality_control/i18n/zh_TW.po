@@ -22,13 +22,8 @@ msgstr ""
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Operations"
-msgstr "佔操作百分比"
-
-#. module: quality_control
-#: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Transfers"
-msgstr "佔轉移百分比"
+msgid "% of the time"
+msgstr ""
 
 #. module: quality_control
 #: model:ir.actions.report,print_report_name:quality_control.quality_check_report
@@ -1425,6 +1420,11 @@ msgid ""
 "specified, the first sheet is selected by default."
 msgstr ""
 "若成功儲存格的值為 TRUE，檢查便成功。如果有多張工作表，請指定要使用哪一個（例如 Sheet2!C4）。如果未指定，預設會選擇第一張工作表。"
+
+#. module: quality_control
+#: model:ir.model.fields,help:quality_control.field_quality_point__measure_frequency_value
+msgid "The probability of each quality check being generated"
+msgstr ""
 
 #. module: quality_control
 #. odoo-python

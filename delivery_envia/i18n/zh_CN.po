@@ -47,6 +47,8 @@ msgid ""
 "doorstep. To enable this feature, enable Returned at Shippers Expense "
 "otherwise it will be abandoned at the customer's door."
 msgstr ""
+"需要注意的是，有些国家/地区支持针对货板或储物箱的独特附加服务。例如，加拿大可以选择将未成功派送的货物退回仓库或遗留在客户家门口。要启用此功能，请启用 "
+"“由托运人承担退货费用”，否则货物将被遗留在客户家门口。"
 
 #. module: delivery_envia
 #. odoo-python
@@ -325,33 +327,34 @@ msgid ""
 "Make sure city/commune and state/region are set otherwise enter a postal "
 "code directly"
 msgstr ""
+"Envia 未能为合作伙伴找到适用邮递区号：%(partner_name)s。请确保已设置城市/镇/区，以及州/省/地区，否则请直接输入邮递区号"
 
 #. module: delivery_envia
 #: model:delivery.carrier,name:delivery_envia.delivery_carrier_envia
 #: model:product.template,name:delivery_envia.product_product_delivery_envia_product_template
 msgid "Envia.com"
-msgstr ""
+msgstr "Envia.com"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_carrier_code
 msgid "Envia.com Carrier Code"
-msgstr ""
+msgstr "Envia.com 承运商代码"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_service_code
 msgid "Envia.com Service Code"
-msgstr ""
+msgstr "Envia.com 服务代码"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_service_name
 msgid "Envia.com Service Name"
-msgstr ""
+msgstr "Envia.com 服务名称"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "Failed to fetch Envia Carriers, Please try again later."
-msgstr ""
+msgstr "获取 Envia 承运商失败，请稍后再试。"
 
 #. module: delivery_envia
 #. odoo-python
@@ -361,30 +364,32 @@ msgid ""
 " order to send the required information you need to set the UNSPSC code in "
 "the following product: %(product_name)s"
 msgstr ""
+"墨西哥境内的零担运输（LTL 运输），需要提供装运单（Carta Porte），以发送所需的信息，为以下产品中设置 UNSPSC "
+"代码：%(product_name)s"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ""
 "For any carriers you'd like to use that are not activated, be sure to "
 "activate it here."
-msgstr ""
+msgstr "如果您想使用的运营商尚未激活，请务必在此激活。"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ""
 "For your available carriers you'll need to make sure that they are available"
 " through Envia (make sure to select all available countries):<br/>"
-msgstr ""
+msgstr "对于您可选用的承运商，您需要确保它们可通过 Envia 提供服务（确保选择所有可用的国家/地区）：<br/>"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_production_api_key
 msgid "Generate an Access Token from within the Production Portal of Envia"
-msgstr ""
+msgstr "从 Envia 正式运行门户网站生成访问令牌"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_sandbox_api_key
 msgid "Generate an Access Token from within the Sandbox Portal of Envia"
-msgstr ""
+msgstr "从 Envia 沙盒门户网站生成访问令牌"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__id
@@ -396,17 +401,17 @@ msgstr "ID"
 msgid ""
 "If the carrier is unable to deliver the package, the package can be returned"
 " to the shipper or abandoned at the door. (Canada only)"
-msgstr ""
+msgstr "如果承运商无法递送包裹，可将包裹退还给托运人或遗留在门口。（仅限加拿大）"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "If you don't have an account"
-msgstr ""
+msgstr "如果没有账户"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "If you don't have an account, we recommend heading to"
-msgstr ""
+msgstr "如果您没有帐户，我们建议您前往"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__write_uid
@@ -425,22 +430,23 @@ msgid ""
 "Key. This will be used by Odoo to communicate with Envia so note it down for"
 " later."
 msgstr ""
+"最后，前往 “开发者/API 密钥” 部分，生成一个新的 API 密钥。Odoo 将使用此密钥与 Envia 通信，请记下此密钥以便日后使用。"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/stock_package_type.py:0
 msgid "Length, Width, and Height is necessary for a Envia Package."
-msgstr ""
+msgstr "长度、宽度和高度是 Envia 包装的必要条件。"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_lift_delivery
 msgid "Lift Assistance on Delivery"
-msgstr ""
+msgstr "送货时升降协助"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_lift_pickup
 msgid "Lift Assistance on Pickup"
-msgstr ""
+msgstr "提货时升降协助"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -449,6 +455,7 @@ msgid ""
 "have multi country operations you can also create two separate accounts, "
 "keep in mind that your billing will be done in your main currency. <br/>"
 msgstr ""
+"请确保为您的主要账单选择适当的国家/地区，如果您在多个国家/地区开展业务，也可以创建两个独立账户。请留意，您的账单将以您的主要货币结算。<br/>"
 
 #. module: delivery_envia
 #. odoo-python
@@ -457,6 +464,8 @@ msgid ""
 "Missing Fields:\n"
 "%s"
 msgstr ""
+"缺漏字段：\n"
+"%s"
 
 #. module: delivery_envia
 #. odoo-python
@@ -464,20 +473,20 @@ msgstr ""
 msgid ""
 "No carrier is set on \"%(delivery_method)s\". To use Envia.com, you'll need "
 "to sync your carriers with your account."
-msgstr ""
+msgstr "没有为 “%(delivery_method)s” 设置承运商。要使用 Envia.com，您需要与您的账户同步承运商资料。"
 
 #. module: delivery_envia
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "No rate found"
-msgstr ""
+msgstr "找不到收费率"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ""
 "Once your delivery method is properly configured, you can sync the carriers "
 "Envia provides for your country of origin: <br/>"
-msgstr ""
+msgstr "配送方式配置正确后，您就可以同步 Envia 为您的出货国家/地区提供的承运商资料，同步至系统：<br/>"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -502,12 +511,12 @@ msgstr "PAPER_7X4.75"
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__paper_8_27x11_67
 msgid "PAPER_8.27X11.67"
-msgstr ""
+msgstr "PAPER_8.27X11.67"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__paper_8_5x11
 msgid "PAPER_8.5X11"
-msgstr ""
+msgstr "PAPER_8.5X11"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__paper_8_5x11_bottom_half_label
@@ -532,21 +541,21 @@ msgstr "托盘"
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_residential_pickup
 msgid "Pickup Residential Zone"
-msgstr ""
+msgstr "住宅区提货"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_lift_delivery
 msgid ""
 "Provide liftgate assistance if the recipient doesn't have a dock or forklift"
 " to unload the shipment. (United States and Mexico Only)"
-msgstr ""
+msgstr "如果收件人没有装卸货平台，或叉车协助卸货，则提供升降尾板协助。（仅限美国和墨西哥）"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_lift_pickup
 msgid ""
 "Provide liftgate assitance if the supplier doesn't have a dock or forklift "
 "to load the shipment. (United States and Mexico Only)"
-msgstr ""
+msgstr "如果发件人没有装卸货平台，或叉车协助装载，则提供升降尾板协助。（仅限美国和墨西哥）"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__delivery_type
@@ -556,7 +565,7 @@ msgstr "物流商"
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__envia_return_at_senders_expense
 msgid "Returned at Shippers Expense"
-msgstr ""
+msgstr "由托运人承担退货费用"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_stock_type__stock_2_4x6

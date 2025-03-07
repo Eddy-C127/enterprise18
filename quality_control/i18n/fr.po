@@ -22,13 +22,8 @@ msgstr ""
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Operations"
-msgstr "% d'opérations"
-
-#. module: quality_control
-#: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Transfers"
-msgstr "% de transferts"
+msgid "% of the time"
+msgstr "% du temps"
 
 #. module: quality_control
 #: model:ir.actions.report,print_report_name:quality_control.quality_check_report
@@ -1439,6 +1434,11 @@ msgstr ""
 " y a plusieurs feuilles, spécifiez celle que vous voulez utiliser (par "
 "exemple Feuille2!C4). Si non spécifié, la première feuille est sélectionnée "
 "par défaut."
+
+#. module: quality_control
+#: model:ir.model.fields,help:quality_control.field_quality_point__measure_frequency_value
+msgid "The probability of each quality check being generated"
+msgstr "La probabilité que chaque contrôle de qualité soit généré."
 
 #. module: quality_control
 #. odoo-python

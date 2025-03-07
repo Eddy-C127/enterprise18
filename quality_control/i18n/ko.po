@@ -23,13 +23,8 @@ msgstr ""
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Operations"
-msgstr "작업의 %"
-
-#. module: quality_control
-#: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Transfers"
-msgstr "전송의 %"
+msgid "% of the time"
+msgstr ""
 
 #. module: quality_control
 #: model:ir.actions.report,print_report_name:quality_control.quality_check_report
@@ -1425,6 +1420,11 @@ msgid ""
 msgstr ""
 "성공 셀 값이 TRUE이면 확인이 성공한 것으로 처리됩니다. 여러 개의 시트가 있는 경우 사용할 시트를 지정합니다(예: "
 "Sheet2!C4).지정하지 않으면 기본적으로 첫 번째 시트가 선택됩니다."
+
+#. module: quality_control
+#: model:ir.model.fields,help:quality_control.field_quality_point__measure_frequency_value
+msgid "The probability of each quality check being generated"
+msgstr ""
 
 #. module: quality_control
 #. odoo-python

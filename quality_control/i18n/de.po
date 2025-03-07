@@ -22,13 +22,8 @@ msgstr ""
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Operations"
-msgstr "% der Vorgänge"
-
-#. module: quality_control
-#: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Transfers"
-msgstr "% der Transfers"
+msgid "% of the time"
+msgstr "% der Zeit"
 
 #. module: quality_control
 #: model:ir.actions.report,print_report_name:quality_control.quality_check_report
@@ -1437,10 +1432,15 @@ msgid ""
 "several sheets, specify which one you want to use (e.g. Sheet2!C4). If not "
 "specified, the first sheet is selected by default."
 msgstr ""
-"Die Prüfung ist erfolgreich, wenn der Wert der Erfolgszelle „TRUE“ lautet. "
+"Die Prüfung ist erfolgreich, wenn der Wert der Erfolgszelle TRUE lautet. "
 "Wenn mehrere Blätter vorhanden sind, geben Sie an, welches Sie verwenden "
 "möchten (z. B. Sheet2!C4). Wenn nichts angegeben ist, wird standardmäßig das"
 " erste Blatt ausgewählt."
+
+#. module: quality_control
+#: model:ir.model.fields,help:quality_control.field_quality_point__measure_frequency_value
+msgid "The probability of each quality check being generated"
+msgstr "Die Wahrscheinlichkeit, dass jede Qualitätsprüfung generiert wird"
 
 #. module: quality_control
 #. odoo-python

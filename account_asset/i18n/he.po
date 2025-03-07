@@ -59,13 +59,13 @@ msgstr "מס' פקודות פחת שנרשמו"
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "%(asset)s: Disposal"
-msgstr ""
+msgstr "%(asset)s: סילוק"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "%(asset)s: Sale"
-msgstr ""
+msgstr "%(asset)s: מכירה"
 
 #. module: account_asset
 #. odoo-python
@@ -77,7 +77,7 @@ msgstr "%(months)s m"
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "%(move_line)s (%(current)s of %(total)s)"
-msgstr ""
+msgstr "%(move_line)s (%(current)s של%(total)s)"
 
 #. module: account_asset
 #. odoo-python
@@ -97,7 +97,7 @@ msgstr "%s (העתק)"
 msgid ""
 "%s Future entries will be recomputed to depreciate the asset following the "
 "changes."
-msgstr ""
+msgstr "%s פקודות עתידיות יחושבו מחדש להפחתת הנכס בעקבות השינויים."
 
 #. module: account_asset
 #. odoo-python
@@ -109,7 +109,7 @@ msgstr "%s: פחת"
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "(No %s)"
-msgstr ""
+msgstr "(לא %s)"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -165,7 +165,7 @@ msgstr "מסמך שמקושר לתנועה זו נמחק: %s"
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "A gross increase has been created: %(link)s"
-msgstr ""
+msgstr "נוצרה עלייה ברוטו:%(link)s"
 
 #. module: account_asset
 #. odoo-python
@@ -427,7 +427,7 @@ msgstr "סוגי נכסים"
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_move_type
 #: model:ir.model.fields,field_description:account_asset.field_account_move__asset_move_type
 msgid "Asset Move Type"
-msgstr ""
+msgstr "סוג תנועת נכס"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__name
@@ -460,7 +460,7 @@ msgstr "נכס נוצר"
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "Asset created from invoice: %s"
-msgstr ""
+msgstr "נכס נוצר מחשבונית: %s"
 
 #. module: account_asset
 #. odoo-python
@@ -647,7 +647,7 @@ msgstr "אשר"
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__prorata_computation_type__constant_periods
 msgid "Constant Periods"
-msgstr ""
+msgstr "תקופות קבועות"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__count_asset
@@ -1026,7 +1026,7 @@ msgstr "קבץ לפי..."
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group by Account"
-msgstr ""
+msgstr "קבץ לפי חשבון"
 
 #. module: account_asset
 #. odoo-javascript
@@ -1264,7 +1264,7 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__net_gain_on_sale
 msgid "Net gain on sale"
-msgstr ""
+msgstr "רווח נקי במכירה"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__net_gain_on_sale
@@ -1418,7 +1418,7 @@ msgstr "אב"
 #: code:addons/account_asset/models/account_asset.py:0
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Parent Asset"
-msgstr ""
+msgstr "נכס אב"
 
 #. module: account_asset
 #. odoo-python
@@ -1440,7 +1440,7 @@ msgstr "אורך תקופה"
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_move__asset_move_type__positive_revaluation
 msgid "Positive revaluation"
-msgstr ""
+msgstr "הערכה מחדש חיובית"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -1472,7 +1472,7 @@ msgstr "דירוגים"
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "Re-evaluate"
-msgstr ""
+msgstr "הערכה מחדש"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset_group__linked_asset_ids
@@ -1484,7 +1484,7 @@ msgstr "נכסים קשורים"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__related_purchase_value
 msgid "Related Purchase Value"
-msgstr ""
+msgstr "ערך רכש קשור"
 
 #. module: account_asset
 #. odoo-python
@@ -1535,7 +1535,7 @@ msgstr "מכירה"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Save as Model"
-msgstr ""
+msgstr "שמור כמודל"
 
 #. module: account_asset
 #. odoo-python
@@ -1574,7 +1574,7 @@ msgstr "הצג את כל הרשומות שתאריך הפעולה הבא שלה�
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "Some fields are missing %s"
-msgstr ""
+msgstr "כמה שדות חסרים %s"
 
 #. module: account_asset
 #. odoo-python
@@ -1797,14 +1797,14 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "You can't re-evaluate the asset before the lock date."
-msgstr ""
+msgstr "לא ניתן להעריך מחדש את הנכס לפני תאריך הנעילה."
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid ""
 "You cannot add or remove bills when the asset is already running or closed."
-msgstr ""
+msgstr "לא ניתן להוסיף או להסיר חשבונות כאשר הנכס כבר פועל או סגור."
 
 #. module: account_asset
 #. odoo-python
@@ -1870,7 +1870,7 @@ msgstr "אי אפשר לבחור את אותו החשבון המוגדר כחש�
 #. module: account_asset
 #: model:account.report.column,name:account_asset.assets_report_balance
 msgid "book_value"
-msgstr ""
+msgstr "ערך_ בספרים"
 
 #. module: account_asset
 #: model:account.report.column,name:account_asset.assets_report_date_from

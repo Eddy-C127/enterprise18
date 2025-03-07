@@ -22,13 +22,8 @@ msgstr ""
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Operations"
-msgstr "% ของการดำเนินงาน"
-
-#. module: quality_control
-#: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "% of Transfers"
-msgstr "% ของการโอน"
+msgid "% of the time"
+msgstr ""
 
 #. module: quality_control
 #: model:ir.actions.report,print_report_name:quality_control.quality_check_report
@@ -1434,6 +1429,11 @@ msgstr ""
 "การตรวจสอบจะถือว่าสำเร็จหากค่าเซลล์ที่แสดงว่าสำเร็จคือ TRUE หากมีชีตหลายชีต "
 "ให้ระบุชีตที่ต้องการใช้ (เช่น Sheet2!C4) หากไม่ได้ระบุไว้ "
 "ชีตแรกจะถูกเลือกตามค่าเริ่มต้น"
+
+#. module: quality_control
+#: model:ir.model.fields,help:quality_control.field_quality_point__measure_frequency_value
+msgid "The probability of each quality check being generated"
+msgstr ""
 
 #. module: quality_control
 #. odoo-python

@@ -77,7 +77,7 @@ msgstr "%s dokumendid"
 #. odoo-javascript
 #: code:addons/documents/static/src/core/document_service.js:0
 msgid "%s documents have been moved."
-msgstr ""
+msgstr "%s dokumendid on liigutatud."
 
 #. module: documents
 #. odoo-javascript
@@ -89,13 +89,13 @@ msgstr "%s faili pole liigutatud, sest nad on teise kasutaja poolt lukustatud"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.js:0
 msgid "%s has been copied in My Drive."
-msgstr ""
+msgstr "%s on kopeeritud minu kausta."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.js:0
 msgid "%s have been copied in My Drive."
-msgstr ""
+msgstr "%s on kopeeritud minu kausta."
 
 #. module: documents
 #. odoo-javascript
@@ -119,7 +119,7 @@ msgstr "%s jagatud sinuga"
 #. odoo-javascript
 #: code:addons/documents/static/src/core/document_service.js:0
 msgid "%s shortcuts have been created."
-msgstr ""
+msgstr "%s otseteed on loodud."
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -164,7 +164,7 @@ msgstr "2024"
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_year_current
 msgid "2025"
-msgstr ""
+msgstr "2025"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -202,12 +202,12 @@ msgstr "<i class=\"fa fa-download fa-fw\"/> Lae alla fail"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "<i class=\"fa fa-external-link me-2\" title=\"This is a shortcut\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-external-link me-2\" title=\"This is a shortcut\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "<i class=\"fa fa-external-link text-gray-500\" title=\"This is a shortcut\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-external-link text-gray-500\" title=\"This is a shortcut\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_file
@@ -478,23 +478,23 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "A destination is required when creating multiple shortcuts at once."
-msgstr ""
+msgstr "Mitut otseteed korragal uues on vajalik ka sihtkoht."
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_folder_id_not_id
 msgid "A folder cannot be included in itself"
-msgstr ""
+msgstr "Kaust ei saa sisaldada iseennast"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_shortcut_document_id_not_id
 msgid "A shortcut cannot point to itself"
-msgstr ""
+msgstr "Otsetee ei saa osutada iseendale"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/core/document_service.js:0
 msgid "A shortcut has been created."
-msgstr ""
+msgstr "Otsetee on loodud."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -517,41 +517,41 @@ msgstr "Ligipääsu võti"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.portal_my_home_documents
 msgid "Access all your documents"
-msgstr ""
+msgstr "Juurdepääs kõigile oma dokumentidele"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_access.py:0
 msgid "Access documents and partners cannot be changed."
-msgstr ""
+msgstr "Ligipääs dokumentidele ja partnereid ei saa muuta"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
 msgid "Access to Automations"
-msgstr ""
+msgstr "Ligipääs automaatikale"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/core/document_service.js:0
 msgid "Access to Server Actions"
-msgstr ""
+msgstr "Ligipääs serveri toimingutele"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Access to a folder or a document"
-msgstr ""
+msgstr "Ligipääs kaustale või dokumendile"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_document_token_unique
 msgid "Access tokens already used."
-msgstr ""
+msgstr "Ligipääsu võti juba kasutusel."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_url
 msgid "Access url"
-msgstr ""
+msgstr "Ligipääsu url"
 
 #. module: documents
 #. odoo-javascript
@@ -569,7 +569,7 @@ msgstr "Vajalik toiming"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.xml:0
 msgid "Actions on Select"
-msgstr ""
+msgstr "Tegevused valikul"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__active
@@ -624,7 +624,7 @@ msgstr "Tegevuste tüübid"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 msgid "Activity assigned to"
-msgstr ""
+msgstr "Tegevuus määratud"
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_plan_action_document
@@ -632,6 +632,8 @@ msgid ""
 "Activity plans are used to assign a list of activities in just a few clicks\n"
 "                    (e.g. \"NDA signature process\", \"Workspace workflow\", ...)"
 msgstr ""
+"Tegevusplaane kasutatakse hulga tegevuste määramiseks vaid mõne klikiga\n"
+"                    (nt \"Lepingu sõlmimise protsess\", \"Tavaline töövoog\", ...)"
 
 #. module: documents
 #. odoo-javascript
@@ -650,7 +652,7 @@ msgstr "Lisa"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.xml:0
 msgid "Add Custom Action"
-msgstr ""
+msgstr "Lisa kohaldatud toiming"
 
 #. module: documents
 #. odoo-javascript
@@ -682,13 +684,13 @@ msgstr "Lisa URL"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 msgid "Add a tag..."
-msgstr ""
+msgstr "Lisa silt..."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 msgid "Add an alias tag..."
-msgstr ""
+msgstr "Lisa aliase silt..."
 
 #. module: documents
 #. odoo-javascript
@@ -795,6 +797,8 @@ msgid ""
 "All users with access to this %(documentType)s or its parent will have edit "
 "permissions."
 msgstr ""
+"Muutmisõigus on kõigil kasutajatel, kellel on ligipääs %(documentType)s või "
+"selle ülemdokumendile."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_ids
@@ -805,7 +809,7 @@ msgstr "Luba ligipääs"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Already linked Documents: %s"
-msgstr ""
+msgstr "Juba seotud dokumendid: %s"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -841,13 +845,13 @@ msgstr "Esines tõrge faili laadimisel"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Anyone on the internet with the link can edit"
-msgstr ""
+msgstr "Muutmisõigus on kõigil kellel on link"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Anyone on the internet with the link can view"
-msgstr ""
+msgstr "Vaatamisõigus on kõigil kellel on link"
 
 #. module: documents
 #. odoo-javascript
@@ -883,7 +887,7 @@ msgstr "Olete kindel, et soovite seda lehte kustutada?"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.js:0
 msgid "Are you sure you want to delete this attachment?"
-msgstr ""
+msgstr "Olete kindel et soovite seda manust kustutada?"
 
 #. module: documents
 #. odoo-javascript
@@ -912,6 +916,8 @@ msgid ""
 "At least one document couldn't be moved due to access rights. Shortcuts have"
 " been created."
 msgstr ""
+"Vähemalt ühte dokumentide ei olnud ligipääsuõiguste tõttu võimalik "
+"liigutada. Selle asemel loodi otseteed."
 
 #. module: documents
 #: model:ir.model,name:documents.model_ir_attachment
@@ -1030,7 +1036,7 @@ msgstr "Vajuta ristile, et <b>sulgeda eelvaade</b>."
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__thumbnail_status__client_generated
 msgid "Client Generated"
-msgstr ""
+msgstr "Loodud klient"
 
 #. module: documents
 #. odoo-javascript
@@ -1055,7 +1061,7 @@ msgstr "Värv"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Common roots for all company users."
-msgstr ""
+msgstr "Ühised juured kõigile ettevõtte kasutajatele."
 
 #. module: documents
 #. odoo-javascript
@@ -1093,6 +1099,7 @@ msgstr "Kontakt"
 #: code:addons/documents/static/src/views/hooks.js:0
 msgid "Contact your Administrator to get access if needed."
 msgstr ""
+"Ligipääsu taotlemiseks võtke vajadusel ühendust enda administraatoriga."
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_contracts
@@ -1131,7 +1138,7 @@ msgstr "Loo otsetee"
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_plan_action_document
 msgid "Create a Document Activity Plan"
-msgstr ""
+msgstr "Loo dokumentide tegevusplaan"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_activity_option
@@ -1142,7 +1149,7 @@ msgstr "Loo uus tegevus"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Create and edit new contact \""
-msgstr ""
+msgstr "Loo ja muuda uut kontakti \""
 
 #. module: documents
 #. odoo-javascript
@@ -1261,7 +1268,7 @@ msgstr "Loobu"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Discoverable"
-msgstr ""
+msgstr "Avastatav"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_access__display_name
@@ -1298,13 +1305,13 @@ msgstr "Dokument / Partner"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.xml:0
 msgid "Document Access Internal"
-msgstr ""
+msgstr "Seesmine dokumenti ligipääs"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.xml:0
 msgid "Document Access Link"
-msgstr ""
+msgstr "Dokumendi juurdepääsulink"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__document_count
@@ -1355,7 +1362,7 @@ msgstr "Dokumentide allalaadimise meeldetuletus"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__document_token
 msgid "Document Token"
-msgstr ""
+msgstr "Dokumendi võti"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
@@ -1366,7 +1373,7 @@ msgstr "Dokumendi eelvaade"
 #. odoo-python
 #: code:addons/documents/controllers/documents.py:0
 msgid "Document uploaded by %(user)s"
-msgstr ""
+msgstr "Dokumendi üleslaadinud %(user)s"
 
 #. module: documents
 #: model:mail.template,name:documents.mail_template_document_request
@@ -1410,19 +1417,19 @@ msgstr "Documents creation mixin"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "Documents in the Trash cannot be shared"
-msgstr ""
+msgstr "Prügikastis dokumente ei saa jagada"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
 msgid "Documents moved to trash will show up here"
-msgstr ""
+msgstr "Siin on nähtavad prügikasti tõstetud dokumendid"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
 msgid "Documents shared with you will appear here"
-msgstr ""
+msgstr "Siin on näha teiega jagatud dokumendid"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_unlink_mixin
@@ -1468,12 +1475,12 @@ msgstr "Laadige file"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Download folder as zip"
-msgstr ""
+msgstr "Lae alla kokkupakitud kaust"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Download zip #{subfolder.name}"
-msgstr ""
+msgstr "Lae alla zip #{subfolder.name}"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_draft
@@ -1537,7 +1544,7 @@ msgstr "E-maili aliased"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form_details
 msgid "Email Upload"
-msgstr ""
+msgstr "Emaili üleslaadimine"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__email_cc
@@ -1552,7 +1559,7 @@ msgstr "Meili domeen nt. „example.com” aadressil „odoo@example.com”"
 #. module: documents
 #: model:ir.actions.act_window,name:documents.mail_alias_action
 msgid "Email links"
-msgstr ""
+msgstr "Emaili lingid"
 
 #. module: documents
 #. odoo-javascript
@@ -1720,7 +1727,7 @@ msgstr "Kaust"
 #: code:addons/documents/static/src/views/kanban/documents_kanban_renderer.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "Folders"
-msgstr ""
+msgstr "Kaustad"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_follower_ids
@@ -1752,7 +1759,7 @@ msgstr "Üldine"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.xml:0
 msgid "General access"
-msgstr ""
+msgstr "Üldine ligipääs"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
@@ -1777,7 +1784,7 @@ msgstr "On sõnum"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "Hide shortcuts"
-msgstr ""
+msgstr "Peida otseteed"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__previous_attachment_ids
@@ -1820,6 +1827,9 @@ msgid ""
 "to view it. If \"False\", access with the link also given to all who can "
 "access the parent folder."
 msgstr ""
+"Kui \"Tõene\", siis dokument on nähtav ainult neile kellel on antud otsene "
+"ligipääs. Kui \"Väär\", siis dokument on nähtav kõigile kellel on ligipääs "
+"ülemkaustale."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__message_needaction
@@ -1893,13 +1903,13 @@ msgstr "Indekseeritud sisu"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_details.js:0
 msgid "Info & Tags"
-msgstr ""
+msgstr "Info & Sildid"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 msgid "Info & tags"
-msgstr ""
+msgstr "Info & sildid"
 
 #. module: documents
 #. odoo-javascript
@@ -1910,38 +1920,38 @@ msgstr "Ettevõttesisene kasutajad"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_internal
 msgid "Internal Users Rights"
-msgstr ""
+msgstr "Sisemised kasutajaõigused"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Internal users can edit"
-msgstr ""
+msgstr "Sisemised kasutajad saavad muuta"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Internal users can view"
-msgstr ""
+msgstr "Nähtav sisemistele kasutajatele"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Invalid folder id"
-msgstr ""
+msgstr "Vigane kausta id"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "Invalid operation"
-msgstr ""
+msgstr "Vigane toiming"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Invalid role."
-msgstr ""
+msgstr "Vigane roll."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_editable_attachment
@@ -1970,6 +1980,8 @@ msgid ""
 "It is not possible to move archived documents or documents to archived "
 "folders."
 msgstr ""
+"Ei ole võimalik liigutada arhiveeritud dokumente või dokumente arhiveeritud "
+"kaustadesse."
 
 #. module: documents
 #. odoo-python
@@ -1978,6 +1990,8 @@ msgid ""
 "Item(s) you wish to restore are included in archived folders. To restore these items, you must restore the following including folders instead:\n"
 "- %(folders_list)s"
 msgstr ""
+"Taastamiseks valitud esemed on arhiveeritud kaustas. Peate taastama ka järgmise kausta:\n"
+"- %(folders_list)s"
 
 #. module: documents
 #. odoo-python
@@ -1997,7 +2011,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_access__last_access_date
 #: model:ir.model.fields,field_description:documents.field_documents_document__last_access_date_group
 msgid "Last Accessed On"
-msgstr ""
+msgstr "Viimati avatud"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__write_uid
@@ -2148,13 +2162,13 @@ msgstr "E-kiri: %s"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 msgid "Manage Versions"
-msgstr ""
+msgstr "Halda versioone"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.js:0
 msgid "Manage Versions of \"%s\""
-msgstr ""
+msgstr "Halda versioone \"%s\""
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_remove_activities
@@ -2283,12 +2297,12 @@ msgstr "Minu dokumendid"
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.js:0
 #: code:addons/documents/static/src/views/kanban/documents_kanban_record.js:0
 msgid "My Drive"
-msgstr ""
+msgstr "Minu kaust"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_access_role_or_last_access_date
 msgid "NULL roles must have a set last_access_date"
-msgstr ""
+msgstr "NULL rollidel peab olema määratud last_access_date"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__name
@@ -2386,7 +2400,7 @@ msgstr "Keegi internetis ei pääse juurde"
 #. odoo-python
 #: code:addons/documents/models/ir_actions_server.py:0
 msgid "No server actions found for Documents!"
-msgstr ""
+msgstr "Dokumentidele ei leitud serveri toiminguid!"
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_alias_action
@@ -2422,7 +2436,7 @@ msgstr "Ei ole lisatud"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 msgid "Not set"
-msgstr ""
+msgstr "Ei ole määratud"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_activity_note
@@ -2480,41 +2494,41 @@ msgstr "Vanemad"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents Managers can create in company folder."
-msgstr ""
+msgstr "Ainult dokumendi haldajad saavad luua ettevõtte kaustu."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents Managers can set aliases."
-msgstr ""
+msgstr "Ainult dokumentide mooduli haldajad saavad määrata aliaseid."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents managers can set an alias."
-msgstr ""
+msgstr "Ainult dokumentide mooduli haldajad saavad määrata aliaseid."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Only people with access can open with the link"
-msgstr ""
+msgstr "Lingiga avatav ainult siis kui on ligipääs antud."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Open #{document_url.name}"
-msgstr ""
+msgstr "Ava #{document_url.name}"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Open folder #{subfolder.name}"
-msgstr ""
+msgstr "Ava kaust #{subfolder.name}"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "Open the permissions panel"
-msgstr ""
+msgstr "Ava õiguste paneel"
 
 #. module: documents
 #. odoo-python
@@ -2523,6 +2537,8 @@ msgid ""
 "Operation not supported. Please use \"Move to Trash\" / `action_archive` "
 "instead."
 msgstr ""
+"Toiming ei ole toetatud. Kasuta hoopis \"Liiguta prügikasti\"/ "
+"action_archive."
 
 #. module: documents
 #. odoo-python
@@ -2530,7 +2546,7 @@ msgstr ""
 msgid ""
 "Operation not supported. Please use \"Restore\" / `action_unarchive` "
 "instead."
-msgstr ""
+msgstr "Toiming ei ole toetatud. Palun kasutage \"Taasta\"/ action_unarchive."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_force_thread_id
@@ -2547,7 +2563,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.js:0
 msgid "Optional message..."
-msgstr ""
+msgstr "Valikuline sõnum..."
 
 #. module: documents
 #. odoo-javascript
@@ -2625,7 +2641,7 @@ msgstr "Kontakti kaart"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_partner_access.xml:0
 msgid "People with access"
-msgstr ""
+msgstr "Ligipääsuga inimesed"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_pinned_folder
@@ -2667,7 +2683,7 @@ msgstr "Esitlused"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_file
 msgid "Preview files"
-msgstr ""
+msgstr "Failide eelvaade"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_project
@@ -2695,7 +2711,7 @@ msgstr "Hiljutine"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
 msgid "Recently accessed Documents will show up here"
-msgstr ""
+msgstr "Siia ilmuvad nähtavale hiljuti avatud dokumendid"
 
 #. module: documents
 #. odoo-python
@@ -2882,7 +2898,7 @@ msgstr "Piiratud kaust"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.xml:0
 msgid "Revert changes"
-msgstr ""
+msgstr "Võta muudatused tagasi"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_access__role
@@ -2923,13 +2939,13 @@ msgstr "Salvestamine.."
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Search people"
-msgstr ""
+msgstr "Otsi inimesi"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
 msgid "Select a folder to upload a document"
-msgstr ""
+msgstr "Vali dokumendi üleslaadimiseks kaust"
 
 #. module: documents
 #. odoo-javascript
@@ -3180,7 +3196,7 @@ msgstr "Kokkuvõte"
 #. module: documents
 #: model:res.groups,name:documents.group_documents_system
 msgid "System Administrator"
-msgstr ""
+msgstr "Süsteemihaldur"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_tag
@@ -3259,7 +3275,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "The following documents/shortcuts have a company mismatch: \n"
-msgstr ""
+msgstr "Järgnevatel dokumentidel/otseteedel on ettevõtte vastuolu:\n"
 
 #. module: documents
 #. odoo-python
@@ -3271,7 +3287,7 @@ msgstr "Järgnevatel dokumentidel/otseteedel on tüübi vastuolu: \n"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "The following shortcuts cannot be set as documents parents: \n"
-msgstr ""
+msgstr "Järgnevaid otseteid ei saa määrata kui dokumentide ülemharu:\n"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_model_id
@@ -3350,7 +3366,7 @@ msgstr "Seda kausta ei eksisteeri."
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "This is a folder"
-msgstr ""
+msgstr "See on kaust"
 
 #. module: documents
 #. odoo-javascript
@@ -3362,7 +3378,7 @@ msgstr "See on otsetee"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 msgid "This is a shortcut - Click to access source document"
-msgstr ""
+msgstr "See on otsetee - Vajuta, et näha algdokumenti"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_access_unique_document_access_partner
@@ -3437,7 +3453,7 @@ msgstr "Prügikast"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
 msgid "Trash Management"
-msgstr ""
+msgstr "Prügikasti haldus"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__is_editable_attachment
@@ -3479,7 +3495,7 @@ msgstr "URL Eelvaade"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Unavailable action."
-msgstr ""
+msgstr "Toiming pole saadaval."
 
 #. module: documents
 #. odoo-javascript
@@ -3515,7 +3531,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
 msgid "Upload New Version"
-msgstr ""
+msgstr "Lae üles uus versioon"
 
 #. module: documents
 #. odoo-python
@@ -3558,6 +3574,8 @@ msgid ""
 "Versions are displayed in the order they were uploaded to Documents.\n"
 "                    If you delete the most recent version, the previous one is automatically restored as the current one."
 msgstr ""
+"Versioone kuvatakse üleslaadimise järjekorras.\n"
+"Kui kustate kõige uuema versiooni, siis taastatakse automaatselt eelnev versioon."
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_videos
@@ -3641,13 +3659,13 @@ msgstr "Sul ei ole luba kõiki neid üksusi kustutada."
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to execute embedded actions."
-msgstr ""
+msgstr "Teil ei ole õigust seda tegevust käivitada."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to move (some of) these documents."
-msgstr ""
+msgstr "Teil ei ole õigust (osasid) neid dokumente liigutada."
 
 #. module: documents
 #. odoo-python
@@ -3694,6 +3712,8 @@ msgstr "Seda tüüpi tegevust ei saa kinnitada."
 msgid ""
 "You can not update the access of a shortcut, update its target instead."
 msgstr ""
+"Ei saa anda ligipääsu otseteele, muutke ligipääsuõigusi dokumendile millele "
+"otsetee viitab."
 
 #. module: documents
 #. odoo-python
@@ -3713,12 +3733,14 @@ msgstr "Sellesse erikausta ei saa otseteid luua ega dokumente liigutada."
 #: code:addons/documents/models/documents_document.py:0
 msgid "You can't move documents out of folders you cannot edit."
 msgstr ""
+"Ei saa liigutada dokumente välja kaustadest millele ei ole antud muutmise "
+"õigust."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot change the owner of documents you do not own."
-msgstr ""
+msgstr "Ei saa muuta omanikku dokumentidel mida sa ei oma."
 
 #. module: documents
 #. odoo-python
@@ -3730,7 +3752,7 @@ msgstr "Serveritoimingutes kasutatavaid silte ei saa kustutada."
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot delete this attachment."
-msgstr ""
+msgstr "Ei saa kustutada seda manust."
 
 #. module: documents
 #. odoo-python
@@ -3742,13 +3764,13 @@ msgstr "Prügikastis olevaid dokumente ei saa duplikeerida."
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "You cannot move folders or files when in the trash."
-msgstr ""
+msgstr "Ei saa liigutada kaustu või faile mis on prügikastis."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "You cannot move request in the company folder"
-msgstr ""
+msgstr "Ei saa liigutada faile ettevõtte kaustas"
 
 #. module: documents
 #. odoo-javascript
@@ -3775,13 +3797,13 @@ msgstr "Sul ei ole piisavaid õigusi nende dokumentide kustutamiseks."
 msgid ""
 "You don't have the rights to move documents nor create shortcut to that "
 "folder."
-msgstr ""
+msgstr "Sul ei ole õigust sellesse kausta tõsta dokumente ega luua otseteid."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_drop_zone.xml:0
 msgid "You must be in a specific writable workspace to upload files"
-msgstr ""
+msgstr "Peate olema vastavas kirjutatavas tööalas dokumentide üleslaadimiseks"
 
 #. module: documents
 #. odoo-python
@@ -3799,7 +3821,7 @@ msgstr "Sinu isiklik ruum."
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
 msgid "Your personal space"
-msgstr ""
+msgstr "Teie isiklik tööala"
 
 #. module: documents
 #. odoo-javascript
@@ -3811,7 +3833,7 @@ msgstr "alias"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "bytes"
-msgstr ""
+msgstr "baidid"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
@@ -3887,13 +3909,13 @@ msgstr "ainult_lugemiseks"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/chatter/documents_chatter_overlay.xml:0
 msgid "items selected"
-msgstr ""
+msgstr "Valitud esemed"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 msgid "items,"
-msgstr ""
+msgstr "esemed,"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
@@ -3909,12 +3931,12 @@ msgstr "vali"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared a document with you.<br/>"
-msgstr ""
+msgstr "jagas teiega dokumenti.<br/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared a folder with you.<br/>"
-msgstr ""
+msgstr "jagas teiega kasuta.<br/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
@@ -3924,12 +3946,12 @@ msgstr "jagatud"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared this document with you:"
-msgstr ""
+msgstr "jagas seda dokumenti teiega:"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared this folder with you:"
-msgstr ""
+msgstr "jagas seda kausta teiega:"
 
 #. module: documents
 #. odoo-javascript
