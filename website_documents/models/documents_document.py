@@ -22,11 +22,16 @@ class Document(models.Model):
         for document in self.filtered(lambda d: not d.website_id or d.website_id.company_id != d.company_id):
             document.website_id = document.company_id.website_id or self.env.company.website_id
 
-    @api.constrains('website_id')
+    @api.constrains('company_id', 'website_id')
     def _check_website_id(self):
+        if self.env.is_superuser() or not self.env.companies:
+            return
         invalid_docs = []
         for doc in self.filtered('website_id'):
-            if doc.company_id != doc.website_id.company_id and self.env.companies and doc.website_id.company_id not in self.env.companies:
+            if (
+                doc.company_id != doc.website_id.company_id
+                and doc.website_id.company_id not in self.env.companies
+            ):
                 invalid_docs.append(doc.name)
         if invalid_docs:
             raise AccessError(_("You can't set this website for the following documents:\n- ") + '\n- '.join(invalid_docs))
