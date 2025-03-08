@@ -7,6 +7,7 @@
 # George Tarasidis <george_tarasidis@yahoo.com>, 2024
 # Kostas Goutoudis <goutoudis@gmail.com>, 2024
 # Martin Trigaux, 2024
+# Charalampos Loukas, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:43+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Charalampos Loukas, 2025\n"
 "Language-Team: Greek (https://app.transifex.com/odoo/teams/41243/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,12 +26,12 @@ msgstr ""
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_purchase_order__auto_generated
 msgid "Auto Generated Purchase Order"
-msgstr ""
+msgstr "Παραγγελία Αγοράς που δημιουργείται αυτόματα"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_sale_order__auto_generated
 msgid "Auto Generated Sales Order"
-msgstr ""
+msgstr "Παραγγελία Πώλησης που δημιουργείται αυτόματα"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_res_company__auto_validation
@@ -44,7 +45,7 @@ msgstr ""
 #: code:addons/sale_purchase_inter_company_rules/models/sale_order.py:0
 #, python-format
 msgid "Automatically generated from %(origin)s of company %(company)s."
-msgstr ""
+msgstr "Δημιουργείται αυτόματα από  %(origin)s της εταρίας %(company)s."
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model,name:sale_purchase_inter_company_rules.model_res_company
@@ -105,6 +106,8 @@ msgstr ""
 msgid ""
 "Inter company user of company %(name)s doesn't have enough access rights"
 msgstr ""
+"Διεταιρικός χρήστης της εταιρίας %(name)s δεν έχει αρκετά δικαιώματα "
+"πρόσβασης"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
@@ -112,20 +115,21 @@ msgstr ""
 #, python-format
 msgid "Inter company user of company %s doesn't have enough access rights"
 msgstr ""
+"Διεταιρικός χρήστης της εταιρίας %s δεν έχει αρκετά δικαιώματα πρόσβασης"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
 #: code:addons/sale_purchase_inter_company_rules/models/purchase_order.py:0
 #, python-format
 msgid "Provide at least one user for inter company relation for %(name)s"
-msgstr ""
+msgstr "Ορίστε τουλάχιστον έναν χρήστη για διεταιρική σχέση για %(name)s"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
 #: code:addons/sale_purchase_inter_company_rules/models/sale_order.py:0
 #, python-format
 msgid "Provide one user for intercompany relation for %(name)s "
-msgstr ""
+msgstr "Ορίστε έναν χρήστη για διεταιρική σχέση για %(name)s "
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model,name:sale_purchase_inter_company_rules.model_purchase_order
@@ -202,6 +206,10 @@ msgid ""
 "\n"
 "(SO currency: %(so_currency)s, Pricelist: %(pricelist)s, Partner: %(partner)s (ID: %(id)s))"
 msgstr ""
+"Δε μπορείτε να δημιουργήσετε Παραγγελία Πώλησης απο την Παραγγελία Αγοράς επειδή το νόμισμα του τιμοκαταλόγου πώλησης είναι διαφορετικό απο το νόμισμα του τιμοκαταλόγου αγοράς.\n"
+"Το νόμισμα της παραγγελίας πώλησης λαμβάνεται  απο τον τιμοκατάλογο του συνεργάτη της εταιρίας .\n"
+"\n"
+"(Νόμισμα Παραγγελίας Πώλησης: %(so_currency)s, Τιμοκατάλογος: %(pricelist)s, Συνεργάτης: %(partner)s (ID: %(id)s))"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
