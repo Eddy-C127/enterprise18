@@ -114,27 +114,38 @@ class TestDocumentsDocumentFolder(TransactionCase):
         self.assertEqual(acl.role, 'view')
 
     def test_folder_copy(self):
+        odoobot = self.env.ref('base.user_root')
+        self.folder.owner_id = self.user_portal
         folder_copy = self.folder.copy()
         self.assertNotEqual(folder_copy.id, self.folder.id)
         self.assertEqual(folder_copy.name, self.folder.name)
         self.assertEqual(folder_copy.type, 'folder')
         self.assertEqual(folder_copy.folder_id, self.parent_folder)
+        self.assertEqual(folder_copy.owner_id, odoobot)
 
         child_copy = folder_copy.children_ids.ensure_one()
         self.assertNotEqual(child_copy.id, self.child_folder.id)
         self.assertEqual(child_copy.name, self.child_folder.name)
         self.assertEqual(child_copy.type, 'folder')
         self.assertEqual(child_copy.folder_id, folder_copy)
+        self.assertEqual(child_copy.owner_id, odoobot)
 
         document_copy = child_copy.children_ids.ensure_one()
         self.assertNotEqual(document_copy.id, self.document.id)
         self.assertEqual(document_copy.name, f'{self.document.name} (copy)')
         self.assertEqual(document_copy.type, 'binary')
         self.assertEqual(document_copy.folder_id, child_copy)
+        self.assertEqual(document_copy.owner_id, odoobot)
 
         attachment = document_copy.attachment_id.ensure_one()
         self.assertNotEqual(attachment.id, self.document.attachment_id.id)
         self.assertEqual(document_copy.raw, self.document.raw)
+
+        # Check that owner is used for all children documents too
+        folder_copy_2 = self.folder.copy({'owner_id': self.user_portal.id})
+        self.assertEqual(folder_copy_2.owner_id, self.user_portal)
+        self.assertEqual(folder_copy_2.children_ids.owner_id, self.user_portal)
+        self.assertEqual(folder_copy_2.children_ids.children_ids.owner_id, self.user_portal)
 
     def test_folder_copy_embedded_actions(self):
         """Test that copying a folder embeds the same server actions"""

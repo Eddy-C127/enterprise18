@@ -1481,16 +1481,24 @@ class Document(models.Model):
                     embedded_actions_copies = folder_embedded_actions.copy()
                     embedded_actions_copies.parent_res_id = new_folder.id
                 # no need to check for permission as all the checks have been done
-                old_folder.children_ids.copy({'folder_id': new_folder.id})
+                children_default = {'folder_id': new_folder.id}
+                owner_id_in_default = (default or {}).get('owner_id') is not None
+                if owner_id_in_default:
+                    children_default.update(owner_id=default['owner_id'])
+                old_folder.children_ids.copy(children_default)
                 new_documents[documents_order[old_folder.id]] = new_folder
-                if is_manager and old_folder.is_pinned_folder:  # Otherwise copies in My Drive
+                if is_manager and old_folder.is_pinned_folder and not owner_id_in_default:  # Otherwise copies in My Drive
                     new_folder.owner_id = old_folder.owner_id
 
         if not skip_documents and (documents_sudo := (self - shortcuts - folders).sudo()):
             new_binaries_sudo = documents_sudo._copy_with_access(default=default)
             for old_document_sudo, new_binary_sudo in zip(documents_sudo, new_binaries_sudo):
                 new_documents[documents_order[old_document_sudo.id]] = new_binary_sudo.sudo(False)
-                if is_manager and not old_document_sudo.folder_id and not old_document_sudo.owner_id.active:
+                if (
+                    is_manager
+                    and 'owner_id' not in (default or {})
+                    and (not old_document_sudo.folder_id and not old_document_sudo.owner_id.active)
+                ):
                     new_binary_sudo.owner_id = old_document_sudo.owner_id
             # move in "My Drive" if needed
             self.browse([
