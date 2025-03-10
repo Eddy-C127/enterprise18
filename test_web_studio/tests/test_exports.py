@@ -11,16 +11,6 @@ from odoo.tests.common import TransactionCase, tagged
 
 # ---------------------------------- HELPERS ----------------------------------
 XMLPARSER = ET.XMLParser(remove_blank_text=True, strip_cdata=False, resolve_entities=False)
-IR_MODEL_INFO_FIELD = """<field name="info"><![CDATA[ Main super-class for regular database-persisted Odoo models.
-
-    Odoo models are created by inheriting from this class::
-
-        class user(Model):
-            ...
-
-    The system will later instantiate the class once per database (on
-    which the class' module is installed).
-    ]]></field>"""
 
 
 def nodes_equal(n1, n2):
@@ -248,7 +238,7 @@ class TestStudioExports(StudioExportCase):
             "data/ir_model.xml",
             f"""<odoo>
             <record id="{self.get_xmlid(custom_model)}" model="ir.model" context="{{'studio': True}}">
-                {IR_MODEL_INFO_FIELD}
+                <field name="info"><![CDATA[{custom_model.info}]]></field>
                 <field name="model">x_furnace_types</field>
                 <field name="name">Furnace Types</field>
             </record>
