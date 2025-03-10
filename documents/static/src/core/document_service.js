@@ -334,7 +334,7 @@ export class DocumentService {
      */
     async getActions(folderId) {
         if (!this.userIsInternal) {
-            return { actions: [] };
+            return [];
         }
         return await this.orm.call("documents.document", "get_documents_actions", [
             folderId,
