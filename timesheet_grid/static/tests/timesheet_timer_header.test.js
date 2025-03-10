@@ -9,6 +9,7 @@ import {
 import { mountView, onRpc, patchWithCleanup } from "@web/../tests/web_test_helpers";
 import { serializeDateTime } from "@web/core/l10n/dates";
 import { session } from "@web/session";
+import { TimesheetTimerRendererHook } from "@timesheet_grid/hooks/timesheet_timer_hooks";
 
 describe.current.tags("desktop");
 defineTimesheetModels();
@@ -128,4 +129,27 @@ test("Test to check if stop button is always in focus", async () => {
     // Click on body which doesn't have any fields/actions must make Stop button to come in focus
     await click(document.body);
     expect(".btn_stop_timer").toBeFocused();
+});
+
+test("_onTimerUnlinked handles undefined timesheet", async () => {
+    TimesheetTimerRendererHook.prototype.setup = function () {};
+    let removeRecordsCalled = false;
+    const propsList = {
+        resModel: "account.analytic.line",
+        _removeRecords: () => { removeRecordsCalled = true; },
+        model: { load: () => {} }
+    };
+    const instance = new TimesheetTimerRendererHook(propsList, {});
+    instance.timerState = { timesheetId: 42 };
+    instance.orm = { call: () => Promise.resolve(true) };
+
+    removeRecordsCalled = false;
+    instance.timesheet = undefined;
+    await instance._onTimerUnlinked();
+    expect(removeRecordsCalled).toBe(false);
+
+    removeRecordsCalled = false;
+    instance.timesheet = { id: 123 };
+    await instance._onTimerUnlinked();
+    expect(removeRecordsCalled).toBe(true);
 });
