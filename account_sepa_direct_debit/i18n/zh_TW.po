@@ -37,6 +37,8 @@ msgid ""
 ".\n"
 "                        SEPA requires a 5 days notice."
 msgstr ""
+"。\n"
+"                        SEPA 要求提早 5 天通知。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -745,7 +747,7 @@ msgstr "該授權可以使用的最後限期。在此日期之後，它將自動
 msgid ""
 "Date when the company expects to receive the payments of this batch. It "
 "can't be inferior to the sending day + the minimum pre-notification period."
-msgstr ""
+msgstr "公司預期收到此批次付款的日期。不可早於以下日期：(傳送日 + 最短預先通知期)。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -862,7 +864,7 @@ msgstr "已傳送過期警告"
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.view_batch_payment_form_inherit
 msgid "First-Time Payments"
-msgstr ""
+msgstr "首次付款"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__message_follower_ids
@@ -1354,7 +1356,7 @@ msgstr "對相關銀行結單，要求銀行作大批記賬。"
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_account_batch_payment__sdd_required_collection_date
 msgid "Required Collection Date"
-msgstr ""
+msgstr "要求收款日期"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__activity_user_id
@@ -1511,7 +1513,7 @@ msgid ""
 "SEPA regulations set the minimum pre-notification period to a minimum of %s "
 "days to allow enough time for the customer to check that their account is "
 "adequately funded."
-msgstr ""
+msgstr "SEPA 法規將最短預先通知期設為最少 %s 天，以便客戶有足夠時間，檢查自己賬戶是否有足夠資金。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1653,6 +1655,8 @@ msgid ""
 "The bank needs to be informed at least %(min_days_new)s days in advance for collections related to a new mandate and %(min_days)s days in advance when the mandate is already known by them.\n"
 "The minimum collection date must be %(date)s."
 msgstr ""
+"新授權的收款須最少提早 %(min_days_new)s 天通知銀行，如果銀行已知悉該授權，也須提早 %(min_days)s 天通知。\n"
+"最早可以收款的日期為：%(date)s。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1731,7 +1735,7 @@ msgstr "此授權的唯一識別碼。"
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.view_batch_payment_form_inherit
 msgid "This batch includes payments from mandates with no prior collections:"
-msgstr ""
+msgstr "此批次包括先前未有收款的授權的付款："
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_report_invoice_document
@@ -1860,6 +1864,8 @@ msgid ""
 "You cannot generate a SEPA Direct Debit file with a required collection date inferior to the sending day + the minimum pre-notification period of %(prenot_days)s days.\n"
 "The minimum required date should be %(minimum_date)s."
 msgstr ""
+"若要求收款日期早於以下日期，便不可產生 SEPA 直接扣賬檔案：(傳送日 + %(prenot_days)s 天的最短預先通知期)。\n"
+"最早可要求收款的日期，應為：%(minimum_date)s。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python

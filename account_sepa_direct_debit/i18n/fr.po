@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Cécile Collart <cco@odoo.com>, 2024
-# Manon Rondou, 2025
 # Wil Odoo, 2025
+# Manon Rondou, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Manon Rondou, 2025\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,6 +37,8 @@ msgid ""
 ".\n"
 "                        SEPA requires a 5 days notice."
 msgstr ""
+".\n"
+"                        SEPA exige un préavis de 5 jours."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -825,6 +827,9 @@ msgid ""
 "Date when the company expects to receive the payments of this batch. It "
 "can't be inferior to the sending day + the minimum pre-notification period."
 msgstr ""
+"Date à laquelle l'entreprise s'attend à recevoir les paiements de ce lot. "
+"Elle ne peut pas être antérieure au jour d'envoi + la période minimale de "
+"prénotification."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -941,7 +946,7 @@ msgstr "Avertissement d'expiration envoyé"
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.view_batch_payment_form_inherit
 msgid "First-Time Payments"
-msgstr ""
+msgstr "Paiements initiaux"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__message_follower_ids
@@ -1449,7 +1454,7 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_account_batch_payment__sdd_required_collection_date
 msgid "Required Collection Date"
-msgstr ""
+msgstr "Date d'encaissement requise"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__activity_user_id
@@ -1612,6 +1617,9 @@ msgid ""
 "days to allow enough time for the customer to check that their account is "
 "adequately funded."
 msgstr ""
+"Les réglementations SEPA fixent une période minimale de prénotification de "
+"%s jours pour permettre au client de vérifier que son compte est "
+"suffisamment approvisionné."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1757,6 +1765,8 @@ msgid ""
 "The bank needs to be informed at least %(min_days_new)s days in advance for collections related to a new mandate and %(min_days)s days in advance when the mandate is already known by them.\n"
 "The minimum collection date must be %(date)s."
 msgstr ""
+"La banque doit être informée au moins %(min_days_new)s jours à l’avance pour les prélèvements liés à un nouveau mandat et %(min_days)s jours à l’avance lorsque le mandat est déjà connu.\n"
+"La date minimale d'encaissement doit être le %(date)s."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1849,6 +1859,8 @@ msgstr "Il s’agit de l’identifiant unique du mandat."
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.view_batch_payment_form_inherit
 msgid "This batch includes payments from mandates with no prior collections:"
 msgstr ""
+"Ce lot comprend des paiements provenant de mandats sans encaissements "
+"préalables :"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_report_invoice_document
@@ -1998,6 +2010,8 @@ msgid ""
 "You cannot generate a SEPA Direct Debit file with a required collection date inferior to the sending day + the minimum pre-notification period of %(prenot_days)s days.\n"
 "The minimum required date should be %(minimum_date)s."
 msgstr ""
+"Vous ne pouvez pas générer un fichier de prélèvement SEPA avec une date d'encaissement requise antérieure au jour d'envoi + la période minimale de prénotification de %(prenot_days)s jours.\n"
+"La date minimale requise doit être le %(minimum_date)s."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
