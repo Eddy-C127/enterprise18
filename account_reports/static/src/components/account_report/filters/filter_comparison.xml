@@ -99,7 +99,7 @@
 
             <div class="dropdown-divider"/>
 
-            <t t-if="controller.options.date.mode === 'range'">
+            <t t-if="controller.options.date and controller.options.date.mode === 'range'">
                 <div
                     name="filter_comparison_custom"
                     class="dropdown-item date"
@@ -132,7 +132,7 @@
                 </div>
             </t>
 
-            <t t-if="controller.options.date.mode === 'single'">
+            <t t-if="controller.options.date and controller.options.date.mode === 'single'">
                 <div
                     class="dropdown-item date"
                     t-att-class="(controller.options.comparison.filter == 'custom') ? 'selected' : ''"
