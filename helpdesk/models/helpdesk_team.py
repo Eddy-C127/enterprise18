@@ -642,8 +642,8 @@ class HelpdeskTeam(models.Model):
         if user_uses_sla:
             group_fields = ['sla_reached_late', 'sla_reached']
 
-        dt = fields.Date.context_today(self)
-        tickets = HelpdeskTicket._read_group(domain + [('stage_id.fold', '=', True), ('close_date', '>=', dt)], group_fields, ['__count'])
+        today = self._local_midnight_as_utc()
+        tickets = HelpdeskTicket._read_group(domain + [('stage_id.fold', '=', True), ('close_date', '>=', today)], group_fields, ['__count'])
         for row in tickets:
             if not user_uses_sla:
                 [count] = row
@@ -655,7 +655,7 @@ class HelpdeskTeam(models.Model):
                         result['today']['success'] += count
             result['today']['count'] += count
 
-        dt = fields.Datetime.to_string((datetime.date.today() - relativedelta.relativedelta(days=6)))
+        dt = fields.Datetime.to_string((today - relativedelta.relativedelta(days=6)))
         tickets = HelpdeskTicket._read_group(domain + [('stage_id.fold', '=', True), ('close_date', '>=', dt)], group_fields, ['__count'])
         for row in tickets:
             if not user_uses_sla:
@@ -678,13 +678,12 @@ class HelpdeskTeam(models.Model):
             result['rating_enable'] = True
             # rating of today
             domain = [('user_id', '=', self.env.uid)]
-            today = fields.Date.today()
             one_week_before = today - relativedelta.relativedelta(weeks=1)
             helpdesk_ratings = self.env['rating.rating'].search([
                 ('res_model', '=', 'helpdesk.ticket'),
                 ('res_id', '!=', False),
                 ('write_date', '>', fields.Datetime.to_string(one_week_before)),
-                ('write_date', '<=', today),
+                ('write_date', '<=', fields.Date.today()),
                 ('rating', '>=', RATING_LIMIT_MIN),
                 ('consumed', '=', True),
             ])
@@ -694,7 +693,7 @@ class HelpdeskTeam(models.Model):
             for rating in helpdesk_ratings:
                 if rating.res_id not in tickets.ids:
                     continue
-                if rating.write_date.date() == today:
+                if rating.write_date >= today:
                     today_rating_stat['count'] += 1
                     today_rating_stat['score'] += rating.rating
                 rating_stat['score'] += rating.rating
@@ -719,7 +718,7 @@ class HelpdeskTeam(models.Model):
         context = dict(ast.literal_eval(action.get('context', {})), search_default_my_ratings=True)
         update_views = {}
         if period == 'seven_days':
-            domain += [('close_date', '>=', fields.Datetime.to_string((datetime.date.today() - relativedelta.relativedelta(days=6))))]
+            domain += [('close_date', '>=', fields.Datetime.to_string((self._local_midnight_as_utc() - relativedelta.relativedelta(days=6))))]
             update_views[self.env.ref("helpdesk.rating_rating_view_seven_days_pivot_inherit_helpdesk").id] = 'pivot'
             update_views[self.env.ref('helpdesk.rating_rating_view_seven_days_graph_inherit_helpdesk').id] = 'graph'
             context['search_default_filter_create_date'] = 'custom_create_date_last_7_days'
@@ -727,7 +726,7 @@ class HelpdeskTeam(models.Model):
             context['search_default_filter_create_date'] = 'custom_create_date_today'
             if '__count__' in context.get('pivot_measures', {}):
                 context.get('pivot_measures').remove('__count__')
-            domain += [('close_date', '>=', fields.Datetime.to_string(datetime.date.today()))]
+            domain += [('close_date', '>=', fields.Datetime.to_string(self._local_midnight_as_utc()))]
             update_views[self.env.ref("helpdesk.rating_rating_view_today_pivot_inherit_helpdesk").id] = 'pivot'
             update_views[self.env.ref('helpdesk.rating_rating_view_today_graph_inherit_helpdesk').id] = 'graph'
         action['views'] = [(state, view) for state, view in action['views'] if view not in update_views.values()] + list(update_views.items())
@@ -763,7 +762,7 @@ class HelpdeskTeam(models.Model):
         view_mode = 'list,kanban,form,activity,pivot,graph,cohort'
         if is_ticket_closed:
             domain = expression.AND([domain, [
-                ('close_date', '>=', datetime.date.today() - datetime.timedelta(days=6)),
+                ('close_date', '>=', self._local_midnight_as_utc() - datetime.timedelta(days=6)),
             ]])
             context.update(search_default_closed_on='custom_closed_on_last_7_days')
         return {
@@ -1014,3 +1013,8 @@ class HelpdeskTeam(models.Model):
             [('res_id', 'in', list(ticket_ids))],
         ])
         return action
+
+    def _local_midnight_as_utc(self):
+        """ local 12am expressed in UTC (naive datetime) """ 
+        now = fields.Datetime.context_timestamp(self, fields.Datetime.now())
+        return datetime.datetime.combine(now.date(), datetime.time.min, now.tzinfo).astimezone(timezone('UTC')).replace(tzinfo=None)
