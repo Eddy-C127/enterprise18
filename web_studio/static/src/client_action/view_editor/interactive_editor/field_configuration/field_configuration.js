@@ -78,6 +78,7 @@ export class RelationalFieldConfigurator extends Component {
             domain: [
                 ["transient", "=", false],
                 ["abstract", "=", false],
+                ["model", "not in", ["knowledge.article"]],
             ],
             resId: this.state.relationId,
             update: (resId) => {
