@@ -17,7 +17,6 @@ class AccountMoveSend(models.TransientModel):
         help="Brazil: used to determine whether to submit this e-invoice.",
     )
     l10n_br_edi_warning = fields.Text(
-        "Warning",
         compute="_compute_l10n_br_edi_warning",
         readonly=True,
         help="Brazil: used to display warnings in the wizard before sending.",
