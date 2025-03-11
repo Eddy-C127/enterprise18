@@ -100,7 +100,7 @@ msgid ""
 "        has requested your signature on the document"
 msgstr ""
 ")\n"
-"        đã yêu cầu chữ ký của bạn trên tài liệu"
+"        đã yêu cầu ký tên của bạn trên tài liệu"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -1008,7 +1008,7 @@ msgstr "Tạo"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "Current status of the signature request"
-msgstr "Trạng thái hiện tại của yêu cầu chữ ký"
+msgstr "Trạng thái hiện tại của yêu cầu ký tên"
 
 #. module: sign
 #: model:sign.item.role,name:sign.sign_item_role_customer
@@ -2045,7 +2045,7 @@ msgstr "Văn bản nhiều dòng"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_share_view_form
 msgid "Multiple Signature Requests"
-msgstr "Nhiều yêu cầu chữ ký"
+msgstr "Nhiều yêu cầu ký tên"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__my_activity_date_deadline
@@ -2129,7 +2129,7 @@ msgstr "Cần một tệp PDF hợp lệ để thêm các trường chữ ký!"
 #. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_send_request
 msgid "New Signature Request"
-msgstr "Yêu cầu chữ ký mới"
+msgstr "Yêu cầu ký tên mới"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_duplicate_template_pdf__new_template
@@ -2533,7 +2533,7 @@ msgstr "Yêu cầu thông tin mục"
 #: model:mail.activity.type,name:sign.mail_activity_data_signature_request
 #, python-format
 msgid "Request Signature"
-msgstr "Yêu cầu chữ ký"
+msgstr "Yêu cầu ký tên"
 
 #. module: sign
 #. odoo-python
@@ -2817,7 +2817,7 @@ msgstr "Hiển thị tất cả bản ghi có ngày xử lý tiếp theo trướ
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Show standard terms & conditions on signature requests"
-msgstr "Hiển thị điều khoản & điều kiện tiêu chuẩn trên yêu cầu chữ ký"
+msgstr "Hiển thị điều khoản & điều kiện tiêu chuẩn trên yêu cầu ký tên"
 
 #. module: sign
 #. odoo-javascript
@@ -2891,7 +2891,7 @@ msgstr "Yêu cầu ký tên"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__sign_request_item_id
 msgid "Sign Request Item"
-msgstr "Mục yêu cầu chữ ký"
+msgstr "Mục yêu cầu ký tên"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request_signer__sign_send_request_id
@@ -2953,12 +2953,12 @@ msgstr "Yêu cầu ký tên"
 #. module: sign
 #: model:ir.model,name:sign.model_sign_log
 msgid "Sign requests access history"
-msgstr "Lịch sử truy cập yêu cầu chữ ký"
+msgstr "Lịch sử truy cập yêu cầu ký tên"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_send_request
 msgid "Sign send request"
-msgstr "Gửi yêu cầu chữ ký"
+msgstr "Gửi yêu cầu ký tên"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_send_request_signer
@@ -2971,7 +2971,7 @@ msgstr "Sign send request signer"
 msgid ""
 "Sign up for Odoo Sign to manage your own documents and signature requests!"
 msgstr ""
-"Đăng ký Odoo Ký tên để quản lý tài liệu và yêu cầu chữ ký của riêng bạn!"
+"Đăng ký Odoo Ký tên để quản lý tài liệu và yêu cầu ký tên của riêng bạn!"
 
 #. module: sign
 #. odoo-javascript
@@ -2980,7 +2980,7 @@ msgstr ""
 msgid ""
 "Sign up for Odoo Sign to manage your own documents and signature requests."
 msgstr ""
-"Đăng ký Odoo Ký tên để quản lý tài liệu và yêu cầu chữ ký của riêng bạn."
+"Đăng ký Odoo Ký tên để quản lý tài liệu và yêu cầu ký tên của riêng bạn."
 
 #. module: sign
 #: model:ir.actions.server,name:sign.sign_reminder_cron_ir_actions_server
@@ -3065,41 +3065,41 @@ msgstr "Mục chữ ký"
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 #, python-format
 msgid "Signature Request"
-msgstr "Yêu cầu chữ ký"
+msgstr "Yêu cầu ký tên"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
 #, python-format
 msgid "Signature Request - %(file_name)s"
-msgstr "Yêu cầu chữ ký - %(file_name)s"
+msgstr "Yêu cầu ký tên - %(file_name)s"
 
 #. module: sign
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
 #, python-format
 msgid "Signature Request - %s"
-msgstr "Yêu cầu chữ ký - %s"
+msgstr "Yêu cầu ký tên - %s"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_request_item
 msgid "Signature Request Item"
-msgstr "Mục yêu cầu chữ ký"
+msgstr "Mục yêu cầu ký tên"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.sign_request_item_action
 msgid "Signature Request Items"
-msgstr "Mục yêu cầu chữ ký"
+msgstr "Mục yêu cầu ký tên"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item_value__sign_request_item_id
 msgid "Signature Request item"
-msgstr "Mục yêu cầu chữ ký"
+msgstr "Mục yêu cầu ký tên"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__sign_request_ids
 msgid "Signature Requests"
-msgstr "Yêu cầu chữ ký"
+msgstr "Yêu cầu ký tên"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__start_sign
@@ -3284,7 +3284,7 @@ msgid ""
 "Specify the order for each signer. The signature request only gets sent to                                     the next signers in the sequence when all signers from the previous level have                                     signed the document.\n"
 "                                    "
 msgstr ""
-"Ghi rõ thứ tự của từng người ký. Yêu cầu chữ ký chỉ được gửi đến những người"
+"Ghi rõ thứ tự của từng người ký. Yêu cầu ký tên chỉ được gửi đến những người"
 " ký tiếp theo trong thứ tự này khi tất cả người ký ở vị trí trước đó đã ký "
 "tài liệu."
 
@@ -3448,9 +3448,9 @@ msgid ""
 "        Terms as Web Page - A link will be pasted at the bottom of every signature request email, leading to your content.\n"
 "        "
 msgstr ""
-"Điều khoản trong email - Văn bản sẽ được hiển thị ở dưới mỗi email yêu cầu chữ ký.\n"
+"Điều khoản trong email - Văn bản sẽ được hiển thị ở dưới mỗi email yêu cầu ký tên.\n"
 "\n"
-"         Điều khoản dưới dạng trang Web - Một liên kết sẽ được dán ở dưới mỗi email yêu cầu chữ ký, điều hướng đến nội dung của bạn."
+"         Điều khoản dưới dạng trang Web - Một liên kết sẽ được dán ở dưới mỗi email yêu cầu ký tên, điều hướng đến nội dung của bạn."
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_item_type__item_type__text
@@ -3490,7 +3490,7 @@ msgid ""
 "The Odoo Sign document you are trying to reach does not exist. The signature"
 " request might have been deleted or modified."
 msgstr ""
-"Tài liệu Odoo Ký tên bạn đang cố gắng truy cập không tồn tại. Yêu cầu chữ ký"
+"Tài liệu Odoo Ký tên bạn đang cố gắng truy cập không tồn tại. Yêu cầu ký tên"
 " có thể đã bị xóa hoặc sửa đổi."
 
 #. module: sign
@@ -3634,12 +3634,12 @@ msgstr "Email chữ ký đã được gửi đi."
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "The signature request has been edited by: %s."
-msgstr "Yêu cầu chữ ký đã được chỉnh sửa bởi: %s."
+msgstr "Yêu cầu ký tên đã được chỉnh sửa bởi: %s."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.ignore_sign_request_item
 msgid "The signature request has been ignored"
-msgstr "Yêu cầu chữ ký đã bị bỏ qua"
+msgstr "Yêu cầu ký tên đã bị bỏ qua"
 
 #. module: sign
 #. odoo-javascript
@@ -3682,7 +3682,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_requests
 msgid "There are no signatures request."
-msgstr "Không có yêu cầu chữ ký nào."
+msgstr "Không có yêu cầu ký tên nào."
 
 #. module: sign
 #. odoo-javascript
@@ -4102,7 +4102,7 @@ msgstr "Nước "
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.deleted_sign_request
 msgid "We couldn't find the signature request you're looking for!"
-msgstr "Chúng tôi không thể tìm thấy yêu cầu chữ ký mà bạn đang tìm kiếm!"
+msgstr "Chúng tôi không thể tìm thấy yêu cầu ký tên mà bạn đang tìm kiếm!"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -4232,7 +4232,7 @@ msgid ""
 "You can't delete a template for which signature requests exist but you can "
 "archive it instead."
 msgstr ""
-"Bạn không thể xóa mẫu dùng để tạo yêu cầu chữ ký đang tồn tại nhưng thay vào"
+"Bạn không thể xóa mẫu dùng để tạo yêu cầu ký tên đang tồn tại nhưng thay vào"
 " đó, bạn có thể lưu trữ mẫu đó."
 
 #. module: sign
@@ -4317,7 +4317,7 @@ msgid ""
 "signatory or as the person who requested the signature."
 msgstr ""
 "Bạn sẽ tìm thấy tất cả tài liệu mà bạn tham gia với tư cách là người ký hoặc"
-" người yêu cầu chữ ký ở đây."
+" người yêu cầu ký tên ở đây."
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_waiting_for_me_action
@@ -4335,7 +4335,7 @@ msgstr "Bạn sẽ nhận được tài liệu đã ký cuối cùng qua email."
 #: model_terms:ir.ui.view,arch_db:sign.ignore_sign_request_item
 msgid "You won't receive any notification for this signature request anymore."
 msgstr ""
-"Bạn sẽ không nhận được bất kỳ thông báo nào cho yêu cầu chữ ký này nữa."
+"Bạn sẽ không nhận được bất kỳ thông báo nào cho yêu cầu ký tên này nữa."
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_action
