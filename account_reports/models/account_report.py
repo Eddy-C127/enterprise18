@@ -4417,6 +4417,7 @@ class AccountReport(models.Model):
         return a dictionary of information that will be consumed by the AccountReport component.
         """
         self.ensure_one()
+        self.env.flush_all()
 
         warnings = {}
         all_column_groups_expression_totals = self._compute_expression_totals_for_each_column_group(self.line_ids.expression_ids, options, warnings=warnings)
