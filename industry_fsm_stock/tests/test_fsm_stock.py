@@ -1426,6 +1426,10 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         company_A = self.env.company
         company_B = self.env['res.company'].search([('id', '!=', company_A.id)], limit=1)
         self.env.user.write({'company_ids': [(6, 0, [company_A.id, company_B.id])], 'company_id': company_A.id})
+        warehouse_B = self.env.user.with_company(company_B)._get_default_warehouse_id()
+        if not warehouse_B:
+            warehouse_B = self.env['stock.warehouse'].sudo().create({'name': 'WH', 'code': 'WH-B', 'company_id': company_B.id})
+            self.assertEqual(self.env.user.with_company(company_B)._get_default_warehouse_id(), warehouse_B)
 
         # customer belongs to company B
         customer = self.env['res.partner'].create({'name': 'Customer', 'company_id': company_B.id})
@@ -1452,7 +1456,6 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
 
         # Validate warehouse assignment from company_B's default
         move = self.env['stock.move'].search([('product_id', '=', product.id)], limit=1)
-        warehouse_B = self.env['stock.warehouse'].search([('company_id', '=', company_B.id)], limit=1)
         self.assertEqual(move.warehouse_id.id, warehouse_B.id, "Reservation happened on a wrong warehouse")
 
     def test_is_same_warehouse(self):
