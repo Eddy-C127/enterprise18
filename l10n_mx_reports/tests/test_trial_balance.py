@@ -226,8 +226,14 @@ class TestL10nMXTrialBalanceReport(TestMxEdiCommon, TestAccountReportsCommon):
             <catalogocuentas:Ctas CodAgrup="305.01" NumCta="305.01" Desc="Profit for the year" Nivel="2" Natur="A"/>
             <catalogocuentas:Ctas CodAgrup="401" NumCta="401" Desc="Income" Nivel="1" Natur="A"/>
             <catalogocuentas:Ctas CodAgrup="401.01" NumCta="401.01" Desc="Sales and/or services taxed at the general rate" Nivel="2" Natur="A"/>
+            <catalogocuentas:Ctas CodAgrup="402" NumCta="402" Desc="Refunds, discounts or rebates on income" Nivel="1" Natur="D" />
+            <catalogocuentas:Ctas CodAgrup="402.01" NumCta="402.01" Desc="Refunds, discounts or rebates on sales and/or services at the general rate" Nivel="2" Natur="D" />
+            <catalogocuentas:Ctas CodAgrup="403" NumCta="403" Desc="Other income" Nivel="1" Natur="A" />
+            <catalogocuentas:Ctas CodAgrup="403.01" NumCta="403.01" Desc="Other Income" Nivel="2" Natur="A" />
             <catalogocuentas:Ctas CodAgrup="501" NumCta="501" Desc="Cost of sale and/or service" Nivel="1" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="501.01" NumCta="501.01" Desc="Cost of sales" Nivel="2" Natur="D"/>
+            <catalogocuentas:Ctas CodAgrup="503" NumCta="503" Desc="Returns, discounts or rebates on purchases" Nivel="1" Natur="A" />
+            <catalogocuentas:Ctas CodAgrup="503.01" NumCta="503.01" Desc="Returns, discounts or rebates on purchases" Nivel="2" Natur="A" />
             <catalogocuentas:Ctas CodAgrup="601" NumCta="601" Desc="Overheads" Nivel="1" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="601.01" NumCta="601.01" Desc="Wages and salaries" Nivel="2" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="601.84" NumCta="601.84" Desc="Other overheads" Nivel="2" Natur="D"/>
@@ -268,7 +274,9 @@ class TestL10nMXTrialBalanceReport(TestMxEdiCommon, TestAccountReportsCommon):
             <BCE:Ctas Debe="75.00" NumCta="201" Haber="0.00" SaldoFin="-1075.00" SaldoIni="-1000.00"/>
             <BCE:Ctas Debe="75.00" NumCta="201.01" Haber="0.00" SaldoFin="-1075.00" SaldoIni="-1000.00"/>
             <BCE:Ctas Debe="450.00" NumCta="205" Haber="450.00" SaldoFin="0.00" SaldoIni="0.00"/>
-            <BCE:Ctas Debe="450.00" NumCta="205.06" Haber="450.00" SaldoFin="0.00" SaldoIni="0.00"/>
+            <BCE:Ctas Debe="450.00" NumCta="205.06" Haber="450.00" SaldoFin="0.00" SaldoIni="0.00"/>    
+            <BCE:Ctas Debe="0.00" NumCta="305" Haber="0.00" SaldoFin="1000.00" SaldoIni="1000.00" />
+            <BCE:Ctas Debe="0.00" NumCta="305.01" Haber="0.00" SaldoFin="1000.00" SaldoIni="1000.00" />
             <BCE:Ctas Debe="0.00" NumCta="401" Haber="325.00" SaldoFin="325.00" SaldoIni="0.00"/>
             <BCE:Ctas Debe="0.00" NumCta="401.01" Haber="325.00" SaldoFin="325.00" SaldoIni="0.00"/>
             <BCE:Ctas Debe="250.00" NumCta="601" Haber="0.00" SaldoFin="250.00" SaldoIni="0.00"/>
@@ -330,9 +338,9 @@ class TestL10nMXTrialBalanceReport(TestMxEdiCommon, TestAccountReportsCommon):
                 ('201.01.01 National suppliers',                              1000.0,       0.0,     75.0,     0.0,    1075.0,       0.0),
                 ('205.06.01.001 Extra deep code',                                0.0,       0.0,     50.0,   400.0,       0.0,     350.0),
                 ('205.06.02 Dotted name C.V.',                                   0.0,       0.0,    400.0,    50.0,     350.0,       0.0),
+                ('305.01.01 Uncut results',                                      0.0,    1000.0,      0.0,     0.0,       0.0,    1000.0),
                 ('401.01.01 Sales and/or services taxed at the general rate',    0.0,       0.0,      0.0,   325.0,       0.0,     325.0),
                 ('601.84.01 Other overheads',                                    0.0,       0.0,    250.0,     0.0,     250.0,       0.0),
-                ('999999 Undistributed Profits/Losses',                          0.0,    1000.0,      0.0,     0.0,       0.0,    1000.0),
                 ('Total',                                                     1000.0,    1000.0,    775.0,   775.0,    1675.0,    1675.0),
             ],
             options,
@@ -352,6 +360,10 @@ class TestL10nMXTrialBalanceReport(TestMxEdiCommon, TestAccountReportsCommon):
                 ('205.06 Other short-term sundry creditors',                     0.0,       0.0,    450.0,   450.0,     350.0,      350.0),
                 ('205.06.01.001 Extra deep code',                                0.0,       0.0,     50.0,   400.0,       0.0,      350.0),
                 ('205.06.02 Dotted name C.V.',                                   0.0,       0.0,    400.0,    50.0,     350.0,        0.0),
+                ("3 Stockholders' equity",                                       0.0,    1000.0,      0.0,     0.0,       0.0,     1000.0),
+                ('305 Result for the year',                                      0.0,    1000.0,      0.0,     0.0,       0.0,    1000.00),
+                ('305.01 Profit for the year',                                   0.0,    1000.0,      0.0,     0.0,       0.0,     1000.0),
+                ('305.01.01 Uncut results',                                      0.0,    1000.0,      0.0,     0.0,       0.0,     1000.0),
                 ('4 Income',                                                     0.0,       0.0,      0.0,   325.0,       0.0,      325.0),
                 ('401 Income',                                                   0.0,       0.0,      0.0,   325.0,       0.0,      325.0),
                 ('401.01 Sales and/or services taxed at the general rate',       0.0,       0.0,      0.0,   325.0,       0.0,      325.0),
@@ -360,8 +372,6 @@ class TestL10nMXTrialBalanceReport(TestMxEdiCommon, TestAccountReportsCommon):
                 ('601 Overheads',                                                0.0,       0.0,    250.0,     0.0,     250.0,        0.0),
                 ('601.84 Other overheads',                                       0.0,       0.0,    250.0,     0.0,     250.0,        0.0),
                 ('601.84.01 Other overheads',                                    0.0,       0.0,    250.0,     0.0,     250.0,        0.0),
-                ('(No Group)',                                                   0.0,    1000.0,      0.0,     0.0,       0.0,     1000.0),
-                ('999999 Undistributed Profits/Losses',                          0.0,    1000.0,      0.0,     0.0,       0.0,     1000.0),
                 ('Total',                                                     1000.0,    1000.0,    775.0,   775.0,    1675.0,    1675.0),
             ],
             options,
