@@ -95,7 +95,7 @@ JOIN sale_commission_plan_target era
     @api.model
     def _select_invoices(self):
         return f"""
-          MAX(rules.user_id),
+          rules.user_id,
           MAX(am.team_id),
           rules.plan_id,
           SUM({self._get_invoice_rates_product()}) AS achieved,
@@ -224,7 +224,8 @@ invoices_rules AS (
       AND (rules.product_categ_id IS NULL OR rules.product_categ_id = pt.categ_id)
     GROUP BY
         am.id,
-        rules.plan_id
+        rules.plan_id,
+        rules.user_id
 ), invoice_commission_lines_user AS (
     SELECT
           {self._select_invoices()}
@@ -239,7 +240,8 @@ invoices_rules AS (
       AND (rules.product_categ_id IS NULL OR rules.product_categ_id = pt.categ_id)
     GROUP BY
         am.id,
-        rules.plan_id
+        rules.plan_id,
+        rules.user_id
 ), invoice_commission_lines AS (
     (SELECT *, 'account.move' AS related_res_model FROM invoice_commission_lines_team)
     UNION ALL
@@ -272,7 +274,7 @@ sale_rules AS (
     {'AND scpu.user_id in (%s)' % ','.join(str(i) for i in users.ids) if users else ''}
 ), sale_commission_lines_team AS (
     SELECT
-        MAX(rules.user_id),
+        rules.user_id,
         MAX(rules.team_id),
         rules.plan_id,
         SUM({self._get_sale_rates_product()}) AS achieved,
@@ -292,10 +294,11 @@ sale_rules AS (
     {self._where_sales()}
     GROUP BY
         so.id,
-        rules.plan_id
+        rules.plan_id,
+        rules.user_id
 ), sale_commission_lines_user AS (
     SELECT
-        MAX(rules.user_id),
+        rules.user_id,
         MAX(so.team_id),
         rules.plan_id,
         SUM({self._get_sale_rates_product()}) AS achieved,
@@ -315,7 +318,8 @@ sale_rules AS (
       {self._where_sales()}
     GROUP BY
         so.id,
-        rules.plan_id
+        rules.plan_id,
+        rules.user_id
 ), sale_commission_lines AS (
     (SELECT *, 'sale.order' AS related_res_model FROM sale_commission_lines_team)
     UNION ALL
