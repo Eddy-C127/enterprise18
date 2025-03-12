@@ -63,6 +63,7 @@ class ManufacturingOrder(models.Model):
             'user_id',
             'procurement_group_id',
             'backorder_ids',
+            'use_create_components_lots',
         ]
 
     def _get_stock_barcode_data(self):
