@@ -33,7 +33,6 @@ export class PermissionPanel extends Component {
             partner_id: user.partnerId
         });
         onWillStart(async () => {
-            this.loadPanel();
             this.isInternalUser = await user.hasGroup('base.group_user');
         });
         useEffect(() => {
