@@ -66,7 +66,7 @@ subscription_rules AS (
     {'AND scp.team_id in (%s)' % ','.join(str(i) for i in teams.ids) if teams else ''}
 ), subscription_commission_lines_team AS (
     SELECT
-        MAX(rules.user_id),
+        rules.user_id,
         MAX(rules.team_id),
         rules.plan_id,
         SUM({self._get_sale_order_log_product()}) AS achieved,
@@ -85,10 +85,11 @@ subscription_rules AS (
       AND log.event_date BETWEEN rules.date_from AND rules.date_to
     GROUP BY
         log.id,
-        rules.plan_id
+        rules.plan_id,
+        rules.user_id
 ), subscription_commission_lines_user AS (
     SELECT
-        MAX(rules.user_id),
+        rules.user_id,
         MAX(rules.team_id),
         rules.plan_id,
         SUM({self._get_sale_order_log_product()}) AS achieved,
@@ -106,7 +107,8 @@ subscription_rules AS (
       AND log.event_date BETWEEN rules.date_from AND rules.date_to
     GROUP BY
         log.id,
-        rules.plan_id
+        rules.plan_id,
+        rules.user_id
 ), subscription_commission_lines AS (
     (SELECT *, 'sale.order.log' AS related_res_model FROM subscription_commission_lines_team)
     UNION ALL
