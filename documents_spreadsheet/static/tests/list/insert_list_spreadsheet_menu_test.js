@@ -1,9 +1,9 @@
 /** @odoo-module */
 
 import {
-  invokeInsertListInSpreadsheetDialog,
-  spawnListViewForSpreadsheet,
-  toggleCogMenuSpreadsheet,
+    invokeInsertListInSpreadsheetDialog,
+    spawnListViewForSpreadsheet,
+    toggleCogMenuSpreadsheet,
 } from "../utils/list_helpers";
 import { SpreadsheetAction } from "@documents_spreadsheet/bundle/actions/spreadsheet_action";
 import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
@@ -156,5 +156,28 @@ QUnit.module(
                 );
             }
         );
+
+        QUnit.test("Rows of list multi-lines fields are auto-resized", async function (assert) {
+            let spreadsheetAction;
+            patchWithCleanup(SpreadsheetAction.prototype, {
+                setup() {
+                    super.setup();
+                    spreadsheetAction = this;
+                },
+            });
+            const serverData = getBasicServerData();
+            serverData.models.product.records[0].display_name = "This \n has \n multiple \n lines";
+            await spawnListViewForSpreadsheet({ serverData });
+            await nextTick();
+            await toggleActionMenu(target);
+            await toggleCogMenuSpreadsheet(target);
+            await click(target.querySelector(".o_insert_list_spreadsheet_menu"));
+            await click(target, ".modal button.btn-primary");
+            await nextTick();
+
+            const model = getSpreadsheetActionModel(spreadsheetAction);
+            const sheetId = model.getters.getActiveSheetId();
+            assert.strictEqual(model.getters.getRowSize(sheetId, 1), 70);
+        });
     }
 );

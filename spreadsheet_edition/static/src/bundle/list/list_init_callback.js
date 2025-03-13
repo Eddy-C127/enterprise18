@@ -66,5 +66,10 @@ export function insertList({ list, threshold, fields, name }) {
             columns.push(col);
         }
         model.dispatch("AUTORESIZE_COLUMNS", { sheetId, cols: columns });
+        const rows = [];
+        for (let row = 0; row < threshold + 1; row++) {
+            rows.push(row);
+        }
+        model.dispatch("AUTORESIZE_ROWS", { sheetId, rows });
     };
 }
