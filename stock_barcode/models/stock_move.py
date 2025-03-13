@@ -18,7 +18,7 @@ class StockMove(models.Model):
                 move.move_line_ids.unlink()
                 move.quantity = move.product_uom_qty
                 move.picked = False
-            if not move.picked:
+            if not move.picked or move.state in ['done', 'cancel']:
                 continue
             # To know whether we need to split a move, rounds to the general
             # product's decimal precision and not the product's UOM.
