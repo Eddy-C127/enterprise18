@@ -3579,6 +3579,12 @@ msgid "This folder does not exist."
 msgstr "Deze map bestaat niet."
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "This folder does not exist or is not accessible."
+msgstr ""
+
+#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "This is a folder"
 msgstr "Dirt is een map"
@@ -3999,13 +4005,13 @@ msgstr "Je kunt een verzoek niet verplaatsen in de bedrijfsmap"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot pin an action on that document."
-msgstr ""
+msgstr "Je kunt geen actie aan dat document vastmaken."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot pin that type of action."
-msgstr ""
+msgstr "Je kunt dat soort acties niet vastmaken."
 
 #. module: documents
 #. odoo-javascript

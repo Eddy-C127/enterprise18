@@ -3582,6 +3582,12 @@ msgid "This folder does not exist."
 msgstr "Dieser Ordner existiert nicht."
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "This folder does not exist or is not accessible."
+msgstr ""
+
+#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "This is a folder"
 msgstr "Dies ist ein Ordner"
@@ -4005,13 +4011,13 @@ msgstr "Sie können die Anfrage nicht in den Unternehmensordner verschieben"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot pin an action on that document."
-msgstr ""
+msgstr "Sie können keine Aktion in diesem Dokument anheften."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot pin that type of action."
-msgstr ""
+msgstr "Sie können diesen Aktionstyp nicht anheften."
 
 #. module: documents
 #. odoo-javascript

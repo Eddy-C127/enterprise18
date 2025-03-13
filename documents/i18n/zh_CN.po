@@ -2076,13 +2076,13 @@ msgstr "内部用户权限"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Internal users can edit"
-msgstr ""
+msgstr "内部用户可编辑"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Internal users can view"
-msgstr ""
+msgstr "内部用户可查看"
 
 #. module: documents
 #. odoo-python
@@ -2310,7 +2310,7 @@ msgstr "管理版本"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.js:0
 msgid "Manage Versions of \"%s\""
-msgstr ""
+msgstr "管理不同版本的 “%s”"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_remove_activities
@@ -2829,7 +2829,7 @@ msgstr "项目"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
 msgid "Put in %s"
-msgstr ""
+msgstr "放入 %s"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__rating_ids
@@ -2846,7 +2846,7 @@ msgstr "最近"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
 msgid "Recently accessed Documents will show up here"
-msgstr ""
+msgstr "最近访问的文件会在此处显示"
 
 #. module: documents
 #. odoo-python
@@ -3074,13 +3074,13 @@ msgstr "正在保存"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Search people"
-msgstr ""
+msgstr "搜索人员"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.js:0
 msgid "Select a folder to upload a document"
-msgstr ""
+msgstr "选择文件夹上传文件"
 
 #. module: documents
 #. odoo-javascript
@@ -3492,6 +3492,12 @@ msgid "This folder does not exist."
 msgstr "此目录不存在。"
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "This folder does not exist or is not accessible."
+msgstr ""
+
+#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "This is a folder"
 msgstr "这是文件夹"
@@ -3654,7 +3660,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_manage_versions_panel/documents_manage_versions_panel.xml:0
 msgid "Upload New Version"
-msgstr ""
+msgstr "上传新版本"
 
 #. module: documents
 #. odoo-python
@@ -3697,6 +3703,8 @@ msgid ""
 "Versions are displayed in the order they were uploaded to Documents.\n"
 "                    If you delete the most recent version, the previous one is automatically restored as the current one."
 msgstr ""
+"版本按照上传到文档的顺序显示。\n"
+"                    如果删除最新版本，则之前的版本会自动恢复为当前版本。"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_videos

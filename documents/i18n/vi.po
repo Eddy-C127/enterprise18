@@ -114,7 +114,7 @@ msgid ""
 msgstr ""
 ". Các tệp được quét sẽ hiện tự động trong không gian làm việc. Sau đó, xử lý"
 " tài liệu hàng loạt bằng công cụ tách: khởi chạy tác vụ do người dùng xác "
-"định, yêu cầu chữ ký, chuyển thành hóa đơn mua hàng bằng AI,..."
+"định, yêu cầu ký tên, chuyển thành hóa đơn mua hàng bằng AI,..."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
@@ -1010,7 +1010,7 @@ msgstr ""
 "Một cách xử lý email nhận được dễ dàng là cấu hình máy quét gửi tệp PDF tới "
 "email của không gian làm việc. Các tệp được quét sẽ hiện tự động trong không"
 " gian làm việc. Sau đó, xử lý tài liệu hàng loạt bằng công cụ tách: khởi "
-"chạy tác vụ do người dùng xác định, yêu cầu chữ ký, chuyển thành hóa đơn mua"
+"chạy tác vụ do người dùng xác định, yêu cầu ký tên, chuyển thành hóa đơn mua"
 " hàng bằng AI,..."
 
 #. module: documents
@@ -3543,6 +3543,12 @@ msgid "This folder does not exist."
 msgstr "Thư mục này không tồn tại."
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "This folder does not exist or is not accessible."
+msgstr ""
+
+#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "This is a folder"
 msgstr "Đây là một thư mục"
@@ -3958,13 +3964,13 @@ msgstr "Bạn không thể di chuyển yêu cầu trong thư mục của công t
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot pin an action on that document."
-msgstr ""
+msgstr "Bạn không thể ghim tác vụ vào tài liệu đó."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot pin that type of action."
-msgstr ""
+msgstr "Bạn không thể ghim loại tác vụ đó."
 
 #. module: documents
 #. odoo-javascript

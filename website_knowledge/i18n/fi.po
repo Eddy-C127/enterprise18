@@ -9,6 +9,7 @@
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # Martin Trigaux, 2024
 # Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Jessica Jakara, 2025
 # 
 msgid ""
 msgstr ""
@@ -16,13 +17,18 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Jessica Jakara, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: website_knowledge
+#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
+msgid "<i class=\"fa fa-lg fa-bars\" title=\"Toggle aside menu\"/>"
+msgstr "<i class=\"fa fa-lg fa-bars\" title=\"Toggle aside menu\"/>"
 
 #. module: website_knowledge
 #. odoo-javascript
@@ -33,6 +39,7 @@ msgstr "Artikkelia ei ole julkaistu"
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
 msgid "Article not found"
 msgstr "Artikkelia ei löydy"
 
@@ -113,6 +120,7 @@ msgstr "Jaettu verkkoon"
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
 msgid "Sign in"
 msgstr "Kirjaudu sisään"
 
@@ -124,6 +132,7 @@ msgstr "Yhteenveto"
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
 msgid ""
 "The article you are trying the read has either been removed or you do not "
 "have access to it."
@@ -166,6 +175,7 @@ msgstr "Julkaisemattomien artikkelien julkaiseminen"
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
 msgid "Untitled"
 msgstr "Nimetön"
 

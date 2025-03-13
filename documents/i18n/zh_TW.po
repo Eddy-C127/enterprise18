@@ -3392,6 +3392,12 @@ msgid "This folder does not exist."
 msgstr "此資料夾不存在。"
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "This folder does not exist or is not accessible."
+msgstr ""
+
+#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "This is a folder"
 msgstr "此為資料夾"
@@ -3790,13 +3796,13 @@ msgstr "你不可將請求移至公司資料夾中"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot pin an action on that document."
-msgstr ""
+msgstr "你不可為該文件釘選操作。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot pin that type of action."
-msgstr ""
+msgstr "你不可釘選該類型的操作。"
 
 #. module: documents
 #. odoo-javascript

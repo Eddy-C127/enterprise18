@@ -7,7 +7,7 @@
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
 # Raymond Yu <cl_yu@hotmail.com>, 2024
-# Odoo哥 <vnsoft.he@gmail.com>, 2024
+# 何彬 <vnsoft.he@gmail.com>, 2024
 # Chloe Wang, 2025
 # 
 msgid ""
@@ -97,6 +97,9 @@ msgid ""
 "                                            <i>This change is irreversible</i>\n"
 "                                        </span>"
 msgstr ""
+"<span class=\"text-danger o_form_label\" invisible=\"hard_lock_date == current_hard_lock_date\">\n"
+"                                            <i>此变更不可还原</i>\n"
+"                                        </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -1643,7 +1646,7 @@ msgstr "旁白"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Need an irreversible lock to ensure inalterability, for all users?"
-msgstr ""
+msgstr "需要对所有用户套用不可逆的锁来，以确保资料不变？"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2166,7 +2169,7 @@ msgstr "源借方"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_rate
 msgid "Source Rate"
-msgstr ""
+msgstr "来源汇率"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_id
@@ -2346,7 +2349,7 @@ msgstr "该发票%(display_name_html)s未结金额为%(open_amount)s将减少%(a
 msgid ""
 "The invoices before this date will not be taken into account as accounting "
 "entries"
-msgstr ""
+msgstr "在此日期之前的发票将不被视为会计分录"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__transaction_currency_id

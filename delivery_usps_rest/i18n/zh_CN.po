@@ -23,17 +23,17 @@ msgstr ""
 #. module: delivery_usps_rest
 #: model:ir.model.fields.selection,name:delivery_usps_rest.selection__delivery_carrier__usps_domestic_rating_indicator__3d
 msgid "3D - 3-Digit"
-msgstr ""
+msgstr "3D - 3 位"
 
 #. module: delivery_usps_rest
 #: model:ir.model.fields.selection,name:delivery_usps_rest.selection__delivery_carrier__usps_domestic_rating_indicator__3n
 msgid "3N - 3-Digit Dimensional Rectangular"
-msgstr ""
+msgstr "3N - 3 位立体矩形"
 
 #. module: delivery_usps_rest
 #: model:ir.model.fields.selection,name:delivery_usps_rest.selection__delivery_carrier__usps_domestic_rating_indicator__3r
 msgid "3R - 3-Digit Dimensional Nonrectangular"
-msgstr ""
+msgstr "3R - 3位立体非矩形"
 
 #. module: delivery_usps_rest
 #: model:ir.model.fields.selection,name:delivery_usps_rest.selection__delivery_carrier__usps_label_size__3x5fmp
@@ -193,32 +193,32 @@ msgstr "E4 - 优先邮件快递固定收费信封 - 邮局派送至收件人"
 #: model:ir.model.fields.selection,name:delivery_usps_rest.selection__delivery_carrier__usps_domestic_rating_indicator__e6
 #: model:ir.model.fields.selection,name:delivery_usps_rest.selection__delivery_carrier__usps_international_rating_indicator__e6
 msgid "E6 - Priority Mail Express Legal Flat Rate Envelope"
-msgstr ""
+msgstr "E6 - 优先邮件快递固定收费法律用纸尺寸信封"
 
 #. module: delivery_usps_rest
 #: model:ir.model.fields.selection,name:delivery_usps_rest.selection__delivery_carrier__usps_international_rating_indicator__e7
 msgid "E7 - Priority Mail Express Legal Flat Rate Envelope Sunday / Holiday"
-msgstr ""
+msgstr "E7 - 优先邮件快递固定收费法律用纸尺寸信封 - 星期日 / 假日"
 
 #. module: delivery_usps_rest
 #: model:ir.model.fields,field_description:delivery_usps_rest.field_delivery_carrier__usps_eps_account_number
 msgid "EPS Account Number"
-msgstr ""
+msgstr "企业支付系统（EPS）账户号码"
 
 #. module: delivery_usps_rest
 #: model:ir.model.fields,field_description:delivery_usps_rest.field_delivery_carrier__usps_extra_data_payment_token_request
 msgid "Extra Data for Payment Token Requests"
-msgstr ""
+msgstr "请求付款代码的额外数据"
 
 #. module: delivery_usps_rest
 #: model:ir.model.fields,field_description:delivery_usps_rest.field_delivery_carrier__usps_extra_data_rate_request
 msgid "Extra Data for Rate Requests"
-msgstr ""
+msgstr "请求收费率的额外数据"
 
 #. module: delivery_usps_rest
 #: model:ir.model.fields,field_description:delivery_usps_rest.field_delivery_carrier__usps_extra_data_shipment_request
 msgid "Extra Data for Shipment Requests"
-msgstr ""
+msgstr "请求运送的额外数据"
 
 #. module: delivery_usps_rest
 #: model:ir.model.fields,help:delivery_usps_rest.field_delivery_carrier__usps_extra_data_payment_token_request
@@ -233,12 +233,19 @@ msgid ""
 "With the above example, the service (920) will be added to the shipment request.\n"
 "For more information, please refer to the USS API documentation: https://developer.usps.com/apis.\n"
 msgstr ""
+"要在请求中传送的额外数据，以 JSON 格式的字串表示。\n"
+"这是进阶/技术性的功能，应只在您明白自己在做什么时，才去使用。\n"
+"有效值示例： ```\n"
+"\"packageDescription\": {\"extraServices\": [920] }\n"
+"```\n"
+"上例表示，会将服务（代码 920）加入至送件请求中。\n"
+"如需更多资料，请参阅 USPS API 使用说明： https://developer.usps.com/apis\n"
 
 #. module: delivery_usps_rest
 #: model:ir.model.fields.selection,name:delivery_usps_rest.selection__delivery_carrier__usps_domestic_rating_indicator__fa
 #: model:ir.model.fields.selection,name:delivery_usps_rest.selection__delivery_carrier__usps_international_rating_indicator__fa
 msgid "FA - Legal Flat Rate Envelope"
-msgstr ""
+msgstr "FA - 固定收费法律用纸尺寸信封"
 
 #. module: delivery_usps_rest
 #: model:ir.model.fields.selection,name:delivery_usps_rest.selection__delivery_carrier__usps_domestic_rating_indicator__fb

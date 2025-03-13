@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,13 +12,18 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: website_knowledge
+#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
+msgid "<i class=\"fa fa-lg fa-bars\" title=\"Toggle aside menu\"/>"
+msgstr "<i class=\"fa fa-lg fa-bars\" title=\"Bật/tắt menu bên cạnh\"/>"
 
 #. module: website_knowledge
 #. odoo-javascript
@@ -28,6 +34,7 @@ msgstr "Bài viết chưa đăng"
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
 msgid "Article not found"
 msgstr "Không tìm thấy bài viết"
 
@@ -108,6 +115,7 @@ msgstr "Chia sẻ lên trang web"
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
 msgid "Sign in"
 msgstr "Đăng nhập"
 
@@ -119,6 +127,7 @@ msgstr "Tóm tắt"
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
 msgid ""
 "The article you are trying the read has either been removed or you do not "
 "have access to it."
@@ -161,6 +170,7 @@ msgstr "Huỷ đăng bài viết"
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
 msgid "Untitled"
 msgstr "Không có tiêu đề"
 

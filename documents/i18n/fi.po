@@ -3577,6 +3577,12 @@ msgid "This folder does not exist."
 msgstr "Tätä kansiota ei ole olemassa."
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "This folder does not exist or is not accessible."
+msgstr ""
+
+#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "This is a folder"
 msgstr "Tämä on kansio"
@@ -3992,13 +3998,13 @@ msgstr "Et voi siirtää pyyntöä yrityskansiossa"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot pin an action on that document."
-msgstr ""
+msgstr "Et voi kiinnittää toimintoa asiakirjaan."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot pin that type of action."
-msgstr ""
+msgstr "Et voi kiinnittää tämän tyyppistä toimintoa."
 
 #. module: documents
 #. odoo-javascript
