@@ -1204,6 +1204,29 @@ registry.category("web_tour.tours").add("test_barcode_mo_creation_in_scan_mo2", 
     ],
 });
 
+registry.category("web_tour.tours").add("test_no_split_uncompleted_done_move", {
+    steps: () => [
+        { trigger: ".o_stock_barcode_main_menu", run: "scan TBPCSNS mo" },
+        {
+            trigger: '.o_barcode_line:has(.o_barcode_line_title .o_product_label:contains("Final Product")) .o_edit',
+            run: 'click'
+        },
+        { trigger: "input", run: "clear" },
+        { trigger: "input", run: "edit 1" },
+        { trigger: ".o_save", run: "click" },
+        {
+            trigger: '.o_barcode_line:has(.o_barcode_line_title .o_product_label:contains("Compo 01")) .o_edit',
+            run: 'click'
+        },
+        { trigger: "input", run: "clear" },
+        { trigger: "input", run: "edit 1" },
+        { trigger: ".o_save", run: "click" },
+        { trigger: ".o_barcode_line" },
+        { trigger: ".o_validate_page", run: "click" },
+        { trigger: ".o_notification_bar.bg-success" },
+    ],
+});
+
 registry.category("web_tour.tours").add("test_mrp_uncompleted_move_split_on_barcode_exit", {
     steps: () => [
         {

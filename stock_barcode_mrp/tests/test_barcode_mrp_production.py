@@ -797,6 +797,35 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         self.assertTrue(mo, "The Manufacturing Order was not created.")
         self.assertEqual(mo.picking_type_id, mo2_operation_type, "The MO was not created with the correct operation type (MO2).")
 
+    def test_no_split_uncompleted_done_move(self):
+        """
+        In a production opened in Barcode, do not split done moves just after validation.
+        """
+        self.clean_access_rights()
+
+        self.env['stock.quant']._update_available_quantity(self.component01, self.stock_location, quantity=2)
+
+        manufacturing_order = self.env['mrp.production'].create({
+            'name': 'TBPCSNS mo',
+            'product_id': self.final_product.id,
+            'product_qty': 1,
+            'move_raw_ids': [
+                Command.create({
+                    'product_id': self.component01.id,
+                    'product_uom_qty': 2,
+                }),
+            ],
+        })
+        manufacturing_order.action_confirm()
+
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = f"/web#action={action_id.id}"
+        self.start_tour(url, 'test_no_split_uncompleted_done_move', login='admin', timeout=180)
+
+        self.assertEqual(manufacturing_order.state, 'done')
+        self.assertRecordValues(manufacturing_order.move_finished_ids, [{'quantity': 1, 'product_uom_qty': 1}])
+        self.assertRecordValues(manufacturing_order.move_raw_ids, [{'quantity': 1, 'product_uom_qty': 2}])
+
     def test_add_product_with_different_uom(self):
         """
         Check that new raw moves for products using a different uom category
