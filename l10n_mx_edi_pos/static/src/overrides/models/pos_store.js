@@ -7,6 +7,7 @@ patch(PosStore.prototype, {
     async pay() {
         if (this.company.country_id?.code === "MX") {
             const currentOrder = this.get_order();
+            currentOrder.recomputeOrderData();
             const isRefund = currentOrder.lines.some((x) => x.refunded_orderline_id);
             if (
                 (isRefund && currentOrder.lines.some((x) => x.price_subtotal > 0.0)) ||
