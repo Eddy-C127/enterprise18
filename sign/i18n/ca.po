@@ -25,7 +25,8 @@
 # Ivan Espinola, 2024
 # RGB Consulting <odoo@rgbconsulting.com>, 2024
 # Iván Infantes Castarnado, 2024
-# Óscar Fonseca <tecnico@pyming.com>, 2024
+# Adrià Navarro Rico, 2025
+# Óscar Fonseca <tecnico@pyming.com>, 2025
 # 
 msgid ""
 msgstr ""
@@ -33,7 +34,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Óscar Fonseca <tecnico@pyming.com>, 2024\n"
+"Last-Translator: Óscar Fonseca <tecnico@pyming.com>, 2025\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,7 +47,7 @@ msgstr ""
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
 #, python-format
 msgid " You can safely close this window."
-msgstr ""
+msgstr "Podeu tancar aquesta finestra amb seguretat."
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_partner__signature_count
@@ -57,7 +58,7 @@ msgstr "# Signatures"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "#7898678"
-msgstr ""
+msgstr "#7898678"
 
 #. module: sign
 #. odoo-python
@@ -72,7 +73,7 @@ msgstr ""
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "%s has been edited and signed"
-msgstr "%sha estat editat i signat "
+msgstr "%s ha estat editat i signat"
 
 #. module: sign
 #. odoo-python
@@ -99,7 +100,7 @@ msgstr "%s: falten crèdits per a l'autenticació extra"
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
 msgid "(Ignored)"
-msgstr ""
+msgstr "(Ignorat)"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -238,6 +239,8 @@ msgstr "<br/>(l'accés al correu electrònic no ha estat enviat)"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
 msgid "<i class=\"fa fa-check\"/> A fresh link has just been sent to your inbox!"
 msgstr ""
+"<i class=\"fa fa-check\"/> S'ha enviat un nou enllaç a la vostra safata "
+"d'entrada!"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -264,6 +267,8 @@ msgid ""
 "<i class=\"fa fa-info-circle\"/> Links sent via email expire after a set "
 "delay to increase security."
 msgstr ""
+"<i class=\"fa fa-info-circle\"/> Els enllaços enviats per correu electrònic "
+"caduquen després d'un retard establert per augmentar la seguretat."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_terms_conditions_setting_banner
@@ -276,11 +281,13 @@ msgid ""
 "<i class=\"oi oi-arrow-right\"/>\n"
 "                                            Preview"
 msgstr ""
+"<i class=\"oi oi-arrow-right\"/>\n"
+"                                            Vista prèvia"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_iap_credits_banner
 msgid "<i class=\"oi oi-arrow-right\"/> Buy credits"
-msgstr ""
+msgstr "<i class=\"oi oi-arrow-right\"/> Comprar crèdits"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
@@ -308,7 +315,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_requests
 msgid "<span class=\"badge rounded-pill text-bg-light\">Ignored</span>"
-msgstr ""
+msgstr "<span class=\"badge rounded-pill text-bg-light\">Ignorat</span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_partner_view_form
@@ -329,6 +336,11 @@ msgid ""
 " is complete. The link is private, only those that receive the link will be "
 "able to sign it.</span>"
 msgstr ""
+"<span class=\"text-muted\" invisible=\"not share_link\">Compartir crearà una"
+" còpia del fitxer a signar. A aquest fitxer es pot accedir mitjançant "
+"l'enllaç següent. Tots els usuaris públics que utilitzin l'enllaç generaran "
+"un document quan la signatura estigui completa. L'enllaç és privat, només "
+"els que reben l'enllaç podran signar-lo.</span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -338,7 +350,7 @@ msgstr "<span class=\"text-muted\">No disponible</span>"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "<span> days</span>."
-msgstr ""
+msgstr "<span> dies</span>."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_item_type_view_form
@@ -348,7 +360,7 @@ msgstr "<span>(1.0 = mida total de la pàgina)</span>"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "<span>Send a reminder every </span>"
-msgstr ""
+msgstr "<span>Envia un recordatori cada </span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_terms_conditions_setting_banner
@@ -443,7 +455,7 @@ msgstr "Advertència d'accés"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.portal_my_home_sign
 msgid "Access your signed documents"
-msgstr ""
+msgstr "Accedeix als documents signats"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__access_via_link
@@ -533,12 +545,12 @@ msgstr "Afegir inicials"
 #: code:addons/sign/static/src/dialogs/initial_all_pages_dialog.xml:0
 #, python-format
 msgid "Add Once"
-msgstr ""
+msgstr "Afegeix una vegada"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "Add document tags here"
-msgstr ""
+msgstr "Afegeix etiquetes de document aquí"
 
 #. module: sign
 #. odoo-javascript
@@ -694,7 +706,7 @@ msgstr "Camp de socis d'emplenament automàtic"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_option__available
 msgid "Available in new templates"
-msgstr ""
+msgstr "Disponible en plantilles noves"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -762,7 +774,7 @@ msgstr "Cancel·lat"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "Carbon Emissions"
-msgstr ""
+msgstr "Emissions de carboni"
 
 #. module: sign
 #. odoo-javascript
@@ -915,6 +927,9 @@ msgid ""
 "auto-completion, ...), as well as the values for selection fields in "
 "signable documents."
 msgstr ""
+"Configura els tipus de camps que es poden utilitzar per signar documents "
+"(placeholder, auto-completion, ...), així com els valors per als camps de "
+"selecció en documents signables."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_duplicate_template_with_pdf_view_form
@@ -973,7 +988,7 @@ msgstr "Copiar a"
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_template_tag_action
 msgid "Create Sign Tags"
-msgstr ""
+msgstr "Crea etiquetes de firma"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
@@ -1071,7 +1086,7 @@ msgstr "Amplada per defecte"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_role__sequence
 msgid "Default order"
-msgstr ""
+msgstr "Ordre predeterminat"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
@@ -1135,12 +1150,12 @@ msgstr "Detalls"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_users__sign_initials
 msgid "Digital Initials"
-msgstr ""
+msgstr "Inicials digitals"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_users__sign_initials_frame
 msgid "Digital Initials Frame"
-msgstr ""
+msgstr "Frame d'Inicials digitals"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_users__sign_signature
@@ -1221,7 +1236,7 @@ msgstr "Plantilla del document"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.portal_my_home_sign
 msgid "Document(s) to sign"
-msgstr ""
+msgstr "Document(s) a signar"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -1303,7 +1318,7 @@ msgstr "ERROR: Fitxer PDF no vàlid!"
 #. module: sign
 #: model:ir.actions.report,name:sign.sign_report_green_savings_action
 msgid "Ecological Savings by using Electronic Signatures"
-msgstr ""
+msgstr "Estalvi ecològic utilitzant signatures electròniques"
 
 #. module: sign
 #. odoo-javascript
@@ -1320,7 +1335,7 @@ msgstr "Modificar els tipus de camps"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Edit selection values"
-msgstr ""
+msgstr "Edita els valors de la selecció"
 
 #. module: sign
 #. odoo-javascript
@@ -1357,7 +1372,7 @@ msgstr "Empleat"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "Energy"
-msgstr ""
+msgstr "Energia"
 
 #. module: sign
 #. odoo-javascript
@@ -1740,7 +1755,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
 msgid "If you do not wish to receive future reminders about this document,"
-msgstr ""
+msgstr "Si no voleu rebre futurs recordatoris sobre aquest document,"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_not_enough_credits
@@ -1756,7 +1771,7 @@ msgstr ""
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #, python-format
 msgid "Ignore"
-msgstr ""
+msgstr "Ignora"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__ignored
@@ -1831,7 +1846,7 @@ msgstr "És compartit"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
 msgid "Is Signing"
-msgstr ""
+msgstr "És signatura"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__is_user_signer
@@ -1852,7 +1867,7 @@ msgstr "John Smith"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "L of water saved"
-msgstr ""
+msgstr "L d'aigua estalviada"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__last_action_date
@@ -1896,7 +1911,7 @@ msgstr "Última actualització el"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__last_reminder
 msgid "Last reminder"
-msgstr ""
+msgstr "Darrer recordatori"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -1951,6 +1966,8 @@ msgstr "Data de registre"
 #, python-format
 msgid "Log history of sign requests cannot be deleted!"
 msgstr ""
+"L'historial de registres de les sol·licituds de signatura no es pot "
+"suprimir!"
 
 #. module: sign
 #. odoo-python
@@ -1958,6 +1975,7 @@ msgstr ""
 #, python-format
 msgid "Log history of sign requests cannot be modified!"
 msgstr ""
+"L'historial de registres de les sol·licituds de signes no es pot modificar!"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
@@ -2140,12 +2158,14 @@ msgstr "Necessito la meva signatura"
 #: code:addons/sign/static/src/components/sign_request/PDF_iframe.js:0
 #, python-format
 msgid "Need a valid PDF to add signature fields!"
-msgstr ""
+msgstr "Necessiteu un PDF vàlid per a afegir camps de signatura!"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_send_request
 msgid "New Signature Request"
 msgstr ""
+"Sol·licitud de signatura nova\n"
+" "
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_duplicate_template_pdf__new_template
@@ -2192,7 +2212,7 @@ msgstr "Document següent"
 #: code:addons/sign/static/src/dialogs/next_direct_sign_dialog.xml:0
 #, python-format
 msgid "Next signatory ("
-msgstr ""
+msgstr "Signatari següent ("
 
 #. module: sign
 #. odoo-python
@@ -2254,7 +2274,7 @@ msgstr "Nombre d'accions"
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_send_request__reminder
 msgid "Number of day between two reminder"
-msgstr ""
+msgstr "Nombre de dies entre dos recordatoris"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
@@ -2289,7 +2309,7 @@ msgstr "Nombre de pàgines"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
 msgid "One can weighs 15 g"
-msgstr ""
+msgstr "Un pes de 15 g"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -2321,7 +2341,7 @@ msgstr "Oops"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.ignore_sign_request_item
 msgid "Operation successful"
-msgstr ""
+msgstr "Operació exitosa"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_option__value
@@ -2373,7 +2393,7 @@ msgstr "El PDF està encriptat"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "Paper Savings"
-msgstr ""
+msgstr "Estalvi de paper"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -2426,7 +2446,7 @@ msgstr "Configureu les adreces de correu electrònic dels remitents (%s)"
 #: code:addons/sign/wizard/sign_send_request.py:0
 #, python-format
 msgid "Please select recipients for the following roles: %(roles)s"
-msgstr ""
+msgstr "Seleccioneu destinataris per als rols següents: %(roles)s"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__access_url
@@ -2554,7 +2574,7 @@ msgstr "Sol·licitud de signatura"
 #: code:addons/sign/wizard/sign_send_request.py:0
 #, python-format
 msgid "Request expiration date must be set in the future."
-msgstr ""
+msgstr "La data de venciment de la sol·licitud s'ha d'establir en el futur."
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__nb_total
@@ -2587,7 +2607,7 @@ msgstr "Reenviar la invitació"
 #: code:addons/sign/static/src/backend_components/sign_request/sign_request_control_panel.js:0
 #, python-format
 msgid "Resent!"
-msgstr ""
+msgstr "Reenviat!"
 
 #. module: sign
 #. odoo-javascript
@@ -2749,12 +2769,12 @@ msgstr "Enviar a"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
 msgid "Send a new link"
-msgstr ""
+msgstr "Envia un enllaç nou"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 msgid "Send a reminder every"
-msgstr ""
+msgstr "Envia un recordatori cada"
 
 #. module: sign
 #. odoo-javascript
@@ -2833,6 +2853,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Show standard terms & conditions on signature requests"
 msgstr ""
+"Mostra els termes i condicions estàndard en les sol·licituds de signatura"
 
 #. module: sign
 #. odoo-javascript
@@ -3000,7 +3021,7 @@ msgstr ""
 #. module: sign
 #: model:ir.actions.server,name:sign.sign_reminder_cron_ir_actions_server
 msgid "Sign: Send mail reminder"
-msgstr ""
+msgstr "Firma: Envia un recordatori de correu"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -3010,7 +3031,7 @@ msgstr "Signatori"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Signatory's hash:"
-msgstr ""
+msgstr "Hash del signant:"
 
 #. module: sign
 #. odoo-javascript
@@ -3043,7 +3064,7 @@ msgstr "Article de firma"
 #. module: sign
 #: model:ir.actions.act_window,name:sign.sign_item_option_action
 msgid "Signature Item Options"
-msgstr ""
+msgstr "Opcions de l'element de signatura"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item_role
@@ -3249,7 +3270,7 @@ msgstr ""
 #: code:addons/sign/static/src/components/sign_request/signable_PDF_iframe.js:0
 #, python-format
 msgid "Some fields have still to be completed"
-msgstr ""
+msgstr "Alguns camps encara no s'han completat"
 
 #. module: sign
 #. odoo-python
@@ -3299,6 +3320,8 @@ msgid ""
 "Specify the order for each signer. The signature request only gets sent to                                     the next signers in the sequence when all signers from the previous level have                                     signed the document.\n"
 "                                    "
 msgstr ""
+"Especifiqueu l'ordre per a cada signant. La sol·licitud de signatura només s'envia als següents signants de la seqüència quan tots els signants del nivell anterior tinguin signat el document.\n"
+"                                    "
 
 #. module: sign
 #: model:sign.item.role,name:sign.sign_item_role_default
@@ -3483,7 +3506,7 @@ msgstr "Gràcies"
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #, python-format
 msgid "Thank you! Your signature has been submitted."
-msgstr ""
+msgstr "Gràcies! S'ha enviat la vostra signatura."
 
 #. module: sign
 #. odoo-javascript
@@ -3614,7 +3637,7 @@ msgstr "La pàgina sol· licitada no és vàlida, o ja no existeix."
 #: code:addons/sign/models/sign_template.py:0
 #, python-format
 msgid "The role %s is required by the Sign application and cannot be deleted."
-msgstr ""
+msgstr "El rol %s és requerit per l'aplicació Sign i no es pot suprimir."
 
 #. module: sign
 #. odoo-python
@@ -3652,7 +3675,7 @@ msgstr "La sol·licitud de signatura ha estat editada per: %s."
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.ignore_sign_request_item
 msgid "The signature request has been ignored"
-msgstr ""
+msgstr "S'ha ignorat la sol·licitud de signatura"
 
 #. module: sign
 #. odoo-javascript
@@ -3688,7 +3711,7 @@ msgstr ""
 #: code:addons/sign/wizard/sign_duplicate_template_with_pdf.py:0
 #, python-format
 msgid "The uploaded file is not a valid PDF. Please upload a valid PDF file."
-msgstr ""
+msgstr "El fitxer pujat no és un PDF vàlid. Carregueu un fitxer PDF vàlid."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_requests
@@ -3700,7 +3723,7 @@ msgstr "No hi ha cap petició de signatura."
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #, python-format
 msgid "There are other documents waiting for your signature:"
-msgstr ""
+msgstr "Hi ha altres documents esperant la signatura:"
 
 #. module: sign
 #. odoo-python
@@ -3712,6 +3735,8 @@ msgid ""
 "There was an issue downloading your document. Please contact an "
 "administrator."
 msgstr ""
+"S'ha produït un problema en baixar el document. Si us plau, poseu-vos en "
+"contacte amb un administrador."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
@@ -3719,6 +3744,8 @@ msgid ""
 "There's no reason to panic, <br/>\n"
 "                        you can still sign your document in a few clicks!"
 msgstr ""
+"No hi ha cap raó per entrar en pànic, <br/>\n"
+"                        encara pots signar el teu document amb uns clics!"
 
 #. module: sign
 #. odoo-javascript
@@ -3753,7 +3780,7 @@ msgstr "Així és com s'anomenarà el document al correu"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
 msgid "This link has expired."
-msgstr ""
+msgstr "Aquest enllaç ha caducat."
 
 #. module: sign
 #. odoo-python
@@ -3775,7 +3802,7 @@ msgstr "Aquesta sol·licitud de signatura no es pot signar"
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "This sign request is not valid anymore"
-msgstr ""
+msgstr "Aquesta sol·licitud de signatura ja no és vàlida"
 
 #. module: sign
 #. odoo-python
@@ -3869,7 +3896,7 @@ msgstr "Tipus"
 #: code:addons/sign/static/src/fields/signer_x2many.js:0
 #, python-format
 msgid "Type a name or email..."
-msgstr ""
+msgstr "Escriviu un nom o un correu electrònic..."
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__activity_exception_decoration
@@ -3879,7 +3906,7 @@ msgstr "Tipus d'activitat d'excepció registrada."
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_tag_view_form
 msgid "Type tag name here"
-msgstr ""
+msgstr "Escriviu aquí el nom de l'etiqueta"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -3902,6 +3929,8 @@ msgid ""
 "Unable to sign the document due to missing required data. Please contact an "
 "administrator."
 msgstr ""
+"No s'ha pogut signar el document per manca de dades requerides. Si us plau, "
+"poseu-vos en contacte amb un administrador."
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_item_role__auth_method__sms
@@ -3926,7 +3955,7 @@ msgstr "Pujar un PDF"
 #: code:addons/sign/static/src/views/common.xml:0
 #, python-format
 msgid "Upload a PDF & Sign"
-msgstr ""
+msgstr "Puja un PDF i signa"
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_action
@@ -3950,7 +3979,7 @@ msgstr "Pengeu un fitxer PDF per utilitzar-lo com a plantilla."
 #: code:addons/sign/static/src/views/common.xml:0
 #, python-format
 msgid "Upload a PDF template"
-msgstr ""
+msgstr "Puja una plantilla PDF"
 
 #. module: sign
 #. odoo-javascript
@@ -3969,6 +3998,8 @@ msgstr "Utilitza la disposició"
 #: model_terms:ir.actions.act_window,help:sign.sign_template_tag_action
 msgid "Use Tags to manage your Sign Templates and Sign Requests"
 msgstr ""
+"Utilitza etiquetes per gestionar les plantilles de signatura i les "
+"sol·licituds de signatura"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_duplicate_template_with_pdf
@@ -4016,7 +4047,7 @@ msgstr "Validat i enviat"
 #: code:addons/sign/static/src/backend_components/sign_request/edit_while_signing_signable_pdf_iframe.js:0
 #, python-format
 msgid "Validate & the next signatory is “%s”"
-msgstr ""
+msgstr "Valida i el següent signant és “%s”"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign._doc_sign
@@ -4039,7 +4070,7 @@ msgstr "Valor"
 #. module: sign
 #: model:ir.model.constraint,message:sign.constraint_sign_item_option_value_uniq
 msgid "Value already exists!"
-msgstr ""
+msgstr "El valor ja existeix!"
 
 #. module: sign
 #. odoo-javascript
@@ -4072,7 +4103,7 @@ msgstr "Visualitzat/baixat per"
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
 msgid "Waiting Signature"
-msgstr ""
+msgstr "Esperant la signatura"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.sign_request_waiting_for_me_action
@@ -4098,7 +4129,7 @@ msgstr "Avís"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "Waste"
-msgstr ""
+msgstr "Residus"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
@@ -4226,6 +4257,8 @@ msgid ""
 "You can request a new link to access your document and sign it, it will  be "
 "delivered in your inbox right away."
 msgstr ""
+"Pots sol·licitar un nou enllaç per accedir al teu document i signar-lo, "
+"s'enviarà a la teva safata d'entrada immediatament."
 
 #. module: sign
 #. odoo-python
@@ -4264,6 +4297,8 @@ msgid ""
 "You do not have access to these documents, please contact a Sign "
 "Administrator."
 msgstr ""
+"No teniu accés a aquests documents, poseu-vos en contacte amb un "
+"Administrador."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_iap_credits_banner
@@ -4287,7 +4322,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
 msgid "You have until"
-msgstr ""
+msgstr "Tens fins"
 
 #. module: sign
 #. odoo-python
@@ -4308,7 +4343,7 @@ msgstr "Heu de definir un signatari"
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "You should select at least one document to download."
-msgstr ""
+msgstr "Heu de seleccionar com a mínim un document per descarregar."
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_my_requests_action
@@ -4329,12 +4364,12 @@ msgstr "Trobareu documents esperant la vostra signatura aquí."
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
 #, python-format
 msgid "You will receive the final signed document by email."
-msgstr ""
+msgstr "Rebràs el document final signat per correu electrònic."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.ignore_sign_request_item
 msgid "You won't receive any notification for this signature request anymore."
-msgstr ""
+msgstr "Ja no rebràs cap notificació per aquesta sol·licitud de signatura."
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_action
@@ -4346,7 +4381,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "Your Information"
-msgstr ""
+msgstr "La vostra informació"
 
 #. module: sign
 #. odoo-python
@@ -4387,7 +4422,7 @@ msgstr "El vostre nom"
 #: code:addons/sign/static/src/dialogs/next_direct_sign_dialog.xml:0
 #, python-format
 msgid "Your signature has been saved. Next signatory is"
-msgstr ""
+msgstr "S'ha desat la vostra signatura. El següent signant és"
 
 #. module: sign
 #. odoo-javascript
@@ -4445,17 +4480,17 @@ msgstr "pot"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "cans"
-msgstr ""
+msgstr "llaunes"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
 msgid "click here."
-msgstr ""
+msgstr "fes clic aquí."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 msgid "days."
-msgstr ""
+msgstr "dies."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -4517,13 +4552,13 @@ msgstr "ha estat signat per"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "hour of computer use"
-msgstr ""
+msgstr "hora d'ús de l'ordinador"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "hours of computer use"
-msgstr ""
+msgstr "hores d'ús de l'ordinador"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -4544,37 +4579,37 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "kWh of energy saved"
-msgstr ""
+msgstr "kWh d'energia estalviada"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "kg of reduced carbon emissions"
-msgstr ""
+msgstr "kg d'emissions de carboni reduïdes"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "kg of waste prevented"
-msgstr ""
+msgstr "kg de residus evitats"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "kg of wood saved"
-msgstr ""
+msgstr "kg de fusta estalviats"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "liter of car fuel"
-msgstr ""
+msgstr "litre de combustible per a cotxes"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "liters of car fuel"
-msgstr ""
+msgstr "litres de combustible per a cotxes"
 
 #. module: sign
 #: model:sign.item.type,tip:sign.sign_item_type_initial
@@ -4601,7 +4636,7 @@ msgstr "en"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "sheets of paper saved"
-msgstr ""
+msgstr "fulls de paper estalviats"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
@@ -4613,7 +4648,7 @@ msgstr "dutxa"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "showers"
-msgstr ""
+msgstr "dutxes"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
@@ -4633,7 +4668,7 @@ msgstr "sign.message"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message_cc
 msgid "sign.message_cc"
-msgstr "sign.messagecc"
+msgstr "sign.message_cc"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -4644,7 +4679,7 @@ msgstr "etiquetes"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el_pdf
 msgid "that's"
-msgstr ""
+msgstr "això és"
 
 #. module: sign
 #. odoo-javascript
@@ -4656,7 +4691,7 @@ msgstr "aquesta plantilla per a modificar-la."
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
 msgid "to sign the document."
-msgstr ""
+msgstr "signar el document."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -4673,7 +4708,7 @@ msgstr "arbre"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "trees"
-msgstr ""
+msgstr "arbres"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -4694,10 +4729,10 @@ msgstr "tu"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el_pdf
 msgid "{{green_report_el_title}}"
-msgstr "{{greenreporteltitle}}"
+msgstr "{{green_report_el_title}}"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el_pdf
 msgid "{{green_report_el_title}} Summary"
-msgstr "Resum de {{greenreporteltitle}}"
+msgstr "Resum de {{green_report_el_title}}"

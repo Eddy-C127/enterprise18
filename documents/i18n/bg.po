@@ -15,11 +15,11 @@
 # aleksandar ivanov, 2023
 # Rumena Georgieva <rumena.georgieva@gmail.com>, 2024
 # Elena Varbanova, 2024
-# Veselina Slavkova, 2025
-# Martin Dinovski, 2025
 # Petko Karamotchev, 2025
 # Maria Boyadjieva <marabo2000@gmail.com>, 2025
 # margarita.katzeva, 2025
+# Martin Dinovski, 2025
+# Veselina Slavkova, 2025
 # 
 msgid ""
 msgstr ""
@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-10 10:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: margarita.katzeva, 2025\n"
+"Last-Translator: Veselina Slavkova, 2025\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,7 +47,7 @@ msgstr ""
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "%s (remaining pages)"
-msgstr ""
+msgstr "%s (оставащи страници)"
 
 #. module: documents
 #. odoo-javascript
@@ -68,21 +68,21 @@ msgstr ""
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 #, python-format
 msgid "%s file(s) not moved because they are locked by another user"
-msgstr ""
+msgstr "%s файл(а) не са преместени защото са заключени от друг потребител"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "%s new document(s) created"
-msgstr ""
+msgstr "%s създаден(и) нов(и) документ(и)"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "%s page(s) deleted"
-msgstr ""
+msgstr "%s изтрита/и страница/и"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
@@ -96,21 +96,25 @@ msgid ""
 "your documents in bulk with the split tool: launch user defined actions, "
 "request a signature, convert to vendor bills with AI, etc."
 msgstr ""
+". Сканираните файлове ще се появят автоматично във вашето работно "
+"пространство. След това обработете документите си накуп с инструмента за "
+"разделяне: стартирайте дефинирани от потребителя действия, поискайте подпис,"
+" конвертирайте в сметки от доставчици с AI и т.н."
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2017
 msgid "2024"
-msgstr ""
+msgstr "2024"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2018
 msgid "2025"
-msgstr ""
+msgstr "2025"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
 msgid "<b class=\"tip_title\">Tip: Become a paperless company</b>"
-msgstr ""
+msgstr "<b class=\"tip_title\">Съвет: Станете компания без хартия</b>"
 
 #. module: documents
 #. odoo-javascript
@@ -118,13 +122,15 @@ msgstr ""
 #, python-format
 msgid "<b>Deselect this page</b> as we plan to process all bills first."
 msgstr ""
+"<b>Деселектирайте тази страница,</b> тъй като планираме първо да обработим "
+"всички сметки."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
 #, python-format
 msgid "<b>Select</b> this page to continue."
-msgstr ""
+msgstr "<b>Изберете</b> тази страница, за да продължите."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
@@ -136,7 +142,7 @@ msgstr ""
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
 msgid "<br/>Powered by"
-msgstr ""
+msgstr "<br/>Осъществено от"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
@@ -151,7 +157,7 @@ msgstr ""
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 msgid "<i class=\"fa fa-lock oe_inline\" title=\"Locked\" invisible=\"not lock_uid\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-lock oe_inline\" title=\"Locked\" invisible=\"not lock_uid\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
@@ -163,7 +169,7 @@ msgstr ""
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_workspace_page
 msgid "<i class=\"fa fa-upload\"/>  Upload"
-msgstr ""
+msgstr "<i class=\"fa fa-upload\"/>  Качи"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
@@ -174,32 +180,32 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:documents.documents_document_res_partner_view
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
 msgid "<span class=\"o_stat_text\">Documents</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Документи</span>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 msgid "<span class=\"o_stat_text\">Related <br/> Record</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Свързан<br/> Запис</span>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_workspace_page
 msgid "<span title=\"Requested Document\">Requested Document</span>"
-msgstr ""
+msgstr "<span title=\"Requested Document\">Заявен документ</span>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
 msgid "<span>&amp;nbsp;Documents.</span>"
-msgstr ""
+msgstr "<span>&amp;nbsp;Документи.</span>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "<span><b> Request</b></span>"
-msgstr ""
+msgstr "<span><b>Заявка </b></span>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "<span><b>Requested Document</b></span>"
-msgstr ""
+msgstr "<span><b>Заявен документ</b></span>"
 
 #. module: documents
 #: model:mail.template,body_html:documents.mail_template_document_request_reminder
@@ -574,7 +580,7 @@ msgstr "Тип дейности"
 #: model:ir.model.fields,field_description:documents.field_documents_share__activity_type_id
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__activity_type_id
 msgid "Activity type"
-msgstr ""
+msgstr "Вид дейност"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_workflow_action__action__add
@@ -587,12 +593,12 @@ msgstr "Добави"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Add File"
-msgstr ""
+msgstr "Добави файл"
 
 #. module: documents
 #: model:ir.actions.act_window,name:documents.action_url_form
 msgid "Add Url"
-msgstr ""
+msgstr "Добавяне на URL връзка"
 
 #. module: documents
 #. odoo-javascript
@@ -611,7 +617,7 @@ msgstr "Добавяне на нов план"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Add new file"
-msgstr ""
+msgstr "Добави нов файл"
 
 #. module: documents
 #: model:res.groups,name:documents.group_documents_manager
@@ -621,7 +627,7 @@ msgstr "Администратор"
 #. module: documents
 #: model:documents.tag,name:documents.documents_marketing_assets_ads
 msgid "Ads"
-msgstr ""
+msgstr "Реклами"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__alias_id
@@ -698,6 +704,8 @@ msgid ""
 "An easy way to process incoming mails is to configure your scanner to send "
 "PDFs to"
 msgstr ""
+"Лесен начин за обработка на входящи имейли е да конфигурирате скенера си да "
+"изпраща PDF файлове на"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -708,55 +716,61 @@ msgid ""
 "launch user defined actions, request a signature, convert to vendor bills "
 "with AI, etc."
 msgstr ""
+"Лесен начин за обработка на входящи имейли е да конфигурирате скенера си да "
+"изпраща PDF файлове на имейла на вашето работно пространство. Сканираните "
+"файлове ще се появят автоматично във вашето работно пространство. След това "
+"обработете документите си накуп с инструмента за разделяне: стартирайте "
+"дефинирани от потребителя действия, поискайте подпис, конвертирайте в сметки"
+" от доставчици с AI и т.н."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
 #, python-format
 msgid "An error occured while uploading."
-msgstr ""
+msgstr "Възникна грешка при качването."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Archive original file(s)"
-msgstr ""
+msgstr "Архивирайте оригиналния(те) файл(ове)"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Are you sure that you want to delete the focused page ?"
-msgstr ""
+msgstr "Сигурни ли сте, че искате да изтриете фокусираната страница?"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Are you sure that you want to delete the selected page(s)"
-msgstr ""
+msgstr "Сигурни ли сте, че искате да изтриете избраната(ите) страница(и)"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Are you sure that you want to delete this page ?"
-msgstr ""
+msgstr "Сигурни ли сте, че искате да изтриете тази страница?"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "Are you sure you want to permanently erase the document?"
-msgstr ""
+msgstr "Сигурни ли сте, че искате да изтриете перманентно документа?"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "Are you sure you want to permanently erase the documents?"
-msgstr ""
+msgstr "Сигурни ли сте, че искате да изтриете перманентно документите?"
 
 #. module: documents
 #. odoo-javascript
@@ -765,6 +779,8 @@ msgstr ""
 msgid ""
 "As this PDF contains multiple documents, let's split and process in bulk."
 msgstr ""
+"Тъй като този PDF съдържа множество документи, нека ги разделим и обработим "
+"накуп."
 
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_finance_afv
@@ -796,7 +812,7 @@ msgstr "Брой Прикачени Файлове"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__description
 msgid "Attachment Description"
-msgstr ""
+msgstr "Описание на прикачения файл"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__attachment_name
@@ -806,7 +822,7 @@ msgstr "Име на прикачен файл"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__attachment_type
 msgid "Attachment Type"
-msgstr ""
+msgstr "Вид прикачен файл"
 
 #. module: documents
 #: model_terms:documents.folder,description:documents.documents_finance_folder
@@ -839,12 +855,12 @@ msgstr ""
 #. module: documents
 #: model:documents.tag,name:documents.documents_marketing_assets_brochures
 msgid "Brochures"
-msgstr ""
+msgstr "Брошури"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_mail_activity_type__folder_id
 msgid "By defining a folder, the upload activities will generate a document"
-msgstr ""
+msgstr "Чрез дефиниране на папка, дейностите по качване ще генерират документ"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
@@ -902,27 +918,27 @@ msgstr "Контролна сума/SHA1"
 #: code:addons/documents/models/documents_workflow_rule.py:0
 #, python-format
 msgid "Choose a record to link"
-msgstr ""
+msgstr "Изберете запис за свързване"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
 msgid "Choose or Configure Email Servers"
-msgstr ""
+msgstr "Изберете или конфигурирайте имейл сървъри"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
 #, python-format
 msgid "Click on a card to <b>select the document</b>."
-msgstr ""
+msgstr "Щракнете върху карта, за да <b>изберете документа</b>."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
 #, python-format
 msgid "Click on a thumbnail to <b>preview the document</b>."
-msgstr ""
+msgstr "Щракнете върху миниатюра, за да <b>прегледате документа</b>."
 
 #. module: documents
 #. odoo-javascript
@@ -932,13 +948,15 @@ msgid ""
 "Click on the <b>page separator</b>: we don't want to split these two pages "
 "as they belong to the same document."
 msgstr ""
+"Щракнете върху <b>разделителя на страници</b>: не искаме да разделяме тези "
+"две страници, тъй като те принадлежат към един и същ документ."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
 #, python-format
 msgid "Click the cross to <b>exit preview</b>."
-msgstr ""
+msgstr "Щракнете върху хикса, за да <b>излезете от визуализацията</b>."
 
 #. module: documents
 #. odoo-javascript
@@ -952,7 +970,7 @@ msgstr "Затвори"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Close split tools"
-msgstr ""
+msgstr "Затвори инструментите за разделяне"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__company_id
@@ -1006,7 +1024,7 @@ msgstr "Договори"
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 #, python-format
 msgid "Control panel buttons"
-msgstr ""
+msgstr "Бутони на контролния панел"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__create_model
@@ -1026,7 +1044,7 @@ msgstr ""
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__activity_option
 msgid "Create a new activity"
-msgstr ""
+msgstr "Създаване на нова дейност"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_uid
@@ -1092,7 +1110,7 @@ msgstr ""
 #: model:ir.model.fields,help:documents.field_documents_folder__deletion_delay
 #: model:ir.model.fields,help:documents.field_res_config_settings__deletion_delay
 msgid "Delay after permanent deletion of the document in the trash (days)"
-msgstr ""
+msgstr "Забавяне след окончателно изтриване на документа от кошчето (дни)"
 
 #. module: documents
 #. odoo-javascript
@@ -1113,7 +1131,7 @@ msgstr "Изтриване"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Delete focused or selected pages"
-msgstr ""
+msgstr "Изтриване на фокусирани или избрани страници."
 
 #. module: documents
 #. odoo-javascript
@@ -1121,22 +1139,22 @@ msgstr ""
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "Delete permanently"
-msgstr ""
+msgstr "Изтрий завинаги"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_res_config_settings__deletion_delay
 msgid "Deletion Delay"
-msgstr ""
+msgstr "Забавяне на изтриването"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__deletion_delay
 msgid "Deletion delay"
-msgstr ""
+msgstr "Забавяне на изтриването"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
 msgid "Deletion delay (days)"
-msgstr ""
+msgstr "Забавяне на изтриването (дни)"
 
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_internal_deprecate
@@ -1193,6 +1211,8 @@ msgstr ""
 #, python-format
 msgid "Do you want to exit without saving or gather pages into one document ?"
 msgstr ""
+"Искате ли да излезете без да запазвате или да съберете страниците в един "
+"документ?"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_document
@@ -1212,7 +1232,7 @@ msgstr "Брой документи"
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 #: model_terms:ir.ui.view,arch_db:documents.documents_request_form_view
 msgid "Document Name"
-msgstr ""
+msgstr "Име на документа "
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__owner_id
@@ -1222,18 +1242,19 @@ msgstr ""
 #. module: documents
 #: model:ir.actions.act_window,name:documents.mail_activity_plan_action_document
 msgid "Document Plans"
-msgstr ""
+msgstr "Планове за документи"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_request_wizard
 msgid "Document Request"
-msgstr ""
+msgstr "Заявка за документ"
 
 #. module: documents
 #: model:mail.template,subject:documents.mail_template_document_request
 msgid ""
 "Document Request {{ object.name != False and ': '+ object.name or '' }}"
 msgstr ""
+"Заявка за документ {{ object.name != False and ': '+ object.name or '' }}"
 
 #. module: documents
 #. odoo-python
@@ -1242,12 +1263,12 @@ msgstr ""
 #: code:addons/documents/models/mail_activity.py:0
 #, python-format
 msgid "Document Request: %s Uploaded by: %s"
-msgstr ""
+msgstr "Заявка за документ: %s Лачена от: %s"
 
 #. module: documents
 #: model:mail.template,name:documents.mail_template_document_request_reminder
 msgid "Document Request: Reminder"
-msgstr ""
+msgstr "Заявка за документ: Напомняне"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__has_write_access
@@ -1267,12 +1288,12 @@ msgstr ""
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "Document preview"
-msgstr ""
+msgstr "Преглед на документ"
 
 #. module: documents
 #: model:mail.template,name:documents.mail_template_document_request
 msgid "Document: Document Request"
-msgstr ""
+msgstr "Документ: Заявка за документ"
 
 #. module: documents
 #. odoo-javascript
@@ -1299,7 +1320,7 @@ msgstr "Документи"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_link_to_record_wizard
 msgid "Documents Link to Record"
-msgstr ""
+msgstr "Документи, свързани със запис"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_share
@@ -1314,7 +1335,7 @@ msgstr "Работно пространство за документи"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_mixin
 msgid "Documents creation mixin"
-msgstr ""
+msgstr "Разбъркване при създаването на документи"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.workflow_rule_form_view
@@ -1343,13 +1364,13 @@ msgstr "Изтеглете от системата"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_workspace_page
 msgid "Download #{document.name}"
-msgstr ""
+msgstr "Изтеглете #{document.name}"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
 #: model_terms:ir.ui.view,arch_db:documents.share_workspace_page
 msgid "Download all files"
-msgstr ""
+msgstr "Изтеглете всички файлове"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_share__action__downloadupload
@@ -1366,21 +1387,21 @@ msgstr "Изтегляне на файл"
 #: code:addons/documents/static/src/views/helper/documents_drop_zone.xml:0
 #, python-format
 msgid "Drop files here to upload"
-msgstr ""
+msgstr "Пуснете файлове тук, за да ги качите"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__activity_date_deadline_range
 #: model:ir.model.fields,field_description:documents.field_documents_share__activity_date_deadline_range
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__activity_date_deadline_range
 msgid "Due Date In"
-msgstr ""
+msgstr "Краен срок след"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__activity_date_deadline_range_type
 #: model:ir.model.fields,field_description:documents.field_documents_share__activity_date_deadline_range_type
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__activity_date_deadline_range_type
 msgid "Due type"
-msgstr ""
+msgstr "Вид задължение"
 
 #. module: documents
 #. odoo-javascript
@@ -1434,26 +1455,26 @@ msgstr "Грешка"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Escape Preview/Deselect/Exit"
-msgstr ""
+msgstr "Излез от визуализацията/Деселектирай/Изход"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__excluded_tag_ids
 msgid "Excluded Tags"
-msgstr ""
+msgstr "Изключени тагове"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_exit_dialog/pdf_exit_dialog.js:0
 #, python-format
 msgid "Exit Split Tools"
-msgstr ""
+msgstr "Изход от инструментите за разделяне"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_exit_dialog/pdf_exit_dialog.xml:0
 #, python-format
 msgid "Exit without saving"
-msgstr ""
+msgstr "Изход без запазване"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_documents_expense
@@ -1492,18 +1513,18 @@ msgstr "Файл"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__datas
 msgid "File Content (base64)"
-msgstr ""
+msgstr "Съдържание на файл (base64)"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__raw
 msgid "File Content (raw)"
-msgstr ""
+msgstr "Съдържание на файл (raw)"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__file_extension
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "File Extension"
-msgstr ""
+msgstr "Разширение на файла"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__file_size
@@ -1513,7 +1534,7 @@ msgstr "Размер на файл"
 #. module: documents
 #: model:ir.model,name:documents.model_ir_binary
 msgid "File streaming helper model for controllers"
-msgstr ""
+msgstr "Помощен модел за поточно предаване на файлове за контролери"
 
 #. module: documents
 #. odoo-python
@@ -1525,12 +1546,12 @@ msgstr ""
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
 msgid "Files Centralization"
-msgstr ""
+msgstr "Централизация на файлове"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 msgid "Files will be sent to trash and deleted forever after"
-msgstr ""
+msgstr "Файловете ще бъдат пратени в кошчето и ще бъдат изтрити завинаги"
 
 #. module: documents
 #. odoo-javascript
@@ -1539,6 +1560,8 @@ msgstr ""
 #, python-format
 msgid "Files will be sent to trash and deleted forever after %s days."
 msgstr ""
+"Файловете ще бъдат пратени в кошчето и ще бъдат изтрити завинаги след %s "
+"дни."
 
 #. module: documents
 #: model:documents.folder,name:documents.documents_finance_folder
@@ -1548,12 +1571,12 @@ msgstr "Финанси"
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_documents_financial
 msgid "Financial"
-msgstr ""
+msgstr "Финансов"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_documents_fiscal
 msgid "Fiscal"
-msgstr ""
+msgstr "Фискален"
 
 #. module: documents
 #: model:documents.facet,name:documents.documents_finance_fiscal_year
@@ -1565,33 +1588,33 @@ msgstr ""
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Focus first page of next group"
-msgstr ""
+msgstr "Фокусирайте първата страница от следващата група"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Focus first page of previous group"
-msgstr ""
+msgstr "Фокусирайте първата страница от предишната група"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Focus next page"
-msgstr ""
+msgstr "Фокусирай следващата страница"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Focus previous page"
-msgstr ""
+msgstr "Фокусирай предишната страница"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__folder_id
 msgid "Folder"
-msgstr ""
+msgstr "Папка"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_follower_ids
@@ -1620,7 +1643,7 @@ msgstr "Бъдещи дейности"
 #: code:addons/documents/static/src/owl/components/pdf_exit_dialog/pdf_exit_dialog.xml:0
 #, python-format
 msgid "Gather in one document"
-msgstr ""
+msgstr "Събери в един документ"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
@@ -1761,12 +1784,12 @@ msgstr "Вътрешни"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_editable_attachment
 msgid "Is Editable Attachment"
-msgstr ""
+msgstr "Редактируем прикачен файл"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_favorited
 msgid "Is Favorited"
-msgstr ""
+msgstr "Отбелязано като любимо"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_is_follower
@@ -1782,14 +1805,14 @@ msgstr "Е споделено"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_multipage
 msgid "Is considered multipage"
-msgstr ""
+msgstr "Счита се за многостраничен"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_model.js:0
 #, python-format
 msgid "Items in trash will be deleted forever after %s days."
-msgstr ""
+msgstr "Елементите в кошчето ще бъдат изтрити завинаги след %s дни."
 
 #. module: documents
 #. odoo-javascript
@@ -1797,6 +1820,7 @@ msgstr ""
 #, python-format
 msgid "Items moved to the trash will be deleted forever after %s days."
 msgstr ""
+"Елементите преместени в кошчето ще бъдат изтрити завинаги след %s дни."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
@@ -1852,6 +1876,9 @@ msgid ""
 "Let's process documents in your Inbox.<br/><i>Tip: Use Tags to filter "
 "documents and structure your process.</i>"
 msgstr ""
+"Нека обработим документите във вашата входяща кутия.<br/><i>Съвет: "
+"Използвайте тагове, за да филтрирате документи и да структурирате процеса "
+"си.</i>"
 
 #. module: documents
 #. odoo-javascript
@@ -1859,13 +1886,14 @@ msgstr ""
 #, python-format
 msgid "Let's process these bills: send to Finance workspace."
 msgstr ""
+"Нека обработим тези сметки: изпратете в работното пространство Финанси."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
 #, python-format
 msgid "Let's process this document, coming from our scanner."
-msgstr ""
+msgstr "Нека обработим този документ, идващ от нашия скенер."
 
 #. module: documents
 #. odoo-javascript
@@ -1875,6 +1903,8 @@ msgid ""
 "Let's tag this mail as legal<br/> <i>Tips: actions can be tailored to your "
 "process, according to the workspace.</i>"
 msgstr ""
+"Нека маркираме тази поща като правна<br/> <i>Съвети: действията могат да "
+"бъдат съобразени с вашия процес, според работното пространство.</i>"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_folder__user_specific
@@ -1935,7 +1965,7 @@ msgstr "Заключен"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__lock_uid
 msgid "Locked by"
-msgstr ""
+msgstr "Заключено от"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form
@@ -1971,7 +2001,7 @@ msgstr "Маркетинг"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "Mb"
-msgstr ""
+msgstr "Mb"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__activity_note
@@ -2028,7 +2058,7 @@ msgstr ""
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Move this page to trash"
-msgstr ""
+msgstr "Преместване на тази страница в кошчето"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__folder_id
@@ -2048,7 +2078,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 #, python-format
 msgid "Move to trash"
-msgstr ""
+msgstr "Преместване в кошчето"
 
 #. module: documents
 #. odoo-javascript
@@ -2058,7 +2088,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/list/folder_list_controller.js:0
 #, python-format
 msgid "Move to trash?"
-msgstr ""
+msgstr "Преместване в кошчето?"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_search
@@ -2068,7 +2098,7 @@ msgstr ""
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 msgid "Moved to trash"
-msgstr ""
+msgstr "Преместено в кошчето"
 
 #. module: documents
 #. odoo-javascript
@@ -2090,7 +2120,7 @@ msgstr "Краен срок за моята дейност"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "My Documents"
-msgstr ""
+msgstr "Моите документи"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -2126,14 +2156,14 @@ msgstr "Нов"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "New File"
-msgstr ""
+msgstr "Нов файл"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "New Group"
-msgstr ""
+msgstr "Нова група"
 
 #. module: documents
 #. odoo-javascript
@@ -2172,14 +2202,14 @@ msgstr "Вид на следващо действие"
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_type_action_document
 msgid "No activity types found. Let's create one!"
-msgstr ""
+msgstr "Не са намерени видове дейности. Нека създадем един!"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_action_helper.xml:0
 #, python-format
 msgid "No alias configured"
-msgstr ""
+msgstr "Не е конфигуриран псевдоним"
 
 #. module: documents
 #. odoo-javascript
@@ -2187,7 +2217,7 @@ msgstr ""
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "No document has been selected"
-msgstr ""
+msgstr "Не е избран документ"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
@@ -2197,21 +2227,21 @@ msgstr ""
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.share_action
 msgid "No shared links"
-msgstr ""
+msgstr "Няма споделени връзки"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 #, python-format
 msgid "Not a file"
-msgstr ""
+msgstr "Не е файл"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 #, python-format
 msgid "Not attached"
-msgstr ""
+msgstr "Не е прикачено"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__activity_note
@@ -2255,7 +2285,7 @@ msgstr "Лого на системата"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
 msgid "Odoo Website"
-msgstr ""
+msgstr "Odoo Уебсайт"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__limited_to_single_record
@@ -2285,7 +2315,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/helper/documents_action_helper.xml:0
 #, python-format
 msgid "Or send emails to"
-msgstr ""
+msgstr "Или изпратете имейли до"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_internal_knowledge_other
@@ -2321,7 +2351,7 @@ msgstr "Собственик"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_workspace_page
 msgid "Owner: #{document.owner_id.name}"
-msgstr ""
+msgstr "Собственик: #{document.owner_id.name}"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -2365,7 +2395,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 #, python-format
 msgid "Partial transfer"
-msgstr ""
+msgstr "Частично прехвърляне"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.not_available
@@ -2437,14 +2467,14 @@ msgstr ""
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Remaining Pages"
-msgstr ""
+msgstr "Оставащи страници"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/activity/documents_activity_controller.js:0
 #, python-format
 msgid "Reminder emails have been sent."
-msgstr ""
+msgstr "Напомнящите имейли са изпратени."
 
 #. module: documents
 #: model:mail.template,subject:documents.mail_template_document_request_reminder
@@ -2452,6 +2482,8 @@ msgid ""
 "Reminder to upload your document{{ object.name and ' : ' + object.name or ''"
 " }}"
 msgstr ""
+"Напомянне да си качите документа{{ object.name and ' : ' + object.name or ''"
+" }}"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_workflow_action__action__remove
@@ -2482,7 +2514,7 @@ msgstr "Заявка"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__request_activity_id
 msgid "Request Activity"
-msgstr ""
+msgstr "Заявка на активност"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.documents_request_form_view
@@ -2494,12 +2526,12 @@ msgstr "Заявка до"
 #: code:addons/documents/static/src/web/activity/activity_menu_patch.xml:0
 #, python-format
 msgid "Request a Document"
-msgstr ""
+msgstr "Заявка на документ"
 
 #. module: documents
 #: model:ir.actions.act_window,name:documents.action_request_form
 msgid "Request a file"
-msgstr ""
+msgstr "Заявка на файл"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -2512,11 +2544,13 @@ msgid ""
 "Requested\n"
 "                                ∙"
 msgstr ""
+"Заявено\n"
+"                                ∙"
 
 #. module: documents
 #: model:mail.activity.type,name:documents.mail_documents_activity_data_md
 msgid "Requested Document"
-msgstr ""
+msgstr "Заявен документ"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__required_tag_ids
@@ -2526,7 +2560,7 @@ msgstr ""
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__res_model_name
 msgid "Res Model Name"
-msgstr ""
+msgstr "Име на ресурсния модел"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__res_id
@@ -2571,7 +2605,7 @@ msgstr "Възстанови"
 #: code:addons/documents/models/documents_folder.py:0
 #, python-format
 msgid "Restricted Folder"
-msgstr ""
+msgstr "Ограничена папка"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_has_sms_error
@@ -2601,49 +2635,49 @@ msgstr "Планирайте дейност"
 #: code:addons/documents/static/src/views/list/documents_list_renderer.js:0
 #, python-format
 msgid "Select all"
-msgstr ""
+msgstr "Изберете всички"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Select focused page"
-msgstr ""
+msgstr "Избиране на фокусирана страница"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Select next page"
-msgstr ""
+msgstr "Избиране на следващата страница"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Select next pages of the group"
-msgstr ""
+msgstr "Избиране на следващите страници от групата"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Select previous page"
-msgstr ""
+msgstr "Избиране на предишната страница"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Select previous pages of the group"
-msgstr ""
+msgstr "Избиране на предишните страници от групата"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Select/Deselect all pages"
-msgstr ""
+msgstr "Избиране/отмяна на избора на всички страници"
 
 #. module: documents
 #. odoo-javascript
@@ -2651,6 +2685,7 @@ msgstr ""
 #, python-format
 msgid "Send this letter to the legal department, by assigning the right tags."
 msgstr ""
+"Изпратете това писмо до юридическия отдел, като зададете правилните тагове."
 
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_internal_legal
@@ -2660,7 +2695,7 @@ msgstr ""
 #. module: documents
 #: model:mail.template,description:documents.mail_template_document_request
 msgid "Sent to partner when requesting a document from them"
-msgstr ""
+msgstr "Изпратено до партньора при заявяване на документ от него"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_facet__sequence
@@ -2693,7 +2728,7 @@ msgstr ""
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
 msgid "Set deletion delay for documents in the Trash"
-msgstr ""
+msgstr "Задаване на забавяне при изтриването на документи в кошчето"
 
 #. module: documents
 #: model:mail.template,description:documents.mail_template_document_request_reminder
@@ -2701,6 +2736,8 @@ msgid ""
 "Set reminders in activities to notify users who didn't upload their "
 "requested document"
 msgstr ""
+"Задаване на напомняния в дейности, за да се уведомяват потребители, които не"
+" са качили заявения от тях документ"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__has_owner_activity
@@ -2822,7 +2859,7 @@ msgstr "Размер:"
 #: code:addons/documents/static/src/views/hooks.js:0
 #, python-format
 msgid "Some files could not be uploaded (max size: %s)."
-msgstr ""
+msgstr "Някои файлове не могат да бъдат качени (максимален размер: %s)."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.not_available
@@ -2849,7 +2886,7 @@ msgstr "Разделете"
 #: code:addons/documents/static/src/attachments/document_file_viewer.xml:0
 #, python-format
 msgid "Split PDF"
-msgstr ""
+msgstr "Разделяне на PDF файл"
 
 #. module: documents
 #. odoo-javascript
@@ -2857,7 +2894,7 @@ msgstr ""
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Split selected pages"
-msgstr ""
+msgstr "Разделяне на избраните страници"
 
 #. module: documents
 #: model:documents.facet,name:documents.documents_finance_status
@@ -2884,7 +2921,7 @@ msgstr ""
 #: code:addons/documents/static/src/owl/components/pdf_exit_dialog/pdf_exit_dialog.xml:0
 #, python-format
 msgid "Stay here"
-msgstr ""
+msgstr "Останете тук"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__children_folder_ids
@@ -2965,7 +3002,7 @@ msgstr ""
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_res_config_settings_check_deletion_delay
 msgid "The deletion delay should be positive."
-msgstr ""
+msgstr "Забавянето на изтриването трябва да е положително число."
 
 #. module: documents
 #. odoo-javascript
@@ -3024,7 +3061,7 @@ msgstr ""
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_attachment_unique
 msgid "This attachment is already a document"
-msgstr ""
+msgstr "Този прикачен файл вече е документ"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__group_ids
@@ -3037,6 +3074,8 @@ msgid ""
 "This document has been requested.\n"
 "                <b onclick=\"document.querySelector('.o_request_upload').click()\" style=\"cursor:pointer;\">Upload it</b>."
 msgstr ""
+"Този документ е заявен. \n"
+"<b onclick=\"document.querySelector('.o_request_upload').click()\" style=\"cursor:pointer;\">Качете го</b>."
 
 #. module: documents
 #. odoo-python
@@ -3051,7 +3090,7 @@ msgstr ""
 #, python-format
 msgid ""
 "This file has been sent to the trash and will be deleted forever on the %s"
-msgstr ""
+msgstr "Този файл е изпратен в кошчето и ще бъде изтрит завинаги на %s"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__company_id
@@ -3065,6 +3104,8 @@ msgid ""
 "Those represent the different categories of things you have to do (e.g. "
 "\"Call\" or \"Send email\")."
 msgstr ""
+"Те представляват различните категории задачи, които трябва да изпълните "
+"(напр. \"Обаждане\" или \"Изпращане на имейл\")."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__thumbnail
@@ -3074,7 +3115,7 @@ msgstr "Миниатюра"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__thumbnail_status
 msgid "Thumbnail Status"
-msgstr ""
+msgstr "Състояние на миниатюрата"
 
 #. module: documents
 #. odoo-javascript
@@ -3082,11 +3123,13 @@ msgstr ""
 #, python-format
 msgid "Tip: configure your scanner to send all documents to this address."
 msgstr ""
+"Съвет: конфигурирайте вашия скенер да изпраща всички документи на този "
+"адрес."
 
 #. module: documents
 #: model:digest.tip,name:documents.digest_tip_documents_0
 msgid "Tip: Become a paperless company"
-msgstr ""
+msgstr "Съвет: Станете компания без хартия"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_status_tc
@@ -3116,7 +3159,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/kanban/documents_kanban_renderer.js:0
 #, python-format
 msgid "Toggle favorite"
-msgstr ""
+msgstr "Превключване на любимо"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_facet__tooltip
@@ -3135,7 +3178,7 @@ msgstr "Боклук"
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__is_editable_attachment
 msgid "True if we can edit the link attachment."
-msgstr ""
+msgstr "Вярно, ако можем да редактираме прикачения линк."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__type
@@ -3165,11 +3208,12 @@ msgid ""
 "URL %s does not seem complete, as it does not begin with http(s):// or "
 "ftp://"
 msgstr ""
+"URL адреса изглежда непълен, тъй като не започва с http(s):// или ftp://"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__url_preview_image
 msgid "URL Preview Image"
-msgstr ""
+msgstr "Преглед на изображение от URL адрес"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -3197,6 +3241,8 @@ msgid ""
 "Upload <span class=\"fw-normal\">a file or</span> drag <span class=\"fw-"
 "normal\">it here.</span>"
 msgstr ""
+"Качете <span class=\"fw-normal\">файл или</span> го плъзнете <span "
+"class=\"fw-normal\">тук.</span>"
 
 #. module: documents
 #. odoo-javascript
@@ -3220,7 +3266,7 @@ msgstr ""
 #: code:addons/documents/models/mail_activity.py:0
 #, python-format
 msgid "Upload file request"
-msgstr ""
+msgstr "Заявка за качване на файл"
 
 #. module: documents
 #: model:ir.model,name:documents.model_res_users
@@ -3266,6 +3312,7 @@ msgstr "Видеа"
 msgid ""
 "Want to become a <b>paperless company</b>? Let's discover Odoo Documents."
 msgstr ""
+"Искате да станете <b>компания без хартия</b>? Нека открием Odoo Документи."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__website_message_ids
@@ -3291,7 +3338,7 @@ msgstr "Седмици"
 #: code:addons/documents/static/src/owl/components/pdf_exit_dialog/pdf_exit_dialog.xml:0
 #, python-format
 msgid "What do you want to do with the remaining pages ?"
-msgstr ""
+msgstr "Какво искате да направите с останалите страници?"
 
 #. module: documents
 #: model:ir.actions.act_window,name:documents.workflow_rule_action
