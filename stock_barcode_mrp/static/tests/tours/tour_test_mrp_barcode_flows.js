@@ -1340,7 +1340,7 @@ registry.category("web_tour.tours").add("test_add_product_with_different_uom", {
         trigger: "button.o_save",
         run: "click",
     },
-    ...stepUtils.validateBarcodeOperation(),
+    ...stepUtils.validateBarcodeOperation(".o_barcode_line"),
 ]});
 
 registry.category("web_tour.tours").add("test_not_allowing_component_lot_creation", {

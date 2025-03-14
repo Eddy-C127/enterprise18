@@ -5570,6 +5570,28 @@ registry.category("web_tour.tours").add('test_scan_location_destination_for_inte
         },
 ]});
 
+registry.category("web_tour.tours").add("test_scan_product_when_in_form_view", {
+    steps: () => [
+        // Scan a location to create an internal picking.
+        { trigger: ".o_stock_barcode_main_menu", run: "scan shelf3" },
+        // Scan a product and open the form view.
+        { trigger: ".o_barcode_client_action", run: "scan product1" },
+        { trigger: ".o_barcode_line .o_edit", run: "click" },
+        // Update the quantity then scan another product.
+        { trigger: ".o_field_widget[name=qty_done] input", run: "edit 5" },
+        { trigger: ".o_barcode_line_form", run: "scan product2" },
+        {
+            trigger: ".o_barcode_line_form",
+            run: () => {
+                helper.assertFormQuantity("5");
+            },
+        },
+        // Save the change and validate the picking.
+        { trigger: ".o_save", run: "click" },
+        ...stepUtils.validateBarcodeOperation(".o_barcode_line .qty-done:contains(5)"),
+    ],
+});
+
 registry.category("web_tour.tours").add("test_fetch_archived_records_in_lazy_barcode_cache", {
     steps: () => [
         {

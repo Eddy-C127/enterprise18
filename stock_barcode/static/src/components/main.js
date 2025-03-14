@@ -348,6 +348,9 @@ class MainComponent extends Component {
     }
 
     onBarcodeScanned(barcode) {
+        if (this.state.view !== "barcodeLines") {
+            return;
+        }
         if (barcode) {
             this.actionMutex.exec(async () => {
                 return this.env.model.processBarcode(barcode);
