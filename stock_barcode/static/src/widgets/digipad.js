@@ -53,7 +53,6 @@ export class Digipad extends Component {
         const input = document.querySelector(`div[name="${this.props.quantityField}"] input`);
         const inputValue = input.value;
         if (Number(this.value) != Number(inputValue)) {
-            console.warn(`-- Change widget value: ${this.value} -> ${inputValue}`);
             this.value = inputValue;
         }
     }

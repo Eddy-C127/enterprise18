@@ -4864,6 +4864,29 @@ registry.category("web_tour.tours").add('test_scan_location_destination_for_inte
         },
 ]});
 
+registry.category("web_tour.tours").add('test_scan_product_when_in_form_view', {
+    test: true,
+    steps: () => [
+        // Scan a location to create an internal picking.
+        { trigger: ".o_stock_barcode_main_menu", run: "scan shelf3" },
+        // Scan a product and open the form view.
+        { trigger: ".o_barcode_client_action", run: "scan product1" },
+        { trigger: ".o_barcode_line .o_edit" },
+        // Update the quantity then scan another product.
+        { trigger: ".o_field_widget[name=qty_done] input", run: "text 5" },
+        { trigger: ".o_barcode_line_form", run: "scan product2" },
+        {
+            trigger: ".o_barcode_line_form",
+            run: () => {
+                helper.assertFormQuantity("5");
+            },
+        },
+        // Save the change and validate the picking.
+        { trigger: '.o_save' },
+        ...stepUtils.validateBarcodeOperation(".o_barcode_line .qty-done:contains(5)"),
+    ],
+})
+
 registry.category("web_tour.tours").add("test_satisfy_existing_lot_line_before_exceeding_demand", {
     test: true, steps: () => [
         {
