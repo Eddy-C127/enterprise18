@@ -81,8 +81,14 @@ JOIN sale_commission_plan_target era
     @api.model
     def _get_invoice_rates_product(self):
         return """
-            rules.amount_invoiced_rate * aml.price_subtotal / am.invoice_currency_rate +
-            rules.qty_invoiced_rate * aml.quantity
+            CASE
+             WHEN am.move_type = 'out_invoice' THEN
+                 rules.amount_invoiced_rate * aml.price_subtotal / am.invoice_currency_rate +
+                 rules.qty_invoiced_rate * aml.quantity
+             WHEN am.move_type = 'out_refund' THEN
+                 (rules.amount_invoiced_rate * aml.price_subtotal / am.invoice_currency_rate +
+                 rules.qty_invoiced_rate * aml.quantity) * -1
+            END
         """
     @api.model
     def _get_company_condition(self, company_table):
