@@ -311,7 +311,7 @@ export class MrpDisplayRecord extends Component {
     async openWorksheet(){
         const res = await this.props.record.model.orm.call(
             this.lastOpenedQualityCheck.resModel,
-            "action_fill_sheet",
+            "action_open_quality_check_wizard",
             [this.lastOpenedQualityCheck.resId]);
         this.action.doAction(res, {
             onClose: async () => {
