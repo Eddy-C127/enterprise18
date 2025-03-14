@@ -296,6 +296,32 @@ class TestSubscription(TestSubscriptionCommon):
         invoice._post()  # should not throw an error
         self.assertEqual(invoice.line_ids.product_id, sub_product1 | sub_product2)
 
+    def test_invoicing_access_rights(self):
+        """Ensure a salesman can get amount invoiced for subscriptions with others' invoices."""
+        self.subscription.order_line = [Command.create({
+            'name': "Non-recurring product",
+            'product_id': self.product_a.id,
+            'tax_id': False,
+        })]
+        self.subscription.action_confirm()
+        invoice = self.subscription._create_recurring_invoice()
+
+        # assign different salesmen to order & invoice
+        invoice.user_id = self.env.ref('base.user_admin')
+        sales_user = self.company_data['default_user_salesman']
+        self.subscription.user_id = sales_user
+
+        # ensure Salesman doesn't have access to just any invoice
+        invoice.invalidate_recordset(['name'])
+        with self.assertRaises(AccessError):
+            invoice.with_user(sales_user).user_id = sales_user
+
+        self.assertEqual(
+            self.subscription.with_user(sales_user).amount_invoiced,
+            self.product_a.list_price,
+            "We should get the amount invoiced for non-recurring products",
+        )
+
     @mute_logger('odoo.addons.base.models.ir_model', 'odoo.models')
     def test_unlimited_sale_order(self):
         """ Test behaviour of on_change_template """
