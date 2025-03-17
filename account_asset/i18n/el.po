@@ -859,14 +859,14 @@ msgstr "Πίνακας Απόσβεσης τροποποιήθηκε%s"
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "Depreciation entry %s posted (%s)"
-msgstr ""
+msgstr "Η εγγραφή απόσβεσης %s καταχωρήθηκε (%s)"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "Depreciation entry %s reversed (%s)"
-msgstr ""
+msgstr "Η εγγραφή απόσβεσης %s αντιστράφηκε (%s)"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__display_account_asset_id
@@ -984,23 +984,23 @@ msgstr "Μελλοντικές Δραστηριότητες"
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__asset_modify__gain_or_loss__gain
 msgid "Gain"
-msgstr ""
+msgstr "Κέρδος"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__gain_account_id
 #: model:ir.model.fields,field_description:account_asset.field_res_company__gain_account_id
 msgid "Gain Account"
-msgstr ""
+msgstr "Λογαριασμός Κέρδους"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__gain_or_loss
 msgid "Gain Or Loss"
-msgstr ""
+msgstr "Κέρδος ή Ζημία"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__gain_value
 msgid "Gain Value"
-msgstr ""
+msgstr "Αξία Κέρδους"
 
 #. module: account_asset
 #. odoo-python
@@ -1008,24 +1008,24 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 #, python-format
 msgid "Gross Increase"
-msgstr ""
+msgstr "Ακαθάριστη Αύξηση"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__account_asset_id
 msgid "Gross Increase Account"
-msgstr ""
+msgstr "Λογαριασμός Ακαθάριστης Αύξησης"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__gross_increase_value
 msgid "Gross Increase Value"
-msgstr ""
+msgstr "Αξία Ακαθάριστης Αύξησης"
 
 #. module: account_asset
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/filter_extra_options.xml:0
 #, python-format
 msgid "Group By Account"
-msgstr ""
+msgstr "Ομαδοποίηση Ανά Λογαριασμό"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
@@ -1083,7 +1083,7 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__informational_text
 msgid "Informational Text"
-msgstr ""
+msgstr "Πληροφοριακό Κείμενο"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__invoice_line_ids
@@ -1180,7 +1180,7 @@ msgstr "Λογαριασμός Ζημιών"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
 msgid "Manage Items"
-msgstr ""
+msgstr "Διαχείριση Στοιχείων"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_has_error
@@ -1233,7 +1233,7 @@ msgstr "Μήνες"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_account__multiple_assets_per_line
 msgid "Multiple Assets per Line"
-msgstr ""
+msgstr "Πολλαπλά Περιουσιακά Στοιχεία Ανά Γραμμή"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_account__multiple_assets_per_line
@@ -1255,7 +1255,7 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__salvage_value
 msgid "New salvage amount for the asset"
-msgstr ""
+msgstr "Νέα υπολειμματική αξία για το περιουσιακό στοιχείο"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_calendar_event_id
@@ -1292,17 +1292,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__non_deductible_tax_value
 #: model:ir.model.fields,field_description:account_asset.field_account_move_line__non_deductible_tax_value
 msgid "Non Deductible Tax Value"
-msgstr ""
+msgstr "Μη Εκπιπτόμενη Φορολογική Αξία"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__salvage_value
 msgid "Not Depreciable Amount"
-msgstr ""
+msgstr "Μη Αποσβέσιμο Ποσό"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__salvage_value
 msgid "Not Depreciable Value"
-msgstr ""
+msgstr "Μη Αποσβέσιμη Αξία"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__name
@@ -1329,6 +1329,8 @@ msgstr "Πλήθος Μηνών σε μία Περίοδο"
 #: model:ir.model.fields,help:account_asset.field_account_asset__gross_increase_count
 msgid "Number of assets made to increase the value of the asset"
 msgstr ""
+"Αριθμός περιουσιακών στοιχείων που έγιναν για την αύξηση της αξίας του "
+"περιουσιακού στοιχείου"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_number_days
@@ -1340,7 +1342,7 @@ msgstr "Αριθμός Ημερών"
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__total_depreciation_entries_count
 msgid "Number of depreciation entries (posted or not)"
-msgstr ""
+msgstr "Αριθμός εγγραφών απόσβεσης (καταχωρημένων ή μη)"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_has_error_counter
@@ -1367,7 +1369,7 @@ msgstr "Σε Αναμονή"
 #: code:addons/account_asset/models/account_assets_report.py:0
 #, python-format
 msgid "Open Asset"
-msgstr ""
+msgstr "Ανοιχτό Περιουσιακό Στοιχείο"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__original_value
@@ -1386,7 +1388,7 @@ msgstr "Μητρικός"
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 #, python-format
 msgid "Parent Asset"
-msgstr ""
+msgstr "Γονικό Περιουσιακό Στοιχείο"
 
 #. module: account_asset
 #. odoo-python
@@ -1404,17 +1406,17 @@ msgstr ""
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_tree
 msgid "Period length"
-msgstr ""
+msgstr "Διάρκεια περιόδου"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Posted Entries"
-msgstr ""
+msgstr "Καταχωρημένες Εγγραφές"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__prorata_date
 msgid "Prorata Date"
-msgstr ""
+msgstr "Ημερομηνία Αναλογικής Κατανομής"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__rating_ids
@@ -1426,25 +1428,25 @@ msgstr "Αξιολογήσεις"
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "Re-evaluate"
-msgstr ""
+msgstr "Επαναξιολόγηση"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_move_line__asset_ids
 #: model_terms:ir.ui.view,arch_db:account_asset.view_move_line_form_asset_inherit
 msgid "Related Assets"
-msgstr ""
+msgstr "Σχετικά Περιουσιακά Στοιχεία"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__related_purchase_value
 msgid "Related Purchase Value"
-msgstr ""
+msgstr "Σχετική Αξία Αγοράς"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Reset to running"
-msgstr ""
+msgstr "Επαναφορά σε λειτουργία"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_user_id
@@ -1462,7 +1464,7 @@ msgstr "Βιογραφικό"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Resume Depreciation"
-msgstr ""
+msgstr "Συνεχίστε την Απόσβεση"
 
 #. module: account_asset
 #. odoo-python
@@ -1472,6 +1474,8 @@ msgid ""
 "Reverse the depreciation entries posted in the future in order to modify the"
 " depreciation"
 msgstr ""
+"Αντιστρέψτε τις εγγραφές αποσβέσεων που έχουν καταχωρηθεί στο μέλλον, "
+"προκειμένου να τροποποιήσετε τις αποσβέσεις"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__open
@@ -1493,19 +1497,19 @@ msgstr "Πώληση"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Save as Model"
-msgstr ""
+msgstr "Αποθήκευση ως Μοντέλο"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Save model"
-msgstr ""
+msgstr "Αποθήκευση μοντέλου"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__select_invoice_line_id
 msgid "Select Invoice Line"
-msgstr ""
+msgstr "Επιλέξτε Γραμμή Τιμολογίου"
 
 #. module: account_asset
 #. odoo-python
@@ -1523,7 +1527,7 @@ msgstr "Ορισμός σε Πρόχειρη"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Set to Running"
-msgstr ""
+msgstr "Ρύθμιση σε Λειτουργία"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
@@ -1537,14 +1541,14 @@ msgstr ""
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "Some fields are missing %s"
-msgstr ""
+msgstr "Μερικά πεδία λείπουν %s"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Some required values are missing"
-msgstr ""
+msgstr "Ορισμένες απαιτούμενες τιμές λείπουν"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__prorata_date
@@ -1552,6 +1556,8 @@ msgid ""
 "Starting date of the period used in the prorata calculation of the first "
 "depreciation"
 msgstr ""
+"Ημερομηνία έναρξης της περιόδου που χρησιμοποιείται στον αναλογικό "
+"υπολογισμό της πρώτης απόσβεσης"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__state
@@ -1574,7 +1580,7 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__method__linear
 msgid "Straight Line"
-msgstr ""
+msgstr "Ευθεία Γραμμή"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__book_value
@@ -1582,6 +1588,8 @@ msgid ""
 "Sum of the depreciable value, the salvage value and the book value of all "
 "value increase items"
 msgstr ""
+"Άθροισμα της αποσβέσιμης αξίας, της αξίας διάσωσης και της λογιστικής αξίας "
+"όλων των στοιχείων που αυξάνουν την αξία τους"
 
 #. module: account_asset
 #. odoo-python
@@ -1597,7 +1605,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_asset.field_account_asset__method_period
 #: model:ir.model.fields,help:account_asset.field_asset_modify__method_period
 msgid "The amount of time between two depreciations"
-msgstr ""
+msgstr "Το χρονικό διάστημα μεταξύ δύο αποσβέσεων"
 
 #. module: account_asset
 #. odoo-python
@@ -1611,12 +1619,12 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__asset_id
 msgid "The asset to be modified by this wizard"
-msgstr ""
+msgstr "Το περιουσιακό στοιχείο που θα τροποποιηθεί από αυτόν τον οδηγό"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__children_ids
 msgid "The children are the gains in value of this asset"
-msgstr ""
+msgstr "Τα παιδιά είναι τα κέρδη σε αξία αυτού του περιουσιακού στοιχείου"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__invoice_ids
@@ -1624,6 +1632,8 @@ msgid ""
 "The disposal invoice is needed in order to generate the closing journal "
 "entry."
 msgstr ""
+"Το τιμολόγιο απόρριψης είναι απαραίτητο για τη δημιουργία της ημερολογιακής "
+"εγγραφής κλεισίματος."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__method_number
@@ -1636,12 +1646,14 @@ msgstr ""
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "The remaining value on the last depreciation line must be 0"
-msgstr ""
+msgstr "Η υπολειπόμενη τιμή στην τελευταία γραμμή απόσβεσης πρέπει να είναι 0"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__invoice_line_ids
 msgid "There are multiple lines that could be the related to this asset"
 msgstr ""
+"Υπάρχουν πολλές γραμμές που θα μπορούσαν να σχετίζονται με αυτό το "
+"περιουσιακό στοιχείο."
 
 #. module: account_asset
 #. odoo-python
@@ -1651,13 +1663,15 @@ msgid ""
 "There are unposted depreciations prior to the selected operation date, "
 "please deal with them first."
 msgstr ""
+"Υπάρχουν μη καταχωρημένες αποσβέσεις πριν από την επιλεγμένη ημερομηνία "
+"λειτουργίας, παρακαλείστε να τις αντιμετωπίσετε πρώτα."
 
 #. module: account_asset
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/move_reversed/move_reversed.xml:0
 #, python-format
 msgid "This move has been reversed"
-msgstr ""
+msgstr "Η κίνηση αυτή αντιστράφηκε"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
@@ -1674,19 +1688,19 @@ msgstr "Σύνολο"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__total_depreciable_value
 msgid "Total Depreciable Value"
-msgstr ""
+msgstr "Συνολική Αποσβέσιμη Αξία"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "Turn as an asset"
-msgstr ""
+msgstr "Μετατροπή σε περιουσιακό στοιχείο"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__account_type
 msgid "Type of the account"
-msgstr ""
+msgstr "Τύπος του λογαριασμού"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__activity_exception_decoration
@@ -1696,14 +1710,14 @@ msgstr "Τύπος της καταγεγραμμένης δραστηριότη�
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Value at Import"
-msgstr ""
+msgstr "Αξία κατά την Εισαγωγή"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "Value decrease for: %(asset)s"
-msgstr ""
+msgstr "Μείωση της αξίας για:%(asset)s"
 
 #. module: account_asset
 #. odoo-python
@@ -1711,14 +1725,14 @@ msgstr ""
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "Value increase for: %(asset)s"
-msgstr ""
+msgstr "Αύξηση της αξίας για: %(asset)s"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Warning for the Original Value of %s"
-msgstr ""
+msgstr "Προειδοποίηση για την Αρχική Τιμή του %s"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__website_message_ids
@@ -1754,6 +1768,9 @@ msgid ""
 "You can't post an entry related to a draft asset. Please post the asset "
 "before."
 msgstr ""
+"Δεν μπορείτε να δημοσιεύσετε μια καταχώρηση που σχετίζεται με ένα προσχέδιο "
+"περιουσιακού στοιχείου. Παρακαλούμε δημοσιεύστε το περιουσιακό στοιχείο "
+"πριν."
 
 #. module: account_asset
 #. odoo-python
@@ -1761,6 +1778,8 @@ msgstr ""
 #, python-format
 msgid "You can't re-evaluate the asset before the lock date."
 msgstr ""
+"Δεν μπορείτε να επανεκτιμήσετε το περιουσιακό στοιχείο πριν από την "
+"ημερομηνία κλειδώματος."
 
 #. module: account_asset
 #. odoo-python
@@ -1769,13 +1788,15 @@ msgstr ""
 msgid ""
 "You cannot add or remove bills when the asset is already running or closed."
 msgstr ""
+"Δεν μπορείτε να προσθέσετε ή να αφαιρέσετε λογαριασμούς όταν το περιουσιακό "
+"στοιχείο είναι ήδη σε λειτουργία ή κλειστό."
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "You cannot archive a record that is not closed"
-msgstr ""
+msgstr "Δεν μπορείτε να αρχειοθετήσετε μια καταγραφή που δεν έχει κλείσει"
 
 #. module: account_asset
 #. odoo-python
@@ -1786,6 +1807,9 @@ msgid ""
 "You cannot automate the journal entry for an asset that has a running gross "
 "increase. Please use 'Dispose' on the increase(s)."
 msgstr ""
+"Δεν μπορείτε να αυτοματοποιήσετε την ημερολογιακή εγγραφή για ένα "
+"περιουσιακό στοιχείο που έχει τρέχουσα ακαθάριστη αύξηση. Παρακαλούμε "
+"χρησιμοποιήστε την επιλογή «Διαθέσιμο» για την αύξηση(-εις)."
 
 #. module: account_asset
 #. odoo-python
@@ -1795,13 +1819,15 @@ msgid ""
 "You cannot create an asset from lines containing credit and debit on the "
 "account or with a null amount"
 msgstr ""
+"Δεν μπορείτε να δημιουργήσετε ένα περιουσιακό στοιχείο από γραμμές που "
+"περιέχουν πίστωση και χρέωση στο λογαριασμό ή με μηδενικό ποσό"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "You cannot delete a document that is in %s state."
-msgstr ""
+msgstr "Δεν μπορείτε να διαγράψετε ένα έγγραφο που βρίσκεται σε %s κατάσταση."
 
 #. module: account_asset
 #. odoo-python
@@ -1811,6 +1837,8 @@ msgid ""
 "You cannot delete an asset linked to posted entries.\n"
 "You should either confirm the asset, then, sell or dispose of it, or cancel the linked journal entries."
 msgstr ""
+"Δεν μπορείτε να διαγράψετε ένα περιουσιακό στοιχείο που συνδέεται με αναρτημένες εγγραφές.\n"
+"Θα πρέπει είτε να επιβεβαιώσετε το περιουσιακό στοιχείο, στη συνέχεια, να το πουλήσετε ή να το διαθέσετε, είτε να ακυρώσετε τις συνδεδεμένες ημερολογιακές εγγραφές."
 
 #. module: account_asset
 #. odoo-python
@@ -1818,6 +1846,8 @@ msgstr ""
 #, python-format
 msgid "You cannot dispose of an asset before the lock date."
 msgstr ""
+"Δεν μπορείτε να διαθέσετε ένα περιουσιακό στοιχείο πριν από την ημερομηνία "
+"κλειδώματος."
 
 #. module: account_asset
 #. odoo-python
@@ -1825,6 +1855,8 @@ msgstr ""
 #, python-format
 msgid "You cannot reset to draft an entry related to a posted asset"
 msgstr ""
+"Δεν μπορείτε να επαναφέρετε τη σύνταξη μιας εγγραφής που σχετίζεται με ένα "
+"αναρτημένο περιουσιακό στοιχείο"
 
 #. module: account_asset
 #. odoo-python
@@ -1832,6 +1864,8 @@ msgstr ""
 #, python-format
 msgid "You cannot resume at a date equal to or before the pause date"
 msgstr ""
+"Δεν μπορείτε να συνεχίσετε σε ημερομηνία ίση ή προγενέστερη της ημερομηνίας "
+"παύσης"
 
 #. module: account_asset
 #. odoo-python
@@ -1839,65 +1873,66 @@ msgstr ""
 #, python-format
 msgid "You cannot select the same account as the Depreciation Account"
 msgstr ""
+"Δεν μπορείτε να επιλέξετε τον ίδιο λογαριασμό με το Λογαριασμό Αποσβέσεων."
 
 #. module: account_asset
 #: model:account.report.column,name:account_asset.assets_report_balance
 msgid "book_value"
-msgstr ""
+msgstr "book_value"
 
 #. module: account_asset
 #: model:account.report.column,name:account_asset.assets_report_date_from
 #: model:account.report.column,name:account_asset.assets_report_depre_date_from
 msgid "date from"
-msgstr ""
+msgstr "ημερομηνία από"
 
 #. module: account_asset
 #: model:account.report.column,name:account_asset.assets_report_assets_date_to
 #: model:account.report.column,name:account_asset.assets_report_depre_date_to
 msgid "date to"
-msgstr ""
+msgstr "ημερομηνία έως"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "depreciable)"
-msgstr ""
+msgstr "αποσβέσιμη)"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "e.g. Laptop iBook"
-msgstr ""
+msgstr "π.χ. Laptop iBook"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "entries"
-msgstr ""
+msgstr "εγγραφές"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "entry"
-msgstr ""
+msgstr "εγγραφή"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "gain"
-msgstr ""
+msgstr "κέρδος"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "gain/loss"
-msgstr ""
+msgstr "κέρδος/ζημία"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "loss"
-msgstr ""
+msgstr "απώλεια"

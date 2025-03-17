@@ -47,12 +47,12 @@ msgstr ".&amp;nbsp;"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "01/01/2023 5:00 PM"
-msgstr ""
+msgstr "01/01/2023 17:00"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "01/01/2023 9:00 AM"
-msgstr ""
+msgstr "01/01/2023 09:00"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -62,7 +62,7 @@ msgstr "04:00"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "08:00"
-msgstr ""
+msgstr "08:00"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
@@ -82,7 +82,7 @@ msgstr "16:00"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "8 hours"
-msgstr ""
+msgstr "8 godzin"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -395,7 +395,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 msgid "<span class=\"ms-0 me-4\">Edit</span>"
-msgstr ""
+msgstr "<span class=\"ms-0 me-4\">Edytuj</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
@@ -515,7 +515,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_inherit
 msgid "<span class=\"o_stat_text\">Planning</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Planowanie</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -625,7 +625,7 @@ msgstr "Zaalokowane godziny"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Allocated Percentage"
-msgstr ""
+msgstr "Przypisana ilość procentowa"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allocated_hours
@@ -697,6 +697,8 @@ msgid ""
 "Archiving this resource will transform all of its future shifts into open "
 "shifts. Are you sure you want to continue?"
 msgstr ""
+"Zarchiwizowanie tego zasobu przekształci wszystkie przyszłe zmiany w otwarte"
+" zmiany. Czy na pewno chcesz kontynuować?"
 
 #. module: planning
 #. odoo-javascript
@@ -891,7 +893,7 @@ msgstr "Kopiuj poprzedni tydzień"
 #. module: planning
 #: model:planning.role,name:planning.planning_role_crane
 msgid "Crane"
-msgstr ""
+msgstr "Dźwig"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__create_uid
@@ -971,7 +973,7 @@ msgstr "Domyślna rola"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_search_view_inherit
 msgid "Default Roles"
-msgstr ""
+msgstr "Domyślne role"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
@@ -1085,6 +1087,9 @@ msgid ""
 "the shift. Press CTRL (or Cmd on Mac) while dragging a shift to duplicate "
 "it."
 msgstr ""
+"Przeciągnij zmianę na inny dzień, aby zmienić jej harmonogram, lub do innego"
+" wiersza, aby ponownie przypisać zmianę. Naciśnij CTRL (lub Cmd na Macu) "
+"podczas przeciągania zmiany, aby ją zduplikować."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__duration
@@ -1555,7 +1560,7 @@ msgstr "Nazwa"
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.js:0
 #, python-format
 msgid "New Shift"
-msgstr ""
+msgstr "Nowa zmiana"
 
 #. module: planning
 #. odoo-python
@@ -1630,7 +1635,7 @@ msgstr "Liczba powtórzeń"
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Open Shift"
-msgstr ""
+msgstr "Otwarta zmiana"
 
 #. module: planning
 #. odoo-javascript
@@ -1727,7 +1732,7 @@ msgstr "Raport z analizy planistycznej"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Planning Meeting"
-msgstr ""
+msgstr "Planowanie spotkania"
 
 #. module: planning
 #: model:ir.model,name:planning.model_planning_recurrency
@@ -1758,7 +1763,7 @@ msgstr "Miejsce do planowania"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_role__slot_properties_definition
 msgid "Planning Slot Properties"
-msgstr ""
+msgstr "Właściwości slotów planowania"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -1964,7 +1969,7 @@ msgstr "Zasób"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__resource_color
 msgid "Resource color"
-msgstr ""
+msgstr "Kolor zasobu"
 
 #. module: planning
 #: model:ir.model,name:planning.model_resource_resource
@@ -2212,7 +2217,7 @@ msgstr "Uruchom"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "Start & End Hours"
-msgstr ""
+msgstr "Godziny rozpoczęcia i końca"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__start_datetime
@@ -2703,6 +2708,8 @@ msgid ""
 "Your shift on {{ ctx.get('start_datetime') }} was re-assigned to {{ "
 "ctx.get('new_assignee_name', 'Marc Demo') }}"
 msgstr ""
+"Twoja zmiana z dnia {{ ctx.get('start_datetime') }} została znowu przypisana"
+" do {{ ctx.get('new_assignee_name', 'Marc Demo') }}"
 
 #. module: planning
 #. odoo-javascript
@@ -2737,7 +2744,7 @@ msgstr "np. barman"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_tree
 msgid "e.g. Cleaner"
-msgstr ""
+msgstr "np. Sprzątacz"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_form_view_inherit
@@ -2766,14 +2773,14 @@ msgstr "inne zmiany w konflikcie."
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 #, python-format
 msgid "subsequent"
-msgstr ""
+msgstr "późniejszy"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 #, python-format
 msgid "this"
-msgstr ""
+msgstr "ten"
 
 #. module: planning
 #. odoo-javascript
