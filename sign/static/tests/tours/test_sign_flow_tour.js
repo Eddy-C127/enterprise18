@@ -106,11 +106,12 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
             run: "click",
         },
         {
-            trigger: ".modal-dialog",
+            trigger:
+                ".modal-dialog .modal-body:contains(You will get the signed document by email.)",
         },
         {
-            content: "view",
-            trigger: ".modal-footer button.btn-primary, .modal-footer button.btn-secondary",
+            content: "Close modal",
+            trigger: ".modal-footer button.btn-secondary:contains(close)",
             run: "click",
         },
     ],
