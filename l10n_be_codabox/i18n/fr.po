@@ -6,16 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-24 09:46+0000\n"
-"PO-Revision-Date: 2024-06-24 09:46+0000\n"
+"POT-Creation-Date: 2025-03-18 09:38+0000\n"
+"PO-Revision-Date: 2025-03-18 09:38+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: fr_BE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: l10n_be_codabox
 #: model_terms:ir.ui.view,arch_db:l10n_be_codabox.res_config_settings_view_form
@@ -165,10 +163,10 @@ msgstr "Importer les SODAs dans"
 #: code:addons/l10n_be_codabox/const.py:0
 #, python-format
 msgid ""
-"It seems that the Accounting Firm VAT number you provided does not exist in "
+"It seems that the VAT/Company ID number you provided does not exist in "
 "CodaBox. Please check your configuration."
 msgstr ""
-"Il semblerait que le numéro de TVA de la fiduciaire n'existe pas du côté de "
+"Il semble que le numéro de TVA ou d'entreprise n'existe pas du côté de "
 "CodaBox. Veuillez vérifier votre configuration."
 
 #. module: l10n_be_codabox
@@ -176,11 +174,11 @@ msgstr ""
 #: code:addons/l10n_be_codabox/const.py:0
 #, python-format
 msgid ""
-"It seems that the company or Accounting Firm VAT number you provided is not "
-"valid. Please check your configuration."
+"It seems that the VAT/Company ID number you provided is not valid. Please "
+"check your configuration."
 msgstr ""
-"Le numéro de TVA de la société ou de la fiduciaire n'est pas valide. "
-"Veuillez vérifier votre configuration."
+"Il semble que le numéro de TVA ou d'entreprise ne soit pas valide. Veuillez "
+"vérifier votre configuration."
 
 #. module: l10n_be_codabox
 #. odoo-python
@@ -198,13 +196,13 @@ msgstr ""
 #: code:addons/l10n_be_codabox/const.py:0
 #, python-format
 msgid ""
-"It seems you have already created a connection to CodaBox with this "
-"Accounting Firm. To create a new connection, you must first revoke the old "
-"one on myCodaBox portal."
+"It seems you have already created a connection to CodaBox with this account."
+" To create a new connection, you must first revoke the old one on myCodaBox "
+"portal."
 msgstr ""
-"Il semblerait que vous ayez déjà une connexion CodaBox avec cette "
-"fiduciaire. Pour créer une nouvelle connexion, vous devez d'abord supprimer "
-"l'ancien consentement sur la plateforme myCodaBox."
+"Il semble que vous ayez déjà une connexion CodaBox avec ce compte. Pour "
+"créer une nouvelle connexion, il faut d'abord supprimer l'ancien "
+"consentement sur la plateforme myCodaBox."
 
 #. module: l10n_be_codabox
 #: model:ir.model,name:l10n_be_codabox.model_account_journal
@@ -227,10 +225,10 @@ msgstr "Journal dans lequel les SODA seront importés"
 #: code:addons/l10n_be_codabox/const.py:0
 #, python-format
 msgid ""
-"No connection exists with these Accounting Firm and Company VAT numbers. "
-"Please check your configuration."
+"No connection exists with these VAT/Company ID number(s). Please check your "
+"configuration."
 msgstr ""
-"Aucune connexion n'existe avec ces numéros de TVA Société et Fiduciaire. "
+"Aucune connexion n'existe avec ce(s) numéro(s) de TVA ou d'entreprise. "
 "Veuillez vérifier votre configuration."
 
 #. module: l10n_be_codabox
@@ -275,14 +273,6 @@ msgstr "Statut"
 
 #. module: l10n_be_codabox
 #. odoo-python
-#: code:addons/l10n_be_codabox/__init__.py:0
-#, python-format
-msgid ""
-"The CodaBox module must be installed and configured by an Accounting Firm."
-msgstr "Le module CodaBox doit être installé et configuré par une fiduciaire."
-
-#. module: l10n_be_codabox
-#. odoo-python
 #: code:addons/l10n_be_codabox/models/res_company.py:0
 #, python-format
 msgid "The company VAT number is not set."
@@ -299,8 +289,8 @@ msgstr "Le numéro de TVA de la fiduciaire n'est pas rempli."
 #. odoo-python
 #: code:addons/l10n_be_codabox/const.py:0
 #, python-format
-msgid "The provided password is not valid for this Accounting Firm."
-msgstr "Le mot de passe n'est pas valide pour cette fiduciaire."
+msgid "The provided password is not valid for this VAT/Company ID number."
+msgstr "Le mot de passe n'est pas valide pour ce numéro de TVA ou d'entreprise."
 
 #. module: l10n_be_codabox
 #. odoo-javascript

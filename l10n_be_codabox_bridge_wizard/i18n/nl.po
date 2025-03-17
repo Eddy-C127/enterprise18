@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-24 11:17+0000\n"
-"PO-Revision-Date: 2024-06-24 11:17+0000\n"
+"POT-Creation-Date: 2025-03-18 09:56+0000\n"
+"PO-Revision-Date: 2025-03-18 09:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -39,12 +39,6 @@ msgid ""
 msgstr ""
 "<i title=\"Status bijwerken\" role=\"img\" aria-label=\"Status bijwerken\" "
 "class=\"fa fa-fw fa-refresh\"/>"
-
-#. module: l10n_be_codabox_bridge_wizard
-#: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_connection_wizard__fidu_password
-#: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_validation_wizard__fidu_password
-msgid "Accounting Firm Password"
-msgstr "Wachtwoord accountantskantoor"
 
 #. module: l10n_be_codabox_bridge_wizard
 #: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_connection_wizard__fiduciary_vat
@@ -170,8 +164,8 @@ msgstr "Bevestig nieuw wachtwoord"
 
 #. module: l10n_be_codabox_bridge_wizard
 #: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.validation_wizard_view
-msgid "Confirm the Accounting Firm Password"
-msgstr "Bevestig het wachtwoord van het accountantskantoor"
+msgid "Confirm the Password"
+msgstr "Wachtwoord bevestigen"
 
 #. module: l10n_be_codabox_bridge_wizard
 #: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_validation_wizard__confirmation_url
@@ -353,6 +347,12 @@ msgid "Original CodaBox Payroll Statement.pdf"
 msgstr ""
 
 #. module: l10n_be_codabox_bridge_wizard
+#: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_connection_wizard__fidu_password
+#: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_validation_wizard__fidu_password
+msgid "Password"
+msgstr "Wachtwoord"
+
+#. module: l10n_be_codabox_bridge_wizard
 #. odoo-python
 #: code:addons/l10n_be_codabox_bridge_wizard/wizard/change_password_wizard.py:0
 #, python-format
@@ -372,10 +372,10 @@ msgstr "Geplakt Wachtwoord"
 #. module: l10n_be_codabox_bridge_wizard
 #: model:ir.model.fields,help:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_change_password_wizard__confirm_fidu_password
 msgid ""
-"Please confirm the new password you want to set for the accounting firm."
+"Please confirm the new password you want to set for the Codabox connection."
 msgstr ""
-"Bevestig het nieuwe wachtwoord dat je voor het accountantskantoor wilt "
-"instellen."
+"Bevestig het nieuwe wachtwoord dat je wilt instellen voor de CodaBox-"
+"verbinding."
 
 #. module: l10n_be_codabox_bridge_wizard
 #: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.connection_wizard_view
@@ -448,27 +448,11 @@ msgstr ""
 #. module: l10n_be_codabox_bridge_wizard
 #: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.connection_wizard_view
 msgid ""
-"The connection must be made by the Accounting Firm that has valid\n"
-"                    CodaBox Connect credentials."
-msgstr ""
-"De verbinding moet worden gemaakt door het accountantskantoor dat geldige "
-"CodaBox Connect-inloggegevens heeft."
-
-#. module: l10n_be_codabox_bridge_wizard
-#. odoo-python
-#: code:addons/l10n_be_codabox_bridge_wizard/models/res_company.py:0
-#, python-format
-msgid "The feature is restricted to Accounting Firms."
-msgstr "De functie is beperkt tot accountantskantoren."
-
-#. module: l10n_be_codabox_bridge_wizard
-#: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.connection_wizard_view
-msgid ""
-"The following VAT numbers will be used for the CodaBox connection.\n"
+"The following VAT/ID number(s) will be used for the CodaBox connection.\n"
 "                    You can edit them in the Company Settings if they are not correct."
 msgstr ""
-"De volgende btw-nummers worden gebruikt voor de CodaBox-verbinding.\n"
-"Je kan ze bewerken in de bedrijfsinstellingen als ze niet correct zijn."
+"De volgende btw- of ondernemingsnummer(s) worden gebruikt voor de CodaBox verbinding.\n"
+"                    Je kan ze aanpassen in de bedrijfsinstellingen als ze niet correct zijn."
 
 #. module: l10n_be_codabox_bridge_wizard
 #. odoo-python
@@ -480,11 +464,11 @@ msgstr "Het nieuwe wachtwoord en de bevestiging komen niet overeen."
 #. module: l10n_be_codabox_bridge_wizard
 #: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.connection_wizard_view
 msgid ""
-"This is the last connection for this Accounting Firm. Are you sure you want "
-"to revoke it ?"
+"This is the last connection for this account. Are you sure you want to "
+"revoke it ?"
 msgstr ""
-"Dit is de laatste verbinding voor dit accountantskantoor. Weet je zeker dat "
-"je deze wilt intrekken?"
+"Dit is de laatste verbinding voor dit account. Weet je zeker dat je deze "
+"wilt intrekken?"
 
 #. module: l10n_be_codabox_bridge_wizard
 #: model:ir.model.fields,help:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_change_password_wizard__current_fidu_password
@@ -505,13 +489,13 @@ msgid ""
 msgstr ""
 "Dit is het wachtwoord dat je de eerste keer van Odoo hebt ontvangen toen je "
 "verbinding maakte met CodaBox. Gelieve de documentatie te controleren als je"
-" je wachtwoord vergeten hebt.
+" je wachtwoord vergeten hebt"
 
 #. module: l10n_be_codabox_bridge_wizard
 #: model:ir.model.fields,help:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_change_password_wizard__new_fidu_password
-msgid "This is the password you want to set for the accounting firm."
+msgid "This is the password you want to set for the Codabox connection."
 msgstr ""
-"Dit is het wachtwoord dat je voor het accountantskantoor wilt instellen."
+"Dit is het wachtwoord dat je wilt instellen voor de CodaBox-verbinding."
 
 #. module: l10n_be_codabox_bridge_wizard
 #: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.validation_wizard_view

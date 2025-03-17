@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-24 11:17+0000\n"
-"PO-Revision-Date: 2024-06-24 11:17+0000\n"
+"POT-Creation-Date: 2025-03-18 09:31+0000\n"
+"PO-Revision-Date: 2025-03-18 09:31+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,12 +31,6 @@ msgstr ""
 msgid ""
 "<i title=\"Update status\" role=\"img\" aria-label=\"Update status\" "
 "class=\"fa fa-fw fa-refresh\"/>"
-msgstr ""
-
-#. module: l10n_be_codabox_bridge_wizard
-#: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_connection_wizard__fidu_password
-#: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_validation_wizard__fidu_password
-msgid "Accounting Firm Password"
 msgstr ""
 
 #. module: l10n_be_codabox_bridge_wizard
@@ -163,7 +157,7 @@ msgstr ""
 
 #. module: l10n_be_codabox_bridge_wizard
 #: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.validation_wizard_view
-msgid "Confirm the Accounting Firm Password"
+msgid "Confirm the Password"
 msgstr ""
 
 #. module: l10n_be_codabox_bridge_wizard
@@ -340,6 +334,12 @@ msgid "Original CodaBox Payroll Statement.pdf"
 msgstr ""
 
 #. module: l10n_be_codabox_bridge_wizard
+#: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_connection_wizard__fidu_password
+#: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_validation_wizard__fidu_password
+msgid "Password"
+msgstr ""
+
+#. module: l10n_be_codabox_bridge_wizard
 #. odoo-python
 #: code:addons/l10n_be_codabox_bridge_wizard/wizard/change_password_wizard.py:0
 #, python-format
@@ -359,7 +359,7 @@ msgstr ""
 #. module: l10n_be_codabox_bridge_wizard
 #: model:ir.model.fields,help:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_change_password_wizard__confirm_fidu_password
 msgid ""
-"Please confirm the new password you want to set for the accounting firm."
+"Please confirm the new password you want to set for the Codabox connection."
 msgstr ""
 
 #. module: l10n_be_codabox_bridge_wizard
@@ -425,21 +425,7 @@ msgstr ""
 #. module: l10n_be_codabox_bridge_wizard
 #: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.connection_wizard_view
 msgid ""
-"The connection must be made by the Accounting Firm that has valid\n"
-"                    CodaBox Connect credentials."
-msgstr ""
-
-#. module: l10n_be_codabox_bridge_wizard
-#. odoo-python
-#: code:addons/l10n_be_codabox_bridge_wizard/models/res_company.py:0
-#, python-format
-msgid "The feature is restricted to Accounting Firms."
-msgstr ""
-
-#. module: l10n_be_codabox_bridge_wizard
-#: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.connection_wizard_view
-msgid ""
-"The following VAT numbers will be used for the CodaBox connection.\n"
+"The following VAT/ID number(s) will be used for the CodaBox connection.\n"
 "                    You can edit them in the Company Settings if they are not correct."
 msgstr ""
 
@@ -453,8 +439,8 @@ msgstr ""
 #. module: l10n_be_codabox_bridge_wizard
 #: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.connection_wizard_view
 msgid ""
-"This is the last connection for this Accounting Firm. Are you sure you want "
-"to revoke it ?"
+"This is the last connection for this account. Are you sure you want to "
+"revoke it ?"
 msgstr ""
 
 #. module: l10n_be_codabox_bridge_wizard
@@ -475,7 +461,7 @@ msgstr ""
 
 #. module: l10n_be_codabox_bridge_wizard
 #: model:ir.model.fields,help:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_change_password_wizard__new_fidu_password
-msgid "This is the password you want to set for the accounting firm."
+msgid "This is the password you want to set for the Codabox connection."
 msgstr ""
 
 #. module: l10n_be_codabox_bridge_wizard

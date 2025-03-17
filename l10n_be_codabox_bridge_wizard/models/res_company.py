@@ -53,8 +53,6 @@ class ResCompany(models.Model):
         self.ensure_one()
         if not self.vat and not self.company_registry:
             raise UserError(_("The company VAT number or ID is not set."))
-        if not self.l10n_be_codabox_fiduciary_vat:
-            raise UserError(_("The feature is restricted to Accounting Firms."))
 
     @api.depends("l10n_be_codabox_iap_token")
     def _compute_l10n_be_codabox_is_connected(self):
