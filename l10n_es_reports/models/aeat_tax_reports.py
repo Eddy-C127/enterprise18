@@ -923,8 +923,10 @@ class SpanishMod347TaxReportCustomHandler(models.AbstractModel):
             FROM {tables}
             JOIN {ct_query} ON currency_table.company_id = account_move_line.company_id
             WHERE {where_clause}
+            AND account_move_line.partner_id IS NOT NULL
             GROUP BY account_move_line.partner_id
             HAVING SUM(currency_table.rate * account_move_line.balance * (CASE WHEN account_move_line__move_id.move_type IN ('in_invoice', 'in_refund', 'in_receipt') THEN -1 ELSE 1 END)) <= %s
+
         """
 
         # Then, add a forced domain because it could be too long later when ast.literal_eval will be applied on it
