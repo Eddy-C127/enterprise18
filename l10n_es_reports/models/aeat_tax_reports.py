@@ -925,6 +925,7 @@ class SpanishMod347TaxReportCustomHandler(models.AbstractModel):
             FROM %(table_references)s
             %(currency_table_join)s
             WHERE %(search_condition)s
+            AND account_move_line.partner_id IS NOT NULL
             GROUP BY account_move_line.partner_id
             HAVING SUM(%(balance_select)s * (CASE WHEN account_move_line__move_id.move_type IN ('in_invoice', 'in_refund', 'in_receipt') THEN -1 ELSE 1 END)) <= %(threshold_value)s
         """
