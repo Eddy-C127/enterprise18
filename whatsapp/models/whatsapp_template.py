@@ -61,8 +61,8 @@ class WhatsAppTemplate(models.Model):
     active = fields.Boolean(default=True)
 
     wa_account_id = fields.Many2one(
-        comodel_name='whatsapp.account', string="Account", default=_get_default_wa_account_id,
-        ondelete="cascade")
+        comodel_name='whatsapp.account', string="Account", compute="_compute_wa_account_id",
+        ondelete="cascade", precompute=True, store=True)
     wa_template_uid = fields.Char(string="WhatsApp Template ID", copy=False)
     error_msg = fields.Char(string="Error Message")
 
@@ -313,6 +313,18 @@ class WhatsAppTemplate(models.Model):
             # if to_delete:
             #     to_delete.unlink()
             tmpl.variable_ids = [(3, to_remove.id) for to_remove in to_delete] + [(0, 0, vals) for vals in to_create_values]
+
+    def _compute_wa_account_id(self):
+        """Set default account unless the template name is already used."""
+        default_account_id = self._get_default_wa_account_id()
+        account_less_templates = self.filtered(lambda template: not template.wa_account_id)
+        existing_template_names = set(self.env['whatsapp.template'].search([
+            ('template_name', 'in', account_less_templates.mapped('template_name')),
+            ('wa_account_id', '=', default_account_id),
+        ]).mapped('template_name'))
+        for template in account_less_templates:
+            if template.template_name not in existing_template_names:
+                template.wa_account_id = default_account_id
 
     @api.depends('model_id')
     def _compute_has_action(self):
