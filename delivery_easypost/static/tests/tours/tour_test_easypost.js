@@ -39,4 +39,9 @@ registry.category("web_tour.tours").add('test_carrier_type_selection_field', { s
             }
         }
     },
+    {
+        content: "Discard the carrier type's modal",
+        trigger: ".modal-footer button:contains('Cancel')",
+        run: 'click',
+    },
 ]});
