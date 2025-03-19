@@ -72,8 +72,7 @@ patch(PaymentScreen.prototype, {
                         this.pos.fiskalyError(error, message);
                     }
                 }
-            }
-            if (this.currentOrder.isTransactionFinished()) {
+            } else if (this.currentOrder.isTransactionFinished()) {
                 await super._finalizeValidation(...arguments);
             }
         } else {
