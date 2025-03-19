@@ -107,7 +107,7 @@ msgstr "\"."
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "%(user_name)s delegated approval rights to %(delegate_to)s"
-msgstr "%(user_name)s a accordé des droits d'approbation à %(delegate_to)s"
+msgstr "%(user_name)s a accordé des droits de validation à %(delegate_to)s"
 
 #. module: web_studio
 #. odoo-python
@@ -116,7 +116,7 @@ msgid ""
 "%(user_name)s has set approval rights from %(previous_approvers)s to "
 "%(next_approvers)s"
 msgstr ""
-"%(user_name)s a transféré les droits d'approbation de %(previous_approvers)s"
+"%(user_name)s a transféré les droits de validation de %(previous_approvers)s"
 " à %(next_approvers)s"
 
 #. module: web_studio
@@ -141,7 +141,7 @@ msgstr "%s dossier(s)"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_kanban_view
 msgid "<i role=\"img\" class=\"fa fa-user-times\" title=\"Exclusive approval\"/>"
-msgstr "<i role=\"img\" class=\"fa fa-user-times\" title=\"Approbation exclusive\"/>"
+msgstr "<i role=\"img\" class=\"fa fa-user-times\" title=\"Validation exclusive\"/>"
 
 #. module: web_studio
 #. odoo-python
@@ -367,7 +367,7 @@ msgstr "Ajouter une priorité"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Add an approval step"
-msgstr "Ajouter une étape d'approbation"
+msgstr "Ajouter une étape de validation"
 
 #. module: web_studio
 #. odoo-javascript
@@ -485,7 +485,7 @@ msgstr "Permettre la visibilité aux groupes"
 #: code:addons/web_studio/models/studio_approval.py:0
 #: code:addons/web_studio/static/src/approval/approval_hook.js:0
 msgid "An approval is missing"
-msgstr "Il manque une approbation"
+msgstr "Il manque une validation"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_delegate_approvers
@@ -496,71 +496,71 @@ msgstr "Appliquer"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 msgid "Approval"
-msgstr "Approbation"
+msgstr "Validation"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_entry_search_view
 msgid "Approval Entries"
-msgstr "Entrées d'approbation"
+msgstr "Entrées de validation"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__approval_group_id
 msgid "Approval Group"
-msgstr "Groupe d'approbation"
+msgstr "Groupe de validation"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Approval Order"
-msgstr "Ordre d'approbation"
+msgstr "Ordre de validation"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__rule_id
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_request__rule_id
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_delegate__approval_rule_id
 msgid "Approval Rule"
-msgstr "Règle d'approbation"
+msgstr "Règle de validation"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_rule_approver
 msgid "Approval Rule Approvers Enriched"
-msgstr "Règle d'approbation enrichie Approbateurs"
+msgstr "Règle de validation enrichie Approbateurs"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_rule_delegate
 msgid "Approval Rule Delegate"
-msgstr "Délégué Règle d'approbation"
+msgstr "Délégué Règle de validation"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_button_configuration_search_view
 msgid "Approval Rules"
-msgstr "Règles d'approbation"
+msgstr "Règles de validation"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Approvals"
-msgstr "Approbations"
+msgstr "Validations"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Approvals %(model_name)s"
-msgstr "Approbations %(model_name)s"
+msgstr "Validations %(model_name)s"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Approvals can only be done on a method or an action, not both."
 msgstr ""
-"Les approbations ne peuvent porter que sur une méthode ou une action, et non"
-" sur les deux."
+"Les validations ne peuvent porter que sur une méthode ou une action, et non "
+"sur les deux."
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Approvals missing"
-msgstr "Approbations manquantes"
+msgstr "Validations manquantes"
 
 #. module: web_studio
 #. odoo-javascript
@@ -736,7 +736,7 @@ msgstr "Moyenne de %s"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 msgid "Awaiting approval"
-msgstr "En attente d'approbation"
+msgstr "En attente de validation"
 
 #. module: web_studio
 #. odoo-javascript
@@ -941,7 +941,7 @@ msgstr "Cliquez pour modifier les fonctions de messagerie de votre modèle."
 #. odoo-javascript
 #: code:addons/web_studio/static/src/approval/studio_approval.xml:0
 msgid "Click to see all approval rules."
-msgstr "Cliquez pour voir toutes les règles d'approbation."
+msgstr "Cliquez pour voir toutes les règles de validation."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1404,7 +1404,7 @@ msgstr ""
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__notification_order
 msgid "Defines the sequential order in which the approvals are requested."
 msgstr ""
-"Définit l'ordre séquentiel dans lequel les approbations sont demandées."
+"Définit l'ordre séquentiel dans lequel les validations sont demandées."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1722,7 +1722,7 @@ msgstr "Nom de l'erreur :"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__exclusive_user
 msgid "Exclusive Approval"
-msgstr "Approbation exclusive"
+msgstr "Validation exclusive"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1880,7 +1880,7 @@ msgid ""
 "For compatibility purpose with base_automation,approvals on 'create', "
 "'write' and 'unlink' methods are forbidden."
 msgstr ""
-"À des fins de compatibilité avec base_automation, les approbations sur les "
+"À des fins de compatibilité avec base_automation, les validations sur les "
 "méthodes 'créer', 'écrire' et 'dissocier' sont interdites."
 
 #. module: web_studio
@@ -2755,7 +2755,7 @@ msgstr "Nouvelle app"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "New Approval Entry"
-msgstr "Nouvelle entrée d'approbation"
+msgstr "Nouvelle entrée de validation"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2834,7 +2834,7 @@ msgstr "Aucune agrégation"
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "No approval found for this rule, record and user combination."
 msgstr ""
-"Aucune approbation n'a été trouvée pour cette combinaison de règle, "
+"Aucune validation n'a été trouvée pour cette combinaison de règle, "
 "enregistrement et utilisateur."
 
 #. module: web_studio
@@ -2950,7 +2950,7 @@ msgstr "Ouvrir la vue formulaire"
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Open kanban view of approvals"
-msgstr "Ouvrir la vue kanban des approbations"
+msgstr "Ouvrir la vue kanban des validations"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3392,7 +3392,7 @@ msgid ""
 " approval entries. You should archive the rule instead."
 msgstr ""
 "Les règles comportant des entrées existantes ne peuvent pas être supprimées,"
-" car cela supprimerait les entrées d'approbation existantes. Vous devriez "
+" car cela supprimerait les entrées de validation existantes. Vous devriez "
 "plutôt archiver la règle."
 
 #. module: web_studio
@@ -3403,7 +3403,7 @@ msgid ""
 " approval entries. You should archive the rule and create a new one instead."
 msgstr ""
 "Les règles comportant des entrées existantes ne peuvent pas être modifiées, "
-"car cela casserait les entrées d'approbation existantes. Vous devez archiver"
+"car cela casserait les entrées de validation existantes. Vous devez archiver"
 " la règle et en créer une nouvelle à la place."
 
 #. module: web_studio
@@ -3662,7 +3662,7 @@ msgstr "Lent"
 #: code:addons/web_studio/models/studio_approval.py:0
 #: code:addons/web_studio/static/src/approval/approval_hook.js:0
 msgid "Some approvals are missing"
-msgstr "Il manque certaines approbations"
+msgstr "Il manque certaines validations"
 
 #. module: web_studio
 #. odoo-python
@@ -3672,7 +3672,7 @@ msgid ""
 "                                    proceed with your request: "
 msgstr ""
 "Certains enregistrements ont été ignorés parce qu'il manquait des "
-"approbations pour donner suite à votre demande :"
+"validations pour donner suite à votre demande :"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3824,30 +3824,30 @@ msgstr "Créateur d'app Studio"
 #: model:ir.actions.act_window,name:web_studio.studio_approval_entry_action
 #: model:ir.ui.menu,name:web_studio.menu_studio_approval_entry
 msgid "Studio Approval Entries"
-msgstr "Entrées d'approbation Studio"
+msgstr "Entrées de validation Studio"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_entry
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_entry_form_view
 msgid "Studio Approval Entry"
-msgstr "Entrée d'approbation Studio"
+msgstr "Entrée de validation Studio"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_request
 msgid "Studio Approval Request"
-msgstr "Demande d'approbation Studio"
+msgstr "Demande de validation Studio"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_rule
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 msgid "Studio Approval Rule"
-msgstr "Règle d'approbation Studio"
+msgstr "Règle de validation Studio"
 
 #. module: web_studio
 #: model:ir.actions.act_window,name:web_studio.studio_approval_rule_action
 #: model:ir.ui.menu,name:web_studio.menu_studio_approval_rule
 msgid "Studio Approval Rules"
-msgstr "Règles d'approbation Studio"
+msgstr "Règles de validation Studio"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_ir_ui_menu__is_studio_configuration
@@ -4064,7 +4064,7 @@ msgid ""
 " requested."
 msgstr ""
 "La description de l'étape sera affichée sur le bouton pour lequel une "
-"approbation est demandée."
+"validation est demandée."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4127,7 +4127,7 @@ msgid ""
 "an activity when their approval is requested."
 msgstr ""
 "Ces utilisateurs peuvent approuver ou rejeter l'étape et se verront "
-"attribuer une activité lorsque leur approbation est demandée."
+"attribuer une activité lorsque leur validation est demandée."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4161,7 +4161,7 @@ msgid ""
 "This approval or the one you already submitted limits you to a single approval on this action.\n"
 "Another user is required to further approve this action."
 msgstr ""
-"Cette approbation ou celle que vous avez déjà soumise vous limite à une seule approbation sur cette action.\n"
+"Cette validation ou celle que vous avez déjà soumise vous limite à une seule validation sur cette action.\n"
 "Un autre utilisateur est requis pour approuver cette action."
 
 #. module: web_studio
@@ -4205,8 +4205,7 @@ msgstr "Cette règle a déjà été approuvée/rejetée."
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 msgid "This rule limits this user to a single approval for this action."
 msgstr ""
-"Cette règle limite cet utilisateur à une seule approbation pour cette "
-"action."
+"Cette règle limite cet utilisateur à une seule validation pour cette action."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4362,7 +4361,7 @@ msgstr "Vues"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/approval/studio_approval.xml:0
 msgid "Waiting for approval"
-msgstr "En attente d'approbation"
+msgstr "En attente de validation"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4500,7 +4499,7 @@ msgid ""
 "You cannot cancel an approval you didn't set yourself or you don't belong to"
 " an higher level rule's approvers."
 msgstr ""
-"Vous ne pouvez pas annuler une approbation que vous n'avez pas définie vous-"
+"Vous ne pouvez pas annuler une validation que vous n'avez pas définie vous-"
 "même ou qui ne fait pas partie des approbateurs d'une règle de niveau "
 "supérieur."
 
