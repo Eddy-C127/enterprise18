@@ -21,7 +21,7 @@ class QualityCheck(models.Model):
     def _compute_qty_line(self):
         record_without_production = self.env['quality.check']
         for qc in self:
-            if qc.production_id:
+            if qc.production_id and qc.product_id == qc.production_id.product_id:
                 qc.qty_line = qc.production_id.qty_producing
             else:
                 record_without_production |= qc

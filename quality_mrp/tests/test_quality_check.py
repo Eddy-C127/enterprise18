@@ -350,3 +350,30 @@ class TestQualityCheck(TestQualityMrpCommon):
             set(backorder_ids.finished_move_line_ids.location_dest_id.ids),
             {self.failure_location.id, backorder_ids.location_dest_id.id},
         )
+
+    def test_component_quality_check(self):
+        """Ensure that quality checks are created for components and
+        that the quantity to be tested is correctly calculated.
+        """
+        self.env['quality.point'].create({
+            'product_ids': [Command.link(self.product_3.id)],
+            'picking_type_ids': [Command.link(self.picking_type_id)],
+            'measure_on': 'move_line',
+            'test_type_id': self.env.ref('quality_control.test_type_passfail').id,
+            'testing_percentage_within_lot': 25.0,
+        })
+        production = self.env['mrp.production'].create({
+            'product_id': self.product_2.id,
+            'product_qty': 20,
+            'move_raw_ids': [(0, 0, {
+                'product_id': self.product_3.id,
+                'product_uom_qty': 10,
+            })],
+        })
+        production.action_confirm()
+        self.assertEqual(production.state, 'confirmed')
+        self.assertEqual(len(production.check_ids), 1)
+        self.assertEqual(production.check_ids.qty_line, 10)
+        self.assertEqual(production.check_ids.qty_to_test, 2.5)
+        production.check_ids.do_pass()
+        self.assertEqual(production.check_ids.quality_state, 'pass')
