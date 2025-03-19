@@ -1,5 +1,5 @@
-import { describe, destroy, expect, test } from "@odoo/hoot";
-import { animationFrame, click, runAllTimers } from "@odoo/hoot-dom";
+import { describe, expect, test } from "@odoo/hoot";
+import { animationFrame, click } from "@odoo/hoot-dom";
 
 import { mockDate } from "@odoo/hoot-mock";
 import { onRpc, selectGroup } from "@web/../tests/web_test_helpers";
@@ -17,6 +17,39 @@ import { CalendarEvent, defineAppointmentModels } from "./appointment_tests_comm
 describe.current.tags("desktop");
 
 defineAppointmentModels();
+
+/**
+ * @param {string} status
+ */
+async function mountGanttViewWithStatus(status) {
+    mockDate("2022-01-12 11:10:00", 0);
+
+    Object.assign(CalendarEvent._records[0], {
+        appointment_status: status,
+        appointment_type_id: 1,
+        start: "2022-01-12 10:00:00", // Late
+        stop: "2022-01-12 10:30:00",
+    });
+    Object.assign(CalendarEvent._records[1], {
+        appointment_status: status,
+        appointment_type_id: 1,
+        start: "2022-01-12 11:00:00", // Current
+        stop: "2022-01-12 11:30:00",
+    });
+    Object.assign(CalendarEvent._records[2], {
+        appointment_status: status,
+        appointment_type_id: 1,
+        start: "2022-01-12 12:00:00", // Future
+        stop: "2022-01-12 12:30:00",
+        partner_ids: [100, 214],
+    });
+
+    await mountGanttView({
+        resModel: "calendar.event",
+        viewId: 1,
+    });
+    await selectRange("Today");
+}
 
 function testGroupPillColorsCheckColors() {
     const almostPastEventPill = getPill("Event 1", { nth: 1 });
@@ -37,6 +70,14 @@ function testGroupPillColorsCheckColors() {
     expect(futureEventPill).toHaveClass("o_gantt_color_4");
     expect(pastEventPill).toHaveClass("o_gantt_color_2");
 }
+
+const STATUS_CLASSNAMES = {
+    red: "o_gantt_color_1",
+    orange: "o_gantt_color_2",
+    lightBlue: "o_gantt_color_4",
+    blue: "o_gantt_color_8",
+    green: "o_gantt_color_10",
+};
 
 // minimalist version of the appointment gantt view
 CalendarEvent._views["gantt,1"] = /* xml */ `
@@ -211,54 +252,50 @@ test("group pill colors", async () => {
     testGroupPillColorsCheckColors();
 });
 
-test("appointment status pill colors", async () => {
-    mockDate("2022-01-12 11:10:00", 0);
-    const statusExpectedColors = [
-        ["request", 2, 2, 8], // orange if late, blue if not (has info-decoration)
-        ["booked", 2, 2, 4], // orange if late, light blue if not
-        ["attended", 10, 10, 10], // green
-        ["no_show", 1, 1, 1], // red
-    ];
-    Object.assign(CalendarEvent._records[0], {
-        appointment_type_id: 1,
-        start: "2022-01-12 10:00:00", // Late
-        stop: "2022-01-12 10:30:00",
-    });
-    Object.assign(CalendarEvent._records[1], {
-        appointment_type_id: 1,
-        start: "2022-01-12 11:00:00", // Current
-        stop: "2022-01-12 11:30:00",
-    });
-    Object.assign(CalendarEvent._records[2], {
-        appointment_type_id: 1,
-        start: "2022-01-12 12:00:00", // Future
-        stop: "2022-01-12 12:30:00",
-        partner_ids: [100, 214],
-    });
-    for (const [status, late, current, future] of statusExpectedColors) {
-        CalendarEvent._records[0]["appointment_status"] = status;
-        CalendarEvent._records[1]["appointment_status"] = status;
-        CalendarEvent._records[2]["appointment_status"] = status;
-        const ganttView = await mountGanttView({
-            resModel: "calendar.event",
-            viewId: 1,
-        });
-        await selectRange("Today");
-        const latePill = getPill("Event 1", { nth: 1 });
-        const currentPill = getPill("Event 2", { nth: 1 });
-        const futurePill = getPill("Event 3", { nth: 1 });
-        const otherPills = [
-            getPill("Event 1", { nth: 2 }),
-            getPill("Event 2", { nth: 2 }),
-            getPill("Event 3", { nth: 2 }),
-        ];
-        for (const pill of otherPills) {
-            expect(pill).toHaveClass("o_appointment_booking_gantt_color_grey");
-        }
-        expect(latePill).toHaveClass(`o_gantt_color_${late}`);
-        expect(currentPill).toHaveClass(`o_gantt_color_${current}`);
-        expect(futurePill).toHaveClass(`o_gantt_color_${future}`);
-        destroy(ganttView);
-        await runAllTimers();
-    }
+test("appointment status pill colors: request", async () => {
+    await mountGanttViewWithStatus("request");
+
+    expect(getPill("Event 1", { nth: 1 })).toHaveClass(STATUS_CLASSNAMES.orange);
+    expect(getPill("Event 2", { nth: 1 })).toHaveClass(STATUS_CLASSNAMES.orange);
+    expect(getPill("Event 3", { nth: 1 })).toHaveClass(STATUS_CLASSNAMES.blue);
+
+    expect(getPill("Event 1", { nth: 2 })).toHaveClass("o_appointment_booking_gantt_color_grey");
+    expect(getPill("Event 2", { nth: 2 })).toHaveClass("o_appointment_booking_gantt_color_grey");
+    expect(getPill("Event 3", { nth: 2 })).toHaveClass("o_appointment_booking_gantt_color_grey");
+});
+
+test("appointment status pill colors: booked", async () => {
+    await mountGanttViewWithStatus("booked");
+
+    expect(getPill("Event 1", { nth: 1 })).toHaveClass(STATUS_CLASSNAMES.orange);
+    expect(getPill("Event 2", { nth: 1 })).toHaveClass(STATUS_CLASSNAMES.lightBlue);
+    expect(getPill("Event 3", { nth: 1 })).toHaveClass(STATUS_CLASSNAMES.lightBlue);
+
+    expect(getPill("Event 1", { nth: 2 })).toHaveClass("o_appointment_booking_gantt_color_grey");
+    expect(getPill("Event 2", { nth: 2 })).toHaveClass("o_appointment_booking_gantt_color_grey");
+    expect(getPill("Event 3", { nth: 2 })).toHaveClass("o_appointment_booking_gantt_color_grey");
+});
+
+test("appointment status pill colors: attended", async () => {
+    await mountGanttViewWithStatus("attended");
+
+    expect(getPill("Event 1", { nth: 1 })).toHaveClass(STATUS_CLASSNAMES.green);
+    expect(getPill("Event 2", { nth: 1 })).toHaveClass(STATUS_CLASSNAMES.green);
+    expect(getPill("Event 3", { nth: 1 })).toHaveClass(STATUS_CLASSNAMES.green);
+
+    expect(getPill("Event 1", { nth: 2 })).toHaveClass("o_appointment_booking_gantt_color_grey");
+    expect(getPill("Event 2", { nth: 2 })).toHaveClass("o_appointment_booking_gantt_color_grey");
+    expect(getPill("Event 3", { nth: 2 })).toHaveClass("o_appointment_booking_gantt_color_grey");
+});
+
+test("appointment status pill colors: no_show", async () => {
+    await mountGanttViewWithStatus("no_show");
+
+    expect(getPill("Event 1", { nth: 1 })).toHaveClass(STATUS_CLASSNAMES.red);
+    expect(getPill("Event 2", { nth: 1 })).toHaveClass(STATUS_CLASSNAMES.red);
+    expect(getPill("Event 3", { nth: 1 })).toHaveClass(STATUS_CLASSNAMES.red);
+
+    expect(getPill("Event 1", { nth: 2 })).toHaveClass("o_appointment_booking_gantt_color_grey");
+    expect(getPill("Event 2", { nth: 2 })).toHaveClass("o_appointment_booking_gantt_color_grey");
+    expect(getPill("Event 3", { nth: 2 })).toHaveClass("o_appointment_booking_gantt_color_grey");
 });
