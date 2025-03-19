@@ -24,6 +24,7 @@ export class HelpdeskTeamController extends FormController {
      * @override
      */
     async onWillSaveRecord(record) {
+        const res = await super.onWillSaveRecord(...arguments);
         const fields = [];
         for (const [fName, value] of Object.entries(record.data)) {
             if (fName in this.fieldsToObserve && value && this.fieldsToObserve[fName] !== value) {
@@ -37,6 +38,7 @@ export class HelpdeskTeamController extends FormController {
                 [fields]
             );
         }
+        return res;
     }
 
     /**
