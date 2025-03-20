@@ -8,7 +8,7 @@
                 <year t-out="year"/>
                 <month t-out="month"/>
                 <declarationType t-out="declaration_type"/>
-                <version>KMD4</version>
+                <version t-out="version"/>
                 <declarationBody>
                     <noSales t-if="sale_lines and len(sale_lines) > 0">false</noSales>
                     <noSales t-else="">true</noSales>
@@ -20,6 +20,7 @@
                     <transactions20 t-if="line_1_1" t-out="line_1_1"/>
                     <transactions9 t-if="line_2" t-out="line_2"/>
                     <transactions5 t-if="line_2_1" t-out="line_2_1"/>
+                    <transactions13 t-if="line_2_2" t-out="line_2_2"/>
                     <transactionsZeroVat t-if="line_3" t-out="line_3"/>
                     <euSupplyInclGoodsAndServicesZeroVat t-if="line_3_1" t-out="line_3_1"/>
                     <euSupplyGoodsZeroVat t-if="line_3_1_1" t-out="line_3_1_1"/>
