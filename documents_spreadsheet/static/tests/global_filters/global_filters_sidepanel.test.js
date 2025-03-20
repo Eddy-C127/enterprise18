@@ -1,6 +1,8 @@
 import {
     defineDocumentSpreadsheetModels,
     DocumentsDocument,
+    getBasicData,
+    getBasicServerData,
 } from "@documents_spreadsheet/../tests/helpers/data";
 import { createSpreadsheetFromListView } from "@documents_spreadsheet/../tests/helpers/list_helpers";
 import { createSpreadsheetFromPivotView } from "@documents_spreadsheet/../tests/helpers/pivot_helpers";
@@ -16,13 +18,7 @@ import {
     selectCell,
     setCellContent,
 } from "@spreadsheet/../tests/helpers/commands";
-import {
-    getBasicData,
-    getBasicPivotArch,
-    getBasicServerData,
-    IrModel,
-    Partner,
-} from "@spreadsheet/../tests/helpers/data";
+import { getBasicPivotArch, IrModel, Partner } from "@spreadsheet/../tests/helpers/data";
 import { assertDateDomainEqual } from "@spreadsheet/../tests/helpers/date_domain";
 import { getCellValue } from "@spreadsheet/../tests/helpers/getters";
 import {
@@ -34,14 +30,7 @@ import { insertPivotInSpreadsheet } from "@spreadsheet/../tests/helpers/pivot";
 import { toRangeData } from "@spreadsheet/../tests/helpers/zones";
 import { RELATIVE_DATE_RANGE_TYPES } from "@spreadsheet/helpers/constants";
 import * as domainHelpers from "@web/../tests/core/tree_editor/condition_tree_editor_test_helpers";
-import {
-    contains,
-    defineModels,
-    fields,
-    models,
-    onRpc,
-    serverState,
-} from "@web/../tests/web_test_helpers";
+import { contains, defineModels, fields, models, onRpc } from "@web/../tests/web_test_helpers";
 
 import { monthsOptions } from "@spreadsheet/assets_backend/constants";
 import { user } from "@web/core/user";
@@ -1584,9 +1573,6 @@ test("Can clear automatic default user with the global clear button", async func
     const uid = user.userId;
     const tagSelector = ".o_multi_record_selector .badge";
     const serverData = getBasicServerData();
-    serverData.models["res.users"].records = [
-        { id: uid, active: true, partner_id: serverState.partnerId },
-    ];
     const { model, pivotId } = await createSpreadsheetFromPivotView({ serverData });
     await addGlobalFilter(
         model,

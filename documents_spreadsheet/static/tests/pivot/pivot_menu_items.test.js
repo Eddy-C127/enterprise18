@@ -2,8 +2,12 @@ import {
     defineDocumentSpreadsheetModels,
     defineDocumentSpreadsheetTestAction,
     DocumentsDocument,
+    getBasicServerData,
 } from "@documents_spreadsheet/../tests/helpers/data";
-import { createSpreadsheetFromPivotView } from "@documents_spreadsheet/../tests/helpers/pivot_helpers";
+import {
+    createSpreadsheetFromPivotView,
+    createSpreadsheetWithPivot,
+} from "@documents_spreadsheet/../tests/helpers/pivot_helpers";
 import { createSpreadsheet } from "@documents_spreadsheet/../tests/helpers/spreadsheet_test_utils";
 import { getHighlightsFromStore } from "@documents_spreadsheet/../tests/helpers/store_helpers";
 import { beforeEach, describe, expect, getFixture, test } from "@odoo/hoot";
@@ -16,7 +20,7 @@ import {
     setCellContent,
     setGlobalFilterValue,
 } from "@spreadsheet/../tests/helpers/commands";
-import { Partner, getBasicPivotArch, getBasicServerData } from "@spreadsheet/../tests/helpers/data";
+import { Partner, getBasicPivotArch } from "@spreadsheet/../tests/helpers/data";
 import {
     getCell,
     getCellFormula,
@@ -25,7 +29,6 @@ import {
     getCorrespondingCellFormula,
 } from "@spreadsheet/../tests/helpers/getters";
 import {
-    createSpreadsheetWithPivot,
     getZoneOfInsertedDataSource,
     insertPivotInSpreadsheet,
 } from "@spreadsheet/../tests/helpers/pivot";

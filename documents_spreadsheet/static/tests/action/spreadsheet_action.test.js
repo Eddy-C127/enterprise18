@@ -1,6 +1,8 @@
 import {
     DocumentsDocument,
     defineDocumentSpreadsheetModels,
+    getBasicData,
+    getBasicServerData,
 } from "@documents_spreadsheet/../tests/helpers/data";
 import { createSpreadsheet } from "@documents_spreadsheet/../tests/helpers/spreadsheet_test_utils";
 import { describe, expect, getFixture, test } from "@odoo/hoot";
@@ -8,7 +10,6 @@ import { dblclick } from "@odoo/hoot-dom";
 import { animationFrame } from "@odoo/hoot-mock";
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { selectCell, setCellContent, setSelection } from "@spreadsheet/../tests/helpers/commands";
-import { getBasicData, getBasicServerData } from "@spreadsheet/../tests/helpers/data";
 import { getCell, getCellValue } from "@spreadsheet/../tests/helpers/getters";
 import { makeDocumentsSpreadsheetMockEnv } from "@documents_spreadsheet/../tests/helpers/model";
 import { doMenuAction } from "@spreadsheet/../tests/helpers/ui";

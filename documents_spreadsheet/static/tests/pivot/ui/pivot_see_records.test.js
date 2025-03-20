@@ -1,13 +1,14 @@
 import {
     defineDocumentSpreadsheetModels,
     DocumentsDocument,
+    getBasicData,
+    getBasicServerData,
 } from "@documents_spreadsheet/../tests/helpers/data";
 import { createSpreadsheetFromPivotView } from "@documents_spreadsheet/../tests/helpers/pivot_helpers";
 import { expect, test } from "@odoo/hoot";
 import { animationFrame } from "@odoo/hoot-mock";
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { selectCell } from "@spreadsheet/../tests/helpers/commands";
-import { getBasicData, getBasicServerData } from "@spreadsheet/../tests/helpers/data";
 import { contains } from "@web/../tests/web_test_helpers";
 const { Model } = spreadsheet;
 const { cellMenuRegistry } = spreadsheet.registries;

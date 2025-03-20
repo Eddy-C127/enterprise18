@@ -26,6 +26,7 @@ class Tags(models.Model):
         ('tag_name_unique', 'unique (name)', "Tag name already used"),
     ]
 
+    # todo: unused, remove in master
     @api.model
     def _get_tags(self, domain):
         """
