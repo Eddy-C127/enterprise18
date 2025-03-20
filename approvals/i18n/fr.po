@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Jolien De Paepe, 2023
-# Manon Rondou, 2024
 # Wil Odoo, 2024
+# Manon Rondou, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Manon Rondou, 2025\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -112,7 +112,7 @@ msgstr ""
 #. module: approvals
 #: model:mail.activity.type,name:approvals.mail_activity_data_approval
 msgid "Approval"
-msgstr "Approbation"
+msgstr "Validation"
 
 #. module: approvals
 #: model:ir.model,name:approvals.model_approval_category
@@ -146,7 +146,7 @@ msgstr "Approbateur du type de validation"
 #. module: approvals
 #: model:ir.ui.menu,name:approvals.approvals_menu_root
 msgid "Approvals"
-msgstr "Approbations"
+msgstr "Validations"
 
 #. module: approvals
 #: model:ir.actions.act_window,name:approvals.approval_category_action
@@ -554,11 +554,11 @@ msgid ""
 "        Is Required Approver: the employee's manager will be required to approve the request.\n"
 "    "
 msgstr ""
-"Comment le manager de l'employé interagit avec ce type d'approbation.\n"
+"Comment le manager de l'employé interagit avec ce type de validation.\n"
 "\n"
 "    Vide : Ne rien faire\n"
 "    Est approbateur : Le nom du supérieur apparaît dans la liste des approbateurs\n"
-"    Est approbateur requis : L'approbation du manager devient obligatoire. "
+"    Est approbateur requis : La validation du manager devient obligatoire. "
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__id
@@ -1185,8 +1185,8 @@ msgid ""
 "You cannot unlink an attachment which is linked to a validated, refused or "
 "cancelled approval request."
 msgstr ""
-"Vous ne pouvez pas dissocier une pièce jointe qui est liée à une demande "
-"d'approbation validée, refusée ou annulée."
+"Vous ne pouvez pas dissocier une pièce jointe qui est liée à une demande de "
+"validation validée, refusée ou annulée."
 
 #. module: approvals
 #. odoo-python
@@ -1209,7 +1209,7 @@ msgstr "Vous devez joindre au moins un document."
 #, python-format
 msgid "Your minimum approval exceeds the total of default approvers."
 msgstr ""
-"Votre approbation minimale dépasse le total des approbateurs par défaut"
+"Votre validation minimale dépasse le total des approbateurs par défaut"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form

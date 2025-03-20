@@ -3,7 +3,7 @@
 # 	* marketing_automation
 # 
 # Translators:
-# Josep Sànchez <papapep@gmx.com>, 2023
+# Josep Sànchez <papapep@pinatell.net>, 2023
 # eriiikgt, 2023
 # Eric Antones <eantones@users.noreply.github.com>, 2023
 # jabiri7, 2023
@@ -20,8 +20,9 @@
 # Martin Trigaux, 2023
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2023
 # Josep Anton Belchi, 2023
-# Quim - eccit <quim@eccit.com>, 2023
+# Quim - coopdevs <quim.rebull@coopdevs.org>, 2023
 # marcescu, 2023
+# Noemi Pla, 2025
 # 
 msgid ""
 msgstr ""
@@ -29,7 +30,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: marcescu, 2023\n"
+"Last-Translator: Noemi Pla, 2025\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -154,6 +155,10 @@ msgid ""
 "title=\"Add Another Activity\" role=\"img\" aria-label=\"Add Another "
 "Activity\"/>"
 msgstr ""
+"<i data-trigger-type=\"activity\" class=\"fa fa-code-fork fa-rotate-180 fa-"
+"flip-vertical o_ma_text_processed o_add_child_activity text-success\" "
+"title=\"Add Another Activity\" role=\"img\" aria-label=\"Add Another "
+"Activity\"/>"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
@@ -175,6 +180,12 @@ msgid ""
 "                                                            <i class=\"fa fa-filter\"/>\n"
 "                                                        </span>"
 msgstr ""
+"<span role=\"img\" title=\"Graph\" aria-label=\"Graph\" class=\"o_ma_activity_tab active\" data-tab-type=\"graph\">\n"
+"                                                            <i class=\"fa fa-pie-chart\"/>\n"
+"                                                        </span>\n"
+"                                                        <span title=\"Filter\" role=\"img\" aria-label=\"Filter\" class=\"o_ma_activity_tab\" data-tab-type=\"filter\">\n"
+"                                                            <i class=\"fa fa-filter\"/>\n"
+"                                                        </span>"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_kanban
@@ -1939,4 +1950,4 @@ msgstr "per a generar un participant de proves"
 #: code:addons/marketing_automation/static/src/xml/marketing_automation_templates.xml:0
 #, python-format
 msgid "{{template_info.title}}"
-msgstr ""
+msgstr "{{template_info.title}}"
