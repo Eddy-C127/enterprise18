@@ -113,7 +113,7 @@ class Payslip(models.Model):
         if self.env.context.get('salary_simulation'):
             for payslip in self:
                 payslip.meal_voucher_count = 20
-                payslip.private_car_missing_days = 0
+                payslip.private_car_missing_days = 20
                 payslip.representation_fees_missing_days = 0
         else:
             all_benefits = self.env['hr.work.entry.type'].get_work_entry_type_benefits()
