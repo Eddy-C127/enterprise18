@@ -773,12 +773,12 @@ msgid ""
 "Refresh Token is used to request a new Access Token and expires in 30 days. "
 "Once expired, the user must re-authorize the connection on Shopee Account "
 "view."
-msgstr ""
+msgstr "刷新令牌用于申请新的访问令牌，有效期为30天。过期后，用户必须在 Shopee 账户视图中重新授权连接。"
 
 #. module: sale_shopee
 #: model_terms:ir.actions.act_window,help:sale_shopee.action_shopee_account_list
 msgid "Register your Shopee account"
-msgstr ""
+msgstr "注册您的 Shopee 账户"
 
 #. module: sale_shopee
 #: model_terms:ir.actions.act_window,help:sale_shopee.action_shopee_account_list
@@ -790,7 +790,7 @@ msgstr "注册你的，开始将你的订单同步到Odoo。"
 msgid ""
 "Remaining days of the shop authorization. Show a warning in the Shopee Shop "
 "view that the authorization will expire soon."
-msgstr ""
+msgstr "店铺授权的剩余天数。在 Shopee 商店视图中显示授权即将到期的警告。"
 
 #. module: sale_shopee
 #. odoo-python
@@ -806,33 +806,33 @@ msgstr "销售订单"
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.quick_create_account_form
 msgid "Save And Authorize"
-msgstr ""
+msgstr "保存和授权"
 
 #. module: sale_shopee
 #: model:ir.model.fields.selection,name:sale_shopee.selection__sale_order__shopee_delivery_status__confirmed
 msgid "Shipment Arranged"
-msgstr ""
+msgstr "已安排发货"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.picking_view_form
 msgid "Shipment arranged via Shopee"
-msgstr ""
+msgstr "已在 Shopee 安排发货"
 
 #. module: sale_shopee
 #: model:ir.model.fields.selection,name:sale_shopee.selection__sale_order__shopee_delivery_status__done
 msgid "Shipped"
-msgstr ""
+msgstr "已发货"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.picking_view_form
 msgid "Shipped via Shopee"
-msgstr ""
+msgstr "已通过 Shopee 发货"
 
 #. module: sale_shopee
 #. odoo-python
 #: code:addons/sale_shopee/models/stock_picking.py:0
 msgid "Shipping Label Not Ready"
-msgstr ""
+msgstr "运输标签未准备好"
 
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_shopee_item__shop_id
@@ -843,22 +843,22 @@ msgstr "商店"
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_shopee_account__shop_count
 msgid "Shop Count"
-msgstr ""
+msgstr "商店数目"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_shop_view_form
 msgid "Shop Information"
-msgstr ""
+msgstr "商店信息"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_shop_view_form
 msgid "Shop Name"
-msgstr ""
+msgstr "商店名称"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_shop_view_form
 msgid "Shop Settings"
-msgstr ""
+msgstr "商店设置"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_shop_view_form
@@ -1282,12 +1282,12 @@ msgstr "用户自定义的账户名称。"
 msgid ""
 "There can only exist one sale order for a given Shopee Order Reference per "
 "Shop."
-msgstr ""
+msgstr "每个店铺的特定 Shopee 订单编号只能有一个销售订单。"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_shop_view_form
 msgid "Tokens"
-msgstr ""
+msgstr "令牌"
 
 #. module: sale_shopee
 #: model:ir.model,name:sale_shopee.model_stock_picking
@@ -1298,12 +1298,12 @@ msgstr "转账"
 #. odoo-python
 #: code:addons/sale_shopee/models/shopee_shop.py:0
 msgid "Unknown Promotion Type"
-msgstr ""
+msgstr "位置促销类型"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_shop_view_form
 msgid "Update Shop"
-msgstr ""
+msgstr "更新商店"
 
 #. module: sale_shopee
 #. odoo-python
@@ -1317,13 +1317,13 @@ msgid ""
 "Whether the available quantities of products linked to this shop are  "
 "synchronized with Shopee. Only products available in FBM or hybrid will be "
 "synchronized."
-msgstr ""
+msgstr "链接到该店铺的产品可用数量是否与 Shopee 同步。只有 FBM 商家发货或混合模式发货才会同步。"
 
 #. module: sale_shopee
 #. odoo-python
 #: code:addons/sale_shopee/controllers/onboarding.py:0
 msgid "You are not allowed to access this page."
-msgstr ""
+msgstr "您没有权限访问此页面。"
 
 #. module: sale_shopee
 #. odoo-python
@@ -1338,6 +1338,8 @@ msgid ""
 "[%(sku)s] %(product_title)s\n"
 "Promotion: %(promotion_type)s - id: %(promotion_id)d"
 msgstr ""
+"[%(sku)s] %(product_title)s\n"
+"推广促销优惠：%(promotion_type)s，识别码：%(promotion_id)d"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_account_view_form
@@ -1347,4 +1349,4 @@ msgstr "例如：美国市场"
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_shop_view_form
 msgid "e.g. Indonesian Shop"
-msgstr ""
+msgstr "例：印尼商店"

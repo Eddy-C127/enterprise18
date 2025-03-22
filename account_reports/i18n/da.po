@@ -12,21 +12,21 @@
 # Kjeld Borch Egevang <kjeld@mail4us.dk>, 2024
 # Kenneth Hansen <kenneth@vkdata.dk>, 2024
 # lhmflexerp <lhm@flexerp.dk>, 2024
-# Sanne Kristensen <sanne@vkdata.dk>, 2024
 # Martin Trigaux, 2024
 # Mads Søndergaard, 2024
 # Mads Søndergaard, 2025
 # Wil Odoo, 2025
 # Sammi Iversen <sammi@vkdata.dk>, 2025
 # Ejner Sønniksen <ejner@vkdata.dk>, 2025
+# Sanne Kristensen <sanne@vkdata.dk>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-25 10:04+0000\n"
+"POT-Creation-Date: 2025-03-13 11:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ejner Sønniksen <ejner@vkdata.dk>, 2025\n"
+"Last-Translator: Sanne Kristensen <sanne@vkdata.dk>, 2025\n"
 "Language-Team: Danish (https://app.transifex.com/odoo/teams/41243/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -366,8 +366,6 @@ msgid "Accounts"
 msgstr "Konti"
 
 #. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Accounts Coverage Report"
 msgstr ""
@@ -680,8 +678,8 @@ msgstr "B: %s"
 #: model:account.report.column,name:account_reports.balance_sheet_balance
 #: model:account.report.column,name:account_reports.cash_flow_report_balance
 #: model:account.report.column,name:account_reports.customer_statement_report_balance
-#: model:account.report.column,name:account_reports.followup_report_report_balance
 #: model:account.report.column,name:account_reports.executive_summary_column
+#: model:account.report.column,name:account_reports.followup_report_report_balance
 #: model:account.report.column,name:account_reports.general_ledger_report_balance
 #: model:account.report.column,name:account_reports.journal_report_balance
 #: model:account.report.column,name:account_reports.partner_ledger_report_balance
@@ -1211,6 +1209,12 @@ msgstr "Valuta"
 
 #. module: account_reports
 #. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+msgid "Currency Code"
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 msgid "Currency Rates (%s)"
 msgstr "Valuta Rater (%s)"
@@ -1506,12 +1510,6 @@ msgstr "Kladde"
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_journal_report_taxes_summary
 msgid "Due"
 msgstr "Forfalder"
-
-#. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_followup_report.py:0
-msgid "Overdue"
-msgstr "Forfalden"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2777,6 +2775,12 @@ msgstr ""
 
 #. module: account_reports
 #. odoo-python
+#: code:addons/account_reports/models/account_followup_report.py:0
+msgid "Overdue"
+msgstr "Forfalden"
+
+#. module: account_reports
+#. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "PDF"
 msgstr "PDF"
@@ -3077,7 +3081,7 @@ msgstr "Forrige års ikke allokerede indtjeninger"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
 msgid "Print & Send"
-msgstr ""
+msgstr "Print & send"
 
 #. module: account_reports
 #. odoo-python

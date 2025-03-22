@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Marta Wacławek, 2024
+# Marta Wacławek, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Marta Wacławek, 2024\n"
+"Last-Translator: Marta Wacławek, 2025\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,6 +36,8 @@ msgid ""
 "<i class=\"fa fa-life-ring fa-fw\"/>\n"
 "                    Create Ticket"
 msgstr ""
+"<i class=\"fa fa-life-ring fa-fw\"/>\n"
+"                    Utwórz zgłoszenie"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.question_dropdown
@@ -43,6 +45,8 @@ msgid ""
 "<i class=\"fa fa-life-ring fa-fw\"/>\n"
 "                    View Ticket"
 msgstr ""
+"<i class=\"fa fa-life-ring fa-fw\"/>\n"
+"                    Zobacz zgłoszenie"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.forum_forum_view_form_inherited
@@ -62,7 +66,7 @@ msgstr "Odpowiedzi"
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.knowledge_base_forum_card
 msgid "Ask questions and discuss tips with fellow members in a forum"
-msgstr ""
+msgstr "Zadawaj pytania i omawiaj porady z innymi członkami na forum"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.footer
@@ -72,7 +76,7 @@ msgstr "Zapytaj społeczność"
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.knowledge_base_forum_card
 msgid "Ask the community"
-msgstr ""
+msgstr "Zapytaj społeczność"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.knowledge_base_forum_card
@@ -83,7 +87,7 @@ msgstr "Społeczność"
 #. odoo-javascript
 #: code:addons/website_helpdesk_forum/static/src/components/create_ticket_dialog/create_ticket_dialog.xml:0
 msgid "Create & View Ticket"
-msgstr ""
+msgstr "Utwórz i wyświetl zgłoszenie"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.helpdesk_ticket_select_forum_wizard_view_form
@@ -119,6 +123,10 @@ msgid ""
 "Alternatively, you can make forums private to restrict this feature to "
 "internal users."
 msgstr ""
+"Klienci zobaczą tylko posty z wybranych forów w centrum pomocy. Jeśli "
+"chcesz, aby wszystkie fora były dostępne, pozostaw to pole puste. "
+"Alternatywnie, możesz ustawić fora jako prywatne, aby ograniczyć tę funkcję "
+"do użytkowników wewnętrznych."
 
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_ticket_select_forum_wizard__description
@@ -140,7 +148,7 @@ msgstr "Nazwa wyświetlana"
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_forum_forum__filter_for_helpdesk_wizard
 msgid "Filter For Helpdesk Wizard"
-msgstr ""
+msgstr "Filtr dla kreatora helpdesk"
 
 #. module: website_helpdesk_forum
 #: model:ir.model,name:website_helpdesk_forum.model_forum_forum
@@ -157,7 +165,7 @@ msgstr "Post na forum"
 #. odoo-python
 #: code:addons/website_helpdesk_forum/wizards/helpdesk_ticket_select_forum.py:0
 msgid "Forum Post Created"
-msgstr ""
+msgstr "Utworzono post na foru"
 
 #. module: website_helpdesk_forum
 #. odoo-python
@@ -175,7 +183,7 @@ msgstr "Fora"
 #. odoo-python
 #: code:addons/website_helpdesk_forum/models/helpdesk.py:0
 msgid "Help Center is not active for this team."
-msgstr ""
+msgstr "Centrum pomocy nie jest aktywne dla tego zespołu."
 
 #. module: website_helpdesk_forum
 #. odoo-javascript
@@ -188,7 +196,7 @@ msgstr "Zespół punktu pomocy"
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_forum_forum__helpdesk_team_count
 msgid "Helpdesk Team Count"
-msgstr ""
+msgstr "Liczba zespołów Helpdesku"
 
 #. module: website_helpdesk_forum
 #. odoo-python
@@ -206,6 +214,7 @@ msgstr "Zgłoszenia Punktu Pomocy"
 #: code:addons/website_helpdesk_forum/static/src/components/create_ticket_dialog/create_ticket_dialog.js:0
 msgid "Helpdesk ticket %s has been successfully created for this forum post."
 msgstr ""
+"Zgłoszenie Helpdesku %s zostało pomyślnie utworzone dla tego postu na forum."
 
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_ticket_select_forum_wizard__id
@@ -231,7 +240,7 @@ msgstr "Najczęściej głosowane"
 #. odoo-javascript
 #: code:addons/website_helpdesk_forum/static/src/components/create_ticket_dialog/create_ticket_dialog.xml:0
 msgid "Please fill out this field."
-msgstr ""
+msgstr "Wypełnij to pole."
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.knowledge_base_forum_card
@@ -264,19 +273,20 @@ msgstr "Tagi"
 #. odoo-python
 #: code:addons/website_helpdesk_forum/models/helpdesk.py:0
 msgid "There are no posts associated with this ticket."
-msgstr ""
+msgstr "Nie ma postów związanych z tym zgłoszeniem."
 
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,help:website_helpdesk_forum.field_helpdesk_team__top_forum_posts
 msgid ""
 "These are the top posts in the forums associated with this helpdesk team"
 msgstr ""
+"To są najwyżej oceniane posty z forów powiązanych z tym zespołem helpdesk"
 
 #. module: website_helpdesk_forum
 #. odoo-python
 #: code:addons/website_helpdesk_forum/models/forum_forum.py:0
 msgid "Ticket created from forum post"
-msgstr ""
+msgstr "Zgłoszenie utworzone z posta na forum"
 
 #. module: website_helpdesk_forum
 #. odoo-javascript
@@ -288,7 +298,7 @@ msgstr "Tytuł"
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_team__top_forum_posts
 msgid "Top Posts"
-msgstr ""
+msgstr "Najlepsze posty"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.search_result
@@ -304,4 +314,4 @@ msgstr "Musisz wybrać forum, na którym chcesz udostępnić zgłoszenie"
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.search_result
 msgid "• 0 Answer"
-msgstr ""
+msgstr "• 0 Odpowiedzi"

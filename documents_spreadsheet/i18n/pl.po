@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Marta Wacławek, 2024
+# Marta Wacławek, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:55+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Marta Wacławek, 2024\n"
+"Last-Translator: Marta Wacławek, 2025\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,7 +52,7 @@ msgstr "Połączenie arkusza kalkulacyjnego i użytkownika już istnieje"
 #. module: documents_spreadsheet
 #: model:ir.model.constraint,message:documents_spreadsheet.constraint_documents_document_frozen_spreadsheet_access_via_link_access_internal
 msgid "A frozen spreadsheet can not be editable"
-msgstr ""
+msgstr "Zamrożona tabela nie może być edytowana"
 
 #. module: documents_spreadsheet
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.save_spreadsheet_template_view_form
@@ -103,7 +103,7 @@ msgstr "Utwórz"
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/spreadsheet_template/spreadsheet_template_dialog.js:0
 msgid "Create a Spreadsheet or select a Template"
-msgstr ""
+msgstr "Utwórz arkusz kalkulacyjny lub wybierz szablon"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_save_spreadsheet_template__create_uid
@@ -124,7 +124,7 @@ msgstr "Data utworzenia"
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_save_spreadsheet_template__current_revision_uuid
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_template__current_revision_uuid
 msgid "Current Revision Uuid"
-msgstr ""
+msgstr "Aktualne UUID rewizji"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -192,35 +192,35 @@ msgstr "Nazwa pliku"
 #: code:addons/documents_spreadsheet/static/src/bundle/actions/spreadsheet_freeze_and_share/spreadsheet_freeze_and_share.xml:0
 #: code:addons/documents_spreadsheet/static/src/documents_control_panel/documents_control_panel.xml:0
 msgid "Freeze and share"
-msgstr ""
+msgstr "Zamróź i udostępnij"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields.selection,name:documents_spreadsheet.selection__documents_document__handler__frozen_folder
 msgid "Frozen Folder"
-msgstr ""
+msgstr "Zamrożony folder"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields.selection,name:documents_spreadsheet.selection__documents_document__handler__frozen_spreadsheet
 msgid "Frozen Spreadsheet"
-msgstr ""
+msgstr "Zamrożony arkusz kalkulacyjny"
 
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_access.py:0
 msgid "Frozen Spreadsheets can not be editable."
-msgstr ""
+msgstr "Zamrożone arkusze kalkulacyjne nie mogą być edytowane."
 
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "Frozen at %(date)s: %(name)s"
-msgstr ""
+msgstr "Zamrożony %(date)s: %(name)s"
 
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "Frozen spreadsheets"
-msgstr ""
+msgstr "Zamrożone arkusze kalkulacyjne"
 
 #. module: documents_spreadsheet
 #: model:ir.model,name:documents_spreadsheet.model_ir_http
@@ -298,7 +298,7 @@ msgstr "Nowy arkusz kalkulacyjny utworzony w Dokumentach"
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 #: code:addons/documents_spreadsheet/static/src/bundle/actions/spreadsheet_action.js:0
 msgid "New spreadsheet created in My Drive"
-msgstr ""
+msgstr "Utworzono nowy arkusz kalkulacyjny na Moim Dysku"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -335,7 +335,7 @@ msgstr "Zapisz jako szablon"
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/documents_control_panel/documents_control_panel.js:0
 msgid "Select one and only one spreadsheet"
-msgstr ""
+msgstr "Wybierz jeden i tylko jeden arkusz"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -420,7 +420,7 @@ msgstr "Szablony arkuszy kalkulacyjnych"
 #. module: documents_spreadsheet
 #: model:ir.model,name:documents_spreadsheet.model_spreadsheet_cell_thread
 msgid "Spreadsheet discussion thread"
-msgstr ""
+msgstr "Wątek dyskusji arkuszy kalkulacyjnych"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_document__spreadsheet_binary_data
@@ -452,6 +452,8 @@ msgstr "Arkusze kalkulacyjne"
 #: code:addons/documents_spreadsheet/models/documents_access.py:0
 msgid "Spreadsheets can not be shared in edit mode to non-internal users."
 msgstr ""
+"Arkusze kalkulacyjne w trybie edycji nie mogą być udostępniane użytkownikom "
+"nie-wewnętrznym."
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_cell_thread__template_id
@@ -491,13 +493,13 @@ msgstr "Plik nie jest plikiem xlsx"
 #: code:addons/documents_spreadsheet/static/src/documents_permission_panel/documents_member_invite.js:0
 #: code:addons/documents_spreadsheet/static/src/documents_permission_panel/documents_partner_access.js:0
 msgid "The frozen spreadsheets are readonly."
-msgstr ""
+msgstr "Zamrożone arkusze są tylko do odczytu."
 
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "The spreadsheet you are trying to access does not exist."
-msgstr ""
+msgstr "Artykuł, do którego próbujesz uzyskać dostęp nie istnieje."
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -506,6 +508,8 @@ msgid ""
 "The spreadsheets can not be shared in edit mode with a link, change Internal"
 " to give write access."
 msgstr ""
+"Arkusze kalkulacyjne nie mogą być udostępniane w trybie edycji z linkiem, "
+"zmień Wewnętrzne, aby dać dostęp do zapisu."
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -523,6 +527,8 @@ msgstr "Plik xlsx jest zbyt duży"
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.documents_error_live_data
 msgid "This spreadsheet contains live data, only internal users can view it."
 msgstr ""
+"Ten arkusz zawiera dane produkcyjne. Tylko użytkownicy wewnętrzni mogą go "
+"przeglądać."
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_document__thumbnail
@@ -534,7 +540,7 @@ msgstr "Miniaturka"
 #. module: documents_spreadsheet
 #: model:ir.model.constraint,message:documents_spreadsheet.constraint_documents_document_spreadsheet_access_via_link
 msgid "To share a spreadsheet in edit mode, add the user in the accesses"
-msgstr ""
+msgstr "Aby udostępnić arkusz w trybie edycji, dodaj użytkownika w dostępach"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -570,19 +576,19 @@ msgstr "Przestrzeń robocza"
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "You are not allowed to freeze spreadsheets in Company"
-msgstr ""
+msgstr "Nie masz uprawnień, aby mrozić arkusze w Firmie"
 
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "You can not edit a frozen spreadsheet"
-msgstr ""
+msgstr "Nie możesz edytować zamrożonego arkusza"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/bundle/actions/spreadsheet_action.js:0
 msgid "You can not freeze a frozen spreadsheet"
-msgstr ""
+msgstr "Nie możesz zamrozić już zamrożonego arkusza"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -590,6 +596,8 @@ msgstr ""
 #: code:addons/documents_spreadsheet/static/src/documents_permission_panel/documents_partner_access.js:0
 msgid "You can not share spreadsheet in edit mode to non-internal user."
 msgstr ""
+"Nie możesz udostępnić arkusza w trybie edycji użytkownikowi nie-"
+"wewnętrznemu."
 
 #. module: documents_spreadsheet
 #. odoo-python

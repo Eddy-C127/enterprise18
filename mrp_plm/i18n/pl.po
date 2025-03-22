@@ -66,12 +66,12 @@ msgstr ""
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_plm_production_form_view
 msgid "<span class=\"o_stat_text\">ECO(S)</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">ECO(S)</span>"
 
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form
 msgid "<span class=\"o_stat_text\">Revision</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Rewizja</span>"
 
 #. module: mrp_plm
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco_type__alias_defaults
@@ -87,6 +87,7 @@ msgstr ""
 #: code:addons/mrp_plm/models/mrp_eco.py:0
 msgid "A user cannot be assigned more than once to the same stage"
 msgstr ""
+"Użytkownik nie może być przypisany więcej niż raz do tego samego etapu"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco__message_needaction
@@ -333,7 +334,7 @@ msgstr "Aktualizacje BOM"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_routing_change__upd_time_mode_batch
 msgid "Batch count Change"
-msgstr ""
+msgstr "Zmiana liczby w partii"
 
 #. module: mrp_plm
 #: model:ir.model,name:mrp_plm.model_mrp_bom
@@ -389,7 +390,7 @@ msgstr "Etap blokowania"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_bom_change__byproduct_id
 msgid "BoM By-Product"
-msgstr ""
+msgstr "Produkt uboczny BoM"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_bom_change__bom_line_id
@@ -410,7 +411,7 @@ msgstr "Rewizja BoM"
 #. odoo-python
 #: code:addons/mrp_plm/models/mrp_production.py:0
 msgid "BoM Suggestions from %(mo_name)s"
-msgstr ""
+msgstr "Sugestie BoM z %(mo_name)s"
 
 #. module: mrp_plm
 #. odoo-javascript
@@ -427,7 +428,7 @@ msgstr "BoM:"
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form
 msgid "By-Product Changes"
-msgstr ""
+msgstr "Zmiany produktów ubocznych"
 
 #. module: mrp_plm
 #: model:ir.model,name:mrp_plm.model_mrp_bom_byproduct
@@ -451,6 +452,8 @@ msgid ""
 "Cannot create an ECO if the Manufacturing Order doesn't use a Bill of "
 "Materials"
 msgstr ""
+"Nie można stworzyć ECO, jeśli Zamówienie Produkcyjne nie korzysta z "
+"Zestawienia Materiałów (BoM)."
 
 #. module: mrp_plm
 #: model:ir.ui.menu,name:mrp_plm.menu_mrp_plm_changes
@@ -508,12 +511,12 @@ msgstr "Firma"
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form
 msgid "Component Changes"
-msgstr ""
+msgstr "Zmiany komponentów"
 
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form
 msgid "Component Rebase"
-msgstr ""
+msgstr "Zmiany bazy komponentów"
 
 #. module: mrp_plm
 #: model:ir.ui.menu,name:mrp_plm.menu_mrp_plm_configuration
@@ -541,7 +544,7 @@ msgstr "Zużyte w operacji"
 #. module: mrp_plm
 #: model:ir.actions.server,name:mrp_plm.action_production_order_create_eco
 msgid "Create ECO"
-msgstr ""
+msgstr "Utwórz ECO"
 
 #. module: mrp_plm
 #: model_terms:ir.actions.act_window,help:mrp_plm.mrp_eco_stage_action
@@ -688,12 +691,12 @@ msgstr "Zmiany w ECO BoM"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco__bom_change_ids_on_byproduct
 msgid "ECO BoM Changes - By-Product"
-msgstr ""
+msgstr "Zmiany BoM ECO - Produkt uboczny"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco__bom_change_ids_on_line
 msgid "ECO BoM Changes - Component"
-msgstr ""
+msgstr "Zmiany BoM ECO - Komponent"
 
 #. module: mrp_plm
 #: model:ir.model,name:mrp_plm.model_mrp_eco_bom_change
@@ -703,7 +706,7 @@ msgstr "Zmiany w ECO BoM"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_bom_change__eco_rebase_id
 msgid "ECO Rebase"
-msgstr ""
+msgstr "Zmiana bazy ECO"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco__routing_change_ids
@@ -788,7 +791,7 @@ msgstr "Eco BoM"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_production__eco_count
 msgid "Eco Count"
-msgstr ""
+msgstr "Liczba Eco"
 
 #. module: mrp_plm
 #: model:ir.model,name:mrp_plm.model_mrp_eco_routing_change
@@ -1004,6 +1007,8 @@ msgid ""
 "If unchecked, the version of the product/BoM will remain unchanged once the "
 "ECO is applied"
 msgstr ""
+"Jeśli nie jest zaznaczone, wersja produktu/BoM zostanie niezmieniona jak "
+"tylko ECO zostanie zastosowane"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_bom__image_128
@@ -1171,7 +1176,7 @@ msgstr "Wiadomości"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_routing_change__upd_time_mode
 msgid "Mode Change"
-msgstr ""
+msgstr "Zmiana trybu"
 
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_tag_view_search
@@ -1326,12 +1331,12 @@ msgstr "Po wprowadzeniu zmian ECO zostaną przeniesione do tego etapu."
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form
 msgid "Open Component"
-msgstr ""
+msgstr "Otwórz komponent"
 
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form
 msgid "Open Operation"
-msgstr ""
+msgstr "Otwórz operację"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_routing_change__operation_name
@@ -1346,7 +1351,7 @@ msgstr "Zmiany operacyjne"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_routing_change__operation_id
 msgid "Operation Id"
-msgstr ""
+msgstr "ID operacji"
 
 #. module: mrp_plm
 #. odoo-python
@@ -1373,12 +1378,12 @@ msgstr "Pochodzenie załącznika"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_product_document__origin_res_model
 msgid "Origin Model"
-msgstr ""
+msgstr "Model pochodzenia"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_product_document__origin_res_name
 msgid "Origin Name"
-msgstr ""
+msgstr "Nazwa pochodzenia"
 
 #. module: mrp_plm
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco__legend_blocked
@@ -1478,7 +1483,7 @@ msgstr "Poprzednie Zmiany ECO"
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form
 msgid "Previous Eco Component Changes"
-msgstr ""
+msgstr "Poprzednie zmiany komponentów Eco"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_bom_change__old_uom_id
@@ -1569,7 +1574,7 @@ msgstr "Gotowe"
 #: model:ir.model.fields.selection,name:mrp_plm.selection__mrp_eco__state__rebase
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_search
 msgid "Rebase"
-msgstr ""
+msgstr "Rebase"
 
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form
@@ -1730,7 +1735,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/mrp_plm/models/mrp_eco.py:0
 msgid "Successfully Rebased!"
-msgstr ""
+msgstr "Pomyślnie zaktualizowano!"
 
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form
@@ -1882,7 +1887,7 @@ msgstr "Aktualizacja"
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco__will_update_version
 msgid "Update Version"
-msgstr ""
+msgstr "Aktualizuj wersję"
 
 #. module: mrp_plm
 #: model:res.groups,name:mrp_plm.group_plm_user

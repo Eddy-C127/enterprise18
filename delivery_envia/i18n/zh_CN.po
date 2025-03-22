@@ -632,28 +632,28 @@ msgstr ""
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__country_id
 msgid "Select the country to be used by this delivery method"
-msgstr ""
+msgstr "选择该送货方式适用的国家/地区"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_mail_type
 #: model:ir.model.fields,help:delivery_envia.field_stock_package_type__envia_mail_type
 msgid "Select the package type for the shipment"
-msgstr ""
+msgstr "选择货件的包装类型"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_label_stock_type
 msgid "Select the size of the label"
-msgstr ""
+msgstr "选择标签尺寸"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_label_file_type
 msgid "Select the printing format of the label"
-msgstr ""
+msgstr "选择标签的打印格式"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__selected_carrier_code
 msgid "Selected Carrier"
-msgstr ""
+msgstr "已选择承运商"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_envia_shipping_wizard__selected_service_code
@@ -664,12 +664,12 @@ msgstr "选定服务"
 #. odoo-javascript
 #: code:addons/delivery_envia/static/src/components/envia_service_selection_widget.xml:0
 msgid "Service:"
-msgstr ""
+msgstr "服务："
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Setup In Odoo"
-msgstr ""
+msgstr "在 Odoo 设置"
 
 #. module: delivery_envia
 #: model:ir.model.fields,field_description:delivery_envia.field_delivery_carrier__country_id
@@ -680,7 +680,7 @@ msgstr "发货地"
 #. odoo-python
 #: code:addons/delivery_envia/models/envia_request.py:0
 msgid "Shipment created into Envia"
-msgstr ""
+msgstr "已在 Envia 建立送货"
 
 #. module: delivery_envia
 #: model:ir.model,name:delivery_envia.model_delivery_carrier
@@ -697,14 +697,14 @@ msgstr "运输产品"
 msgid ""
 "Specify the Origin country that this connector will ship from. By default "
 "this is the company's country."
-msgstr ""
+msgstr "指定该连接器发货的原产国家/地区。默认情况下，这是公司所在的国家/地区。"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ""
 "Specify the currency your Envia account is configured in. By default this is"
 " the company's currency."
-msgstr ""
+msgstr "指定 Envia 账户配置的货币。默认为公司货币。"
 
 #. module: delivery_envia
 #: model:ir.model,name:delivery_envia.model_stock_package_type
@@ -714,19 +714,19 @@ msgstr "库存包裹类型"
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Sync Carriers/Services from Envia"
-msgstr ""
+msgstr "同步 Envia 的运营商/服务"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "Sync Envia Carriers"
-msgstr ""
+msgstr "同步 Envia 承运商"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_carrier_code
 msgid ""
 "The carrier on Envia.com used by this carrier. The service code belongs to "
 "it."
-msgstr ""
+msgstr "此运营商使用的 Envia.com 运营商。服务代码属于它。"
 
 #. module: delivery_envia
 #: model:ir.model.fields,help:delivery_envia.field_delivery_carrier__envia_service_code
@@ -740,7 +740,7 @@ msgstr "该运营商将使用的服务。这是在向导中选择运营商时设
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "This action requires an Envia.com carrier."
-msgstr ""
+msgstr "此操作需要 Envia.com 运营商。"
 
 #. module: delivery_envia
 #. odoo-python
@@ -752,7 +752,7 @@ msgstr "追踪号码："
 #. odoo-python
 #: code:addons/delivery_envia/models/delivery_carrier.py:0
 msgid "Unable to cancel order: %(order_number)s"
-msgstr ""
+msgstr "未能取消订单：%(order_number)s"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -766,7 +766,7 @@ msgstr "您也可以预先选择要使用的服务，我们建议您不要限制
 msgid ""
 "You should also make sure that if you export to other countries, you have to"
 " select who will pay for customs duties."
-msgstr ""
+msgstr "如果出口到其他国家/地区，还应确保选择由谁支付关税。"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
@@ -774,13 +774,13 @@ msgid ""
 "You will be able to specify a specific Envia carrier and service that you "
 "intend to use in this region. Note that each service can have different "
 "pricing and availability."
-msgstr ""
+msgstr "您可以指定您打算在该地区使用的特定 Envia 运营商和服务。请注意，每种服务的价格和可用性可能不同。"
 
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid ""
 "You will be asked to confirm your email address and phone number via SMS."
-msgstr ""
+msgstr "您将被要求通过短信确认您的电子邮件地址和电话号码。"
 
 #. module: delivery_envia
 #: model:ir.model.fields.selection,name:delivery_envia.selection__delivery_carrier__envia_label_file_type__zpl
@@ -795,4 +795,4 @@ msgstr "ZPLII"
 #. module: delivery_envia
 #: model_terms:ir.ui.view,arch_db:delivery_envia.view_delivery_carrier_form_inherit_delivery_envia
 msgid "our personalized link"
-msgstr ""
+msgstr "我们的个性化链接"

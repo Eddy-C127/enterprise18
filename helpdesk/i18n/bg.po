@@ -2944,7 +2944,7 @@ msgstr "Настройки"
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.portal_share_action
 msgid "Share Ticket"
-msgstr ""
+msgstr "Споделете тикет"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2957,7 +2957,7 @@ msgstr ""
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_use_rating
 msgid "Show Customer Ratings"
-msgstr ""
+msgstr "Показване на клиентски оценки"
 
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_use_sla
@@ -2975,12 +2975,12 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_status__sla_id
 msgid "Sla"
-msgstr ""
+msgstr "Sla"
 
 #. module: helpdesk
 #: model:helpdesk.stage,name:helpdesk.stage_solved
 msgid "Solved"
-msgstr ""
+msgstr "Разрешен"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__source_id
@@ -3020,7 +3020,7 @@ msgstr "Стадии"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage_delete_wizard__stage_ids
 msgid "Stages To Delete"
-msgstr ""
+msgstr "Етапи за изтриване"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__stage_ids
@@ -3082,7 +3082,7 @@ msgstr "Анализ на оценяването на успеха"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__sla_success
 msgid "Success SLA Policy"
-msgstr ""
+msgstr "Успешна SLA политика"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tag_view_tree
@@ -3104,7 +3104,7 @@ msgstr "Маркери"
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_tag_action
 msgid "Tags are perfect for organizing your tickets."
-msgstr ""
+msgstr "Етикетите са идеални за организиране на тикети."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
@@ -3114,7 +3114,7 @@ msgstr "Цел"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__stage_id
 msgid "Target Stage"
-msgstr ""
+msgstr "Целеви етап"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.rating_rating_view_form_inherit_helpdesk
@@ -3160,7 +3160,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/helpdesk/controllers/portal.py:0
 msgid "The team does not allow ticket closing through portal"
-msgstr ""
+msgstr "Екипът не позволява затваряне на билети през портала."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla__exclude_stage_ids
@@ -3168,6 +3168,8 @@ msgid ""
 "The time spent in these stages won't be taken into account in the "
 "calculation of the SLA."
 msgstr ""
+"Времето, отделено за тези етапи, няма да бъде взето предвид при "
+"изчисляването на SLA."
 
 #. module: helpdesk
 #. odoo-python
@@ -3176,6 +3178,9 @@ msgid ""
 "The visibility of the team needs to be set as \"Invited portal users and all"
 " internal users\" in order to use the website form."
 msgstr ""
+"За да използвате формата на уебсайта, видимостта на екипа трябва да бъде "
+"зададена като „Поканени потребители в портала и всички вътрешни "
+"потребители“."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_helpdesk_ticket
@@ -3193,6 +3198,8 @@ msgid ""
 "This SLA Policy will apply to tickets matching ALL of the following "
 "criteria:"
 msgstr ""
+"Тази политика за SLA ще се прилага за тикети, отговарящи на ВСИЧКИ от "
+"следните критерии:"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__campaign_id
@@ -3223,13 +3230,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/helpdesk/models/helpdesk_ticket.py:0
 msgid "This ticket was closed %s hours after its SLA deadline."
-msgstr ""
+msgstr "Този тикет е затворен %s часа след крайния срок на SLA."
 
 #. module: helpdesk
 #. odoo-python
 #: code:addons/helpdesk/models/helpdesk_ticket.py:0
 msgid "This ticket was successfully closed %s hours before its SLA deadline."
-msgstr ""
+msgstr "Този билет беше успешно затворен %sчаса преди крайния срок на SLA."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_confirmation_wizard
@@ -3237,6 +3244,8 @@ msgid ""
 "This will archive the stages and all of the tickets they contain from the "
 "following teams:"
 msgstr ""
+"Това ще архивира етапите и всички съдържащи се в тях тикети от следните "
+"екипи:"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.mail_activity_type_action_config_helpdesk
@@ -3251,7 +3260,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 msgid "Three stars, maximum score"
-msgstr ""
+msgstr "Три звезди, максимален брой точки"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__ticket_id
@@ -3279,17 +3288,17 @@ msgstr "Анализ на тикетите"
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__ticket_closed
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__ticket_closed
 msgid "Ticket Closed"
-msgstr ""
+msgstr "Затворен тикет"
 
 #. module: helpdesk
 #: model:mail.template,subject:helpdesk.solved_ticket_request_email_template
 msgid "Ticket Closed - Reference {{ object.id if object.id else 15 }}"
-msgstr ""
+msgstr "Затворен тикет - Референция {{ object.id if object.id else 15 }}"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__ticket_count
 msgid "Ticket Count"
-msgstr ""
+msgstr "Брой на тикетите"
 
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_team_ticket_new
@@ -3301,30 +3310,30 @@ msgstr "Създаден тикет"
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__create_date
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__create_date
 msgid "Ticket Creation Date"
-msgstr ""
+msgstr "Дата на създаване на тикета"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__sla_deadline
 msgid "Ticket Deadline"
-msgstr ""
+msgstr "Краен срок за тикети"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__ticket_ref
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__ticket_ref
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__ticket_ref
 msgid "Ticket IDs Sequence"
-msgstr ""
+msgstr "Последователност на идентификаторите на тикети"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__ticket_properties
 msgid "Ticket Properties"
-msgstr ""
+msgstr "Свойства на тикет"
 
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_team_ticket_rated
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_rated
 msgid "Ticket Rated"
-msgstr ""
+msgstr "Оценка на тикета"
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_helpdesk_sla_status
@@ -3334,13 +3343,13 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.quick_create_ticket_form
 msgid "Ticket Title"
-msgstr ""
+msgstr "Тикет заглавие"
 
 #. module: helpdesk
 #. odoo-python
 #: code:addons/helpdesk/controllers/portal.py:0
 msgid "Ticket closed by the customer"
-msgstr ""
+msgstr "Тикетът е затворен от клиента"
 
 #. module: helpdesk
 #: model:mail.message.subtype,description:helpdesk.mt_ticket_new
@@ -3383,12 +3392,12 @@ msgstr "Тикети"
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_report_view_cohort
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_graph_analysis
 msgid "Tickets Analysis"
-msgstr ""
+msgstr "Анализ на тикети"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_digest_digest__kpi_helpdesk_tickets_closed
 msgid "Tickets Closed"
-msgstr ""
+msgstr "Затворени тикети"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis

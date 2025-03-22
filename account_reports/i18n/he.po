@@ -16,7 +16,6 @@
 # NoaFarkash, 2024
 # Leandro Noijovich <eliel.sorcerer@gmail.com>, 2024
 # Amit Spilman <amit@laylinetech.com>, 2024
-# Hed Shefer <hed@laylinetech.com>, 2024
 # yoav sc <yoav19991@gmail.com>, 2024
 # Yihya Hugirat <hugirat@gmail.com>, 2024
 # yael terner, 2024
@@ -27,14 +26,15 @@
 # Ha Ketem <haketem@gmail.com>, 2025
 # or balmas, 2025
 # Sagi Ahiel, 2025
+# Hed Shefer <hed@laylinetech.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-25 10:04+0000\n"
+"POT-Creation-Date: 2025-03-13 11:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Sagi Ahiel, 2025\n"
+"Last-Translator: Hed Shefer <hed@laylinetech.com>, 2025\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -371,8 +371,6 @@ msgid "Accounts"
 msgstr "משתמשים"
 
 #. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Accounts Coverage Report"
 msgstr "דוח כיסוי חשבונות"
@@ -685,8 +683,8 @@ msgstr "מ: %s"
 #: model:account.report.column,name:account_reports.balance_sheet_balance
 #: model:account.report.column,name:account_reports.cash_flow_report_balance
 #: model:account.report.column,name:account_reports.customer_statement_report_balance
-#: model:account.report.column,name:account_reports.followup_report_report_balance
 #: model:account.report.column,name:account_reports.executive_summary_column
+#: model:account.report.column,name:account_reports.followup_report_report_balance
 #: model:account.report.column,name:account_reports.general_ledger_report_balance
 #: model:account.report.column,name:account_reports.journal_report_balance
 #: model:account.report.column,name:account_reports.partner_ledger_report_balance
@@ -1218,6 +1216,12 @@ msgstr "מטבע"
 
 #. module: account_reports
 #. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+msgid "Currency Code"
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 msgid "Currency Rates (%s)"
 msgstr "שערי מטבע (%s)"
@@ -1290,7 +1294,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_customer_statement
 #: model:mail.template,name:account_reports.email_template_customer_statement
 msgid "Customer Statement"
-msgstr ""
+msgstr "כרטסת לקוח"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_customer_statement_report_handler
@@ -1513,12 +1517,6 @@ msgstr "פקודת טיוטה"
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_journal_report_taxes_summary
 msgid "Due"
 msgstr "לתשלום"
-
-#. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_followup_report.py:0
-msgid "Overdue"
-msgstr "באיחור"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2748,7 +2746,7 @@ msgstr "רק משתמשים המוגדרים כמנהלי חשבונות יכו�
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.action_account_reports_customer_statements
 msgid "Open Customer Statements"
-msgstr ""
+msgstr "הצג כרטסת לקוח"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_financial_year_op
@@ -2779,6 +2777,12 @@ msgstr ""
 #: model:account.report.line,name:account_reports.outstanding
 msgid "Outstanding Receipts/Payments"
 msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_followup_report.py:0
+msgid "Overdue"
+msgstr "באיחור"
 
 #. module: account_reports
 #. odoo-python

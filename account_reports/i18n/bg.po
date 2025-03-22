@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-25 10:04+0000\n"
+"POT-Creation-Date: 2025-03-13 11:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Martin Dinovski, 2025\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
@@ -364,8 +364,6 @@ msgid "Accounts"
 msgstr "Сметки"
 
 #. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Accounts Coverage Report"
 msgstr ""
@@ -679,8 +677,8 @@ msgstr ""
 #: model:account.report.column,name:account_reports.balance_sheet_balance
 #: model:account.report.column,name:account_reports.cash_flow_report_balance
 #: model:account.report.column,name:account_reports.customer_statement_report_balance
-#: model:account.report.column,name:account_reports.followup_report_report_balance
 #: model:account.report.column,name:account_reports.executive_summary_column
+#: model:account.report.column,name:account_reports.followup_report_report_balance
 #: model:account.report.column,name:account_reports.general_ledger_report_balance
 #: model:account.report.column,name:account_reports.journal_report_balance
 #: model:account.report.column,name:account_reports.partner_ledger_report_balance
@@ -1210,6 +1208,12 @@ msgstr "Валута"
 
 #. module: account_reports
 #. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+msgid "Currency Code"
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 msgid "Currency Rates (%s)"
 msgstr ""
@@ -1505,12 +1509,6 @@ msgstr "Чернова на запис"
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_journal_report_taxes_summary
 msgid "Due"
 msgstr "Дължим"
-
-#. module: account_reports
-#. odoo-python
-#: code:addons/account_reports/models/account_followup_report.py:0
-msgid "Overdue"
-msgstr "Просрочен"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2769,6 +2767,12 @@ msgstr ""
 #: model:account.report.line,name:account_reports.outstanding
 msgid "Outstanding Receipts/Payments"
 msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_followup_report.py:0
+msgid "Overdue"
+msgstr "Просрочен"
 
 #. module: account_reports
 #. odoo-python
