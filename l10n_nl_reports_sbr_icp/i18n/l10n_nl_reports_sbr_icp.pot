@@ -20,8 +20,8 @@ msgstr ""
 #: code:addons/l10n_nl_reports_sbr_icp/models/account_sales_report.py:0
 #, python-format
 msgid ""
-"A new module (l10n_nl_reports_sbr_status_info) needs to be installed for the "
-"service to work correctly."
+"A new module (l10n_nl_reports_sbr_status_info) needs to be installed for the"
+" service to work correctly."
 msgstr ""
 
 #. module: l10n_nl_reports_sbr_icp
@@ -137,6 +137,7 @@ msgstr ""
 #. module: l10n_nl_reports_sbr_icp
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr_icp/models/account_sales_report.py:0
+#: code:addons/l10n_nl_reports_sbr_icp/models/account_sales_report.py:0
 #: code:addons/l10n_nl_reports_sbr_icp/wizard/l10n_nl_sbr_icp_wizard.py:0
 #, python-format
 msgid "Go to Apps"
@@ -167,11 +168,6 @@ msgstr ""
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr_icp.field_res_company__l10n_nl_reports_sbr_icp_last_sent_date_to
 msgid "Last Date Sent (ICP)"
-msgstr ""
-
-#. module: l10n_nl_reports_sbr_icp
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr_icp.field_l10n_nl_reports_sbr_icp_icp_wizard____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: l10n_nl_reports_sbr_icp
@@ -273,6 +269,15 @@ msgstr ""
 #. module: l10n_nl_reports_sbr_icp
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr_icp/models/account_sales_report.py:0
+#, python-format
+msgid ""
+"We couldn't find the correct export template for the year %(year)s. Please "
+"upgrade your module 'Netherlands - SBR ICP' and try again."
+msgstr ""
+
+#. module: l10n_nl_reports_sbr_icp
+#. odoo-python
+#: code:addons/l10n_nl_reports_sbr_icp/models/account_sales_report.py:0
 #: code:addons/l10n_nl_reports_sbr_icp/models/account_sales_report.py:0
 #, python-format
 msgid "XBRL"
@@ -289,5 +294,6 @@ msgstr ""
 
 #. module: l10n_nl_reports_sbr_icp
 #: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr_icp.icp_report_sbr
+#: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr_icp.icp_report_sbr_nt18
 msgid "iso4217:EUR"
 msgstr ""

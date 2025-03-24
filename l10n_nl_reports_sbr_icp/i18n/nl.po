@@ -10,7 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2024-04-15 17:49+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: nl_NL\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,11 +22,11 @@ msgstr ""
 #: code:addons/l10n_nl_reports_sbr_icp/models/account_sales_report.py:0
 #, python-format
 msgid ""
-"A new module (l10n_nl_reports_sbr_status_info) needs to be installed for the "
-"service to work correctly."
+"A new module (l10n_nl_reports_sbr_status_info) needs to be installed for the"
+" service to work correctly."
 msgstr ""
-"Er moet een nieuwe module (l10n_nl_reports_sbr_status_info) worden "
-"geïnstalleerd om de service correct te laten werken."
+"Installeer de nieuwe module (l10n_nl_reports_sbr_status_info) om de service "
+"correct te laten werken."
 
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model.fields,help:l10n_nl_reports_sbr_icp.field_l10n_nl_reports_sbr_icp_icp_wizard__contact_type
@@ -34,9 +34,8 @@ msgid ""
 "BPL: if the taxpayer files a turnover tax return as an individual "
 "entrepreneur.INT: if the turnover tax return is made by an intermediary."
 msgstr ""
-"BPL: als de belastingplichtige als individueel ondernemer aangifte "
-"omzetbelasting doet. INT: als de aangifte omzetbelasting wordt gedaan door "
-"een intermediair."
+"BPL: Als de belastingplichtige zelf de aangifte omzetbelasting indient. INT:"
+" Als de aangifte omzetbelasting wordt ingediend door een intermediair."
 
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr_icp.field_l10n_nl_reports_sbr_icp_icp_wizard__can_report_be_sent
@@ -51,8 +50,8 @@ msgstr "Wachtwoord certificaat of privésleutel"
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model.fields,help:l10n_nl_reports_sbr_icp.field_l10n_nl_reports_sbr_icp_icp_wizard__is_test
 msgid ""
-"Check this if you want the system to use the pre-production environment with "
-"test certificates."
+"Check this if you want the system to use the pre-production environment with"
+" test certificates."
 msgstr ""
 "Vink dit aan als je wilt dat het systeem de pre-productieomgeving met "
 "testcertificaten gebruikt."
@@ -109,7 +108,7 @@ msgstr "Afsluitboeking maken"
 #. module: l10n_nl_reports_sbr_icp
 #: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr_icp.l10n_nl_reports_sbr_icp_icp_wizard_form
 msgid "Create EC Sales (ICP) XBRL for SBR"
-msgstr "ICP-rapport maken voor SBR"
+msgstr "ICP-aangifte voor SBR aanmaken"
 
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr_icp.field_l10n_nl_reports_sbr_icp_icp_wizard__create_uid
@@ -134,7 +133,7 @@ msgstr "Downloaden"
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model,name:l10n_nl_reports_sbr_icp.model_l10n_nl_ec_sales_report_handler
 msgid "Dutch EC Sales Report Custom Handler for SBR"
-msgstr "Nederlands ICP custom handler voor SBR"
+msgstr "Aangepaste handler voor Nederlandse ICP-aangifte voor SBR"
 
 #. module: l10n_nl_reports_sbr_icp
 #. odoo-python
@@ -146,6 +145,7 @@ msgstr "ICP SBR"
 #. module: l10n_nl_reports_sbr_icp
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr_icp/models/account_sales_report.py:0
+#: code:addons/l10n_nl_reports_sbr_icp/models/account_sales_report.py:0
 #: code:addons/l10n_nl_reports_sbr_icp/wizard/l10n_nl_sbr_icp_wizard.py:0
 #, python-format
 msgid "Go to Apps"
@@ -156,7 +156,7 @@ msgstr "Ga naar Apps"
 #: code:addons/l10n_nl_reports_sbr_icp/wizard/l10n_nl_sbr_icp_wizard.py:0
 #, python-format
 msgid "ICP report sent"
-msgstr "ICP-rapportage verzonden"
+msgstr "ICP-aangifte verzonden"
 
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr_icp.field_l10n_nl_reports_sbr_icp_icp_wizard__id
@@ -166,23 +166,17 @@ msgstr "ID"
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr_icp.field_l10n_nl_reports_sbr_icp_icp_wizard__is_test
 msgid "Is Test"
-msgstr ""
-"Is Test"
+msgstr "Is een test"
 
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model,name:l10n_nl_reports_sbr_icp.model_l10n_nl_reports_sbr_icp_icp_wizard
 msgid "L10n NL Intra-Communautaire Prestaties for SBR Wizard"
-msgstr "L10n NL Intra-Communautaire Prestaties voor SBR Wizard"
+msgstr "Nederlandse ICP-aangifte voor SBR-wizard"
 
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr_icp.field_res_company__l10n_nl_reports_sbr_icp_last_sent_date_to
 msgid "Last Date Sent (ICP)"
-msgstr "Laatste datum verzonden (ICP)"
-
-#. module: l10n_nl_reports_sbr_icp
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr_icp.field_l10n_nl_reports_sbr_icp_icp_wizard____last_update
-msgid "Last Modified on"
-msgstr "Laatst gewijzigd op"
+msgstr "Laatste verzenddatum (ICP)"
 
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr_icp.field_l10n_nl_reports_sbr_icp_icp_wizard__write_uid
@@ -208,17 +202,17 @@ msgid ""
 "post it before sending your report."
 msgstr ""
 "Er is geen afsluitboeking gevonden voor de geselecteerde periode. Maak er "
-"een aan en boek deze voordat je je rapport verstuurt."
+"een aan en boek deze voordat je je aangifte verstuurt."
 
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr_icp.field_l10n_nl_reports_sbr_icp_icp_wizard__date_to
 msgid "Period Ending Date"
-msgstr "Periode einddatum"
+msgstr "Einddatum periode"
 
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr_icp.field_l10n_nl_reports_sbr_icp_icp_wizard__date_from
 msgid "Period Starting Date"
-msgstr "Periode startdatum"
+msgstr "Startdatum periode"
 
 #. module: l10n_nl_reports_sbr_icp
 #: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr_icp.l10n_nl_reports_sbr_icp_icp_wizard_form
@@ -230,7 +224,7 @@ msgstr "Verzenden"
 #: code:addons/l10n_nl_reports_sbr_icp/wizard/l10n_nl_sbr_icp_wizard.py:0
 #, python-format
 msgid "Sending your report"
-msgstr "Uw rapport versturen"
+msgstr "Je rapport wordt verzonden"
 
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model.fields,help:l10n_nl_reports_sbr_icp.field_res_company__l10n_nl_reports_sbr_icp_last_sent_date_to
@@ -239,12 +233,12 @@ msgid ""
 "Services for ICP"
 msgstr ""
 "Slaat de datum op van het einde van de laatste periode die is ingediend bij "
-"de Belastingdienst"
+"de Digipoort-diensten voor ICP."
 
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr_icp.field_l10n_nl_reports_sbr_icp_icp_wizard__tax_consultant_number
 msgid "Tax Consultant Number"
-msgstr "Belastingconsulentennummer"
+msgstr "Beconnummer"
 
 #. module: l10n_nl_reports_sbr_icp
 #. odoo-python
@@ -254,8 +248,8 @@ msgid ""
 "The Closing Entry for the selected period is still in draft. Please post it "
 "before sending your report."
 msgstr ""
-"De afsluitboeking voor de geselecteerde periode is nog in concept. Plaats "
-"deze eerst voordat je je rapport verstuurt."
+"De afsluitboeking voor de geselecteerde periode is nog in concept. Boek deze"
+" voordat je je aangifte verstuurt."
 
 #. module: l10n_nl_reports_sbr_icp
 #. odoo-python
@@ -265,9 +259,9 @@ msgid ""
 "The ICP report from %s to %s was sent to Digipoort.<br/>We will post its "
 "processing status in this chatter once received.<br/>Discussion id: %s"
 msgstr ""
-"Het ICP-rapport van %s tot %s is verzonden naar Digipoort.<br/>We zullen de "
-"verwerkingsstatus in deze chatter posten zodra deze is ontvangen.<br/"
-">Discussie id: %s"
+"De ICP-aangifte van %s tot %s is verzonden naar Digipoort.<br/>De "
+"verwerkingsstatus wordt in deze chatter bijgewerkt zodra deze is "
+"ontvangen.<br/>Kenmerk: %(id)s"
 
 #. module: l10n_nl_reports_sbr_icp
 #. odoo-python
@@ -277,8 +271,8 @@ msgid ""
 "The Tax Services returned the error hereunder. Please upgrade your module "
 "and try again before submitting a ticket."
 msgstr ""
-"De Belastingdienst heeft onderstaande foutmelding teruggestuurd. Upgrade uw "
-"module en probeer het opnieuw voordat u een ticket indient."
+"De Belastingdienst heeft de onderstaande fout geretourneerd. Werk je module "
+"bij en probeer het opnieuw voordat je een ticket indient."
 
 #. module: l10n_nl_reports_sbr_icp
 #: model:ir.model.fields,help:l10n_nl_reports_sbr_icp.field_l10n_nl_reports_sbr_icp_icp_wizard__password
@@ -290,15 +284,27 @@ msgstr "Het wachtwoord is niet nodig voor het afdrukken van het XBRL-bestand."
 msgid ""
 "The tax consultant number of the office aware of the content of this report."
 msgstr ""
-"Het belastingconsulentennummer van de opsteller van het bericht, die als "
-"gemachtigde van de belastingplichtige/aangever is aangesteld."
+"Het beconnummer van het administratiekantoor dat op de hoogte is van de "
+"inhoud van deze aangifte."
 
 #. module: l10n_nl_reports_sbr_icp
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr_icp/models/account_sales_report.py:0
 #, python-format
-msgid "XBRL"
+msgid ""
+"We couldn't find the correct export template for the year %(year)s. Please "
+"upgrade your module 'Netherlands - SBR ICP' and try again."
 msgstr ""
+"We konden het juiste exportsjabloon voor het jaar %(year)s niet vinden. "
+"Upgrade je module 'Nederland - SBR ICP' en probeer het opnieuw."
+
+#. module: l10n_nl_reports_sbr_icp
+#. odoo-python
+#: code:addons/l10n_nl_reports_sbr_icp/models/account_sales_report.py:0
+#: code:addons/l10n_nl_reports_sbr_icp/models/account_sales_report.py:0
+#, python-format
+msgid "XBRL"
+msgstr "XBRL"
 
 #. module: l10n_nl_reports_sbr_icp
 #. odoo-python
@@ -308,20 +314,11 @@ msgid ""
 "Your ICP report is being sent to Digipoort. Check its status in the closing "
 "entry's chatter."
 msgstr ""
-"Uw ICP-rapport wordt verzonden naar Digipoort. Controleer de status in de "
-"afsluitende chatter."
+"Je ICP-aangifte wordt verzonden naar Digipoort. Controleer de status in de "
+"chatter van de afsluitboeking."
 
 #. module: l10n_nl_reports_sbr_icp
 #: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr_icp.icp_report_sbr
+#: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr_icp.icp_report_sbr_nt18
 msgid "iso4217:EUR"
-msgstr ""
-
-#~ msgid "Success"
-#~ msgstr "Succes"
-
-#~ msgid "The ICP report from %s to %s was successfully sent to Digipoort."
-#~ msgstr ""
-#~ "Het ICP-rapport van %s naar %s is succesvol verzonden naar Digipoort."
-
-#~ msgid "Your ICP report has been successfully sent."
-#~ msgstr "Uw ICP-rapport is succesvol verzonden."
+msgstr "iso4217:EUR"

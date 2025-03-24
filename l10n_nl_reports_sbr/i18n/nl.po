@@ -10,33 +10,22 @@ msgstr ""
 "PO-Revision-Date: 2024-04-15 17:45+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: nl_NL\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
-
-#. module: l10n_nl_reports_sbr
-#: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.res_config_settings_view_form
-msgid ""
-"<span class=\"o_form_label\">SBR services</span>\n"
-"                        <span class=\"fa fa-lg fa-building-o\" title="
-"\"Values set here are company-specific.\" groups=\"base.group_multi_company"
-"\"/>"
-msgstr ""
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
 #, python-format
 msgid ""
-"A new module (l10n_nl_reports_sbr_statusinformatieservice) needs to be "
-"installed for the service to track your submission status correctly."
+"A new module (l10n_nl_reports_sbr_status_info) needs to be installed for the"
+" service to track your submission status correctly."
 msgstr ""
-"Er moet een nieuwe module (l10n_nl_reports_sbr_statusinformatieservice) "
-"worden geïnstalleerd zodat de service de status van je inzending correct kan "
-"bijhouden."
+"Installeer de nieuwe module (l10n_nl_reports_sbr_status_info) om je "
+"indieningsstatus correct op te volgen."
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,help:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_key
@@ -46,8 +35,8 @@ msgid ""
 "you. No need to upload a key if it is already included in the certificate "
 "file."
 msgstr ""
-"U heeft een privésleutel nodig om u te kunnen identificeren met de Digipoort-"
-"services. U hoeft geen sleutel te uploaden als deze al in het "
+"Je hebt een privésleutel nodig om je te kunnen identificeren met de "
+"Digipoort-diensten. Je hoeft geen sleutel te uploaden als deze al in het "
 "certificaatbestand zit."
 
 #. module: l10n_nl_reports_sbr
@@ -55,11 +44,11 @@ msgstr ""
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
 #, python-format
 msgid ""
-"An error occured while using your certificate. Please verify the certificate "
-"you uploaded and try again."
+"An error occured while using your certificate. Please verify the certificate"
+" you uploaded and try again."
 msgstr ""
-"Er is een fout opgetreden tijdens het gebruik van uw certificaat. Controleer "
-"het certificaat dat je hebt geüpload en probeer het opnieuw."
+"Er is een fout opgetreden bij het gebruik van je certificaat. Controleer het"
+" geüploade certificaat en probeer het opnieuw."
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
@@ -69,8 +58,8 @@ msgid ""
 "An error occurred while decrypting your certificate or private key. Please "
 "verify your password."
 msgstr ""
-"Er is een fout opgetreden tijdens het decoderen van uw certificaat of "
-"privésleutel. Controleer uw wachtwoord."
+"Er is een fout opgetreden bij het decoderen van je certificaat of "
+"privésleutel. Controleer je wachtwoord."
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
@@ -80,8 +69,8 @@ msgid ""
 "An error occurred while loading the certificate. Please check the uploaded "
 "file and the related password."
 msgstr ""
-"Er is een fout opgetreden tijdens het laden van het certificaat. Controleer "
-"het geüploade bestand en het bijbehorende wachtwoord."
+"Er is een fout opgetreden bij het laden van het certificaat. Controleer het "
+"geüploade bestand en het bijbehorende wachtwoord."
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,help:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard__contact_type
@@ -89,9 +78,8 @@ msgid ""
 "BPL: if the taxpayer files a turnover tax return as an individual "
 "entrepreneur.INT: if the turnover tax return is made by an intermediary."
 msgstr ""
-"BPL: als de belastingplichtige als individueel ondernemer aangifte "
-"omzetbelasting doet. INT: als de aangifte omzetbelasting wordt gedaan door "
-"een intermediair."
+"BPL: Als de belastingplichtige zelf de aangifte omzetbelasting indient. INT:"
+" Als de aangifte omzetbelasting wordt ingediend door een intermediair."
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard__can_report_be_sent
@@ -112,13 +100,13 @@ msgstr "Wachtwoord certificaat of privésleutel"
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_config_settings__l10n_nl_reports_sbr_password
 msgid "Certificate/key password"
-msgstr "Wachtwoord certificaat/sleutel"
+msgstr "Wachtwoord certificaat of privésleutel"
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,help:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard__is_test
 msgid ""
-"Check this if you want the system to use the pre-production environment with "
-"test certificates."
+"Check this if you want the system to use the pre-production environment with"
+" test certificates."
 msgstr ""
 "Vink dit aan als je wilt dat het systeem de pre-productieomgeving met "
 "testcertificaten gebruikt."
@@ -142,6 +130,7 @@ msgstr "Bedrijven"
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
+#: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
 #, python-format
 msgid "Company settings"
@@ -188,7 +177,7 @@ msgstr "Afsluitboeking maken"
 #. module: l10n_nl_reports_sbr
 #: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.l10n_nl_reports_sbr_tax_report_wizard_form
 msgid "Create Tax Report XBRL for SBR"
-msgstr "BTW-rapportage XBRL maken voor SBR"
+msgstr "XBRL btw-aangifte voor SBR aanmaken"
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard__create_uid
@@ -213,10 +202,11 @@ msgstr "Downloaden"
 #. module: l10n_nl_reports_sbr
 #: model:ir.model,name:l10n_nl_reports_sbr.model_l10n_nl_tax_report_handler
 msgid "Dutch Report Custom Handler"
-msgstr ""
+msgstr "Aangepaste handler voor Nederlandse btw-aangifte"
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
+#: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
 #: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
 #, python-format
@@ -239,27 +229,22 @@ msgstr "ID"
 #: model:ir.model.fields.selection,name:l10n_nl_reports_sbr.selection__l10n_nl_reports_sbr_icp_icp_wizard__contact_type__int
 #: model:ir.model.fields.selection,name:l10n_nl_reports_sbr.selection__l10n_nl_reports_sbr_tax_report_wizard__contact_type__int
 msgid "Intermediary (INT)"
-msgstr ""
+msgstr "Intermediair (INT)"
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard__is_test
 msgid "Is Test"
-msgstr ""
+msgstr "Is een test"
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model,name:l10n_nl_reports_sbr.model_l10n_nl_reports_sbr_tax_report_wizard
 msgid "L10n NL Tax Report for SBR Wizard"
-msgstr ""
+msgstr "Nederlandse btw-aangifte voor SBR-wizard"
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_last_sent_date_to
 msgid "Last Date Sent"
-msgstr "Laatste datum verzonden"
-
-#. module: l10n_nl_reports_sbr
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard____last_update
-msgid "Last Modified on"
-msgstr "Laatst gewijzigd op"
+msgstr "Laatste verzenddatum"
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard__write_uid
@@ -285,7 +270,7 @@ msgid ""
 "post it before sending your report."
 msgstr ""
 "Er is geen afsluitboeking gevonden voor de geselecteerde periode. Maak er "
-"een aan en boek deze voordat je je rapport verstuurt."
+"een aan en boek deze voordat je je aangifte verstuurt."
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_cert
@@ -307,7 +292,7 @@ msgstr "Einddatum periode"
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard__date_from
 msgid "Period Starting Date"
-msgstr "Periode startdatum"
+msgstr "Startdatum periode"
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
@@ -332,6 +317,11 @@ msgid "SBR Root Certificate"
 msgstr "SBR-rootcertificaat"
 
 #. module: l10n_nl_reports_sbr
+#: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.res_config_settings_view_form
+msgid "SBR Services"
+msgstr "SBR-diensten"
+
+#. module: l10n_nl_reports_sbr
 #: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.l10n_nl_reports_sbr_tax_report_wizard_form
 msgid "Send"
 msgstr "Verzenden"
@@ -341,7 +331,7 @@ msgstr "Verzenden"
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
 #, python-format
 msgid "Sending your report"
-msgstr "Uw rapport versturen"
+msgstr "Je rapport wordt verzonden"
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,help:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_last_sent_date_to
@@ -349,26 +339,26 @@ msgid ""
 "Stores the date of the end of the last period submitted to the Tax Services"
 msgstr ""
 "Slaat de datum op van het einde van de laatste periode die is ingediend bij "
-"de Belastingdienst"
+"de Belastingdienst."
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard__tax_consultant_number
 msgid "Tax Consultant Number"
-msgstr "Belastingconsulentennummer"
+msgstr "Beconnummer"
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
 #, python-format
 msgid "Tax Report SBR"
-msgstr "BTW-rapportage SBR"
+msgstr "Btw-aangifte SBR"
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
 #, python-format
 msgid "Tax report sent"
-msgstr "BTW-rapportage verzonden"
+msgstr "Btw-aangifte verzonden"
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields.selection,name:l10n_nl_reports_sbr.selection__l10n_nl_reports_sbr_icp_icp_wizard__contact_type__bpl
@@ -384,8 +374,8 @@ msgid ""
 "The Closing Entry for the selected period is still in draft. Please post it "
 "before sending your report."
 msgstr ""
-"De afsluitboeking voor de geselecteerde periode is nog in concept. Plaats "
-"deze eerst voordat je je rapport verstuurt."
+"De afsluitboeking voor de geselecteerde periode is nog in concept. Boek deze"
+" voordat je je aangifte verstuurt."
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,help:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_server_root_cert
@@ -394,9 +384,9 @@ msgid ""
 "connection with the Tax services server of the SBR.It is used in order to "
 "make the connection library trust the server."
 msgstr ""
-"Het SBR Belastingdienst Server Root Certificate wordt gebruikt om de "
-"verbinding met de Tax services server van het SBR te verifiëren. Het wordt "
-"gebruikt om de verbindingsbibliotheek de server te laten vertrouwen."
+"Het SBR-certificaat voor de Belastingdienst wordt gebruikt om de verbinding "
+"met de server van de Belastingdienst via SBR te verifiëren. Het zorgt ervoor"
+" dat de verbindingsbibliotheek de server vertrouwt."
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
@@ -406,8 +396,8 @@ msgid ""
 "The Tax Services returned the error hereunder. Please upgrade your module "
 "and try again before submitting a ticket."
 msgstr ""
-"De Belastingdienst heeft onderstaande foutmelding teruggestuurd. Upgrade uw "
-"module en probeer het opnieuw voordat u een ticket indient."
+"De Belastingdienst heeft de onderstaande fout geretourneerd. Werk je module "
+"bij en probeer het opnieuw voordat je een ticket indient."
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
@@ -424,8 +414,8 @@ msgid ""
 "The certificate or private key you uploaded is encrypted. Please specify "
 "your password."
 msgstr ""
-"Het certificaat of de privésleutel die u hebt geüpload, is gecodeerd. Uw "
-"wachtwoord is nodig."
+"Het certificaat of de privésleutel die je hebt geüpload, is versleuteld. "
+"Geef je wachtwoord op."
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
@@ -453,6 +443,7 @@ msgstr "De opgegeven sleutel kon niet worden geladen."
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/models/res_config_settings.py:0
+#: code:addons/l10n_nl_reports_sbr/models/res_config_settings.py:0
 #, python-format
 msgid "The provided password for the key is not correct."
 msgstr "Het opgegeven wachtwoord voor de sleutel is niet correct."
@@ -473,8 +464,8 @@ msgstr ""
 msgid ""
 "The tax consultant number of the office aware of the content of this report."
 msgstr ""
-"Het belastingconsulentennummer van de opsteller van het bericht, die als "
-"gemachtigde van de belastingplichtige/aangever is aangesteld."
+"Het beconnummer van het administratiekantoor dat op de hoogte is van de "
+"inhoud van deze aangifte."
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
@@ -484,9 +475,9 @@ msgid ""
 "The tax report from %s to %s was sent to Digipoort.<br/>We will post its "
 "processing status in this chatter once received.<br/>Discussion id: %s"
 msgstr ""
-"Het belastingrapport van %s tot %s is verzonden naar Digipoort.<br/>We "
-"zullen de verwerkingsstatus in deze chatter posten zodra we deze hebben "
-"ontvangen.<br/>Discussie id: %s"
+"De btw-aangifte van %s tot %s is verzonden naar Digipoort.<br/>De "
+"verwerkingsstatus wordt in deze chatter bijgewerkt zodra deze is "
+"ontvangen.<br/>Kenmerk: %(id)s"
 
 #. module: l10n_nl_reports_sbr
 #: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.res_config_settings_view_form
@@ -494,7 +485,7 @@ msgid ""
 "Upload here the PKI-certificate that identifies you to the Digipoort "
 "services. You can buy one from KPN or Quovadis."
 msgstr ""
-"Upload hier het PKI-certificaat dat u identificeert voor de "
+"Upload hier het PKI-certificaat dat je identificeert voor de "
 "Digipoortdiensten. Je kunt er een kopen bij KPN of Quovadis."
 
 #. module: l10n_nl_reports_sbr
@@ -506,46 +497,58 @@ msgid ""
 "there is one included."
 msgstr ""
 "Upload hier het certificaatbestand dat gebruikt zal worden om verbinding te "
-"maken met de Digipoort infrastructuur. De private key uit dit bestand wordt "
-"gebruikt, als er een is bijgevoegd."
+"maken met de Digipoort infrastructuur. De privésleutel uit dit bestand wordt"
+" gebruikt, als er een in vervat zit."
 
 #. module: l10n_nl_reports_sbr
 #: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.res_config_settings_view_form
 msgid ""
-"Upload here your Private Key. If your certificate file ends with .p12 or ."
-"pfx, the Private Key is already included."
+"Upload here your Private Key. If your certificate file ends with .p12 or "
+".pfx, the Private Key is already included."
 msgstr ""
-"Upload hier je privésleutel. Als je certificaatbestand eindigt met .p12 of ."
-"pfx, is de privésleutel al bijgevoegd."
+"Upload hier je privésleutel. Als je certificaatbestand eindigt met .p12 of "
+".pfx, zit de privésleutel hier al in vervat."
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
 #, python-format
+msgid ""
+"We couldn't find the correct export template for the year %(year)s. Please "
+"upgrade your module 'Netherlands - SBR' and try again."
+msgstr ""
+"We konden het juiste exportsjabloon voor het jaar %(year)s niet vinden. "
+"Upgrade je module 'Nederland - SBR' en probeer het opnieuw."
+
+#. module: l10n_nl_reports_sbr
+#. odoo-python
+#: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
+#: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
+#, python-format
 msgid "XBRL"
-msgstr ""
+msgstr "XBRL"
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
 #, python-format
 msgid ""
-"Your Accounting Firm does not have a VAT set. Please set it up before trying "
-"to send the report."
+"Your Accounting Firm does not have a VAT set. Please set it up before trying"
+" to send the report."
 msgstr ""
-"Uw accountantskantoor heeft geen btw ingesteld. Stel deze in voordat u het "
-"rapport probeert te verzenden."
+"Je accountantskantoor heeft geen btw-nummer ingesteld. Stel dit in voordat "
+"je de aangifte probeert te verzenden."
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
 #, python-format
 msgid ""
-"Your company does not have a VAT set. Please set it up before trying to send "
-"the report."
+"Your company does not have a VAT set. Please set it up before trying to send"
+" the report."
 msgstr ""
-"Uw bedrijf heeft geen BTW ingesteld. Stel deze in voordat u probeert het "
-"rapport te verzenden."
+"Je bedrijf heeft geen btw-nummer ingesteld. Stel dit in voordat je de "
+"aangifte probeert te verzenden."
 
 #. module: l10n_nl_reports_sbr
 #. odoo-python
@@ -555,20 +558,11 @@ msgid ""
 "Your tax report is being sent to Digipoort. Check its status in the closing "
 "entry's chatter."
 msgstr ""
-"Uw belastingrapport wordt verzonden naar Digipoort. Controleer de status "
-"ervan in de chatter van de afsluitende invoer."
+"Je btw-aangifte wordt verzonden naar Digipoort. Controleer de status in de "
+"chatter van de afsluitboeking."
 
 #. module: l10n_nl_reports_sbr
 #: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.tax_report_sbr
+#: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.tax_report_sbr_nt18
 msgid "iso4217:EUR"
-msgstr ""
-
-#~ msgid "Success"
-#~ msgstr "Succes"
-
-#~ msgid "The tax report from %s to %s was successfully sent to Digipoort."
-#~ msgstr ""
-#~ "Het BTW-rapportage van %s naar %s is succesvol verzonden naar Digipoort."
-
-#~ msgid "Your tax report has been successfully sent."
-#~ msgstr "Uw BTW-rapportage is succesvol verzonden."
+msgstr "iso4217:EUR"

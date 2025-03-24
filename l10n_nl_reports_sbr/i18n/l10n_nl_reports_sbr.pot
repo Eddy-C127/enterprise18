@@ -16,19 +16,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_nl_reports_sbr
-#: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.res_config_settings_view_form
-msgid ""
-"<span class=\"o_form_label\">SBR services</span>\n"
-"                        <span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" groups=\"base.group_multi_company\"/>"
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
 #, python-format
 msgid ""
-"A new module (l10n_nl_reports_sbr_statusinformatieservice) needs to be "
-"installed for the service to track your submission status correctly."
+"A new module (l10n_nl_reports_sbr_status_info) needs to be installed for the"
+" service to track your submission status correctly."
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
@@ -198,6 +191,7 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
+#: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
 #, python-format
 msgid "Go to Apps"
@@ -234,11 +228,6 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_last_sent_date_to
 msgid "Last Date Sent"
-msgstr ""
-
-#. module: l10n_nl_reports_sbr
-#: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
@@ -305,6 +294,11 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_server_root_cert
 msgid "SBR Root Certificate"
+msgstr ""
+
+#. module: l10n_nl_reports_sbr
+#: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.res_config_settings_view_form
+msgid "SBR Services"
 msgstr ""
 
 #. module: l10n_nl_reports_sbr
@@ -471,6 +465,15 @@ msgstr ""
 #. module: l10n_nl_reports_sbr
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
+#, python-format
+msgid ""
+"We couldn't find the correct export template for the year %(year)s. Please "
+"upgrade your module 'Netherlands - SBR' and try again."
+msgstr ""
+
+#. module: l10n_nl_reports_sbr
+#. odoo-python
+#: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
 #: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
 #, python-format
 msgid "XBRL"
@@ -505,5 +508,6 @@ msgstr ""
 
 #. module: l10n_nl_reports_sbr
 #: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.tax_report_sbr
+#: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.tax_report_sbr_nt18
 msgid "iso4217:EUR"
 msgstr ""
