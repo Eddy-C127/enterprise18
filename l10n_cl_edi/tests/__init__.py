@@ -4,4 +4,5 @@ from . import test_l10n_cl_account_move_reversal
 from . import test_l10n_cl_edi_account_move
 from . import test_l10n_cl_edi_certificate
 from . import test_l10n_cl_fetchmail_server
+from . import test_l10n_cl_fetchmail_server_iec
 from . import test_res_company
