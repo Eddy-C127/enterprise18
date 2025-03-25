@@ -141,6 +141,9 @@ class PeruvianTaxPleReportCustomHandler(models.AbstractModel):
 
             return result
 
+        if self.env.company.parent_id:
+            raise UserError(
+                _("When branches are used, it is necessary to access from the main company to generate the reports."))
         report = self.env["account.report"].browse(options["report_id"])
         _tables, where_clause, where_params = report._query_get(options, 'strict_range')
         if self.env.company.chart_template != 'pe':
