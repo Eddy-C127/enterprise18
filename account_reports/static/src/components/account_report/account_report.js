@@ -3,8 +3,9 @@
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { ControlPanel } from "@web/search/control_panel/control_panel";
+import { useSetupAction } from "@web/webclient/actions/action_hook";
 
-import { Component, onWillStart, useState, useSubEnv } from "@odoo/owl";
+import { Component, onWillStart, useRef, useState, useSubEnv } from "@odoo/owl";
 
 import { AccountReportController } from "@account_reports/components/account_report/controller";
 import { AccountReportButtonsBar } from "@account_reports/components/account_report/buttons_bar/buttons_bar";
@@ -41,6 +42,11 @@ export class AccountReport extends Component {
     static defaultComponentsMap = [];
 
     setup() {
+        this.rootRef = useRef("root");
+        useSetupAction({
+            rootRef: this.rootRef,
+        });
+
         // Can not use 'control-panel-bottom-right' slot without this, as viewSwitcherEntries doesn't exist here.
         this.env.config.viewSwitcherEntries = [];
 
