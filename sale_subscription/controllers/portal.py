@@ -423,7 +423,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
                 ).button_cancel()
                 invoice_to_pay = order_sudo.with_context(lang=partner_sudo.lang)._create_invoices(final=True)
             recurring_amount = sum(order_sudo.order_line.filtered(lambda l: l.recurring_invoice).mapped('price_total'))
-            tokenize = order_sudo.currency_id.compare_amounts(amount, recurring_amount) >= 0
+            tokenize = amount and recurring_amount and order_sudo.currency_id.compare_amounts(amount, recurring_amount) > 0
             kwargs.update({
                 'amount': amount,
                 'currency_id': order_sudo.currency_id.id,
