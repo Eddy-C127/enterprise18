@@ -78,6 +78,9 @@ class ProductTemplate(models.Model):
             'subscription_duration': plan.billing_period_value,
             'subscription_unit': plan.billing_period_unit,
             'temporal_unit_display': plan.billing_period_display_sentence,
+            'prevent_zero_price_sale': website.prevent_zero_price_sale and currency.is_zero(
+                unit_price,
+            ),
         }
 
     # Search bar
