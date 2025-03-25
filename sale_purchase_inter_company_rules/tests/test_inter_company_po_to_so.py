@@ -25,6 +25,7 @@ class TestInterCompanyPurchaseToSale(TestInterCompanyRulesCommonSOPO):
                 line.name = 'Service'
                 line.product_id = self.product_consultant
                 line.price_unit = 450.0
+                line.discount = 10.0
 
         # Confirm Purchase order
         purchase_order.button_confirm()
@@ -44,11 +45,12 @@ class TestInterCompanyPurchaseToSale(TestInterCompanyRulesCommonSOPO):
         self.assertEqual(sale_order.state, "draft", "sale order should be in draft state.")
         self.assertEqual(sale_order.partner_id, company.partner_id, "Vendor does not correspond to Company %s." % company)
         self.assertEqual(sale_order.company_id, partner, "Applied company in created sale order is incorrect.")
-        self.assertEqual(sale_order.amount_total, 517.5, "Total amount is incorrect.")
+        self.assertEqual(sale_order.amount_total, 465.75, "Total amount is incorrect.")
         self.assertEqual(sale_order.order_line[0].product_id, self.product_consultant, "Product in line is incorrect.")
         self.assertEqual(sale_order.order_line[0].name, 'Service', "Product name is incorrect.")
         self.assertEqual(sale_order.order_line[0].product_uom_qty, 1, "Product qty is incorrect.")
         self.assertEqual(sale_order.order_line[0].price_unit, 450, "Unit Price in line is incorrect.")
+        self.assertEqual(sale_order.order_line[0].price_subtotal, 405, "Subtotal in line is incorrect.")
         self.assertTrue(sale_order.partner_shipping_id == purchase_order.picking_type_id.warehouse_id.partner_id, "Partner shipping is incorrect.")
         self.assertEqual(sale_order.fiscal_position_id, fp)
 
@@ -246,6 +248,7 @@ class TestInterCompanyPurchaseToSale(TestInterCompanyRulesCommonSOPO):
                     line.name = 'Service'
                     line.product_id = self.product_consultant
                     line.price_unit = 450.0
+                    line.discount = 10.0
             purchase_order.with_company(first_company).button_confirm()
             self.validate_generated_sale_order(purchase_order, first_company, second_company)
 

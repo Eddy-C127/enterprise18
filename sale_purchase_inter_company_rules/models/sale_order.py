@@ -104,7 +104,7 @@ class sale_order(models.Model):
             :rtype company : res.company record
         """
         # price on PO so_line should be so_line - discount
-        price = so_line.price_unit - (so_line.price_unit * (so_line.discount / 100))
+        price = so_line.price_unit or 0.0
         quantity = so_line.product_id and so_line.product_uom._compute_quantity(so_line.product_uom_qty, so_line.product_id.uom_po_id) or so_line.product_uom_qty
         price = so_line.product_id and so_line.product_uom._compute_price(price, so_line.product_id.uom_po_id) or price
         return {
@@ -113,6 +113,7 @@ class sale_order(models.Model):
             'product_id': so_line.product_id and so_line.product_id.id or False,
             'product_uom': so_line.product_id and so_line.product_id.uom_po_id.id or so_line.product_uom.id,
             'price_unit': price or 0.0,
+            'discount': so_line.discount or 0.0,
             'company_id': company.id,
             'date_planned': so_line.order_id.commitment_date or so_line.order_id.expected_date or date_order,
             'display_type': so_line.display_type,

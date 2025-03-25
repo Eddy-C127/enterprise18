@@ -143,6 +143,7 @@ class purchase_order(models.Model):
             'product_uom': line.product_id and line.product_id.uom_id.id or line.product_uom.id,
             'product_custom_attribute_value_ids': pcavs_vals_list,
             'price_unit': price,
+            'discount': line.discount or 0.0,
             'customer_lead': line.product_id and line.product_id.sale_delay or 0.0,
             'company_id': company.id,
             'display_type': line.display_type,
