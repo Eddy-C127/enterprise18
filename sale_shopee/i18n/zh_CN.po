@@ -561,18 +561,18 @@ msgstr "读取运输标签"
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.picking_view_form
 msgid "Fetch Shopee Label"
-msgstr ""
+msgstr "读取 Shopee 标签"
 
 #. module: sale_shopee
 #. odoo-python
 #: code:addons/sale_shopee/models/shopee_shop.py:0
 msgid "Flash Sale"
-msgstr ""
+msgstr "快闪促销"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.view_order_form
 msgid "Fulfilled by Cross Border Seller"
-msgstr ""
+msgstr "由跨境卖家配送"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.view_order_form
@@ -582,12 +582,12 @@ msgstr "由商家履行"
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.view_order_form
 msgid "Fulfilled by Shopee"
-msgstr ""
+msgstr "由 Shopee 配送"
 
 #. module: sale_shopee
 #: model:ir.model.fields.selection,name:sale_shopee.selection__sale_order__shopee_fulfillment_type__hybrid
 msgid "Fulfillment by Cross Border Seller"
-msgstr ""
+msgstr "跨境卖家配送"
 
 #. module: sale_shopee
 #: model:ir.model.fields.selection,name:sale_shopee.selection__sale_order__shopee_fulfillment_type__fbm
@@ -597,7 +597,7 @@ msgstr "商家履行职责"
 #. module: sale_shopee
 #: model:ir.model.fields.selection,name:sale_shopee.selection__sale_order__shopee_fulfillment_type__fbs
 msgid "Fulfillment by Shopee"
-msgstr ""
+msgstr "由 Shopee 配送"
 
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_shopee_account__id
@@ -610,7 +610,7 @@ msgstr "ID"
 #: model:ir.model.fields,help:sale_shopee.field_shopee_shop__active
 msgid ""
 "If made inactive, this account will no longer be synchronized with Shopee."
-msgstr ""
+msgstr "如果账户处于停用状态，将不再与 Shopee 同步。"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.view_order_form
@@ -622,7 +622,7 @@ msgstr "无法修改已锁定的销售，但仍可以开票或交付。"
 #. module: sale_shopee
 #: model:ir.model.fields,help:sale_shopee.field_shopee_account__company_ids
 msgid "If this field is empty, all companies will be allowed."
-msgstr ""
+msgstr "如果该字段为空，则允许所有公司执行操作。"
 
 #. module: sale_shopee
 #: model:ir.model.fields.selection,name:sale_shopee.selection__shopee_shop__status__inactive
@@ -633,7 +633,7 @@ msgstr "无效的"
 #. module: sale_shopee
 #: model:ir.model.constraint,message:sale_shopee.constraint_shopee_item_unique_shopee_item_and_model_identifiers
 msgid "Item and Model Identifiers must be unique for a given shop."
-msgstr ""
+msgstr "同一商店内，商品及型号识别码必须独一无二。"
 
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_stock_picking__shopee_label_status
@@ -723,7 +723,7 @@ msgstr "合作伙伴密钥"
 #. module: sale_shopee
 #: model:ir.model.fields.selection,name:sale_shopee.selection__sale_order__shopee_delivery_status__error
 msgid "Pickup Failed"
-msgstr ""
+msgstr "取件失败"
 
 #. module: sale_shopee
 #: model:ir.model.fields.selection,name:sale_shopee.selection__stock_picking__shopee_label_status__processing
@@ -740,7 +740,7 @@ msgstr "产品"
 #. odoo-python
 #: code:addons/sale_shopee/models/shopee_shop.py:0
 msgid "Product Promotion"
-msgstr ""
+msgstr "产品促销"
 
 #. module: sale_shopee
 #: model:ir.model,name:sale_shopee.model_product_product
@@ -755,12 +755,12 @@ msgstr "就绪"
 #. module: sale_shopee
 #: model:ir.model.fields.selection,name:sale_shopee.selection__sale_order__shopee_delivery_status__draft
 msgid "Ready to Ship"
-msgstr ""
+msgstr "准备好发货"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.picking_view_form
 msgid "Ready to arrange shipment via Shopee"
-msgstr ""
+msgstr "准备好通过 Shopee 安排发货"
 
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_shopee_shop__refresh_token
@@ -863,17 +863,17 @@ msgstr "商店设置"
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_shop_view_form
 msgid "Shop Status: Active"
-msgstr ""
+msgstr "商店状态：生效"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_shop_view_form
 msgid "Shop Status: Error"
-msgstr ""
+msgstr "商店状态：错误"
 
 #. module: sale_shopee
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_shop_view_form
 msgid "Shop Status: Inactive"
-msgstr ""
+msgstr "商店状态：停用"
 
 #. module: sale_shopee
 #: model:ir.ui.menu,name:sale_shopee.root_menu
@@ -919,22 +919,22 @@ msgstr "Shopee 客户#%(order_no)s"
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_sale_order__shopee_fulfillment_type
 msgid "Shopee Fulfillment Type"
-msgstr ""
+msgstr "Shopee 配送类型"
 
 #. module: sale_shopee
 #: model:ir.model,name:sale_shopee.model_shopee_item
 msgid "Shopee Item"
-msgstr ""
+msgstr "Shopee 商品"
 
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_shopee_shop__shopee_item_count
 msgid "Shopee Item Count"
-msgstr ""
+msgstr "Shopee 项目计数"
 
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_shopee_item__shopee_item_identifier
 msgid "Shopee Item ID"
-msgstr ""
+msgstr "Shopee 商品识别码"
 
 #. module: sale_shopee
 #. odoo-python
@@ -945,30 +945,30 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_item_view_list
 #: model_terms:ir.ui.view,arch_db:sale_shopee.shopee_shop_view_form
 msgid "Shopee Items"
-msgstr ""
+msgstr "Shopee 商品"
 
 #. module: sale_shopee
 #. odoo-python
 #: code:addons/sale_shopee/models/stock_picking.py:0
 msgid "Shopee Label"
-msgstr ""
+msgstr "Shopee 标签"
 
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_shopee_item__shopee_model_identifier
 msgid "Shopee Model ID"
-msgstr ""
+msgstr "Shopee 模型识别码"
 
 #. module: sale_shopee
 #. odoo-python
 #: code:addons/sale_shopee/tests/test_shopee.py:0
 msgid "Shopee Order %(order)s at mock_shopee_shop"
-msgstr ""
+msgstr "Shopee 订单 %(order)s（商店：mock_shopee_shop）"
 
 #. module: sale_shopee
 #. odoo-python
 #: code:addons/sale_shopee/models/shopee_shop.py:0
 msgid "Shopee Order %(shopee_order_ref)s at %(shop_name)s"
-msgstr ""
+msgstr "Shopee 订单%(shopee_order_ref)s（商店：%(shop_name)s）"
 
 #. module: sale_shopee
 #. odoo-python
@@ -1042,23 +1042,23 @@ msgstr "Shopee 状态"
 #. module: sale_shopee
 #: model:ir.model.fields.selection,name:sale_shopee.selection__shopee_account__api_endpoint__test
 msgid "Shopee Testing Endpoint"
-msgstr ""
+msgstr "Shopee 测试终端店"
 
 #. module: sale_shopee
 #: model:ir.model.fields.selection,name:sale_shopee.selection__shopee_account__api_endpoint__test_china
 msgid "Shopee Testing Endpoint (China)"
-msgstr ""
+msgstr "Shopee 测试终端点（中国）"
 
 #. module: sale_shopee
 #. odoo-python
 #: code:addons/sale_shopee/models/shopee_shop.py:0
 msgid "Shopee Warehouse - %(shop)s"
-msgstr ""
+msgstr "Shopee 仓库 - %(shop)s"
 
 #. module: sale_shopee
 #: model_terms:ir.actions.act_window,help:sale_shopee.action_shopee_account_list
 msgid "Shopee accounts correspond to Shopee Seller Central accounts."
-msgstr ""
+msgstr "“Sgopee 账号” 对应 Shopee 卖家中心账号。"
 
 #. module: sale_shopee
 #. odoo-python
@@ -1190,12 +1190,12 @@ msgstr "Shopee 定义的订单编号。"
 #. module: sale_shopee
 #: model:ir.model.fields,help:sale_shopee.field_shopee_shop__team_id
 msgid "The default Sales Team assigned to Shopee orders for reporting"
-msgstr ""
+msgstr "Shopee 订单默认分配给的销售团队，用于报告用途"
 
 #. module: sale_shopee
 #: model:ir.model.fields,help:sale_shopee.field_shopee_shop__user_id
 msgid "The default salesperson assigned to Shopee orders"
-msgstr ""
+msgstr "Shopee 订单默认分配给的销售人员"
 
 #. module: sale_shopee
 #: model:ir.model.fields,help:sale_shopee.field_shopee_shop__last_orders_sync_date
@@ -1270,7 +1270,7 @@ msgstr ""
 msgid ""
 "The stock location managed by Shopee under the Fulfilled by Shopee (FBS) "
 "program."
-msgstr ""
+msgstr "Shopee（FBS）计划下，由 Shopee 管理的库存位置。"
 
 #. module: sale_shopee
 #: model:ir.model.fields,help:sale_shopee.field_shopee_account__name
