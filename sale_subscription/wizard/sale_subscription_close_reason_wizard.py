@@ -12,8 +12,11 @@ class SaleSubscriptionCloseReasonWizard(models.TransientModel):
 
     def new(self, values=None, origin=None, ref=None):
         sale_order = self.env['sale.order'].browse(self.env.context.get('active_id'))
-        invoice_free = not any(state in ['draft', 'posted'] for state in sale_order.order_line.invoice_lines.move_id.mapped('state'))
-        invoice_free = invoice_free and not self.env['account.move.line'].search([
+        invoice_free = not any(
+            state in ['draft', 'posted']
+            for state in sale_order.order_line.sudo().invoice_lines.mapped('parent_state')
+        )
+        invoice_free = invoice_free and not self.env['account.move.line'].sudo().search([
             ('subscription_id', '=', sale_order.id),
             ('move_type', '=', 'out_invoice'),
             ('move_id.state', 'in', ["draft", "posted"])
