@@ -2,7 +2,7 @@ import { describe, expect, test } from "@odoo/hoot";
 import { animationFrame, click } from "@odoo/hoot-dom";
 
 import { mockDate } from "@odoo/hoot-mock";
-import { onRpc, selectGroup } from "@web/../tests/web_test_helpers";
+import { asyncStep, onRpc, selectGroup, waitForSteps } from "@web/../tests/web_test_helpers";
 
 import {
     dragPill,
@@ -10,7 +10,6 @@ import {
     getPill,
     mountGanttView,
     SELECTORS,
-    selectRange,
 } from "@web_gantt/../tests/web_gantt_test_helpers";
 import { CalendarEvent, defineAppointmentModels } from "./appointment_tests_common";
 
@@ -48,7 +47,6 @@ async function mountGanttViewWithStatus(status) {
         resModel: "calendar.event",
         viewId: 1,
     });
-    await selectRange("Today");
 }
 
 function testGroupPillColorsCheckColors() {
@@ -86,6 +84,8 @@ CalendarEvent._views["gantt,1"] = /* xml */ `
         date_start="start"
         date_stop="stop"
         default_group_by="partner_ids"
+        default_range="day"
+        default_scale="day"
     >
         <field name="active"/>
         <field name="appointment_status"/>
@@ -111,6 +111,10 @@ test("empty default group gantt rendering", async () => {
     CalendarEvent._records[0].appointment_type_id = 1;
     CalendarEvent._records[1].appointment_type_id = 1;
     CalendarEvent._records[2].appointment_type_id = 1;
+    CalendarEvent._views["gantt,1"] = CalendarEvent._views["gantt,1"]
+        .replace(`default_range="day"`, "")
+        .replace(`default_scale="day"`, "");
+
     const partners = ["Partner 1", "Partner 214", "Partner 216"];
     const partnerEvents = [
         ["Event 3", "Event 1"],
@@ -133,7 +137,7 @@ test("empty default group gantt rendering", async () => {
             expect(linkCommand[0]).toBe(4);
             expect(linkCommand[1]).toBe(100);
 
-            expect.step("write partners and date");
+            asyncStep("write partners and date");
         } else if (
             args.model === "calendar.event" &&
             args.method === "write" &&
@@ -142,9 +146,9 @@ test("empty default group gantt rendering", async () => {
         ) {
             expect(args.args[1].user_id).toBe(100);
 
-            expect.step("write user id");
+            asyncStep("write user id");
         } else if (args.model === "calendar.event" && args.method === "get_gantt_data") {
-            expect.step("get_gantt_data");
+            asyncStep("get_gantt_data");
         }
     });
     await mountGanttView({
@@ -160,7 +164,7 @@ test("empty default group gantt rendering", async () => {
     }
     const { drop } = await dragPill("Event 2", { nth: 1 });
     await drop({ row: "Partner 1", column: "21 January 2022", part: 2 });
-    expect.verifySteps([
+    await waitForSteps([
         "get_gantt_data",
         "write partners and date",
         "write user id",
@@ -237,7 +241,6 @@ test("group pill colors", async () => {
         resModel: "calendar.event",
         viewId: 1,
     });
-    await selectRange("Today");
     testGroupPillColorsCheckColors();
     await click(SELECTORS.sparse);
     await animationFrame();

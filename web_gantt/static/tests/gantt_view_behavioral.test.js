@@ -12,6 +12,7 @@ import {
 } from "@odoo/hoot-dom";
 import { Deferred, advanceTime, animationFrame, mockDate, runAllTimers } from "@odoo/hoot-mock";
 import {
+    asyncStep,
     contains,
     defineParams,
     fields,
@@ -19,6 +20,7 @@ import {
     onRpc,
     patchWithCleanup,
     validateSearch,
+    waitForSteps,
 } from "@web/../tests/web_test_helpers";
 import { ResUsers, Tasks, defineGanttModels } from "./gantt_mock_models";
 import {
@@ -42,8 +44,8 @@ import {
     setScale,
 } from "./web_gantt_test_helpers";
 
-import { omit, pick } from "@web/core/utils/objects";
 import { deserializeDate } from "@web/core/l10n/dates";
+import { omit, pick } from "@web/core/utils/objects";
 
 // Hard-coded daylight saving dates from 2019
 const DST_DATES = {
@@ -2053,14 +2055,14 @@ test("Select a range via the range menu", async () => {
 
 test("Select range with left/rigth arrows", async () => {
     onRpc("get_gantt_data", ({ kwargs }) => {
-        expect.step(kwargs.domain);
+        asyncStep(kwargs.domain);
     });
 
     await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" default_range="month"/>',
     });
-    expect.verifySteps([
+    await waitForSteps([
         ["&", ["start", "<", "2018-12-31 23:00:00"], ["stop", ">", "2018-11-30 23:00:00"]],
     ]);
 
@@ -2073,7 +2075,7 @@ test("Select range with left/rigth arrows", async () => {
     await click(SELECTORS.previousButton);
     await ganttControlsChanges();
 
-    expect.verifySteps([
+    await waitForSteps([
         ["&", ["start", "<", "2019-02-28 23:00:00"], ["stop", ">", "2019-01-31 23:00:00"]],
     ]);
     content = getGridContent();
@@ -2081,7 +2083,8 @@ test("Select range with left/rigth arrows", async () => {
 
     await press("alt+n");
     await ganttControlsChanges();
-    expect.verifySteps([
+
+    await waitForSteps([
         ["&", ["start", "<", "2019-03-31 23:00:00"], ["stop", ">", "2019-02-28 23:00:00"]],
     ]);
     content = getGridContent();
@@ -2090,7 +2093,7 @@ test("Select range with left/rigth arrows", async () => {
 
 test("Select scale with +/- buttons", async () => {
     onRpc("get_gantt_data", () => {
-        expect.step("get_gantt_data");
+        asyncStep("get_gantt_data");
     });
 
     await mountGanttView({
@@ -2101,33 +2104,34 @@ test("Select scale with +/- buttons", async () => {
     expect(getActiveScale()).toBe(5);
     expect(SELECTORS.minusButton).toBeEnabled();
     expect(SELECTORS.plusButton).not.toBeEnabled();
-    expect.verifySteps(["get_gantt_data"]);
+    await waitForSteps(["get_gantt_data"]);
 
     for (let i = 0; i < 9; i++) {
         await click(SELECTORS.minusButton);
     }
     await ganttControlsChanges();
 
+    await waitForSteps(["get_gantt_data"]);
     expect(getActiveScale()).toBe(0);
     expect(SELECTORS.minusButton).not.toBeEnabled();
     expect(SELECTORS.plusButton).toBeEnabled();
-    expect.verifySteps(["get_gantt_data"]);
 
     await click(SELECTORS.plusButton);
     await click(SELECTORS.plusButton);
     await ganttControlsChanges();
 
+    await waitForSteps(["get_gantt_data"]);
     expect(getActiveScale()).toBe(2);
     expect(SELECTORS.minusButton).toBeEnabled();
     expect(SELECTORS.plusButton).toBeEnabled();
-    expect.verifySteps(["get_gantt_data"]);
 
     await press("alt+i");
     await ganttControlsChanges();
+
+    await waitForSteps(["get_gantt_data"]);
     expect(getActiveScale()).toBe(3);
     expect(SELECTORS.minusButton).toBeEnabled();
     expect(SELECTORS.plusButton).toBeEnabled();
-    expect.verifySteps(["get_gantt_data"]);
 });
 
 test("make tooltip visible for a long pill", async () => {
