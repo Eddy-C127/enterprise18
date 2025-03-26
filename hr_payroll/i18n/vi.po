@@ -257,8 +257,8 @@ msgid ""
 "wizard can only index running contracts.</span>"
 msgstr ""
 "<span role=\"status\" class=\"alert alert-warning d-block\" invisible=\"not "
-"display_warning\">Bạn đã chọn các hợp đồng không hoạt động, tính năng này "
-"chỉ khả dụng đối với các hợp đồng đang hoạt động.</span>"
+"display_warning\">Bạn đã chọn các hợp đồng không còn hiệu lực, tính năng này"
+" chỉ khả dụng đối với các hợp đồng còn hiệu lực.</span>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_resource_calendar_view_form
@@ -704,7 +704,7 @@ msgstr "Lương cơ bản ngày nghỉ"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_filter
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Batch"
-msgstr "Loạt"
+msgstr "Lô"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__payslip_run_id
@@ -718,7 +718,7 @@ msgstr "Tên đợt"
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_payslip_run
 #, python-format
 msgid "Batches"
-msgstr "Loạt"
+msgstr "Lô"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_res_config_settings__module_l10n_be_hr_payroll
@@ -1644,15 +1644,14 @@ msgstr "Nhân viên"
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Employees (With Running Contracts) missing from open batches"
-msgstr ""
-"Nhân viên (Có hợp đồng đang chạy) bị thiếu trong các đợt mở bảng lương"
+msgstr "Nhân viên (có hợp đồng còn hiệu lực) bị thiếu trong lô đang mở"
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Employees With Both New And Running Contracts"
-msgstr "Nhân viên có cả hợp đồng mới và hợp đồng đang có hiệu lực"
+msgstr "Nhân viên có cả hợp đồng mới và hợp đồng còn hiệu lực"
 
 #. module: hr_payroll
 #. odoo-python
@@ -1680,7 +1679,7 @@ msgstr "Nhân viên không có số định danh"
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Employees Without Running Contracts"
-msgstr "Nhân viên không có hợp đồng có hiệu lực"
+msgstr "Nhân viên không có hợp đồng còn hiệu lực"
 
 #. module: hr_payroll
 #. odoo-python
@@ -2934,22 +2933,22 @@ msgstr "Ngày kết thúc phiếu lương"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_tree
 msgid "Payslip Input"
-msgstr "Phiếu lương Khoản mục"
+msgstr "Khoản mục phiếu lương"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_tree
 msgid "Payslip Input Name"
-msgstr "Phiếu lương Tên khoản mục"
+msgstr "Tên khoản mục phiếu lương"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_input_type
 msgid "Payslip Input Type"
-msgstr "Phiếu lương Loại khoản mục"
+msgstr "Loại khoản mục phiếu lương"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__input_line_ids
 msgid "Payslip Inputs"
-msgstr "Phiếu lương Khoản mục"
+msgstr "Khoản mục phiếu lương"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_line
@@ -2978,7 +2977,7 @@ msgstr "Tên phiếu lương"
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payslip_input_type
 msgid "Payslip Other Input Types"
-msgstr "Phiếu lương Loại khoản mục khác"
+msgstr "Loại khoản mục phiếu lương khác"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
@@ -3371,7 +3370,7 @@ msgstr "Đang chạy"
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Running contracts coming to an end"
-msgstr "Các hợp đồng đang có hiệu lực sắp kết thúc"
+msgstr "Các hợp đồng còn hiệu lực sắp kết thúc"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__sim_card
@@ -3640,7 +3639,7 @@ msgstr ""
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 #, python-format
 msgid "Set the Contract as <strong><q>Running</q></strong>."
-msgstr "Đặt Hợp đồng là <strong><q>Đang chạy</q></strong>."
+msgstr "Đặt Hợp đồng là <strong><q>Còn hiệu lực</q></strong>."
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
@@ -4679,8 +4678,8 @@ msgid ""
 "You have selected non running contracts, if you really need to index them, "
 "please do it by hand"
 msgstr ""
-"Bạn đã chọn các hợp đồng không chạy, nếu bạn thực sự cần lấy dữ liệu từ "
-"chúng, vui lòng thực hiện bằng tay"
+"Bạn đã chọn các hợp đồng không còn hiệu lực, nếu bạn thực sự cần lấy dữ liệu"
+" từ chúng, vui lòng thực hiện thủ công"
 
 #. module: hr_payroll
 #. odoo-python

@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Thi Huong Nguyen, 2024
+# Thi Huong Nguyen, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-10 10:50+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +48,7 @@ msgstr "<i class=\"fa fa-clock-o\" aria-label=\"Date\" role=\"img\" title=\"Ngà
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_form_inherit_account_batch_payment
 msgid "<span>Batch Payment</span>"
-msgstr "<span>Thanh toán hàng loạt</span>"
+msgstr "<span>Thanh toán theo lô</span>"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
@@ -165,18 +165,18 @@ msgstr "Chuyển khoản ngân hàng"
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
 msgid "Batch Content"
-msgstr "Nội dung hàng loạt"
+msgstr "Nội dung theo lô"
 
 #. module: account_batch_payment
 #: model:account.payment.method,name:account_batch_payment.account_payment_method_batch_deposit
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.account_journal_dashboard_kanban_view_inherited
 msgid "Batch Deposit"
-msgstr "Đặt cọc hàng loạt"
+msgstr "Đặt cọc theo lô"
 
 #. module: account_batch_payment
 #: model:ir.model,name:account_batch_payment.model_report_account_batch_payment_print_batch_payment
 msgid "Batch Deposit Report"
-msgstr "Báo cáo tiền gửi hàng loạt"
+msgstr "Báo cáo tiền gửi theo lô"
 
 #. module: account_batch_payment
 #. odoo-python
@@ -188,7 +188,7 @@ msgstr "Báo cáo tiền gửi hàng loạt"
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_search
 #, python-format
 msgid "Batch Payment"
-msgstr "Thanh toán Hàng loạt"
+msgstr "Thanh toán theo lô"
 
 #. module: account_batch_payment
 #: model:ir.ui.menu,name:account_batch_payment.menu_batch_payment_purchases
@@ -200,7 +200,7 @@ msgstr "Gộp thanh toán"
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__batch_type
 msgid "Batch Type"
-msgstr "Loại hàng loạt"
+msgstr "Loại theo lô"
 
 #. module: account_batch_payment
 #: model_terms:ir.actions.act_window,help:account_batch_payment.action_batch_payment_in
@@ -210,19 +210,19 @@ msgid ""
 "                    reconciliation. They are also useful when depositing checks\n"
 "                    to the bank."
 msgstr ""
-"Thanh toán hàng loạt cho phép bạn nhóm các khoản thanh toán khác nhau để dễ dàng\n"
+"Thanh toán theo lô cho phép bạn nhóm các khoản thanh toán khác nhau để dễ dàng\n"
 "                    đối soát. Chúng cũng hữu ích khi gửi séc\n"
 "                    tới ngân hàng."
 
 #. module: account_batch_payment
 #: model:ir.model,name:account_batch_payment.model_account_batch_error_wizard
 msgid "Batch payments error reporting wizard"
-msgstr "Tính năng báo cáo lỗi khi thanh toán hàng loạt"
+msgstr "Tính năng báo cáo lỗi khi thanh toán theo lô"
 
 #. module: account_batch_payment
 #: model:ir.model,name:account_batch_payment.model_account_batch_error_wizard_line
 msgid "Batch payments error reporting wizard line"
-msgstr "Tính năng báo cáo lỗi chi tiết khi thanh toán hàng loạt"
+msgstr "Tính năng báo cáo lỗi chi tiết khi thanh toán theo lô"
 
 #. module: account_batch_payment
 #. odoo-python
@@ -230,8 +230,8 @@ msgstr "Tính năng báo cáo lỗi chi tiết khi thanh toán hàng loạt"
 #, python-format
 msgid "Cannot validate an empty batch. Please add some payments to it first."
 msgstr ""
-"Không thể xác thực một loạt trống. Vui lòng thêm một số khoản thanh toán vào"
-" nó trước."
+"Không thể xác thực một lô trống. Vui lòng thêm một số khoản thanh toán vào "
+"nó trước."
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
@@ -258,22 +258,22 @@ msgstr "Tạo đợt thanh toán"
 #: code:addons/account_batch_payment/models/account_journal.py:0
 #, python-format
 msgid "Create Batch Payment"
-msgstr "Tạo thanh toán hàng loạt"
+msgstr "Tạo thanh toán theo lô"
 
 #. module: account_batch_payment
 #: model_terms:ir.actions.act_window,help:account_batch_payment.action_batch_payment_in
 msgid "Create a new customer batch payment"
-msgstr "Tạo thanh toán hàng loạt cho khách hàng mới"
+msgstr "Tạo thanh toán theo lô cho khách hàng mới"
 
 #. module: account_batch_payment
 #: model_terms:ir.actions.act_window,help:account_batch_payment.action_batch_payment_out
 msgid "Create a new vendor batch payment"
-msgstr "Tạo thanh toán hàng loạt cho nhà cung cấp mới"
+msgstr "Tạo thanh toán theo lô cho nhà cung cấp mới"
 
 #. module: account_batch_payment
 #: model:ir.actions.server,name:account_batch_payment.action_account_create_batch_payment
 msgid "Create batch payment"
-msgstr "Tạo thanh toán hàng loạt"
+msgstr "Tạo thanh toán theo lô"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard__create_uid
@@ -307,7 +307,7 @@ msgstr "Khách hàng"
 #. module: account_batch_payment
 #: model:ir.actions.act_window,name:account_batch_payment.action_batch_payment_in
 msgid "Customer Batch Payments"
-msgstr "Thanh toán hàng loạt của khách hàng"
+msgstr "Thanh toán theo lô của khách hàng"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__date
@@ -350,7 +350,7 @@ msgstr "Loại trừ Thanh toán"
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__export_file
 msgid "Export file related to this batch"
-msgstr "Xuất file liên quan tới thanh toán hàng loạt này"
+msgstr "Xuất file liên quan tới thanh toán theo lô này"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__export_file
@@ -440,7 +440,7 @@ msgstr "Gọi đến"
 #: code:addons/account_batch_payment/models/account_journal.py:0
 #, python-format
 msgid "Inbound Batch Payments Sequence"
-msgstr "Mã thanh toán hàng loạt nhận vào"
+msgstr "Mã thanh toán theo lô nhận vào"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__message_is_follower
@@ -544,7 +544,7 @@ msgstr "Loại hoạt động tiếp theo"
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_search_inherit_account_batch_payment
 msgid "Not Batch Payments"
-msgstr "Không phải thanh toán hàng loạt"
+msgstr "Không phải thanh toán theo lô"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_search_inherit_account_batch_payment
@@ -586,7 +586,7 @@ msgstr "Gọi đi"
 #: code:addons/account_batch_payment/models/account_journal.py:0
 #, python-format
 msgid "Outbound Batch Payments Sequence"
-msgstr "Mã thanh toán hàng loạt ra ngoài"
+msgstr "Mã thanh toán theo lô ra ngoài"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_tree_inherit_account_batch_payment
@@ -638,7 +638,7 @@ msgstr "In"
 #. module: account_batch_payment
 #: model:ir.actions.report,name:account_batch_payment.action_print_batch_payment
 msgid "Print Batch Payment"
-msgstr "In thanh toán hàng loạt"
+msgstr "In thanh toán theo lô"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
@@ -770,7 +770,7 @@ msgstr "Không thể xác thực đợt thanh toán."
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
 msgid "The batch could not be validated"
-msgstr "Loạt thanh toán không thể được xác nhận"
+msgstr "Lô thanh toán không thể được xác nhận"
 
 #. module: account_batch_payment
 #. odoo-python
@@ -793,7 +793,7 @@ msgid ""
 "The batch payment generating the errors and warnings displayed in this "
 "wizard."
 msgstr ""
-"Thanh toán hàng loạt tạo ra các lỗi và cảnh báo được hiển thị trong trình "
+"Thanh toán theo lô tạo ra các lỗi và cảnh báo được hiển thị trong trình "
 "hướng dẫn này."
 
 #. module: account_batch_payment
@@ -825,7 +825,7 @@ msgid ""
 " warnings from the batch should be shown"
 msgstr ""
 "Đúng nếu và chỉ khi các tùy chọn để xóa các khoản thanh toán gây ra lỗi hoặc"
-" cảnh báo từ loạt thanh toán sẽ được hiển thị"
+" cảnh báo từ lô thanh toán sẽ được hiển thị"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__activity_exception_decoration
@@ -845,7 +845,7 @@ msgstr "Xác nhận"
 #. module: account_batch_payment
 #: model:ir.actions.act_window,name:account_batch_payment.action_batch_payment_out
 msgid "Vendor Batch Payments"
-msgstr "Thanh toán hàng loạt của nhà cung cấp"
+msgstr "Thanh toán theo lô của nhà cung cấp"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard__warning_line_ids
@@ -873,8 +873,8 @@ msgid ""
 "Whether or not this batch payment should display the 'Generate File' button "
 "instead of 'Print' in form view."
 msgstr ""
-"Liệu thanh toán hàng loạt này có nên hiển thị nút 'Tạo tệp' thay vì 'In' "
-"trong chế độ xem biểu mẫu hay không."
+"Liệu thanh toán theo lô này có nên hiển thị nút 'Tạo tệp' thay vì 'In' trong"
+" chế độ xem biểu mẫu hay không."
 
 #. module: account_batch_payment
 #. odoo-python
@@ -890,14 +890,14 @@ msgstr "Bạn không thể thêm các khoản thanh toán chưa được ghi s�
 msgid "You cannot add payments with zero amount in a Batch Payment."
 msgstr ""
 "Bạn không thể thêm các khoản thanh toán với số tiền bằng không trong Thanh "
-"toán hàng loạt."
+"toán theo lô."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "You cannot add the same payment to multiple batches."
-msgstr "Bạn không thể thêm cùng một khoản thanh toán vào nhiều loạt."
+msgstr "Bạn không thể thêm cùng một khoản thanh toán vào nhiều lô."
 
 #. module: account_batch_payment
 #. odoo-python
@@ -907,8 +907,8 @@ msgstr "Bạn không thể thêm cùng một khoản thanh toán vào nhiều lo
 msgid ""
 "You cannot create a batch with payments that are already in another batch."
 msgstr ""
-"Bạn không thể tạo một loạt thanh toán chứa các khoản thanh toán đã có trong "
-"loạt khác."
+"Bạn không thể tạo một lô thanh toán chứa các khoản thanh toán đã có trong lô"
+" khác."
 
 #. module: account_batch_payment
 #. odoo-python
@@ -916,5 +916,4 @@ msgstr ""
 #, python-format
 msgid "You cannot create batches with overlapping payments."
 msgstr ""
-"Bạn không thể tạo các loạt thanh toán chứa những khoản thanh toán chồng "
-"chéo."
+"Bạn không thể tạo các lô thanh toán chứa những khoản thanh toán chồng chéo."
