@@ -135,3 +135,6 @@ class SpreadsheetSaleOrder(models.Model):
             'sequence': 20,
             'allow_create': False,
         }
+
+    def _check_access(self, operation):
+        return super()._check_access(operation) or self.order_id._check_access(operation)
