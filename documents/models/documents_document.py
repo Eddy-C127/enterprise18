@@ -37,6 +37,7 @@ class Document(models.Model):
     _name = 'documents.document'
     _description = 'Document'
     _inherit = ['mail.thread.cc', 'mail.activity.mixin', 'mail.alias.mixin']
+    _mail_post_access = 'read'
     _order = 'id desc'
     _parent_name = 'folder_id'
     _parent_store = True
