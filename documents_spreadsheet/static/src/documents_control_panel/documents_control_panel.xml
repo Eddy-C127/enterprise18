@@ -19,7 +19,7 @@
         </xpath>
         <xpath expr="//*[hasclass('o_documents_download_button')]" position="attributes">
             <attribute name="t-if">
-                this.targetRecords.some((r) => r.data.attachment_id and r.data.handler !== "spreadsheet")
+                this.targetRecords.some((r) => !r.isRequest() and r.data.handler !== "spreadsheet")
             </attribute>
         </xpath>
     </t>
