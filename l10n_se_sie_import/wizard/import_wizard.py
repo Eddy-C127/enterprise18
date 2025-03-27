@@ -665,6 +665,8 @@ class SIEExportWizard(models.TransientModel):
         company_currency_id = company.currency_id.id
         default_journal = self._get_sie_default_journal()
         new_balance_moves = {}
+
+        self.env['account.move.line'].flush_model(['account_id', 'date', 'balance', 'ref', 'parent_state', 'company_id'])
         self._cr.execute("""
             SELECT account.code,
                    aml.date,
