@@ -116,11 +116,19 @@ class AccountOnlineAccount(models.Model):
             # duplicate existing connections when opening the iframe
             if journal.account_online_link_id:
                 journal.account_online_link_id.unlink()
-            # Check for any existing transactions on the journal to assign currency
-            if self.currency_id.id != self.env.company.currency_id.id:
+            # If currency of journal doesn't match the bank account's, look if the journal already has an entry in it.
+            # If it doesn't, set the journal's currency to bank account's currency if the journal is still empty.
+            # If it doesn't because it is not set (currency_id is not a required field on account_journal), then
+            # check if the existing entries use the same currency as the bank account. If it's the case, write the currency
+            # on the journal.
+            if self.currency_id.id != journal.currency_id.id:
                 existing_entries = self.env['account.bank.statement.line'].search([('journal_id', '=', journal.id)])
-                if not existing_entries:
+                if not existing_entries or (not journal.currency_id and self.currency_id == existing_entries.currency_id):
                     journal.currency_id = self.currency_id.id
+                else:
+                    raise UserError(_("Journal %(journal_name)s has been set up with a different currency and already has existing entries. "
+                                      "You can't link selected bank account in %(currency_name)s to it",
+                                      journal_name=journal.name, currency_name=self.currency_id.name))
         elif existing_journal:
             journal = existing_journal
         else:
