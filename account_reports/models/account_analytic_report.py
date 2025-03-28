@@ -138,7 +138,8 @@ class AccountReport(models.AbstractModel):
                 project_plan, other_plans = self.env['account.analytic.plan']._get_all_plans()
                 analytic_cols = ", ".join(n._column_name() for n in (project_plan+other_plans))
                 selected_fields.append(sql.SQL(f'to_jsonb(UNNEST(ARRAY[account_analytic_line.{analytic_cols}])) AS "account_move_line.analytic_distribution"'))
-                where_clause = sql.SQL(f'ARRAY[account_analytic_line.{analytic_cols}] && ARRAY[{analytic_distribution}] AND account_analytic_line.general_account_id IS NOT NULL')
+                analytic_clause = f'ARRAY[account_analytic_line.{analytic_cols}] && ARRAY[{analytic_distribution}]' if analytic_distribution else 'false'
+                where_clause = sql.SQL(f'{analytic_clause} AND account_analytic_line.general_account_id IS NOT NULL')
             else:
                 selected_fields.append(sql.SQL('{table}."{fname}" AS "account_move_line.{fname}"').format(
                     table=sql.SQL("account_analytic_line") if fname in stored_analytic_line_fields else sql.SQL("account_move_line"),
