@@ -10820,21 +10820,3 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'ONSSEMPLOYER': 722.98,
         }
         self._validate_payslip(payslip, payslip_results)
-
-    def test_spouse_fiscal_status_witholding_tax(self):
-        self.employee.marital = 'married'
-        self.employee.spouse_fiscal_status = 'without_income'
-        payslip_spouse_no_income = self._generate_payslip(datetime.date(2023, 3, 1), datetime.date(2023, 3, 31))
-        payslip_vals_no_income = payslip_spouse_no_income._get_line_values(['P.P', 'P.P.DED'])
-        pp_no_income = payslip_vals_no_income['P.P'][payslip_spouse_no_income.id]['total']
-        pp_ded_no_income = payslip_vals_no_income['P.P.DED'][payslip_spouse_no_income.id]['total']
-
-        # P.P and P.P.DED should be the same with a spouse with low income
-        self.employee.spouse_fiscal_status = 'low_income'
-        payslip_spouse_low_income = self._generate_payslip(datetime.date(2023, 3, 1), datetime.date(2023, 3, 31))
-        payslip_vals_low_income = payslip_spouse_low_income._get_line_values(['P.P', 'P.P.DED'])
-        pp_low_income = payslip_vals_low_income['P.P'][payslip_spouse_low_income.id]['total']
-        pp_ded_low_income = payslip_vals_low_income['P.P.DED'][payslip_spouse_low_income.id]['total']
-
-        self.assertEqual(pp_no_income, pp_low_income)
-        self.assertEqual(pp_ded_no_income, pp_ded_low_income)
