@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-28 06:19+0000\n"
+"POT-Creation-Date: 2025-03-26 20:50+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Slovenian (https://app.transifex.com/odoo/teams/41243/sl/)\n"
@@ -62,6 +62,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__display_name
 msgid "Display Name"
 msgstr "Prikazani naziv"
+
+#. module: spreadsheet_sale_management
+#: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__display_thumbnail
+msgid "Display Thumbnail"
+msgstr ""
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
@@ -142,12 +147,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__name
 msgid "Name"
 msgstr "Naziv"
-
-#. module: spreadsheet_sale_management
-#. odoo-python
-#: code:addons/spreadsheet_sale_management/models/sale_order_spreadsheet.py:0
-msgid "Untitled spreadsheet"
-msgstr "Preglednica brez naslova"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
@@ -294,3 +293,9 @@ msgstr "Ikona"
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/action/field_sync_action.js:0
 msgid "Unable to save"
 msgstr "Ni mogoče shraniti"
+
+#. module: spreadsheet_sale_management
+#. odoo-python
+#: code:addons/spreadsheet_sale_management/models/sale_order_spreadsheet.py:0
+msgid "Untitled spreadsheet"
+msgstr "Preglednica brez naslova"

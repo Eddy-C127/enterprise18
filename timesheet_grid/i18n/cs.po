@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:51+0000\n"
+"POT-Creation-Date: 2025-03-26 20:44+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Radim Bílý, 2025\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
@@ -443,10 +443,10 @@ msgid "Grouping by date is not supported"
 msgstr "Seskupování podle data není podporováno"
 
 #. module: timesheet_grid
-#. odoo-javascript
-#: code:addons/timesheet_grid/static/src/views/timesheet_grid/timesheet_grid_renderer.js:0
-msgid "No timesheets found. Let's create one!"
-msgstr "Nebyly nalezeny žádné časové rozvrhy. Pojďme si jeden vytvořit!"
+#: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__id
+#: model:ir.model.fields,field_description:timesheet_grid.field_project_task_create_timesheet__id
+msgid "ID"
+msgstr "ID"
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -457,12 +457,6 @@ msgid ""
 msgstr ""
 "Sledujte svou pracovní dobu podle projektu každý den a fakturujte za tuto "
 "dobu svým zákazníkům."
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__id
-#: model:ir.model.fields,field_description:timesheet_grid.field_project_task_create_timesheet__id
-msgid "ID"
-msgstr "ID"
 
 #. module: timesheet_grid
 #: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_previous_week
@@ -574,6 +568,12 @@ msgstr "Mé úkoly"
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_search
 msgid "My Team"
 msgstr "Můj tým"
+
+#. module: timesheet_grid
+#. odoo-javascript
+#: code:addons/timesheet_grid/static/src/views/timesheet_grid/timesheet_grid_renderer.js:0
+msgid "No timesheets found. Let's create one!"
+msgstr "Nebyly nalezeny žádné časové rozvrhy. Pojďme si jeden vytvořit!"
 
 #. module: timesheet_grid
 #: model_terms:ir.actions.act_window,help:timesheet_grid.timesheet_grid_to_validate_action

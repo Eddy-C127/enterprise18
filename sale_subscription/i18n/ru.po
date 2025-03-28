@@ -1736,6 +1736,11 @@ msgid "Future Activities"
 msgstr "Планируемые действия"
 
 #. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_payment_link_wizard
+msgid "Generate Sales Payment Link"
+msgstr "Ссылка для оплаты продаж"
+
+#. module: sale_subscription
 #. odoo-javascript
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 msgid "Go ahead and create a new product"
@@ -4605,6 +4610,12 @@ msgstr ""
 "Для этой подписки нельзя создать предложение, потому что она :\n"
 " - Еще не началась.\n"
 " - В будущем не будет выставлен счет."
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/wizard/payment_link_wizard.py:0
+msgid "You cannot generate a payment link for a renewed subscription"
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_sale_subscription_state_coherence_2

@@ -144,8 +144,8 @@ msgstr ""
 "                }\n"
 "            </style>\n"
 "            <body><div>\n"
-"                <p>Đã gặp lỗi và không thể hoàn tất việc đồng bộ phiếu xuất kho.</p>\n"
-"                <p>Vui lòng xử lý vấn đề trước khi đồng bộ lại phiếu xuất kho theo cách thủ công, vì hệ thống sẽ không thử đồng bộ lại.</p>\n"
+"                <p>Đã gặp lỗi và không thể hoàn tất việc đồng bộ lệnh giao hàng.</p>\n"
+"                <p>Vui lòng xử lý vấn đề trước khi đồng bộ lại lệnh giao hàng theo cách thủ công, vì hệ thống sẽ không thử đồng bộ lại.</p>\n"
 "                <p>Đây là lỗi được gửi về từ Amazon: </p>\n"
 "                <table class=\"amz_table\">\n"
 "                    <thead>\n"
@@ -555,7 +555,7 @@ msgstr "Amazon: Lỗi đồng bộ tồn kho có sẵn để bán"
 #. module: sale_amazon
 #: model:mail.template,name:sale_amazon.picking_sync_failure
 msgid "Amazon: Delivery Order Synchronization Failure"
-msgstr "Amazon: Đồng bộ hóa phiếu xuất kho không thành công"
+msgstr "Amazon: Đồng bộ hóa lệnh giao hàng không thành công"
 
 #. module: sale_amazon
 #: model:mail.template,name:sale_amazon.order_sync_failure
@@ -570,7 +570,7 @@ msgstr "Amazon: đồng bộ tồn kho có sẵn"
 #. module: sale_amazon
 #: model:ir.actions.server,name:sale_amazon.ir_cron_sync_amazon_pickings_ir_actions_server
 msgid "Amazon: sync delivery orders"
-msgstr "Amazon: đồng bộ phiếu xuất kho"
+msgstr "Amazon: đồng bộ lệnh giao hàng"
 
 #. module: sale_amazon
 #: model:ir.actions.server,name:sale_amazon.ir_cron_sync_amazon_feeds_ir_actions_server
@@ -1089,7 +1089,7 @@ msgstr "Đã cập nhật thành công các marketplace khả dụng cho tài kh
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid "Sync Deliveries"
-msgstr "Đồng bộ phiếu xuất kho"
+msgstr "Đồng bộ lệnh giao hàng"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
@@ -1128,7 +1128,7 @@ msgstr ""
 #. module: sale_amazon
 #: model:mail.template,subject:sale_amazon.picking_sync_failure
 msgid "Synchronization of delivery orders has failed"
-msgstr "Đồng bộ phiếu xuất kho không thành công"
+msgstr "Đồng bộ lệnh giao hàng không thành công"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.picking_view_form
@@ -1327,7 +1327,7 @@ msgstr "Mã tham chiếu đơn hàng Amazon cần khôi phục, có định dạ
 msgid ""
 "The sales order of this delivery order is not linked to an Amazon account."
 msgstr ""
-"Đơn bán hàng của phiếu xuất kho này không liên kết với một tài khoản Amazon "
+"Đơn bán hàng của lệnh giao hàng này không liên kết với một tài khoản Amazon "
 "nào."
 
 #. module: sale_amazon
@@ -1360,11 +1360,11 @@ msgid ""
 "- Done: The delivery details have been processed.\n"
 "- Error: The synchronization of the delivery order failed."
 msgstr ""
-"Trạng thái đồng bộ của phiếu xuất kho với Amazon:\n"
-"- Đang chờ: Phiếu xuất kho đã được xác nhận và sẽ sớm được đồng bộ.\n"
+"Trạng thái đồng bộ của lệnh giao hàng với Amazon:\n"
+"- Đang chờ: Lệnh giao hàng đã được xác nhận và sẽ sớm được đồng bộ.\n"
 "- Đang xử lý: Chi tiết xuất kho đã được gửi đi và đang được xử lý.\n"
 "- Hoàn tất: Chi tiết xuất kho đã được xử lý.\n"
-"- Lỗi: Đồng bộ phiếu xuất kho không thành công."
+"- Lỗi: Đồng bộ lệnh giao hàng không thành công."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_offer__amazon_sync_status

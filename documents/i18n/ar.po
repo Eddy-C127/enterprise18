@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Tiffany Chang, 2024
-# Wil Odoo, 2025
 # Malaz Abuidris <msea@odoo.com>, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-27 13:54+0000\n"
+"POT-Creation-Date: 2025-03-26 20:44+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -957,8 +957,6 @@ msgid "Alias Status"
 msgstr "حالة اللقب "
 
 #. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_tag_ids
 msgid "Alias Tags"
 msgstr "علامات تصنيف اللقب "
@@ -1244,6 +1242,11 @@ msgstr "اللون"
 #: code:addons/documents/models/documents_document.py:0
 msgid "Common roots for all company users."
 msgstr "الجذور المشتركة لكافة مستخدمي الشركة. "
+
+#. module: documents
+#: model:ir.model,name:documents.model_res_company
+msgid "Companies"
+msgstr "الشركات"
 
 #. module: documents
 #. odoo-javascript
@@ -1710,14 +1713,13 @@ msgstr "المحرر "
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_email
 msgid "Email Alias"
 msgstr "لقب البريد الإلكتروني"
-
-#. module: documents
-#: model:ir.ui.menu,name:documents.mail_alias_menu
-msgid "Email Aliases"
-msgstr "ألقاب البريد الإلكتروني "
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form_details
@@ -3395,6 +3397,8 @@ msgid "Tag name already used"
 msgstr "اسم علامة التصنيف مستخدم بالفعل "
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.actions.act_window,name:documents.tag_action
 #: model:ir.model.fields,field_description:documents.field_documents_document__tag_ids
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__tag_ids
@@ -3534,12 +3538,6 @@ msgstr "تمت استعادة هذا المستند. "
 msgid ""
 "This file has been sent to the trash and will be deleted forever on the %s"
 msgstr "تم إرسال هذا الملف إلى سلة المهملات وسيتم حذفه نهائياً في %s "
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "This folder does not exist."
-msgstr "هذا المجلد غير موجود. "
 
 #. module: documents
 #. odoo-python
@@ -3859,6 +3857,12 @@ msgstr "لا يُسمح لك بتثبيت/إلغاء تثبيت الإجراءا
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to read the permission panel data."
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to write in this folder."
 msgstr "لا يُسمح لك بالكتابة في هذا المجلد. "
 
@@ -3874,18 +3878,6 @@ msgstr "يمكنك أن ترفع ملفًا من جهازك أو تنسخ وتل
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
 msgstr "لا يمكنك تثبيت الإجراءات لهذا المجلد. "
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You can not ping an action on that document."
-msgstr "لا يمكنك استدعاء إجراء على ذلك المستند. "
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You can not ping that type of action."
-msgstr "لا يمكنك استدعاء هذا النوع من الإجراءات. "
 
 #. module: documents
 #. odoo-python
@@ -4171,11 +4163,3 @@ msgid ""
 msgstr ""
 "•\n"
 "                                        <b>URL</b>"
-
-#. module: documents
-#. odoo-python
-#. odoo-javascript
-#: code:addons/documents/models/documents_document.py:0
-#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
-msgid "Email"
-msgstr "البريد الإلكتروني"

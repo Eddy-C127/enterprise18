@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Tony Ng, 2024
+# Tony Ng, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-03-26 20:46+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Tony Ng, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -313,23 +313,28 @@ msgstr "SAF-T 匯入模組"
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
-msgid "SIE 5"
-msgstr "SIE 5"
+msgid "SIE 4 Import module"
+msgstr "SIE 4 匯入模組"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
-msgid "SIE Import module"
-msgstr "SIE 匯入模組"
+msgid "SIE 4/5"
+msgstr ""
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+msgid "SIE 5 Import module"
+msgstr "SIE 5 匯入模組"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid ""
-"The SIE standard file format is very common in Sweden for several purposes "
-"such as auditing, importing and exporting data from and to other accounting "
-"softwares."
-msgstr "SIE標準文件格式在瑞典非常普遍，可用於多種用途，如審計、從其他會計軟件匯入和匯出數據。"
+"The SIE standard file format is very common in Sweden for several purposes such as auditing, importing and exporting data\n"
+"                            from and to other accounting applications. Odoo support importing data from both type 4 and 5 of SIE."
+msgstr ""
 
 #. module: account_base_import
 #. odoo-python
@@ -399,13 +404,20 @@ msgstr "已匯入賬戶"
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid ""
-"is required to import the SIE and SIE entry files.\n"
-"                            For general SIE, we will setup your charts of accounts balances, journals, partners, and the history of journal entries (journals data must be present in the file).\n"
-"                            For the SIE entry, only entries and partners will be created, the rest must already be present in the system."
+"is required to import the SIE 4 files.\n"
+"                                    By design, it's also backward compatible with previous SIE versions (version 1 up to 3).\n"
+"                                    This import will not validate the correctness of the file."
 msgstr ""
-"是必要的，以匯入 SIE 及 SIE 記項文件。\n"
-"                            對於一般 SIE，我們將設定你的賬目總表結餘、日記賬、合作夥伴及日記賬記項歷史記錄（日記賬資料必須存在於文件中）。\n"
-"                            對於 SIE 記項，只會建立記項及合作夥伴，其餘資料必須已經存在於系統中。"
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+msgid ""
+"is required to import the SIE 5 and SIE 5 entry files.\n"
+"                                    For general SIE 5, we will set up your charts of accounts balances, journals, partners, and the history of journal entries\n"
+"                                    (journals data must be present in the file).\n"
+"                                    For the SIE 5 entry, only entries and partners will be created, the rest must already be present in the system."
+msgstr ""
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form

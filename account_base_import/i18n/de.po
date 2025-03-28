@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Larissa Manderfeld, 2024
+# Larissa Manderfeld, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-03-26 20:46+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2025\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -317,26 +317,30 @@ msgstr "SAF-T-Importmodul"
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
-msgid "SIE 5"
-msgstr "SIE 5"
+msgid "SIE 4 Import module"
+msgstr "SIE-4-Importmodul"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
-msgid "SIE Import module"
-msgstr "SIE-Importmodul"
+msgid "SIE 4/5"
+msgstr "SIE 4/5"
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+msgid "SIE 5 Import module"
+msgstr "SIE-5-Importmodul"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid ""
-"The SIE standard file format is very common in Sweden for several purposes "
-"such as auditing, importing and exporting data from and to other accounting "
-"softwares."
+"The SIE standard file format is very common in Sweden for several purposes such as auditing, importing and exporting data\n"
+"                            from and to other accounting applications. Odoo support importing data from both type 4 and 5 of SIE."
 msgstr ""
-"Das SIE-Standarddateiformat ist in Schweden für verschiedene Zwecke sehr "
-"verbreitet, z. B. für die Rechnungsprüfung, den Import und Export von Daten "
-"aus und in andere Buchhaltungsprogramme."
+"Das SIE-Standarddateiformat ist in Schweden für verschiedene Zwecke sehr verbreitet, z. B. für die Rechnungsprüfung, den Import und Export von Daten\n"
+"                            aus und in andere Buchhaltungsprogramme. Odoo unterstützt den Import von Daten sowohl vom Typ 4 als auch vom Typ 5 von SIE."
 
 #. module: account_base_import
 #. odoo-python
@@ -416,13 +420,27 @@ msgstr "importierte Konten"
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid ""
-"is required to import the SIE and SIE entry files.\n"
-"                            For general SIE, we will setup your charts of accounts balances, journals, partners, and the history of journal entries (journals data must be present in the file).\n"
-"                            For the SIE entry, only entries and partners will be created, the rest must already be present in the system."
+"is required to import the SIE 4 files.\n"
+"                                    By design, it's also backward compatible with previous SIE versions (version 1 up to 3).\n"
+"                                    This import will not validate the correctness of the file."
 msgstr ""
-"ist erforderlich, um die SIE und SIE-Buchungsdateien zu importieren.\n"
-"                            Für die allgemeine SIE richten wir Ihre Kontenpläne, Journale, Partner und die Historie der Journalbuchungen ein (die Daten der Journale müssen in der Datei vorhanden sein).\n"
-"                            Für den SIE-Eintrag werden nur Einträge und Partner erstellt, der Rest muss bereits im System vorhanden sein."
+"ist erforderlich, um SIE-4-Dateien zu importieren.\n"
+"                                    Es ist auch mit früheren SIE-Versionen (Version 1 bis 3) nachträglich kompatibel.\n"
+"                                    Bei diesem Import wird die Korrektheit der Datei nicht überprüft."
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+msgid ""
+"is required to import the SIE 5 and SIE 5 entry files.\n"
+"                                    For general SIE 5, we will set up your charts of accounts balances, journals, partners, and the history of journal entries\n"
+"                                    (journals data must be present in the file).\n"
+"                                    For the SIE 5 entry, only entries and partners will be created, the rest must already be present in the system."
+msgstr ""
+"ist erforderlich, um die SIE 5 und SIE-5-Buchungsdateien zu importieren.\n"
+"                                    Für die allgemeine SIE 5 richten wir Ihre Kontenpläne, Journale, Partner und die Historie der Journalbuchungen ein\n"
+"                                   (die Daten der Journale müssen in der Datei vorhanden sein).\n"
+"                                   Für den SIE-5-Eintrag werden nur Einträge und Partner erstellt, der Rest muss bereits im System vorhanden sein."
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form

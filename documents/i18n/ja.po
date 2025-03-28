@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-27 13:54+0000\n"
+"POT-Creation-Date: 2025-03-26 20:44+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Junko Augias, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -948,8 +948,6 @@ msgid "Alias Status"
 msgstr "エイリアスステータス"
 
 #. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_tag_ids
 msgid "Alias Tags"
 msgstr "エイリアスタグ"
@@ -1224,6 +1222,11 @@ msgstr "色"
 #: code:addons/documents/models/documents_document.py:0
 msgid "Common roots for all company users."
 msgstr "会社ユーザ全員に共通のルーツ。"
+
+#. module: documents
+#: model:ir.model,name:documents.model_res_company
+msgid "Companies"
+msgstr "会社"
 
 #. module: documents
 #. odoo-javascript
@@ -1690,13 +1693,12 @@ msgstr "エディター"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
-#: model:ir.model.fields,field_description:documents.field_documents_document__alias_email
-msgid "Email Alias"
-msgstr "Eメールエイリアス"
+msgid "Email"
+msgstr "メール"
 
 #. module: documents
-#: model:ir.ui.menu,name:documents.mail_alias_menu
-msgid "Email Aliases"
+#: model:ir.model.fields,field_description:documents.field_documents_document__alias_email
+msgid "Email Alias"
 msgstr "Eメールエイリアス"
 
 #. module: documents
@@ -3347,6 +3349,8 @@ msgid "Tag name already used"
 msgstr "タグ名は既に使用されています"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.actions.act_window,name:documents.tag_action
 #: model:ir.model.fields,field_description:documents.field_documents_document__tag_ids
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__tag_ids
@@ -3483,12 +3487,6 @@ msgstr "このドキュメントは復元されました。"
 msgid ""
 "This file has been sent to the trash and will be deleted forever on the %s"
 msgstr "このファイルは、ゴミ箱に移動され、永久に削除されます%s"
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "This folder does not exist."
-msgstr "このフォルダは存在しません。"
 
 #. module: documents
 #. odoo-python
@@ -3802,6 +3800,12 @@ msgstr "埋込アクションの固定/固定解除は許可されていませ�
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to read the permission panel data."
+msgstr "許可パネルのデータを読み取ることは許可されていません。"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to write in this folder."
 msgstr "このフォルダに書込む権利はありません。"
 
@@ -3817,18 +3821,6 @@ msgstr "利用中のコンピュータから、もしくはインターネット
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
 msgstr "あのフォルダに対してアクションをピンすることはできません。"
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You can not ping an action on that document."
-msgstr "あのドキュメントに対してアクションをピンすることはできません。"
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You can not ping that type of action."
-msgstr "あのタイプのアクションをピンすることはできません。"
 
 #. module: documents
 #. odoo-python
@@ -4111,11 +4103,3 @@ msgid ""
 msgstr ""
 "•\n"
 "                                        <b>URL</b>"
-
-#. module: documents
-#. odoo-python
-#. odoo-javascript
-#: code:addons/documents/models/documents_document.py:0
-#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
-msgid "Email"
-msgstr "メール"

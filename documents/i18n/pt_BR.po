@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-27 13:54+0000\n"
+"POT-Creation-Date: 2025-03-26 20:44+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Maitê Dietze, 2025\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
@@ -956,8 +956,6 @@ msgid "Alias Status"
 msgstr "Status do alias"
 
 #. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_tag_ids
 msgid "Alias Tags"
 msgstr "Marcadores do alias"
@@ -1246,6 +1244,11 @@ msgstr "Cor"
 #: code:addons/documents/models/documents_document.py:0
 msgid "Common roots for all company users."
 msgstr "Raízes comuns para todos os usuários da empresa."
+
+#. module: documents
+#: model:ir.model,name:documents.model_res_company
+msgid "Companies"
+msgstr "Empresas"
 
 #. module: documents
 #. odoo-javascript
@@ -1715,14 +1718,13 @@ msgstr "Editor"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
+msgid "Email"
+msgstr "E-mail"
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_email
 msgid "Email Alias"
 msgstr "Alias de e-mail"
-
-#. module: documents
-#: model:ir.ui.menu,name:documents.mail_alias_menu
-msgid "Email Aliases"
-msgstr "Aliases de e-mail"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form_details
@@ -3413,6 +3415,8 @@ msgid "Tag name already used"
 msgstr "Nome de marcador já utilizado"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.actions.act_window,name:documents.tag_action
 #: model:ir.model.fields,field_description:documents.field_documents_document__tag_ids
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__tag_ids
@@ -3556,12 +3560,6 @@ msgid ""
 "This file has been sent to the trash and will be deleted forever on the %s"
 msgstr ""
 "Esse arquivo foi enviado para a lixeira e será excluído para sempre em %s"
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "This folder does not exist."
-msgstr "Essa pasta não existe."
 
 #. module: documents
 #. odoo-python
@@ -3885,6 +3883,12 @@ msgstr "Você não tem permissão para fixar/desligar ações incorporadas."
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to read the permission panel data."
+msgstr "Você não tem permissão para ler os dados do painel de permissões."
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to write in this folder."
 msgstr "Você não tem permissão de edição nessa pasta."
 
@@ -3902,18 +3906,6 @@ msgstr ""
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
 msgstr "Você não pode fixar ações nessa pasta."
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You can not ping an action on that document."
-msgstr "Não é possível fazer ping de uma ação nesse documento."
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You can not ping that type of action."
-msgstr "Não é possível fazer ping desse tipo de ação."
 
 #. module: documents
 #. odoo-python
@@ -4208,11 +4200,3 @@ msgid ""
 msgstr ""
 "•\n"
 "                                        <b>URL</b>"
-
-#. module: documents
-#. odoo-python
-#. odoo-javascript
-#: code:addons/documents/models/documents_document.py:0
-#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
-msgid "Email"
-msgstr "E-mail"

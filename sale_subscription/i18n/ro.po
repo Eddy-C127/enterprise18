@@ -5,8 +5,8 @@
 # Translators:
 # Vacaru Adrian <adrian.vacaru@gmail.com>, 2024
 # Lyall Kindmurr, 2024
-# Wil Odoo, 2025
 # Corina Calin, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-10 15:40+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Corina Calin, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1731,6 +1731,11 @@ msgstr "Viitor"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
 msgid "Future Activities"
 msgstr "Activități viitoare"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_payment_link_wizard
+msgid "Generate Sales Payment Link"
+msgstr "Generați link de plată a vânzărilor"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -4608,6 +4613,12 @@ msgstr ""
 "Nu puteți crea o vânzare suplimentară pentru acest abonament deoarece acesta :\n"
 "- Nu a început încă.\n"
 "- Nu are nicio perioadă de facturare în viitor."
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/wizard/payment_link_wizard.py:0
+msgid "You cannot generate a payment link for a renewed subscription"
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_sale_subscription_state_coherence_2

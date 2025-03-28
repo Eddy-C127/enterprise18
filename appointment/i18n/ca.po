@@ -10,6 +10,7 @@
 # Ivan Espinola, 2024
 # Pere Martínez, 2024
 # Guspy12, 2024
+# Jonatan Gk, 2024
 # RGB Consulting <odoo@rgbconsulting.com>, 2024
 # Eric Rial <erialmedina@gmail.com>, 2024
 # Xavier, 2024
@@ -22,20 +23,19 @@
 # Marc Tormo i Bochaca <mtbochaca@gmail.com>, 2024
 # Iván Infantes Castarnado, 2024
 # CristianCruzParra, 2024
-# Santiago Payà <santiagopim@gmail.com>, 2024
 # marcescu, 2024
 # Quim - coopdevs <quim.rebull@coopdevs.org>, 2024
 # Carles Antoli <carlesantoli@hotmail.com>, 2024
-# Jonatan Gk, 2024
 # jabiri7, 2024
 # Arnau Ros, 2024
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2024
 # Martin Trigaux, 2024
 # Josep Anton Belchi, 2024
 # Juande Gutierrez <juni55mcyt@gmail.com>, 2025
-# Noemi Pla, 2025
 # EstudiTIC - estuditic.com <odoo@estuditic.com>, 2025
 # Wil Odoo, 2025
+# Santiago Payà <santiagopim@gmail.com>, 2025
+# Noemi Pla, 2025
 # 
 msgid ""
 msgstr ""
@@ -43,7 +43,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Noemi Pla, 2025\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2090,6 +2090,8 @@ msgid ""
 "If empty, all resources are considered to be available.\n"
 "If set, only the selected resources will be taken into account for this slot."
 msgstr ""
+"Si està buit, es considera que tots els recursos estan disponibles.\n"
+"Si es configura, només es tindran en compte els recursos seleccionats per a aquesta franja."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__restrict_to_user_ids
@@ -2349,6 +2351,8 @@ msgid ""
 "Manage the maximum amount of people a resource can handle (e.g. Table for 6 "
 "persons, ...)"
 msgstr ""
+"Gestiona la màxima quantitat de persones que un recurs pot gestionar (per "
+"exemple, una taula per a 6 persones...)"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_question__question_required
@@ -2365,6 +2369,8 @@ msgstr ""
 msgid ""
 "Maximum amount of people for this resource (e.g. Table for 6 persons, ...)"
 msgstr ""
+"Màxima quantitat de persones per a aquest recurs (per exemple, una taula per"
+" a 6 persones...)"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__current_user
@@ -2374,7 +2380,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__videocall_redirection
 msgid "Meeting redirection URL"
-msgstr ""
+msgstr "URL de redirecció a la reunió"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -2464,13 +2470,13 @@ msgstr "Tipus de la següent activitat"
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_answer_input_action_from_question
 msgid "No Answers yet!"
-msgstr ""
+msgstr "Encara no hi ha respostes!"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_resources
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_users
 msgid "No Appointment or Resource were found."
-msgstr ""
+msgstr "No s'ha trobat cap cita o recurs."
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__hide
@@ -2541,7 +2547,7 @@ msgstr "Nombre de missatges amb error d'entrega"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Number of people"
-msgstr ""
+msgstr "Nombre de persones"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__event_videocall_source__discuss
@@ -2648,7 +2654,7 @@ msgstr "Reunió Personal"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Phone number*"
-msgstr ""
+msgstr "Número de telèfon*"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__resource_time
@@ -3424,7 +3430,7 @@ msgstr "La seva primera disponibilitat és"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "There is currently no appointment available"
-msgstr ""
+msgstr "Actualment no hi ha cap cita disponible"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
@@ -3785,17 +3791,17 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "e.g. +1(605)691-3277"
-msgstr ""
+msgstr "p. ex.: +1 (605) 691-3277"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "e.g. Inventory count and valuation"
-msgstr ""
+msgstr "p. ex.: recompte i valoració d'inventari"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "e.g. John Smith"
-msgstr "p.g. John Smith"
+msgstr "e.g. John Smith"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
@@ -3815,6 +3821,9 @@ msgid ""
 "e.g. jane.doe@example.com\r\n"
 "..."
 msgstr ""
+"p. ex.: john.doe@email.com\r\n"
+"p. ex.: jane.doe@example.com\r\n"
+"..."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -3823,11 +3832,14 @@ msgid ""
 "e.g. jane.doe@example.com\r\n"
 "..."
 msgstr ""
+"p. ex.: john.doe@email.com \r\n"
+"p. ex.: jane.doe@example.com\r\n"
+"..."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "e.g. john.smith@example.com"
-msgstr ""
+msgstr "p. ex.: john.smith@example.com"
 
 #. module: appointment
 #. odoo-javascript

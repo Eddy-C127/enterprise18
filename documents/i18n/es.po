@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-27 13:54+0000\n"
+"POT-Creation-Date: 2025-03-26 20:44+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Larissa Manderfeld, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
@@ -959,8 +959,6 @@ msgid "Alias Status"
 msgstr "Estado del alias"
 
 #. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_tag_ids
 msgid "Alias Tags"
 msgstr "Etiquetas de alias"
@@ -1254,6 +1252,11 @@ msgstr "Color"
 #: code:addons/documents/models/documents_document.py:0
 msgid "Common roots for all company users."
 msgstr "Raíz común para todos los usuarios de la compañía."
+
+#. module: documents
+#: model:ir.model,name:documents.model_res_company
+msgid "Companies"
+msgstr "Compañías"
 
 #. module: documents
 #. odoo-javascript
@@ -1727,13 +1730,12 @@ msgstr "Editor"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
-#: model:ir.model.fields,field_description:documents.field_documents_document__alias_email
-msgid "Email Alias"
-msgstr "Alias de correo electrónico"
+msgid "Email"
+msgstr "Correo electrónico"
 
 #. module: documents
-#: model:ir.ui.menu,name:documents.mail_alias_menu
-msgid "Email Aliases"
+#: model:ir.model.fields,field_description:documents.field_documents_document__alias_email
+msgid "Email Alias"
 msgstr "Alias de correo electrónico"
 
 #. module: documents
@@ -3426,6 +3428,8 @@ msgid "Tag name already used"
 msgstr "El nombre de la etiqueta ya está en uso"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.actions.act_window,name:documents.tag_action
 #: model:ir.model.fields,field_description:documents.field_documents_document__tag_ids
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__tag_ids
@@ -3570,12 +3574,6 @@ msgid ""
 msgstr ""
 "Este archivo ha sido enviado a la papelera y será eliminado definitivamente "
 "el %s"
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "This folder does not exist."
-msgstr "Esta carpeta no existe."
 
 #. module: documents
 #. odoo-python
@@ -3900,6 +3898,12 @@ msgstr "No está permitido fijar o desfijar acciones incrustadas."
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to read the permission panel data."
+msgstr "No está permitido leer la información del panel de permisos."
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to write in this folder."
 msgstr "No está permitido escribir en esta carpeta."
 
@@ -3917,18 +3921,6 @@ msgstr ""
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
 msgstr "No está permitido fijar acciones para esa carpeta."
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You can not ping an action on that document."
-msgstr "No está permitido fijar una acción a ese documento."
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You can not ping that type of action."
-msgstr "No está permitido fijar ese tipo de acción."
 
 #. module: documents
 #. odoo-python
@@ -4218,11 +4210,3 @@ msgid ""
 msgstr ""
 "•\n"
 "                                        <b>URL</b>"
-
-#. module: documents
-#. odoo-python
-#. odoo-javascript
-#: code:addons/documents/models/documents_document.py:0
-#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
-msgid "Email"
-msgstr "Correo electrónico"

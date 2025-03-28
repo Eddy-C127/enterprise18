@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-03-26 20:46+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
 "Last-Translator: Junko Augias, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -309,23 +309,30 @@ msgstr "SAF-Tインポートモジュール"
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
-msgid "SIE 5"
-msgstr "SIE 5"
+msgid "SIE 4 Import module"
+msgstr "SIE 4 インポートモジュール"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
-msgid "SIE Import module"
-msgstr "SIEインポートモジュール"
+msgid "SIE 4/5"
+msgstr "SIE 4/5"
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+msgid "SIE 5 Import module"
+msgstr "SIE 5 インポートモジュール"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid ""
-"The SIE standard file format is very common in Sweden for several purposes "
-"such as auditing, importing and exporting data from and to other accounting "
-"softwares."
-msgstr "SIE標準ファイル形式は、監査、他の会計ソフトからのデータのインポートやエクスポートといった目的のためにスウェーデンでは非常に一般的です。"
+"The SIE standard file format is very common in Sweden for several purposes such as auditing, importing and exporting data\n"
+"                            from and to other accounting applications. Odoo support importing data from both type 4 and 5 of SIE."
+msgstr ""
+"SIE標準ファイル形式は、スウェーデンでは監査、他の会計アプリケーションとのデータのインポートおよびエクスポートなど、\n"
+"                            さまざまな用途で広く使用されています。Odooは、SIEのタイプ4とタイプ5の両方からのデータインポートをサポートしています。"
 
 #. module: account_base_import
 #. odoo-python
@@ -395,13 +402,27 @@ msgstr "インポート済勘定科目"
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid ""
-"is required to import the SIE and SIE entry files.\n"
-"                            For general SIE, we will setup your charts of accounts balances, journals, partners, and the history of journal entries (journals data must be present in the file).\n"
-"                            For the SIE entry, only entries and partners will be created, the rest must already be present in the system."
+"is required to import the SIE 4 files.\n"
+"                                    By design, it's also backward compatible with previous SIE versions (version 1 up to 3).\n"
+"                                    This import will not validate the correctness of the file."
 msgstr ""
-"SIEまたはSIEエントリファイル。\n"
-"                            一般的なSIEでは、勘定科目残高、仕訳、取引先、仕訳履歴(仕訳データはファイル内に存在する必要があります)を設定します。\n"
-"                            SIEエントリ用には、エントリおよび仕入先のみ作成され、残りはシステム上に既に存在していなければなりません。"
+"が、SIE 4ファイルをインポートするには必要です。\n"
+"                                    設計上、以前のSIEバージョン(バージョン1から3まで)との下位互換性もあります。\n"
+"                                    このインポートでは、ファイルの正確性が検証されることはありません。"
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+msgid ""
+"is required to import the SIE 5 and SIE 5 entry files.\n"
+"                                    For general SIE 5, we will set up your charts of accounts balances, journals, partners, and the history of journal entries\n"
+"                                    (journals data must be present in the file).\n"
+"                                    For the SIE 5 entry, only entries and partners will be created, the rest must already be present in the system."
+msgstr ""
+"SIE 5 および SIE 5 仕訳ファイルをインポートする必要があります。\n"
+"                                    一般的な SIE 5 については、勘定科目残高表、仕訳帳、取引先、仕訳帳の履歴を設定します\n"
+"                                    (仕訳帳データはファイル内に存在する必要があります)。\n"
+"                                    SIE 5 仕訳については、仕訳と取引先のみが作成され、残りのデータはすでにシステム内に存在している必要があります。"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form

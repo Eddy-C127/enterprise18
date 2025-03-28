@@ -4,19 +4,20 @@
 # 
 # Translators:
 # Maidu Targama <m.targama@gmail.com>, 2024
-# Stevin Lilla, 2024
 # Siim Raasuke, 2024
 # Leaanika Randmets, 2024
 # Triine Aavik <triine@avalah.ee>, 2024
-# Anna, 2024
+# Birgit Vijar, 2025
+# Stevin Lilla, 2025
+# Anna, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2025-03-26 20:45+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Anna, 2024\n"
+"Last-Translator: Anna, 2025\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +40,18 @@ msgstr "Võta vastu makseid ingenico makseterminaliga"
 #: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 msgid "Access your"
 msgstr "Pääse ligi enda"
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.js:0
+msgid "An error occurred while attempting to fix certification issues - %s"
+msgstr ""
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.xml:0
+msgid "Apply changes"
+msgstr "Rakenda muudatused"
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
@@ -72,6 +85,12 @@ msgstr "Klõpsake Jätka/Lisa erand/Külasta veebilehte/Mine veebilehele"
 
 #. module: pos_iot
 #. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.xml:0
+msgid "Close"
+msgstr "Lõpeta"
+
+#. module: pos_iot
+#. odoo-javascript
 #: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 msgid "Close this window and try again"
 msgstr "Sulge see aken ja proovi uuesti"
@@ -100,16 +119,22 @@ msgid "Connection to terminal failed"
 msgstr "Terminaliga ühendamine ebaõnnestus"
 
 #. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/overrides/components/scale_screen/scale_screen.js:0
-msgid "Could not connect to IoT scale"
-msgstr "Ei saanud IoT kaaluga ühendust"
-
-#. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Customer Display"
 msgstr "Kliendi kuva"
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.js:0
+msgid "Decimal accuracy is less than 3 decimal places"
+msgstr ""
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.xml:0
+msgid "Discard"
+msgstr "Loobu"
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__iface_electronic_scale
@@ -139,12 +164,6 @@ msgstr "Võimaldab elektroonilise skaala integreerimist."
 #: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 msgid "Firefox only: Click on Confirm Security Exception"
 msgstr "Ainult Firefox: Klõpsa nupule \"Kinnita turvaerand\"."
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/overrides/components/scale_screen/scale_screen.xml:0
-msgid "Get Weight"
-msgstr "Kaalu"
 
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_iot_device
@@ -231,6 +250,14 @@ msgstr "IoT Seade"
 #: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 msgid "Network Error"
 msgstr "Võrgu viga"
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.xml:0
+msgid ""
+"Odoo can automatically apply the right modification for you.\n"
+"                Be aware that the modification will change global rounding settings, and can affect more than just this Point of Sale."
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_payment_method__payment_terminal_ids
@@ -343,9 +370,9 @@ msgstr "Printeri riistvara puhverserveri hostinimi või IP aadress. "
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/overrides/components/scale_screen/scale_screen.js:0
-msgid "The IoT scale is not responding. You should check your connection."
-msgstr "IoT kaal ei reageeri. Peaksite kontrollima oma ühendust."
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.js:0
+msgid "The following units of measure have insufficient rounding accuracy: %s"
+msgstr ""
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
@@ -368,6 +395,18 @@ msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.xml:0
+msgid "This Point of Sale is EU Certified for weighing scales."
+msgstr ""
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.xml:0
+msgid "This Point of Sale is uncertified for weighing scales."
+msgstr ""
+
+#. module: pos_iot
+#. odoo-javascript
 #: code:addons/pos_iot/static/src/app/payment.js:0
 msgid "Transaction could not be cancelled"
 msgstr "Tehingut ei saanud tühistada"
@@ -377,6 +416,12 @@ msgstr "Tehingut ei saanud tühistada"
 #: code:addons/pos_iot/static/src/overrides/models/pos_store.js:0
 msgid "Transaction in progress"
 msgstr "Käimasoleva tehing"
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.xml:0
+msgid "Warning"
+msgstr "Hoiatus"
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
@@ -400,4 +445,12 @@ msgstr "Te peate valima makseterminali oma kassaseadetest."
 msgid ""
 "You must set a display device for an IOT-connected screen. You'll find the "
 "field under the 'IoT Box' option."
+msgstr ""
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.xml:0
+msgid ""
+"Your configurations are not compliant with the European regulation. In order"
+" to use a certified POS with your scale, you should address the following:"
 msgstr ""

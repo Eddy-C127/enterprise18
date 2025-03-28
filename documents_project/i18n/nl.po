@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:53+0000\n"
+"POT-Creation-Date: 2025-03-26 20:47+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Manon Rondou, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -254,6 +254,18 @@ msgid ""
 msgstr ""
 "De werkruimte \"%s\" is vereist voor de projecttoepassing en kan niet worden"
 " verwijderd."
+
+#. module: documents_project
+#. odoo-python
+#: code:addons/documents_project/models/documents_document.py:0
+msgid ""
+"This action can't be performed, as it would remove the workspaces used by the following projects:\n"
+"%(projects)s\n"
+"To continue, choose different workspaces or turn off the Documents feature for these projects."
+msgstr ""
+"Deze actie kan niet worden uitgevoerd, omdat het de werkruimten zou verwijderen die worden gebruikt door de volgende projecten:\n"
+"%(projects)s\n"
+"Om door te gaan, kies andere werkruimten of schakel de Documentenfunctie voor deze projecten uit."
 
 #. module: documents_project
 #. odoo-python

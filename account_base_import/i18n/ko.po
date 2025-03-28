@@ -5,14 +5,15 @@
 # Translators:
 # Wil Odoo, 2024
 # Daye Jeong, 2024
+# Sarah Park, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-03-26 20:46+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Daye Jeong, 2024\n"
+"Last-Translator: Sarah Park, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -313,25 +314,30 @@ msgstr "SAF-T 가져오기 모듈"
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
-msgid "SIE 5"
-msgstr "SIE 5"
+msgid "SIE 4 Import module"
+msgstr "SIE 4 가져오기 모듈"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
-msgid "SIE Import module"
-msgstr "SIE 가져오기 모듈"
+msgid "SIE 4/5"
+msgstr "SIE 4/5"
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+msgid "SIE 5 Import module"
+msgstr "SIE 5 가져오기 모듈"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid ""
-"The SIE standard file format is very common in Sweden for several purposes "
-"such as auditing, importing and exporting data from and to other accounting "
-"softwares."
+"The SIE standard file format is very common in Sweden for several purposes such as auditing, importing and exporting data\n"
+"                            from and to other accounting applications. Odoo support importing data from both type 4 and 5 of SIE."
 msgstr ""
-"SIE 표준 파일 형식은 스웨덴에서 매우 일반적으로 사용하는 것으로, 감사나 다른 회계 프로그램의 데이터 가져오기 및 내보내기와 같은 "
-"다양한 목적으로 사용합니다."
+"SIE 표준 파일 형식은 스웨덴에서 아주 일반적으로 감사, 다른 회계 애플리케이션에서 데이터 가져오기 및 내보내기와 같이 다양한 목적으로\n"
+"                            사용되고 있습니다. Odoo는 SIE 유형 4 및 5에서 데이터 가져오기를 지원합니다."
 
 #. module: account_base_import
 #. odoo-python
@@ -404,13 +410,25 @@ msgstr "가져온 계정"
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid ""
-"is required to import the SIE and SIE entry files.\n"
-"                            For general SIE, we will setup your charts of accounts balances, journals, partners, and the history of journal entries (journals data must be present in the file).\n"
-"                            For the SIE entry, only entries and partners will be created, the rest must already be present in the system."
+"is required to import the SIE 4 files.\n"
+"                                    By design, it's also backward compatible with previous SIE versions (version 1 up to 3).\n"
+"                                    This import will not validate the correctness of the file."
 msgstr ""
-"SIE 및 SIE 입력 파일을 가져오기 위해 필요합니다.\n"
-"                            일반 SIE의 경우, 저희 쪽에서 고객님의 계정과목표 잔액이나 전표, 협력사 및 전표 입력 기록 (전표 데이터가 파일에 반드시 있어야 합니다)를 초기 설정해드립니다.\n"
-"                            SIE 입력의 경우, 입력 항목 및 협력사만 생성되며, 나머지는 반드시 시스템에 이미 있어야 합니다."
+"SIE 4 파일을 가져오려면 필수적으로 있어야 합니다. 설계상 이전 SIE 버전(버전 1~3)과도 다운되어 호환됩니다. 이 가져오기를 "
+"통해서 파일의 정확성을 검증하지는 않습니다."
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+msgid ""
+"is required to import the SIE 5 and SIE 5 entry files.\n"
+"                                    For general SIE 5, we will set up your charts of accounts balances, journals, partners, and the history of journal entries\n"
+"                                    (journals data must be present in the file).\n"
+"                                    For the SIE 5 entry, only entries and partners will be created, the rest must already be present in the system."
+msgstr ""
+"SIE 5 및 SIE 5 입력 파일을 가져오려면 필요합니다. 일반 SIE 5의 경우 계정과목표 잔액이나 전표, 파트너 및 전표 입력 "
+"기록을 설정합니다(전표 데이터가 파일에 반드시 있어야 합니다). SIE 5 항목의 경우 항목 및 파트너만 생성되고 나머지는 시스템에 이미"
+" 입력되어 있어야 합니다."
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form

@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:51+0000\n"
+"POT-Creation-Date: 2025-03-26 20:44+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
@@ -611,10 +611,10 @@ msgid "Grouping by date is not supported"
 msgstr "Ryhmittelyä päivämäärän mukaan ei tueta"
 
 #. module: timesheet_grid
-#. odoo-javascript
-#: code:addons/timesheet_grid/static/src/views/timesheet_grid/timesheet_grid_renderer.js:0
-msgid "No timesheets found. Let's create one!"
-msgstr "Työaikakirjauksia ei löytynyt. Luodaan sellainen!"
+#: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__id
+#: model:ir.model.fields,field_description:timesheet_grid.field_project_task_create_timesheet__id
+msgid "ID"
+msgstr "ID"
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -625,12 +625,6 @@ msgid ""
 msgstr ""
 "Seuraa työtuntejasi projektikohtaisesti joka päivä ja laskuta asiakkailtasi "
 "tästä ajasta."
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__id
-#: model:ir.model.fields,field_description:timesheet_grid.field_project_task_create_timesheet__id
-msgid "ID"
-msgstr "ID"
 
 #. module: timesheet_grid
 #: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_previous_week
@@ -745,6 +739,12 @@ msgstr "Omat tehtävät"
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_search
 msgid "My Team"
 msgstr "Oma tiimi"
+
+#. module: timesheet_grid
+#. odoo-javascript
+#: code:addons/timesheet_grid/static/src/views/timesheet_grid/timesheet_grid_renderer.js:0
+msgid "No timesheets found. Let's create one!"
+msgstr "Työaikakirjauksia ei löytynyt. Luodaan sellainen!"
 
 #. module: timesheet_grid
 #: model_terms:ir.actions.act_window,help:timesheet_grid.timesheet_grid_to_validate_action

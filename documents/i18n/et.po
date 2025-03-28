@@ -5,7 +5,6 @@
 # Translators:
 # Maidu Targama <m.targama@gmail.com>, 2024
 # Egon Raamat <egon@avalah.ee>, 2024
-# Martin Aavastik <martin@avalah.ee>, 2024
 # Katrin Kampura, 2024
 # Patrick-Jordan Kiudorv, 2024
 # Rivo Zängov <eraser@eraser.ee>, 2024
@@ -27,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-27 13:54+0000\n"
+"POT-Creation-Date: 2025-03-26 20:44+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Stevin Lilla, 2025\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
@@ -774,8 +773,6 @@ msgid "Alias Status"
 msgstr "Aliase staatus"
 
 #. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_tag_ids
 msgid "Alias Tags"
 msgstr "Alias sildid"
@@ -1062,6 +1059,11 @@ msgstr "Värv"
 #: code:addons/documents/models/documents_document.py:0
 msgid "Common roots for all company users."
 msgstr "Ühised juured kõigile ettevõtte kasutajatele."
+
+#. module: documents
+#: model:ir.model,name:documents.model_res_company
+msgid "Companies"
+msgstr "Ettevõtted"
 
 #. module: documents
 #. odoo-javascript
@@ -1532,14 +1534,13 @@ msgstr "Veebiredaktor"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
+msgid "Email"
+msgstr "E-post"
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_email
 msgid "Email Alias"
 msgstr "E-posti alias"
-
-#. module: documents
-#: model:ir.ui.menu,name:documents.mail_alias_menu
-msgid "Email Aliases"
-msgstr "E-maili aliased"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form_details
@@ -3216,6 +3217,8 @@ msgid "Tag name already used"
 msgstr "Sildi nimi on juba kasutusel"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.actions.act_window,name:documents.tag_action
 #: model:ir.model.fields,field_description:documents.field_documents_document__tag_ids
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__tag_ids
@@ -3356,12 +3359,6 @@ msgstr "See dokument on taastatud."
 msgid ""
 "This file has been sent to the trash and will be deleted forever on the %s"
 msgstr "See fail on saadetud prügikasti ja kustutatakse jäädavalt %s"
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "This folder does not exist."
-msgstr "Seda kausta ei eksisteeri."
 
 #. module: documents
 #. odoo-python
@@ -3682,6 +3679,12 @@ msgstr ""
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to read the permission panel data."
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to write in this folder."
 msgstr "Sul ei ole luba sellesse kausta kirjutada."
 
@@ -3699,18 +3702,6 @@ msgstr ""
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
 msgstr "Selles kaustas ei saa tegevusi kinnitada."
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You can not ping an action on that document."
-msgstr "Sellele dokumendile ei saa tegevust kinnitada"
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You can not ping that type of action."
-msgstr "Seda tüüpi tegevust ei saa kinnitada."
 
 #. module: documents
 #. odoo-python
@@ -3995,11 +3986,3 @@ msgid ""
 "•\n"
 "                                        <b>URL</b>"
 msgstr "URL"
-
-#. module: documents
-#. odoo-python
-#. odoo-javascript
-#: code:addons/documents/models/documents_document.py:0
-#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
-msgid "Email"
-msgstr "E-post"

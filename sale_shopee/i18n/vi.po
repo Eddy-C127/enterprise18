@@ -161,12 +161,12 @@ msgstr ""
 "            </style>\n"
 "            <body><div>\n"
 "                <p>Đã gặp lỗi và không thể hoàn tất việc đồng bộ phiếu vận chuyển Shopee.</p>\n"
-"                <p>Vui lòng xử lý vấn đề trước khi đồng bộ lại phiếu lấy hàng theo cách thủ công, vì hệ thống sẽ không thử đồng bộ lại.</p>\n"
+"                <p>Vui lòng xử lý vấn đề trước khi đồng bộ lại phiếu xuất kho theo cách thủ công, vì hệ thống sẽ không thử đồng bộ lại.</p>\n"
 "                <p>Đây là lỗi được gửi về từ Shopee: </p>\n"
 "                <table class=\"shopee_table\">\n"
 "                    <thead>\n"
 "                        <tr>\n"
-"                            <th>Mã phiếu lấy hàng hàng loạt</th>\n"
+"                            <th>Mã phiếu xuất kho theo lô</th>\n"
 "                            <th>Thông báo</th>\n"
 "                        </tr>\n"
 "                    </thead>\n"
@@ -658,7 +658,7 @@ msgstr "Ngày đồng bộ đơn hàng cuối cùng"
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_stock_picking__last_picking_sync_date
 msgid "Last Picking Sync Date"
-msgstr "Ngày đồng bộ phiếu lấy hàng cuối cùng"
+msgstr "Ngày đồng bộ phiếu xuất kho cuối cùng"
 
 #. module: sale_shopee
 #: model:ir.model.fields,field_description:sale_shopee.field_shopee_shop__last_shop_status_sync_date
@@ -1229,7 +1229,7 @@ msgstr ""
 #. module: sale_shopee
 #: model:ir.model.fields,help:sale_shopee.field_stock_picking__last_picking_sync_date
 msgid "The last time the picking was synchronized with Shopee."
-msgstr "Lần cuối cùng phiếu lấy hàng được đồng bộ với Shopee."
+msgstr "Lần cuối cùng phiếu xuất kho được đồng bộ với Shopee."
 
 #. module: sale_shopee
 #: model:ir.model.fields,help:sale_shopee.field_shopee_shop__last_shop_status_sync_date

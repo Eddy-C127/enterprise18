@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"POT-Creation-Date: 2025-03-26 20:44+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Tiffany Chang, 2025\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
@@ -2051,6 +2051,11 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/knowledge/static/src/editor/embedded_components/backend/file/macros_file_mixin.xml:0
 msgid "Attach"
+msgstr "پیوست"
+
+#. module: knowledge
+#: model:ir.model,name:knowledge.model_ir_attachment
+msgid "Attachment"
 msgstr "پیوست"
 
 #. module: knowledge
@@ -5593,6 +5598,7 @@ msgstr "عملیات جستجوی پشتیبانی‌نشده"
 #. module: knowledge
 #. odoo-javascript
 #. odoo-python
+#: code:addons/knowledge/controllers/main.py:0
 #: code:addons/knowledge/models/knowledge_article.py:0
 #: code:addons/knowledge/static/src/components/hierarchy/hierarchy.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_row.xml:0

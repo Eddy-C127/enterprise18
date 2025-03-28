@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:53+0000\n"
+"POT-Creation-Date: 2025-03-26 20:47+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Lasse L, 2025\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
@@ -245,6 +245,15 @@ msgid ""
 "The \"%s\" workspace is required by the Project application and cannot be "
 "deleted."
 msgstr "Arbetsytan \"%s\" behövs för projektansökan och kan inte tas bort."
+
+#. module: documents_project
+#. odoo-python
+#: code:addons/documents_project/models/documents_document.py:0
+msgid ""
+"This action can't be performed, as it would remove the workspaces used by the following projects:\n"
+"%(projects)s\n"
+"To continue, choose different workspaces or turn off the Documents feature for these projects."
+msgstr ""
 
 #. module: documents_project
 #. odoo-python

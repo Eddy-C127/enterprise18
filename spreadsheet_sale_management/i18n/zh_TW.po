@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-28 06:19+0000\n"
+"POT-Creation-Date: 2025-03-26 20:50+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -61,6 +61,11 @@ msgstr "刪除欄位同步"
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__display_name
 msgid "Display Name"
 msgstr "顯示名稱"
+
+#. module: spreadsheet_sale_management
+#: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__display_thumbnail
+msgid "Display Thumbnail"
+msgstr ""
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
@@ -141,12 +146,6 @@ msgstr "多個儲存格正嘗試更新同一記錄的相同欄位！系統無法
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__name
 msgid "Name"
 msgstr "名稱"
-
-#. module: spreadsheet_sale_management
-#. odoo-python
-#: code:addons/spreadsheet_sale_management/models/sale_order_spreadsheet.py:0
-msgid "Untitled spreadsheet"
-msgstr "未命名試算表"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
@@ -293,3 +292,9 @@ msgstr "縮圖"
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/action/field_sync_action.js:0
 msgid "Unable to save"
 msgstr "未能儲存"
+
+#. module: spreadsheet_sale_management
+#. odoo-python
+#: code:addons/spreadsheet_sale_management/models/sale_order_spreadsheet.py:0
+msgid "Untitled spreadsheet"
+msgstr "未命名試算表"

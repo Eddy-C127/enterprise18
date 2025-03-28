@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Abe Manyo, 2024
+# Abe Manyo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:52+0000\n"
+"POT-Creation-Date: 2025-03-26 20:46+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Abe Manyo, 2024\n"
+"Last-Translator: Abe Manyo, 2025\n"
 "Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -315,25 +315,30 @@ msgstr "Impor modul SAF-T"
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
-msgid "SIE 5"
-msgstr "SIE 5"
+msgid "SIE 4 Import module"
+msgstr "Module Impor SIE 4"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
-msgid "SIE Import module"
-msgstr "Impor modul SIE"
+msgid "SIE 4/5"
+msgstr "SIE 4/5"
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+msgid "SIE 5 Import module"
+msgstr "Modul Impor SIE 5"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid ""
-"The SIE standard file format is very common in Sweden for several purposes "
-"such as auditing, importing and exporting data from and to other accounting "
-"softwares."
+"The SIE standard file format is very common in Sweden for several purposes such as auditing, importing and exporting data\n"
+"                            from and to other accounting applications. Odoo support importing data from both type 4 and 5 of SIE."
 msgstr ""
-"File format SIE sangat umum di Swedia untuk beberapa alasan seperti audit, "
-"impor dan ekspor data dari dan ke software akuntansi lain."
+"Format file standar SIE sangat umum di Swedia untuk beberapa tujuan seperti audit, impor dan ekspor data\n"
+"                            dari dan ke aplikasi akuntansi lainnya. Odoo mendukung mengimpor data dari masing-masing tipe 4 dan 5 untuk SIE."
 
 #. module: account_base_import
 #. odoo-python
@@ -411,13 +416,27 @@ msgstr "akun-akun yang diimpor"
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid ""
-"is required to import the SIE and SIE entry files.\n"
-"                            For general SIE, we will setup your charts of accounts balances, journals, partners, and the history of journal entries (journals data must be present in the file).\n"
-"                            For the SIE entry, only entries and partners will be created, the rest must already be present in the system."
+"is required to import the SIE 4 files.\n"
+"                                    By design, it's also backward compatible with previous SIE versions (version 1 up to 3).\n"
+"                                    This import will not validate the correctness of the file."
 msgstr ""
-"dibutuhkan untuk mengimpor file SIE dan file entri SIE.\n"
-"                            Untuk SIE umum, kami akan menyiapkan saldo bagan akun, jurnal, partner, dan sejarah entri jurnal ( data jurnal harus tersedia di file).\n"
-"                            Untuk entry SIE, hanya entri dan mitra yang akan dibuat, sisanya harus sudah ada di sistem."
+"diperlukan untuk mengimpor file SIE 4.\n"
+"                                    Secara desain, juga backward compatible dengan versi SIE sebelumnya (versi 1 sampai 3).\n"
+"                                    Impor ini tidak akan memvalidasi kebenaran file."
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+msgid ""
+"is required to import the SIE 5 and SIE 5 entry files.\n"
+"                                    For general SIE 5, we will set up your charts of accounts balances, journals, partners, and the history of journal entries\n"
+"                                    (journals data must be present in the file).\n"
+"                                    For the SIE 5 entry, only entries and partners will be created, the rest must already be present in the system."
+msgstr ""
+"dibutuhkan untuk mengimpor file SIE 5 dan entry file SIE 5.\n"
+"                                    Untuk SIE 5 umum, kami akan menyiapkan saldo Bagan Akun, jurnal, partner, dan sejarah entri jurnal Anda\n"
+"                                    (data jurnal harus tersedia di file).\n"
+"                                    Untuk entry SIE 5, hanya entri-entri dan partner-partner yang akan dibuat, sisanya harus sudah tersedia di sistem."
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form

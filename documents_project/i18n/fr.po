@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 09:53+0000\n"
+"POT-Creation-Date: 2025-03-26 20:47+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Manon Rondou, 2025\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
@@ -253,6 +253,18 @@ msgid ""
 msgstr ""
 "L'espace de travail \"%s\" est requis par l'application Projet et ne peut "
 "pas être supprimé."
+
+#. module: documents_project
+#. odoo-python
+#: code:addons/documents_project/models/documents_document.py:0
+msgid ""
+"This action can't be performed, as it would remove the workspaces used by the following projects:\n"
+"%(projects)s\n"
+"To continue, choose different workspaces or turn off the Documents feature for these projects."
+msgstr ""
+"Cette action ne peut pas être effectuée, car elle supprimerait les espaces de travail utilisés par les projets suivants :\n"
+"%(projects)s\n"
+"Pour continuer, choisissez d'autres espaces de travail ou désactivez la fonctionnalité Documents pour ces projets."
 
 #. module: documents_project
 #. odoo-python

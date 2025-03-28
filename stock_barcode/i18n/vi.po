@@ -149,7 +149,7 @@ msgid ""
 "Allow to validate a picking even if nothing was scanned yet (and so, do an "
 "immediate transfert)"
 msgstr ""
-"Cho phép xác nhận phiếu lấy hàng ngay cả khi chưa có gì được quét (và do đó,"
+"Cho phép xác nhận phiếu xuất kho ngay cả khi chưa có gì được quét (và do đó,"
 " thực hiện lệnh chuyển hàng ngay)"
 
 #. module: stock_barcode
@@ -229,7 +229,7 @@ msgstr "Phép đặt tên mã vạch"
 #. module: stock_barcode
 #: model:ir.actions.client,name:stock_barcode.stock_barcode_picking_client_action
 msgid "Barcode Picking Client Action"
-msgstr "Tác vụ máy khách Phiếu lấy hàng Mã vạch"
+msgstr "Tác vụ máy khách Phiếu xuất kho Mã vạch"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_scrap___barcode_scanned
@@ -746,7 +746,7 @@ msgstr ""
 #: code:addons/stock_barcode/controllers/stock_barcode.py:0
 msgid "No picking or location or product corresponding to barcode %(barcode)s"
 msgstr ""
-"Không có phiếu lấy hàng, vị trí hay sản phẩm nào tương ứng với mã vạch "
+"Không có phiếu xuất kho, vị trí hay sản phẩm nào tương ứng với mã vạch "
 "%(barcode)s"
 
 #. module: stock_barcode
@@ -754,7 +754,7 @@ msgstr ""
 #: code:addons/stock_barcode/controllers/stock_barcode.py:0
 msgid "No picking or product corresponding to barcode %(barcode)s"
 msgstr ""
-"Không có phiếu lấy hàng hoặc sản phẩm nào tương ứng với mã vạch %(barcode)s"
+"Không có phiếu xuất kho hoặc sản phẩm nào tương ứng với mã vạch %(barcode)s"
 
 #. module: stock_barcode
 #. odoo-python
@@ -856,7 +856,7 @@ msgstr "Số điều chuyển một phần"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_barcode
 msgid "Picking Details"
-msgstr "Chi tiết phiếu lấy hàng"
+msgstr "Chi tiết phiếu xuất kho"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_picking_type
@@ -1540,13 +1540,13 @@ msgstr "Kiện hàng này đã được quét."
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "This picking is already done"
-msgstr "Phiếu lấy hàng này đã hoàn tất"
+msgstr "Phiếu xuất kho này đã hoàn tất"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "This picking is cancelled"
-msgstr "Phiếu lấy hàng này đã bị hủy"
+msgstr "Phiếu xuất kho này đã bị hủy"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1578,8 +1578,8 @@ msgid ""
 "Time before processing a batch. Used to group communication to the server "
 "and improve global performance at the cost of reactivity."
 msgstr ""
-"Thời gian trước khi xử lý một loạt. Được sử dụng để nhóm giao tiếp với máy "
-"chủ và cải thiện hiệu suất chung bằng việc đánh đổi độ phản ứng."
+"Thời gian trước khi xử lý một lô. Được sử dụng để nhóm giao tiếp với máy chủ"
+" và cải thiện hiệu suất chung bằng việc đánh đổi độ phản ứng."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1793,7 +1793,7 @@ msgstr "kiện hàng"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "picking"
-msgstr "phiếu lấy hàng"
+msgstr "phiếu xuất kho"
 
 #. module: stock_barcode
 #. odoo-javascript

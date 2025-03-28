@@ -7,20 +7,20 @@
 # 0ba0ac30481a756f36528ba6f9a4317e_6443a87 <52eefe24349934c364624ef40611b7a3_1010754>, 2024
 # Mislav Žokalj <mzokalj@tvz.hr>, 2024
 # Vladimir Olujić <olujic.vladimir@storm.hr>, 2024
-# Bole <bole@dajmi5.com>, 2024
 # Ivica Dimjašević <ivica.dimjasevic@storm.hr>, 2024
 # Milan Tribuson <one.mile.code@gmail.com>, 2024
 # Karolina Tonković <karolina.tonkovic@storm.hr>, 2024
 # Vladimir Vrgoč, 2024
 # Martin Trigaux, 2024
+# Bole <bole@dajmi5.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-17 14:37+0000\n"
+"POT-Creation-Date: 2025-03-26 20:50+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Bole <bole@dajmi5.com>, 2025\n"
 "Language-Team: Croatian (https://app.transifex.com/odoo/teams/41243/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -185,6 +185,7 @@ msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/side_panel/version_history_side_panel.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_side_panel.xml:0
 msgid "Back"
 msgstr "Natrag"
@@ -211,9 +212,9 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_dialog.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/input_dialog/input_dialog.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/restore_version_dialog/restore_version_dialog.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/filter_editor_side_panel.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/ir_menu_selector/ir_menu_selector.xml:0
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/restore_version_dialog/restore_version_dialog.xml:0
 msgid "Cancel"
 msgstr "Otkaži"
 
@@ -286,6 +287,8 @@ msgid "Current"
 msgstr "Trenutno"
 
 #. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard__current_revision_uuid
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard_share__current_revision_uuid
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_mixin__current_revision_uuid
 msgid "Current Revision Uuid"
 msgstr ""
@@ -359,6 +362,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__display_name
 msgid "Display Name"
 msgstr "Naziv za prikaz"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard__display_thumbnail
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard_share__display_thumbnail
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_mixin__display_thumbnail
+msgid "Display Thumbnail"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -633,9 +643,16 @@ msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/side_panel/version_history_side_panel.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_side_panel.xml:0
 msgid "Load More"
 msgstr ""
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/common/config_panel.xml:0
+msgid "Loading..."
+msgstr "Učitavanje..."
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -645,14 +662,14 @@ msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/side_panel/version_history_item.js:0
 #: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
 msgid "Make a copy"
 msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/restore_version_dialog/restore_version_dialog.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/restore_version_dialog/restore_version_dialog.xml:0
 msgid "Make a copy instead"
 msgstr ""
 
@@ -743,12 +760,6 @@ msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
-msgid "Name this version"
-msgstr ""
-
-#. module: spreadsheet_edition
-#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
 msgid "New"
 msgstr "Novi"
@@ -814,6 +825,12 @@ msgstr "Broj poruka koje zahtijevaju aktivnost"
 #: model:ir.model.fields,help:spreadsheet_edition.field_spreadsheet_cell_thread__message_has_error_counter
 msgid "Number of messages with delivery error"
 msgstr "Broj poruka sa greškama pri isporuci"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/side_panel/version_history_item.xml:0
+msgid "OLD"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -920,6 +937,11 @@ msgid "Quarters"
 msgstr ""
 
 #. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__rating_ids
+msgid "Ratings"
+msgstr "Ocjene"
+
+#. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
 msgid "Re-insert dynamic pivot"
@@ -988,7 +1010,6 @@ msgstr "Ukloni"
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/control_panel/spreadsheet_name.xml:0
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
 msgid "Rename"
 msgstr ""
 
@@ -1012,7 +1033,7 @@ msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/side_panel/version_history_item.js:0
 msgid "Restore this version"
 msgstr ""
 
@@ -1179,11 +1200,15 @@ msgid "Spreadsheet"
 msgstr ""
 
 #. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard__spreadsheet_revision_ids
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard_share__spreadsheet_revision_ids
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_mixin__spreadsheet_revision_ids
 msgid "Spreadsheet Revision"
 msgstr ""
 
 #. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard__spreadsheet_snapshot
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard_share__spreadsheet_snapshot
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_mixin__spreadsheet_snapshot
 msgid "Spreadsheet Snapshot"
 msgstr ""
@@ -1273,6 +1298,7 @@ msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/side_panel/version_history_side_panel.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_side_panel.xml:0
 msgid "There are no prior revisions for this spreadsheet."
 msgstr ""
@@ -1333,7 +1359,8 @@ msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/index.js:0
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/side_panel/version_history_side_panel.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_side_panel.xml:0
 msgid "Version History"
 msgstr ""
 
@@ -1386,7 +1413,7 @@ msgstr "Godina"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/restore_version_dialog/restore_version_dialog.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/restore_version_dialog/restore_version_dialog.xml:0
 msgid "Yes, restore"
 msgstr ""
 

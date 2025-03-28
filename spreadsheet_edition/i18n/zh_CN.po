@@ -5,17 +5,18 @@
 # Translators:
 # Martin Trigaux, 2024
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2024
-# Wil Odoo, 2024
 # 何彬 <vnsoft.he@gmail.com>, 2024
 # Chloe Wang, 2025
+# kunqing shi, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-17 14:37+0000\n"
+"POT-Creation-Date: 2025-03-26 20:50+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Chloe Wang, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -180,6 +181,7 @@ msgstr "数轴"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/side_panel/version_history_side_panel.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_side_panel.xml:0
 msgid "Back"
 msgstr "回退"
@@ -206,9 +208,9 @@ msgstr "下边"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_dialog.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/input_dialog/input_dialog.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/restore_version_dialog/restore_version_dialog.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/filter_editor_side_panel.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/ir_menu_selector/ir_menu_selector.xml:0
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/restore_version_dialog/restore_version_dialog.xml:0
 msgid "Cancel"
 msgstr "取消"
 
@@ -281,6 +283,8 @@ msgid "Current"
 msgstr "当前"
 
 #. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard__current_revision_uuid
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard_share__current_revision_uuid
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_mixin__current_revision_uuid
 msgid "Current Revision Uuid"
 msgstr "目前修订版本Uuid"
@@ -355,6 +359,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__display_name
 msgid "Display Name"
 msgstr "显示名称"
+
+#. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard__display_thumbnail
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard_share__display_thumbnail
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_mixin__display_thumbnail
+msgid "Display Thumbnail"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -631,9 +642,16 @@ msgstr "列表属性"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/side_panel/version_history_side_panel.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_side_panel.xml:0
 msgid "Load More"
 msgstr "加载更多"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/common/config_panel.xml:0
+msgid "Loading..."
+msgstr "加载中... 稍安勿躁"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -643,14 +661,14 @@ msgstr "对数"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/side_panel/version_history_item.js:0
 #: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
 msgid "Make a copy"
 msgstr "创建副本"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/restore_version_dialog/restore_version_dialog.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/restore_version_dialog/restore_version_dialog.xml:0
 msgid "Make a copy instead"
 msgstr "改为制作副本"
 
@@ -741,12 +759,6 @@ msgstr "%s的名称："
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
-msgid "Name this version"
-msgstr "为该版本命名"
-
-#. module: spreadsheet_edition
-#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
 msgid "New"
 msgstr "新建"
@@ -812,6 +824,12 @@ msgstr "需要采取行动的消息数量"
 #: model:ir.model.fields,help:spreadsheet_edition.field_spreadsheet_cell_thread__message_has_error_counter
 msgid "Number of messages with delivery error"
 msgstr "发送错误的消息的数量"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/side_panel/version_history_item.xml:0
+msgid "OLD"
+msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -918,6 +936,11 @@ msgid "Quarters"
 msgstr "季度"
 
 #. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__rating_ids
+msgid "Ratings"
+msgstr "Ratings"
+
+#. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
 msgid "Re-insert dynamic pivot"
@@ -986,7 +1009,6 @@ msgstr "移除"
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/control_panel/spreadsheet_name.xml:0
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
 msgid "Rename"
 msgstr "重命名"
 
@@ -1010,7 +1032,7 @@ msgstr "已解决"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/side_panel/version_history_item.js:0
 msgid "Restore this version"
 msgstr "还原至此版本"
 
@@ -1177,11 +1199,15 @@ msgid "Spreadsheet"
 msgstr "电子表格"
 
 #. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard__spreadsheet_revision_ids
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard_share__spreadsheet_revision_ids
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_mixin__spreadsheet_revision_ids
 msgid "Spreadsheet Revision"
 msgstr "电子表格的修订"
 
 #. module: spreadsheet_edition
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard__spreadsheet_snapshot
+#: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard_share__spreadsheet_snapshot
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_mixin__spreadsheet_snapshot
 msgid "Spreadsheet Snapshot"
 msgstr "电子表格快照"
@@ -1274,6 +1300,7 @@ msgstr ""
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/side_panel/version_history_side_panel.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_side_panel.xml:0
 msgid "There are no prior revisions for this spreadsheet."
 msgstr "此电子表格之前没有修订。"
@@ -1334,7 +1361,8 @@ msgstr "选项值"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/index.js:0
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/side_panel/version_history_side_panel.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_side_panel.xml:0
 msgid "Version History"
 msgstr "版本历史"
 
@@ -1387,7 +1415,7 @@ msgstr "年"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
-#: code:addons/spreadsheet_edition/static/src/bundle/version_history/restore_version_dialog/restore_version_dialog.xml:0
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/restore_version_dialog/restore_version_dialog.xml:0
 msgid "Yes, restore"
 msgstr "好，还原"
 

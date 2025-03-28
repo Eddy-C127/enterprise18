@@ -7,8 +7,8 @@
 # RGB Consulting <odoo@rgbconsulting.com>, 2024
 # Marc Tormo i Bochaca <mtbochaca@gmail.com>, 2024
 # Quim - coopdevs <quim.rebull@coopdevs.org>, 2024
-# Manel Fernandez Ramirez <manelfera@outlook.com>, 2024
 # marcescu, 2024
+# Noemi Pla, 2025
 # 
 msgid ""
 msgstr ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: marcescu, 2024\n"
+"Last-Translator: Noemi Pla, 2025\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,22 +28,22 @@ msgstr ""
 #: model:ir.actions.report,print_report_name:delivery_iot.action_report_shipping_docs
 #: model:ir.actions.report,print_report_name:delivery_iot.action_report_shipping_labels
 msgid "'Empty Report - Used for assigning IoT printer'"
-msgstr ""
+msgstr "'Informe buit - Utilitzat per assignar una impressora IoT'"
 
 #. module: delivery_iot
 #: model:ir.model.fields,field_description:delivery_iot.field_stock_picking_type__auto_print_carrier_labels
 msgid "Auto Print Carrier Labels"
-msgstr ""
+msgstr "Imprimir automàticament les etiquetes del transportista"
 
 #. module: delivery_iot
 #: model:ir.model.fields,field_description:delivery_iot.field_stock_picking_type__auto_print_export_documents
 msgid "Auto Print Export Documents"
-msgstr ""
+msgstr "Imprimir automàticament documents d'exportació"
 
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit
 msgid "Carrier Labels"
-msgstr ""
+msgstr "Etiquetes del transportista"
 
 #. module: delivery_iot
 #: model:ir.model.fields,help:delivery_iot.field_choose_delivery_package__available_scale_ids
@@ -58,7 +58,7 @@ msgstr ""
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit
 msgid "Connect Scale"
-msgstr ""
+msgstr "Connectar la balança"
 
 #. module: delivery_iot
 #: model:ir.model,name:delivery_iot.model_choose_delivery_package
@@ -73,12 +73,12 @@ msgstr "Adreça del domini"
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit
 msgid "Export Documents"
-msgstr ""
+msgstr "Documents d'exportació"
 
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit
 msgid "How to connect scales?"
-msgstr ""
+msgstr "Com connectar balances?"
 
 #. module: delivery_iot
 #: model:ir.model,name:delivery_iot.model_iot_device
@@ -97,6 +97,9 @@ msgid ""
 " of the picking when they are created. Note this requires a printer to be "
 "assigned to this report."
 msgstr ""
+"Si aquesta casella està marcada, Odoo imprimirà automàticament les etiquetes"
+" del transportista de l'albarà un cop creades. Tingues en compte que cal "
+"assignar una impressora a aquest informe."
 
 #. module: delivery_iot
 #: model:ir.model.fields,help:delivery_iot.field_stock_picking_type__auto_print_export_documents
@@ -106,6 +109,9 @@ msgid ""
 "documents depends on the carrier and the destination. Note this requires a "
 "printer to be assigned to this report. "
 msgstr ""
+"Si aquesta casella està marcada, Odoo imprimirà automàticament els documents"
+" d'exportació de la comanda un cop creats. Tingues en compte que cal "
+"assignar una impressora a aquest informe."
 
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit
@@ -115,6 +121,10 @@ msgid ""
 "                            you do a \"Put in Pack\" operation.\n"
 "                            <br/>"
 msgstr ""
+"Si connectes les balances per mitjà de l'aplicació IoT, el\n"
+"                            pes del paquet s'establirà automàticament quan\n"
+"                            executis l'operació «Posar al paquet».\n"
+"                            <br/>"
 
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.iot_device_view_form_inherit
@@ -134,7 +144,7 @@ msgstr "Llegiu manualment la mesura del dispositiu"
 #. module: delivery_iot
 #: model:ir.model.fields,field_description:delivery_iot.field_iot_device__picking_type_ids
 msgid "Operation Types"
-msgstr "Tipus operació"
+msgstr "Tipus d'operacions"
 
 #. module: delivery_iot
 #: model:ir.model,name:delivery_iot.model_stock_picking_type
@@ -157,19 +167,19 @@ msgstr "Balança"
 #: model:ir.model.fields,field_description:delivery_iot.field_stock_picking_type__iot_scale_ids
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit
 msgid "Scales"
-msgstr "Escales"
+msgstr "Balances"
 
 #. module: delivery_iot
 #: model:ir.actions.report,name:delivery_iot.action_report_shipping_docs
 msgid "Shipping Documents"
-msgstr ""
+msgstr "Documents d'enviament"
 
 #. module: delivery_iot
 #: model:ir.actions.report,name:delivery_iot.action_report_shipping_labels
 msgid "Shipping Labels"
-msgstr ""
+msgstr "Etiquetes d'enviament"
 
 #. module: delivery_iot
 #: model:ir.model,name:delivery_iot.model_stock_picking
 msgid "Transfer"
-msgstr "Transferència"
+msgstr "Trasllat"

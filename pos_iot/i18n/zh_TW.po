@@ -3,16 +3,16 @@
 # 	* pos_iot
 # 
 # Translators:
-# Wil Odoo, 2024
 # Tony Ng, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2025-03-26 20:45+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Tony Ng, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,6 +35,18 @@ msgstr "使用 Ingenico 付款終端收取付款"
 #: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 msgid "Access your"
 msgstr "存取你的"
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.js:0
+msgid "An error occurred while attempting to fix certification issues - %s"
+msgstr ""
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.xml:0
+msgid "Apply changes"
+msgstr "套用變更"
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
@@ -68,6 +80,12 @@ msgstr "按一下「前往⋯」/「新增例外」/「造訪此網站」，然�
 
 #. module: pos_iot
 #. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.xml:0
+msgid "Close"
+msgstr "關閉"
+
+#. module: pos_iot
+#. odoo-javascript
 #: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 msgid "Close this window and try again"
 msgstr "關閉此視窗，然後再試"
@@ -96,16 +114,22 @@ msgid "Connection to terminal failed"
 msgstr "未能連線至終端"
 
 #. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/overrides/components/scale_screen/scale_screen.js:0
-msgid "Could not connect to IoT scale"
-msgstr "未能連線至物聯網重量秤"
-
-#. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Customer Display"
 msgstr "客戶顯示"
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.js:0
+msgid "Decimal accuracy is less than 3 decimal places"
+msgstr ""
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.xml:0
+msgid "Discard"
+msgstr "捨棄"
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__iface_electronic_scale
@@ -133,12 +157,6 @@ msgstr "啟用電子秤整合。"
 #: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 msgid "Firefox only: Click on Confirm Security Exception"
 msgstr "只適用於 Firefox：按一下「確認安全例外」"
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/overrides/components/scale_screen/scale_screen.xml:0
-msgid "Get Weight"
-msgstr "稱重"
 
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_iot_device
@@ -223,6 +241,14 @@ msgstr "物聯網裝置"
 #: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 msgid "Network Error"
 msgstr "網絡錯誤"
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.xml:0
+msgid ""
+"Odoo can automatically apply the right modification for you.\n"
+"                Be aware that the modification will change global rounding settings, and can affect more than just this Point of Sale."
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_payment_method__payment_terminal_ids
@@ -333,9 +359,9 @@ msgstr "印表機硬體代理的IP地址或主機名稱"
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/overrides/components/scale_screen/scale_screen.js:0
-msgid "The IoT scale is not responding. You should check your connection."
-msgstr "物聯網重量秤沒有回應。請檢查連線。"
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.js:0
+msgid "The following units of measure have insufficient rounding accuracy: %s"
+msgstr ""
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
@@ -354,6 +380,18 @@ msgstr "交易由 Worldline 處理。請在相關的付款方式設置你的 Wor
 
 #. module: pos_iot
 #. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.xml:0
+msgid "This Point of Sale is EU Certified for weighing scales."
+msgstr ""
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.xml:0
+msgid "This Point of Sale is uncertified for weighing scales."
+msgstr ""
+
+#. module: pos_iot
+#. odoo-javascript
 #: code:addons/pos_iot/static/src/app/payment.js:0
 msgid "Transaction could not be cancelled"
 msgstr "交易未能取消"
@@ -363,6 +401,12 @@ msgstr "交易未能取消"
 #: code:addons/pos_iot/static/src/overrides/models/pos_store.js:0
 msgid "Transaction in progress"
 msgstr "交易進行中"
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.xml:0
+msgid "Warning"
+msgstr "警告"
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
@@ -387,3 +431,11 @@ msgid ""
 "You must set a display device for an IOT-connected screen. You'll find the "
 "field under the 'IoT Box' option."
 msgstr "你必須為連接至IOT的螢幕，設定一個顯示裝置。你可在 IoT Box 選項下找到該欄位。"
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.xml:0
+msgid ""
+"Your configurations are not compliant with the European regulation. In order"
+" to use a certified POS with your scale, you should address the following:"
+msgstr ""

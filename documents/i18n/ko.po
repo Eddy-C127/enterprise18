@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-27 13:54+0000\n"
+"POT-Creation-Date: 2025-03-26 20:44+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Sarah Park, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
@@ -950,8 +950,6 @@ msgid "Alias Status"
 msgstr "별칭 상태"
 
 #. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_tag_ids
 msgid "Alias Tags"
 msgstr "별칭 태그"
@@ -1227,6 +1225,11 @@ msgstr "색상"
 #: code:addons/documents/models/documents_document.py:0
 msgid "Common roots for all company users."
 msgstr "모든 회사 사용자를 위한 공통 루트."
+
+#. module: documents
+#: model:ir.model,name:documents.model_res_company
+msgid "Companies"
+msgstr "회사"
 
 #. module: documents
 #. odoo-javascript
@@ -1693,13 +1696,12 @@ msgstr "편집기"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
-#: model:ir.model.fields,field_description:documents.field_documents_document__alias_email
-msgid "Email Alias"
-msgstr "이메일 별칭"
+msgid "Email"
+msgstr "이메일"
 
 #. module: documents
-#: model:ir.ui.menu,name:documents.mail_alias_menu
-msgid "Email Aliases"
+#: model:ir.model.fields,field_description:documents.field_documents_document__alias_email
+msgid "Email Alias"
 msgstr "이메일 별칭"
 
 #. module: documents
@@ -3354,6 +3356,8 @@ msgid "Tag name already used"
 msgstr "이미 사용된 태그 이름"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
 #: model:ir.actions.act_window,name:documents.tag_action
 #: model:ir.model.fields,field_description:documents.field_documents_document__tag_ids
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__tag_ids
@@ -3492,12 +3496,6 @@ msgstr "이 문서가 복원되었습니다."
 msgid ""
 "This file has been sent to the trash and will be deleted forever on the %s"
 msgstr "해당 파일을 휴지통으로 이동하여 %s 항목에서 완전히 삭제합니다."
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "This folder does not exist."
-msgstr "이 폴더가 존재하지 않습니다."
 
 #. module: documents
 #. odoo-python
@@ -3811,6 +3809,12 @@ msgstr "임베드된 액션은 고정/고정 해제할 수 없습니다."
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to read the permission panel data."
+msgstr "권한 패널 데이터를 읽을 수 없습니다."
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to write in this folder."
 msgstr "이 폴더에 쓰기가 허용되지 않습니다."
 
@@ -3826,18 +3830,6 @@ msgstr "컴퓨터에서 파일을 업로드하거나 인터넷 링크를 복사�
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
 msgstr "해당 폴더에 대한 고정 작업은 허용되지 않습니다."
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You can not ping an action on that document."
-msgstr "이 문서에 대한 작업 핑은 허용되지 않습니다."
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You can not ping that type of action."
-msgstr "해당 유형의 작업은 핑이 허용되지 않습니다."
 
 #. module: documents
 #. odoo-python
@@ -4120,11 +4112,3 @@ msgid ""
 msgstr ""
 "•\n"
 "                                        <b>URL</b>"
-
-#. module: documents
-#. odoo-python
-#. odoo-javascript
-#: code:addons/documents/models/documents_document.py:0
-#: code:addons/documents/static/src/components/documents_details_panel/documents_details_panel.xml:0
-msgid "Email"
-msgstr "이메일"

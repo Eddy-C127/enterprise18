@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:13+0000\n"
+"POT-Creation-Date: 2025-03-26 20:45+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -304,6 +304,12 @@ msgid "Draft & Running Loans"
 msgstr "Concept & Lopende Leningen"
 
 #. module: account_loans
+#. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
+msgid "Due"
+msgstr "Te betalen facturen"
+
+#. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__duration
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Duration"
@@ -392,6 +398,7 @@ msgstr "Indien aangevinkt hebben sommige berichten een leveringsfout."
 
 #. module: account_loans
 #. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__interest
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__interest
@@ -699,10 +706,17 @@ msgstr "Voorbeeld"
 
 #. module: account_loans
 #. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__principal
 msgid "Principal"
 msgstr "Kapitaal"
+
+#. module: account_loans
+#. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
+msgid "Principal & Interest"
+msgstr ""
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
@@ -719,6 +733,12 @@ msgstr "Eigenschappen"
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__rating_ids
 msgid "Ratings"
 msgstr "Beoordelingen"
+
+#. module: account_loans
+#. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
+msgid "Reclassification LT - ST"
+msgstr ""
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -745,6 +765,12 @@ msgstr "Verwante leningen"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Reset"
 msgstr "Resetten"
+
+#. module: account_loans
+#. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
+msgid "Reversal reclassification LT - ST"
+msgstr ""
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan__state__running

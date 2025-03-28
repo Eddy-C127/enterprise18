@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Martin Trigaux, 2024
-# Wil Odoo, 2024
-# Larissa Manderfeld, 2024
 # Felix Schubert <felix.schubert@go-erp.com>, 2025
+# Larissa Manderfeld, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:13+0000\n"
+"POT-Creation-Date: 2025-03-26 20:45+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Felix Schubert <felix.schubert@go-erp.com>, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -305,6 +305,12 @@ msgid "Draft & Running Loans"
 msgstr "Entwürfe und laufende Darlehen"
 
 #. module: account_loans
+#. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
+msgid "Due"
+msgstr "Fällig"
+
+#. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__duration
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Duration"
@@ -394,6 +400,7 @@ msgstr ""
 
 #. module: account_loans
 #. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__interest
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__interest
@@ -702,10 +709,17 @@ msgstr "Vorschau"
 
 #. module: account_loans
 #. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__principal
 msgid "Principal"
 msgstr "Kapital"
+
+#. module: account_loans
+#. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
+msgid "Principal & Interest"
+msgstr "Tilgung & Zinsen"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
@@ -722,6 +736,12 @@ msgstr "Eigenschaften"
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__rating_ids
 msgid "Ratings"
 msgstr "Bewertungen"
+
+#. module: account_loans
+#. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
+msgid "Reclassification LT - ST"
+msgstr "Umklassifizierung LT - ST"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -748,6 +768,12 @@ msgstr "Verbundene Darlehen"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Reset"
 msgstr "Zurücksetzen"
+
+#. module: account_loans
+#. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
+msgid "Reversal reclassification LT - ST"
+msgstr "Umkehrung der Umklassifizierung LT - ST"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan__state__running

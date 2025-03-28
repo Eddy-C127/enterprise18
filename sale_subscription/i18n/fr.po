@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Jérôme Tanché <jerome.tanche@ouest-dsi.fr>, 2024
-# Wil Odoo, 2024
 # Manon Rondou, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-10 15:40+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Manon Rondou, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2039,6 +2039,11 @@ msgstr "Futur(e)(s)"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
 msgid "Future Activities"
 msgstr "Activités futures"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_payment_link_wizard
+msgid "Generate Sales Payment Link"
+msgstr "Générer le lien de paiement des ventes"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -4949,6 +4954,12 @@ msgstr ""
 "Vous ne pouvez pas créer une vente incitative pour cet abonnement parce que : \n"
 " - N'a pas encore commencé.\n"
 " - N'a pas de période facturée dans l'avenir."
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/wizard/payment_link_wizard.py:0
+msgid "You cannot generate a payment link for a renewed subscription"
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_sale_subscription_state_coherence_2

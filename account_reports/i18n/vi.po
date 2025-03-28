@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 11:28+0000\n"
+"POT-Creation-Date: 2025-03-26 20:46+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Thi Huong Nguyen, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
@@ -376,6 +376,8 @@ msgid "Accounts"
 msgstr "Các tài khoản"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Accounts Coverage Report"
 msgstr "Báo cáo phạm vi tài khoản"
@@ -477,17 +479,17 @@ msgstr "Trình xử lý tuỳ chỉnh báo cáo tuổi nợ đối tác"
 #: model:ir.actions.client,name:account_reports.action_account_report_ap
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_aged_payable
 msgid "Aged Payable"
-msgstr "Tuổi nợ phải trả"
+msgstr "Công nợ phải trả theo tuổi nợ"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_aged_payable_report_handler
 msgid "Aged Payable Custom Handler"
-msgstr "Trình xử lý tuỳ chỉnh báo cáo tuổi nợ phải trả"
+msgstr "Trình xử lý tuỳ chỉnh báo cáo công nợ phải trả theo tuổi nợ"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Aged Payables"
-msgstr "Tuổi nợ phải trả"
+msgstr "Công nợ phải trả theo tuổi nợ"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.aged_receivable_report

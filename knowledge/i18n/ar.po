@@ -3,16 +3,16 @@
 # 	* knowledge
 # 
 # Translators:
-# Wil Odoo, 2025
 # Malaz Abuidris <msea@odoo.com>, 2025
+# Wil Odoo, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"POT-Creation-Date: 2025-03-26 20:44+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2025\n"
+"Last-Translator: Wil Odoo, 2025\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2591,6 +2591,11 @@ msgstr "كمدير، يمكنك داءماً تعديل هذا المقال وأ
 #: code:addons/knowledge/static/src/editor/embedded_components/backend/file/macros_file_mixin.xml:0
 msgid "Attach"
 msgstr "إرفاق"
+
+#. module: knowledge
+#: model:ir.model,name:knowledge.model_ir_attachment
+msgid "Attachment"
+msgstr "مرفق"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_attachment_count
@@ -6277,6 +6282,7 @@ msgstr "عملية البحث غير مدعومة "
 #. module: knowledge
 #. odoo-javascript
 #. odoo-python
+#: code:addons/knowledge/controllers/main.py:0
 #: code:addons/knowledge/models/knowledge_article.py:0
 #: code:addons/knowledge/static/src/components/hierarchy/hierarchy.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_row.xml:0
