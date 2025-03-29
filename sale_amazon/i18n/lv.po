@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:10+0000\n"
+"POT-Creation-Date: 2025-03-27 07:32+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2025\n"
 "Language-Team: Latvian (https://app.transifex.com/odoo/teams/41243/lv/)\n"
@@ -599,6 +599,13 @@ msgstr "Gatavs"
 #: model:ir.model.fields.selection,name:sale_amazon.selection__stock_picking__amazon_sync_status__error
 msgid "Error"
 msgstr "Kļūda"
+
+#. module: sale_amazon
+#. odoo-python
+#: code:addons/sale_amazon/models/amazon_account.py:0
+#, python-format
+msgid "Error (%(code)s): %(message)s"
+msgstr ""
 
 #. module: sale_amazon
 #. odoo-python
