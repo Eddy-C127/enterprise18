@@ -3,8 +3,8 @@
 # 	* account_loans
 # 
 # Translators:
-# Ilya Rozhkov, 2024
 # Wil Odoo, 2025
+# Ilya Rozhkov, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-26 20:45+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Ilya Rozhkov, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,27 +23,27 @@ msgstr ""
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "1st amortization schedule"
-msgstr ""
+msgstr "Первый график амортизации"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__30a/360
 msgid "30A/360"
-msgstr ""
+msgstr "30A/360"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__30e/360
 msgid "30E/360"
-msgstr ""
+msgstr "30E/360"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__30e/360_isda
 msgid "30E/360 ISDA"
-msgstr ""
+msgstr "30E/360 ISDA"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__30u/360
 msgid "30U/360"
-msgstr ""
+msgstr "30U/360"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -51,6 +51,8 @@ msgid ""
 "<span class=\"oe_inline\" invisible=\"duration == 1\">months</span>\n"
 "                                        <span class=\"oe_inline\" invisible=\"duration != 1\">month</span>"
 msgstr ""
+"<span class=\"oe_inline\" invisible=\"duration == 1\">месяцев</span>\n"
+"                                        <span class=\"oe_inline\" invisible=\"duration != 1\">месяц</span>"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
@@ -58,6 +60,8 @@ msgid ""
 "<span class=\"oe_inline\" invisible=\"loan_term == 1\">years</span>\n"
 "                                    <span class=\"oe_inline\" invisible=\"loan_term != 1\">year</span>"
 msgstr ""
+"<span class=\"oe_inline\" invisible=\"loan_term == 1\">лет</span>\n"
+"                                    <span class=\"oe_inline\" invisible=\"loan_term != 1\">год</span>"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
@@ -67,22 +71,22 @@ msgstr "<span class=\"oe_inline\">%</span>"
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__a/360
 msgid "A/360"
-msgstr ""
+msgstr "A/360"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__a/365f
 msgid "A/365F"
-msgstr ""
+msgstr "A/365F"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__a/a_afb
 msgid "A/A AFB"
-msgstr ""
+msgstr "A/A AFB"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__a/a_isda
 msgid "A/A ISDA"
-msgstr ""
+msgstr "A/A ISDA"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_needaction
@@ -98,22 +102,22 @@ msgstr "Активный"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_close_wizard
 msgid "All draft entries after the"
-msgstr ""
+msgstr "Все черновые записи после"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Amortization schedule"
-msgstr ""
+msgstr "График амортизации"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__amount_borrowed
 msgid "Amount Borrowed"
-msgstr ""
+msgstr "Сумма займа"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__amount_borrowed_difference
 msgid "Amount Borrowed Difference"
-msgstr ""
+msgstr "Разница в сумме займа"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_close_wizard
@@ -128,7 +132,7 @@ msgstr "Применить"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Asset Group"
-msgstr ""
+msgstr "Группа активов"
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_asset
@@ -138,7 +142,7 @@ msgstr "Признание активов/выручки"
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__payment_end_of_month__at_anniversary
 msgid "At Anniversary"
-msgstr ""
+msgstr "На годовщину"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_attachment_count
@@ -177,7 +181,7 @@ msgstr "Дата закрытия"
 #: model:ir.actions.act_window,name:account_loans.action_view_account_loan_close_wizard
 #: model:ir.model,name:account_loans.model_account_loan_close_wizard
 msgid "Close Loan Wizard"
-msgstr ""
+msgstr "Мастер закрытия займа"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan__state__closed
@@ -190,13 +194,13 @@ msgstr "Закрыто"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Closed Loans"
-msgstr ""
+msgstr "Закрытые займы"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_close_wizard.py:0
 msgid "Closed on the %(date)s"
-msgstr ""
+msgstr "Закрыт %(date)s"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__company_id
@@ -207,7 +211,7 @@ msgstr "Компания"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__compounding_method
 msgid "Compounding Method"
-msgstr ""
+msgstr "Метод начисления процентов"
 
 #. module: account_loans
 #. odoo-javascript
@@ -219,7 +223,7 @@ msgstr "Вычислять"
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Compute New Loan"
-msgstr ""
+msgstr "Рассчитать новый заем"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -229,13 +233,13 @@ msgstr "Подтвердить"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__count_linked_assets
 msgid "Count Linked Assets"
-msgstr ""
+msgstr "Количество связанных активов"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_asset__count_linked_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_asset_group__count_linked_loans
 msgid "Count Linked Loans"
-msgstr ""
+msgstr "Количество связанных займов"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__create_uid
@@ -296,7 +300,7 @@ msgstr "Черновик"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Draft & Running Loans"
-msgstr ""
+msgstr "Черновые и действующие займы"
 
 #. module: account_loans
 #. odoo-python
@@ -313,7 +317,7 @@ msgstr "Продолжительность"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__duration_difference
 msgid "Duration Difference"
-msgstr ""
+msgstr "Разница в сроке"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__end_date
@@ -323,12 +327,12 @@ msgstr "Дата окончания"
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__payment_end_of_month__end_of_month
 msgid "End of Month"
-msgstr ""
+msgstr "Конец месяца"
 
 #. module: account_loans
 #: model:ir.model.fields,help:account_loans.field_account_loan_line__generated_move_ids
 msgid "Entries that we generated from this loan line"
-msgstr ""
+msgstr "Записи, созданные на основе этой строки займа"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__expense_account_id
@@ -338,7 +342,7 @@ msgstr "Счет расходов"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__first_payment_date
 msgid "First Payment"
-msgstr ""
+msgstr "Первый платеж"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_follower_ids
@@ -359,7 +363,7 @@ msgstr "Созданные записи"
 #: model:ir.model.fields,field_description:account_loans.field_account_bank_statement_line__generating_loan_line_id
 #: model:ir.model.fields,field_description:account_loans.field_account_move__generating_loan_line_id
 msgid "Generating Loan Line"
-msgstr ""
+msgstr "Генерирующая строка займа"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
@@ -404,24 +408,24 @@ msgstr "Интерес"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__interest_difference
 msgid "Interest Difference"
-msgstr ""
+msgstr "Разница в процентах"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__interest_rate
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
 msgid "Interest Rate"
-msgstr ""
+msgstr "Процентная ставка"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "Interest Rate must be between 0 and 100"
-msgstr ""
+msgstr "Процентная ставка должна быть от 0 до 100"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Interests"
-msgstr ""
+msgstr "Проценты"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_is_follower
@@ -432,17 +436,17 @@ msgstr "Является подписчиком"
 #: model:ir.model.fields,field_description:account_loans.field_account_bank_statement_line__is_loan_payment_move
 #: model:ir.model.fields,field_description:account_loans.field_account_move__is_loan_payment_move
 msgid "Is Loan Payment Move"
-msgstr ""
+msgstr "Является движением оплаты займа"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__is_payment_move_posted
 msgid "Is Payment Move Posted"
-msgstr ""
+msgstr "Опубликован ли платеж"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__is_wrong_date
 msgid "Is Wrong Date"
-msgstr ""
+msgstr "Неверная дата"
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_journal
@@ -458,7 +462,7 @@ msgstr "Запись в журнале"
 #. module: account_loans
 #: model:account.journal,name:account_loans.account_loans_journal_loan
 msgid "Journal Loan Demo"
-msgstr ""
+msgstr "Демо-журнал займов"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__write_uid
@@ -480,20 +484,20 @@ msgstr "Последнее обновление"
 #: model:ir.model.fields,help:account_loans.field_account_bank_statement_line__generating_loan_line_id
 #: model:ir.model.fields,help:account_loans.field_account_move__generating_loan_line_id
 msgid "Line of the loan that generated this entry"
-msgstr ""
+msgstr "Строка займа, создавшая эту запись"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__linked_assets_ids
 msgid "Linked Assets"
-msgstr ""
+msgstr "Связанные активы"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_asset.py:0
 msgid "Linked loans"
-msgstr ""
+msgstr "Связанные займы"
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_loan
@@ -506,80 +510,80 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Loan"
-msgstr ""
+msgstr "Заем"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__loan_amount
 msgid "Loan Amount"
-msgstr ""
+msgstr "Сумма займа"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "Loan Amount must be positive"
-msgstr ""
+msgstr "Сумма займа должна быть положительной"
 
 #. module: account_loans
 #: model:ir.actions.act_window,name:account_loans.action_view_account_loan_compute_wizard
 #: model:ir.model,name:account_loans.model_account_loan_compute_wizard
 msgid "Loan Compute Wizard"
-msgstr ""
+msgstr "Мастер расчета займа"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__date
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__loan_date
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 msgid "Loan Date"
-msgstr ""
+msgstr "Дата займа"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Loan Entries"
-msgstr ""
+msgstr "Записи займа"
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_loan_line
 msgid "Loan Line"
-msgstr ""
+msgstr "Строка займа"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__line_ids
 msgid "Loan Lines"
-msgstr ""
+msgstr "Строки займа"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Loan Settings"
-msgstr ""
+msgstr "Настройки займа"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__loan_term
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
 msgid "Loan Term"
-msgstr ""
+msgstr "Срок займа"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "Loan Term must be positive"
-msgstr ""
+msgstr "Срок займа должен быть положительным"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Loan lines"
-msgstr ""
+msgstr "Строки займа"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__display_name
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Loan name"
-msgstr ""
+msgstr "Название займа"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.asset_group_form_view_inherit_loan
 msgid "Loan(s)"
-msgstr ""
+msgstr "Заем(ы)"
 
 #. module: account_loans
 #. odoo-python
@@ -588,29 +592,30 @@ msgstr ""
 #: model:ir.ui.menu,name:account_loans.menu_action_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Loans"
-msgstr ""
+msgstr "Займы"
 
 #. module: account_loans
 #: model:ir.actions.act_window,name:account_loans.action_view_account_loans_analysis
 #: model:ir.ui.menu,name:account_loans.menu_action_loans_analysis
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_pivot_view
 msgid "Loans Analysis"
-msgstr ""
+msgstr "Анализ займов"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__long_term_account_id
 msgid "Long Term Account"
-msgstr ""
+msgstr "Долгосрочный счет"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__long_term_theoretical_balance
 msgid "Long-Term"
-msgstr ""
+msgstr "Долгосрочный"
 
 #. module: account_loans
 #: model_terms:ir.actions.act_window,help:account_loans.action_view_account_loans
 msgid "Manage Your Acquired Loans with Automated Adjustments."
 msgstr ""
+"Управляйте своими полученными займами с автоматическими корректировками."
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_has_error
@@ -625,7 +630,7 @@ msgstr "Сообщения"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_journal__loan_properties_definition
 msgid "Model Properties"
-msgstr ""
+msgstr "Свойства модели"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__name
@@ -636,7 +641,7 @@ msgstr "Имя"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__nb_posted_entries
 msgid "Nb Posted Entries"
-msgstr ""
+msgstr "Количество опубликованных записей"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_needaction_counter
@@ -662,13 +667,13 @@ msgstr "Количество недоставленных сообщений"
 #. odoo-python
 #: code:addons/account_loans/models/account_move.py:0
 msgid "Original Loan"
-msgstr ""
+msgstr "Исходный заем"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__outstanding_balance
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__outstanding_balance
 msgid "Outstanding Balance"
-msgstr ""
+msgstr "Оставшийся баланс"
 
 #. module: account_loans
 #. odoo-python
@@ -687,7 +692,7 @@ msgstr "Платежи"
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Please add a name before computing the loan"
-msgstr ""
+msgstr "Пожалуйста, укажите название перед расчетом займа"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -706,18 +711,18 @@ msgstr "Предпросмотр"
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__principal
 msgid "Principal"
-msgstr ""
+msgstr "Основной долг"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Principal & Interest"
-msgstr ""
+msgstr "Основной долг и проценты"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Principals"
-msgstr ""
+msgstr "Основные долги"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__loan_properties
@@ -734,28 +739,28 @@ msgstr "Рейтинги"
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Reclassification LT - ST"
-msgstr ""
+msgstr "Переклассификация ДС - КС"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Related Asset(s)"
-msgstr ""
+msgstr "Связанные активы"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_move_form_inherit_loan
 msgid "Related Loan"
-msgstr ""
+msgstr "Связанный заем"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_asset_form_inherit_loan
 msgid "Related Loan(s)"
-msgstr ""
+msgstr "Связанные займы"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_asset__linked_loans_ids
 #: model:ir.model.fields,field_description:account_loans.field_account_asset_group__linked_loan_ids
 msgid "Related Loans"
-msgstr ""
+msgstr "Связанные займы"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -766,7 +771,7 @@ msgstr "Сброс"
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Reversal reclassification LT - ST"
-msgstr ""
+msgstr "Обратная переклассификация ДС - КС"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan__state__running
@@ -782,7 +787,7 @@ msgstr "Ошибка доставки SMS"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Search Loan"
-msgstr ""
+msgstr "Поиск займа"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -795,21 +800,24 @@ msgid ""
 "Set up your amortization schedule, or import it, and let Odoo handle the "
 "monthly interest and principal adjustments automatically."
 msgstr ""
+"Настройте свой график амортизации или импортируйте его, и позвольте Odoo "
+"автоматически обрабатывать ежемесячные корректировки процентов и основного "
+"долга."
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__short_term_account_id
 msgid "Short Term Account"
-msgstr ""
+msgstr "Краткосрочный счет"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__short_term_theoretical_balance
 msgid "Short-Term"
-msgstr ""
+msgstr "Краткосрочный"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__skip_until_date
 msgid "Skip until"
-msgstr ""
+msgstr "Пропустить до"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__start_date
@@ -828,31 +836,31 @@ msgstr "Статус"
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "The First Payment Date must be before the end of the loan."
-msgstr ""
+msgstr "Дата первого платежа должна быть раньше окончания срока займа."
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The amount borrowed must be positive"
-msgstr ""
+msgstr "Сумма займа должна быть положительной"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The duration must be positive"
-msgstr ""
+msgstr "Срок должен быть положительным"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The interest must be positive"
-msgstr ""
+msgstr "Процент должен быть положительным"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan accounts should be set."
-msgstr ""
+msgstr "Счета займа должны быть указаны."
 
 #. module: account_loans
 #. odoo-python
@@ -861,37 +869,39 @@ msgid ""
 "The loan amount %(loan_amount)s should be equal to the sum of the "
 "principals: %(principal_sum)s (difference %(principal_difference)s)"
 msgstr ""
+"Сумма займа %(loan_amount)s должна быть равна сумме основных долгов: "
+"%(principal_sum)s (разница %(principal_difference)s)"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan date should be earlier than the loan lines date."
-msgstr ""
+msgstr "Дата займа должна быть раньше даты строк займа."
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan duration should be equal to the number of loan lines."
-msgstr ""
+msgstr "Срок займа должен соответствовать количеству строк займа."
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid ""
 "The loan interest should be equal to the sum of the loan lines interest."
-msgstr ""
+msgstr "Проценты по займу должны быть равны сумме процентов по строкам займа."
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan journal should be set."
-msgstr ""
+msgstr "Журнал займа должен быть указан."
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan name should be set."
-msgstr ""
+msgstr "Название займа должно быть указано."
 
 #. module: account_loans
 #. odoo-python
@@ -908,27 +918,27 @@ msgstr "Эта запись была отменена с %s"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Total Amounts Borrowed"
-msgstr ""
+msgstr "Общая сумма займов"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Total Outstanding Balance"
-msgstr ""
+msgstr "Общий оставшийся баланс"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total interests"
-msgstr ""
+msgstr "Общие проценты"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total payments"
-msgstr ""
+msgstr "Общие платежи"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total principals"
-msgstr ""
+msgstr "Общий основной долг"
 
 #. module: account_loans
 #. odoo-javascript
@@ -940,7 +950,7 @@ msgstr "Загрузить"
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Uploaded file"
-msgstr ""
+msgstr "Загруженный файл"
 
 #. module: account_loans
 #: model:ir.model.fields,help:account_loans.field_account_loan__skip_until_date
@@ -950,6 +960,9 @@ msgid ""
 "you have already manually created entries prior to the creation of this "
 "loan."
 msgstr ""
+"При подтверждении займа Odoo проигнорирует строки займа до этой даты "
+"(включительно) и не создаст для них записи. Это полезно, если вы уже вручную"
+" создали записи до создания этого займа."
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__website_message_ids
@@ -964,4 +977,4 @@ msgstr "История общений с сайта"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_close_wizard
 msgid "will be deleted and the loan will be marked as closed."
-msgstr ""
+msgstr "будут удалены, и заем будет отмечен как закрытый."

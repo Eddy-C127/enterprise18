@@ -410,6 +410,9 @@ msgid ""
 "                                    By design, it's also backward compatible with previous SIE versions (version 1 up to 3).\n"
 "                                    This import will not validate the correctness of the file."
 msgstr ""
+"需要导入 SIE 4 文件。\n"
+"                                    根据设计，它还向后兼容以前的 SIE 版本（版本 1 至 3）。\n"
+"                                    该导入不会验证文件的正确性。"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -420,6 +423,10 @@ msgid ""
 "                                    (journals data must be present in the file).\n"
 "                                    For the SIE 5 entry, only entries and partners will be created, the rest must already be present in the system."
 msgstr ""
+"需要导入 SIE 5 和 SIE 5 条目文件。\n"
+"                                    对于通用 SIE 5，我们将设置账户余额表、日记账、合作伙伴以及日记账分录历史\n"
+"                                    （日记账数据必须存在于文件中）。\n"
+"                                    对于 SIE 5 条目，将只创建条目和合作伙伴，其余的必须已经存在于系统中。"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form

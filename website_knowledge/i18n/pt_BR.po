@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Maitê Dietze, 2025
 # 
 msgid ""
 msgstr ""
@@ -11,13 +12,18 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Maitê Dietze, 2025\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#. module: website_knowledge
+#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
+msgid "<i class=\"fa fa-lg fa-bars\" title=\"Toggle aside menu\"/>"
+msgstr "<i class=\"fa fa-lg fa-bars\" title=\"Toggle aside menu\"/>"
 
 #. module: website_knowledge
 #. odoo-javascript
@@ -28,6 +34,7 @@ msgstr "Artigo não publicado"
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
 msgid "Article not found"
 msgstr "Artigo não encotnrado"
 
@@ -109,6 +116,7 @@ msgstr "Compartilhar na web"
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
 msgid "Sign in"
 msgstr "Entrar"
 
@@ -120,6 +128,7 @@ msgstr "Resumo"
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
 msgid ""
 "The article you are trying the read has either been removed or you do not "
 "have access to it."
@@ -162,6 +171,7 @@ msgstr "Cancelar a publicação de artigos"
 #. module: website_knowledge
 #. odoo-javascript
 #: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
 msgid "Untitled"
 msgstr "Sem título"
 

@@ -5,6 +5,7 @@
 # Translators:
 # Fernanda Alvarez, 2024
 # Wil Odoo, 2025
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-26 20:45+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2025\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,6 +42,7 @@ msgstr "Acceda a su"
 #: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.js:0
 msgid "An error occurred while attempting to fix certification issues - %s"
 msgstr ""
+"Ocurrió un error al intentar solucionar problemas de certificación - %s"
 
 #. module: pos_iot
 #. odoo-javascript
@@ -126,7 +128,7 @@ msgstr "Pantalla del cliente"
 #. odoo-javascript
 #: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.js:0
 msgid "Decimal accuracy is less than 3 decimal places"
-msgstr ""
+msgstr "La precisión decimal es menor de 3 decimales"
 
 #. module: pos_iot
 #. odoo-javascript
@@ -255,6 +257,8 @@ msgid ""
 "Odoo can automatically apply the right modification for you.\n"
 "                Be aware that the modification will change global rounding settings, and can affect more than just this Point of Sale."
 msgstr ""
+"Odoo puede aplicar la modificación correcta por usted.\n"
+"                Tome en cuenta que la modificación cambiará los ajustes de redondeo globales y puede afectar a más de un Punto de venta."
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_payment_method__payment_terminal_ids
@@ -371,6 +375,8 @@ msgstr ""
 #: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.js:0
 msgid "The following units of measure have insufficient rounding accuracy: %s"
 msgstr ""
+"La exactitud de redondeo de las siguientes unidades de medida no es "
+"suficiente: %s"
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
@@ -395,13 +401,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.xml:0
 msgid "This Point of Sale is EU Certified for weighing scales."
-msgstr ""
+msgstr "Este Punto de ventas tiene la certificación de la UE para balanzas."
 
 #. module: pos_iot
 #. odoo-javascript
 #: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.xml:0
 msgid "This Point of Sale is uncertified for weighing scales."
-msgstr ""
+msgstr "Este Punto de ventas no tiene certificación para balanzas."
 
 #. module: pos_iot
 #. odoo-javascript
@@ -454,3 +460,5 @@ msgid ""
 "Your configurations are not compliant with the European regulation. In order"
 " to use a certified POS with your scale, you should address the following:"
 msgstr ""
+"Sus configuraciones no cumplen con las normas europeas. Para poder usar un "
+"PdV certificado con su balanza, debe resolver los siguientes problemas:"
