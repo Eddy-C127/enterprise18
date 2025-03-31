@@ -62,6 +62,8 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
             'match_nature': 'both',
             'match_same_currency': True,
             'allow_payment_tolerance': True,
+            'match_text_location_note': True,
+            'match_text_location_reference': True,
             'payment_tolerance_type': 'percentage',
             'payment_tolerance_param': 0.0,
             'match_partner': True,
@@ -266,7 +268,6 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
         })
 
         st_line_initial_vals = {'ref': None, 'payment_ref': 'nothing', 'narration': None}
-        recmod_initial_vals = {'match_text_location_label': False, 'match_text_location_note': False, 'match_text_location_reference': False}
 
         rec_mod_options_to_fields = {
             'match_text_location_label': 'payment_ref',
@@ -275,7 +276,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
         }
 
         for rec_mod_field, st_line_field in rec_mod_options_to_fields.items():
-            self.rule_1.write({**recmod_initial_vals, rec_mod_field: True})
+            self.rule_1.write({rec_mod_field: True})
             # Fully reinitialize the statement line
             self.bank_line_1.write(st_line_initial_vals)
 
@@ -364,7 +365,11 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
 
     @freeze_time('2019-01-01')
     def test_zero_payment_tolerance(self):
-        rule = self._create_reconcile_model(line_ids=[{}])
+        rule = self._create_reconcile_model(
+            line_ids=[{}],
+            match_text_location_reference=True,
+            match_text_location_note=True,
+        )
 
         for inv_type, bsl_sign in (('out_invoice', 1), ('in_invoice', -1)):
 
@@ -612,20 +617,22 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
         self.rule_1.sequence = 2
         self.rule_1.auto_reconcile = True
         self.rule_1.payment_tolerance_param = 10.0
-        self.rule_1.match_text_location_label = False
         self.rule_2.sequence = 1
         self.rule_2.match_partner_ids |= self.partner_2
         self.rule_2.auto_reconcile = True
 
-        self._check_statement_matching(self.rule_1 + self.rule_2, {
+        self._check_statement_matching(self.rule_1, {
             self.bank_line_1: {
                 'amls': self.invoice_line_1,
                 'model': self.rule_1,
                 'auto_reconcile': True,
             },
+        })
+        rule_3 = self.rule_1.copy({"match_text_location_label": False})
+        self._check_statement_matching(self.rule_2 + rule_3, {
             self.bank_line_2: {
                 'amls': self.invoice_line_1 + self.invoice_line_2 + self.invoice_line_3,
-                'model': self.rule_1,
+                'model': rule_3,
             },
             self.cash_line_1: {
                 'model': self.rule_2,
@@ -662,7 +669,6 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
         self.rule_1.allow_payment_tolerance = False
         self.rule_1.auto_reconcile = True
         self.rule_1.line_ids = [(5, 0, 0)]
-        self.rule_1.match_text_location_label = False
 
         self._check_statement_matching(self.rule_1, {
             self.bank_line_1: {
@@ -670,9 +676,12 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
                 'model': self.rule_1,
                 'auto_reconcile': True,
             },
+        })
+        rule_3 = self.rule_1.copy({"match_text_location_label": False})
+        self._check_statement_matching(rule_3, {
             self.bank_line_2: {
                 'amls': self.invoice_line_1 + self.invoice_line_2 + self.invoice_line_3,
-                'model': self.rule_1,
+                'model': rule_3,
             },
         })
 
@@ -1083,9 +1092,8 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
         rule = self._create_reconcile_model(
             match_partner=False,
             allow_payment_tolerance=False,
-            match_text_location_label=False,
-            match_text_location_reference=False,
-            match_text_location_note=False,
+            match_text_location_reference=True,
+            match_text_location_note=True,
         )
         st_line = self._create_st_line(amount=1000, partner_id=False)
         invoice = self.env['account.move'].create({
@@ -1116,8 +1124,10 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
                 {'amls': term_line, 'model': rule},
             )
 
-            # No matching if other checkbox is checked.
-            rule.match_text_location_note = True
+            # No matching if checkbox is unchecked.
+            rule.match_text_location_label = False
+            rule.match_text_location_reference = False
+            rule.match_text_location_note = False
             self.assertDictEqual(
                 rule._apply_rules(st_line, None),
                 {},
