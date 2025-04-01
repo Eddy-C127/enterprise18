@@ -721,6 +721,19 @@ msgid "Journal"
 msgstr "Sổ nhật ký"
 
 #. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid ""
+"Journal %(journal_name)s has been set up with a different currency and "
+"already has existing entries. You can't link selected bank account in "
+"%(currency_name)s to it"
+msgstr ""
+"Sổ nhật ký %(journal_name)s đã được thiết lập với đơn vị tiền tệ khác và đã "
+"chứa bút toán. Bạn không thể liên kết tài khoản ngân hàng bằng "
+"%(currency_name)s đã chọn với sổ nhật ký đó"
+
+#. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__last_refresh
 msgid "Last Refresh"
 msgstr "Làm mới lần cuối"

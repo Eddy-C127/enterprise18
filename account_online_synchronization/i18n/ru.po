@@ -734,6 +734,19 @@ msgid "Journal"
 msgstr "Журнал"
 
 #. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid ""
+"Journal %(journal_name)s has been set up with a different currency and "
+"already has existing entries. You can't link selected bank account in "
+"%(currency_name)s to it"
+msgstr ""
+"Журнал %(journal_name)s настроен с другой валютой и уже содержит "
+"существующие записи. Вы не можете связать выбранный банковский счёт в "
+"%(currency_name)s с ним"
+
+#. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__last_refresh
 msgid "Last Refresh"
 msgstr "Последнее обновление"

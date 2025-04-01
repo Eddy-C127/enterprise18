@@ -717,6 +717,18 @@ msgid "Journal"
 msgstr "전표"
 
 #. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid ""
+"Journal %(journal_name)s has been set up with a different currency and "
+"already has existing entries. You can't link selected bank account in "
+"%(currency_name)s to it"
+msgstr ""
+"%(journal_name)s 전표가 다른 통화로 설정되어 있으며 이미 기존 항목이 존재합니다. %(currency_name)s에서 "
+"선택한 은행 계좌를 연결할 수 없습니다."
+
+#. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__last_refresh
 msgid "Last Refresh"
 msgstr "최근 새로고침"

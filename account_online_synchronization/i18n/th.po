@@ -720,6 +720,19 @@ msgid "Journal"
 msgstr "สมุดรายวัน"
 
 #. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid ""
+"Journal %(journal_name)s has been set up with a different currency and "
+"already has existing entries. You can't link selected bank account in "
+"%(currency_name)s to it"
+msgstr ""
+"สมุดรายวัน %(journal_name)s "
+"ได้รับการตั้งค่าด้วยสกุลเงินอื่นและมีรายการอยู่แล้ว "
+"คุณไม่สามารถเชื่อมโยงบัญชีธนาคารที่เลือกใน %(currency_name)s ได้"
+
+#. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__last_refresh
 msgid "Last Refresh"
 msgstr "รีเฟรชครั้งล่าสุด"

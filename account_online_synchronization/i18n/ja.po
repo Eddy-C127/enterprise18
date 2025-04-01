@@ -716,6 +716,17 @@ msgid "Journal"
 msgstr "仕訳帳"
 
 #. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid ""
+"Journal %(journal_name)s has been set up with a different currency and "
+"already has existing entries. You can't link selected bank account in "
+"%(currency_name)s to it"
+msgstr ""
+"仕訳帳%(journal_name)sが異なる通貨で設定されており、既に仕訳が存在します。選択された銀行口座を%(currency_name)sでそれにリンクすることはできません。"
+
+#. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__last_refresh
 msgid "Last Refresh"
 msgstr "最終リフレッシュ"
