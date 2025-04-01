@@ -56,13 +56,6 @@ class AccountMove(models.Model):
             else:
                 move.l10n_in_reversed_entry_warning = False
 
-    def get_fiscal_year_start_date(self, company, invoice_date):
-        fiscal_year_start_month = (int(company.fiscalyear_last_month) % 12) + 1
-        fiscal_year_start_date = date(invoice_date.year, fiscal_year_start_month, 1)
-        if invoice_date.month <= 11:
-            fiscal_year_start_date = fiscal_year_start_date.replace(year=invoice_date.year - 1)
-        return fiscal_year_start_date
-
     def _post(self, soft=True):
         for invoice in self:
             if invoice.l10n_in_gstr2b_reconciliation_status == "gstr2_bills_not_in_odoo":
