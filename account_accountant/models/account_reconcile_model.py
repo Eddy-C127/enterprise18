@@ -344,17 +344,12 @@ class AccountReconcileModel(models.Model):
                 )
             '''
             all_params += where_params
-
-        enabled_matches = []
-        if self.match_text_location_label:
-            enabled_matches.append(('account_move_line', 'name'))
-        if self.match_text_location_note:
-            enabled_matches.append(('account_move_line__move_id', 'name'))
-        if self.match_text_location_reference:
-            enabled_matches.append(('account_move_line__move_id', 'ref'))
-
         if numerical_tokens:
-            for table_alias, field in enabled_matches:
+            for table_alias, field in (
+                ('account_move_line', 'name'),
+                ('account_move_line__move_id', 'name'),
+                ('account_move_line__move_id', 'ref'),
+            ):
                 sub_queries.append(rf'''
                     SELECT
                         account_move_line_id as id,
@@ -373,7 +368,11 @@ class AccountReconcileModel(models.Model):
                     WHERE {table_alias}_{field} IS NOT NULL
                 ''')
         if exact_tokens:
-            for table_alias, field in enabled_matches:
+            for table_alias, field in (
+                ('account_move_line', 'name'),
+                ('account_move_line__move_id', 'name'),
+                ('account_move_line__move_id', 'ref'),
+            ):
                 sub_queries.append(rf'''
                     SELECT
                         account_move_line_id as id,
