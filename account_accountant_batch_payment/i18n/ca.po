@@ -13,6 +13,7 @@
 # Josep Anton Belchi, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2025
+# Noemi Pla, 2025
 # 
 msgid ""
 msgstr ""
@@ -20,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-27 13:54+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Noemi Pla, 2025\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,7 +46,7 @@ msgstr "Import del deute"
 #. module: account_accountant_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_accountant_batch_payment.view_account_batch_payment_list_bank_rec_widget
 msgid "Amount Due (in currency)"
-msgstr ""
+msgstr "Import pendent (en moneda)"
 
 #. module: account_accountant_batch_payment
 #: model:ir.model,name:account_accountant_batch_payment.model_bank_rec_widget
@@ -101,7 +102,7 @@ msgstr "Nom mostrat"
 #. odoo-python
 #: code:addons/account_accountant_batch_payment/models/bank_rec_widget.py:0
 msgid "Exchange Difference: %(batch_name)s - %(currency)s"
-msgstr ""
+msgstr "Diferència de canvi: %(batch_name)s - %(currency)s"
 
 #. module: account_accountant_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_accountant_batch_payment.view_account_batch_payment_rejection_form
@@ -127,7 +128,7 @@ msgstr "En el pagament de conciliació"
 #. odoo-python
 #: code:addons/account_accountant_batch_payment/models/bank_rec_widget.py:0
 msgid "Includes %(count)s payment(s)"
-msgstr ""
+msgstr "Inclou %(count)s pagament(s)"
 
 #. module: account_accountant_batch_payment
 #: model:ir.model.fields,field_description:account_accountant_batch_payment.field_account_batch_payment_rejection__write_uid
@@ -195,7 +196,7 @@ msgstr "Pagament per lots font"
 #. module: account_accountant_batch_payment
 #: model:ir.model.fields,field_description:account_accountant_batch_payment.field_bank_rec_widget_line__source_batch_payment_name
 msgid "Source Batch Payment Name"
-msgstr ""
+msgstr "Nom de la font del pagament per lots"
 
 #. module: account_accountant_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_accountant_batch_payment.view_account_batch_payment_list_bank_rec_widget
@@ -220,7 +221,7 @@ msgstr "S'han eliminat els lots."
 #. module: account_accountant_batch_payment
 #: model:ir.model.fields.selection,name:account_accountant_batch_payment.selection__bank_rec_widget_line__flag__new_batch
 msgid "new_batch"
-msgstr ""
+msgstr "new_batch"
 
 #. module: account_accountant_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_accountant_batch_payment.view_account_batch_payment_rejection_form

@@ -8,6 +8,7 @@
 # krnkris, 2024
 # Tamás Németh <ntomasz81@gmail.com>, 2024
 # Ákos Nagy <akos.nagy@oregional.hu>, 2024
+# lvalics, 2025
 # 
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:29+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ákos Nagy <akos.nagy@oregional.hu>, 2024\n"
+"Last-Translator: lvalics, 2025\n"
 "Language-Team: Hungarian (https://app.transifex.com/odoo/teams/41243/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +27,7 @@ msgstr ""
 #. module: website_studio
 #: model_terms:ir.ui.view,arch_db:website_studio.website_controller_page_form_dialog
 msgid "<span class=\"bg-300 align-self-baseline\">/model/</span>"
-msgstr ""
+msgstr "<span class=\"bg-300 align-self-baseline\">/model/</span>"
 
 #. module: website_studio
 #: model_terms:ir.ui.view,arch_db:website_studio.default_form_field_name
@@ -34,11 +35,13 @@ msgid ""
 "<span class=\"s_website_form_label_content\">Name</span>\n"
 "                                            <span class=\"s_website_form_mark\"> *</span>"
 msgstr ""
+"<span class=\"s_website_form_label_content\">Név</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
 
 #. module: website_studio
 #: model_terms:ir.ui.view,arch_db:website_studio.website_controller_page_form_dialog
 msgid "<span invisible=\"name_slugified\" class=\"bg-300\">...</span>"
-msgstr ""
+msgstr "<span invisible=\"name_slugified\" class=\"bg-300\">...</span>"
 
 #. module: website_studio
 #: model_terms:ir.ui.view,arch_db:website_studio.website_controller_page_form_dialog
@@ -48,7 +51,7 @@ msgstr "Haladó"
 #. module: website_studio
 #: model_terms:ir.ui.view,arch_db:website_studio.website_controller_page_form_dialog
 msgid "Basic parameters"
-msgstr ""
+msgstr "Alapvető paraméterek"
 
 #. module: website_studio
 #. odoo-javascript
@@ -59,38 +62,42 @@ msgstr "Létrehoz %s"
 #. module: website_studio
 #: model:ir.model.fields,field_description:website_studio.field_website_controller_page__auto_single_page
 msgid "Create Single Page"
-msgstr ""
+msgstr "Egyetlen oldal létrehozása"
 
 #. module: website_studio
 #: model:ir.model.fields,field_description:website_studio.field_website_controller_page__use_menu
 msgid "Create Website Menu"
-msgstr ""
+msgstr "Weboldal menü létrehozása"
 
 #. module: website_studio
 #: model_terms:ir.ui.view,arch_db:website_studio.default_record_page
 msgid "Drag building blocks to customize the footer of single record pages."
 msgstr ""
+"Húzd ide az építőelemeket az egyes rekordoldalak láblécének "
+"testreszabásához."
 
 #. module: website_studio
 #: model_terms:ir.ui.view,arch_db:website_studio.default_record_page
 msgid "Drag building blocks to customize the header of single record pages."
 msgstr ""
+"Húzd ide az építőelemeket az egyes rekordoldalak fejlécének "
+"testreszabásához."
 
 #. module: website_studio
 #. odoo-python
 #: code:addons/website_studio/models/website_controller_page.py:0
 msgid "Drag building blocks to edit the website description of this record."
-msgstr ""
+msgstr "Húzd ide az építőelemeket a rekord webes leírásának szerkesztéséhez."
 
 #. module: website_studio
 #: model_terms:ir.ui.view,arch_db:website_studio.website_controller_page_form_dialog
 msgid "Exposed model"
-msgstr ""
+msgstr "Közzétett modell"
 
 #. module: website_studio
 #: model_terms:ir.ui.view,arch_db:website_studio.s_website_form_options
 msgid "Form Access"
-msgstr ""
+msgstr "Űrlap hozzáférés"
 
 #. module: website_studio
 #: model_terms:ir.ui.view,arch_db:website_studio.listing_layout_switcher
@@ -101,6 +108,7 @@ msgstr "Rács"
 #: model:ir.model.fields,help:website_studio.field_website_controller_page__auto_single_page
 msgid "If checked, a single page will be created along with your listing page"
 msgstr ""
+"Ha be van jelölve, egy egyedi oldal is létrejön a listázó oldal mellett"
 
 #. module: website_studio
 #: model_terms:ir.ui.view,arch_db:website_studio.listing_layout_switcher
@@ -110,19 +118,19 @@ msgstr "Lista"
 #. module: website_studio
 #: model:ir.model,name:website_studio.model_website_controller_page
 msgid "Model Page"
-msgstr ""
+msgstr "Modell oldal"
 
 #. module: website_studio
 #. odoo-javascript
 #: code:addons/website_studio/static/src/editor_tabs.js:0
 msgid "Model Pages"
-msgstr ""
+msgstr "Modell oldalak"
 
 #. module: website_studio
 #. odoo-javascript
 #: code:addons/website_studio/static/src/website_form_editor.js:0
 msgid "More models"
-msgstr ""
+msgstr "További modellek"
 
 #. module: website_studio
 #: model_terms:ir.ui.view,arch_db:website_studio.default_listing
@@ -138,7 +146,7 @@ msgstr "Keresés..."
 #. odoo-javascript
 #: code:addons/website_studio/static/src/website_form_editor.js:0
 msgid "Select model"
-msgstr ""
+msgstr "Modell kiválasztása"
 
 #. module: website_studio
 #: model_terms:ir.ui.view,arch_db:website_studio.default_form_field_name

@@ -8,6 +8,7 @@
 # Hamed Mohammadi <hamed@dehongi.com>, 2025
 # Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2025
 # Amir Akbari, 2025
+# Naser mars, 2025
 # 
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-26 20:45+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Amir Akbari, 2025\n"
+"Last-Translator: Naser mars, 2025\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,6 +92,8 @@ msgid ""
 "<span class=\"oe_inline o_form_label mx-3\" "
 "invisible=\"single_currency_mode\"> in </span>"
 msgstr ""
+"<span class=\"oe_inline o_form_label mx-3\" "
+"invisible=\"single_currency_mode\"> در </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -99,6 +102,9 @@ msgid ""
 "                                            <i>This change is irreversible</i>\n"
 "                                        </span>"
 msgstr ""
+"<span class=\"text-danger o_form_label\" invisible=\"hard_lock_date == current_hard_lock_date\">\n"
+"                                            <i>این تغییر برگشت ناپذیر است</i>\n"
+"                                        </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -139,6 +145,9 @@ msgid ""
 "                                    <i>but allow exceptions</i>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted\" invisible=\"min_fiscalyear_lock_date_exception_for_me_id or min_fiscalyear_lock_date_exception_for_everyone_id\">\n"
+"                                    <i>اما استثناها را مجاز کنید</i>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -147,18 +156,19 @@ msgid ""
 "                                    <i>after a tax closing</i>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted\" invisible=\"min_tax_lock_date_exception_for_me_id or min_tax_lock_date_exception_for_everyone_id\">\n"
+"                                    <i>پس از بسته شدن مالیات</i>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_1
 msgid "<span class=\"tip_button_text\">Find an Accountant</span>"
-msgstr "<span class=\"tip_button_text\">یافت یک حساب</span>"
+msgstr "<span class=\"tip_button_text\">یافتن یک حساب</span>"
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_1
 msgid "<span class=\"tip_button_text\">Register your Accounting Firm</span>"
-msgstr ""
-"<span class=\"tip_button_text\">Register شرکت حسابداری خود را ثبت "
-"کنید</span>"
+msgstr "<span class=\"tip_button_text\">شرکت حسابداری خود را ثبت کنید</span>"
 
 #. module: account_accountant
 #: model_terms:web_tour.tour,rainbow_man_message:account_accountant.account_accountant_tour
@@ -171,7 +181,7 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "<span>Exception</span>"
-msgstr ""
+msgstr "<span>استثنا</span>"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -359,6 +369,8 @@ msgid ""
 "in accordance with its journal sequence. This lock date is irreversible and "
 "does not allow any exception."
 msgstr ""
+"هر ورودی تا و از جمله آن تاریخ، مطابق با توالی ژورنال آن به زمان دیگری موکول"
+" خواهد شد. این تاریخ قفل برگشت ناپذیر است و هیچ استثنایی را اجازه نمی دهد."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
@@ -366,6 +378,8 @@ msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
 "in accordance with its journal's sequence."
 msgstr ""
+"هر ورودی تا و از جمله آن تاریخ مطابق با ترتیب روزنامه به زمان دیگری موکول "
+"خواهد شد."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
@@ -374,6 +388,9 @@ msgid ""
 "later time, in accordance with its journal's sequence. The tax lock date is "
 "automatically set when the tax closing entry is posted."
 msgstr ""
+"هر ورودی با مالیات تا و از جمله آن تاریخ مطابق با توالی روزنامه به زمان بعدی"
+" موکول می شود. تاریخ قفل مالیاتی به طور خودکار با ارسال ورودی بسته شدن "
+"مالیات تنظیم می شود."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
@@ -381,6 +398,8 @@ msgid ""
 "Any purchase entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
 msgstr ""
+"هرگونه ثبت خرید قبل از این تاریخ و با احتساب آن مطابق با توالی روزنامه به "
+"تاریخ دیگری موکول خواهد شد."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
@@ -388,6 +407,8 @@ msgid ""
 "Any sales entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
 msgstr ""
+"هرگونه ثبت فروش قبل از این تاریخ و از جمله این تاریخ مطابق با توالی مجله به "
+"تاریخ دیگری موکول خواهد شد."
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_attachment_count
@@ -397,12 +418,12 @@ msgstr "تعداد پیوست ها"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__sign_invoice
 msgid "Authorized Signatory on invoice"
-msgstr ""
+msgstr "امضا کننده مجاز در صورتحساب"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.report_invoice_document
 msgid "Authorized signatory"
-msgstr ""
+msgstr "امضا کننده مجاز"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -520,7 +541,7 @@ msgstr "یک سطر انتخاب کنید تا پیش نمایش پیوست ها
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_auto_reconcile_wizard__search_mode__zero_balance
 msgid "Clear Account"
-msgstr ""
+msgstr "حساب تسویه شده"
 
 #. module: account_accountant
 #: model_terms:ir.actions.act_window,help:account_accountant.actions_account_fiscal_year
@@ -611,7 +632,7 @@ msgstr "ایجاد یک گروه حساب"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Create a new transaction."
-msgstr ""
+msgstr "ایجاد یک تراکنش جدید"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -758,13 +779,13 @@ msgstr "حساب هزینه معوق"
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_expense_amount_computation_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_expense_amount_computation_method
 msgid "Deferred Expense Based on"
-msgstr ""
+msgstr "هزینه معوق مبتنی بر"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_expense_journal_id
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_expense_journal_id
 msgid "Deferred Expense Journal"
-msgstr ""
+msgstr "روزنامه هزینه معوق"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_move__deferred_entry_type__revenue
@@ -781,13 +802,13 @@ msgstr "حساب درآمد معوق"
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_revenue_amount_computation_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_revenue_amount_computation_method
 msgid "Deferred Revenue Based on"
-msgstr ""
+msgstr "درآمد معوق مبتنی بر"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_revenue_journal_id
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_revenue_journal_id
 msgid "Deferred Revenue Journal"
-msgstr ""
+msgstr "روزنامه درآمد معوق"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -797,7 +818,7 @@ msgstr "هزینه معوق"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Deferred expense entries:"
-msgstr ""
+msgstr "ثبت هزینه های معوق:"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -807,7 +828,7 @@ msgstr "درآمد معوق"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Deferred revenue entries:"
-msgstr ""
+msgstr "ثبت درآمدهای معوق:"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -875,12 +896,12 @@ msgstr "نمایش تراز مشخص شده"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__sign_invoice
 msgid "Display signing field on invoices"
-msgstr ""
+msgstr "نمایش فیلد امضا در فاکتورها"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__distribution_analytic_account_ids
 msgid "Distribution Analytic Account"
-msgstr ""
+msgstr "حساب تحلیلی توزیعی"
 
 #. module: account_accountant
 #. odoo-python
@@ -902,7 +923,7 @@ msgstr "اسناد پیشنویس"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__edit_mode
 msgid "Edit Mode"
-msgstr ""
+msgstr "حالت ویرایش"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__edit_mode_amount
@@ -1022,12 +1043,12 @@ msgstr "پیروان (شرکاء)"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "For everyone:"
-msgstr ""
+msgstr "برای هرکسی:"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "For me:"
-msgstr ""
+msgstr "برای من:"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__force_partials
@@ -1087,13 +1108,13 @@ msgstr "کل ماهها"
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Generate Deferred Expense Entries"
-msgstr ""
+msgstr "ایجاد سندهای هزینه‌ی معوقه"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_revenue_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Generate Deferred Revenue Entries"
-msgstr ""
+msgstr "ایجاد سندهای درآمد معوقه"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -1164,18 +1185,18 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 msgid "In Company Currency"
-msgstr ""
+msgstr "در ارز شرکت"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "In Currency"
-msgstr ""
+msgstr "در ارز"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 msgid "In Foreign Currency"
-msgstr ""
+msgstr "در ارز خارجی"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_search_bank_rec_widget
@@ -1242,7 +1263,7 @@ msgstr "آیا دنبال می کند"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__is_multi_currency
 msgid "Is Multi Currency"
-msgstr ""
+msgstr "آیا چند ارزی است"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_rec_pay_account
@@ -1386,7 +1407,7 @@ msgstr "جدیدترین صورت وضعیت"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Legal signatory"
-msgstr ""
+msgstr "امضا کننده قانونی"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1413,7 +1434,7 @@ msgstr "تاریخ قفل"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everything"
-msgstr ""
+msgstr "قفل همه"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_everyone
@@ -1907,7 +1928,7 @@ msgstr "رتبه‌ها"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Reason..."
-msgstr ""
+msgstr "دلیل ..."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1950,14 +1971,14 @@ msgstr "تطبیق مدل"
 #: model:ir.actions.act_window,name:account_accountant.action_open_auto_reconcile_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_auto_reconcile_wizard
 msgid "Reconcile automatically"
-msgstr ""
+msgstr "تطبیق خودکار"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_auto_reconcile_wizard__search_mode
 msgid ""
 "Reconcile journal items with opposite balance or clear accounts with a zero "
 "balance"
-msgstr ""
+msgstr "اقلام روزنامه با تراز منفی یا تسویه حساب ها با موجودی صفر تطبیق دهید"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__reconciled
@@ -2077,7 +2098,7 @@ msgstr "مدل تطبیق انتخاب شده"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Set an amount."
-msgstr ""
+msgstr "تنظیم یک مقدار"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2089,12 +2110,12 @@ msgstr "بررسی شده"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Set the payment reference."
-msgstr ""
+msgstr "تنظیم مرجع پرداخت"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__show_draft_entries_warning
 msgid "Show Draft Entries Warning"
-msgstr ""
+msgstr "نمایش هشدار ورودی های پیش‌نویس"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__show_signature_area
@@ -2122,12 +2143,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__signing_user
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__signing_user
 msgid "Signer"
-msgstr ""
+msgstr "امضا کننده"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__signing_user
 msgid "Signing User"
-msgstr ""
+msgstr "کاربر امضا کننده"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__single_currency_mode
@@ -2198,7 +2219,7 @@ msgstr "تاریخ شروع،‌شامل شده در سال مالی."
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__state
 msgid "State"
-msgstr "استان"
+msgstr "وضعیت"
 
 #. module: account_accountant
 #: model:ir.actions.server,name:account_accountant.action_bank_statement_attachment
@@ -2558,7 +2579,7 @@ msgstr "نما"
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 msgid "View Reconciled Entries"
-msgstr ""
+msgstr "مشاهده ورودی های تطبیق شده"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2579,7 +2600,7 @@ msgstr "تاریخچه ارتباط با وبسایت"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "With residual"
-msgstr ""
+msgstr "با باقی مانده"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__wizard_id
@@ -2625,7 +2646,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 msgid "You can't hit the reset button on a secured bank transaction."
-msgstr ""
+msgstr "در تراکنش بانکی ایمن نمی‌توانید دکمه تنظیم مجدد را فشار دهید."
 
 #. module: account_accountant
 #. odoo-python
@@ -2666,7 +2687,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 msgid "You cannot have a fiscal year on a child company."
-msgstr ""
+msgstr "شما نمی توانید یک سال مالی در یک شرکت زیرمجموعه داشته باشید."
 
 #. module: account_accountant
 #. odoo-python
@@ -2682,7 +2703,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You cannot set a Lock Date in the future."
-msgstr ""
+msgstr "شما نمی توانید تاریخ قفل را در آینده تنظیم کنید."
 
 #. module: account_accountant
 #. odoo-python
@@ -2719,13 +2740,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You need to select a duration for the exception."
-msgstr ""
+msgstr "شما باید یک مدت زمان استثنا را انتخاب کنید."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You need to select who the exception applies to."
-msgstr ""
+msgstr "شما باید انتخاب کنید که این استثنا برای چه کسانی اعمال می شود."
 
 #. module: account_accountant
 #. odoo-javascript

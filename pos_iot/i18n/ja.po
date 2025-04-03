@@ -3,8 +3,8 @@
 # 	* pos_iot
 # 
 # Translators:
-# Junko Augias, 2024
 # Wil Odoo, 2025
+# Junko Augias, 2025
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-26 20:45+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Junko Augias, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,7 +40,7 @@ msgstr "自分の以下へアクセス:"
 #. odoo-javascript
 #: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_dialog.js:0
 msgid "An error occurred while attempting to fix certification issues - %s"
-msgstr ""
+msgstr "認証の問題を修正しようとした際にエラーが発生しました - %s"
 
 #. module: pos_iot
 #. odoo-javascript
@@ -123,7 +123,7 @@ msgstr "顧客表示"
 #. odoo-javascript
 #: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.js:0
 msgid "Decimal accuracy is less than 3 decimal places"
-msgstr ""
+msgstr "小数点以下の桁数は3桁未満です"
 
 #. module: pos_iot
 #. odoo-javascript
@@ -249,6 +249,8 @@ msgid ""
 "Odoo can automatically apply the right modification for you.\n"
 "                Be aware that the modification will change global rounding settings, and can affect more than just this Point of Sale."
 msgstr ""
+"Odooは、あなたに代わって適切な修正を自動的に適用します。\n"
+"                この変更により、グローバルな丸め設定が変更され、このPOSシステム以外にも影響が及ぶ可能性があることにご注意下さい。"
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_payment_method__payment_terminal_ids
@@ -361,7 +363,7 @@ msgstr "プリンタのハードウェアプロキシのIPアドレスまたは�
 #. odoo-javascript
 #: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.js:0
 msgid "The following units of measure have insufficient rounding accuracy: %s"
-msgstr ""
+msgstr "以下の分析対象には、丸め精度が不十分です: %s"
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
@@ -382,13 +384,13 @@ msgstr "取引はWorldlineによって処理されます。関連する支払い
 #. odoo-javascript
 #: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.xml:0
 msgid "This Point of Sale is EU Certified for weighing scales."
-msgstr ""
+msgstr "この POS は、計量秤としてEUの認証を取得しています。"
 
 #. module: pos_iot
 #. odoo-javascript
 #: code:addons/pos_iot/static/src/app/scale_certification_status/scale_certification_status.xml:0
 msgid "This Point of Sale is uncertified for weighing scales."
-msgstr ""
+msgstr "このPOSは、計量秤に認定されていません。"
 
 #. module: pos_iot
 #. odoo-javascript
@@ -438,4 +440,4 @@ msgstr "IoT接続スクリーンの表示デバイスを設定する必要があ
 msgid ""
 "Your configurations are not compliant with the European regulation. In order"
 " to use a certified POS with your scale, you should address the following:"
-msgstr ""
+msgstr "お客様の設定は欧州の規制に準拠していません。認証されたPOSを秤と併用するには、以下の対応が必要です:"

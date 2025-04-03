@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Yoshi Tashiro (Quartile) <tashiro@roomsfor.hk>, 2024
-# Junko Augias, 2025
 # Wil Odoo, 2025
+# Junko Augias, 2025
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-26 20:45+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2025\n"
+"Last-Translator: Junko Augias, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -699,7 +699,7 @@ msgstr "給与の添付"
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_report__work_entry_source__attendance
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_report__work_entry_source__attendance
 msgid "Attendances"
-msgstr "出勤"
+msgstr "出勤記録"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_export_mixin__reference_month__8
@@ -3398,7 +3398,7 @@ msgstr "給与明細実行"
 #: model:ir.model,name:hr_payroll.model_hr_payslip_worked_days
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__worked_days_line_ids
 msgid "Payslip Worked Days"
-msgstr "給与明細の労働日"
+msgstr "給与明細 勤務日数"
 
 #. module: hr_payroll
 #: model:ir.model.constraint,message:hr_payroll.constraint_hr_salary_attachment_check_monthly_amount
@@ -5153,6 +5153,13 @@ msgstr "現行の給与添付を削除できません。"
 #: code:addons/hr_payroll/models/hr_salary_attachment.py:0
 msgid "You cannot record a payment on multi employees attachments."
 msgstr "複数従業員添付に支払を記録することはできません。"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_work_entry_type.py:0
+#, python-format
+msgid "You cannot delete work entry type(s). Instead archive it."
+msgstr ""
 
 #. module: hr_payroll
 #. odoo-python

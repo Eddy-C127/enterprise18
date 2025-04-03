@@ -320,7 +320,7 @@ msgstr "SIE 4 匯入模組"
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "SIE 4/5"
-msgstr ""
+msgstr "SIE 4/5"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -335,6 +335,8 @@ msgid ""
 "The SIE standard file format is very common in Sweden for several purposes such as auditing, importing and exporting data\n"
 "                            from and to other accounting applications. Odoo support importing data from both type 4 and 5 of SIE."
 msgstr ""
+"SIE 標準檔案格式在瑞典十分常見，可用於多種用途，例如審計、從其他會計應用程式\n"
+"                            匯入及匯出資料等。Odoo 支援從 SIE 類型 4 及 5 匯入資料。"
 
 #. module: account_base_import
 #. odoo-python
@@ -408,6 +410,9 @@ msgid ""
 "                                    By design, it's also backward compatible with previous SIE versions (version 1 up to 3).\n"
 "                                    This import will not validate the correctness of the file."
 msgstr ""
+"是匯入 SIE 4 檔案所需的。\n"
+"                                    設計上，它也向後兼容先前的 SIE 版本（版本 1 至 3）。\n"
+"                                    此次匯入不會驗證文件的正確性。"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -418,6 +423,10 @@ msgid ""
 "                                    (journals data must be present in the file).\n"
 "                                    For the SIE 5 entry, only entries and partners will be created, the rest must already be present in the system."
 msgstr ""
+"是匯入 SIE 5 及 SIE 5 條目檔案所需的。\n"
+"                                    對於一般 SIE 5，我們將設定你的賬目總表結餘、日記賬、合作夥伴，以及日記賬記項的歷史記錄\n"
+"                                    （檔案內必須已存在日記賬數據）。\n"
+"                                    對於 SIE 5 條目，只會建立條目及合作夥伴資料，其餘資料必須已經存在於系統中。"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
